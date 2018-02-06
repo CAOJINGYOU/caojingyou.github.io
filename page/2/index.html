@@ -156,877 +156,96 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-MFC背景透明" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-SQLite NET" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/01/MFC背景透明/">MFC背景透明</a>
+      <a class="article-title" href="/2018/07/01/SQLite NET/">SQLite NET</a>
     </h1>
   
 
         
-        <a href="/2017/08/01/MFC背景透明/" class="archive-article-date">
-  	<time datetime="2017-08-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-01</time>
+        <a href="/2018/07/01/SQLite NET/" class="archive-article-date">
+  	<time datetime="2018-07-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="一："><a href="#一：" class="headerlink" title="一："></a>一：</h1><pre><code>typedef BOOL (WINAPI *lpfnSetLayeredWindowAttributes)(HWND hWnd, COLORREF crKey, BYTE bAlpha, DWORD dwFlags);
-lpfnSetLayeredWindowAttributes SetLayeredWindowAttributes;   //设置成边缘透明
-COLORREF maskColor = RGB(240, 240, 240);
-HMODULE hUser32 = GetModuleHandle(_T(&quot;user32.dll&quot;)); //加载动态链接库
-SetLayeredWindowAttributes = (lpfnSetLayeredWindowAttributes)GetProcAddress(hUser32, &quot;SetLayeredWindowAttributes&quot;);            //取得SetLayeredWindowAttributes函数指针            //为窗口加入WS_EX_LAYERED扩展属性
-SetWindowLong(this-&gt;GetSafeHwnd(), GWL_EXSTYLE, GetWindowLong(GetSafeHwnd(), GWL_EXSTYLE)^WS_EX_LAYERED);             //调用SetLayeredWinowAttributes函数
-/*SetLayeredWindowAttributes(this-&gt;GetSafeHwnd(), maskColor, 192, LWA_COLORKEY);  */
-SetLayeredWindowAttributes(this-&gt;GetSafeHwnd(), maskColor, 255, LWA_ALPHA | LWA_COLORKEY);
-FreeLibrary(hUser32);   //释放动态链
-//LWA_ALPHA时：crKey参数无效，bAlpha参数有效；
-//LWA_COLORKEY：窗体中的所有颜色为crKey的地方将变为透明，bAlpha参数无效。
-//LWA_ALPHA | LWA_COLORKEY：crKey的地方将变为全透明，而其它地方根据bAlpha参数确定透明度。
-</code></pre><h1 id="二："><a href="#二：" class="headerlink" title="二："></a>二：</h1><pre><code>COLORREF m_bgcolor = RGB(0, 0, 0);
-BOOL m_bTransparent = ToggleTransparent(m_bgcolor, 100, LWA_ALPHA);
-BOOL ToggleTransparent(COLORREF crKey, BYTE bAlpha, DWORD dwFlags)
+        <h1 id="C-程序中使用-SQLite-数据库"><a href="#C-程序中使用-SQLite-数据库" class="headerlink" title="C# 程序中使用 SQLite 数据库"></a>C# 程序中使用 SQLite 数据库</h1><pre><code>using System;
+using System.Data;
+using System.Data.SQLite;
+
+//C# 使用 SQLite 数据测试程序
+public class Program
 {
-    BOOL bResult;
-    LONG dwExStyle;
-    dwExStyle = GetWindowLong(this-&gt;GetSafeHwnd(), GWL_EXSTYLE);
-    if (dwExStyle &amp; WS_EX_LAYERED)
+    public static void Main(string[] args)
     {
-        dwExStyle &amp;= ~(WS_EX_LAYERED);
-        bResult = FALSE;
-    }
-    else
-    {
-        dwExStyle |= (WS_EX_LAYERED);
-        bResult = TRUE;
-    }
-    SetWindowLong(this-&gt;GetSafeHwnd(), GWL_EXSTYLE, dwExStyle);
-    SetLayeredWindowAttributes( crKey, bAlpha, dwFlags);
-    return bResult;
-}
-</code></pre>
-      
+        using (SQLiteConnection con = new SQLiteConnection(&quot;Data Source=c:\\test.db3;Pooling=true;FailIfMissing=false&quot;))
+        {
+            //打开数据库文件 c:\\test.db3，不存在则创建
+            con.Open();
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">MFC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">背景透明</a>
-        		</li>
-      		
-		</ul>
-	</div>
+            using (SQLiteCommand cmd = new SQLiteCommand())
+            {
+                cmd.Connection = con;
 
-      
+                //检查是否存在表 test，不存在则创建
+                Boolean testTableExists = false;
+                cmd.CommandText = &quot;SELECT * FROM sqlite_master WHERE type=&apos;table&apos; and name=&apos;test&apos;&quot;;
+                using(SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    if (dr.Read())
+                    {
+                        testTableExists = true;
+                    }
+                }
+                if (!testTableExists)
+                {
+                    cmd.CommandText = &quot;CREATE TABLE [test] (id int, name nvarchar(20))&quot;;
+                    cmd.ExecuteNonQuery();
+                }
 
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/01/MFC背景透明/">展开全文 >></a>
-        </p>
-      
+                //清空 test 表
+                cmd.CommandText = &quot;DELETE FROM [test]&quot;;
+                cmd.ExecuteNonQuery();
 
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
+                //插入测试数据
+                for (int i = 1; i &lt;= 5; i++)
+                {
+                    cmd.CommandText = string.Format(&quot;INSERT INTO [test] VALUES ({0}, &apos;中文测试&apos;)&quot;, i);
+                    cmd.ExecuteNonQuery();
+                }
 
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
+                //读取数据
+                cmd.CommandText = &quot;SELECT * FROM [test]&quot;;
+                using (SQLiteDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    while (dr.Read())
+                    {
+                        Console.WriteLine(&quot;第{0} 条：{1}&quot;, dr.GetValue(0), dr.GetString(1));
+                    }
+                }
+            }
+        }
 
-
-
-
-  
-    <article id="post-boost" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/15/boost/">boost</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/15/boost/" class="archive-article-date">
-  	<time datetime="2017-07-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="使用Visual-Studio-IDE构建"><a href="#使用Visual-Studio-IDE构建" class="headerlink" title="使用Visual Studio IDE构建"></a>使用Visual Studio IDE构建</h1><ul>
-<li><p>From Visual Studio’s File menu, select New &gt; Project…</p>
-</li>
-<li><p>In the left-hand pane of the resulting New Project dialog, select Visual C++ &gt; Win32.</p>
-</li>
-<li><p>In the right-hand pane, select Win32 Console Application (VS8.0) or Win32 Console Project (VS7.1).</p>
-</li>
-<li><p>In the name field, enter “example”</p>
-</li>
-<li><p>Right-click example in the Solution Explorer pane and select Properties from the resulting pop-up menu</p>
-</li>
-<li><p>In Configuration Properties &gt; C/C++ &gt; General &gt; Additional Include Directories, enter the path to the Boost root directory, for example</p>
-<p>  C:\Program Files\boost\boost_1_63_0</p>
-</li>
-<li><p>In Configuration Properties &gt; C/C++ &gt; Precompiled Headers, change Use Precompiled Header (/Yu) to Not Using Precompiled Headers.</p>
-</li>
-<li><p>Replace the contents of the example.cpp generated by the IDE with the example code above.</p>
-<pre><code>#include &lt;boost/lambda/lambda.hpp&gt;
-#include &lt;iostream&gt;
-#include &lt;iterator&gt;
-#include &lt;algorithm&gt;
-
-int main()
-{
-    using namespace boost::lambda;
-    typedef std::istream_iterator&lt;int&gt; in;
-
-    std::for_each(
-        in(std::cin), in(), std::cout &lt;&lt; (_1 * 3) &lt;&lt; &quot; &quot; );
-}
-</code></pre></li>
-<li><p>From the Build menu, select Build Solution.</p>
-</li>
-</ul>
-<h1 id="头文件与库"><a href="#头文件与库" class="headerlink" title="头文件与库"></a>头文件与库</h1><p>Nothing to Build?</p>
-<p>Most Boost libraries are header-only: they consist entirely of header files containing templates and inline functions, and require no separately-compiled library binaries or special treatment when linking.</p>
-<p>The only Boost libraries that must be built separately are:</p>
-<pre><code>Boost.Chrono
-Boost.Context
-Boost.Filesystem
-Boost.GraphParallel
-Boost.IOStreams
-Boost.Locale
-Boost.Log (see build documentation)
-Boost.MPI
-Boost.ProgramOptions
-Boost.Python (see the Boost.Python build documentation before building and installing it)
-Boost.Regex
-Boost.Serialization
-Boost.Signals
-Boost.System
-Boost.Thread
-Boost.Timer
-Boost.Wave
-</code></pre><p>A few libraries have optional separately-compiled binaries:</p>
-<pre><code>Boost.DateTime has a binary component that is only needed if you&apos;re using its to_string/from_string or serialization features, or if you&apos;re targeting Visual C++ 6.x or Borland.
-Boost.Graph also has a binary component that is only needed if you intend to parse GraphViz files.
-Boost.Math has binary components for the TR1 and C99 cmath functions.
-Boost.Random has a binary component which is only needed if you&apos;re using random_device.
-Boost.Test can be used in “header-only” or “separately compiled” mode, although separate compilation is recommended for serious use.
-Boost.Exception provides non-intrusive implementation of exception_ptr for 32-bit _MSC_VER==1310 and _MSC_VER==1400 which requires a separately-compiled binary. This is enabled by #define BOOST_ENABLE_NON_INTRUSIVE_EXCEPTION_PTR.
-</code></pre><h1 id="从源代码构建"><a href="#从源代码构建" class="headerlink" title="从源代码构建"></a>从源代码构建</h1><p>使用Visual Studio命令提示</p>
-<p>If you wish to build from source with Visual C++, you can use a simple build procedure described in this section. Open the command prompt and change your current directory to the Boost root directory. Then, type the following commands:</p>
-<pre><code>bootstrap
-.\b2
-</code></pre><p>The first command prepares the Boost.Build system for use. The second command invokes Boost.Build to build the separately-compiled Boost libraries. Please consult the <a href="http://www.boost.org/build/doc/html/bbv2/overview/invocation.html" target="_blank" rel="noopener">Boost.Build documentation</a> for a list of allowed options.</p>
-<h2 id="构建动态库、静态库"><a href="#构建动态库、静态库" class="headerlink" title="构建动态库、静态库"></a>构建动态库、静态库</h2><p>编译，可以简单的使用b2 install，也可以指定存放目录，或者寻找网上其它帮助文章。</p>
-<p>查看帮助可以输入：.\b2 –help</p>
-<p>比如要开启多线程编译：b2 install threading=multi</p>
-<p>设置生成的是debug或者release</p>
-<p>备注：如果是使用VS2013，请指定输出库类型，否则会缺一个lib文件：</p>
-<p>“无法打开文件 libboost_thread_vc120_mt_sgd-1_55.lib”。</p>
-<p>在2013时，我是使用下面的语句进行编译：</p>
-<pre><code>// 如果要获取动态库：
-
-bjam install stage --toolset=msvc-12.0 --stagedir=&quot;C:\Boost\boost_vc_120&quot; link=shared runtime-link=shared threading=multi debug release  
-
-// 如果是要获取静态库：
-
-bjam install stage --toolset=msvc-12.0 --stagedir=&quot;C:\Boost\boost_vc_120&quot; link=static runtime-link=static threading=multi debug release  
-</code></pre><p>其中，注意修改–toolset=msvc-12.0，将12.0修改成对应的vs版本号，12.0是VS2013的版本号。</p>
-<p>目标地址也要修改成你所需的。</p>
-<p>注意，不要漏了install，它会帮你把头文件集合到一个文件夹中。</p>
-<p>编译过程有一个复制过程，编译需要的时间比较长，本次编译过程中，会在C盘根目录下生成一个boost文件夹，然后包含include和lib文件夹，这就是我们将要使用的头文件和库文件。</p>
-<h2 id="出现“boost-此时不应有-Microsoft。”的问题："><a href="#出现“boost-此时不应有-Microsoft。”的问题：" class="headerlink" title="出现“boost 此时不应有 \Microsoft。”的问题："></a>出现“boost 此时不应有 \Microsoft。”的问题：</h2><p><a href="http://blog.csdn.net/poem_qianmo/article/details/26048697" target="_blank" rel="noopener">解决VS命令提示符 “Setting environment for using Microsoft Visual Studio. 此时不应有”系列错误</a></p>
-<h1 id="使用预编译的二进制文件boost库"><a href="#使用预编译的二进制文件boost库" class="headerlink" title="使用预编译的二进制文件boost库"></a>使用预编译的二进制文件boost库</h1><p><a href="https://sourceforge.net/projects/boost/files/boost-binaries/1.63.0/boost_1_63_0-msvc-14.0-32.exe/download" target="_blank" rel="noopener">boost_1_63_0-msvc-14.0-32.exe</a></p>
-<p><a href="https://sourceforge.net/projects/boost/files/boost-binaries/1.63.0/boost_1_63_0-msvc-10.0-64.exe/download" target="_blank" rel="noopener">boost_1_63_0-msvc-14.0-64.exe</a></p>
-<p><a href="https://sourceforge.net/projects/boost/files/boost-binaries/1.63.0/" target="_blank" rel="noopener">https://sourceforge.net/projects/boost/files/boost-binaries/1.63.0/</a></p>
-<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="http://www.boost.org/" target="_blank" rel="noopener">http://www.boost.org/</a></li>
-<li><a href="http://zh.highscore.de/cpp/boost/" target="_blank" rel="noopener">http://zh.highscore.de/cpp/boost/</a></li>
-<li><a href="http://stlchina.huhoo.net/twiki/bin/view.pl/Main/BoostChina" target="_blank" rel="noopener">http://stlchina.huhoo.net/twiki/bin/view.pl/Main/BoostChina</a></li>
-<li><a href="http://www.boost.org/doc/libs/1_63_0/more/getting_started/windows.html" target="_blank" rel="noopener">http://www.boost.org/doc/libs/1_63_0/more/getting_started/windows.html</a></li>
-<li><a href="https://sourceforge.net/projects/boost/?source=directory" target="_blank" rel="noopener">https://sourceforge.net/projects/boost/?source=directory</a></li>
-<li><a href="http://jingyan.baidu.com/article/a3aad71aa1ebe7b1fb009681.html" target="_blank" rel="noopener">win7 vs2012/2013 编译boost 1.55</a></li>
-<li><a href="http://www.cnblogs.com/lidabo/p/3782400.html" target="_blank" rel="noopener">Win7+vs2010下安装boost_1_46_1库</a></li>
-<li><a href="http://www.cnblogs.com/lidabo/p/3782193.html" target="_blank" rel="noopener">vs2008编译boost</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">boost</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/15/boost/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MahApps.Metro使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/01/MahApps.Metro使用/">MahApps.Metro使用</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/01/MahApps.Metro使用/" class="archive-article-date">
-  	<time datetime="2017-07-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="MahApps-Metro使用"><a href="#MahApps-Metro使用" class="headerlink" title="MahApps.Metro使用"></a>MahApps.Metro使用</h1><h2 id="下载MahApps-Metro"><a href="#下载MahApps-Metro" class="headerlink" title="下载MahApps.Metro"></a>下载MahApps.Metro</h2><pre><code>PM&gt; Install-Package MahApps.Metro
-</code></pre><h2 id="MainWindow-xaml中添加"><a href="#MainWindow-xaml中添加" class="headerlink" title="MainWindow.xaml中添加"></a>MainWindow.xaml中添加</h2><pre><code>xmlns:Controls=&quot;clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro&quot;
-</code></pre><h2 id="然后将Window标签替换为如下标签"><a href="#然后将Window标签替换为如下标签" class="headerlink" title="然后将Window标签替换为如下标签"></a>然后将Window标签替换为如下标签</h2><pre><code>&lt;Controls:MetroWindow x:Class=&quot;WpfApplication.MainWindow&quot;
-                  xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
-                  xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
-                  xmlns:Controls=&quot;clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro&quot;
-                  Title=&quot;MainWindow&quot;
-                  Height=&quot;600&quot;
-                  Width=&quot;800&quot;&gt;
-
-&lt;/Controls:MetroWindow&gt;
-</code></pre><h2 id="MainWindow-xaml-cs添加"><a href="#MainWindow-xaml-cs添加" class="headerlink" title="MainWindow.xaml.cs添加"></a>MainWindow.xaml.cs添加</h2><pre><code>using MahApps.Metro.Controls;
-
-namespace WpfApplication
-{
-  public partial class MainWindow : MetroWindow
-  {
-    public MainWindow()
-    {
-      InitializeComponent();
-    }
-  }
-}
-</code></pre><h2 id="使用内置的样式App-xaml"><a href="#使用内置的样式App-xaml" class="headerlink" title="使用内置的样式App.xaml"></a>使用内置的样式App.xaml</h2><pre><code>&lt;Application x:Class=&quot;WpfApplication.App&quot;
-             xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
-             xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
-             StartupUri=&quot;MainWindow.xaml&quot;&gt;
-  &lt;Application.Resources&gt;
-    &lt;ResourceDictionary&gt;
-      &lt;ResourceDictionary.MergedDictionaries&gt;
-        &lt;!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! --&gt;
-        &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml&quot; /&gt;
-        &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml&quot; /&gt;
-        &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml&quot; /&gt;
-        &lt;!-- Accent and AppTheme setting --&gt;
-        &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml&quot; /&gt;
-        &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml&quot; /&gt;
-      &lt;/ResourceDictionary.MergedDictionaries&gt;
-    &lt;/ResourceDictionary&gt;
-  &lt;/Application.Resources&gt;
-&lt;/Application&gt;
-</code></pre><h2 id="显示标题栏、图标、最大化最小化按钮的显示"><a href="#显示标题栏、图标、最大化最小化按钮的显示" class="headerlink" title="显示标题栏、图标、最大化最小化按钮的显示"></a>显示标题栏、图标、最大化最小化按钮的显示</h2><pre><code>&lt;Controls:MetroWindow x:Class=&quot;WpfApplication.MainWindow&quot;
-                      xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
-                      xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
-                      xmlns:Controls=&quot;clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro&quot;
-                      Title=&quot;MainWindow&quot;
-                      Height=&quot;600&quot;
-                      Width=&quot;800&quot;
-                      Icon=&quot;mahapps.metro.logo2.ico&quot;
-                      ShowIconOnTitleBar=&quot;True&quot;
-                      ShowTitleBar=&quot;True&quot;&gt;
-
-    &lt;/Controls:MetroWindow&gt;
-</code></pre><p>WindowButtonCommands are the minimize, maximize/restore, and close buttons. You can hide the buttons with <code>ShowMinButton=&quot;True|False&quot;</code>, <code>ShowMaxRestoreButton=&quot;True|False&quot;</code> and <code>ShowCloseButton=&quot;True|False&quot;</code>.</p>
-<p>The visibility of the minimize and maximize/restore buttons are also effected by the <code>ResizeMode</code>. If <code>ResizeMode=&quot;NoResize&quot;</code> the buttons are collapsed. If <code>ResizeMode=&quot;CanMinimize&quot;</code> the maximize/restore button is collapsed.</p>
-<h2 id="记住窗口位置"><a href="#记住窗口位置" class="headerlink" title="记住窗口位置"></a>记住窗口位置</h2><p>aveWindowPosition=”True|False”(默认False选项）。将此属性设置为True将意味着在下一次发射，将被自动定位和尺寸对它的出口。这种设计为提高ux和速度发展为一个“管道”，UI是定期进行的。</p>
-<h2 id="修改标题栏"><a href="#修改标题栏" class="headerlink" title="修改标题栏"></a>修改标题栏</h2><p>可以添加自己的控制 LeftWindowsCommands 或 RightWindowsCommands</p>
-<pre><code>&lt;MetroWindow&gt; ... &lt;/MetroWindow&gt;
-</code></pre><p>MainWindow.xaml.cs内添加：</p>
-<pre><code>&lt;Controls:MetroWindow.RightWindowCommands&gt;
-  &lt;Controls:WindowCommands&gt;
-    &lt;Button Content=&quot;settings&quot; /&gt;
-    &lt;Button&gt;
-      &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;
-        &lt;Rectangle Width=&quot;20&quot;
-                   Height=&quot;20&quot;
-                   Fill=&quot;{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}&quot;&gt;
-          &lt;Rectangle.OpacityMask&gt;
-            &lt;VisualBrush Stretch=&quot;Fill&quot; Visual=&quot;{StaticResource appbar_cupcake}&quot; /&gt;
-          &lt;/Rectangle.OpacityMask&gt;
-        &lt;/Rectangle&gt;
-        &lt;TextBlock Margin=&quot;4 0 0 0&quot;
-                   VerticalAlignment=&quot;Center&quot;
-                   Text=&quot;deploy cupcakes&quot; /&gt;
-      &lt;/StackPanel&gt;
-    &lt;/Button&gt;
-  &lt;/Controls:WindowCommands&gt;
-&lt;/Controls:MetroWindow.RightWindowCommands&gt;
-</code></pre><p>显示图标需要加载MahApps.Metro.Resources资源</p>
-<h1 id="MahApps-Metro-Resources使用"><a href="#MahApps-Metro-Resources使用" class="headerlink" title="MahApps.Metro.Resources使用"></a>MahApps.Metro.Resources使用</h1><h2 id="下载MahApps-Metro-Resources"><a href="#下载MahApps-Metro-Resources" class="headerlink" title="下载MahApps.Metro.Resources"></a>下载MahApps.Metro.Resources</h2><pre><code>PM&gt; Install-Package MahApps.Metro.Resources
-</code></pre><h2 id="MainWindow-xaml文件中添加"><a href="#MainWindow-xaml文件中添加" class="headerlink" title="MainWindow.xaml文件中添加"></a>MainWindow.xaml文件中添加</h2><pre><code>&lt;Window.Resources&gt;
-        &lt;ResourceDictionary&gt;
-            &lt;ResourceDictionary.MergedDictionaries&gt;
-                &lt;ResourceDictionary Source=&quot;/Resources/Icons.xaml&quot; /&gt;
-            &lt;/ResourceDictionary.MergedDictionaries&gt;
-        &lt;/ResourceDictionary&gt;
-    &lt;/Window.Resources&gt;
-</code></pre><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><pre><code>&lt;Rectangle&gt;
-        &lt;Rectangle.Fill&gt;
-            &lt;VisualBrush Visual=&quot;{StaticResource appbar_add}&quot; /&gt;
-        &lt;/Rectangle.Fill&gt;
-    &lt;/Rectangle&gt;
-</code></pre><p>或者</p>
-<pre><code>&lt;Rectangle Fill=&quot;Black&quot;&gt;
-    &lt;Rectangle.OpacityMask&gt;
-        &lt;VisualBrush Visual=&quot;{StaticResource appbar_add}&quot; Stretch=&quot;Fill&quot; /&gt;
-    &lt;/Rectangle.OpacityMask&gt;
-&lt;/Rectangle&gt;
-</code></pre><h1 id="如何改变目前的主题-Styles"><a href="#如何改变目前的主题-Styles" class="headerlink" title="如何改变目前的主题 Styles"></a>如何改变目前的主题 Styles</h1><p>You can choose between these available accents:</p>
-<pre><code>“Red”, “Green”, “Blue”, “Purple”, “Orange”, “Lime”, “Emerald”, “Teal”, “Cyan”, “Cobalt”, “Indigo”, “Violet”, “Pink”, “Magenta”, “Crimson”, “Amber”, “Yellow”, “Brown”, “Olive”, “Steel”, “Mauve”, “Taupe”, “Sienna”
-</code></pre><p>and these themes:</p>
-<pre><code>“BaseLight”, “BaseDark”
-</code></pre><h2 id="通过App-xaml，直接修改其中对应的部分"><a href="#通过App-xaml，直接修改其中对应的部分" class="headerlink" title="通过App.xaml，直接修改其中对应的部分"></a>通过App.xaml，直接修改其中对应的部分</h2><pre><code>&lt;Application x:Class=&quot;MahAppsMetroThemesSample.App&quot;
-         xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
-         xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
-         StartupUri=&quot;MainWindow.xaml&quot;&gt;
-    &lt;Application.Resources&gt;
-        &lt;ResourceDictionary&gt;
-            &lt;ResourceDictionary.MergedDictionaries&gt;
-                &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml&quot; /&gt;
-                &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml&quot; /&gt;
-                &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml&quot; /&gt;
-
-                &lt;!-- accent resource --&gt;
-                &lt;!-- change &quot;Cobalt&quot; to the accent color you want --&gt;
-
-                &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Accents/Cobalt.xaml&quot; /&gt;
-
-                &lt;!-- theme resource --&gt;
-                &lt;!-- change &quot;BaseLight&quot; to the theme you want --&gt;
-                &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml&quot; /&gt;
-            &lt;/ResourceDictionary.MergedDictionaries&gt;
-        &lt;/ResourceDictionary&gt;
-    &lt;/Application.Resources&gt;
-&lt;/Application&gt;
-</code></pre><h2 id="通过ThemeManager"><a href="#通过ThemeManager" class="headerlink" title="通过ThemeManager"></a>通过ThemeManager</h2><pre><code>public partial class App : Application
-{
-    protected override void OnStartup(StartupEventArgs e)
-    {
-        // get the current app style (theme and accent) from the application
-        // you can then use the current theme and custom accent instead set a new theme
-        Tuple&lt;AppTheme, Accent&gt; appStyle = ThemeManager.DetectAppStyle(Application.Current);
-
-        // now set the Green accent and dark theme
-        ThemeManager.ChangeAppStyle(Application.Current,
-                                    ThemeManager.GetAccent(&quot;Green&quot;),
-                                    ThemeManager.GetAppTheme(&quot;BaseDark&quot;)); // or appStyle.Item1
-
-        base.OnStartup(e);
+        Console.WriteLine(&quot;Press any key to continue...&quot;);
+        Console.ReadKey();
     }
 }
-</code></pre><h2 id="在主窗口中修改"><a href="#在主窗口中修改" class="headerlink" title="在主窗口中修改"></a>在主窗口中修改</h2><h3 id="MainWindow-xaml文件"><a href="#MainWindow-xaml文件" class="headerlink" title="MainWindow.xaml文件"></a>MainWindow.xaml文件</h3><pre><code>&lt;Controls:MetroWindow.Resources&gt;
-    &lt;ResourceDictionary&gt;
-       &lt;ResourceDictionary.MergedDictionaries&gt;
-            &lt;!-- this window should be blue --&gt;
-            &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml&quot; /&gt;
-            &lt;!-- and should use the light theme --&gt;
-            &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml&quot; /&gt;
-        &lt;/ResourceDictionary.MergedDictionaries&gt;
-    &lt;/ResourceDictionary&gt;
-&lt;/Controls:MetroWindow.Resources&gt;
-</code></pre><h3 id="主类MetroWindow中"><a href="#主类MetroWindow中" class="headerlink" title="主类MetroWindow中"></a>主类MetroWindow中</h3><pre><code>public partial class AccentStyleWindow : MetroWindow
-{
-    public void ChangeAppStyle()
-    {
-        // set the Red accent and dark theme only to the current window
-        ThemeManager.ChangeAppStyle(this,
-                                    ThemeManager.GetAccent(&quot;Red&quot;),
-                                    ThemeManager.GetAppTheme(&quot;BaseDark&quot;));
-    }
-}
-</code></pre><p>还可以自定义主题</p>
-<h2 id="Controls控件"><a href="#Controls控件" class="headerlink" title="Controls控件"></a>Controls控件</h2><h3 id="MetroWindow"><a href="#MetroWindow" class="headerlink" title="MetroWindow"></a>MetroWindow</h3><p>窗口有边框：</p>
-<pre><code>&lt;Controls:MetroWindow x:Class=&quot;MahApps.Metro.Simple.Demo.MainWindow&quot;
-                      xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
-                      xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
-                      xmlns:Controls=&quot;http://metro.mahapps.com/winfx/xaml/controls&quot;
-                      Title=&quot;MainWindow&quot;
-                      Height=&quot;200&quot;
-                      Width=&quot;600&quot;
-
-                      BorderBrush=&quot;{DynamicResource AccentColorBrush}&quot;
-                      BorderThickness=&quot;1&quot;
-
-                      WindowStartupLocation=&quot;CenterScreen&quot;&gt;
-
-&lt;/Controls:MetroWindow&gt;
-</code></pre><p>发光的边框：</p>
-<pre><code>&lt;Controls:MetroWindow x:Class=&quot;MahApps.Metro.Simple.Demo.MainWindow&quot;
-                      xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
-                      xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
-                      xmlns:Controls=&quot;http://metro.mahapps.com/winfx/xaml/controls&quot;
-                      Title=&quot;MainWindow&quot;
-                      Height=&quot;200&quot;
-                      Width=&quot;600&quot;
-
-                      GlowBrush=&quot;{DynamicResource AccentColorBrush}&quot;
-
-                      WindowStartupLocation=&quot;CenterScreen&quot;&gt;
-
-&lt;/Controls:MetroWindow&gt;
-</code></pre><p>有阴影的边框：</p>
-<pre><code>&lt;Controls:MetroWindow x:Class=&quot;MahApps.Metro.Simple.Demo.MainWindow&quot;
-                      xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
-                      xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
-                      xmlns:Controls=&quot;http://metro.mahapps.com/winfx/xaml/controls&quot;
-                      Title=&quot;MainWindow&quot;
-                      Height=&quot;200&quot;
-                      Width=&quot;600&quot;
-
-                      BorderThickness=&quot;0&quot; 
-                      GlowBrush=&quot;Black&quot;
-                      ResizeMode=&quot;CanResizeWithGrip&quot;
-
-                      WindowTransitionsEnabled=&quot;False&quot;
-                      WindowStartupLocation=&quot;CenterScreen&quot;&gt;
-
-&lt;/Controls:MetroWindow&gt;
-</code></pre><h3 id="Buttons"><a href="#Buttons" class="headerlink" title="Buttons"></a>Buttons</h3><h4 id="Default-look"><a href="#Default-look" class="headerlink" title="Default look"></a>Default look</h4><p><img src="http://mahapps.com/images/08_RegularButton.png" alt=""></p>
-<h4 id="MetroCircleButton"><a href="#MetroCircleButton" class="headerlink" title="MetroCircleButton"></a>MetroCircleButton</h4><pre><code>&lt;Button Style=&quot;{DynamicResource MetroCircleButtonStyle}&quot; Content=&quot;Button&quot;/&gt;
-</code></pre><p><img src="http://mahapps.com/images/07_CircleButtons.png" alt=""></p>
-<h4 id="SquareButton"><a href="#SquareButton" class="headerlink" title="SquareButton"></a>SquareButton</h4><pre><code>&lt;Button Style=&quot;{DynamicResource SquareButtonStyle}&quot; Content=&quot;Button&quot;/&gt;
-</code></pre><p><img src="http://mahapps.com/images/square-button.png" alt=""></p>
-<h4 id="AccentedSquareButton"><a href="#AccentedSquareButton" class="headerlink" title="AccentedSquareButton"></a>AccentedSquareButton</h4><pre><code>&lt;Button Style=&quot;{StaticResource AccentedSquareButtonStyle}&quot; Content=&quot;Button&quot;/&gt;
-</code></pre><p><img src="http://mahapps.com/images/accent-square-button.png" alt=""></p>
-<h4 id="FlatButton"><a href="#FlatButton" class="headerlink" title="FlatButton"></a>FlatButton</h4><pre><code>&lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml&quot; /&gt;
-</code></pre><p><img src="http://mahapps.com/images/flatbutton.png" alt=""></p>
-<h3 id="ContextMenu"><a href="#ContextMenu" class="headerlink" title="ContextMenu"></a>ContextMenu</h3><p>您可以使用您熟悉的快捷菜单</p>
-<pre><code>&lt;ContextMenu&gt;
-  &lt;MenuItem Command=&quot;ApplicationCommands.New&quot; /&gt;
-  &lt;MenuItem Command=&quot;ApplicationCommands.Delete&quot; /&gt;
-  &lt;MenuItem Command=&quot;ApplicationCommands.Print&quot; /&gt;
-&lt;/ContextMenu&gt;
-</code></pre><p>如果你想使用快捷菜单的一部分被声明为资源和共享使用 <code>CompositeCollection</code></p>
-<pre><code>&lt;CompositeCollection x:Key=&quot;ContextMenuBase&quot;
- x:Shared=&quot;False&quot;&gt;
-  &lt;MenuItem Command=&quot;ApplicationCommands.New&quot; /&gt;
-  &lt;MenuItem Command=&quot;ApplicationCommands.Delete&quot; /&gt;
-  &lt;Separator /&gt;
-  &lt;StaticResource ResourceKey=&quot;ContextMenuItemRefresh&quot; /&gt;
-  &lt;Separator /&gt;
-&lt;/CompositeCollection&gt;
-
-
-&lt;ContextMenu&gt;
-  &lt;ContextMenu.ItemsSource&gt;
-&lt;CompositeCollection&gt;
-  &lt;CollectionContainer Collection=&quot;{StaticResource ContextMenuBase}&quot;&gt;&lt;/CollectionContainer&gt;
-  &lt;MenuItem Command=&quot;ApplicationCommands.Print&quot; /&gt;
-&lt;/CompositeCollection&gt;
-  &lt;/ContextMenu.ItemsSource&gt;
-&lt;/ContextMenu&gt;
-</code></pre><p>当你运行应用程序的绑定错误:</p>
-<p>System.Windows.Data Error: 4 : Cannot find source for binding with reference ‘RelativeSource FindAncestor, AncestorType=’System.Windows.Controls.ItemsControl’, AncestorLevel=’1’’. BindingExpression:Path=VerticalContentAlignment; DataItem=null; target element is ‘MenuItem’ (Name=’’); target property is ‘VerticalContentAlignment’ (type ‘VerticalAlignment’)</p>
-<p>这是一个已知的问题在WPF和解决方法是创建一个自定义 <code>MenuItem</code> 风格: </p>
-<pre><code>&lt;Style TargetType=&quot;{x:Type MenuItem}&quot;
-   BasedOn=&quot;{StaticResource MetroMenuItem}&quot;&gt;
-  &lt;Setter Property=&quot;HorizontalContentAlignment&quot;
-  Value=&quot;Left&quot; /&gt;
-  &lt;Setter Property=&quot;VerticalContentAlignment&quot;
-  Value=&quot;Center&quot; /&gt;
-  &lt;/Style&gt;
-</code></pre><h2 id="Data-Grid"><a href="#Data-Grid" class="headerlink" title="Data Grid"></a>Data Grid</h2><p>In order for the style to be applied, you will have to include references to the <code>Styles/Controls</code> resource dictionary in your App.xaml and the namespace <code>xmlns:controls=&quot;clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro&quot;</code> in the window you are using.</p>
-<p><img src="http://mahapps.com/images/default_datagrid_style.png" alt=""></p>
-<h3 id="Alternative-Style"><a href="#Alternative-Style" class="headerlink" title="Alternative Style"></a>Alternative Style</h3><p>MahApps.Metro also provides an alternative style, <code>AzureDataGrid</code> that attempts to mimic the DataGrid found on Microsoft Azure. To use it instead of the default style, simple set the DataGrid’s <code>Style</code> property to <code>{StaticResource AzureDataGrid</code>. As usual, make sure that you have your references defined.</p>
-<pre><code>&lt;DataGrid ItemsSource=&quot;{Binding People}&quot; Margin=&quot;10,20,10,0&quot;
-  AutoGenerateColumns=&quot;True&quot;
-  Style=&quot;{StaticResource AzureDataGrid}&quot;&gt;
-
-&lt;/DataGrid&gt; 
-</code></pre><p><img src="http://mahapps.com/images/azure_datagrid_style.png" alt=""></p>
-<h3 id="DataGrid-Numeric-Updown-Control"><a href="#DataGrid-Numeric-Updown-Control" class="headerlink" title="DataGrid Numeric Updown Control"></a>DataGrid Numeric Updown Control</h3><p>In addition to styling the DataGrid, MahApps.Metro also provides a control that allows users to add a <code>NumericUpDown</code> as one of their <code>DataGrid</code>’s columns. To add the custom column to your <code>DataGrid</code>, add <code>DataGridNumericUpDownColumn</code> under the MahApps namespace to your <code>DataGrid.Columns</code> properties. Be sure to set <code>AutoGenerateColumns</code> to <code>False</code> if you have not already done so.</p>
-<pre><code>&lt;DataGrid ItemsSource=&quot;{Binding Path=Albums}&quot;
-  Grid.Row=&quot;0&quot;
-  AutoGenerateColumns=&quot;False&quot;&gt;
-&lt;DataGrid.Columns&gt;
-&lt;DataGridTextColumn Header=&quot;Genre&quot;
-Binding=&quot;{Binding Genre.Name}&quot; /&gt;
-&lt;controls:DataGridNumericUpDownColumn Header=&quot;Price&quot;
-  Binding=&quot;{Binding Price}&quot;
-  StringFormat=&quot;C&quot;
-  Minimum=&quot;0&quot; /&gt;
-&lt;/DataGrid.Columns&gt;
-&lt;/DataGrid&gt;
-</code></pre><p><img src="http://mahapps.com/images/datagrid_numeric_up_down.png" alt=""></p>
-<h3 id="DataGrid-Checkbox"><a href="#DataGrid-Checkbox" class="headerlink" title="DataGrid Checkbox"></a>DataGrid Checkbox</h3><p>Lastly, MahApps.Metro provides an <code>ElementStyle</code> for the <code>DataGridCheckBoxColumn</code>. In order to apply the style, you will have to set the <code>ElementStyle</code> property of the <code>DataGridCheckBoxColumn</code> to <code>{DynamicResource MetroDataGridCheckBox}</code> as shown in the code sample below.</p>
-<pre><code>&lt;DataGrid ItemsSource=&quot;{Binding Path=Albums}&quot;
-  Grid.Row=&quot;0&quot;
-  AutoGenerateColumns=&quot;False&quot;&gt;
-&lt;DataGrid.Columns&gt;
-&lt;DataGridCheckBoxColumn ElementStyle=&quot;{DynamicResource MetroDataGridCheckBox}&quot;
-EditingElementStyle=&quot;{DynamicResource MetroDataGridCheckBox}&quot;
-Header=&quot;IsSelected&quot;
-Binding=&quot;{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}&quot;
-/&gt;
-&lt;/DataGrid.Columns&gt;
-&lt;/DataGrid&gt;
-</code></pre><p><img src="http://mahapps.com/images/datagrid_checkbox.png" alt=""></p>
-<h2 id="Dialogs"><a href="#Dialogs" class="headerlink" title="Dialogs"></a>Dialogs</h2><h3 id="Message-dialog"><a href="#Message-dialog" class="headerlink" title="Message dialog"></a>Message dialog</h3><p>对话框还可以显示简单消息的<code>ShowMessageAsync</code>方法。扩展方法MetroWindow因此，呼叫从它的窗口类。</p>
-<pre><code>await this.ShowMessageAsync(&quot;This is the title&quot;, &quot;Some message&quot;);
-</code></pre><p>有可选的额外参数的简单的按钮，例如 Ok Cancel 并设置主题颜色和动画选项。</p>
-<h3 id="Progress-dialog"><a href="#Progress-dialog" class="headerlink" title="Progress dialog"></a>Progress dialog</h3><pre><code>var controller = await this.ShowProgressAsync(&quot;Please wait...&quot;, &quot;Progress message&quot;);
-</code></pre><p>This method returns a ProgressDialogController object that exposes the SetProgress method, use it to set the current progress.</p>
-<p><img src="http://mahapps.com/images/progressdialog.png" alt=""></p>
-<h2 id="FlipView"><a href="#FlipView" class="headerlink" title="FlipView"></a>FlipView</h2><p><img src="http://i.msdn.microsoft.com/dynimg/IC571410.png" alt=""></p>
-<pre><code>&lt;Controls:FlipView Height=&quot;200&quot; 
-   IsBannerEnabled=&quot;True&quot; 
-   SelectionChanged=&quot;FlipView_SelectionChanged&quot;
-   Margin=&quot;0, 0, 10, 0&quot;&gt;
-&lt;Controls:FlipView.Items&gt;
-&lt;Grid Background=&quot;#2E8DEF&quot;&gt;
-&lt;Rectangle Margin=&quot;0, 0, 10, 0&quot; Width=&quot;50&quot; Height=&quot;50&quot;&gt;
-&lt;Rectangle.Fill&gt;
-&lt;VisualBrush Visual=&quot;{StaticResource appbar_cupcake}&quot; /&gt;
-&lt;/Rectangle.Fill&gt;
-&lt;/Rectangle&gt;
-&lt;/Grid&gt;
-&lt;Grid Background=&quot;#00A600&quot;&gt;
-&lt;Rectangle Margin=&quot;0, 0, 10, 0&quot; Width=&quot;50&quot; Height=&quot;50&quot;&gt;
-&lt;Rectangle.Fill&gt;
-&lt;VisualBrush Visual=&quot;{StaticResource appbar_xbox}&quot; /&gt;
-&lt;/Rectangle.Fill&gt;
-&lt;/Rectangle&gt;
-&lt;/Grid&gt;
-&lt;Grid Background=&quot;#BF1E4B&quot;&gt;
-&lt;Rectangle Margin=&quot;0, 0, 10, 0&quot; Width=&quot;50&quot; Height=&quot;50&quot;&gt;
-&lt;Rectangle.Fill&gt;
-&lt;VisualBrush Visual=&quot;{StaticResource appbar_chess_horse}&quot; /&gt;
-&lt;/Rectangle.Fill&gt;
-&lt;/Rectangle&gt;
-&lt;/Grid&gt;
-&lt;/Controls:FlipView.Items&gt;
-&lt;/Controls:FlipView&gt;
-</code></pre><h3 id="The-Banner"><a href="#The-Banner" class="headerlink" title="The Banner"></a>The Banner</h3><pre><code>private void FlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-{
-var flipview = ((FlipView)sender);
-switch (flipview.SelectedIndex)
-{
-case 0:
-flipview.BannerText = &quot;Cupcakes!&quot;;
-break;
-case 1:
-flipview.BannerText = &quot;Xbox!&quot;;
-break;
-case 2:
-flipview.BannerText = &quot;Chess!&quot;;
-break;
-}
-}
-</code></pre><h3 id="The-Control-Buttons"><a href="#The-Control-Buttons" class="headerlink" title="The Control Buttons"></a>The Control Buttons</h3><p>The control buttons (the next and previous buttons) allow the user to flip through the items using their mouse. The buttons can be disabled by calling <code>HideControlButtons</code> and renabled by calling <code>ShowControlButtons</code>.</p>
-<p>The user can also flip through the items using the arrows on their keyboard.</p>
-<h3 id="Automated-scrolling-batteries-not-included"><a href="#Automated-scrolling-batteries-not-included" class="headerlink" title="Automated scrolling (batteries not included)"></a>Automated scrolling (batteries not included)</h3><p>Disabling the control buttons is useful when you want to provide an automated scrolling experience. This can be implemented by using a timer and by incrementing SelectedIndex by 1 until the index is equal to Items.Length - 1. At that point, you would reset SelectedIndex to 0.</p>
-<h2 id="Flyouts"><a href="#Flyouts" class="headerlink" title="Flyouts"></a>Flyouts</h2><p>Add the following code to your MetroWindow:</p>
-<pre><code>&lt;Controls:MetroWindow.Flyouts&gt;
-&lt;Controls:FlyoutsControl&gt;
-
-&lt;/Controls:FlyoutsControl&gt;
-&lt;/Controls:MetroWindow.Flyouts&gt;
-</code></pre><p>This is the container for the flyouts. Inside this container add the following:</p>
-<pre><code>&lt;Controls:Flyout Header=&quot;Flyout&quot; Position=&quot;Right&quot; Width=&quot;200&quot;&gt;
-&lt;!-- Your custom content here --&gt;
-&lt;/Controls:Flyout&gt;
-</code></pre><h3 id="Themed-flyouts"><a href="#Themed-flyouts" class="headerlink" title="Themed flyouts"></a>Themed flyouts</h3><p>As of version 0.12, flyouts can have various themes, assignable through the Theme property, those are:</p>
-<pre><code>Adapt,
-Inverse,
-Dark,
-Light,
-Accent
-</code></pre><ul>
-<li>Adapt adapts the flyout theme to the host window’s theme.</li>
-<li>Inverse has the inverse theme of the host window’s theme.</li>
-<li>Dark will always be the dark theme, this is also the default value.</li>
-<li>Light will always be the light theme.</li>
-<li>Accent adapts the flyout theme to the host window’s theme, it looks like this for the blue theme</li>
-</ul>
-<h3 id="WindowCommandsOverlayBehaviorn"><a href="#WindowCommandsOverlayBehaviorn" class="headerlink" title="WindowCommandsOverlayBehaviorn"></a>WindowCommandsOverlayBehaviorn</h3><p>MetroWindow has overlay properties for LeftWindowCommands, RightWindowCommands, WindowButtonCommands and the Icon to handle the topmost status, even if a flyout is shown.</p>
-<pre><code>public WindowCommandsOverlayBehavior LeftWindowCommandsOverlayBehavior
-public WindowCommandsOverlayBehavior RightWindowCommandsOverlayBehavior
-public WindowCommandsOverlayBehavior WindowButtonCommandsOverlayBehavior
-public WindowCommandsOverlayBehavior IconOverlayBehavior
-</code></pre><p>These are the values for WindowCommandsOverlayBehavior</p>
-<pre><code>Never // Doesn&apos;t overlay flyouts nor a hidden TitleBar.
-Flyouts // Overlays opened Flyout controls.
-HiddenTitleBar // // Overlays a hidden TitleBar.
-Always
-</code></pre><p>WindowCommandsOverlayBehavior.Always</p>
-<p><img src="http://mahapps.com/images/WindowCommandsOverlayBehavior_Always.png" alt=""></p>
-<p>WindowCommandsOverlayBehavior.Never</p>
-<p><img src="http://mahapps.com/images/WindowCommandsOverlayBehavior_Never.png" alt=""></p>
-<h2 id="NumericUpDown"><a href="#NumericUpDown" class="headerlink" title="NumericUpDown"></a>NumericUpDown</h2><p>NumericUpDown控件将用来增大或减小数值。</p>
-<p><img src="http://mahapps.com/images/numeric_up_down.png" alt=""></p>
-<h2 id="ProgressBar"><a href="#ProgressBar" class="headerlink" title="ProgressBar"></a>ProgressBar</h2><p><img src="http://mahapps.com/images/progressbar.png" alt=""></p>
-<h3 id="MetroProgressBar"><a href="#MetroProgressBar" class="headerlink" title="MetroProgressBar"></a>MetroProgressBar</h3><p>MetroProgressBar is an alternative and simpler style. Instead of creating a normal ProgressBar use:</p>
-<pre><code>&lt;Controls:MetroProgressBar /&gt;
-</code></pre><p>Its indeterminate state looks like a ProgressRing but not circular.</p>
-<h2 id="ProgressRing"><a href="#ProgressRing" class="headerlink" title="ProgressRing"></a>ProgressRing</h2><p>The Progress Ring control is styled after a similar control in Windows 8 to indicate activity rather than a percentage of progress completed.</p>
-<pre><code>&lt;Controls:ProgressRing IsActive=&quot;True&quot; /&gt;
-</code></pre><p><code>IsActive</code> can easily be bound to a viewmodel property.</p>
-<pre><code>&lt;Controls:ProgressRing IsActive=&quot;{Binding IsActive}&quot; /&gt;
-</code></pre><p>Override Foreground if you wish to change the colour.</p>
-<pre><code>&lt;Controls:ProgressRing Foreground=&quot;{DynamicResource AccentColorBrush}&quot;/&gt;
-</code></pre><h2 id="RangeSlider"><a href="#RangeSlider" class="headerlink" title="RangeSlider"></a>RangeSlider</h2><p><img src="http://mahapps.com/images/range_slider.PNG" alt=""></p>
-<p>Small Example</p>
-<pre><code>&lt;Сontrols:RangeSlider Style=&quot;{StaticResource RangeSliderCameraCommonStyle}&quot; 
-Minimum=&quot;{Binding Path=MinValue, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}&quot;
-Maximum=&quot;{Binding Path=MaxValue, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}&quot;
-LowerValue=&quot;{Binding Path=CurrentMinValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}&quot;
-UpperValue=&quot;{Binding Path=CurrentMaxValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}&quot;
-LowerValueChanged=&quot;OnLowerValueChanged&quot; UpperValueChanged=&quot;OnUpperValueChanged&quot;
-LowerThumbDragStarted=&quot;OnLowerDragStarted&quot;
-LowerThumbDragCompleted=&quot;OnLowerDragCompleted&quot;
-UpperThumbDragStarted=&quot;OnUpperDragStarted&quot; 
-UpperThumbDragCompleted=&quot;OnUpperDragCompleted&quot; 
-AutoToolTipPlacement=&quot;TopLeft&quot; AutoToolTipPrecision=&quot;2&quot; MoveWholeRange=&quot;True&quot;
-IsSnapToTickEnabled=&quot;True&quot; IsMoveToPointEnabled=&quot;True&quot; ExtendedMode=&quot;True&quot;&gt;&lt;/Сontrols:RangeSlider&gt;
-</code></pre><h2 id="Slider"><a href="#Slider" class="headerlink" title="Slider"></a>Slider</h2><p><img src="http://mahapps.com/images/slider_standard.png" alt=""></p>
-<p>If you want to base your custom style on that style, you need to add <code>BasedOn=&quot;{StaticResource MetroSlider}&quot;</code></p>
-<h2 id="FlatSlider-style"><a href="#FlatSlider-style" class="headerlink" title="FlatSlider style"></a>FlatSlider style</h2><p><img src="http://mahapps.com/images/slider_cube.png" alt=""></p>
-<p>To use that style you need to load resource dictionary <code>&lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml&quot; /&gt;</code> and explicitly set the style of the Slider to <code>Style=&quot;{DynamicResource FlatSlider}&quot;</code></p>
-<p>This style could be dynamically changed to:</p>
-<p><img src="http://mahapps.com/images/slider_tick.png" alt=""></p>
-<h2 id="SplitButton-and-DropDownButton"><a href="#SplitButton-and-DropDownButton" class="headerlink" title="SplitButton and DropDownButton"></a>SplitButton and DropDownButton</h2><p><img src="http://mahapps.com/images/splitButton_1.png" alt=""></p>
-<h3 id="SelectedItem-and-SelectedIndex"><a href="#SelectedItem-and-SelectedIndex" class="headerlink" title="SelectedItem and SelectedIndex"></a>SelectedItem and SelectedIndex</h3><p>This properties usage is just like in Listbox or ComboBox. When one of this properties changed, Content of the button will also changed.</p>
-<h3 id="Binding-to-ObservableCollection-or-Dictionary"><a href="#Binding-to-ObservableCollection-or-Dictionary" class="headerlink" title="Binding to ObservableCollection or Dictionary"></a>Binding to ObservableCollection or Dictionary</h3><p>To correctly bind an <code>ObservableCollection</code> or a <code>Dictionary</code> to <code>SplitButton</code>, you need to use <code>ItemsSource</code> and <code>DisplayMemberPath</code> For ex, <code>ItemsSource=&quot;{Binding Albums}&quot; DisplayMemberPath=&quot;Title&quot;</code>In case you bind simple types like an enum or integer, you dont need to use DisplayMemberPath property, only ItemsSource`.</p>
-<h3 id="Orientation"><a href="#Orientation" class="headerlink" title="Orientation"></a>Orientation</h3><p>SplitButton supports orientation changing as you can see on the screenshot.</p>
-<h3 id="Button-commands"><a href="#Button-commands" class="headerlink" title="Button commands"></a>Button commands</h3><p>You can use button commands for SplitButton</p>
-<h3 id="Icon-property"><a href="#Icon-property" class="headerlink" title="Icon property"></a>Icon property</h3><p>You can add separate icon to SplitButton to display it independently from its content. It could be bitmap image or vector icon. <code>Icon=&quot;{DynamicResource appbar_alert}&quot;</code></p>
-<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><pre><code>&lt;Controls:SplitButton 
-Icon=&quot;{DynamicResource appbar_alert}&quot;
-HorizontalContentAlignment=&quot;Left&quot;
-HorizontalAlignment=&quot;Center&quot;
-VerticalContentAlignment=&quot;Center&quot;
-Width=&quot;120&quot;
-SelectedIndex=&quot;2&quot;
-ItemsSource=&quot;{Binding Albums}&quot;
-DisplayMemberPath=&quot;Title&quot;
-VerticalAlignment=&quot;Center&quot; /&gt;
-</code></pre><p><img src="http://mahapps.com/images/splitButton_2.png" alt=""></p>
-<h3 id="DropDownButton"><a href="#DropDownButton" class="headerlink" title="DropDownButton"></a>DropDownButton</h3><p><img src="http://mahapps.com/images/dropDownButton_1.png" alt=""></p>
-<h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h3><pre><code>Controls:DropDownButton 
-VerticalContentAlignment=&quot;Center&quot;
-Width=&quot;120&quot;
-Content=&quot;Test&quot;
-DisplayMemberPath=&quot;Title&quot;
-Icon=&quot;{DynamicResource appbar_music}&quot;
-ItemsSource=&quot;{Binding Albums}&quot;&gt;
-&lt;/Controls:DropDownButton&gt;
-</code></pre><p><img src="http://mahapps.com/images/dropDownButton_2.png" alt=""></p>
-<h2 id="TabControl"><a href="#TabControl" class="headerlink" title="TabControl"></a>TabControl</h2><p>There are three included tab styles - <code>AnimatedTabControl</code>, <code>SingleRowAnimatedTabControl</code> and the default <code>TabControl</code>. The default TabControl style is included in Controls.xaml, but the other two require specific referencing (make sure to do this after a reference to <code>Controls.xaml</code>)</p>
-<h3 id="Default-look-1"><a href="#Default-look-1" class="headerlink" title="Default look"></a>Default look</h3><p><img src="http://mahapps.com/images/default_tab_control.png" alt=""></p>
-<p>This shows the three states - selected/active tab, hover and inactive.</p>
-<h3 id="AnimatedTabControl"><a href="#AnimatedTabControl" class="headerlink" title="AnimatedTabControl"></a>AnimatedTabControl</h3><pre><code>&lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml&quot; /&gt;
-</code></pre><p>Functioning just like the regular TabControl, except it animates every tab change by wrapping everything in a MetroContentControl.</p>
-<p><img src="http://mahapps.com/images/animatedtabcontrol.gif" alt=""></p>
-<h3 id="AnimatedSingleRowTabControl"><a href="#AnimatedSingleRowTabControl" class="headerlink" title="AnimatedSingleRowTabControl"></a>AnimatedSingleRowTabControl</h3><pre><code>&lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedSingleRowTabControl.xaml&quot; /&gt;
-</code></pre><p>AnimatedSingleRowTabControl functions exactly the same as the AnimatedTabControl except the tabs will only appear on a single line rather than wrapping. Instead of wrapping, arrows (left/right) are presented.</p>
-<p><img src="http://mahapps.com/images/singlerow_tab_control.png" alt=""></p>
-<h2 id="TextBox-MahApps-Metro"><a href="#TextBox-MahApps-Metro" class="headerlink" title="TextBox - MahApps.Metro"></a>TextBox - MahApps.Metro</h2><h3 id="Watermark"><a href="#Watermark" class="headerlink" title="Watermark"></a>Watermark</h3><pre><code>&lt;TextBox Controls:TextBoxHelper.Watermark=&quot;This is a textbox&quot; /&gt;
-</code></pre><p><img src="http://mahapps.com/images/10_textboxstates.png" alt=""></p>
-<h3 id="Clear-button"><a href="#Clear-button" class="headerlink" title="Clear button"></a>Clear button</h3><p>Like the watermark, a simple attached property adds in the functionality</p>
-<pre><code>&lt;TextBox Controls:TextBoxHelper.ClearTextButton=&quot;True&quot; /&gt;
-</code></pre><p><img src="http://mahapps.com/images/11_textboxclearstates.png" alt=""></p>
-<h2 id="Tile"><a href="#Tile" class="headerlink" title="Tile"></a>Tile</h2><pre><code>&lt;controls:Tile Title=&quot;Hello!&quot; 
-TiltFactor=&quot;2&quot;
-Width=&quot;100&quot; Height=&quot;100&quot; 
-Count=&quot;1&quot;&gt;
-&lt;/controls:Tile&gt;
-</code></pre><p><img src="https://github-camo.global.ssl.fastly.net/4793fa88b9041fb4a1bba21aa2140ee7d0f32b3c/687474703a2f2f7777772e6e63756265642e6e65742f7a2f706963732f6d6168617070732f54696c65436f6e74656e74436f6c6f72732e706e67" alt=""></p>
-<h2 id="ToggleButton"><a href="#ToggleButton" class="headerlink" title="ToggleButton"></a>ToggleButton</h2><p>The default style, available just by placing a ToggleButton control in XAML looks like the default MahApps.Metro button.</p>
-<p><img src="http://mahapps.com/images/toggle-button-normal.png" alt=""></p>
-<pre><code>&lt;Grid&gt;
-&lt;ToggleButton/&gt;
-&lt;/Grid&gt;
-</code></pre><p>Another style, MetroCircleToggleButtonStyle is available by setting the ToggleButton’s style to MetroCircleToggleButtonStyle. This style changes the button’s background to AccentColorBrush when it is checked. To modify this behaviour, you will have to edit a copy of the control template using Blend.</p>
-<pre><code>&lt;ToggleButton Width=&quot;50&quot;
-              Height=&quot;50&quot;
-              Margin=&quot;0, 10, 0, 0&quot;
-              Style=&quot;{DynamicResource MetroCircleToggleButtonStyle}&quot;&gt;
-&lt;/ToggleButton&gt;
-</code></pre><p><img src="http://mahapps.com/images/toggle-button-circle.png" alt=""></p>
-<h3 id="Using-Glyphs-Within-a-Circle-Toggle-Button"><a href="#Using-Glyphs-Within-a-Circle-Toggle-Button" class="headerlink" title="Using Glyphs Within a Circle Toggle Button"></a>Using Glyphs Within a Circle Toggle Button</h3><p>In order to use glyphs, you will have to add a reference to Icons.xaml.</p>
-<pre><code>`&lt;UserControl.Resources&gt;
-    &lt;ResourceDictionary&gt;
-        &lt;ResourceDictionary.MergedDictionaries&gt;
-            &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro.Resources;component/Icons.xaml&quot; /&gt;
-        &lt;/ResourceDictionary.MergedDictionaries&gt;
-    &lt;/ResourceDictionary&gt;
-&lt;/UserControl.Resources&gt;`
-</code></pre><ol>
-<li>Nest a Rectangle within the ToggleButton</li>
-<li>Set it’s fill to the color you want the icon to have</li>
-<li>Set Rectangle.OpacityMask to contain a VisualBrush with a Visual using the icon’s value as a reference.</li>
-</ol>
-<h3 id="For-example"><a href="#For-example" class="headerlink" title="For example:"></a>For example:</h3><pre><code>&lt;ToggleButton Width=&quot;50&quot;
-              Height=&quot;50&quot;
-              Margin=&quot;0, 10, 0, 0&quot;
-              Style=&quot;{DynamicResource MetroCircleToggleButtonStyle}&quot;&gt;
-    &lt;Rectangle Width=&quot;20&quot;
-               Height=&quot;20&quot;
-               Fill=&quot;{DynamicResource BlackBrush}&quot;&gt;
-        &lt;Rectangle.OpacityMask&gt;
-            &lt;VisualBrush Stretch=&quot;Fill&quot;
-                         Visual=&quot;{DynamicResource appbar_city}&quot;/&gt;
-        &lt;/Rectangle.OpacityMask&gt;
-    &lt;/Rectangle&gt;
-&lt;/ToggleButton&gt;
-</code></pre><h3 id="Syncing-Checked-State-of-ToggleButton-with-Foreground"><a href="#Syncing-Checked-State-of-ToggleButton-with-Foreground" class="headerlink" title="Syncing Checked State of ToggleButton with Foreground"></a>Syncing Checked State of ToggleButton with Foreground</h3><p>By default, any icon you set will retain the same color you set it to even if the ToggleButton is checked. To alter this, you can bind your content’s color to the ToggleButton’s Foreground property which changes to white by default when it is checked.</p>
-<p>An example of how to do the binding can be found below:</p>
-<pre><code>&lt;ToggleButton Width=&quot;50&quot;
-              Height=&quot;50&quot;
-              Margin=&quot;0, 10, 0, 0&quot;
-              Style=&quot;{DynamicResource MetroCircleToggleButtonStyle}&quot;&gt;
-    &lt;Rectangle Width=&quot;20&quot;
-               Height=&quot;20&quot;
-               Fill=&quot;{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}&quot;&gt;
-        &lt;Rectangle.OpacityMask&gt;
-            &lt;VisualBrush Stretch=&quot;Fill&quot;
-                         Visual=&quot;{DynamicResource appbar_city}&quot;/&gt;
-        &lt;/Rectangle.OpacityMask&gt;
-    &lt;/Rectangle&gt;
-&lt;/ToggleButton&gt;
-</code></pre><h2 id="ToggleSwitch"><a href="#ToggleSwitch" class="headerlink" title="ToggleSwitch"></a>ToggleSwitch</h2><p>The function is very similar to that of a checkbox, but easier to differentiate and easier to use with touch interfaces. Basically though, it can be thought of as a pretty CheckBox:</p>
-<pre><code>&lt;Controls:ToggleSwitch Header=&quot;WiFi rest state&quot; /&gt;
-</code></pre><p><img src="http://mahapps.com/images/09_toggleswitch.png" alt=""></p>
-<p>You can bind to/set IsChecked to switch between the two states. You can change the on and off labels by setting</p>
-<pre><code>&lt;Controls:ToggleSwitch OnLabel=&quot;Yes&quot; OffLabel=&quot;No&quot; /&gt;
-</code></pre><h2 id="TransitioningContentControl"><a href="#TransitioningContentControl" class="headerlink" title="TransitioningContentControl"></a>TransitioningContentControl</h2><p>Taken from Silverlight (specifically this port), TransitioningContentControl is great for switching content smoothly around. At it’s core, TransitioningContentControl is a ContentControl, so only one child element can be displayed at a time. When you change the content, an animation is played switching the two.</p>
-<pre><code>&lt;Controls:TransitioningContentControl x:Name=&quot;transitioning&quot; Width=&quot;150&quot; Height=&quot;50&quot; Transition=&quot;DownTransition&quot; /&gt;
-</code></pre><p>Built in there are several transitions:</p>
-<ul>
-<li>Default</li>
-<li>Down</li>
-<li>Up</li>
-<li>Right</li>
-<li>Left</li>
-<li>RightReplace</li>
-<li>LeftReplace</li>
-<li>Custom</li>
-</ul>
-<h2 id="StatusBar"><a href="#StatusBar" class="headerlink" title="StatusBar"></a>StatusBar</h2><pre><code>&lt;StatusBar Grid.Row=&quot;2&quot;&gt;
-            &lt;StatusBarItem&gt;MahApps.Metro DEMO Application&lt;/StatusBarItem&gt;
-            &lt;Separator Style=&quot;{StaticResource MetroStatusBarSeparator}&quot; /&gt;
-            &lt;StatusBarItem&gt;Selected Tab:&lt;/StatusBarItem&gt;
-            &lt;StatusBarItem Content=&quot;{Binding ElementName=MainTabControl, Path=SelectedItem.Header, Mode=OneWay}&quot; /&gt;
-        &lt;/StatusBar&gt;
-</code></pre><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
-<li><a href="https://github.com/MahApps/MahApps.Metro.IconPacks" target="_blank" rel="noopener">MahApps.Metro.IconPacks</a></li>
-<li><a href="http://mahapps.com/guides/icons-and-resources.html" target="_blank" rel="noopener">MahApps.Metro.Resources</a> </li>
-<li>NHotkey</li>
-<li>NHotkey.Wpf</li>
-</ul>
-<p>参考：</p>
-<ul>
-<li><a href="http://rehansaeed.com/wpf-metro-part1-modern-ui-for-wpf/" target="_blank" rel="noopener">http://rehansaeed.com/wpf-metro-part1-modern-ui-for-wpf/</a></li>
-<li><a href="https://github.com/MahApps/MahApps.Metro" target="_blank" rel="noopener">https://github.com/MahApps/MahApps.Metro</a></li>
-<li><a href="http://mahapps.com/guides/quick-start.html" target="_blank" rel="noopener">http://mahapps.com/guides/quick-start.html</a></li>
-<li><a href="http://www.wxzzz.com/1202.html" target="_blank" rel="noopener">http://www.wxzzz.com/1202.html</a></li>
-<li><a href="http://mahapps.com/guides/icons-and-resources.html" target="_blank" rel="noopener">http://mahapps.com/guides/icons-and-resources.html</a></li>
-<li><a href="http://mahapps.com/guides/styles.html" target="_blank" rel="noopener">http://mahapps.com/guides/styles.html</a></li>
-<li><a href="http://mahapps.com/controls/" target="_blank" rel="noopener">http://mahapps.com/controls/</a></li>
-<li><a href="https://github.com/MahApps/MahApps.Metro.IconPacks" target="_blank" rel="noopener">https://github.com/MahApps/MahApps.Metro.IconPacks</a></li>
-<li><a href="http://fontawesome.io/icons/" target="_blank" rel="noopener">http://fontawesome.io/icons/</a></li>
-<li><a href="https://materialdesignicons.com/" target="_blank" rel="noopener">https://materialdesignicons.com/</a></li>
-<li><a href="http://www.wxzzz.com/tag/mahapps" title="http://www.wxzzz.com/tag/mahapps" target="_blank" rel="noopener">http://www.wxzzz.com/tag/mahapps</a></li>
+</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<li><a href="http://unmi.cc/csharp-use-sqlite-db/" title="http://unmi.cc/csharp-use-sqlite-db/" target="_blank" rel="noopener">http://unmi.cc/csharp-use-sqlite-db/</a></li>
+<li><a href="http://blog.163.com/baiyunping333@126/blog/static/2439447220093162323933/" title="http://blog.163.com/baiyunping333@126/blog/static/2439447220093162323933/" target="_blank" rel="noopener">http://blog.163.com/baiyunping333@126/blog/static/2439447220093162323933/</a></li>
+<li><a href="http://www.sqlite.org/lang_keywords.html" title="http://www.sqlite.org/lang_keywords.html" target="_blank" rel="noopener">http://www.sqlite.org/lang_keywords.html</a></li>
+<li><a href="http://www.sqlite.org/lang_corefunc.html" title="http://www.sqlite.org/lang_corefunc.html" target="_blank" rel="noopener">http://www.sqlite.org/lang_corefunc.html</a></li>
+<li><a href="http://www.infoq.com/cn/news/2008/01/sqlite-in-three-minutes" title="http://www.infoq.com/cn/news/2008/01/sqlite-in-three-minutes" target="_blank" rel="noopener">http://www.infoq.com/cn/news/2008/01/sqlite-in-three-minutes</a></li>
+<li><a href="http://www.sqlite.org/cvstrac/wiki?p=ManagementTools" title="http://www.sqlite.org/cvstrac/wiki?p=ManagementTools" target="_blank" rel="noopener">http://www.sqlite.org/cvstrac/wiki?p=ManagementTools</a></li>
+<li><a href="http://www.cnblogs.com/spymaster/archive/2008/09/10/1288419.html" title="http://www.cnblogs.com/spymaster/archive/2008/09/10/1288419.html" target="_blank" rel="noopener">http://www.cnblogs.com/spymaster/archive/2008/09/10/1288419.html</a></li>
+<li><a href="http://www.jb51.net/article/26381.htm" title="http://www.jb51.net/article/26381.htm" target="_blank" rel="noopener">http://www.jb51.net/article/26381.htm</a></li>
 </ul>
 
       
@@ -1049,7 +268,7 @@ Count=&quot;1&quot;&gt;
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">MahApps.Metro</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SQLite NET</a>
         		</li>
       		
 		</ul>
@@ -1059,7 +278,7 @@ Count=&quot;1&quot;&gt;
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/01/MahApps.Metro使用/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/07/01/SQLite NET/">展开全文 >></a>
         </p>
       
 
@@ -1089,87 +308,30 @@ Count=&quot;1&quot;&gt;
 
 
   
-    <article id="post-获得GetLastError()内容" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-VA Snippet 与 代码片段管理器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/15/获得GetLastError()内容/">获得GetLastError()内容</a>
+      <a class="article-title" href="/2018/06/01/VA Snippet 与 代码片段管理器/">VA Snippet 与 代码片段管理器</a>
     </h1>
   
 
         
-        <a href="/2017/06/15/获得GetLastError()内容/" class="archive-article-date">
-  	<time datetime="2017-06-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-15</time>
+        <a href="/2018/06/01/VA Snippet 与 代码片段管理器/" class="archive-article-date">
+  	<time datetime="2018-06-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <pre><code>GetStrError(CString&amp; strError, const DWORD&amp; dwErr)
-{
-    LPVOID lpMsgBuf;
-    //DWORD dw = GetLastError();
-    FormatMessage (
-        FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
-        NULL,
-        dwErr,
-        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-        (LPTSTR) &amp;lpMsgBuf,
-        0, NULL );
-    strError = (char *)lpMsgBuf;
-    LocalFree(lpMsgBuf);
-}
-</code></pre><p>个人写的：</p>
-<pre><code>GetStrError(CString &amp;strError, const DWORD &amp;dwErr)
-{
-    LPVOID lpMsgBuf;
-    //DWORD dw = GetLastError();
-    FormatMessage (
-        FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
-        NULL,
-        dwErr,
-        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-        (LPTSTR) &amp;lpMsgBuf,
-        0, NULL );
-    strError = (char *)lpMsgBuf;
-    LocalFree(lpMsgBuf);
-}
-
-MyAfxMessageBox(CString strError)
-{
-    CString str;
-    DWORD dwErr = GetLastError();
-    GetStrError(str, dwErr);
-    CString strTemp;
-    strTemp.Format(_T(&quot;程序运行错误!%s\r\n错误码:%lu\r\n错误内容:%s&quot;), strError, dwErr, str);
-    AfxMessageBox(strTemp);
-}
-
-try
-{
-    AfxMessageBox(strMsg, MB_ICONINFORMATION);
-}
-catch (CMemoryException *e)
-{
-    MyAfxMessageBox(_T(&quot;CMemoryException&quot;));
-}
-catch (CFileException *e)
-{
-    MyAfxMessageBox(_T(&quot;CFileException&quot;));
-}
-catch (CException *e)
-{
-    MyAfxMessageBox(_T(&quot;CException&quot;));
-}
-catch(...)
-{
-    MyAfxMessageBox(_T(&quot;其他&quot;));
-}
-</code></pre>
+        <h1 id="VA-Snippet"><a href="#VA-Snippet" class="headerlink" title="VA Snippet"></a>VA Snippet</h1><p><a href="http://docs.wholetomato.com/default.asp?W171" target="_blank" rel="noopener">Introduction to VA Snippets</a></p>
+<h2 id="备份VA-Snippet-tpl文件"><a href="#备份VA-Snippet-tpl文件" class="headerlink" title="备份VA Snippet.tpl文件"></a>备份VA Snippet.tpl文件</h2><p>Backup your current VA Snippets, for the programming languages of interest. You can find your VA Snippets in .tpl files in:</p>
+<pre><code>%APPDATA%\VisualAssist\Autotext\
+</code></pre><h1 id="代码片段管理器"><a href="#代码片段管理器" class="headerlink" title="代码片段管理器"></a>代码片段管理器</h1>
       
 
       
@@ -1186,15 +348,15 @@ catch(...)
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">VS</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">GetLastError</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码片段</a>
         		</li>
       		
 		</ul>
@@ -1204,7 +366,7 @@ catch(...)
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/15/获得GetLastError()内容/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/06/01/VA Snippet 与 代码片段管理器/">展开全文 >></a>
         </p>
       
 
@@ -1234,101 +396,30 @@ catch(...)
 
 
   
-    <article id="post-C++字符分割" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-wolfSSL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/06/01/C++字符分割/">C++字符串分割</a>
+      <a class="article-title" href="/2018/05/01/wolfSSL/">wolfSSL</a>
     </h1>
   
 
         
-        <a href="/2017/06/01/C++字符分割/" class="archive-article-date">
-  	<time datetime="2017-06-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-01</time>
+        <a href="/2018/05/01/wolfSSL/" class="archive-article-date">
+  	<time datetime="2018-05-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="AfxExtractSubString"><a href="#AfxExtractSubString" class="headerlink" title="AfxExtractSubString"></a>AfxExtractSubString</h1><p>表头: <afxwin.h></afxwin.h></p>
-<p>BOOL AFXAPI AfxExtractSubString ( CString&amp; rString, LPCTSTR lpszFullString, int iSubString, TCHAR chSep = ‘\n’);</p>
-<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>rString 对CString将得到一个单独的子字符串的对象。</p>
-<p>lpszFullString 字符串包含字符串的全文提取自。</p>
-<p>iSubString 提取的子字符串的从零开始的索引从lpszFullString。</p>
-<p>chSep 使用的分隔符分隔子字符串，默认的是’\n’。</p>
-<h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><p>TRUE ，如果函数成功提取了该子字符串中提供的索引;否则， FALSE。</p>
-<h2 id="例："><a href="#例：" class="headerlink" title="例："></a>例：</h2><pre><code>// 使用AfxExtractSubString分割字符串
-void CSplitString::SplitString1()
-{
-    std::vector&lt;long&gt; arrPic;
-
-    CString strContent = _T(&quot;1,2,3,4,5&quot;);
-    CString strTemp;
-    int iPos = 0;
-
-    while (AfxExtractSubString(strTemp, strContent, iPos, &apos;,&apos;))
-    {
-        iPos++;
-        arrPic.push_back(_wtol(strTemp));
-    }
-}
-</code></pre><h1 id="STL-find-first-of"><a href="#STL-find-first-of" class="headerlink" title="STL find_first_of"></a>STL find_first_of</h1><pre><code>// 利用STL自己实现字符串分割
-void CSplitString::SplitString2()
-{
-    const std::string s(&quot;1,2,3,4,5;6;7;8;9&quot;);
-    std::vector&lt;std::string&gt; v;
-    const std::string c(&quot;,;&quot;);//多个分隔符
-
-    std::string::size_type pos1, pos2;
-    pos2 = s.find_first_of(c);
-    pos1 = 0;
-    while (std::string::npos != pos2)
-    {
-        v.push_back(s.substr(pos1, pos2 - pos1));
-
-        pos1 = pos2 + 1;
-        pos2 = s.find_first_of(c, pos1);
-    }
-    if (pos1 != s.length())
-        v.push_back(s.substr(pos1));
-}
-</code></pre><h1 id="tcstok-s"><a href="#tcstok-s" class="headerlink" title="_tcstok_s"></a>_tcstok_s</h1><pre><code>// 使用C的_tcstok分割字符串
-void CSplitString::SplitString3()
-{
-    CString str = _T(&quot;a,b*c,d&quot;);
-    TCHAR seps[] = _T(&quot;,*&quot;);//可按多个字符来分割
-    TCHAR *next_token1 = NULL;
-    TCHAR* token = _tcstok_s((LPTSTR)(LPCTSTR)str, seps,&amp;next_token1);
-    while (token != NULL)
-    {
-        TRACE(&quot;\r\nstr=%s  token=%s\r\n&quot;, str, token);
-        token = _tcstok_s(NULL, seps, &amp;next_token1);
-    }
-}
-</code></pre><p><a href="http://www.qiezichaodan.com/mfc_cstring_split/" target="_blank" rel="noopener">http://www.qiezichaodan.com/mfc_cstring_split/</a></p>
-<p><a href="http://blog.csdn.net/xjw532881071/article/details/49154911" target="_blank" rel="noopener">http://blog.csdn.net/xjw532881071/article/details/49154911</a></p>
-<p><a href="http://www.cnblogs.com/happykoukou/p/5427268.html" target="_blank" rel="noopener">http://www.cnblogs.com/happykoukou/p/5427268.html</a></p>
-<h1 id="词汇分割器库-Boost-Tokenizer"><a href="#词汇分割器库-Boost-Tokenizer" class="headerlink" title="词汇分割器库 Boost.Tokenizer"></a>词汇分割器库 Boost.Tokenizer</h1><pre><code>#include &lt;boost/tokenizer.hpp&gt; 
-#include &lt;string&gt; 
-#include &lt;iostream&gt; 
-
-int main() 
-{ 
-  typedef boost::tokenizer&lt;boost::char_separator&lt;char&gt; &gt; tokenizer; 
-  std::string s = &quot;Boost C++ libraries&quot;; 
-  boost::char_separator&lt;char&gt; sep(&quot; &quot;, &quot;+&quot;, boost::keep_empty_tokens); 
-  tokenizer tok(s, sep); 
-  for (tokenizer::iterator it = tok.begin(); it != tok.end(); ++it) 
-    std::cout &lt;&lt; *it &lt;&lt; std::endl; 
-} 
-</code></pre><p>参考：</p>
-<ul>
-<li><a href="http://www.cplusplus.com/faq/sequences/strings/split/" target="_blank" rel="noopener">http://www.cplusplus.com/faq/sequences/strings/split/</a></li>
-</ul>
+        <p>下载：</p>
+<p><a href="https://github.com/wolfSSL/wolfssl" title="https://github.com/wolfSSL/wolfssl" target="_blank" rel="noopener">https://github.com/wolfSSL/wolfssl</a></p>
+<p><a href="https://www.wolfssl.com/wolfSSL/Home.html" title="https://www.wolfssl.com/wolfSSL/Home.html" target="_blank" rel="noopener">https://www.wolfssl.com/wolfSSL/Home.html</a></p>
+<p><a href="http://www.updatestar.com/directdownload/wolfssl/2264982" title="http://www.updatestar.com/directdownload/wolfssl/2264982" target="_blank" rel="noopener">http://www.updatestar.com/directdownload/wolfssl/2264982</a></p>
 
       
 
@@ -1346,11 +437,11 @@ int main()
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">加密</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">字符串</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">wolfSSL</a>
         		</li>
       		
 		</ul>
@@ -1360,7 +451,7 @@ int main()
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/06/01/C++字符分割/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/05/01/wolfSSL/">展开全文 >></a>
         </p>
       
 
@@ -1390,54 +481,73 @@ int main()
 
 
   
-    <article id="post-GUID" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-zlib" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/15/GUID/">GUID</a>
+      <a class="article-title" href="/2018/04/01/zlib/">zlib</a>
     </h1>
   
 
         
-        <a href="/2017/05/15/GUID/" class="archive-article-date">
-  	<time datetime="2017-05-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-15</time>
+        <a href="/2018/04/01/zlib/" class="archive-article-date">
+  	<time datetime="2018-04-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="GUID"><a href="#GUID" class="headerlink" title="GUID"></a>GUID</h1><pre><code>CString CreateNewUid()
-{
-    CoInitialize(NULL);
+        <h1 id="zlib"><a href="#zlib" class="headerlink" title="zlib"></a>zlib</h1><h2 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h2><p><a href="http://www.zlib.net/" title="http://www.zlib.net/" target="_blank" rel="noopener">http://www.zlib.net/</a></p>
+<p><a href="https://github.com/madler/zlib" title="https://github.com/madler/zlib" target="_blank" rel="noopener">https://github.com/madler/zlib</a></p>
+<p><a href="http://www.zlib.net/fossils/" title="http://www.zlib.net/fossils/" target="_blank" rel="noopener">http://www.zlib.net/fossils/</a></p>
+<p><a href="https://github.com/madler/zlib/archive/v1.2.11.zip" title="https://github.com/madler/zlib/archive/v1.2.11.zip" target="_blank" rel="noopener">zlib1.2.11.zip</a></p>
+<h2 id="编译："><a href="#编译：" class="headerlink" title="编译："></a>编译：</h2><p>可从此处直接下载：</p>
+<p><a href="http://www.winimage.com/zLibDll" title="http://www.winimage.com/zLibDll" target="_blank" rel="noopener">http://www.winimage.com/zLibDll</a></p>
+<p>解压后，进入到zlib-1.2.11/contrib/masmx86目录，执行bld_ml32.bat。（同理，64位的电脑进入masmx64目录，执行bld_ml64.bat）。这一步运行bld_ml32批处理文件，里面调用ml命令编译inffas32.asm和match686.asm，生成inffas32.obj和match686.obj（生成在本目录下）。这两个文件在zlibvc中用到。</p>
+<p>实际已提供了在vc下编译的工程，目录为：zlib-1.2.11\contrib\vstudio.此项目的生成事件中已经执行了bld_ml32.bat</p>
+<p>  其中的zlibstat是编译为静态库，zlibvc是编译为动态库。</p>
+<p>如果报错：</p>
+<p>fatal error LNK1281: 无法生成 SAFESEH 映像。</p>
+<p>修改配置-连接器-高级-映像具有安全异常处理程序，改成“否(/SAFESEH:NO)”</p>
+<h2 id="使用："><a href="#使用：" class="headerlink" title="使用："></a>使用：</h2><h3 id="使用zlib静态库：zlibstat-lib"><a href="#使用zlib静态库：zlibstat-lib" class="headerlink" title="使用zlib静态库：zlibstat.lib"></a>使用zlib静态库：zlibstat.lib</h3><ol>
+<li><p>包含头文件</p>
+<p> 属性–C/C++–常规–附加包含目录（添加包含.h文件的目录）</p>
+</li>
+<li><p>定义宏</p>
+<p> 属性–C/C++–预处理器–预处理器定义：添加 ZLIB_WINAPI ASMV ASMINF</p>
+</li>
+<li><p>项目包含.lib文件所在的目录：</p>
+<p> 属性–链接器–常规–附加库目录</p>
+</li>
+<li><p>项目包含.lib文件</p>
+<p> 属性–链接器–输入–附加依赖项（libstat.lib）</p>
+</li>
+<li><p>项目代码中 #include “zlib.h”</p>
+</li>
+</ol>
+<p>编译生成.exe即可使用。</p>
+<h3 id="使用动态库-zlibwapi-lib"><a href="#使用动态库-zlibwapi-lib" class="headerlink" title="使用动态库 zlibwapi.lib"></a>使用动态库 zlibwapi.lib</h3><ol>
+<li><p>包含头文件</p>
+<p> 属性–C/C++–常规–附加包含目录（添加包含.h的目录）</p>
+</li>
+<li><p>定义宏</p>
+<p> 属性–C/C++–预处理器–预处理器定义：添加 ZLIB_WINAPI</p>
+</li>
+<li><p>项目包含.lib文件所在的目录：</p>
+<p> 属性–链接器–常规–附加库目录</p>
+</li>
+<li><p>项目包含.lib文件</p>
+<p> 属性–链接器–输入–附加依赖项（zlibwapi.lib）</p>
+</li>
+<li><p>项目代码中 #include “zlib.h”</p>
+</li>
+</ol>
+<p>编译生成.exe文件需要.dll文件支持（动态加载）</p>
 
-    AUTH_TRACE_STACK();
-
-    GUID guid;
-    HRESULT hr = CoCreateGuid(&amp;guid);
-    if (FAILED(hr))
-    {
-        AUTH_LOGMESSAGE1(_T(&quot;Create Guid Failed!&quot;));
-    }
-
-#ifdef _UNICODE
-    unsigned short* buf = NULL;
-#else
-    unsigned char* buf = NULL;
-#endif
-
-    UuidToString((UUID*)&amp;guid, &amp;buf);    
-    CString strUID((LPCTSTR)buf);
-    RpcStringFree(&amp;buf);
-
-    CoUninitialize();
-
-    return strUID;    
-}
-</code></pre>
       
 
       
@@ -1454,15 +564,15 @@ int main()
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">zlib</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">GUID</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">解压缩</a>
         		</li>
       		
 		</ul>
@@ -1472,7 +582,7 @@ int main()
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/15/GUID/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/04/01/zlib/">展开全文 >></a>
         </p>
       
 
@@ -1502,44 +612,149 @@ int main()
 
 
   
-    <article id="post-ImageMagick" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-WPF读写config配置文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/15/ImageMagick/">ImageMagick</a>
+      <a class="article-title" href="/2018/03/01/WPF读写config配置文件/">WPF读写config配置文件</a>
     </h1>
   
 
         
-        <a href="/2017/04/15/ImageMagick/" class="archive-article-date">
-  	<time datetime="2017-04-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-15</time>
+        <a href="/2018/03/01/WPF读写config配置文件/" class="archive-article-date">
+  	<time datetime="2018-03-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Unix-源码安装-Windows-源码安装"><a href="#Unix-源码安装-Windows-源码安装" class="headerlink" title="[ Unix 源码安装 | Windows 源码安装 ]"></a>[ Unix 源码安装 | Windows 源码安装 ]</h1><p>首先检查一下电脑里已经安装的ImageMagick版本，输入：</p>
-<pre><code>convert -version
-</code></pre><p>除非你想要把对另外的图像格式的支持或升级一个较新的版本，否则你可能不需要ImageMagick的源码安装。 你也可以安装预先编译二进位版本。然而，如果你仍然想要从源码安装，请选择一个平台，Unix 或 Windows。<br>在源码安装之前，你可能要回顾ImageMagick的最近变化。</p>
-<h2 id="Unix-源码安装"><a href="#Unix-源码安装" class="headerlink" title="Unix 源码安装"></a>Unix 源码安装</h2><p>ImageMagick 在多种操作系统 Unix 和包括 Linux，Solaris，FreeBSD，Mac 操作系统 X 和其它的类 Unix 一样的操作系统上建立。 它需要一个编译器，几乎所有现代的 Unix 系统都会有一个。 可以从 ftp.imagemagick.org 或它的镜像网站下载 ImageMagick.tar.gz 并用这个指令解压缩:</p>
-<pre><code>gunzip -c ImageMagick.tar.gz | tar xvf -
-</code></pre><p>然后配置编译ImageMagick:</p>
-<pre><code>cd ImageMagick-6.?.?
-</code></pre><p>./configure<br>make</p>
-<p>如果配置编译的ImageMagick没有出现错误，要把它安装到系统里，你需要使用管理员权限，输入：</p>
-<pre><code>make install
-</code></pre><p>最后，可以测试一下ImageMagick的工作效果：</p>
-<pre><code>/usr/local/bin/convert logo: logo.gif
-</code></pre><p>恭喜你，你已经有ImageMagick的工作环境了，你可以使用ImageMagick加入新图片，生成缩略图，组合图片……<br>还可以使用其它程序接口 C, C++, Perl, 和其它程序。<br>上述的指导将会使很多的 ImageMagick 使用者满意，但是我们怀疑一些将会有另外的问题或问题考虑。<br>如果 ImageMagick 无法配置或编译，或如果你没有管理员权限或没有将ImageMagick安装到默认目录<br>请点这里了解更多……</p>
-<h2 id="Windows-源码安装"><a href="#Windows-源码安装" class="headerlink" title="Windows 源码安装"></a>Windows 源码安装</h2><p>Windows系统下ImageMagick源码安装需要Microsoft Visual Studio IDE。<br>有的用户也成功的用Borland C++编译。如果你没有编译器，你可以安装二进位发布版本</p>
-<p>从ftp.imagemagick.org或它的镜像网站下载 ImageMagick-windows.zip 文件，然后用 WinZip 解压缩。</p>
-<p>然后运行你的Visual Studio IDE选择Open-&gt;Project从ImageMagick-6.?.?/VisualMagick/configure文件夹里选择configure.dsp文件 Build-&gt;Build编译并执行。</p>
-<p>可以通过以下方法获取图片信息</p>
-<h2 id="安装ImageMagick便携版本"><a href="#安装ImageMagick便携版本" class="headerlink" title="安装ImageMagick便携版本"></a>安装ImageMagick便携版本</h2><h1 id="调用命令行程序并获取返回信息"><a href="#调用命令行程序并获取返回信息" class="headerlink" title="调用命令行程序并获取返回信息"></a>调用命令行程序并获取返回信息</h1><pre><code>CString ExeCmd(CString pszCmd)
+        <h1 id="设置："><a href="#设置：" class="headerlink" title="设置："></a>设置：</h1><p>在引用里添加</p>
+<pre><code>System.Configuration
+</code></pre><p>如果你想给程序配置一些参数，就在app.config文件<configuration>标签中添加<appsettings>.例如下面：</appsettings></configuration></p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;  
+&lt;configuration&gt;  
+  &lt;appSettings&gt;  
+    &lt;add key=&quot;Path&quot; value=&quot;D:\&quot;/&gt;  
+    &lt;add key=&quot;NAME&quot; value=&quot;123&quot;/&gt;  
+  &lt;/appSettings&gt;  
+&lt;/configuration&gt;
+</code></pre><p>读操作：</p>
+<pre><code>string strPath = ConfigurationManager.AppSettings[&quot;Path&quot;]; 
+</code></pre><p>写操作：</p>
+<pre><code>Configuration cfa = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None); 
+cfa.AppSettings.Settings[&quot;NAME&quot;].Value = &quot;WANGLICHAO&quot;; 
+cfa.Save(); 
+</code></pre><p>是配置立刻起作用：</p>
+<pre><code>Save()
+</code></pre><p>后加</p>
+<pre><code>ConfigurationManager.RefreshSection(&quot;appSettings&quot;);
+</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="http://www.cnblogs.com/fei12/p/3331100.html" target="_blank" rel="noopener">WPF读写config配置文件</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">WPF</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">配置文件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/01/WPF读写config配置文件/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-C++获取外部exe程序的返回值，判断图片颜色模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="C-获取外部exe程序的返回值"><a href="#C-获取外部exe程序的返回值" class="headerlink" title="C++获取外部exe程序的返回值"></a>C++获取外部exe程序的返回值</h1><pre><code>#include &quot;stdafx.h&quot;
+#include &lt;Windows.h&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int _tmain(int argc, _TCHAR *argv[])
+{
+    STARTUPINFOA si;
+    PROCESS_INFORMATION pi;
+
+    ZeroMemory(&amp;pi,   sizeof(pi));
+    ZeroMemory(&amp;si,   sizeof(si));
+    si.cb = sizeof(STARTUPINFOA);
+
+    TCHAR cmd[256] = _T(&quot;D:\\7za.exe a D:\\nv1.zip D:\\test\\*.*&quot;);
+    BOOL working = ::CreateProcess(NULL, cmd, NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS , NULL, NULL, &amp;si, &amp;pi);
+
+    if (working == 0)
+    {
+        DWORD error = GetLastError();
+        cout &lt;&lt; &quot;CreateProcess Error : &quot; &lt;&lt; error &lt;&lt; endl;
+        getchar();
+        return 0;
+    }
+
+    WaitForSingleObject(pi.hProcess, INFINITE);
+
+    unsigned long Result;
+    GetExitCodeProcess(pi.hProcess, &amp;Result);
+
+    cout &lt;&lt; &quot;Exit Code : &quot; &lt;&lt; Result &lt;&lt; endl;
+    getchar();
+
+    return 0;
+}
+</code></pre><h1 id="调用命令行程序并获取返回信息"><a href="#调用命令行程序并获取返回信息" class="headerlink" title="调用命令行程序并获取返回信息"></a>调用命令行程序并获取返回信息</h1><pre><code>CString ExeCmd(CString pszCmd)
 {
     //创建匿名管道
     SECURITY_ATTRIBUTES sa = {sizeof(SECURITY_ATTRIBUTES), NULL, TRUE};
@@ -1581,167 +796,523 @@ int main()
 </code></pre><p>使用：</p>
 <pre><code>ExeCmd(_T(&quot;ping baidu.com&quot;));
 ExeCmd(_T(&quot;identify -format &quot;%[colorspace]&quot; E:\\P70306-163226.jpg&quot;));
-</code></pre><h2 id="安装ImageMagickCOM-对象"><a href="#安装ImageMagickCOM-对象" class="headerlink" title="安装ImageMagickCOM+对象"></a>安装ImageMagickCOM+对象</h2><p>C++程序员应该看一下MagickCMD.cpp命令行实用工具的示例调用该对象的C++。对象变量列表的大小需要BSTR的模仿命令行argc，argv风格的COM组件的调用约定，这是更复杂的C++中然后在VB或VBS。</p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;atlbase.h&gt;
-#include &lt;atlsafe.h&gt;
-#import &quot;ImageMagickObject.tlb&quot; no_namespace
-using namespace std;
-
-typedef enum
+</code></pre><h1 id="其他参考："><a href="#其他参考：" class="headerlink" title="其他参考："></a>其他参考：</h1><pre><code>BOOL    Start(LPCTSTR lpszTaskInfo)
 {
-  cmdUnknown,
-  cmdCompare,
-  cmdComposite,
-  cmdConvert,
-  cmdIdentify,
-  cmdMogrify,
-  cmdMontage,
-  cmdStream
-} CommandType;
-
-static struct
-  Commands
-  {
-    char
-      *name;
-
-    CommandType
-      code;
-  } Commands[] =
-  {
-    { &quot;&quot;,          cmdUnknown   },
-    { &quot;compare&quot;,   cmdCompare   },
-    { &quot;composite&quot;, cmdComposite },
-    { &quot;convert&quot;,   cmdConvert   },
-    { &quot;identify&quot;,  cmdIdentify  },
-    { &quot;mogrify&quot;,   cmdMogrify   },
-    { &quot;montage&quot;,   cmdMontage   },
-    { &quot;stream&quot;,    cmdStream   }
-  };
-
-int main(int argc, char* argv[])
-{
-  int
-    index,
-    status = 0;
-
-  char
-    *name;
-
-  CommandType
-    code = cmdUnknown;
-
-  // We must have at least a command, input, and output
-  if (argc &lt; 4)
-    return 0;
-
-  index = 1;
-  while ((name = Commands[index].name))
-  {
-    if (stricmp(name,argv[1]) == 0)
+    if (!lpszTaskInfo)
     {
-      code = Commands[index].code;
-      break;
+        return FALSE;
     }
-    index++;
-  }
-  if (code == cmdUnknown)
-    return 0;
-
-  CoInitialize(NULL);
-
-  try
-  {
-    CComVariant
-      result;
-
-    SAFEARRAY
-      **ppsa = (SAFEARRAY**) NULL;
-
-    IMagickImagePtr pImageProc(__uuidof(MagickImage));
-    if (pImageProc == NULL)
-      status = 1;
-    else
+    if (m_hRenderProcess)
     {
-      {
-        // Define the array bound structure
-        CComSafeArrayBound bound[1];
-        bound[0].SetCount(argc-2);
-        bound[0].SetLowerBound(0);
-        CComSafeArray&lt;VARIANT&gt; args(bound);
-        if( !args )
-          status = 2;
+        if (Wait(0))
+        {
+            m_nProgress = 0;
+            SAFE_CLOSE_HANDLE(m_hRenderProcess);
+            m_dwRenderThreadId = 0;
+        }
         else
         {
-          for(index = 2; index &lt; argc; ++index)
-          {
-            CComVariant vt(argv[index]);
-            HRESULT hr = vt.Detach(&amp;args[index-2]);
-          }
-          switch(code)
-          {
-            case cmdCompare:
-              result = pImageProc-&gt;Compare(args.GetSafeArrayPtr());
-              break;
-            case cmdComposite:
-              result = pImageProc-&gt;Composite(args.GetSafeArrayPtr());
-              break;
-            case cmdConvert:
-              result = pImageProc-&gt;Convert(args.GetSafeArrayPtr());
-              break;
-            case cmdIdentify:
-              result = pImageProc-&gt;Identify(args.GetSafeArrayPtr());
-              break;
-            case cmdMogrify:
-              result = pImageProc-&gt;Mogrify(args.GetSafeArrayPtr());
-              break;
-            case cmdMontage:
-              result = pImageProc-&gt;Montage(args.GetSafeArrayPtr());
-              break;
-            case cmdStream:
-              result = pImageProc-&gt;Stream(args.GetSafeArrayPtr());
-              break;
-          }
-          pImageProc.Release();
+            return FALSE;
         }
-      }
     }
-  }
-  catch(_com_error ex)
-  {
-    HRESULT
-      res = ex.Error();  
 
-    _bstr_t
-      desc = ex.Description();  
+    BOOL bRet = FALSE;
+    HANDLE hDebugInfo = NULL;
+    do
+    {
+        TCHAR szDebugLog[MAX_PATH];
+        _tcscpy(szDebugLog, m_szFastRenderExPath);
+        _tcscat(szDebugLog, _T(&quot;.debug&quot;));
+        SECURITY_ATTRIBUTES sa;
+        sa.nLength = sizeof(sa);
+        sa.lpSecurityDescriptor = NULL;
+        sa.bInheritHandle = TRUE;
+        hDebugInfo = CreateFile(szDebugLog, FILE_WRITE_DATA, FILE_SHARE_READ, &amp;sa, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
 
-    printf(&quot;Error %s (0x%08x)\n&quot;,(char *)desc,res);
-    status = 4;
-  }
+        STARTUPINFO si;
+        PROCESS_INFORMATION pi;
+        ZeroMemory( &amp;si, sizeof(si) );
+        si.cb = sizeof(si);
+        ZeroMemory( &amp;pi, sizeof(pi) );
+        si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
+        si.hStdInput = NULL;
+        si.hStdOutput = hDebugInfo;
+        si.hStdError = hDebugInfo;
+        si.wShowWindow = SW_HIDE;
 
-  CoUninitialize();
-  return status;
+        TCHAR szCmdline[MAX_PATH * 2];
+        _sntprintf(szCmdline, ARRAYSIZE(szCmdline), _T(&quot; -i \&quot;%s\&quot;&quot;), lpszTaskInfo); // 第一个空格非常重要
+        // Start the child process.
+        if( !CreateProcess( m_szFastRenderExPath,   // Module name
+                            szCmdline,      // Command line
+                            NULL,           // Process handle not inheritable
+                            NULL,           // Thread handle not inheritable
+                            TRUE,          // Set handle inheritance to FALSE
+                            0,              // No creation flags
+                            NULL,           // Use parent&apos;s environment block
+                            NULL,           // Use parent&apos;s starting directory
+                            &amp;si,            // Pointer to STARTUPINFO structure
+                            &amp;pi )           // Pointer to PROCESS_INFORMATION structure
+          )
+        {
+            break;
+        }
+        // Close process and thread handles.
+        m_hRenderProcess = pi.hProcess;
+        CloseHandle( pi.hThread );
+        m_dwRenderThreadId = pi.dwThreadId;
+
+        // Start the message receive thread
+        if (!m_dwReceiveThreadId)
+        {
+            HANDLE hThread = (HANDLE) _beginthreadex(NULL,    0, ThreadFn, this, 0, &amp;m_dwReceiveThreadId);
+            if (hThread == NULL)
+            {
+                break;
+            }
+            CloseHandle(hThread);
+        }
+
+        if (!m_hMsgEvent)
+        {
+            m_hMsgEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
+        }
+        else
+        {
+            ResetEvent(m_hMsgEvent);
+        }
+
+        bRet = TRUE;
+    }
+    while (FALSE);
+
+    SAFE_CLOSE_HANDLE(hDebugInfo);
+
+    if (!bRet)
+    {
+        if (m_hRenderProcess)
+        {
+            TerminateProcess(m_hRenderProcess, -1);
+            SAFE_CLOSE_HANDLE(m_hRenderProcess);
+        }
+        m_dwRenderThreadId = 0;
+        SAFE_CLOSE_HANDLE(m_hMsgEvent);
+    }
+
+    return bRet;
 }
 </code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="http://www.imagemagick.org/script/index.php" target="_blank" rel="noopener">http://www.imagemagick.org/script/index.php</a></li>
-<li><a href="http://www.imagemagick.com.cn/" target="_blank" rel="noopener">http://www.imagemagick.com.cn/</a></li>
-<li><a href="http://www.imagemagick.org/script/download.php" target="_blank" rel="noopener">http://www.imagemagick.org/script/download.php</a></li>
-<li><a href="https://github.com/ImageMagick/ImageMagick/tree/master/Magick%2B%2B" target="_blank" rel="noopener">https://github.com/ImageMagick/ImageMagick/tree/master/Magick%2B%2B</a></li>
-<li><a href="https://legacy.imagemagick.org/script/index.php" target="_blank" rel="noopener">https://legacy.imagemagick.org/script/index.php</a></li>
-<li><a href="https://www.imagemagick.org/Usage/" target="_blank" rel="noopener">https://www.imagemagick.org/Usage/</a></li>
-<li><a href="https://www.imagemagick.org/Usage/color_basics/" target="_blank" rel="noopener">https://www.imagemagick.org/Usage/color_basics/</a></li>
-<li><a href="ftp://ftp.imagemagick.org/pub/ImageMagick/windows/" target="_blank" rel="noopener">ftp://ftp.imagemagick.org/pub/ImageMagick/windows/</a></li>
-<li><a href="https://legacy.imagemagick.org/script/install-source.php" target="_blank" rel="noopener">https://legacy.imagemagick.org/script/install-source.php</a></li>
-<li><a href="https://legacy.imagemagick.org/script/advanced-windows-installation.php" target="_blank" rel="noopener">https://legacy.imagemagick.org/script/advanced-windows-installation.php</a></li>
-<li><a href="https://legacy.imagemagick.org/script/download.php" target="_blank" rel="noopener">https://legacy.imagemagick.org/script/download.php</a></li>
-<li><a href="https://legacy.imagemagick.org/script/ImageMagickObject.php" target="_blank" rel="noopener">https://legacy.imagemagick.org/script/ImageMagickObject.php</a></li>
-<li><a href="https://legacy.imagemagick.org/script/ImageMagickObject.php" target="_blank" rel="noopener">http://imagemagick.org/Magick++/</a></li>
-<li><a href="https://www.imagemagick.org/discourse-server/" target="_blank" rel="noopener">https://www.imagemagick.org/discourse-server/</a></li>
-<li><a href="http://dahua2.blog.163.com/blog/static/1748435142015317633489/" target="_blank" rel="noopener">http://dahua2.blog.163.com/blog/static/1748435142015317633489/</a></li>
-<li><a href="http://www.tuicool.com/articles/NvYfi2" target="_blank" rel="noopener">http://www.tuicool.com/articles/NvYfi2</a></li>
-<li><a href="http://www.tuicool.com/articles/6fyI7z" target="_blank" rel="noopener">http://www.tuicool.com/articles/6fyI7z</a></li>
-<li><a href="http://www.tuicool.com/articles/NN3M7fv" target="_blank" rel="noopener">http://www.tuicool.com/articles/NN3M7fv</a></li>
+<li><a href="http://blog.csdn.net/lgh1700/article/details/7713500" title="http://blog.csdn.net/lgh1700/article/details/7713500" target="_blank" rel="noopener">C++获取外部exe程序的返回值 </a></li>
+<li><a href="http://www.cnblogs.com/acloud/archive/2012/08/30/2663395.html" target="_blank" rel="noopener">调用命令行程序并获取返回信息</a></li>
+<li><a href="http://dahua2.blog.163.com/blog/static/1748435142015317633489/" target="_blank" rel="noopener">ImageMagick–identify详解</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/02/02/C++获取外部exe程序的返回值，判断图片颜色模式/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-VS工具" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/01/VS工具/">VS工具</a>
+    </h1>
+  
+
+        
+        <a href="/2018/02/01/VS工具/" class="archive-article-date">
+  	<time datetime="2018-02-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MSDN-Code-Gallery"><a href="#MSDN-Code-Gallery" class="headerlink" title="MSDN Code Gallery"></a>MSDN Code Gallery</h1><p><a href="https://code.msdn.microsoft.com/" title="https://code.msdn.microsoft.com/" target="_blank" rel="noopener">https://code.msdn.microsoft.com/</a></p>
+<h1 id="Visual-Studio-Gallery"><a href="#Visual-Studio-Gallery" class="headerlink" title="Visual Studio Gallery"></a>Visual Studio Gallery</h1><p><a href="https://visualstudiogallery.msdn.microsoft.com/" title="https://visualstudiogallery.msdn.microsoft.com/" target="_blank" rel="noopener">https://visualstudiogallery.msdn.microsoft.com/</a></p>
+<h1 id="cppcheck"><a href="#cppcheck" class="headerlink" title="cppcheck"></a>cppcheck</h1><p><a href="http://cppcheck.sourceforge.net/" title="http://cppcheck.sourceforge.net/" target="_blank" rel="noopener">http://cppcheck.sourceforge.net/</a></p>
+<p><a href="https://github.com/danmar/cppcheck" title="https://github.com/danmar/cppcheck" target="_blank" rel="noopener">https://github.com/danmar/cppcheck</a></p>
+<p><a href="http://cppcheck.sourceforge.net/manual.html" title="http://cppcheck.sourceforge.net/manual.html" target="_blank" rel="noopener">http://cppcheck.sourceforge.net/manual.html</a></p>
+<h1 id="Resharper"><a href="#Resharper" class="headerlink" title="Resharper"></a>Resharper</h1><p>深度代码分析，智能代码协助，实时错误代码高亮显示，解决方案范围内代码分析，快速代码更正，一步完成代码格式化和清理，业界领先的自动代码重构，高级的集成单元测试方案，和强大的解决方案内导航和搜索</p>
+<p><a href="https://www.jetbrains.com/resharper/" title="https://www.jetbrains.com/resharper/" target="_blank" rel="noopener">https://www.jetbrains.com/resharper/</a></p>
+<h1 id="CodeMaid"><a href="#CodeMaid" class="headerlink" title="CodeMaid"></a>CodeMaid</h1><p>整理代码</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=SteveCadwallader.CodeMaid" title="https://marketplace.visualstudio.com/items?itemName=SteveCadwallader.CodeMaid" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=SteveCadwallader.CodeMaid</a></p>
+<h1 id="ClaudiaIDE"><a href="#ClaudiaIDE" class="headerlink" title="ClaudiaIDE"></a>ClaudiaIDE</h1><p>vs背景</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=kbuchi.ClaudiaIDE" title="https://marketplace.visualstudio.com/items?itemName=kbuchi.ClaudiaIDE" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=kbuchi.ClaudiaIDE</a></p>
+<h1 id="VSColorOutput"><a href="#VSColorOutput" class="headerlink" title="VSColorOutput"></a>VSColorOutput</h1><p>vs彩色输出信息</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=MikeWard-AnnArbor.VSColorOutput" title="https://marketplace.visualstudio.com/items?itemName=MikeWard-AnnArbor.VSColorOutput" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=MikeWard-AnnArbor.VSColorOutput</a></p>
+<h1 id="VS10x-Comments-Extender"><a href="#VS10x-Comments-Extender" class="headerlink" title="VS10x Comments Extender"></a>VS10x Comments Extender</h1><p>更改代码注释</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.VS10xCommentsExtender" title="https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.VS10xCommentsExtender" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.VS10xCommentsExtender</a></p>
+<h1 id="Atomineer-Pro-Documentation"><a href="#Atomineer-Pro-Documentation" class="headerlink" title="Atomineer Pro Documentation"></a>Atomineer Pro Documentation</h1><p>生成Doxygen注释</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=JasonWilliams.AtomineerProDocumentation" title="https://marketplace.visualstudio.com/items?itemName=JasonWilliams.AtomineerProDocumentation" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=JasonWilliams.AtomineerProDocumentation</a></p>
+<h1 id="Atomineer-Pro-Documentation-Trial"><a href="#Atomineer-Pro-Documentation-Trial" class="headerlink" title="Atomineer Pro Documentation Trial"></a>Atomineer Pro Documentation Trial</h1><p><a href="https://marketplace.visualstudio.com/items?itemName=JasonWilliams.AtomineerProDocumentationTrial" title="https://marketplace.visualstudio.com/items?itemName=JasonWilliams.AtomineerProDocumentationTrial" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=JasonWilliams.AtomineerProDocumentationTrial</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">VS工具</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/02/01/VS工具/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-个人喜欢的电脑软件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/01/个人喜欢的电脑软件/">个人喜欢的电脑软件</a>
+    </h1>
+  
+
+        
+        <a href="/2018/01/01/个人喜欢的电脑软件/" class="archive-article-date">
+  	<time datetime="2018-01-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="美化桌面"><a href="#美化桌面" class="headerlink" title="美化桌面"></a>美化桌面</h1><p>wallpaperengine</p>
+<p>火萤视频桌面</p>
+<p>雨滴桌面</p>
+<p>Win10BGChanger1.2.1</p>
+<p>StartIsBack</p>
+<p>LiveDesktop</p>
+<p>牛牛桌面</p>
+<p>Fences</p>
+<p>Q+</p>
+<p>360安全桌面</p>
+<h1 id="快速启动"><a href="#快速启动" class="headerlink" title="快速启动"></a>快速启动</h1><p>Listary</p>
+<p>Rolan</p>
+<p>Launchy</p>
+<p>Wox</p>
+<p>音速启动</p>
+<p>CLaunch</p>
+<p>ALTRun</p>
+<p>Executor</p>
+<h1 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h1><p>FreeFileSync</p>
+<p>FastCopy</p>
+<h1 id="截屏"><a href="#截屏" class="headerlink" title="截屏"></a>截屏</h1><p>Snipaste</p>
+<p>ShareX-portable</p>
+<p>Greenshot</p>
+<h1 id="图片整理"><a href="#图片整理" class="headerlink" title="图片整理"></a>图片整理</h1><p>picasa</p>
+<h1 id="RSS阅读"><a href="#RSS阅读" class="headerlink" title="RSS阅读"></a>RSS阅读</h1><p>feeddemon</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">电脑软件</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">个人喜欢</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">美化桌面</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/01/个人喜欢的电脑软件/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Log4Net" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/15/Log4Net/">Log4Net</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/15/Log4Net/" class="archive-article-date">
+  	<time datetime="2017-12-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Log4Net"><a href="#Log4Net" class="headerlink" title="Log4Net"></a>Log4Net</h1><h2 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h2><pre><code>[assembly: log4net.Config.XmlConfigurator(Watch = true)]
+namespace APP02
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            ILog log = log4net.LogManager.GetLogger(&quot;Test&quot;);
+            log.Error(&quot;错误&quot;, new Exception(&quot;发生了一个异常&quot;));//错误
+            log.Fatal(&quot;严重错误&quot;, new Exception(&quot;发生了一个致命错误&quot;));//严重错误
+            log.Info(&quot;信息&quot;); //记录一般信息
+            log.Debug(&quot;调试信息&quot;);//记录调试信息
+            log.Warn(&quot;警告&quot;);//记录警告信息
+            Console.WriteLine(&quot;日志记录完毕。&quot;);
+            Console.Read();
+        }
+    }
+}
+</code></pre><p>或：</p>
+<pre><code>ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+            //记录错误日志
+            log.Info(&quot;error&quot;);
+</code></pre><h2 id="App-config文件配置："><a href="#App-config文件配置：" class="headerlink" title="App.config文件配置："></a>App.config文件配置：</h2><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;configuration&gt;
+  &lt;configSections&gt;
+    &lt;section name=&quot;log4net&quot; type=&quot;System.Configuration.IgnoreSectionHandler&quot;/&gt;
+  &lt;/configSections&gt;
+  &lt;log4net&gt;
+    &lt;appender name=&quot;控制台输出&quot; type=&quot;log4net.Appender.ConsoleAppender&quot;&gt;
+      &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+        &lt;param name=&quot;ConversionPattern&quot; value=&quot;%d [%t] %-5p %c [%x] - %m%n&quot;  /&gt;
+      &lt;/layout&gt;
+    &lt;/appender&gt;
+    &lt;logger name=&quot;Test&quot;&gt;
+      &lt;level value=&quot;ALL&quot;/&gt;
+      &lt;appender-ref ref=&quot;控制台输出&quot; /&gt;
+    &lt;/logger&gt;
+  &lt;/log4net&gt;
+&lt;/configuration&gt;
+</code></pre><p>或：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;configuration&gt;
+  &lt;configSections&gt;
+    &lt;section name=&quot;log4net&quot; type=&quot;System.Configuration.IgnoreSectionHandler&quot;/&gt;
+  &lt;/configSections&gt;
+  &lt;appSettings&gt;
+  &lt;/appSettings&gt;
+  &lt;log4net&gt;
+    &lt;!--定义输出到文件中--&gt;
+    &lt;appender name=&quot;LogFileAppender&quot; type=&quot;log4net.Appender.FileAppender&quot;&gt;
+      &lt;!--定义文件存放位置--&gt;
+      &lt;file value=&quot;D:/log4netfile.txt&quot; /&gt;
+      &lt;appendToFile value=&quot;true&quot; /&gt;
+      &lt;rollingStyle value=&quot;Date&quot; /&gt;
+      &lt;datePattern value=&quot;yyyyMMdd-HH:mm:ss&quot; /&gt;
+      &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+        &lt;!--每条日志末尾的文字说明--&gt;
+        &lt;footer value=&quot;by 周公&quot; /&gt;
+        &lt;!--输出格式--&gt;
+        &lt;!--样例：2008-03-26 13:42:32,111 [10] INFO  Log4NetDemo.MainClass [(null)] - info--&gt;
+        &lt;conversionPattern value=&quot;记录时间：%date 线程ID:[%thread] 日志级别：%-5level 出错类：%logger property:[%property{NDC}] - 错误描述：%message%newline&quot; /&gt;
+      &lt;/layout&gt;
+    &lt;/appender&gt;
+    &lt;!--定义输出到控制台命令行中--&gt;
+    &lt;appender name=&quot;ConsoleAppender&quot; type=&quot;log4net.Appender.ConsoleAppender&quot;&gt;
+      &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+        &lt;conversionPattern value=&quot;%date [%thread] %-5level %logger [%property{NDC}] - %message%newline&quot; /&gt;
+      &lt;/layout&gt;
+    &lt;/appender&gt;
+    &lt;!--定义输出到windows事件中--&gt;
+    &lt;appender name=&quot;EventLogAppender&quot; type=&quot;log4net.Appender.EventLogAppender&quot;&gt;
+      &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+        &lt;conversionPattern value=&quot;%date [%thread] %-5level %logger [%property{NDC}] - %message%newline&quot; /&gt;
+      &lt;/layout&gt;
+    &lt;/appender&gt;
+    &lt;!--定义输出到数据库中，这里举例输出到Access数据库中，数据库为C盘的log4net.mdb--&gt;
+    &lt;appender name=&quot;AdoNetAppender_Access&quot; type=&quot;log4net.Appender.AdoNetAppender&quot;&gt;
+      &lt;connectionString value=&quot;Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:log4net.mdb&quot; /&gt;
+      &lt;commandText value=&quot;INSERT INTO LogDetails ([LogDate],[Thread],[Level],[Logger],[Message]) VALUES (@logDate, @thread, @logLevel, @logger,@message)&quot; /&gt;
+      &lt;!--定义各个参数--&gt;
+      &lt;parameter&gt;
+        &lt;parameterName value=&quot;@logDate&quot; /&gt;
+        &lt;dbType value=&quot;String&quot; /&gt;
+        &lt;size value=&quot;240&quot; /&gt;
+        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+          &lt;conversionPattern value=&quot;%date&quot; /&gt;
+        &lt;/layout&gt;
+      &lt;/parameter&gt;
+      &lt;parameter&gt;
+        &lt;parameterName value=&quot;@thread&quot; /&gt;
+        &lt;dbType value=&quot;String&quot; /&gt;
+        &lt;size value=&quot;240&quot; /&gt;
+        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+          &lt;conversionPattern value=&quot;%thread&quot; /&gt;
+        &lt;/layout&gt;
+      &lt;/parameter&gt;
+      &lt;parameter&gt;
+        &lt;parameterName value=&quot;@logLevel&quot; /&gt;
+        &lt;dbType value=&quot;String&quot; /&gt;
+        &lt;size value=&quot;240&quot; /&gt;
+        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+          &lt;conversionPattern value=&quot;%level&quot; /&gt;
+        &lt;/layout&gt;
+      &lt;/parameter&gt;
+      &lt;parameter&gt;
+        &lt;parameterName value=&quot;@logger&quot; /&gt;
+        &lt;dbType value=&quot;String&quot; /&gt;
+        &lt;size value=&quot;240&quot; /&gt;
+        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+          &lt;conversionPattern value=&quot;%logger&quot; /&gt;
+        &lt;/layout&gt;
+      &lt;/parameter&gt;
+      &lt;parameter&gt;
+        &lt;parameterName value=&quot;@message&quot; /&gt;
+        &lt;dbType value=&quot;String&quot; /&gt;
+        &lt;size value=&quot;240&quot; /&gt;
+        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
+          &lt;conversionPattern value=&quot;%message&quot; /&gt;
+        &lt;/layout&gt;
+      &lt;/parameter&gt;
+    &lt;/appender&gt;
+    &lt;!--定义日志的输出媒介，下面定义日志以四种方式输出。也可以下面的按照一种类型或其他类型输出。--&gt;
+    &lt;root&gt;
+      &lt;!--文件形式记录日志--&gt;
+      &lt;appender-ref ref=&quot;LogFileAppender&quot; /&gt;
+      &lt;!--控制台控制显示日志--&gt;
+      &lt;appender-ref ref=&quot;ConsoleAppender&quot; /&gt;
+      &lt;!--Windows事件日志--&gt;
+      &lt;appender-ref ref=&quot;EventLogAppender&quot; /&gt;
+      &lt;!-- 如果不启用相应的日志记录，可以通过这种方式注释掉
+      &lt;appender-ref ref=&quot;AdoNetAppender_Access&quot; /&gt;
+      --&gt;
+    &lt;/root&gt;
+
+  &lt;/log4net&gt;
+&lt;/configuration&gt;
+</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<li><a href="http://www.cnblogs.com/LiZhiW/p/4317198.html" target="_blank" rel="noopener">Log4Net使用详解</a></li>
+<li><a href="http://blog.csdn.net/zhoufoxcn/article/details/2220533" title="http://blog.csdn.net/zhoufoxcn/article/details/2220533" target="_blank" rel="noopener">http://blog.csdn.net/zhoufoxcn/article/details/2220533</a></li>
+<li><a href="http://blog.csdn.net/zhoufoxcn/article/details/6029021" title="http://blog.csdn.net/zhoufoxcn/article/details/6029021" target="_blank" rel="noopener">http://blog.csdn.net/zhoufoxcn/article/details/6029021</a></li>
 </ul>
 
       
@@ -1760,11 +1331,11 @@ int main(int argc, char* argv[])
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">图像</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ImageMagick</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Log4Net</a>
         		</li>
       		
 		</ul>
@@ -1774,7 +1345,7 @@ int main(int argc, char* argv[])
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/15/ImageMagick/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/12/15/Log4Net/">展开全文 >></a>
         </p>
       
 
@@ -1804,266 +1375,38 @@ int main(int argc, char* argv[])
 
 
   
-    <article id="post-C++进程间通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-程序只能启动一次" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/01/C++进程间通信/">C++进程间通信</a>
+      <a class="article-title" href="/2017/12/01/程序只能启动一次/">程序只能启动一次</a>
     </h1>
   
 
         
-        <a href="/2017/04/01/C++进程间通信/" class="archive-article-date">
-  	<time datetime="2017-04-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-01</time>
+        <a href="/2017/12/01/程序只能启动一次/" class="archive-article-date">
+  	<time datetime="2017-12-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="C-进程间通信"><a href="#C-进程间通信" class="headerlink" title="C++进程间通信"></a>C++进程间通信</h1><p>进程间通讯的四种方式：剪贴板、匿名管道、命名管道和邮槽</p>
-<h2 id="剪切板"><a href="#剪切板" class="headerlink" title="剪切板"></a>剪切板</h2><pre><code>//设置剪切板内容
-
-CString str;
-this-&gt;GetDlgItemText(IDC_EDIT1, str);
-
-OpenClipboard();//打开剪贴板查看,并防止其他应用程序修改剪贴板的内容.
-EmptyClipboard();//EmptyClipboard Function该函数清空剪切板并释放剪切板内数据的句柄。函数在之后会将剪切板的所有权指派给当前打开剪切板的窗口。
-HANDLE hclip = GlobalAlloc(GMEM_MOVEABLE, str.GetLength() + 1);
-char *pBuf = (char *)GlobalLock(hclip);
-
-//WideCharToMultiByte()//字形转换
-strcpy(pBuf, str.GetBuffer());
-//memcpy(pBuf, str.GetBuffer(), GetLength()+2);
-GlobalLock(hclip);
-
-SetClipboardData(CF_TEXT, hclip);//SetClipboardData是把指定数据按照指定格式放入剪切板中
-CloseClipboard();//关闭剪贴板,这使其他窗口或程序能访问剪贴板。
-
-//获得剪切板内容
-
-OpenClipboard();
-if (IsClipboardFormatAvailable(CF_TEXT))//是以NULL结尾的ASCII字符的文本格式,则该函数返回值为true,否则为false。
+        <h1 id="程序只能启动一次"><a href="#程序只能启动一次" class="headerlink" title="程序只能启动一次"></a>程序只能启动一次</h1><pre><code>BOOL CIMServerApp::InitInstance()
 {
-    HANDLE hclip;
-    hclip = GetClipboardData(CF_TEXT);//用来打开剪贴板并获取剪贴板内容。
-    char *pBuf =  (char *)GlobalLock(hclip);
-    GlobalUnlock(hclip);
-    CString STR;
-    SetDlgItemText(IDC_EDIT1, pBuf);
-}
-CloseClipboard();
-
-//参考：
-//http://bbs.kechuang.org/t/72605
-//http://www.cnblogs.com/BoyXiao/archive/2010/12/25/1916677.html
-</code></pre><h2 id="匿名管道"><a href="#匿名管道" class="headerlink" title="匿名管道"></a>匿名管道</h2><pre><code>//父进程实现
-
-//创建匿名管道
-SECURITY_ATTRIBUTES sa;
-sa.bInheritHandle = TRUE;
-sa.lpSecurityDescriptor = NULL;
-sa.nLength = sizeof(SECURITY_ATTRIBUTES);
-
-if (!CreatePipe(&amp;m_hRead, &amp;m_hWrite, &amp;sa, 0))
-{
-    AfxMessageBox(_T(&quot;create pipe error&quot;));
-}
-
-//子进程的创建
-STARTUPINFO sui;
-PROCESS_INFORMATION pi;
-sui.cb = sizeof(STARTUPINFO);
-ZeroMemory(&amp;sui, sizeof(STARTUPINFO));
-
-sui.dwFlags = STARTF_USESTDHANDLES;
-sui.hStdInput = m_hRead;
-sui.hStdOutput = m_hWrite;
-sui.hStdError = GetStdHandle(STD_ERROR_HANDLE);
-
-if (!CreateProcess(_T(&quot;../debug/child.exe&quot;), NULL , NULL, NULL, TRUE, 0, NULL, NULL, &amp;sui, &amp;pi ))
-
-{
-    AfxMessageBox(_T(&quot;创建子进程错误&quot;));
-}
-
-
-//关闭进程 线程计数器
-if (pi.hThread)
-{
-    CloseHandle(pi.hThread);
-}
-if (pi.hProcess)
-{
-    CloseHandle(pi.hProcess);
-}
-
-//发送数据
-
-char buf[] = &quot;this is pipe server&quot;;
-DWORD dwWrite = 0;
-if (!WriteFile(m_hWrite, buf, strlen(buf) + 1, &amp;dwWrite, NULL))
-{
-    AfxMessageBox(_T(&quot;write error parent&quot;));
-}
-
-//接收数据
-
-char buf[128] = {0};
-DWORD dwRead = 0;
-ReadFile(m_hRead, buf, sizeof(buf), &amp;dwRead, NULL );
-
-//子进程实现
-
-//获取继承自父进程的匿名管道读写句柄
-m_hRead = GetStdHandle(STD_INPUT_HANDLE);
-m_hWrite = GetStdHandle(STD_OUTPUT_HANDLE);
-
-//写入数据
-
-char buf[] = &quot;this is pipe child&quot;;
-DWORD dwWrite = 0;
-if (!WriteFile(m_hWrite, buf, strlen(buf) + 1, &amp;dwWrite, NULL))
-{
-    AfxMessageBox(_T(&quot;write error child&quot;));
-}
-
-//读取数据
-
-char buf[128] = {0};
-DWORD dwRead = 0;
-ReadFile(m_hRead, buf, sizeof(buf), &amp;dwRead, NULL );
-
-//参考
-http://www.cnblogs.com/BoyXiao/archive/2011/01/01/1923828.html
-</code></pre><h2 id="命名管道"><a href="#命名管道" class="headerlink" title="命名管道"></a>命名管道</h2><pre><code>//服务端
-
-//创建命名管
-
-m_hPipe = CreateNamedPipe(_T(&quot;\\\\.\\pipe\\mypipe&quot;), PIPE_ACCESS_DUPLEX | FILE_FLAG_OVERLAPPED, /*OVERLAPPED是为了满足异步实现非阻塞的工能，当连接上用事件通知*/
-                          0, 1, 1024, 1024, 0, NULL);
-
-if (m_hPipe == INVALID_HANDLE_VALUE)
-{
-    return;
-}
-
-//创建事件
-HANDLE hEvent;
-hEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
-if (!hEvent)
-{
-    MessageBox(_T(&quot;创建事件对象失败！&quot;));
-    CloseHandle(m_hPipe);
-    m_hPipe = NULL;
-    return;
-}
-
-OVERLAPPED ovlap;
-ZeroMemory(&amp;ovlap, sizeof(OVERLAPPED));
-ovlap.hEvent = hEvent;
-
-if (!ConnectNamedPipe(m_hPipe, &amp;ovlap))
-{
-    if (ERROR_IO_PENDING != GetLastError())
+    HANDLE hMutex=::CreateMutex(NULL,TRUE,&quot;NAME&quot;);//NAME随便写个
+    if (hMutex!=NULL)
     {
-        MessageBox(_T(&quot;等待客户连接失败！&quot;));
-        CloseHandle(m_hPipe);
-        CloseHandle(hEvent);
-        m_hPipe = NULL;
-        return;
+        if (GetLastError()==ERROR_ALREADY_EXISTS)
+        {
+            AfxMessageBox(&quot;已经有一个程序运行.&quot;);
+            return FALSE;
+        }
     }
 }
-
-//重叠操作
-if (WAIT_FAILED == WaitForSingleObject(hEvent, INFINITE))
-{
-    MessageBox(_T(&quot;等待对象失败！&quot;));
-    CloseHandle(m_hPipe);
-    CloseHandle(hEvent);
-    m_hPipe = NULL;
-    return;
-}
-CloseHandle(hEvent);
-
-//写数据
-
-char buf[] = &quot;this is named pipe server&quot;;
-DWORD dwWrite = 0;
-WriteFile(m_hPipe, buf, strlen(buf) + 1, &amp;dwWrite, NULL);
-
-//读数据
-
-char buf[128] = {0};
-DWORD dwRead = 0;
-ReadFile(m_hPipe, buf, 128, &amp;dwRead, NULL);
-
-//客户端
-
-//连接命名管道
-if (!WaitNamedPipe(_T(&quot;\\\\.\\pipe\\mypipe&quot;), NMPWAIT_WAIT_FOREVER))
-{
-    return;
-}
-
-m_hPipe = CreateFile(_T(&quot;\\\\.\\pipe\\mypipe&quot;), GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-
-//写入数据
-
-char buf[] = &quot;this is named pipe client&quot;;
-DWORD dwWrite = 0;
-WriteFile(m_hPipe, buf, strlen(buf) + 1, &amp;dwWrite, NULL);
-
-//读取数据
-
-char buf[128] = {0};
-DWORD dwRead = 0;
-ReadFile(m_hPipe, buf, 128, &amp;dwRead, NULL);
-
-
-//参考
-//http://www.cnblogs.com/BoyXiao/archive/2011/01/02/1924188.html
-</code></pre><h2 id="邮槽"><a href="#邮槽" class="headerlink" title="邮槽"></a>邮槽</h2><pre><code>//服务端
-
-HANDLE hMail = CreateMailslot(_T(&quot;\\\\.\\mailslot\\myslot&quot;), 424, MAILSLOT_WAIT_FOREVER, NULL);
-if (hMail == INVALID_HANDLE_VALUE)
-{
-    int nRes = GetLastError();
-    CString str;
-    str.Format(_T(&quot;%s&quot;), nRes);
-    AfxMessageBox(str);
-    return;
-}
-char buf[424] = {0};
-DWORD dwSize = 0;
-ReadFile(hMail, buf, 424, &amp;dwSize, NULL);
-CString str;
-str = buf;
-MessageBox(str);
-
-//客户端
-HANDLE hMailslot;
-hMailslot = CreateFile(_T(&quot;\\\\.\\mailslot\\myslot&quot;), GENERIC_WRITE,
-                       FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-if (INVALID_HANDLE_VALUE == hMailslot)
-{
-    MessageBox(_T(&quot;打开邮槽失败！&quot;));
-    return;
-}
-
-char buf[] = &quot;this is mail slot client&quot;;
-DWORD dwSize = 0;
-if (!WriteFile(hMailslot, buf, strlen(buf) + 1, &amp;dwSize, NULL))
-{
-    MessageBox(_T(&quot;写入邮槽失败！&quot;));
-}
-
-//http://blog.csdn.net/kylin_p/article/details/5146797
-//http://www.cnblogs.com/BoyXiao/archive/2010/12/31/1923462.html
-//http://www.cnblogs.com/jzincnblogs/p/5192654.html
 </code></pre>
       
 
@@ -2081,11 +1424,11 @@ if (!WriteFile(hMailslot, buf, strlen(buf) + 1, &amp;dwSize, NULL))
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">通信</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
         		</li>
       		
 		</ul>
@@ -2095,415 +1438,7 @@ if (!WriteFile(hMailslot, buf, strlen(buf) + 1, &amp;dwSize, NULL))
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/01/C++进程间通信/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-C++ 最小化到托盘" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/01/C++ 最小化到托盘/"> C++ 最小化到托盘</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/01/C++ 最小化到托盘/" class="archive-article-date">
-  	<time datetime="2017-03-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-最小化到托盘"><a href="#C-最小化到托盘" class="headerlink" title="C++ 最小化到托盘"></a>C++ 最小化到托盘</h1><pre><code>#define  WM_SHOWTASK (WM_USER + 1)
-void CTestDlg::OnSysCommand(UINT nID, LPARAM lParam)
-{
-    if ((nID &amp; 0xFFF0) == IDM_ABOUTBOX)
-    {
-        CAboutDlg dlgAbout;
-        dlgAbout.DoModal();
-    }
-    else
-    {
-        //增加关闭时最小化到托盘的函数
-        if (nID == SC_CLOSE) //SC_MINIMIZE
-        {
-            ToTray();
-            return;
-        }
-        CDialog::OnSysCommand(nID, lParam);
-    }
-}
-BEGIN_MESSAGE_MAP(CTestDlg, CDialog)
-    ON_MESSAGE(WM_SHOWTASK, OnShowTask)
-    //}}AFX_MSG_MAP
-END_MESSAGE_MAP()
-//在托盘区添加图标 最小化到托盘函数
-void ToTray(void);
-void CTestDlg::ToTray(void)
-{
-    NOTIFYICONDATA nid;
-    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-    nid.hWnd = this-&gt;m_hWnd;
-    nid.uID = IDR_MAINFRAME;
-    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
-    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
-    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条
-    Shell_NotifyIcon(NIM_ADD, &amp;nid);//在托盘区添加图标
-    ShowWindow(SW_HIDE);//隐藏主窗口
-}
-//恢复界面函数
-afx_msg LRESULT OnShowTask(WPARAM wParam, LPARAM lParam);
-//托盘事件
-LRESULT CTestDlg::OnShowTask(WPARAM wParam, LPARAM lParam)
-{
-    if (wParam != IDR_MAINFRAME)
-    {
-        return 1;
-    }
-    switch(lParam)
-    {
-    case WM_RBUTTONUP://右键起来时弹出快捷菜单，这里只有一个关闭
-    {
-        LPPOINT lpoint = new tagPOINT;
-        ::GetCursorPos(lpoint);//得到鼠标位置
-        CMenu menu;
-        menu.CreatePopupMenu();//声明一个弹出式菜单
-        //增加菜单项“关闭”，点击则发送消息WM_DESTROY给主窗口（已
-        //隐藏），将程序结束。
-        menu.AppendMenu(MF_STRING, WM_DESTROY, _T(&quot;退出&quot;));
-        //确定弹出式菜单的位置
-        menu.TrackPopupMenu(TPM_LEFTALIGN, lpoint-&gt;x, lpoint-&gt;y, this);
-        //资源回收
-        HMENU hmenu = menu.Detach();
-        menu.DestroyMenu();
-        delete lpoint;
-    }
-    break;
-    case WM_LBUTTONDBLCLK://双击左键的处理
-    {
-        this-&gt;ShowWindow(SW_SHOW);//简单的显示主窗口
-        this-&gt;ShowWindow(SW_RESTORE);
-        DeleteTray();
-    }
-    break;
-    default:
-        break;
-    }
-    return 0;
-}
-//删除托盘中图标
-void DeleteTray();
-void CTestlDlg::DeleteTray()
-{
-    NOTIFYICONDATA nid;
-    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-    nid.hWnd = this-&gt;m_hWnd;
-    nid.uID = IDR_MAINFRAME;
-    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
-    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
-    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
-    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
-}
-//退出程序需时需要DeleteTray();
-void CTestDlg::OnDestroy()
-{
-    CDialog::OnDestroy();
-    // TODO: 在此处添加消息处理程序代码
-    DeleteTray();
-}
-//修改风格使得他不在任务栏显示
-int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
-{
-    if (CDialog::OnCreate(lpCreateStruct) == -1)
-        return -1;
-    // TODO:  在此添加您专用的创建代码
-    //修改风格使得他不在任务栏显示
-    ModifyStyleEx(WS_EX_APPWINDOW, WS_EX_TOOLWINDOW);
-    return 0;
-}
-</code></pre><p>DeleteTray改为：</p>
-<pre><code>void CTestDlg::DeleteTray()
-{
-    NOTIFYICONDATA nid;
-    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-    nid.hWnd = this-&gt;m_hWnd;
-    nid.uID = IDR_MAINFRAME;
-    nid.uFlags = NIF_ICON /*| NIF_MESSAGE | NIF_TIP*/;
-    //nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
-    //nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-    //wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
-    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
-}
-</code></pre><p>否则会出现程序退出后，托盘图标还在的情况，鼠标移动到图标上后，图标一闪然后消失的问题。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/01/C++ 最小化到托盘/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/">C#与C++相互发送消息</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/" class="archive-article-date">
-  	<time datetime="2017-03-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-最小化到托盘"><a href="#C-最小化到托盘" class="headerlink" title="C++ 最小化到托盘"></a>C++ 最小化到托盘</h1><pre><code>#define  WM_SHOWTASK (WM_USER + 1)
-void CTestDlg::OnSysCommand(UINT nID, LPARAM lParam)
-{
-    if ((nID &amp; 0xFFF0) == IDM_ABOUTBOX)
-    {
-        CAboutDlg dlgAbout;
-        dlgAbout.DoModal();
-    }
-    else
-    {
-        //增加关闭时最小化到托盘的函数
-        if (nID == SC_CLOSE) //SC_MINIMIZE
-        {
-            ToTray();
-            return;
-        }
-        CDialog::OnSysCommand(nID, lParam);
-    }
-}
-BEGIN_MESSAGE_MAP(CTestDlg, CDialog)
-    ON_MESSAGE(WM_SHOWTASK, OnShowTask)
-    //}}AFX_MSG_MAP
-END_MESSAGE_MAP()
-//在托盘区添加图标 最小化到托盘函数
-void ToTray(void);
-void CTestDlg::ToTray(void)
-{
-    NOTIFYICONDATA nid;
-    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-    nid.hWnd = this-&gt;m_hWnd;
-    nid.uID = IDR_MAINFRAME;
-    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
-    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
-    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条
-    Shell_NotifyIcon(NIM_ADD, &amp;nid);//在托盘区添加图标
-    ShowWindow(SW_HIDE);//隐藏主窗口
-}
-//恢复界面函数
-afx_msg LRESULT OnShowTask(WPARAM wParam, LPARAM lParam);
-//托盘事件
-LRESULT CTestDlg::OnShowTask(WPARAM wParam, LPARAM lParam)
-{
-    if (wParam != IDR_MAINFRAME)
-    {
-        return 1;
-    }
-    switch(lParam)
-    {
-    case WM_RBUTTONUP://右键起来时弹出快捷菜单，这里只有一个关闭
-    {
-        LPPOINT lpoint = new tagPOINT;
-        ::GetCursorPos(lpoint);//得到鼠标位置
-        CMenu menu;
-        menu.CreatePopupMenu();//声明一个弹出式菜单
-        //增加菜单项“关闭”，点击则发送消息WM_DESTROY给主窗口（已
-        //隐藏），将程序结束。
-        menu.AppendMenu(MF_STRING, WM_DESTROY, _T(&quot;退出&quot;));
-        //确定弹出式菜单的位置
-        menu.TrackPopupMenu(TPM_LEFTALIGN, lpoint-&gt;x, lpoint-&gt;y, this);
-        //资源回收
-        HMENU hmenu = menu.Detach();
-        menu.DestroyMenu();
-        delete lpoint;
-    }
-    break;
-    case WM_LBUTTONDBLCLK://双击左键的处理
-    {
-        this-&gt;ShowWindow(SW_SHOW);//简单的显示主窗口
-        this-&gt;ShowWindow(SW_RESTORE);
-        DeleteTray();
-    }
-    break;
-    default:
-        break;
-    }
-    return 0;
-}
-//删除托盘中图标
-void DeleteTray();
-void CTestlDlg::DeleteTray()
-{
-    NOTIFYICONDATA nid;
-    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-    nid.hWnd = this-&gt;m_hWnd;
-    nid.uID = IDR_MAINFRAME;
-    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
-    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
-    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
-    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
-}
-//退出程序需时需要DeleteTray();
-void CTestDlg::OnDestroy()
-{
-    CDialog::OnDestroy();
-    // TODO: 在此处添加消息处理程序代码
-    DeleteTray();
-}
-//修改风格使得他不在任务栏显示
-int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
-{
-    if (CDialog::OnCreate(lpCreateStruct) == -1)
-        return -1;
-    // TODO:  在此添加您专用的创建代码
-    //修改风格使得他不在任务栏显示
-    ModifyStyleEx(WS_EX_APPWINDOW, WS_EX_TOOLWINDOW);
-    return 0;
-}
-</code></pre><p>DeleteTray改为：</p>
-<pre><code>void CTestDlg::DeleteTray()
-{
-    NOTIFYICONDATA nid;
-    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-    nid.hWnd = this-&gt;m_hWnd;
-    nid.uID = IDR_MAINFRAME;
-    nid.uFlags = NIF_ICON /*| NIF_MESSAGE | NIF_TIP*/;
-    //nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
-    //nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-    //wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
-    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
-}
-</code></pre><p>否则会出现程序退出后，托盘图标还在的情况，鼠标移动到图标上后，图标一闪然后消失的问题。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/12/01/程序只能启动一次/">展开全文 >></a>
         </p>
       
 
@@ -2535,7 +1470,7 @@ int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 
@@ -2907,6 +1842,166 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">钩子</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">扁平化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Json.NET</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">log4net</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Nlog</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MailKit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">EasyHttp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">httplib</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Epplus</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">NPIO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">TaskScheduler</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">NUnit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MaterialDesignInXamlToolkit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Fluent.Ribbon</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MSBuild</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">VS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">yilia主题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">博客</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">OpenSSL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">加密</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">SQLite NET</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">C/C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代码片段</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">WPF</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">配置文件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">VS工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">CppUnit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">单元测试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">bypy</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">百度云盘</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">gitbook</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">libcur</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">网络</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">libssh2</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">wolfSSL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">zlib</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">解压缩</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">电脑软件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">个人喜欢</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">美化桌面</a>
               </li>
             
             <div class="clearfix"></div>

@@ -156,33 +156,87 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-CShap http" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-获得GetLastError()内容" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/01/CShap http/">C# http</a>
+      <a class="article-title" href="/2017/06/15/获得GetLastError()内容/">获得GetLastError()内容</a>
     </h1>
   
 
         
-        <a href="/2016/12/01/CShap http/" class="archive-article-date">
-  	<time datetime="2016-12-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-01</time>
+        <a href="/2017/06/15/获得GetLastError()内容/" class="archive-article-date">
+  	<time datetime="2017-06-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-15</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="minihttpd"><a href="#minihttpd" class="headerlink" title="minihttpd"></a>minihttpd</h1><p>minihttpd：HTTPWeb服务器库</p>
-<p><a href="https://www.codeproject.com/articles/11342/minihttpd-an-http-web-server-library" target="_blank" rel="noopener">https://www.codeproject.com/articles/11342/minihttpd-an-http-web-server-library</a></p>
-<h1 id="Embedded-NET-HTTP-Server"><a href="#Embedded-NET-HTTP-Server" class="headerlink" title="Embedded .NET HTTP Server"></a>Embedded .NET HTTP Server</h1><p>嵌入式.NET的HTTP服务器</p>
-<p><a href="https://www.codeproject.com/Articles/25050/Embedded-NET-HTTP-Server" target="_blank" rel="noopener">https://www.codeproject.com/Articles/25050/Embedded-NET-HTTP-Server</a></p>
-<h1 id="HttpLib"><a href="#HttpLib" class="headerlink" title="HttpLib"></a>HttpLib</h1><p>HttpLib是一个免费的.net(Apache 2.0许可协议)web请求帮助,让开发人员更容易访问和从互联网下载资源</p>
-<p><a href="http://httplib.codeplex.com/" target="_blank" rel="noopener">http://httplib.codeplex.com/</a></p>
+        <pre><code>GetStrError(CString&amp; strError, const DWORD&amp; dwErr)
+{
+    LPVOID lpMsgBuf;
+    //DWORD dw = GetLastError();
+    FormatMessage (
+        FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
+        NULL,
+        dwErr,
+        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+        (LPTSTR) &amp;lpMsgBuf,
+        0, NULL );
+    strError = (char *)lpMsgBuf;
+    LocalFree(lpMsgBuf);
+}
+</code></pre><p>个人写的：</p>
+<pre><code>GetStrError(CString &amp;strError, const DWORD &amp;dwErr)
+{
+    LPVOID lpMsgBuf;
+    //DWORD dw = GetLastError();
+    FormatMessage (
+        FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
+        NULL,
+        dwErr,
+        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+        (LPTSTR) &amp;lpMsgBuf,
+        0, NULL );
+    strError = (char *)lpMsgBuf;
+    LocalFree(lpMsgBuf);
+}
 
+MyAfxMessageBox(CString strError)
+{
+    CString str;
+    DWORD dwErr = GetLastError();
+    GetStrError(str, dwErr);
+    CString strTemp;
+    strTemp.Format(_T(&quot;程序运行错误!%s\r\n错误码:%lu\r\n错误内容:%s&quot;), strError, dwErr, str);
+    AfxMessageBox(strTemp);
+}
+
+try
+{
+    AfxMessageBox(strMsg, MB_ICONINFORMATION);
+}
+catch (CMemoryException *e)
+{
+    MyAfxMessageBox(_T(&quot;CMemoryException&quot;));
+}
+catch (CFileException *e)
+{
+    MyAfxMessageBox(_T(&quot;CFileException&quot;));
+}
+catch (CException *e)
+{
+    MyAfxMessageBox(_T(&quot;CException&quot;));
+}
+catch(...)
+{
+    MyAfxMessageBox(_T(&quot;其他&quot;));
+}
+</code></pre>
       
 
       
@@ -199,11 +253,15 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">GetLastError</a>
         		</li>
       		
 		</ul>
@@ -213,7 +271,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2016/12/01/CShap http/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/06/15/获得GetLastError()内容/">展开全文 >></a>
         </p>
       
 
@@ -243,971 +301,100 @@
 
 
   
-    <article id="post-带你玩转Visual Studio" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-C++字符分割" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/15/带你玩转Visual Studio/">带你玩转Visual Studio</a>
+      <a class="article-title" href="/2017/06/01/C++字符分割/">C++字符串分割</a>
     </h1>
   
 
         
-        <a href="/2016/11/15/带你玩转Visual Studio/" class="archive-article-date">
-  	<time datetime="2016-11-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-11-15</time>
+        <a href="/2017/06/01/C++字符分割/" class="archive-article-date">
+  	<time datetime="2017-06-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="带你玩转Visual-Studio"><a href="#带你玩转Visual-Studio" class="headerlink" title="带你玩转Visual Studio"></a>带你玩转Visual Studio</h1><h2 id="带你新建一个工程"><a href="#带你新建一个工程" class="headerlink" title="带你新建一个工程"></a>带你新建一个工程</h2><h3 id="工程目录下各文件的含义"><a href="#工程目录下各文件的含义" class="headerlink" title="工程目录下各文件的含义"></a>工程目录下各文件的含义</h3><h4 id="解决方案与工程"><a href="#解决方案与工程" class="headerlink" title="解决方案与工程"></a>解决方案与工程</h4><p>在这之前先了解一个概念：解决方案与工程。<br>解决方案(Solution)：一个大型项目的整体的工作环境；<br>工程 (Project)：一个解决方案下的一个子工程；</p>
-<p>在VS中，一个Solution可以有一个或多个Project。在我们创建一个工程时，如果没有指定Solution，VS会帮我们创建一个与工程名相同的Solution，这时一个Solution里只有一个Project。所有在我们的TestProject的文件目录结构中TestProject文件夹下还有一个TestProject文件夹(如图4)，第一个就是整个Solution的目录，第二个才是Project的目录。</p>
-<h4 id="解决方案相关的文件："><a href="#解决方案相关的文件：" class="headerlink" title="解决方案相关的文件："></a>解决方案相关的文件：</h4><p>TestProject.sln：<br>整个解决方案(Solution)的配制文件，组织多个工程和相关的元素到一个解决方案中。用鼠标双击它就能用VS打开整个工程项目。</p>
-<p>TestProject.sdf：<br>浏览相关的数据库文件，它支持浏览和导航的特性。如跳转到方法、变量的声明，查找所有对象的所有被引用的地方，类视图等等。</p>
-<p>TestProject.suo：<br>(solution user opertion) 解决方案用户选项,记录所有将与解决方案建立关联的选项， 以便在每次打开时，它都包含您所做的自定义设置.</p>
-<p>TestProject.opensdf：<br>打开解决方案(Solution)时的临时文件，这个文件只有你的解决方案在VS打开的状态才会有，工程一关闭文件就被删除了。</p>
-<h4 id="工程相关的文件"><a href="#工程相关的文件" class="headerlink" title="工程相关的文件"></a>工程相关的文件</h4><p>TestProject.vcxproj：<br>记录工程(Project)相关的属性配制。</p>
-<p>TestProject.vcxproj.filters：<br>文件过虑器，上图3“工程结构”中各个文件的组织和编排都是定义在这个文件中的。如果由于某种特殊的原因(如系统或VS突然崩溃)导致你打开工程时文件的组织结构是乱的，100%就是这个文件的原因。</p>
-<p>TestProject.vcxproj.user：<br>用户相关的一些配制。</p>
-<p>上面这些文件中有几个比较重要的一定不能删的文件是：</p>
-<p>TestProject.sln、TestProject.vcxproj、TestProject.vcxproj.filters</p>
-<p>不要问我是怎样知道这些文件的作用的，请看官方文档：</p>
-<p>VS2010定义：<a href="工程目录下各文件的含义">https://msdn.microsoft.com/en-us/library/3awe4781.aspx</a>.</p>
-<p>VS2015定义：<a href="https://msdn.microsoft.com/en-us/library/vstudio/hx0cxhaw(v=vs.110" target="_blank" rel="noopener">https://msdn.microsoft.com/en-us/library/vstudio/hx0cxhaw(v=vs.110).aspx</a>.aspx)</p>
-<h2 id="带你了解VC-各种类型的工程"><a href="#带你了解VC-各种类型的工程" class="headerlink" title="带你了解VC++各种类型的工程"></a>带你了解VC++各种类型的工程</h2><h3 id="理解几个概念"><a href="#理解几个概念" class="headerlink" title="理解几个概念"></a>理解几个概念</h3><h4 id="COM"><a href="#COM" class="headerlink" title="COM"></a>COM</h4><p>COM(Component Object Model)组件对象模型是microsoft制定的一个组件软件标准，跟unix上的CORBA一样。凡是遵循COM标准开发出来的组件称为COM组件。目地是实现二进制方式的软件重用 。在windows平台上，COM的实现形式有DLL(进程内组件)和EXE(进程外组件)2种。</p>
-<h4 id="OLE"><a href="#OLE" class="headerlink" title="OLE"></a>OLE</h4><p>OLE(Object Linking and Embedding)对象连接与嵌入是微软的复合文档技术，可方便实现应用程序之间的通信。在后来的OLE2中才导入了 COM，提供了对COM的支持，利用这种技术可开发可重复使用的软件组件COM。OLE是软件比较早提出的一种技术。</p>
-<h4 id="ATL"><a href="#ATL" class="headerlink" title="ATL"></a>ATL</h4><p>ATL(Active Template Library)活动模板库是一套C++模板库，常用于开发COM程序和ActiveX程序。要理解ATL技术可从以下两方面理解：</p>
-<ol>
-<li>ATL可以说是把COM封装了一下，象MFC一样做成一个库，并有一个向导，使COM应用开发尽可能地自动化、可视化，这就决定了ATL只面向COM开发提供支持。</li>
-<li>ATL因其采用了特定的基本实现技术，摆脱了大量冗余代码，使用ATL开发出来的COM应用的代码简练高效。<br>在ATL产生以前，开发COM组件的方法主要有两种：一是使用COM SDK(COM软件开发包)直接开发COM组件，另一种方式是通过MFC提供的COM支持来实现。而现在 ATL已经成为Microsoft支持COM应用开发的主要开发工具。<h4 id="MFC"><a href="#MFC" class="headerlink" title="MFC"></a>MFC</h4></li>
-</ol>
-<p>MFC(Microsoft Foundation Classes)微软基础类是微软提供的一个用于Windows程序开发的基础类库。MFC以C++类的形式封装了Windows的API，并且包含一个应用程序框架，以减少应用程序开发人员的工作量。其中包含的类包含大量Windows句柄封装类和很多Windows的内建控件和组件的封装类。</p>
-<h4 id="ActiveX"><a href="#ActiveX" class="headerlink" title="ActiveX"></a>ActiveX</h4><p>ActiveX是微软提出的一组使用COM技术使得软件组件在网络环境中进行交互的技术集，它与具体的编程语言无关。作为针对Internet应用开发的技术，ActiveX被广泛应用于WEB服务器以及客户端的各个方面。同时，ActiveX技术也被用于方便地创建普通的桌面应用程序，此外ActiveX一般具有界面。</p>
-<p>ActiveX既包含服务器端技术，也包含客户端技术。其主要内容是：</p>
-<ol>
-<li>ActiveX控制（ActiveX Control）；用于向WEB页面、Microsoft Word等支持ActiveX的容器（Container）中插入COM对象。</li>
-<li>ActiveX文档（ActiveX Document）；用于在WEB Browser或者其它支持ActiveX的容器中浏览复合文档（非HTML文档），例如Microsoft Word文档，Microsoft Excel文档或者用户自定义的文档等。</li>
-<li>ActiveX脚本描述（ActiveX Scripting）；用于从客户端或者服务器端操纵ActiveX控制和Java程序，传递数据，协调它们之间的操作。</li>
-<li>ActiveX服务器框架（ActiveX Server Framework）；提供了一系列针对WEB服务器应用程序设计各个方面的函数及其封装类，诸如服务器过滤器、HTML数据流控制等。</li>
-<li>在Internet Explorer中内置Java虚拟机(Java Virtual Machine)，从而使Java Applet能够在Internet Explorer上运行，并可以与ActiveX控制通过脚本描述语言进行通信。</li>
-</ol>
-<h2 id="带你高效开发"><a href="#带你高效开发" class="headerlink" title="带你高效开发"></a>带你高效开发</h2><p>使用Visual Assist X</p>
-<h3 id="Visual-Assist-X-Snippets-宏"><a href="#Visual-Assist-X-Snippets-宏" class="headerlink" title="Visual Assist X Snippets 宏"></a>Visual Assist X Snippets 宏</h3><p><a href="http://blog.csdn.net/ejay/article/details/7750728" target="_blank" rel="noopener">Visual Assist X Snippets 宏</a> </p>
-<h2 id="带你高效管理代码"><a href="#带你高效管理代码" class="headerlink" title="带你高效管理代码"></a>带你高效管理代码</h2><h3 id="目前主流的版本控制系统有："><a href="#目前主流的版本控制系统有：" class="headerlink" title="目前主流的版本控制系统有："></a>目前主流的版本控制系统有：</h3><ol>
-<li>CVS：是一个用于代码版本控制的自由软件，它是一个比较早出现的工具，由于它有很多自身的缺陷，现在几乎被SVN所取代了。</li>
-<li>SVN：SVN是Subversion的简称，它是集中式的版本控制系统。SVN继承了CVS的基本思想，包含了CVS的几乎所有功能。你可以认为SVN是CVS的升级版(但实际上它们完全是两个软件)。</li>
-<li>GIT：GIT是分布式的版本控制系统。相信玩过开源代码的都知道github吧，它就是一个基于git的代码托管平台</li>
-</ol>
-<h3 id="C-工程上传服务器要忽视的文件"><a href="#C-工程上传服务器要忽视的文件" class="headerlink" title="C++工程上传服务器要忽视的文件"></a>C++工程上传服务器要忽视的文件</h3><h4 id="C-工程上传服务器要忽视的文件-1"><a href="#C-工程上传服务器要忽视的文件-1" class="headerlink" title="C++工程上传服务器要忽视的文件"></a>C++工程上传服务器要忽视的文件</h4><pre><code>h: 头文件
-cpp: 源文件
-txt: 说明文件，如readme
-rc: 资源文件
-rc2: 资源文件
-ico: 图标，如logo等
-sln: 解决方案工程文件
-vcxproj: 工程文件
-filters: 文件过虑器
-</code></pre><h4 id="不要上传的文件类型"><a href="#不要上传的文件类型" class="headerlink" title="不要上传的文件类型"></a>不要上传的文件类型</h4><pre><code>Debug、Release等编译结构目录
-ipch目录
-aps: last resource editor state
-exe: build result
-idb: build state
-ipch: build helper
-lastbuildstate: build helper
-lib: build result. Can be 3rd party
-log: build log
-manifest: build helper. Can be written yourself.
-obj: build helper
-pch: build helper
-pdb: build result
-res: build helper
-sdf: intellisense dbase
-suo: solution user options
-tlog: build log
-user: debug settings. Do preserve if just one dev or custom debug settings
-</code></pre><p>如果用TortoiseSVN进行管理，需要手动添加ignore属性将不需要上传的文件忽略掉。在你工程目录里，右键-&gt;TortoiseSVN-&gt;Properties-&gt;New-&gt;Other，弹出的对话框中Property name中选择svn:ignore，Property value中填入要忽略的内容(这里可以使用能配符)。可以设置全局忽略样式。</p>
-<h2 id="带你跳出坑爹的Runtime-Library坑"><a href="#带你跳出坑爹的Runtime-Library坑" class="headerlink" title="带你跳出坑爹的Runtime Library坑"></a>带你跳出坑爹的Runtime Library坑</h2><pre><code>Multi-threaded     /MT     Release版的多线程静态库     libcmt.lib     
-Multi-threaded Debug     /MTd     Debug版的多线程静态库     libcmtd.lib     
-Multi-threaded DLL     /MD     Release版的多线程动态库     msvcrt.lib+msvcrtxx.dll     
-Multi-threaded DLL Debug     MDd     Debug版的多线程动态库     msvcrtd.lib+msvcrtxxd.dll
-</code></pre><p>结论：/MD和/MDd将是潮流所趋，/ML和/MLd方式请及时放弃，/MT和/MTd在非必要时最好也不要采用了。</p>
-<h2 id="带你理解多字节编码与Unicode码"><a href="#带你理解多字节编码与Unicode码" class="headerlink" title="带你理解多字节编码与Unicode码"></a>带你理解多字节编码与Unicode码</h2><ol>
-<li>当设置为Use Unicode Character Set时，会有预编译宏：_UNICODE、UNICODE </li>
-<li>当设置为Use Unicode Character Set时，会有预编译宏：_UNICODE、UNICODE </li>
-</ol>
-<h2 id="incremental-linking-增量链接-的作用"><a href="#incremental-linking-增量链接-的作用" class="headerlink" title="incremental linking(增量链接)的作用"></a>incremental linking(增量链接)的作用</h2><p><a href="http://www.cnblogs.com/lidabo/archive/2012/05/29/2524170.html" target="_blank" rel="noopener">VS中的路径宏 vc++中OutDir、ProjectDir、SolutionDir各种路径</a></p>
-<h2 id="命令行编译C-C-程序"><a href="#命令行编译C-C-程序" class="headerlink" title="命令行编译C/C++程序"></a>命令行编译C/C++程序</h2><p>打开安装目录下的VSDIR\VC\bin可以看到一系列的可执行程序.exe和批处理文件，这些就是VS2010构建、编译、链接时要用到的工具。看一下几个主要的工具：</p>
-<pre><code>cl.exe：编译程序
-link.exe：链接程序
-lib.exe：加载lib库的程序
-nmake.exe：用makefile进行构建、编译的工具
-</code></pre><p><a href="http://www.lellansin.com/%E5%BE%AE%E8%BD%AF-cl-exe-%E7%BC%96%E8%AF%91%E5%99%A8.html" target="_blank" rel="noopener">微软 CL.exe 编译器</a></p>
-<p>##性能分析与优化## </p>
-<p>使用VS的性能分析工具</p>
-<h3 id="性能分析工具的选择"><a href="#性能分析工具的选择" class="headerlink" title="性能分析工具的选择"></a>性能分析工具的选择</h3><p>打开一个“性能分析”的会话:Debug-&gt;Start Diagnotic Tools Without Debugging(或按Alt+F2)，VS2013在Analysis菜单中。 </p>
-<h4 id="CPU-Usage"><a href="#CPU-Usage" class="headerlink" title="CPU Usage"></a>CPU Usage</h4><p>检测CPU的性能，主要用于发现影响CPU瓶颈(消耗大量CPU资源)的代码。</p>
-<h4 id="GPU-Usage"><a href="#GPU-Usage" class="headerlink" title="GPU Usage"></a>GPU Usage</h4><p>检测GPU的性能，常用于图形引擎的应用(如DirectX程序)，主要用于判断是CPU还是GPU的瓶颈。</p>
-<h4 id="Memory-Usage"><a href="#Memory-Usage" class="headerlink" title="Memory Usage"></a>Memory Usage</h4><p>检测应用程序的内存，发现内存。</p>
-<h4 id="Performance-Wizard"><a href="#Performance-Wizard" class="headerlink" title="Performance Wizard"></a>Performance Wizard</h4><p>性能(监测)向导，综合检测程序的性能瓶颈。这个比较常用，下面再逐一说明。</p>
-<h3 id="性能-监测-向导"><a href="#性能-监测-向导" class="headerlink" title="性能(监测)向导"></a>性能(监测)向导</h3><h4 id="CPU-Sampling-CPU采样-："><a href="#CPU-Sampling-CPU采样-：" class="headerlink" title="CPU Sampling(CPU采样)："></a>CPU Sampling(CPU采样)：</h4><p>进行采样统计，以低开销水平监视占用大量CPU的应用程序。这个对于计算量大的程序可大大节省监控时间。</p>
-<h4 id="Instrumentation-检测-："><a href="#Instrumentation-检测-：" class="headerlink" title="Instrumentation(检测)："></a>Instrumentation(检测)：</h4><p>完全统计，测量函数调用计数和用时</p>
-<h4 id="NET-memory-allocation-NET-内存分配-："><a href="#NET-memory-allocation-NET-内存分配-：" class="headerlink" title=".NET memory allocation(.NET 内存分配)："></a>.NET memory allocation(.NET 内存分配)：</h4><p>跟踪托管内存分配。这个好像只有托管代码(如C#)才可用，一般以C++代码好像不行。</p>
-<h4 id="Resource-contention-data-并发-："><a href="#Resource-contention-data-并发-：" class="headerlink" title="Resource contention data(并发)："></a>Resource contention data(并发)：</h4><p>检测等待其他线程的线程，多用于多线程的并发。</p>
-<h3 id="性能分析报告"><a href="#性能分析报告" class="headerlink" title="性能分析报告"></a>性能分析报告</h3><h4 id="视图类型"><a href="#视图类型" class="headerlink" title="视图类型"></a>视图类型</h4><p>有几个不同的视图可供我们切换，下面加粗的部分是个人觉得比较方便和常用的视图。</p>
-<ul>
-<li>Summary(概要):整个报告概要说明</li>
-<li>Call Tree(调用树):以树形表格的方式展开函数之间的关系。</li>
-<li>Module(模块):分析调用的不同的程序模块，如不同的DLL、lib模块的耗时</li>
-<li>Caller/Callee(调用与被调用):以数值显示的调用与被调用的关系</li>
-<li>Functions(函数统计):以数值显示的各个函数的执行时间和执行次数统计值</li>
-<li>Marks(标记):</li>
-<li>Processers(进程):</li>
-<li>Function Detials(函数详情):以图表的方式形象地显示：调用函数-当前函数-被调用子函数之间的关系和时间比例。</li>
-</ul>
-<h4 id="专用术语"><a href="#专用术语" class="headerlink" title="专用术语"></a>专用术语</h4><ul>
-<li>Num of Calls:(函数)调用次数</li>
-<li>Elapsed Inclusive Time:已用非独占时间</li>
-<li>Elapsed Exclusive Time:已用独占时间</li>
-<li>Avg Elapsed Inclusive Time:平均已用非独占时间</li>
-<li>Avg Elapsed Exclusive Time:平均已用独占时间</li>
-<li>Module Name:模块名称，一般为可执行文件(.exe)、动态库(.dll)、静态库(.lib)的名称。</li>
-</ul>
-<h2 id="调用约定cdecl、stdcall和-fastcall"><a href="#调用约定cdecl、stdcall和-fastcall" class="headerlink" title="调用约定cdecl、stdcall和__fastcall"></a>调用约定<strong>cdecl、</strong>stdcall和__fastcall</h2><h3 id="什么是调用约定"><a href="#什么是调用约定" class="headerlink" title="什么是调用约定"></a>什么是调用约定</h3><p>函数的调用约定，顾名思义就是对函数调用的一个约束和规定(规范)，描述了函数参数是怎么传递和由谁清除堆栈的。它决定以下内容：(1)函数参数的压栈顺序，(2)由调用者还是被调用者把参数弹出栈，(3)以及产生函数修饰名的方法。</p>
-<p>常见的调用约定有<strong>cdecl、</strong>stdcall、fastcall，应用最广泛的是<strong>cdecl和</strong>stdcall,下面我们会详细进行讲述。。还有一些不常见的，如 <strong>pascal、</strong>thiscall、__vectorcall。</p>
-<h3 id="cdecl的特点"><a href="#cdecl的特点" class="headerlink" title="__cdecl的特点"></a>__cdecl的特点</h3><p>__cdecl 是 C Declaration 的缩写，表示 C 和 C++ 默认的函数调用约定。是C/C++和MFCX的默认调用约定。</p>
-<ul>
-<li>按从右至左的顺序压参数入栈、。</li>
-<li>由调用者把参数弹出栈。切记：对于传送参数的内存栈是由调用者来维护的，返回值在EAX中。因此对于像printf这样可变参数的函数必须用这种约定。</li>
-<li>编译器在编译的时候对这种调用规则的函数生成修饰名的时候，在输出函数名前加上一个下划线前缀，格式为_function。如函数int add(int a, int b)的修饰名是_add。</li>
-</ul>
-<h3 id="stdcall的特点"><a href="#stdcall的特点" class="headerlink" title="__stdcall的特点"></a>__stdcall的特点</h3><p><strong>stdcall是Standard Call的缩写，是C++的标准调用方式,当然这是微软定义的标准，</strong>stdcall通常用于Win32 API中(可查看WINAPI的定义)。</p>
-<ul>
-<li>按从右至左的顺序压参数入栈。</li>
-<li>由被调用者把参数弹出栈。切记：函数自己在退出时清空堆栈，返回值在EAX中。</li>
-<li>__stdcall调用约定在输出函数名前加上一个下划线前缀，后面加上一个“@”符号和其参数的字节数，格式为_function@number。如函数int sub(int a, int b)的修饰名是_sub@8。</li>
-</ul>
-<h3 id="fastcall的特点"><a href="#fastcall的特点" class="headerlink" title="__fastcall的特点"></a>__fastcall的特点</h3><p>__fastcall调用的主要特点就是快，因为它是通过寄存器来传送参数的。</p>
-<ul>
-<li>实际上__fastcall用ECX和EDX传送前两个DWORD或更小的参数，剩下的参数仍自右向左压栈传送，被调用的函数在返回前清理传送参数的内存栈。</li>
-<li>__fastcall调用约定在输出函数名前加上一个“@”符号，后面也是一个“@”符号和其参数的字节数，格式为@function@number,如double multi(double a, double b)的修饰名是@multi@16。</li>
-<li><strong>fastcall和</strong>stdcall很象，唯一差别就是头两个参数通过寄存器传送。注意通过寄存器传送的两个参数是从左向右的，即第1个参数进ECX，第2个进EDX，其他参数是从右向左的入栈，返回仍然通过EAX。</li>
-</ul>
-<h3 id="thiscall"><a href="#thiscall" class="headerlink" title="__thiscall"></a>__thiscall</h3><p>__thiscall是C++类成员函数缺省的调用约定，但它没有显示的声明形式。因为在C++类中，成员函数调用还有一个this指针参数，因此必须特殊处理，thiscall调用约定的特点：</p>
-<ul>
-<li>参数入栈：参数从右向左入栈</li>
-<li>this指针入栈：如果参数个数确定，this指针通过ecx传递给被调用者；如果参数个数不确定，this指针在所有参数压栈后被压入栈。</li>
-<li>栈恢复：对参数个数不定的，调用者清理栈，否则函数自己清理栈。</li>
-</ul>
-<h2 id="调用约定与-动态-库"><a href="#调用约定与-动态-库" class="headerlink" title="调用约定与(动态)库"></a>调用约定与(动态)库</h2><p><a href="http://blog.csdn.net/luoweifu/article/details/52456407" target="_blank" rel="noopener">调用约定与(动态)库</a></p>
-<p>参考：</p>
-<ul>
-<li><a href="http://blog.csdn.net/column/details/visualstudio.html" target="_blank" rel="noopener">带你玩转Visual Studio</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">VC</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/11/15/带你玩转Visual Studio/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-C# 进程间通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/01/C# 进程间通信/">C# 进程间通信</a>
-    </h1>
-  
-
-        
-        <a href="/2016/11/01/C# 进程间通信/" class="archive-article-date">
-  	<time datetime="2016-11-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-11-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="使用SendMessage向另一进程发送WM-COPYDATA消息"><a href="#使用SendMessage向另一进程发送WM-COPYDATA消息" class="headerlink" title="使用SendMessage向另一进程发送WM_COPYDATA消息"></a>使用SendMessage向另一进程发送WM_COPYDATA消息</h1><h2 id="Send端："><a href="#Send端：" class="headerlink" title="Send端："></a>Send端：</h2><pre><code>using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Runtime.InteropServices;
-
-namespace SentTest
+        <h1 id="AfxExtractSubString"><a href="#AfxExtractSubString" class="headerlink" title="AfxExtractSubString"></a>AfxExtractSubString</h1><p>表头: <afxwin.h></afxwin.h></p>
+<p>BOOL AFXAPI AfxExtractSubString ( CString&amp; rString, LPCTSTR lpszFullString, int iSubString, TCHAR chSep = ‘\n’);</p>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>rString 对CString将得到一个单独的子字符串的对象。</p>
+<p>lpszFullString 字符串包含字符串的全文提取自。</p>
+<p>iSubString 提取的子字符串的从零开始的索引从lpszFullString。</p>
+<p>chSep 使用的分隔符分隔子字符串，默认的是’\n’。</p>
+<h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><p>TRUE ，如果函数成功提取了该子字符串中提供的索引;否则， FALSE。</p>
+<h2 id="例："><a href="#例：" class="headerlink" title="例："></a>例：</h2><pre><code>// 使用AfxExtractSubString分割字符串
+void CSplitString::SplitString1()
 {
-    /// &lt;summary&gt;
-    /// MainWindow.xaml 的交互逻辑
-    /// &lt;/summary&gt;
-    public partial class MainWindow : Window
+    std::vector&lt;long&gt; arrPic;
+
+    CString strContent = _T(&quot;1,2,3,4,5&quot;);
+    CString strTemp;
+    int iPos = 0;
+
+    while (AfxExtractSubString(strTemp, strContent, iPos, &apos;,&apos;))
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-            this.Title = &quot;发送窗口&quot;;
-        }
-
-        const int WM_COPYDATA = 0x004A;
-
-        public struct COPYDATASTRUCT
-        {
-            public IntPtr dwData;
-            public int cData;
-            [MarshalAs(UnmanagedType.LPStr)]
-            public string lpData;
-        }
-
-        [DllImport(&quot;User32.dll&quot;)]
-        public static extern int SendMessage(int hwnd, int msg, int wParam, ref COPYDATASTRUCT IParam);
-        [DllImport(&quot;User32.dll&quot;)]
-        public static extern int FindWindow(string lpClassName, string lpWindowName);
-
-        private void button1_Click(object sender, RoutedEventArgs e)
-        {
-            String strSent = &quot;需要发送的信息&quot;;
-
-            int WINDOW_HANDLE = FindWindow(null, &quot;接收窗口&quot;);
-            if (WINDOW_HANDLE != 0)
-            {
-                byte[] arr = System.Text.Encoding.Default.GetBytes(strSent);
-                int len = arr.Length;
-                COPYDATASTRUCT cdata;
-                cdata.dwData = (IntPtr)100;
-                cdata.lpData = strSent;
-                cdata.cData = len + 1;
-                SendMessage(WINDOW_HANDLE, WM_COPYDATA, 0, ref cdata);
-            }
-        }
+        iPos++;
+        arrPic.push_back(_wtol(strTemp));
     }
 }
-</code></pre><h2 id="Get端："><a href="#Get端：" class="headerlink" title="Get端："></a>Get端：</h2><pre><code>using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Runtime.InteropServices;
-using System.Windows.Interop;
-
-namespace GetTest
+</code></pre><h1 id="STL-find-first-of"><a href="#STL-find-first-of" class="headerlink" title="STL find_first_of"></a>STL find_first_of</h1><pre><code>// 利用STL自己实现字符串分割
+void CSplitString::SplitString2()
 {
-    /// &lt;summary&gt;
-    /// MainWindow.xaml 的交互逻辑
-    /// &lt;/summary&gt;
-    public partial class MainWindow : Window
+    const std::string s(&quot;1,2,3,4,5;6;7;8;9&quot;);
+    std::vector&lt;std::string&gt; v;
+    const std::string c(&quot;,;&quot;);//多个分隔符
+
+    std::string::size_type pos1, pos2;
+    pos2 = s.find_first_of(c);
+    pos1 = 0;
+    while (std::string::npos != pos2)
     {
-        IntPtr hwnd;
-        public MainWindow()
-        {
-            InitializeComponent();
-            this.Title = &quot;接受窗口&quot;;
+        v.push_back(s.substr(pos1, pos2 - pos1));
 
-            this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
-            this.Closed += new EventHandler(MainWindow_Closed);
-        }
-
-        void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            //窗口加载完毕才可用，否则会报错。
-            hwnd = new WindowInteropHelper(this).Handle;
-            HwndSource source = HwndSource.FromHwnd(hwnd);
-            if (source != null) source.AddHook(WndProc);
-        }
-
-        void MainWindow_Closed(object sender, EventArgs e)
-        {
-            try
-            {
-                HwndSource.FromHwnd(hwnd).RemoveHook(WndProc);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        const int WM_COPYDATA = 0x004A;//WM_COPYDATA消息的主要目的是允许在进程间传递只读数据。
-        //Windows在通过WM_COPYDATA消息传递期间，不提供继承同步方式。
-        //其中,WM_COPYDATA对应的十六进制数为0x004A
-        public struct COPYDATASTRUCT
-        {
-            public IntPtr dwData;
-            public int cData;
-            [MarshalAs(UnmanagedType.LPStr)]
-            public string lpData;
-        }
-
-        //wpf用此方法
-        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-        {
-            if (msg == WM_COPYDATA)
-            {
-                COPYDATASTRUCT cdata = new COPYDATASTRUCT();
-                Type mytype = cdata.GetType();
-                cdata = (COPYDATASTRUCT)Marshal.PtrToStructure(lParam, mytype);
-                this.textBox1.Text = cdata.lpData;
-            }
-            return IntPtr.Zero;
-        }
-
-        //WinFrom用此方法
-        /* protected override void DefWndProc(ref Message m)
-        {
-            switch (m.Msg)
-            {
-            case WM_COPYDATA:
-                COPYDATASTRUCT cdata = new COPYDATASTRUCT();
-                Type mytype = cdata.GetType();
-                cdata = (COPYDATASTRUCT)m.GetLParam(mytype);
-                this.textBox1.Text = cdata.lpData;
-                break;
-            default:
-                base.DefWndProc(ref m);
-                break;
-            }
-        } */
+        pos1 = pos2 + 1;
+        pos2 = s.find_first_of(c, pos1);
+    }
+    if (pos1 != s.length())
+        v.push_back(s.substr(pos1));
+}
+</code></pre><h1 id="tcstok-s"><a href="#tcstok-s" class="headerlink" title="_tcstok_s"></a>_tcstok_s</h1><pre><code>// 使用C的_tcstok分割字符串
+void CSplitString::SplitString3()
+{
+    CString str = _T(&quot;a,b*c,d&quot;);
+    TCHAR seps[] = _T(&quot;,*&quot;);//可按多个字符来分割
+    TCHAR *next_token1 = NULL;
+    TCHAR* token = _tcstok_s((LPTSTR)(LPCTSTR)str, seps,&amp;next_token1);
+    while (token != NULL)
+    {
+        TRACE(&quot;\r\nstr=%s  token=%s\r\n&quot;, str, token);
+        token = _tcstok_s(NULL, seps, &amp;next_token1);
     }
 }
-</code></pre><h1 id="参考文档："><a href="#参考文档：" class="headerlink" title="参考文档："></a>参考文档：</h1><p><a href="http://blog.csdn.net/feiren127/article/details/5459827" target="_blank" rel="noopener">c# 进程间同步实现 进程之间通讯的几种方法 </a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VLC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">通信</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/11/01/C# 进程间通信/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-CShap 进程间通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/01/CShap 进程间通信/">C# 进程间通信</a>
-    </h1>
-  
-
-        
-        <a href="/2016/11/01/CShap 进程间通信/" class="archive-article-date">
-  	<time datetime="2016-11-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-11-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="使用SendMessage向另一进程发送WM-COPYDATA消息"><a href="#使用SendMessage向另一进程发送WM-COPYDATA消息" class="headerlink" title="使用SendMessage向另一进程发送WM_COPYDATA消息"></a>使用SendMessage向另一进程发送WM_COPYDATA消息</h1><h2 id="Send端："><a href="#Send端：" class="headerlink" title="Send端："></a>Send端：</h2><pre><code>using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Runtime.InteropServices;
-
-namespace SentTest
-{
-    /// &lt;summary&gt;
-    /// MainWindow.xaml 的交互逻辑
-    /// &lt;/summary&gt;
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
-            this.Title = &quot;发送窗口&quot;;
-        }
-
-        const int WM_COPYDATA = 0x004A;
-
-        public struct COPYDATASTRUCT
-        {
-            public IntPtr dwData;
-            public int cData;
-            [MarshalAs(UnmanagedType.LPStr)]
-            public string lpData;
-        }
-
-        [DllImport(&quot;User32.dll&quot;)]
-        public static extern int SendMessage(int hwnd, int msg, int wParam, ref COPYDATASTRUCT IParam);
-        [DllImport(&quot;User32.dll&quot;)]
-        public static extern int FindWindow(string lpClassName, string lpWindowName);
-
-        private void button1_Click(object sender, RoutedEventArgs e)
-        {
-            String strSent = &quot;需要发送的信息&quot;;
-
-            int WINDOW_HANDLE = FindWindow(null, &quot;接收窗口&quot;);
-            if (WINDOW_HANDLE != 0)
-            {
-                byte[] arr = System.Text.Encoding.Default.GetBytes(strSent);
-                int len = arr.Length;
-                COPYDATASTRUCT cdata;
-                cdata.dwData = (IntPtr)100;
-                cdata.lpData = strSent;
-                cdata.cData = len + 1;
-                SendMessage(WINDOW_HANDLE, WM_COPYDATA, 0, ref cdata);
-            }
-        }
-    }
-}
-</code></pre><h2 id="Get端："><a href="#Get端：" class="headerlink" title="Get端："></a>Get端：</h2><pre><code>using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Runtime.InteropServices;
-using System.Windows.Interop;
-
-namespace GetTest
-{
-    /// &lt;summary&gt;
-    /// MainWindow.xaml 的交互逻辑
-    /// &lt;/summary&gt;
-    public partial class MainWindow : Window
-    {
-        IntPtr hwnd;
-        public MainWindow()
-        {
-            InitializeComponent();
-            this.Title = &quot;接受窗口&quot;;
-
-            this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
-            this.Closed += new EventHandler(MainWindow_Closed);
-        }
-
-        void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            //窗口加载完毕才可用，否则会报错。
-            hwnd = new WindowInteropHelper(this).Handle;
-            HwndSource source = HwndSource.FromHwnd(hwnd);
-            if (source != null) source.AddHook(WndProc);
-        }
-
-        void MainWindow_Closed(object sender, EventArgs e)
-        {
-            try
-            {
-                HwndSource.FromHwnd(hwnd).RemoveHook(WndProc);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        const int WM_COPYDATA = 0x004A;//WM_COPYDATA消息的主要目的是允许在进程间传递只读数据。
-        //Windows在通过WM_COPYDATA消息传递期间，不提供继承同步方式。
-        //其中,WM_COPYDATA对应的十六进制数为0x004A
-        public struct COPYDATASTRUCT
-        {
-            public IntPtr dwData;
-            public int cData;
-            [MarshalAs(UnmanagedType.LPStr)]
-            public string lpData;
-        }
-
-        //wpf用此方法
-        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-        {
-            if (msg == WM_COPYDATA)
-            {
-                COPYDATASTRUCT cdata = new COPYDATASTRUCT();
-                Type mytype = cdata.GetType();
-                cdata = (COPYDATASTRUCT)Marshal.PtrToStructure(lParam, mytype);
-                this.textBox1.Text = cdata.lpData;
-            }
-            return IntPtr.Zero;
-        }
-
-        //WinFrom用此方法
-        /* protected override void DefWndProc(ref Message m)
-        {
-            switch (m.Msg)
-            {
-            case WM_COPYDATA:
-                COPYDATASTRUCT cdata = new COPYDATASTRUCT();
-                Type mytype = cdata.GetType();
-                cdata = (COPYDATASTRUCT)m.GetLParam(mytype);
-                this.textBox1.Text = cdata.lpData;
-                break;
-            default:
-                base.DefWndProc(ref m);
-                break;
-            }
-        } */
-    }
-}
-</code></pre><h1 id="参考文档："><a href="#参考文档：" class="headerlink" title="参考文档："></a>参考文档：</h1><p><a href="http://blog.csdn.net/feiren127/article/details/5459827" target="_blank" rel="noopener">c# 进程间同步实现 进程之间通讯的几种方法 </a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VLC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">通信</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/11/01/CShap 进程间通信/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-CShap 视频编辑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/01/CShap 视频编辑/">C# 视频编辑</a>
-    </h1>
-  
-
-        
-        <a href="/2016/10/01/CShap 视频编辑/" class="archive-article-date">
-  	<time datetime="2016-10-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="VidCoder"><a href="#VidCoder" class="headerlink" title="VidCoder"></a>VidCoder</h1><p>VidCoder是一个开源免费的DVD/蓝光视频抓取和转码软件.使用HandBrake做为编码引擎.比Handbrake拥有更友好的用户界面.</p>
-<p>可裁剪、剪切、字幕编辑、转码等。</p>
-<p>官网：<br><a href="http://vidcoder.codeplex.com/" target="_blank" rel="noopener">http://vidcoder.codeplex.com/</a></p>
-<h1 id="VLC-media-player"><a href="#VLC-media-player" class="headerlink" title="VLC media player"></a>VLC media player</h1><p>VLC 是一款自由、开源的跨平台多媒体播放器及框架，可播放大多数多媒体文件，以及 DVD、音频 CD、VCD 及各类流媒体协议。</p>
-<p>官网：<a href="http://www.videolan.org/vlc/" target="_blank" rel="noopener">http://www.videolan.org/vlc/</a></p>
-<h1 id="ffmpeg-Mencoder"><a href="#ffmpeg-Mencoder" class="headerlink" title="ffmpeg + Mencoder"></a>ffmpeg + Mencoder</h1><p>ffmpeg下载：<a href="http://ffmpeg.org/download.html" target="_blank" rel="noopener">http://ffmpeg.org/download.html</a></p>
-<p>Mencoder下载：<a href="http://www.mplayerhq.hu/design7/dload.html" target="_blank" rel="noopener">http://www.mplayerhq.hu/design7/dload.html</a></p>
-<p>C#调用ffmpeg的方法，仅供参考：<a href="https://github.com/CAOJINGYOU/VideoEditor" target="_blank" rel="noopener">VideoEditor</a></p>
-<h1 id="SharpFFmpeg"><a href="#SharpFFmpeg" class="headerlink" title="SharpFFmpeg"></a>SharpFFmpeg</h1><p>SharpFFmpeg 是一个 ffmpeg 的 C# 绑定版本，允许 .NET 开发者轻松的创建音频和视频应用。</p>
-<p>个人没用过，感觉不错，一会有机会研究下。</p>
-<p>下载地址：<a href="https://sourceforge.net/projects/sharpffmpeg/" target="_blank" rel="noopener">https://sourceforge.net/projects/sharpffmpeg/</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VidCoder</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VLC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ffmpeg</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/10/01/CShap 视频编辑/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-C++智能指针" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/01/C++智能指针/">C++ 引用计数技术及智能指针的简单实现</a>
-    </h1>
-  
-
-        
-        <a href="/2016/10/01/C++智能指针/" class="archive-article-date">
-  	<time datetime="2016-10-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="引用计数技术及智能指针的简单实现"><a href="#引用计数技术及智能指针的简单实现" class="headerlink" title="引用计数技术及智能指针的简单实现"></a>引用计数技术及智能指针的简单实现</h1><h2 id="基础对象类"><a href="#基础对象类" class="headerlink" title="基础对象类"></a>基础对象类</h2><pre><code>class Point
-
-{
-
-public:
-
-    Point(int xVal = 0, int yVal = 0) : x(xVal), y(yVal) { }
-
-    int getX() const
-    {
-        return x;
-    }
-
-    int getY() const
-    {
-        return y;
-    }
-
-    void setX(int xVal)
-    {
-        x = xVal;
-    }
-
-    void setY(int yVal)
-    {
-        y = yVal;
-    }    
-
-private:
-
-    int x, y;
-};
-</code></pre><h2 id="辅助类"><a href="#辅助类" class="headerlink" title="辅助类"></a>辅助类</h2><pre><code>//模板类作为友元时要先有声明
-
-template &lt;typename T&gt;
-
-class SmartPtr;
-
-template &lt;typename T&gt;
-
-class U_Ptr     //辅助类
-{
-private:
-
-    //该类成员访问权限全部为private，因为不想让用户直接使用该类
-
-    friend class SmartPtr&lt;T&gt;;      //定义智能指针类为友元，因为智能指针类需要直接操纵辅助类
-
-    //构造函数的参数为基础对象的指针
-
-    U_Ptr(T *ptr) : p(ptr), count(1) { }
-
-    //析构函数
-    ~U_Ptr()
-    {
-        delete p;
-    }
-
-    //引用计数
-    int count;
-
-    //基础对象指针
-    T *p;
-
-};
-</code></pre><h2 id="智能指针类"><a href="#智能指针类" class="headerlink" title="智能指针类"></a>智能指针类</h2><pre><code>template &lt;typename T&gt;
-
-class SmartPtr   //智能指针类
-{
-public:
-
-    SmartPtr(T *ptr) : rp(new U_Ptr&lt;T&gt;(ptr)) { }     //构造函数
-
-    SmartPtr(const SmartPtr&lt;T&gt; &amp;sp) : rp(sp.rp)
-    {
-        ++rp-&gt;count;    //复制构造函数
-    }
-
-    SmartPtr &amp;operator=(const SmartPtr&lt;T&gt; &amp;rhs)      //重载赋值操作符
-    {
-        ++rhs.rp-&gt;count;     //首先将右操作数引用计数加1，
-
-        if (--rp-&gt;count == 0)     //然后将引用计数减1，可以应对自赋值
-
-            delete rp;
-
-        rp = rhs.rp;
-
-        return *this;
-    }
-
-    T &amp;operator *()         //重载*操作符
-    {
-        return *(rp-&gt;p);
-    }
-
-    T *operator -&gt;()       //重载-&gt;操作符
-    {
-        return rp-&gt;p;
-    }
-
-    ~SmartPtr()          //析构函数
-    {
-        if (--rp-&gt;count == 0)    //当引用计数减为0时，删除辅助类对象指针，从而删除基础对象
-
-            delete rp;
-        else
-            cout &lt;&lt; &quot;还有&quot; &lt;&lt; rp-&gt;count &lt;&lt; &quot;个指针指向基础对象&quot; &lt;&lt; endl;
-    }
-
-private:
-    U_Ptr&lt;T&gt; *rp;  //辅助类对象指针
-
-};
-</code></pre><p>使用测试</p>
-<pre><code>int main()
-{
-    int *i = new int(2);
-    {
-        SmartPtr&lt;int&gt; ptr1(i);
-        {
-            SmartPtr&lt;int&gt; ptr2(ptr1);
-            {
-                SmartPtr&lt;int&gt; ptr3 = ptr2;
-
-                cout &lt;&lt; *ptr1 &lt;&lt; endl;
-
-                *ptr1 = 20;
-
-                cout &lt;&lt; *ptr2 &lt;&lt; endl;
-            }
-        }
-    }
-
-    system(&quot;pause&quot;);
-
-    return 0;
-}
+</code></pre><p><a href="http://www.qiezichaodan.com/mfc_cstring_split/" target="_blank" rel="noopener">http://www.qiezichaodan.com/mfc_cstring_split/</a></p>
+<p><a href="http://blog.csdn.net/xjw532881071/article/details/49154911" target="_blank" rel="noopener">http://blog.csdn.net/xjw532881071/article/details/49154911</a></p>
+<p><a href="http://www.cnblogs.com/happykoukou/p/5427268.html" target="_blank" rel="noopener">http://www.cnblogs.com/happykoukou/p/5427268.html</a></p>
+<h1 id="词汇分割器库-Boost-Tokenizer"><a href="#词汇分割器库-Boost-Tokenizer" class="headerlink" title="词汇分割器库 Boost.Tokenizer"></a>词汇分割器库 Boost.Tokenizer</h1><pre><code>#include &lt;boost/tokenizer.hpp&gt; 
+#include &lt;string&gt; 
+#include &lt;iostream&gt; 
+
+int main() 
+{ 
+  typedef boost::tokenizer&lt;boost::char_separator&lt;char&gt; &gt; tokenizer; 
+  std::string s = &quot;Boost C++ libraries&quot;; 
+  boost::char_separator&lt;char&gt; sep(&quot; &quot;, &quot;+&quot;, boost::keep_empty_tokens); 
+  tokenizer tok(s, sep); 
+  for (tokenizer::iterator it = tok.begin(); it != tok.end(); ++it) 
+    std::cout &lt;&lt; *it &lt;&lt; std::endl; 
+} 
 </code></pre><p>参考：</p>
 <ul>
-<li><a href="http://mp.weixin.qq.com/s?__biz=MzAxNDI5NzEzNg==&amp;mid=2651156666&amp;idx=1&amp;sn=4109903d526468f5913922d2f06e5a1a&amp;scene=0#wechat_redirect" target="_blank" rel="noopener">C++ 引用计数技术及智能指针的简单实现</a>(文章写的太好了，转过了以后用)</li>
+<li><a href="http://www.cplusplus.com/faq/sequences/strings/split/" target="_blank" rel="noopener">http://www.cplusplus.com/faq/sequences/strings/split/</a></li>
 </ul>
 
       
@@ -1230,7 +417,7 @@ private:
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">智能指针</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">字符串</a>
         		</li>
       		
 		</ul>
@@ -1240,7 +427,7 @@ private:
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2016/10/01/C++智能指针/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/06/01/C++字符分割/">展开全文 >></a>
         </p>
       
 
@@ -1270,38 +457,1561 @@ private:
 
 
   
-    <article id="post-C# 视频编辑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-GUID" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/01/C# 视频编辑/">C# 视频编辑</a>
+      <a class="article-title" href="/2017/05/15/GUID/">GUID</a>
     </h1>
   
 
         
-        <a href="/2016/10/01/C# 视频编辑/" class="archive-article-date">
-  	<time datetime="2016-10-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-01</time>
+        <a href="/2017/05/15/GUID/" class="archive-article-date">
+  	<time datetime="2017-05-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-15</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="VidCoder"><a href="#VidCoder" class="headerlink" title="VidCoder"></a>VidCoder</h1><p>VidCoder是一个开源免费的DVD/蓝光视频抓取和转码软件.使用HandBrake做为编码引擎.比Handbrake拥有更友好的用户界面.</p>
-<p>可裁剪、剪切、字幕编辑、转码等。</p>
-<p>官网：<br><a href="http://vidcoder.codeplex.com/" target="_blank" rel="noopener">http://vidcoder.codeplex.com/</a></p>
-<h1 id="VLC-media-player"><a href="#VLC-media-player" class="headerlink" title="VLC media player"></a>VLC media player</h1><p>VLC 是一款自由、开源的跨平台多媒体播放器及框架，可播放大多数多媒体文件，以及 DVD、音频 CD、VCD 及各类流媒体协议。</p>
-<p>官网：<a href="http://www.videolan.org/vlc/" target="_blank" rel="noopener">http://www.videolan.org/vlc/</a></p>
-<h1 id="ffmpeg-Mencoder"><a href="#ffmpeg-Mencoder" class="headerlink" title="ffmpeg + Mencoder"></a>ffmpeg + Mencoder</h1><p>ffmpeg下载：<a href="http://ffmpeg.org/download.html" target="_blank" rel="noopener">http://ffmpeg.org/download.html</a></p>
-<p>Mencoder下载：<a href="http://www.mplayerhq.hu/design7/dload.html" target="_blank" rel="noopener">http://www.mplayerhq.hu/design7/dload.html</a></p>
-<p>C#调用ffmpeg的方法，仅供参考：<a href="https://github.com/CAOJINGYOU/VideoEditor" target="_blank" rel="noopener">VideoEditor</a></p>
-<h1 id="SharpFFmpeg"><a href="#SharpFFmpeg" class="headerlink" title="SharpFFmpeg"></a>SharpFFmpeg</h1><p>SharpFFmpeg 是一个 ffmpeg 的 C# 绑定版本，允许 .NET 开发者轻松的创建音频和视频应用。</p>
-<p>个人没用过，感觉不错，一会有机会研究下。</p>
-<p>下载地址：<a href="https://sourceforge.net/projects/sharpffmpeg/" target="_blank" rel="noopener">https://sourceforge.net/projects/sharpffmpeg/</a></p>
+        <h1 id="GUID"><a href="#GUID" class="headerlink" title="GUID"></a>GUID</h1><pre><code>CString CreateNewUid()
+{
+    CoInitialize(NULL);
 
+    AUTH_TRACE_STACK();
+
+    GUID guid;
+    HRESULT hr = CoCreateGuid(&amp;guid);
+    if (FAILED(hr))
+    {
+        AUTH_LOGMESSAGE1(_T(&quot;Create Guid Failed!&quot;));
+    }
+
+#ifdef _UNICODE
+    unsigned short* buf = NULL;
+#else
+    unsigned char* buf = NULL;
+#endif
+
+    UuidToString((UUID*)&amp;guid, &amp;buf);    
+    CString strUID((LPCTSTR)buf);
+    RpcStringFree(&amp;buf);
+
+    CoUninitialize();
+
+    return strUID;    
+}
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">GUID</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/05/15/GUID/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-ImageMagick" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/15/ImageMagick/">ImageMagick</a>
+    </h1>
+  
+
+        
+        <a href="/2017/04/15/ImageMagick/" class="archive-article-date">
+  	<time datetime="2017-04-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Unix-源码安装-Windows-源码安装"><a href="#Unix-源码安装-Windows-源码安装" class="headerlink" title="[ Unix 源码安装 | Windows 源码安装 ]"></a>[ Unix 源码安装 | Windows 源码安装 ]</h1><p>首先检查一下电脑里已经安装的ImageMagick版本，输入：</p>
+<pre><code>convert -version
+</code></pre><p>除非你想要把对另外的图像格式的支持或升级一个较新的版本，否则你可能不需要ImageMagick的源码安装。 你也可以安装预先编译二进位版本。然而，如果你仍然想要从源码安装，请选择一个平台，Unix 或 Windows。<br>在源码安装之前，你可能要回顾ImageMagick的最近变化。</p>
+<h2 id="Unix-源码安装"><a href="#Unix-源码安装" class="headerlink" title="Unix 源码安装"></a>Unix 源码安装</h2><p>ImageMagick 在多种操作系统 Unix 和包括 Linux，Solaris，FreeBSD，Mac 操作系统 X 和其它的类 Unix 一样的操作系统上建立。 它需要一个编译器，几乎所有现代的 Unix 系统都会有一个。 可以从 ftp.imagemagick.org 或它的镜像网站下载 ImageMagick.tar.gz 并用这个指令解压缩:</p>
+<pre><code>gunzip -c ImageMagick.tar.gz | tar xvf -
+</code></pre><p>然后配置编译ImageMagick:</p>
+<pre><code>cd ImageMagick-6.?.?
+</code></pre><p>./configure<br>make</p>
+<p>如果配置编译的ImageMagick没有出现错误，要把它安装到系统里，你需要使用管理员权限，输入：</p>
+<pre><code>make install
+</code></pre><p>最后，可以测试一下ImageMagick的工作效果：</p>
+<pre><code>/usr/local/bin/convert logo: logo.gif
+</code></pre><p>恭喜你，你已经有ImageMagick的工作环境了，你可以使用ImageMagick加入新图片，生成缩略图，组合图片……<br>还可以使用其它程序接口 C, C++, Perl, 和其它程序。<br>上述的指导将会使很多的 ImageMagick 使用者满意，但是我们怀疑一些将会有另外的问题或问题考虑。<br>如果 ImageMagick 无法配置或编译，或如果你没有管理员权限或没有将ImageMagick安装到默认目录<br>请点这里了解更多……</p>
+<h2 id="Windows-源码安装"><a href="#Windows-源码安装" class="headerlink" title="Windows 源码安装"></a>Windows 源码安装</h2><p>Windows系统下ImageMagick源码安装需要Microsoft Visual Studio IDE。<br>有的用户也成功的用Borland C++编译。如果你没有编译器，你可以安装二进位发布版本</p>
+<p>从ftp.imagemagick.org或它的镜像网站下载 ImageMagick-windows.zip 文件，然后用 WinZip 解压缩。</p>
+<p>然后运行你的Visual Studio IDE选择Open-&gt;Project从ImageMagick-6.?.?/VisualMagick/configure文件夹里选择configure.dsp文件 Build-&gt;Build编译并执行。</p>
+<p>可以通过以下方法获取图片信息</p>
+<h2 id="安装ImageMagick便携版本"><a href="#安装ImageMagick便携版本" class="headerlink" title="安装ImageMagick便携版本"></a>安装ImageMagick便携版本</h2><h1 id="调用命令行程序并获取返回信息"><a href="#调用命令行程序并获取返回信息" class="headerlink" title="调用命令行程序并获取返回信息"></a>调用命令行程序并获取返回信息</h1><pre><code>CString ExeCmd(CString pszCmd)
+{
+    //创建匿名管道
+    SECURITY_ATTRIBUTES sa = {sizeof(SECURITY_ATTRIBUTES), NULL, TRUE};
+    HANDLE hRead, hWrite;
+    if (!CreatePipe(&amp;hRead, &amp;hWrite, &amp;sa, 0))
+    {
+        return _T(&quot;&quot;);
+    }
+
+    //设置命令行进程启动信息(以隐藏方式启动命令并定位其输出到hWrite)
+    STARTUPINFO si = {sizeof(STARTUPINFO)};
+    GetStartupInfo(&amp;si);
+    si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
+    si.wShowWindow = SW_HIDE;
+    si.hStdError = hWrite;
+    si.hStdOutput = hWrite;
+
+    //启动命令行
+    PROCESS_INFORMATION pi;
+    if (!CreateProcess(NULL, (LPWSTR)(LPCWSTR)pszCmd, NULL, NULL, TRUE, NULL, NULL, NULL, &amp;si, &amp;pi))
+    {
+        return _T(&quot;&quot;);
+    }
+
+    //立即关闭hWrite
+    CloseHandle(hWrite);
+
+    //读取命令行返回值
+    char buff[1024] = {0};
+    DWORD dwRead = 0;
+    while (ReadFile(hRead, buff, 1024, &amp;dwRead, NULL))
+    {
+    }
+    CString strRet(buff);
+    CloseHandle(hRead);
+
+    return strRet;
+}
+</code></pre><p>使用：</p>
+<pre><code>ExeCmd(_T(&quot;ping baidu.com&quot;));
+ExeCmd(_T(&quot;identify -format &quot;%[colorspace]&quot; E:\\P70306-163226.jpg&quot;));
+</code></pre><h2 id="安装ImageMagickCOM-对象"><a href="#安装ImageMagickCOM-对象" class="headerlink" title="安装ImageMagickCOM+对象"></a>安装ImageMagickCOM+对象</h2><p>C++程序员应该看一下MagickCMD.cpp命令行实用工具的示例调用该对象的C++。对象变量列表的大小需要BSTR的模仿命令行argc，argv风格的COM组件的调用约定，这是更复杂的C++中然后在VB或VBS。</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;atlbase.h&gt;
+#include &lt;atlsafe.h&gt;
+#import &quot;ImageMagickObject.tlb&quot; no_namespace
+using namespace std;
+
+typedef enum
+{
+  cmdUnknown,
+  cmdCompare,
+  cmdComposite,
+  cmdConvert,
+  cmdIdentify,
+  cmdMogrify,
+  cmdMontage,
+  cmdStream
+} CommandType;
+
+static struct
+  Commands
+  {
+    char
+      *name;
+
+    CommandType
+      code;
+  } Commands[] =
+  {
+    { &quot;&quot;,          cmdUnknown   },
+    { &quot;compare&quot;,   cmdCompare   },
+    { &quot;composite&quot;, cmdComposite },
+    { &quot;convert&quot;,   cmdConvert   },
+    { &quot;identify&quot;,  cmdIdentify  },
+    { &quot;mogrify&quot;,   cmdMogrify   },
+    { &quot;montage&quot;,   cmdMontage   },
+    { &quot;stream&quot;,    cmdStream   }
+  };
+
+int main(int argc, char* argv[])
+{
+  int
+    index,
+    status = 0;
+
+  char
+    *name;
+
+  CommandType
+    code = cmdUnknown;
+
+  // We must have at least a command, input, and output
+  if (argc &lt; 4)
+    return 0;
+
+  index = 1;
+  while ((name = Commands[index].name))
+  {
+    if (stricmp(name,argv[1]) == 0)
+    {
+      code = Commands[index].code;
+      break;
+    }
+    index++;
+  }
+  if (code == cmdUnknown)
+    return 0;
+
+  CoInitialize(NULL);
+
+  try
+  {
+    CComVariant
+      result;
+
+    SAFEARRAY
+      **ppsa = (SAFEARRAY**) NULL;
+
+    IMagickImagePtr pImageProc(__uuidof(MagickImage));
+    if (pImageProc == NULL)
+      status = 1;
+    else
+    {
+      {
+        // Define the array bound structure
+        CComSafeArrayBound bound[1];
+        bound[0].SetCount(argc-2);
+        bound[0].SetLowerBound(0);
+        CComSafeArray&lt;VARIANT&gt; args(bound);
+        if( !args )
+          status = 2;
+        else
+        {
+          for(index = 2; index &lt; argc; ++index)
+          {
+            CComVariant vt(argv[index]);
+            HRESULT hr = vt.Detach(&amp;args[index-2]);
+          }
+          switch(code)
+          {
+            case cmdCompare:
+              result = pImageProc-&gt;Compare(args.GetSafeArrayPtr());
+              break;
+            case cmdComposite:
+              result = pImageProc-&gt;Composite(args.GetSafeArrayPtr());
+              break;
+            case cmdConvert:
+              result = pImageProc-&gt;Convert(args.GetSafeArrayPtr());
+              break;
+            case cmdIdentify:
+              result = pImageProc-&gt;Identify(args.GetSafeArrayPtr());
+              break;
+            case cmdMogrify:
+              result = pImageProc-&gt;Mogrify(args.GetSafeArrayPtr());
+              break;
+            case cmdMontage:
+              result = pImageProc-&gt;Montage(args.GetSafeArrayPtr());
+              break;
+            case cmdStream:
+              result = pImageProc-&gt;Stream(args.GetSafeArrayPtr());
+              break;
+          }
+          pImageProc.Release();
+        }
+      }
+    }
+  }
+  catch(_com_error ex)
+  {
+    HRESULT
+      res = ex.Error();  
+
+    _bstr_t
+      desc = ex.Description();  
+
+    printf(&quot;Error %s (0x%08x)\n&quot;,(char *)desc,res);
+    status = 4;
+  }
+
+  CoUninitialize();
+  return status;
+}
+</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<li><a href="http://www.imagemagick.org/script/index.php" target="_blank" rel="noopener">http://www.imagemagick.org/script/index.php</a></li>
+<li><a href="http://www.imagemagick.com.cn/" target="_blank" rel="noopener">http://www.imagemagick.com.cn/</a></li>
+<li><a href="http://www.imagemagick.org/script/download.php" target="_blank" rel="noopener">http://www.imagemagick.org/script/download.php</a></li>
+<li><a href="https://github.com/ImageMagick/ImageMagick/tree/master/Magick%2B%2B" target="_blank" rel="noopener">https://github.com/ImageMagick/ImageMagick/tree/master/Magick%2B%2B</a></li>
+<li><a href="https://legacy.imagemagick.org/script/index.php" target="_blank" rel="noopener">https://legacy.imagemagick.org/script/index.php</a></li>
+<li><a href="https://www.imagemagick.org/Usage/" target="_blank" rel="noopener">https://www.imagemagick.org/Usage/</a></li>
+<li><a href="https://www.imagemagick.org/Usage/color_basics/" target="_blank" rel="noopener">https://www.imagemagick.org/Usage/color_basics/</a></li>
+<li><a href="ftp://ftp.imagemagick.org/pub/ImageMagick/windows/" target="_blank" rel="noopener">ftp://ftp.imagemagick.org/pub/ImageMagick/windows/</a></li>
+<li><a href="https://legacy.imagemagick.org/script/install-source.php" target="_blank" rel="noopener">https://legacy.imagemagick.org/script/install-source.php</a></li>
+<li><a href="https://legacy.imagemagick.org/script/advanced-windows-installation.php" target="_blank" rel="noopener">https://legacy.imagemagick.org/script/advanced-windows-installation.php</a></li>
+<li><a href="https://legacy.imagemagick.org/script/download.php" target="_blank" rel="noopener">https://legacy.imagemagick.org/script/download.php</a></li>
+<li><a href="https://legacy.imagemagick.org/script/ImageMagickObject.php" target="_blank" rel="noopener">https://legacy.imagemagick.org/script/ImageMagickObject.php</a></li>
+<li><a href="https://legacy.imagemagick.org/script/ImageMagickObject.php" target="_blank" rel="noopener">http://imagemagick.org/Magick++/</a></li>
+<li><a href="https://www.imagemagick.org/discourse-server/" target="_blank" rel="noopener">https://www.imagemagick.org/discourse-server/</a></li>
+<li><a href="http://dahua2.blog.163.com/blog/static/1748435142015317633489/" target="_blank" rel="noopener">http://dahua2.blog.163.com/blog/static/1748435142015317633489/</a></li>
+<li><a href="http://www.tuicool.com/articles/NvYfi2" target="_blank" rel="noopener">http://www.tuicool.com/articles/NvYfi2</a></li>
+<li><a href="http://www.tuicool.com/articles/6fyI7z" target="_blank" rel="noopener">http://www.tuicool.com/articles/6fyI7z</a></li>
+<li><a href="http://www.tuicool.com/articles/NN3M7fv" target="_blank" rel="noopener">http://www.tuicool.com/articles/NN3M7fv</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">图像</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ImageMagick</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/04/15/ImageMagick/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-C++进程间通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/01/C++进程间通信/">C++进程间通信</a>
+    </h1>
+  
+
+        
+        <a href="/2017/04/01/C++进程间通信/" class="archive-article-date">
+  	<time datetime="2017-04-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="C-进程间通信"><a href="#C-进程间通信" class="headerlink" title="C++进程间通信"></a>C++进程间通信</h1><p>进程间通讯的四种方式：剪贴板、匿名管道、命名管道和邮槽</p>
+<h2 id="剪切板"><a href="#剪切板" class="headerlink" title="剪切板"></a>剪切板</h2><pre><code>//设置剪切板内容
+
+CString str;
+this-&gt;GetDlgItemText(IDC_EDIT1, str);
+
+OpenClipboard();//打开剪贴板查看,并防止其他应用程序修改剪贴板的内容.
+EmptyClipboard();//EmptyClipboard Function该函数清空剪切板并释放剪切板内数据的句柄。函数在之后会将剪切板的所有权指派给当前打开剪切板的窗口。
+HANDLE hclip = GlobalAlloc(GMEM_MOVEABLE, str.GetLength() + 1);
+char *pBuf = (char *)GlobalLock(hclip);
+
+//WideCharToMultiByte()//字形转换
+strcpy(pBuf, str.GetBuffer());
+//memcpy(pBuf, str.GetBuffer(), GetLength()+2);
+GlobalLock(hclip);
+
+SetClipboardData(CF_TEXT, hclip);//SetClipboardData是把指定数据按照指定格式放入剪切板中
+CloseClipboard();//关闭剪贴板,这使其他窗口或程序能访问剪贴板。
+
+//获得剪切板内容
+
+OpenClipboard();
+if (IsClipboardFormatAvailable(CF_TEXT))//是以NULL结尾的ASCII字符的文本格式,则该函数返回值为true,否则为false。
+{
+    HANDLE hclip;
+    hclip = GetClipboardData(CF_TEXT);//用来打开剪贴板并获取剪贴板内容。
+    char *pBuf =  (char *)GlobalLock(hclip);
+    GlobalUnlock(hclip);
+    CString STR;
+    SetDlgItemText(IDC_EDIT1, pBuf);
+}
+CloseClipboard();
+
+//参考：
+//http://bbs.kechuang.org/t/72605
+//http://www.cnblogs.com/BoyXiao/archive/2010/12/25/1916677.html
+</code></pre><h2 id="匿名管道"><a href="#匿名管道" class="headerlink" title="匿名管道"></a>匿名管道</h2><pre><code>//父进程实现
+
+//创建匿名管道
+SECURITY_ATTRIBUTES sa;
+sa.bInheritHandle = TRUE;
+sa.lpSecurityDescriptor = NULL;
+sa.nLength = sizeof(SECURITY_ATTRIBUTES);
+
+if (!CreatePipe(&amp;m_hRead, &amp;m_hWrite, &amp;sa, 0))
+{
+    AfxMessageBox(_T(&quot;create pipe error&quot;));
+}
+
+//子进程的创建
+STARTUPINFO sui;
+PROCESS_INFORMATION pi;
+sui.cb = sizeof(STARTUPINFO);
+ZeroMemory(&amp;sui, sizeof(STARTUPINFO));
+
+sui.dwFlags = STARTF_USESTDHANDLES;
+sui.hStdInput = m_hRead;
+sui.hStdOutput = m_hWrite;
+sui.hStdError = GetStdHandle(STD_ERROR_HANDLE);
+
+if (!CreateProcess(_T(&quot;../debug/child.exe&quot;), NULL , NULL, NULL, TRUE, 0, NULL, NULL, &amp;sui, &amp;pi ))
+
+{
+    AfxMessageBox(_T(&quot;创建子进程错误&quot;));
+}
+
+
+//关闭进程 线程计数器
+if (pi.hThread)
+{
+    CloseHandle(pi.hThread);
+}
+if (pi.hProcess)
+{
+    CloseHandle(pi.hProcess);
+}
+
+//发送数据
+
+char buf[] = &quot;this is pipe server&quot;;
+DWORD dwWrite = 0;
+if (!WriteFile(m_hWrite, buf, strlen(buf) + 1, &amp;dwWrite, NULL))
+{
+    AfxMessageBox(_T(&quot;write error parent&quot;));
+}
+
+//接收数据
+
+char buf[128] = {0};
+DWORD dwRead = 0;
+ReadFile(m_hRead, buf, sizeof(buf), &amp;dwRead, NULL );
+
+//子进程实现
+
+//获取继承自父进程的匿名管道读写句柄
+m_hRead = GetStdHandle(STD_INPUT_HANDLE);
+m_hWrite = GetStdHandle(STD_OUTPUT_HANDLE);
+
+//写入数据
+
+char buf[] = &quot;this is pipe child&quot;;
+DWORD dwWrite = 0;
+if (!WriteFile(m_hWrite, buf, strlen(buf) + 1, &amp;dwWrite, NULL))
+{
+    AfxMessageBox(_T(&quot;write error child&quot;));
+}
+
+//读取数据
+
+char buf[128] = {0};
+DWORD dwRead = 0;
+ReadFile(m_hRead, buf, sizeof(buf), &amp;dwRead, NULL );
+
+//参考
+http://www.cnblogs.com/BoyXiao/archive/2011/01/01/1923828.html
+</code></pre><h2 id="命名管道"><a href="#命名管道" class="headerlink" title="命名管道"></a>命名管道</h2><pre><code>//服务端
+
+//创建命名管
+
+m_hPipe = CreateNamedPipe(_T(&quot;\\\\.\\pipe\\mypipe&quot;), PIPE_ACCESS_DUPLEX | FILE_FLAG_OVERLAPPED, /*OVERLAPPED是为了满足异步实现非阻塞的工能，当连接上用事件通知*/
+                          0, 1, 1024, 1024, 0, NULL);
+
+if (m_hPipe == INVALID_HANDLE_VALUE)
+{
+    return;
+}
+
+//创建事件
+HANDLE hEvent;
+hEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+if (!hEvent)
+{
+    MessageBox(_T(&quot;创建事件对象失败！&quot;));
+    CloseHandle(m_hPipe);
+    m_hPipe = NULL;
+    return;
+}
+
+OVERLAPPED ovlap;
+ZeroMemory(&amp;ovlap, sizeof(OVERLAPPED));
+ovlap.hEvent = hEvent;
+
+if (!ConnectNamedPipe(m_hPipe, &amp;ovlap))
+{
+    if (ERROR_IO_PENDING != GetLastError())
+    {
+        MessageBox(_T(&quot;等待客户连接失败！&quot;));
+        CloseHandle(m_hPipe);
+        CloseHandle(hEvent);
+        m_hPipe = NULL;
+        return;
+    }
+}
+
+//重叠操作
+if (WAIT_FAILED == WaitForSingleObject(hEvent, INFINITE))
+{
+    MessageBox(_T(&quot;等待对象失败！&quot;));
+    CloseHandle(m_hPipe);
+    CloseHandle(hEvent);
+    m_hPipe = NULL;
+    return;
+}
+CloseHandle(hEvent);
+
+//写数据
+
+char buf[] = &quot;this is named pipe server&quot;;
+DWORD dwWrite = 0;
+WriteFile(m_hPipe, buf, strlen(buf) + 1, &amp;dwWrite, NULL);
+
+//读数据
+
+char buf[128] = {0};
+DWORD dwRead = 0;
+ReadFile(m_hPipe, buf, 128, &amp;dwRead, NULL);
+
+//客户端
+
+//连接命名管道
+if (!WaitNamedPipe(_T(&quot;\\\\.\\pipe\\mypipe&quot;), NMPWAIT_WAIT_FOREVER))
+{
+    return;
+}
+
+m_hPipe = CreateFile(_T(&quot;\\\\.\\pipe\\mypipe&quot;), GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+
+//写入数据
+
+char buf[] = &quot;this is named pipe client&quot;;
+DWORD dwWrite = 0;
+WriteFile(m_hPipe, buf, strlen(buf) + 1, &amp;dwWrite, NULL);
+
+//读取数据
+
+char buf[128] = {0};
+DWORD dwRead = 0;
+ReadFile(m_hPipe, buf, 128, &amp;dwRead, NULL);
+
+
+//参考
+//http://www.cnblogs.com/BoyXiao/archive/2011/01/02/1924188.html
+</code></pre><h2 id="邮槽"><a href="#邮槽" class="headerlink" title="邮槽"></a>邮槽</h2><pre><code>//服务端
+
+HANDLE hMail = CreateMailslot(_T(&quot;\\\\.\\mailslot\\myslot&quot;), 424, MAILSLOT_WAIT_FOREVER, NULL);
+if (hMail == INVALID_HANDLE_VALUE)
+{
+    int nRes = GetLastError();
+    CString str;
+    str.Format(_T(&quot;%s&quot;), nRes);
+    AfxMessageBox(str);
+    return;
+}
+char buf[424] = {0};
+DWORD dwSize = 0;
+ReadFile(hMail, buf, 424, &amp;dwSize, NULL);
+CString str;
+str = buf;
+MessageBox(str);
+
+//客户端
+HANDLE hMailslot;
+hMailslot = CreateFile(_T(&quot;\\\\.\\mailslot\\myslot&quot;), GENERIC_WRITE,
+                       FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+if (INVALID_HANDLE_VALUE == hMailslot)
+{
+    MessageBox(_T(&quot;打开邮槽失败！&quot;));
+    return;
+}
+
+char buf[] = &quot;this is mail slot client&quot;;
+DWORD dwSize = 0;
+if (!WriteFile(hMailslot, buf, strlen(buf) + 1, &amp;dwSize, NULL))
+{
+    MessageBox(_T(&quot;写入邮槽失败！&quot;));
+}
+
+//http://blog.csdn.net/kylin_p/article/details/5146797
+//http://www.cnblogs.com/BoyXiao/archive/2010/12/31/1923462.html
+//http://www.cnblogs.com/jzincnblogs/p/5192654.html
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">通信</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/04/01/C++进程间通信/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-C++ 最小化到托盘" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/01/C++ 最小化到托盘/"> C++ 最小化到托盘</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/01/C++ 最小化到托盘/" class="archive-article-date">
+  	<time datetime="2017-03-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="C-最小化到托盘"><a href="#C-最小化到托盘" class="headerlink" title="C++ 最小化到托盘"></a>C++ 最小化到托盘</h1><pre><code>#define  WM_SHOWTASK (WM_USER + 1)
+void CTestDlg::OnSysCommand(UINT nID, LPARAM lParam)
+{
+    if ((nID &amp; 0xFFF0) == IDM_ABOUTBOX)
+    {
+        CAboutDlg dlgAbout;
+        dlgAbout.DoModal();
+    }
+    else
+    {
+        //增加关闭时最小化到托盘的函数
+        if (nID == SC_CLOSE) //SC_MINIMIZE
+        {
+            ToTray();
+            return;
+        }
+        CDialog::OnSysCommand(nID, lParam);
+    }
+}
+BEGIN_MESSAGE_MAP(CTestDlg, CDialog)
+    ON_MESSAGE(WM_SHOWTASK, OnShowTask)
+    //}}AFX_MSG_MAP
+END_MESSAGE_MAP()
+//在托盘区添加图标 最小化到托盘函数
+void ToTray(void);
+void CTestDlg::ToTray(void)
+{
+    NOTIFYICONDATA nid;
+    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
+    nid.hWnd = this-&gt;m_hWnd;
+    nid.uID = IDR_MAINFRAME;
+    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
+    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
+    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
+    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条
+    Shell_NotifyIcon(NIM_ADD, &amp;nid);//在托盘区添加图标
+    ShowWindow(SW_HIDE);//隐藏主窗口
+}
+//恢复界面函数
+afx_msg LRESULT OnShowTask(WPARAM wParam, LPARAM lParam);
+//托盘事件
+LRESULT CTestDlg::OnShowTask(WPARAM wParam, LPARAM lParam)
+{
+    if (wParam != IDR_MAINFRAME)
+    {
+        return 1;
+    }
+    switch(lParam)
+    {
+    case WM_RBUTTONUP://右键起来时弹出快捷菜单，这里只有一个关闭
+    {
+        LPPOINT lpoint = new tagPOINT;
+        ::GetCursorPos(lpoint);//得到鼠标位置
+        CMenu menu;
+        menu.CreatePopupMenu();//声明一个弹出式菜单
+        //增加菜单项“关闭”，点击则发送消息WM_DESTROY给主窗口（已
+        //隐藏），将程序结束。
+        menu.AppendMenu(MF_STRING, WM_DESTROY, _T(&quot;退出&quot;));
+        //确定弹出式菜单的位置
+        menu.TrackPopupMenu(TPM_LEFTALIGN, lpoint-&gt;x, lpoint-&gt;y, this);
+        //资源回收
+        HMENU hmenu = menu.Detach();
+        menu.DestroyMenu();
+        delete lpoint;
+    }
+    break;
+    case WM_LBUTTONDBLCLK://双击左键的处理
+    {
+        this-&gt;ShowWindow(SW_SHOW);//简单的显示主窗口
+        this-&gt;ShowWindow(SW_RESTORE);
+        DeleteTray();
+    }
+    break;
+    default:
+        break;
+    }
+    return 0;
+}
+//删除托盘中图标
+void DeleteTray();
+void CTestlDlg::DeleteTray()
+{
+    NOTIFYICONDATA nid;
+    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
+    nid.hWnd = this-&gt;m_hWnd;
+    nid.uID = IDR_MAINFRAME;
+    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
+    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
+    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
+    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
+    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
+}
+//退出程序需时需要DeleteTray();
+void CTestDlg::OnDestroy()
+{
+    CDialog::OnDestroy();
+    // TODO: 在此处添加消息处理程序代码
+    DeleteTray();
+}
+//修改风格使得他不在任务栏显示
+int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+    if (CDialog::OnCreate(lpCreateStruct) == -1)
+        return -1;
+    // TODO:  在此添加您专用的创建代码
+    //修改风格使得他不在任务栏显示
+    ModifyStyleEx(WS_EX_APPWINDOW, WS_EX_TOOLWINDOW);
+    return 0;
+}
+</code></pre><p>DeleteTray改为：</p>
+<pre><code>void CTestDlg::DeleteTray()
+{
+    NOTIFYICONDATA nid;
+    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
+    nid.hWnd = this-&gt;m_hWnd;
+    nid.uID = IDR_MAINFRAME;
+    nid.uFlags = NIF_ICON /*| NIF_MESSAGE | NIF_TIP*/;
+    //nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
+    //nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
+    //wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
+    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
+}
+</code></pre><p>否则会出现程序退出后，托盘图标还在的情况，鼠标移动到图标上后，图标一闪然后消失的问题。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/01/C++ 最小化到托盘/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/">C#与C++相互发送消息</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/" class="archive-article-date">
+  	<time datetime="2017-03-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="C-最小化到托盘"><a href="#C-最小化到托盘" class="headerlink" title="C++ 最小化到托盘"></a>C++ 最小化到托盘</h1><pre><code>#define  WM_SHOWTASK (WM_USER + 1)
+void CTestDlg::OnSysCommand(UINT nID, LPARAM lParam)
+{
+    if ((nID &amp; 0xFFF0) == IDM_ABOUTBOX)
+    {
+        CAboutDlg dlgAbout;
+        dlgAbout.DoModal();
+    }
+    else
+    {
+        //增加关闭时最小化到托盘的函数
+        if (nID == SC_CLOSE) //SC_MINIMIZE
+        {
+            ToTray();
+            return;
+        }
+        CDialog::OnSysCommand(nID, lParam);
+    }
+}
+BEGIN_MESSAGE_MAP(CTestDlg, CDialog)
+    ON_MESSAGE(WM_SHOWTASK, OnShowTask)
+    //}}AFX_MSG_MAP
+END_MESSAGE_MAP()
+//在托盘区添加图标 最小化到托盘函数
+void ToTray(void);
+void CTestDlg::ToTray(void)
+{
+    NOTIFYICONDATA nid;
+    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
+    nid.hWnd = this-&gt;m_hWnd;
+    nid.uID = IDR_MAINFRAME;
+    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
+    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
+    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
+    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条
+    Shell_NotifyIcon(NIM_ADD, &amp;nid);//在托盘区添加图标
+    ShowWindow(SW_HIDE);//隐藏主窗口
+}
+//恢复界面函数
+afx_msg LRESULT OnShowTask(WPARAM wParam, LPARAM lParam);
+//托盘事件
+LRESULT CTestDlg::OnShowTask(WPARAM wParam, LPARAM lParam)
+{
+    if (wParam != IDR_MAINFRAME)
+    {
+        return 1;
+    }
+    switch(lParam)
+    {
+    case WM_RBUTTONUP://右键起来时弹出快捷菜单，这里只有一个关闭
+    {
+        LPPOINT lpoint = new tagPOINT;
+        ::GetCursorPos(lpoint);//得到鼠标位置
+        CMenu menu;
+        menu.CreatePopupMenu();//声明一个弹出式菜单
+        //增加菜单项“关闭”，点击则发送消息WM_DESTROY给主窗口（已
+        //隐藏），将程序结束。
+        menu.AppendMenu(MF_STRING, WM_DESTROY, _T(&quot;退出&quot;));
+        //确定弹出式菜单的位置
+        menu.TrackPopupMenu(TPM_LEFTALIGN, lpoint-&gt;x, lpoint-&gt;y, this);
+        //资源回收
+        HMENU hmenu = menu.Detach();
+        menu.DestroyMenu();
+        delete lpoint;
+    }
+    break;
+    case WM_LBUTTONDBLCLK://双击左键的处理
+    {
+        this-&gt;ShowWindow(SW_SHOW);//简单的显示主窗口
+        this-&gt;ShowWindow(SW_RESTORE);
+        DeleteTray();
+    }
+    break;
+    default:
+        break;
+    }
+    return 0;
+}
+//删除托盘中图标
+void DeleteTray();
+void CTestlDlg::DeleteTray()
+{
+    NOTIFYICONDATA nid;
+    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
+    nid.hWnd = this-&gt;m_hWnd;
+    nid.uID = IDR_MAINFRAME;
+    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
+    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
+    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
+    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
+    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
+}
+//退出程序需时需要DeleteTray();
+void CTestDlg::OnDestroy()
+{
+    CDialog::OnDestroy();
+    // TODO: 在此处添加消息处理程序代码
+    DeleteTray();
+}
+//修改风格使得他不在任务栏显示
+int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+    if (CDialog::OnCreate(lpCreateStruct) == -1)
+        return -1;
+    // TODO:  在此添加您专用的创建代码
+    //修改风格使得他不在任务栏显示
+    ModifyStyleEx(WS_EX_APPWINDOW, WS_EX_TOOLWINDOW);
+    return 0;
+}
+</code></pre><p>DeleteTray改为：</p>
+<pre><code>void CTestDlg::DeleteTray()
+{
+    NOTIFYICONDATA nid;
+    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
+    nid.hWnd = this-&gt;m_hWnd;
+    nid.uID = IDR_MAINFRAME;
+    nid.uFlags = NIF_ICON /*| NIF_MESSAGE | NIF_TIP*/;
+    //nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
+    //nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
+    //wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
+    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
+}
+</code></pre><p>否则会出现程序退出后，托盘图标还在的情况，鼠标移动到图标上后，图标一闪然后消失的问题。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-C++中判断某一文件或目录是否存在" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/15/C++中判断某一文件或目录是否存在/">C++中判断某一文件或目录是否存在</a>
+    </h1>
+  
+
+        
+        <a href="/2017/02/15/C++中判断某一文件或目录是否存在/" class="archive-article-date">
+  	<time datetime="2017-02-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h1><h2 id="ifstream"><a href="#ifstream" class="headerlink" title="ifstream"></a>ifstream</h2><p>在C++中，可以利用ifstream文件输入流，当我们直接使用ifstream来创建文件输入流的时候，如果文件不存在则流创建失败。</p>
+<pre><code>ifstream fin(&quot;hello.txt&quot;);
+if (!fin)
+{
+   std::cout &lt;&lt; &quot;can not open this file&quot; &lt;&lt; endl;
+}
+</code></pre><h2 id="fstream"><a href="#fstream" class="headerlink" title="fstream"></a>fstream</h2><pre><code>fstream _file;
+_file.open(FILENAME,ios::in);
+if(!_file)
+{
+ cout&lt;&lt;FILENAME&lt;&lt;&quot;没有被创建&quot;;
+}
+else
+{
+  cout&lt;&lt;FILENAME&lt;&lt;&quot;已经存在&quot;;
+}
+</code></pre><h2 id="taccess"><a href="#taccess" class="headerlink" title="_taccess"></a>_taccess</h2><p>Generic-Text Routine Mappings:</p>
+<pre><code>| TCHAR.H Routine    | _UNICODE &amp; _MBCS Not Defined    | _UNICODE Defined    | _UNICODE Defined    |
+| _taccess            | _access                        | _access            |_waccess            |
+</code></pre><p>返回值</p>
+<pre><code>mode Value     Checks File For
+00     Existence only
+02     Write permission
+04     Read permission
+06     Read and write permission
+</code></pre><p>Example:</p>
+<pre><code>#include  &lt;io.h&gt;
+#include  &lt;stdio.h&gt;
+#include  &lt;stdlib.h&gt;
+
+int main( void )
+{
+    // Check for existence.
+    if( (_access( &quot;crt_ACCESS.C&quot;, 0 )) != -1 )
+    {
+        printf_s( &quot;File crt_ACCESS.C exists.\n&quot; );
+
+        // Check for write permission.
+        // Assume file is read-only.
+        if( (_access( &quot;crt_ACCESS.C&quot;, 2 )) == -1 )
+            printf_s( &quot;File crt_ACCESS.C does not have write permission.\n&quot; );
+    }
+}
+</code></pre><p><a href="https://msdn.microsoft.com/query/dev10.query?appId=Dev10IDEF1&amp;l=ZH-CN&amp;k=k(%22TCHAR%2f_TACCESS%22" target="_blank" rel="noopener">https://msdn.microsoft.com/query/dev10.query?appId=Dev10IDEF1&amp;l=ZH-CN&amp;k=k(%22TCHAR%2f_TACCESS%22);k(_TACCESS);k(DevLang-%22C%2B%2B%22);k(TargetOS-WINDOWS)&amp;rd=true</a>;k(_TACCESS);k(DevLang-%22C%2B%2B%22);k(TargetOS-WINDOWS)&amp;rd=true)</p>
+<h2 id="FindFirstFile"><a href="#FindFirstFile" class="headerlink" title="FindFirstFile"></a>FindFirstFile</h2><pre><code>WIN32_FIND_DATA FindFileData;
+HANDLE hFind;
+
+printf (&quot;Target file is %s. &quot;, argv[1]);
+
+hFind = FindFirstFile(strPath.c_str(), &amp;FindFileData);
+
+if (hFind == INVALID_HANDLE_VALUE)
+{
+    printf (&quot;Invalid File Handle. Get Last Error reports %d &quot;, GetLastError ());
+}
+else
+{
+    printf (&quot;The first file found is %s &quot;, FindFileData.cFileName);
+    FindClose(hFind);
+}
+</code></pre><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><h2 id="FindFirstFile-1"><a href="#FindFirstFile-1" class="headerlink" title="FindFirstFile"></a>FindFirstFile</h2><pre><code>WIN32_FIND_DATA wfd;
+bool rValue = false;
+HANDLE hFind = FindFirstFile(strPath.c_str(), &amp;wfd);
+if ((hFind != INVALID_HANDLE_VALUE) &amp;&amp; (wfd.dwFileAttributes &amp;FILE_ATTRIBUTE_DIRECTORY))
+{
+    std::cout &lt;&lt; &quot;this file exists&quot; &lt;&lt; endl;
+}
+FindClose(hFind);
+</code></pre><h2 id="Tstat"><a href="#Tstat" class="headerlink" title="_Tstat"></a>_Tstat</h2><p>在windows中可以使用_stat() 函数。</p>
+<p>声明：int _stat(const char<em> path, struct _stat</em> buffer);</p>
+<p>这个函数使用起来非常方便，如下：</p>
+<pre><code>struct _stat fileStat;
+if ((_stat(dir.c_str(), &amp;fileStat) == 0) &amp;&amp; (fileStat.st_mode &amp; _S_IFDIR))
+{
+    isExist = true;
+}
+</code></pre><p>_S_IFDIR 是一个标志位，如果是目录的话，该位就会被系统设置。</p>
+<p>在linux底下也有相对应的函数stat();</p>
+<p>使用方法基本相同：</p>
+<pre><code>struct stat fileStat;
+if ((stat(dir.c_str(), &amp;fileStat) == 0) &amp;&amp; S_ISDIR(fileStat.st_mode))
+{
+    isExist = true;
+}
+</code></pre><p>唯一不同的地方我使用了一个macro， S_ISDIR来判断文件是否存在，原理实际都一样的。</p>
+<p><a href="https://msdn.microsoft.com/query/dev10.query?appId=Dev10IDEF1&amp;l=ZH-CN&amp;k=k(%22WCHAR%2f_STAT%22" target="_blank" rel="noopener">https://msdn.microsoft.com/query/dev10.query?appId=Dev10IDEF1&amp;l=ZH-CN&amp;k=k(%22WCHAR%2f_STAT%22);k(_STAT);k(DevLang-%22C%2B%2B%22);k(TargetOS-WINDOWS)&amp;rd=true</a>;k(_STAT);k(DevLang-%22C%2B%2B%22);k(TargetOS-WINDOWS)&amp;rd=true)</p>
+<h2 id="boost的filesystem类库的exists函数"><a href="#boost的filesystem类库的exists函数" class="headerlink" title="boost的filesystem类库的exists函数"></a>boost的filesystem类库的exists函数</h2><pre><code>#include &lt;boost/filesystem/operations.hpp&gt;
+#include &lt;boost/filesystem/path.hpp&gt;
+#include &lt;boost/filesystem/convenience.hpp&gt;
+
+int GetFilePath(std::string &amp;strFilePath)
+{
+    string strPath;
+    int nRes = 0;
+
+    //指定路径
+    strPath = &quot;D:/myTest/Test1/Test2&quot;;
+    namespace fs = boost::filesystem;
+
+    //路径的可移植
+    fs::path full_path( fs::initial_path() );
+    full_path = fs::system_complete( fs::path(strPath, fs::native ) );
+    //判断各级子目录是否存在，不存在则需要创建
+    if ( !fs::exists( full_path ) )
+    {
+        // 创建多层子目录
+        bool bRet = fs::create_directories(full_path);
+        if (false == bRet)
+        {
+            return -1;
+        }
+
+    }
+    strFilePath = full_path.native_directory_string();
+
+    return 0;
+}
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文件</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/02/15/C++中判断某一文件或目录是否存在/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-C#与C++通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/01/C#与C++通信/">C#与C++相互发送消息</a>
+    </h1>
+  
+
+        
+        <a href="/2017/02/01/C#与C++通信/" class="archive-article-date">
+  	<time datetime="2017-02-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="C-与C-相互发送消息"><a href="#C-与C-相互发送消息" class="headerlink" title="C#与C++相互发送消息"></a>C#与C++相互发送消息</h1><h2 id="C-端："><a href="#C-端：" class="headerlink" title="C#端："></a>C#端：</h2><pre><code>namespace CshapMessage
+{
+    /// &lt;summary&gt;
+    /// MainWindow.xaml 的交互逻辑
+    /// &lt;/summary&gt;
+    public partial class MainWindow : Window
+    {
+        IntPtr hwnd;
+
+        const int WM_COPYDATA = 0x004A;
+
+        public struct COPYDATASTRUCT
+        {
+            public IntPtr dwData;
+            public int cData;
+            [MarshalAs(UnmanagedType.LPStr)]
+            public string lpData;
+        }
+
+        [DllImport(&quot;User32.dll&quot;)]
+        public static extern int SendMessage(int hwnd, int msg, int wParam, ref COPYDATASTRUCT IParam);
+        [DllImport(&quot;User32.dll&quot;)]
+        public static extern int FindWindow(string lpClassName, string lpWindowName);
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            this.Title = &quot;CshapMessage&quot;;
+            this.Loaded += MainWindow_Loaded;
+            this.Closed += MainWindow_Closed;
+        }
+
+        private void MainWindow_Closed(object sender, EventArgs e)
+        {
+            try
+            {
+                HwndSource.FromHwnd(hwnd).RemoveHook(WndProc);
+            }
+            catch (Exception) { }
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            hwnd = new WindowInteropHelper(this).Handle;
+            HwndSource.FromHwnd(hwnd).AddHook(new HwndSourceHook(WndProc));
+        }
+
+        /// &lt;summary&gt;
+        /// 向C++程序 CshapMessage发送消息
+        /// &lt;/summary&gt;
+        /// &lt;param name=&quot;nMessgeId&quot;&gt;&lt;/param&gt;
+        /// &lt;param name=&quot;strSend&quot;&gt;&lt;/param&gt;
+        /// &lt;returns&gt;&lt;/returns&gt;
+        private bool CshapSendMessage(int nMessgeId, String strSend)
+        {
+            int WINDOW_HANDLE = FindWindow(null, &quot;VcMessage&quot;);//VcMessage为向C++程序发送的窗口名称
+            if (WINDOW_HANDLE != 0)
+            {
+                COPYDATASTRUCT cdata;
+                cdata.dwData = (IntPtr)100;//这里可以传入一些自定义的数据，但只能是4字节整数 
+                cdata.lpData = strSend;//消息字符串
+                cdata.cData = System.Text.Encoding.Default.GetBytes(strSend).Length+1;//注意，这里的长度是按字节来算的
+
+                SendMessage(WINDOW_HANDLE, WM_COPYDATA, 0, ref cdata);
+            }
+            else
+            {
+                return false;
+            }
+            return true;
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            String strSend = &quot;C#发送的信息&quot;;
+            int nMessageId = 100;
+
+            if (CshapSendMessage(nMessageId,strSend))
+            {
+                MessageBox.Show(&quot;发送消息成功&quot;);
+            }
+            else
+            {
+                MessageBox.Show(&quot;消息发送失败，请打开VcMessage程序&quot;);
+            }
+        }
+
+        //接收消息。
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            if (msg == WM_COPYDATA)
+            {
+                COPYDATASTRUCT cdata = new COPYDATASTRUCT();
+                Type mytype = cdata.GetType();
+                cdata = (COPYDATASTRUCT)Marshal.PtrToStructure(lParam, mytype);
+                switch (cdata.dwData.ToInt32())
+                {
+                    case 1:
+                        {
+                            string strRecv = cdata.lpData;
+                            break;
+                        }
+                    default:
+                        break;
+                }
+            }
+
+            return IntPtr.Zero;
+        }
+    }
+}
+</code></pre><h2 id="C-端：-1"><a href="#C-端：-1" class="headerlink" title="C++端："></a>C++端：</h2><pre><code>BOOL CVcMessageDlg::OnCopyData(CWnd* pWnd, COPYDATASTRUCT* pCopyDataStruct)
+{
+    // TODO: 在此添加消息处理程序代码和/或调用默认值
+
+    //接收C#发送来的数据
+    switch (pCopyDataStruct-&gt;dwData)
+    {
+    case 100:
+    {
+        CStringA strRecv = (char*)pCopyDataStruct-&gt;lpData;
+        break;
+    }
+
+    default:
+    {
+        break;
+    }
+    }
+
+    return CDialogEx::OnCopyData(pWnd, pCopyDataStruct);
+}
+
+void CVcMessageDlg::OnBnClickedButton1()
+{
+    // TODO: 在此添加控件通知处理程序代码
+
+    CStringA strSend = &quot;VC发送的数据&quot;;
+
+    if (VCSendMessage(1,strSend))
+    {
+        AfxMessageBox(_T(&quot;消息发送成功&quot;));
+    } 
+    else
+    {
+        AfxMessageBox(_T(&quot;消息发送失败&quot;));
+    }
+}
+
+//************************************
+// Method:    VCSendMessage
+// FullName:  CVcMessageDlg::VCSendMessage
+// Access:    public 
+// Returns:   BOOL
+// Qualifier: 向C#程序 CshapMessage发送消息
+// Parameter: int nMessgeId
+// Parameter: CStringA strSend
+//************************************
+BOOL CVcMessageDlg::VCSendMessage(int nMessgeId,CStringA strSend)
+{
+    HWND hSendWindow = this-&gt;m_hWnd;
+    if (hSendWindow == NULL)
+    {
+        return FALSE;
+    }
+
+    CWnd *phwnd = FindWindow(NULL, _T(&quot;CshapMessage&quot;));
+    HWND hRecvWindow = NULL;
+    if (phwnd == NULL)
+    {
+        return FALSE;
+    }
+
+    hRecvWindow = phwnd-&gt;GetSafeHwnd();
+
+    if (hRecvWindow == NULL)
+    {
+        return FALSE;
+    }
+
+    COPYDATASTRUCT CopyData;
+    CopyData.dwData = nMessgeId;
+    CopyData.cbData = strSend.GetLength()+1;
+    CopyData.lpData = (PVOID)strSend.GetBuffer(CopyData.cbData);
+
+    ::SendMessage(hRecvWindow, WM_COPYDATA, (WPARAM)hSendWindow, (LPARAM)&amp;CopyData);
+
+    return TRUE;
+}
+</code></pre>
       
 
       
@@ -1322,15 +2032,11 @@ private:
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VidCoder</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">通信</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VLC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ffmpeg</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
         		</li>
       		
 		</ul>
@@ -1340,7 +2046,7 @@ private:
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2016/10/01/C# 视频编辑/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/02/01/C#与C++通信/">展开全文 >></a>
         </p>
       
 
@@ -1370,42 +2076,72 @@ private:
 
 
   
-    <article id="post-Github pages + jekyll 博客快速搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-C# 系统托盘图标" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/15/Github pages + jekyll 博客快速搭建/">Github pages + jekyll 博客快速搭建</a>
+      <a class="article-title" href="/2017/02/01/C# 系统托盘图标/">C# 系统托盘图标</a>
     </h1>
   
 
         
-        <a href="/2016/09/15/Github pages + jekyll 博客快速搭建/" class="archive-article-date">
-  	<time datetime="2016-09-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-09-15</time>
+        <a href="/2017/02/01/C# 系统托盘图标/" class="archive-article-date">
+  	<time datetime="2017-02-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Github-pages-jekyll-博客快速搭建"><a href="#Github-pages-jekyll-博客快速搭建" class="headerlink" title="Github pages + jekyll 博客快速搭建"></a>Github pages + jekyll 博客快速搭建</h1><h2 id="寻找喜欢的模版"><a href="#寻找喜欢的模版" class="headerlink" title="寻找喜欢的模版"></a>寻找喜欢的模版</h2><ul>
-<li><a href="https://github.com/jekyll/jekyll/wiki/sites" target="_blank" rel="noopener">https://github.com/jekyll/jekyll/wiki/sites</a></li>
-<li><a href="http://jekyllthemes.org/" target="_blank" rel="noopener">http://jekyllthemes.org/</a></li>
-</ul>
-<h2 id="Fork到自己的github"><a href="#Fork到自己的github" class="headerlink" title="Fork到自己的github"></a>Fork到自己的github</h2><p>找到自己github中的此项目</p>
-<p>点击“Settings”，将“Repository name”改为 {你的Github用户名}.github.io，点击“Rename”</p>
-<p>修改成自己的名字</p>
-<p>此时就可以通过 <a href="http://{你的Github用户名}.github.io" target="_blank" rel="noopener">http://{你的Github用户名}.github.io</a> 访问你fork下来的网站了。</p>
-<h2 id="写博客"><a href="#写博客" class="headerlink" title="写博客"></a>写博客</h2><p>使用git for window 把此项目clone本地</p>
-<p>在_posts 文件夹里有一篇xxx.markdown文件，模仿此文件写博客即可。</p>
-<p>然后用git for window提交到github</p>
-<p>参考：</p>
-<ul>
-<li><a href="http://www.cnblogs.com/xulei1992/p/5650329.html?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="noopener">Github pages + jekyll 博客快速搭建</a></li>
-</ul>
+        <h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p>
+<p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p>
+<p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p>
+<p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p>
+<h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf
+</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p>
+<h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p>
+<pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;
+  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;
+  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;
+  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;
+    &lt;ContextMenu&gt;
+      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;
+      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;
+    &lt;/ContextMenu&gt;
+  &lt;/tb:TaskbarIcon.ContextMenu&gt;
+&lt;/tb:TaskbarIcon&gt;
+</code></pre><h2 id="使用代码："><a href="#使用代码：" class="headerlink" title="使用代码："></a>使用代码：</h2><pre><code>private bool bCanClose = false;
 
+public MainWindow()
+{
+    InitializeComponent();
+
+    this.Closing += MainWindow_Closing;
+}
+
+private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+{
+    if (!bCanClose)
+    {
+        this.Hide();
+        e.Cancel = true;
+    }
+}
+
+private void MenuItem_Click_Show(object sender, RoutedEventArgs e)
+{
+    this.Show();
+}
+
+private void MenuItem_Click_Close(object sender, RoutedEventArgs e)
+{
+    bCanClose = true;
+    this.Close();
+}
+</code></pre>
       
 
       
@@ -1422,15 +2158,11 @@ private:
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Github Pages</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">静态博客</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">jekyll</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
         		</li>
       		
 		</ul>
@@ -1440,278 +2172,7 @@ private:
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2016/09/15/Github pages + jekyll 博客快速搭建/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Github Pages和Hexo创建静态博客网站" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/01/Github Pages和Hexo创建静态博客网站/">Github Pages和Hexo创建静态博客网站</a>
-    </h1>
-  
-
-        
-        <a href="/2016/09/01/Github Pages和Hexo创建静态博客网站/" class="archive-article-date">
-  	<time datetime="2016-09-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-09-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Github-Pages和Hexo创建静态博客网站"><a href="#Github-Pages和Hexo创建静态博客网站" class="headerlink" title="Github Pages和Hexo创建静态博客网站"></a>Github Pages和Hexo创建静态博客网站</h1><h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p>本人是window环境，所以下载window版。</p>
-<p>下载地址：<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">https://nodejs.org/en/download/</a></p>
-<h2 id="下载-msysgit"><a href="#下载-msysgit" class="headerlink" title="下载 msysgit"></a>下载 msysgit</h2><p>下载地址：<a href="https://git-for-windows.github.io/" target="_blank" rel="noopener">https://git-for-windows.github.io/</a></p>
-<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p>点击鼠标右键菜单Git Bash Here</p>
-<pre><code>npm install hexo-cli -g
-npm install hexo --save
-#如果命令无法运行，可以尝试更换taobao的npm源
-npm install -g cnpm --registry=https://registry.npm.taobao.org
-</code></pre><p>创建一个blog目录</p>
-<p>执行命令：</p>
-<pre><code>hexo init
-npm install
-</code></pre><p>安装插件，可跳过此步骤：</p>
-<pre><code>npm install hexo-generator-index --save
-npm install hexo-generator-archive --save
-npm install hexo-generator-category --save
-npm install hexo-generator-tag --save
-npm install hexo-server --save
-npm install hexo-deployer-git --save
-npm install hexo-deployer-heroku --save
-npm install hexo-deployer-rsync --save
-npm install hexo-deployer-openshift --save
-npm install hexo-renderer-marked@0.2 --save
-npm install hexo-renderer-stylus@0.2 --save
-npm install hexo-generator-feed@1 --save
-npm install hexo-generator-sitemap@1 --save
-</code></pre><p>最好执行：</p>
-<pre><code>npm install hexo-generator-feed --save
-npm install hexo-generator-baidu-sitemap --save
-npm install hexo-generator-sitemap --save
-</code></pre><p>分别对应：rss、百度爬虫sitemap、通用搜索引擎sitemap</p>
-<p>运行本地Hexo:</p>
-<pre><code>hexo generate
-hexo server
-</code></pre><p>浏览器查看效果：</p>
-<pre><code>localhost:4000
-</code></pre><h2 id="上传到Github"><a href="#上传到Github" class="headerlink" title="上传到Github"></a>上传到Github</h2><p>找到主项目的https地址：<a href="https://xxx/github.io.git" target="_blank" rel="noopener">https://xxx/github.io.git</a></p>
-<p>打开blog文件夹下_config.yml文件修改：</p>
-<pre><code>deploy:
-  type: git
-  repository: https://xxx/github.io.git
-  branch: master
-</code></pre><p>执行命令：</p>
-<pre><code>hexo g -d
-</code></pre><h2 id="换主题"><a href="#换主题" class="headerlink" title="换主题"></a>换主题</h2><p>Hexo主题：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
-<p>执行命令下载主题：</p>
-<p>git clone <a href="https://github.com/xxx.git(主题地址" target="_blank" rel="noopener">https://github.com/xxx.git(主题地址</a>) themes/xxx(主题文件夹)</p>
-<p>修改_config.yml文件：</p>
-<pre><code>theme: xxx（主题名）
-</code></pre><p>执行命令：</p>
-<pre><code>hexo g
-hexo s
-</code></pre><p>打开<a href="http://localhost:4000/即可看到效果。" target="_blank" rel="noopener">http://localhost:4000/即可看到效果。</a></p>
-<h2 id="部署到Github"><a href="#部署到Github" class="headerlink" title="部署到Github"></a>部署到Github</h2><p>执行命令：</p>
-<pre><code>hexo clean   
-hexo g -d
-</code></pre><h2 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h2><pre><code>hexo n &quot;文章标题&quot; #新建md文件
-hexo g -d #生成并部署
-</code></pre><h1 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h1><p>Create a new post</p>
-<pre><code>hexo new &quot;My New Post&quot;
-</code></pre><p>Run server</p>
-<pre><code>hexo server
-</code></pre><p>Generate static files</p>
-<pre><code>hexo generate
-</code></pre><p>Deploy to remote sites</p>
-<pre><code>hexo deploy
-</code></pre><h1 id="错误："><a href="#错误：" class="headerlink" title="错误："></a>错误：</h1><p>hexo d后 ERROR Deployer not found: git</p>
-<pre><code>npm install --save hexo-deployer-git
-</code></pre><h1 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h1><p><a href="https://github.com/litten/hexo-theme-yilia" title="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia</a></p>
-<p><a href="https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5" title="https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5</a></p>
-<p>参考：</p>
-<ul>
-<li><a href="http://blog.csdn.net/ljcitworld/article/details/50901626" target="_blank" rel="noopener">小白独立搭建博客–Github Pages和Hexo简明教程</a></li>
-<li><a href="http://www.jianshu.com/p/73779eacb494" target="_blank" rel="noopener">Hexo 靜態博客使用指南</a></li>
-<li><a href="http://wiki.jikexueyuan.com/project/hexo-document/" target="_blank" rel="noopener">Hexo 中文版</a></li>
-<li><a href="http://www.jianshu.com/p/cc38fc9493d4" target="_blank" rel="noopener">解决hexo d命令提交部署博客发生的TaskCanceledException异常</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Github Pages</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">静态博客</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/09/01/Github Pages和Hexo创建静态博客网站/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-程序打包" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/15/程序打包/">程序打包</a>
-    </h1>
-  
-
-        
-        <a href="/2016/08/15/程序打包/" class="archive-article-date">
-  	<time datetime="2016-08-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-08-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Visual-Studio-Installer"><a href="#Visual-Studio-Installer" class="headerlink" title="Visual Studio Installer"></a>Visual Studio Installer</h1><p><a href="http://www.cnblogs.com/daban/archive/2012/06/27/2565449.html" target="_blank" rel="noopener">VS2010程序打包操作</a></p>
-<h1 id="InstallShield"><a href="#InstallShield" class="headerlink" title="InstallShield"></a>InstallShield</h1><p><a href="http://liucw.blog.51cto.com/6751239/1220134" target="_blank" rel="noopener">InstallShield使用完全教程</a></p>
-<p><a href="http://www.jb51.net/softjc/467.html" target="_blank" rel="noopener">探索InstallShield——制作一个完整的应用程序安装实例</a></p>
-<p><a href="http://blog.csdn.net/duanbeibei/article/details/50333603" target="_blank" rel="noopener">一个完整的Installshield安装程序实例</a> </p>
-<p>从Visual Studio 2012开始，微软就把自家原来的安装与部署工具彻底废掉了，转而让大家去安装使用第三方的打包工具“InstallShield Limited Edition for Visual Studio”，注意这个版本是免费的，只需要邮件注册下，就会有要注册码。</p>
-<p><a href="http://www.cnblogs.com/zhuxiaohui/p/5139740.html" target="_blank" rel="noopener">Visual Studio InstallShield</a></p>
-<p><a href="http://www.cnblogs.com/wuhuacong/p/4438761.html" target="_blank" rel="noopener">Visual Studio InstallShield</a></p>
-<h1 id="Inno"><a href="#Inno" class="headerlink" title="Inno"></a>Inno</h1><p><a href="http://blog.csdn.net/ruifangcui7758/article/details/6662646" target="_blank" rel="noopener">Inno setup 简单打包教程</a> </p>
-<p>官网上下载的不能新建中文项目，所以还是到网上找汉化版的吧。</p>
-<pre><code>&quot;ISCC.exe&quot; &quot;%~dp0..\Inno Setup\PeriodicalEditor.iss&quot;
-</code></pre><h1 id="advanced-installer"><a href="#advanced-installer" class="headerlink" title="advanced installer"></a>advanced installer</h1><p><a href="http://anger6678.blog.163.com/blog/static/3293226201072944119412/" target="_blank" rel="noopener">Advanced Installer汉化版教程</a></p>
-<h1 id="NSIS"><a href="#NSIS" class="headerlink" title="NSIS"></a>NSIS</h1><p><a href="http://blog.csdn.net/csxiaoshui/article/details/45310135" target="_blank" rel="noopener">NSIS简介</a> </p>
-<p><a href="http://www.cnblogs.com/modou/p/3573772.html" target="_blank" rel="noopener">使用NSIS制作安装包</a></p>
-<p><a href="http://www.hanzify.org/teach/index.php?Go=Show::196-1108396800" target="_blank" rel="noopener">NSIS安装制作基础教程[初级篇]</a></p>
-<p><a href="http://hmne.sourceforge.net/" target="_blank" rel="noopener">NIS Edit</a></p>
-<p><a href="https://sourceforge.net/projects/nsis/" target="_blank" rel="noopener">NSIS: Nullsoft Scriptable Install System</a></p>
-<p><a href="http://www.nsisfans.com/" title="NSIS中文论坛" target="_blank" rel="noopener">http://www.nsisfans.com/</a></p>
-<p><a href="http://blog.csdn.net/sdujava2011/article/details/51271567" target="_blank" rel="noopener">NSIS UI 美化类插件分享 </a></p>
-<h1 id="牛牛安装包界面美化控件-nsNiuniuSkin"><a href="#牛牛安装包界面美化控件-nsNiuniuSkin" class="headerlink" title="牛牛安装包界面美化控件 [nsNiuniuSkin]"></a>牛牛安装包界面美化控件 [nsNiuniuSkin]</h1><p><a href="http://www.ggniu.cn/download.htm" title="http://www.ggniu.cn/download.htm" target="_blank" rel="noopener">http://www.ggniu.cn/download.htm</a></p>
-<h1 id="WixToolSet"><a href="#WixToolSet" class="headerlink" title="WixToolSet"></a>WixToolSet</h1><p><a href="http://wixtoolset.org/" title="http://wixtoolset.org/" target="_blank" rel="noopener">http://wixtoolset.org/</a></p>
-<p><a href="http://wixtoolset.org/releases/" target="_blank" rel="noopener">http://wixtoolset.org/releases/</a></p>
-<p><a href="https://www.firegiant.com/wix/tutorial/" title="WiX Toolset Tutorial" target="_blank" rel="noopener">https://www.firegiant.com/wix/tutorial/</a></p>
-<p><a href="http://blog.csdn.net/xxdddail/article/details/12652233" target="_blank" rel="noopener">WIX安装图文并茂简易说明</a></p>
-<p><a href="http://www.cnblogs.com/stoneniqiu/category/522235.html" title="http://www.cnblogs.com/stoneniqiu/category/522235.html" target="_blank" rel="noopener">http://www.cnblogs.com/stoneniqiu/category/522235.html</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">打包</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">InstallShield</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Inno</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/08/15/程序打包/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/02/01/C# 系统托盘图标/">展开全文 >></a>
         </p>
       
 
@@ -1743,7 +2204,7 @@ hexo g -d #生成并部署
   
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
     </nav>
   
 
@@ -2115,6 +2576,166 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">钩子</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">扁平化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Json.NET</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">log4net</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Nlog</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MailKit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">EasyHttp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">httplib</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Epplus</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">NPIO</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">TaskScheduler</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">NUnit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MaterialDesignInXamlToolkit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Fluent.Ribbon</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">MSBuild</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">VS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">yilia主题</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">博客</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">OpenSSL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">加密</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">SQLite NET</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">C/C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">代码片段</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">WPF</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">配置文件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">VS工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">CppUnit</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">单元测试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">bypy</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">百度云盘</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">gitbook</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">libcur</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">网络</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">libssh2</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">wolfSSL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">zlib</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">解压缩</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">电脑软件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">个人喜欢</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">美化桌面</a>
               </li>
             
             <div class="clearfix"></div>
