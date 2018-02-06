@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://caojingyou.github.io">
-  <title>Log4Net | 曹景游</title>
+  <title>曹景游</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Log4Net代码：[assembly: log4net.Config.XmlConfigurator(Watch = true)] namespace APP02 {     class Program     {         static void Main(string[] args)         {             ILog log = log4net.LogManager">
-<meta name="keywords" content="随笔,C#,Log4Net">
+  <meta name="description" content="C++获取外部exe程序的返回值#include &amp;quot;stdafx.h&amp;quot; #include &amp;lt;Windows.h&amp;gt; #include &amp;lt;iostream&amp;gt; using namespace std;  int _tmain(int argc, _TCHAR *argv[]) {     STARTUPINFOA si;     PROCESS_INFORMA">
+<meta name="keywords" content="C++,C">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Log4Net">
-<meta property="og:url" content="https://caojingyou.github.io/2017/12/15/Log4Net/index.html">
+<meta property="og:title" content="曹景游">
+<meta property="og:url" content="https://caojingyou.github.io/2018/02/02/C++获取外部exe程序的返回值，判断图片颜色模式/index.html">
 <meta property="og:site_name" content="曹景游">
-<meta property="og:description" content="Log4Net代码：[assembly: log4net.Config.XmlConfigurator(Watch = true)] namespace APP02 {     class Program     {         static void Main(string[] args)         {             ILog log = log4net.LogManager">
-<meta property="og:updated_time" content="2018-01-05T08:47:19.094Z">
+<meta property="og:description" content="C++获取外部exe程序的返回值#include &amp;quot;stdafx.h&amp;quot; #include &amp;lt;Windows.h&amp;gt; #include &amp;lt;iostream&amp;gt; using namespace std;  int _tmain(int argc, _TCHAR *argv[]) {     STARTUPINFOA si;     PROCESS_INFORMA">
+<meta property="og:updated_time" content="2018-01-05T08:47:18.799Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Log4Net">
-<meta name="twitter:description" content="Log4Net代码：[assembly: log4net.Config.XmlConfigurator(Watch = true)] namespace APP02 {     class Program     {         static void Main(string[] args)         {             ILog log = log4net.LogManager">
+<meta name="twitter:title" content="曹景游">
+<meta name="twitter:description" content="C++获取外部exe程序的返回值#include &amp;quot;stdafx.h&amp;quot; #include &amp;lt;Windows.h&amp;gt; #include &amp;lt;iostream&amp;gt; using namespace std;  int _tmain(int argc, _TCHAR *argv[]) {     STARTUPINFOA si;     PROCESS_INFORMA">
   
     <link rel="alternative" href="/atom.xml" title="曹景游" type="application/atom+xml">
   
@@ -158,166 +158,197 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-Log4Net" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-C++获取外部exe程序的返回值，判断图片颜色模式" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Log4Net
-    </h1>
-  
-
-        
-        <a href="/2017/12/15/Log4Net/" class="archive-article-date">
-  	<time datetime="2017-12-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-15</time>
-</a>
-        
-      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Log4Net"><a href="#Log4Net" class="headerlink" title="Log4Net"></a>Log4Net</h1><h2 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h2><pre><code>[assembly: log4net.Config.XmlConfigurator(Watch = true)]
-namespace APP02
+        <h1 id="C-获取外部exe程序的返回值"><a href="#C-获取外部exe程序的返回值" class="headerlink" title="C++获取外部exe程序的返回值"></a>C++获取外部exe程序的返回值</h1><pre><code>#include &quot;stdafx.h&quot;
+#include &lt;Windows.h&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int _tmain(int argc, _TCHAR *argv[])
 {
-    class Program
+    STARTUPINFOA si;
+    PROCESS_INFORMATION pi;
+
+    ZeroMemory(&amp;pi,   sizeof(pi));
+    ZeroMemory(&amp;si,   sizeof(si));
+    si.cb = sizeof(STARTUPINFOA);
+
+    TCHAR cmd[256] = _T(&quot;D:\\7za.exe a D:\\nv1.zip D:\\test\\*.*&quot;);
+    BOOL working = ::CreateProcess(NULL, cmd, NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS , NULL, NULL, &amp;si, &amp;pi);
+
+    if (working == 0)
     {
-        static void Main(string[] args)
+        DWORD error = GetLastError();
+        cout &lt;&lt; &quot;CreateProcess Error : &quot; &lt;&lt; error &lt;&lt; endl;
+        getchar();
+        return 0;
+    }
+
+    WaitForSingleObject(pi.hProcess, INFINITE);
+
+    unsigned long Result;
+    GetExitCodeProcess(pi.hProcess, &amp;Result);
+
+    cout &lt;&lt; &quot;Exit Code : &quot; &lt;&lt; Result &lt;&lt; endl;
+    getchar();
+
+    return 0;
+}
+</code></pre><h1 id="调用命令行程序并获取返回信息"><a href="#调用命令行程序并获取返回信息" class="headerlink" title="调用命令行程序并获取返回信息"></a>调用命令行程序并获取返回信息</h1><pre><code>CString ExeCmd(CString pszCmd)
+{
+    //创建匿名管道
+    SECURITY_ATTRIBUTES sa = {sizeof(SECURITY_ATTRIBUTES), NULL, TRUE};
+    HANDLE hRead, hWrite;
+    if (!CreatePipe(&amp;hRead, &amp;hWrite, &amp;sa, 0))
+    {
+        return _T(&quot;&quot;);
+    }
+
+    //设置命令行进程启动信息(以隐藏方式启动命令并定位其输出到hWrite)
+    STARTUPINFO si = {sizeof(STARTUPINFO)};
+    GetStartupInfo(&amp;si);
+    si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
+    si.wShowWindow = SW_HIDE;
+    si.hStdError = hWrite;
+    si.hStdOutput = hWrite;
+
+    //启动命令行
+    PROCESS_INFORMATION pi;
+    if (!CreateProcess(NULL, (LPWSTR)(LPCWSTR)pszCmd, NULL, NULL, TRUE, NULL, NULL, NULL, &amp;si, &amp;pi))
+    {
+        return _T(&quot;&quot;);
+    }
+
+    //立即关闭hWrite
+    CloseHandle(hWrite);
+
+    //读取命令行返回值
+    char buff[1024] = {0};
+    DWORD dwRead = 0;
+    while (ReadFile(hRead, buff, 1024, &amp;dwRead, NULL))
+    {
+    }
+    CString strRet(buff);
+    CloseHandle(hRead);
+
+    return strRet;
+}
+</code></pre><p>使用：</p>
+<pre><code>ExeCmd(_T(&quot;ping baidu.com&quot;));
+ExeCmd(_T(&quot;identify -format &quot;%[colorspace]&quot; E:\\P70306-163226.jpg&quot;));
+</code></pre><h1 id="其他参考："><a href="#其他参考：" class="headerlink" title="其他参考："></a>其他参考：</h1><pre><code>BOOL    Start(LPCTSTR lpszTaskInfo)
+{
+    if (!lpszTaskInfo)
+    {
+        return FALSE;
+    }
+    if (m_hRenderProcess)
+    {
+        if (Wait(0))
         {
-            ILog log = log4net.LogManager.GetLogger(&quot;Test&quot;);
-            log.Error(&quot;错误&quot;, new Exception(&quot;发生了一个异常&quot;));//错误
-            log.Fatal(&quot;严重错误&quot;, new Exception(&quot;发生了一个致命错误&quot;));//严重错误
-            log.Info(&quot;信息&quot;); //记录一般信息
-            log.Debug(&quot;调试信息&quot;);//记录调试信息
-            log.Warn(&quot;警告&quot;);//记录警告信息
-            Console.WriteLine(&quot;日志记录完毕。&quot;);
-            Console.Read();
+            m_nProgress = 0;
+            SAFE_CLOSE_HANDLE(m_hRenderProcess);
+            m_dwRenderThreadId = 0;
+        }
+        else
+        {
+            return FALSE;
         }
     }
-}
-</code></pre><p>或：</p>
-<pre><code>ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-            //记录错误日志
-            log.Info(&quot;error&quot;);
-</code></pre><h2 id="App-config文件配置："><a href="#App-config文件配置：" class="headerlink" title="App.config文件配置："></a>App.config文件配置：</h2><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
-&lt;configuration&gt;
-  &lt;configSections&gt;
-    &lt;section name=&quot;log4net&quot; type=&quot;System.Configuration.IgnoreSectionHandler&quot;/&gt;
-  &lt;/configSections&gt;
-  &lt;log4net&gt;
-    &lt;appender name=&quot;控制台输出&quot; type=&quot;log4net.Appender.ConsoleAppender&quot;&gt;
-      &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-        &lt;param name=&quot;ConversionPattern&quot; value=&quot;%d [%t] %-5p %c [%x] - %m%n&quot;  /&gt;
-      &lt;/layout&gt;
-    &lt;/appender&gt;
-    &lt;logger name=&quot;Test&quot;&gt;
-      &lt;level value=&quot;ALL&quot;/&gt;
-      &lt;appender-ref ref=&quot;控制台输出&quot; /&gt;
-    &lt;/logger&gt;
-  &lt;/log4net&gt;
-&lt;/configuration&gt;
-</code></pre><p>或：</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
-&lt;configuration&gt;
-  &lt;configSections&gt;
-    &lt;section name=&quot;log4net&quot; type=&quot;System.Configuration.IgnoreSectionHandler&quot;/&gt;
-  &lt;/configSections&gt;
-  &lt;appSettings&gt;
-  &lt;/appSettings&gt;
-  &lt;log4net&gt;
-    &lt;!--定义输出到文件中--&gt;
-    &lt;appender name=&quot;LogFileAppender&quot; type=&quot;log4net.Appender.FileAppender&quot;&gt;
-      &lt;!--定义文件存放位置--&gt;
-      &lt;file value=&quot;D:/log4netfile.txt&quot; /&gt;
-      &lt;appendToFile value=&quot;true&quot; /&gt;
-      &lt;rollingStyle value=&quot;Date&quot; /&gt;
-      &lt;datePattern value=&quot;yyyyMMdd-HH:mm:ss&quot; /&gt;
-      &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-        &lt;!--每条日志末尾的文字说明--&gt;
-        &lt;footer value=&quot;by 周公&quot; /&gt;
-        &lt;!--输出格式--&gt;
-        &lt;!--样例：2008-03-26 13:42:32,111 [10] INFO  Log4NetDemo.MainClass [(null)] - info--&gt;
-        &lt;conversionPattern value=&quot;记录时间：%date 线程ID:[%thread] 日志级别：%-5level 出错类：%logger property:[%property{NDC}] - 错误描述：%message%newline&quot; /&gt;
-      &lt;/layout&gt;
-    &lt;/appender&gt;
-    &lt;!--定义输出到控制台命令行中--&gt;
-    &lt;appender name=&quot;ConsoleAppender&quot; type=&quot;log4net.Appender.ConsoleAppender&quot;&gt;
-      &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-        &lt;conversionPattern value=&quot;%date [%thread] %-5level %logger [%property{NDC}] - %message%newline&quot; /&gt;
-      &lt;/layout&gt;
-    &lt;/appender&gt;
-    &lt;!--定义输出到windows事件中--&gt;
-    &lt;appender name=&quot;EventLogAppender&quot; type=&quot;log4net.Appender.EventLogAppender&quot;&gt;
-      &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-        &lt;conversionPattern value=&quot;%date [%thread] %-5level %logger [%property{NDC}] - %message%newline&quot; /&gt;
-      &lt;/layout&gt;
-    &lt;/appender&gt;
-    &lt;!--定义输出到数据库中，这里举例输出到Access数据库中，数据库为C盘的log4net.mdb--&gt;
-    &lt;appender name=&quot;AdoNetAppender_Access&quot; type=&quot;log4net.Appender.AdoNetAppender&quot;&gt;
-      &lt;connectionString value=&quot;Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:log4net.mdb&quot; /&gt;
-      &lt;commandText value=&quot;INSERT INTO LogDetails ([LogDate],[Thread],[Level],[Logger],[Message]) VALUES (@logDate, @thread, @logLevel, @logger,@message)&quot; /&gt;
-      &lt;!--定义各个参数--&gt;
-      &lt;parameter&gt;
-        &lt;parameterName value=&quot;@logDate&quot; /&gt;
-        &lt;dbType value=&quot;String&quot; /&gt;
-        &lt;size value=&quot;240&quot; /&gt;
-        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-          &lt;conversionPattern value=&quot;%date&quot; /&gt;
-        &lt;/layout&gt;
-      &lt;/parameter&gt;
-      &lt;parameter&gt;
-        &lt;parameterName value=&quot;@thread&quot; /&gt;
-        &lt;dbType value=&quot;String&quot; /&gt;
-        &lt;size value=&quot;240&quot; /&gt;
-        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-          &lt;conversionPattern value=&quot;%thread&quot; /&gt;
-        &lt;/layout&gt;
-      &lt;/parameter&gt;
-      &lt;parameter&gt;
-        &lt;parameterName value=&quot;@logLevel&quot; /&gt;
-        &lt;dbType value=&quot;String&quot; /&gt;
-        &lt;size value=&quot;240&quot; /&gt;
-        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-          &lt;conversionPattern value=&quot;%level&quot; /&gt;
-        &lt;/layout&gt;
-      &lt;/parameter&gt;
-      &lt;parameter&gt;
-        &lt;parameterName value=&quot;@logger&quot; /&gt;
-        &lt;dbType value=&quot;String&quot; /&gt;
-        &lt;size value=&quot;240&quot; /&gt;
-        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-          &lt;conversionPattern value=&quot;%logger&quot; /&gt;
-        &lt;/layout&gt;
-      &lt;/parameter&gt;
-      &lt;parameter&gt;
-        &lt;parameterName value=&quot;@message&quot; /&gt;
-        &lt;dbType value=&quot;String&quot; /&gt;
-        &lt;size value=&quot;240&quot; /&gt;
-        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-          &lt;conversionPattern value=&quot;%message&quot; /&gt;
-        &lt;/layout&gt;
-      &lt;/parameter&gt;
-    &lt;/appender&gt;
-    &lt;!--定义日志的输出媒介，下面定义日志以四种方式输出。也可以下面的按照一种类型或其他类型输出。--&gt;
-    &lt;root&gt;
-      &lt;!--文件形式记录日志--&gt;
-      &lt;appender-ref ref=&quot;LogFileAppender&quot; /&gt;
-      &lt;!--控制台控制显示日志--&gt;
-      &lt;appender-ref ref=&quot;ConsoleAppender&quot; /&gt;
-      &lt;!--Windows事件日志--&gt;
-      &lt;appender-ref ref=&quot;EventLogAppender&quot; /&gt;
-      &lt;!-- 如果不启用相应的日志记录，可以通过这种方式注释掉
-      &lt;appender-ref ref=&quot;AdoNetAppender_Access&quot; /&gt;
-      --&gt;
-    &lt;/root&gt;
 
-  &lt;/log4net&gt;
-&lt;/configuration&gt;
+    BOOL bRet = FALSE;
+    HANDLE hDebugInfo = NULL;
+    do
+    {
+        TCHAR szDebugLog[MAX_PATH];
+        _tcscpy(szDebugLog, m_szFastRenderExPath);
+        _tcscat(szDebugLog, _T(&quot;.debug&quot;));
+        SECURITY_ATTRIBUTES sa;
+        sa.nLength = sizeof(sa);
+        sa.lpSecurityDescriptor = NULL;
+        sa.bInheritHandle = TRUE;
+        hDebugInfo = CreateFile(szDebugLog, FILE_WRITE_DATA, FILE_SHARE_READ, &amp;sa, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+
+        STARTUPINFO si;
+        PROCESS_INFORMATION pi;
+        ZeroMemory( &amp;si, sizeof(si) );
+        si.cb = sizeof(si);
+        ZeroMemory( &amp;pi, sizeof(pi) );
+        si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
+        si.hStdInput = NULL;
+        si.hStdOutput = hDebugInfo;
+        si.hStdError = hDebugInfo;
+        si.wShowWindow = SW_HIDE;
+
+        TCHAR szCmdline[MAX_PATH * 2];
+        _sntprintf(szCmdline, ARRAYSIZE(szCmdline), _T(&quot; -i \&quot;%s\&quot;&quot;), lpszTaskInfo); // 第一个空格非常重要
+        // Start the child process.
+        if( !CreateProcess( m_szFastRenderExPath,   // Module name
+                            szCmdline,      // Command line
+                            NULL,           // Process handle not inheritable
+                            NULL,           // Thread handle not inheritable
+                            TRUE,          // Set handle inheritance to FALSE
+                            0,              // No creation flags
+                            NULL,           // Use parent&apos;s environment block
+                            NULL,           // Use parent&apos;s starting directory
+                            &amp;si,            // Pointer to STARTUPINFO structure
+                            &amp;pi )           // Pointer to PROCESS_INFORMATION structure
+          )
+        {
+            break;
+        }
+        // Close process and thread handles.
+        m_hRenderProcess = pi.hProcess;
+        CloseHandle( pi.hThread );
+        m_dwRenderThreadId = pi.dwThreadId;
+
+        // Start the message receive thread
+        if (!m_dwReceiveThreadId)
+        {
+            HANDLE hThread = (HANDLE) _beginthreadex(NULL,    0, ThreadFn, this, 0, &amp;m_dwReceiveThreadId);
+            if (hThread == NULL)
+            {
+                break;
+            }
+            CloseHandle(hThread);
+        }
+
+        if (!m_hMsgEvent)
+        {
+            m_hMsgEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
+        }
+        else
+        {
+            ResetEvent(m_hMsgEvent);
+        }
+
+        bRet = TRUE;
+    }
+    while (FALSE);
+
+    SAFE_CLOSE_HANDLE(hDebugInfo);
+
+    if (!bRet)
+    {
+        if (m_hRenderProcess)
+        {
+            TerminateProcess(m_hRenderProcess, -1);
+            SAFE_CLOSE_HANDLE(m_hRenderProcess);
+        }
+        m_dwRenderThreadId = 0;
+        SAFE_CLOSE_HANDLE(m_hMsgEvent);
+    }
+
+    return bRet;
+}
 </code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="http://www.cnblogs.com/LiZhiW/p/4317198.html" target="_blank" rel="noopener">Log4Net使用详解</a></li>
-<li><a href="http://blog.csdn.net/zhoufoxcn/article/details/2220533" title="http://blog.csdn.net/zhoufoxcn/article/details/2220533" target="_blank" rel="noopener">http://blog.csdn.net/zhoufoxcn/article/details/2220533</a></li>
-<li><a href="http://blog.csdn.net/zhoufoxcn/article/details/6029021" title="http://blog.csdn.net/zhoufoxcn/article/details/6029021" target="_blank" rel="noopener">http://blog.csdn.net/zhoufoxcn/article/details/6029021</a></li>
+<li><a href="http://blog.csdn.net/lgh1700/article/details/7713500" title="http://blog.csdn.net/lgh1700/article/details/7713500" target="_blank" rel="noopener">C++获取外部exe程序的返回值 </a></li>
+<li><a href="http://www.cnblogs.com/acloud/archive/2012/08/30/2663395.html" target="_blank" rel="noopener">调用命令行程序并获取返回信息</a></li>
+<li><a href="http://dahua2.blog.163.com/blog/static/1748435142015317633489/" target="_blank" rel="noopener">ImageMagick–identify详解</a></li>
 </ul>
 
       
@@ -358,25 +389,6 @@ namespace APP02
     <div class="article-info article-info-index">
       
       
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Log4Net</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
       
 
       
@@ -427,7 +439,7 @@ namespace APP02
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://caojingyou.github.io/2017/12/15/Log4Net/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://caojingyou.github.io/2018/02/02/C++获取外部exe程序的返回值，判断图片颜色模式/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -441,18 +453,9 @@ namespace APP02
   
 <nav id="article-nav">
   
-    <a href="/2018/02/02/C++获取外部exe程序的返回值，判断图片颜色模式/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          (no title)
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/12/01/程序只能启动一次/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">程序只能启动一次</div>
+    <a href="/2017/12/15/Log4Net/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Log4Net</div>
       <i class="icon-circle-right"></i>
     </a>
   

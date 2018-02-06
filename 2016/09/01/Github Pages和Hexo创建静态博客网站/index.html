@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2016/09/01/Github Pages和Hexo创建静态博客网站/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="Github Pages和Hexo创建静态博客网站安装Node.js本人是window环境，所以下载window版。 下载地址：https://nodejs.org/en/download/ 下载 msysgit下载地址：https://git-for-windows.github.io/ Hexo点击鼠标右键菜单Git Bash Here npm install hexo-cli -g npm">
-<meta property="og:updated_time" content="2018-01-05T08:47:19.046Z">
+<meta property="og:updated_time" content="2018-02-02T10:33:18.661Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Github Pages和Hexo创建静态博客网站">
 <meta name="twitter:description" content="Github Pages和Hexo创建静态博客网站安装Node.js本人是window环境，所以下载window版。 下载地址：https://nodejs.org/en/download/ 下载 msysgit下载地址：https://git-for-windows.github.io/ Hexo点击鼠标右键菜单Git Bash Here npm install hexo-cli -g npm">
@@ -204,7 +204,12 @@ npm install hexo-renderer-marked@0.2 --save
 npm install hexo-renderer-stylus@0.2 --save
 npm install hexo-generator-feed@1 --save
 npm install hexo-generator-sitemap@1 --save
-</code></pre><p>运行本地Hexo:</p>
+</code></pre><p>最好执行：</p>
+<pre><code>npm install hexo-generator-feed --save
+npm install hexo-generator-baidu-sitemap --save
+npm install hexo-generator-sitemap --save
+</code></pre><p>分别对应：rss、百度爬虫sitemap、通用搜索引擎sitemap</p>
+<p>运行本地Hexo:</p>
 <pre><code>hexo generate
 hexo server
 </code></pre><p>浏览器查看效果：</p>
@@ -231,7 +236,19 @@ hexo s
 hexo g -d
 </code></pre><h2 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h2><pre><code>hexo n &quot;文章标题&quot; #新建md文件
 hexo g -d #生成并部署
-</code></pre><p>参考：</p>
+</code></pre><h1 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h1><p>Create a new post</p>
+<pre><code>hexo new &quot;My New Post&quot;
+</code></pre><p>Run server</p>
+<pre><code>hexo server
+</code></pre><p>Generate static files</p>
+<pre><code>hexo generate
+</code></pre><p>Deploy to remote sites</p>
+<pre><code>hexo deploy
+</code></pre><h1 id="错误："><a href="#错误：" class="headerlink" title="错误："></a>错误：</h1><p>hexo d后 ERROR Deployer not found: git</p>
+<pre><code>npm install --save hexo-deployer-git
+</code></pre><h1 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h1><p><a href="https://github.com/litten/hexo-theme-yilia" title="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia</a></p>
+<p><a href="https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5" title="https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5</a></p>
+<p>参考：</p>
 <ul>
 <li><a href="http://blog.csdn.net/ljcitworld/article/details/50901626" target="_blank" rel="noopener">小白独立搭建博客–Github Pages和Hexo简明教程</a></li>
 <li><a href="http://www.jianshu.com/p/73779eacb494" target="_blank" rel="noopener">Hexo 靜態博客使用指南</a></li>

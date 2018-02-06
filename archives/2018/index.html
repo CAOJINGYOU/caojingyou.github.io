@@ -6,19 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://caojingyou.github.io">
-  <title>C++获取外部exe程序的返回值 | 曹景游</title>
+  <title>Archives: 2018 | 曹景游</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="C++获取外部exe程序的返回值#include &amp;quot;stdafx.h&amp;quot; #include &amp;lt;Windows.h&amp;gt; #include &amp;lt;iostream&amp;gt; using namespace std;  int _tmain(int argc, _TCHAR *argv[]) {     STARTUPINFOA si;     PROCESS_INFORMA">
-<meta name="keywords" content="随笔,运行外部程序,C++,代码">
-<meta property="og:type" content="article">
-<meta property="og:title" content="C++获取外部exe程序的返回值">
-<meta property="og:url" content="https://caojingyou.github.io/2017/03/15/C++获取外部exe程序的返回值，判断图片颜色模式/index.html">
+  <meta name="keywords" content="C++,C">
+<meta property="og:type" content="website">
+<meta property="og:title" content="曹景游">
+<meta property="og:url" content="https://caojingyou.github.io/archives/2018/index.html">
 <meta property="og:site_name" content="曹景游">
-<meta property="og:description" content="C++获取外部exe程序的返回值#include &amp;quot;stdafx.h&amp;quot; #include &amp;lt;Windows.h&amp;gt; #include &amp;lt;iostream&amp;gt; using namespace std;  int _tmain(int argc, _TCHAR *argv[]) {     STARTUPINFOA si;     PROCESS_INFORMA">
-<meta property="og:updated_time" content="2018-01-05T08:47:19.093Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="C++获取外部exe程序的返回值">
-<meta name="twitter:description" content="C++获取外部exe程序的返回值#include &amp;quot;stdafx.h&amp;quot; #include &amp;lt;Windows.h&amp;gt; #include &amp;lt;iostream&amp;gt; using namespace std;  int _tmain(int argc, _TCHAR *argv[]) {     STARTUPINFOA si;     PROCESS_INFORMA">
+<meta name="twitter:title" content="曹景游">
   
     <link rel="alternative" href="/atom.xml" title="曹景游" type="application/atom+xml">
   
@@ -158,279 +154,43 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-C++获取外部exe程序的返回值，判断图片颜色模式" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
+            
+  
+  
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      C++获取外部exe程序的返回值
-    </h1>
-  
-
-        
-        <a href="/2017/03/15/C++获取外部exe程序的返回值，判断图片颜色模式/" class="archive-article-date">
-  	<time datetime="2017-03-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-15</time>
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/02/02/C++获取外部exe程序的返回值，判断图片颜色模式/" class="archive-article-date">
+  	<time datetime="2018-02-02T03:31:11.040Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-02</time>
 </a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-获取外部exe程序的返回值"><a href="#C-获取外部exe程序的返回值" class="headerlink" title="C++获取外部exe程序的返回值"></a>C++获取外部exe程序的返回值</h1><pre><code>#include &quot;stdafx.h&quot;
-#include &lt;Windows.h&gt;
-#include &lt;iostream&gt;
-using namespace std;
-
-int _tmain(int argc, _TCHAR *argv[])
-{
-    STARTUPINFOA si;
-    PROCESS_INFORMATION pi;
-
-    ZeroMemory(&amp;pi,   sizeof(pi));
-    ZeroMemory(&amp;si,   sizeof(si));
-    si.cb = sizeof(STARTUPINFOA);
-
-    TCHAR cmd[256] = _T(&quot;D:\\7za.exe a D:\\nv1.zip D:\\test\\*.*&quot;);
-    BOOL working = ::CreateProcess(NULL, cmd, NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS , NULL, NULL, &amp;si, &amp;pi);
-
-    if (working == 0)
-    {
-        DWORD error = GetLastError();
-        cout &lt;&lt; &quot;CreateProcess Error : &quot; &lt;&lt; error &lt;&lt; endl;
-        getchar();
-        return 0;
-    }
-
-    WaitForSingleObject(pi.hProcess, INFINITE);
-
-    unsigned long Result;
-    GetExitCodeProcess(pi.hProcess, &amp;Result);
-
-    cout &lt;&lt; &quot;Exit Code : &quot; &lt;&lt; Result &lt;&lt; endl;
-    getchar();
-
-    return 0;
-}
-</code></pre><h1 id="调用命令行程序并获取返回信息"><a href="#调用命令行程序并获取返回信息" class="headerlink" title="调用命令行程序并获取返回信息"></a>调用命令行程序并获取返回信息</h1><pre><code>CString ExeCmd(CString pszCmd)
-{
-    //创建匿名管道
-    SECURITY_ATTRIBUTES sa = {sizeof(SECURITY_ATTRIBUTES), NULL, TRUE};
-    HANDLE hRead, hWrite;
-    if (!CreatePipe(&amp;hRead, &amp;hWrite, &amp;sa, 0))
-    {
-        return _T(&quot;&quot;);
-    }
-
-    //设置命令行进程启动信息(以隐藏方式启动命令并定位其输出到hWrite)
-    STARTUPINFO si = {sizeof(STARTUPINFO)};
-    GetStartupInfo(&amp;si);
-    si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
-    si.wShowWindow = SW_HIDE;
-    si.hStdError = hWrite;
-    si.hStdOutput = hWrite;
-
-    //启动命令行
-    PROCESS_INFORMATION pi;
-    if (!CreateProcess(NULL, (LPWSTR)(LPCWSTR)pszCmd, NULL, NULL, TRUE, NULL, NULL, NULL, &amp;si, &amp;pi))
-    {
-        return _T(&quot;&quot;);
-    }
-
-    //立即关闭hWrite
-    CloseHandle(hWrite);
-
-    //读取命令行返回值
-    char buff[1024] = {0};
-    DWORD dwRead = 0;
-    while (ReadFile(hRead, buff, 1024, &amp;dwRead, NULL))
-    {
-    }
-    CString strRet(buff);
-    CloseHandle(hRead);
-
-    return strRet;
-}
-</code></pre><p>使用：</p>
-<pre><code>ExeCmd(_T(&quot;ping baidu.com&quot;));
-ExeCmd(_T(&quot;identify -format &quot;%[colorspace]&quot; E:\\P70306-163226.jpg&quot;));
-</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="http://blog.csdn.net/lgh1700/article/details/7713500" title="http://blog.csdn.net/lgh1700/article/details/7713500" target="_blank" rel="noopener">C++获取外部exe程序的返回值 </a></li>
-<li><a href="http://www.cnblogs.com/acloud/archive/2012/08/30/2663395.html" target="_blank" rel="noopener">调用命令行程序并获取返回信息</a></li>
-<li><a href="http://dahua2.blog.163.com/blog/static/1748435142015317633489/" target="_blank" rel="noopener">ImageMagick–identify详解</a></li>
-</ul>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/img/支付宝.png">
-                      <span class="reward-type">支付宝</span>
-                    </div>
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/assets/img/微信.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
         </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">运行外部程序</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
-        		</li>
-      		
-		</ul>
-	</div>
+    	 
+        <div class="article-info info-on-right">
+          
+          
 
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://caojingyou.github.io/2017/03/15/C++获取外部exe程序的返回值，判断图片颜色模式/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2017/04/01/C++进程间通信/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          C++进程间通信
-        
-      </div>
-    </a>
   
   
-    <a href="/2017/03/01/C++ 最小化到托盘/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"> C++ 最小化到托盘</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -453,8 +213,8 @@ ExeCmd(_T(&quot;identify -format &quot;%[colorspace]&quot; E:\\P70306-163226.jpg
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,

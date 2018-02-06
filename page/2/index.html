@@ -156,6 +156,124 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-MFC背景透明" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/01/MFC背景透明/">MFC背景透明</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/01/MFC背景透明/" class="archive-article-date">
+  	<time datetime="2017-08-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="一："><a href="#一：" class="headerlink" title="一："></a>一：</h1><pre><code>typedef BOOL (WINAPI *lpfnSetLayeredWindowAttributes)(HWND hWnd, COLORREF crKey, BYTE bAlpha, DWORD dwFlags);
+lpfnSetLayeredWindowAttributes SetLayeredWindowAttributes;   //设置成边缘透明
+COLORREF maskColor = RGB(240, 240, 240);
+HMODULE hUser32 = GetModuleHandle(_T(&quot;user32.dll&quot;)); //加载动态链接库
+SetLayeredWindowAttributes = (lpfnSetLayeredWindowAttributes)GetProcAddress(hUser32, &quot;SetLayeredWindowAttributes&quot;);            //取得SetLayeredWindowAttributes函数指针            //为窗口加入WS_EX_LAYERED扩展属性
+SetWindowLong(this-&gt;GetSafeHwnd(), GWL_EXSTYLE, GetWindowLong(GetSafeHwnd(), GWL_EXSTYLE)^WS_EX_LAYERED);             //调用SetLayeredWinowAttributes函数
+/*SetLayeredWindowAttributes(this-&gt;GetSafeHwnd(), maskColor, 192, LWA_COLORKEY);  */
+SetLayeredWindowAttributes(this-&gt;GetSafeHwnd(), maskColor, 255, LWA_ALPHA | LWA_COLORKEY);
+FreeLibrary(hUser32);   //释放动态链
+//LWA_ALPHA时：crKey参数无效，bAlpha参数有效；
+//LWA_COLORKEY：窗体中的所有颜色为crKey的地方将变为透明，bAlpha参数无效。
+//LWA_ALPHA | LWA_COLORKEY：crKey的地方将变为全透明，而其它地方根据bAlpha参数确定透明度。
+</code></pre><h1 id="二："><a href="#二：" class="headerlink" title="二："></a>二：</h1><pre><code>COLORREF m_bgcolor = RGB(0, 0, 0);
+BOOL m_bTransparent = ToggleTransparent(m_bgcolor, 100, LWA_ALPHA);
+BOOL ToggleTransparent(COLORREF crKey, BYTE bAlpha, DWORD dwFlags)
+{
+    BOOL bResult;
+    LONG dwExStyle;
+    dwExStyle = GetWindowLong(this-&gt;GetSafeHwnd(), GWL_EXSTYLE);
+    if (dwExStyle &amp; WS_EX_LAYERED)
+    {
+        dwExStyle &amp;= ~(WS_EX_LAYERED);
+        bResult = FALSE;
+    }
+    else
+    {
+        dwExStyle |= (WS_EX_LAYERED);
+        bResult = TRUE;
+    }
+    SetWindowLong(this-&gt;GetSafeHwnd(), GWL_EXSTYLE, dwExStyle);
+    SetLayeredWindowAttributes( crKey, bAlpha, dwFlags);
+    return bResult;
+}
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">MFC</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">背景透明</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/01/MFC背景透明/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-boost" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1978,173 +2096,6 @@ if (!WriteFile(hMailslot, buf, strlen(buf) + 1, &amp;dwSize, NULL))
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/04/01/C++进程间通信/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-C++获取外部exe程序的返回值，判断图片颜色模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/15/C++获取外部exe程序的返回值，判断图片颜色模式/">C++获取外部exe程序的返回值</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/15/C++获取外部exe程序的返回值，判断图片颜色模式/" class="archive-article-date">
-  	<time datetime="2017-03-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-获取外部exe程序的返回值"><a href="#C-获取外部exe程序的返回值" class="headerlink" title="C++获取外部exe程序的返回值"></a>C++获取外部exe程序的返回值</h1><pre><code>#include &quot;stdafx.h&quot;
-#include &lt;Windows.h&gt;
-#include &lt;iostream&gt;
-using namespace std;
-
-int _tmain(int argc, _TCHAR *argv[])
-{
-    STARTUPINFOA si;
-    PROCESS_INFORMATION pi;
-
-    ZeroMemory(&amp;pi,   sizeof(pi));
-    ZeroMemory(&amp;si,   sizeof(si));
-    si.cb = sizeof(STARTUPINFOA);
-
-    TCHAR cmd[256] = _T(&quot;D:\\7za.exe a D:\\nv1.zip D:\\test\\*.*&quot;);
-    BOOL working = ::CreateProcess(NULL, cmd, NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS , NULL, NULL, &amp;si, &amp;pi);
-
-    if (working == 0)
-    {
-        DWORD error = GetLastError();
-        cout &lt;&lt; &quot;CreateProcess Error : &quot; &lt;&lt; error &lt;&lt; endl;
-        getchar();
-        return 0;
-    }
-
-    WaitForSingleObject(pi.hProcess, INFINITE);
-
-    unsigned long Result;
-    GetExitCodeProcess(pi.hProcess, &amp;Result);
-
-    cout &lt;&lt; &quot;Exit Code : &quot; &lt;&lt; Result &lt;&lt; endl;
-    getchar();
-
-    return 0;
-}
-</code></pre><h1 id="调用命令行程序并获取返回信息"><a href="#调用命令行程序并获取返回信息" class="headerlink" title="调用命令行程序并获取返回信息"></a>调用命令行程序并获取返回信息</h1><pre><code>CString ExeCmd(CString pszCmd)
-{
-    //创建匿名管道
-    SECURITY_ATTRIBUTES sa = {sizeof(SECURITY_ATTRIBUTES), NULL, TRUE};
-    HANDLE hRead, hWrite;
-    if (!CreatePipe(&amp;hRead, &amp;hWrite, &amp;sa, 0))
-    {
-        return _T(&quot;&quot;);
-    }
-
-    //设置命令行进程启动信息(以隐藏方式启动命令并定位其输出到hWrite)
-    STARTUPINFO si = {sizeof(STARTUPINFO)};
-    GetStartupInfo(&amp;si);
-    si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
-    si.wShowWindow = SW_HIDE;
-    si.hStdError = hWrite;
-    si.hStdOutput = hWrite;
-
-    //启动命令行
-    PROCESS_INFORMATION pi;
-    if (!CreateProcess(NULL, (LPWSTR)(LPCWSTR)pszCmd, NULL, NULL, TRUE, NULL, NULL, NULL, &amp;si, &amp;pi))
-    {
-        return _T(&quot;&quot;);
-    }
-
-    //立即关闭hWrite
-    CloseHandle(hWrite);
-
-    //读取命令行返回值
-    char buff[1024] = {0};
-    DWORD dwRead = 0;
-    while (ReadFile(hRead, buff, 1024, &amp;dwRead, NULL))
-    {
-    }
-    CString strRet(buff);
-    CloseHandle(hRead);
-
-    return strRet;
-}
-</code></pre><p>使用：</p>
-<pre><code>ExeCmd(_T(&quot;ping baidu.com&quot;));
-ExeCmd(_T(&quot;identify -format &quot;%[colorspace]&quot; E:\\P70306-163226.jpg&quot;));
-</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="http://blog.csdn.net/lgh1700/article/details/7713500" title="http://blog.csdn.net/lgh1700/article/details/7713500" target="_blank" rel="noopener">C++获取外部exe程序的返回值 </a></li>
-<li><a href="http://www.cnblogs.com/acloud/archive/2012/08/30/2663395.html" target="_blank" rel="noopener">调用命令行程序并获取返回信息</a></li>
-<li><a href="http://dahua2.blog.163.com/blog/static/1748435142015317633489/" target="_blank" rel="noopener">ImageMagick–identify详解</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">运行外部程序</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/15/C++获取外部exe程序的返回值，判断图片颜色模式/">展开全文 >></a>
         </p>
       
 
