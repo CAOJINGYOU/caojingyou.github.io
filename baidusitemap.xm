@@ -4,6 +4,25 @@
 
     
   <url>
+    <loc>https://caojingyou.github.io/2018/02/01/VS%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2018-02-07T02:23:47.968Z</lastmod>
+    <data>
+        <display>
+        <title>VS工具</title>
+        <pubTime>2018-02-01T08:03:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>VS工具</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://caojingyou.github.io/2018/04/01/zlib/</loc>
     <lastmod>2018-02-06T09:18:53.055Z</lastmod>
     <data>
@@ -344,25 +363,6 @@
         <tag>WPF</tag>
          
         <tag>配置文件</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2018/02/01/VS%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2018-02-06T09:05:56.511Z</lastmod>
-    <data>
-        <display>
-        <title>VS工具</title>
-        <pubTime>2018-02-01T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>VS工具</tag>
          
          
            
