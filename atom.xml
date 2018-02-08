@@ -463,6 +463,35 @@
   </entry>
   
   <entry>
+    <title>SVN版本号</title>
+    <link href="https://caojingyou.github.io/2018/02/08/SVN%E7%89%88%E6%9C%AC%E5%8F%B7/"/>
+    <id>https://caojingyou.github.io/2018/02/08/SVN版本号/</id>
+    <published>2018-02-08T07:24:00.000Z</published>
+    <updated>2018-02-08T07:24:09.237Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="SVN获取版本号"><a href="#SVN获取版本号" class="headerlink" title="SVN获取版本号"></a>SVN获取版本号</h1><h2 id="version-template-h"><a href="#version-template-h" class="headerlink" title="version_template.h"></a>version_template.h</h2><pre><code>#ifndef _VERSION_H_#define _VERSION_H_#define VER_MAJOR 1#define VER_MINOR 0#define VER_REVISION $WCREV$#define SVN_REVISION&quot;$WCMIXED?$WCRANGE$:$WCREV$$&quot;#define SVN_RANGE   $WCRANGE$#define SVN_REV $WCREV$#define SVN_REVISION&quot;$WCMIXED?SVN_RANGE:SVN_REV$&quot;#endif //!_VERSION_H_// Test file for SubWCRevchar *Revision  = &quot;$WCREV$&quot;;char *Revision16= &quot;$WCREV&amp;0xFF$&quot;;char *Revisionp100  = &quot;$WCREV+100$&quot;;char *Revisionm100  = &quot;$WCREV-100$&quot;;char *Modified  = &quot;$WCMODS?Modified:Not modified$&quot;;char *Unversioned   = &quot;$WCUNVER?Unversioned items found:no unversioned items$&quot;;char *Date  = &quot;$WCDATE$&quot;;char *CustDate  = &quot;$WCDATE=%a, %d %B %Y$&quot;;char *DateUTC   = &quot;$WCDATEUTC$&quot;;char *CustDateUTC   = &quot;$WCDATEUTC=%a, %d %B %Y$&quot;;char *TimeNow   = &quot;$WCNOW$&quot;;char *TimeNowUTC= &quot;$WCNOWUTC$&quot;;char *RevRange  = &quot;$WCRANGE$&quot;;char *Mixed = &quot;$WCMIXED?Mixed revision WC:Not mixed$&quot;;char *ExtAllFixed   = &quot;$WCEXTALLFIXED?All externals fixed:Not all externals fixed$&quot;;char *IsTagged  = &quot;$WCISTAGGED?Tagged:Not tagged$&quot;;char *URL   = &quot;$WCURL$&quot;;char *isInSVN   = &quot;$WCINSVN?versioned:not versioned$&quot;;char *needslck  = &quot;$WCNEEDSLOCK?TRUE:FALSE$&quot;;char *islocked  = &quot;$WCISLOCKED?locked:not locked$&quot;;char *lockdateutc   = &quot;$WCLOCKDATEUTC$&quot;;char *lockdate  = &quot;$WCLOCKDATE$&quot;;char *lockcustutc   = &quot;$WCLOCKDATEUTC=%a, %d %B %Y$&quot;;char *lockcust  = &quot;$WCLOCKDATE=%a, %d %B %Y$&quot;;char *lockown   = &quot;$WCLOCKOWNER$&quot;;char *lockcmt   = &quot;$WCLOCKCOMMENT$&quot;;#if $WCMODS?1:0$#error Source is modified#endif// End of file</code></pre><h2 id="运行bat"><a href="#运行bat" class="headerlink" title="运行bat"></a>运行bat</h2><pre><code>setlocal::设置svn客户端安装目录set SVN_PATH=D:\Program Files\TortoiseSVN\bin ::设置工作目录，即工程目录set WORK_DIR=E:\code\C++\Demo::设置版本模版文件，对应第一步中新建的模板文件set VERSION_TEMPLATE=E:\code\C++\Demo\version_template.h::设置版本号生成文件，生成的文件就是我们需要使用的版本文件set VERSION_RELEASE=E:\code\C++\Demo\version.h::进入svn客户端安装目录cd %SVN_PATH%::执行更新版本号操作&quot;%SVN_PATH%\SubWCRev.exe&quot; &quot;%WORK_DIR%&quot; &quot;%VERSION_TEMPLATE%&quot; &quot;%VERSION_RELEASE%&quot;endlocal</code></pre><h2 id="生成version-h"><a href="#生成version-h" class="headerlink" title="生成version.h"></a>生成version.h</h2><pre><code>#ifndef _VERSION_H_#define _VERSION_H_#define VER_MAJOR 1#define VER_MINOR 0#define VER_REVISION 6185#define SVN_REVISION&quot;4620&quot;#define SVN_RANGE   4620:6185#define SVN_REV 6185#define SVN_REVISION&quot;SVN_RANGE&quot;#endif //!_VERSION_H_// Test file for SubWCRevchar *Revision  = &quot;6185&quot;;char *Revision16= &quot;41&quot;;char *Revisionp100  = &quot;6285&quot;;char *Revisionm100  = &quot;6085&quot;;char *Modified  = &quot;Modified&quot;;char *Unversioned   = &quot;Unversioned items found&quot;;char *Date  = &quot;2018/02/07 10:00:58&quot;;char *CustDate  = &quot;Wed, 07 February 2018&quot;;char *DateUTC   = &quot;2018/02/07 02:00:58&quot;;char *CustDateUTC   = &quot;Wed, 07 February 2018&quot;;char *TimeNow   = &quot;2018/02/08 14:56:08&quot;;char *TimeNowUTC= &quot;2018/02/08 06:56:08&quot;;char *RevRange  = &quot;4620:6185&quot;;char *Mixed = &quot;Mixed revision WC&quot;;char *ExtAllFixed   = &quot;All externals fixed&quot;;char *IsTagged  = &quot;Not tagged&quot;;char *URL   = &quot;http://xxx&quot;;char *isInSVN   = &quot;versioned&quot;;char *needslck  = &quot;FALSE&quot;;char *islocked  = &quot;not locked&quot;;char *lockdateutc   = &quot;1970/01/01 00:00:00&quot;;char *lockdate  = &quot;1970/01/01 08:00:00&quot;;char *lockcustutc   = &quot;Thu, 01 January 1970&quot;;char *lockcust  = &quot;Thu, 01 January 1970&quot;;char *lockown   = &quot;&quot;;char *lockcmt   = &quot;&quot;;#if 1#error Source is modified#endif// End of file</code></pre><h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p>在VS2005的项目属性页-&gt;预生成事件-&gt;命令行中添加一句：</p><pre><code>$(SolutionDir)\subwcrev.exe $(SolutionDir) $(SolutionDir)\src\qmlv\version_template.h $(SolutionDir)\src\qmlv\version.h</code></pre><p>SubWCRev 调用语法:</p><pre><code>SubWCRev WorkingCopyPath [SrcVersionFile DstVersionFile]</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html" title="https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html" target="_blank" rel="noopener">https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html</a></p><p><a href="http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html" title="http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html</a></p><p><a href="https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html" title="https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;SVN获取版本号&quot;&gt;&lt;a href=&quot;#SVN获取版本号&quot; class=&quot;headerlink&quot; title=&quot;SVN获取版本号&quot;&gt;&lt;/a&gt;SVN获取版本号&lt;/h1&gt;&lt;h2 id=&quot;version-template-h&quot;&gt;&lt;a href=&quot;#version-tem
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="C/C++" scheme="https://caojingyou.github.io/tags/C-C/"/>
+    
+      <category term="svn" scheme="https://caojingyou.github.io/tags/svn/"/>
+    
+      <category term="版本号" scheme="https://caojingyou.github.io/tags/%E7%89%88%E6%9C%AC%E5%8F%B7/"/>
+    
+  </entry>
+  
+  <entry>
     <title></title>
     <link href="https://caojingyou.github.io/2018/02/02/C++%E8%8E%B7%E5%8F%96%E5%A4%96%E9%83%A8exe%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%EF%BC%8C%E5%88%A4%E6%96%AD%E5%9B%BE%E7%89%87%E9%A2%9C%E8%89%B2%E6%A8%A1%E5%BC%8F/"/>
     <id>https://caojingyou.github.io/2018/02/02/C++获取外部exe程序的返回值，判断图片颜色模式/</id>
@@ -1031,11 +1060,11 @@ void CIOCPMod
   </entry>
   
   <entry>
-    <title> C++ 最小化到托盘</title>
-    <link href="https://caojingyou.github.io/2017/03/01/C++%20%E6%9C%80%E5%B0%8F%E5%8C%96%E5%88%B0%E6%89%98%E7%9B%98/"/>
-    <id>https://caojingyou.github.io/2017/03/01/C++ 最小化到托盘/</id>
+    <title>C#与C++相互发送消息</title>
+    <link href="https://caojingyou.github.io/2017/03/01/C++%20%E6%9C%80%E5%B0%8F%E5%8C%96%E5%88%B0%E6%89%98%E7%9B%98(YHCAO--yhcao--2017-04-10-09,18,14)/"/>
+    <id>https://caojingyou.github.io/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/</id>
     <published>2017-03-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.025Z</updated>
+    <updated>2018-01-05T08:47:19.084Z</updated>
     
     <content type="html"><![CDATA[<h1 id="C-最小化到托盘"><a href="#C-最小化到托盘" class="headerlink" title="C++ 最小化到托盘"></a>C++ 最小化到托盘</h1><pre><code>#define  WM_SHOWTASK (WM_USER + 1)void CTestDlg::OnSysCommand(UINT nID, LPARAM lParam){    if ((nID &amp; 0xFFF0) == IDM_ABOUTBOX)    {        CAboutDlg dlgAbout;        dlgAbout.DoModal();    }    else    {        //增加关闭时最小化到托盘的函数        if (nID == SC_CLOSE) //SC_MINIMIZE        {            ToTray();            return;        }        CDialog::OnSysCommand(nID, lParam);    }}BEGIN_MESSAGE_MAP(CTestDlg, CDialog)    ON_MESSAGE(WM_SHOWTASK, OnShowTask)    //}}AFX_MSG_MAPEND_MESSAGE_MAP()//在托盘区添加图标 最小化到托盘函数void ToTray(void);void CTestDlg::ToTray(void){    NOTIFYICONDATA nid;    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);    nid.hWnd = this-&gt;m_hWnd;    nid.uID = IDR_MAINFRAME;    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条    Shell_NotifyIcon(NIM_ADD, &amp;nid);//在托盘区添加图标    ShowWindow(SW_HIDE);//隐藏主窗口}//恢复界面函数afx_msg LRESULT OnShowTask(WPARAM wParam, LPARAM lParam);//托盘事件LRESULT CTestDlg::OnShowTask(WPARAM wParam, LPARAM lParam){    if (wParam != IDR_MAINFRAME)    {        return 1;    }    switch(lParam)    {    case WM_RBUTTONUP://右键起来时弹出快捷菜单，这里只有一个关闭    {        LPPOINT lpoint = new tagPOINT;        ::GetCursorPos(lpoint);//得到鼠标位置        CMenu menu;        menu.CreatePopupMenu();//声明一个弹出式菜单        //增加菜单项“关闭”，点击则发送消息WM_DESTROY给主窗口（已        //隐藏），将程序结束。        menu.AppendMenu(MF_STRING, WM_DESTROY, _T(&quot;退出&quot;));        //确定弹出式菜单的位置        menu.TrackPopupMenu(TPM_LEFTALIGN, lpoint-&gt;x, lpoint-&gt;y, this);        //资源回收        HMENU hmenu = menu.Detach();        menu.DestroyMenu();        delete lpoint;    }    break;    case WM_LBUTTONDBLCLK://双击左键的处理    {        this-&gt;ShowWindow(SW_SHOW);//简单的显示主窗口        this-&gt;ShowWindow(SW_RESTORE);        DeleteTray();    }    break;    default:        break;    }    return 0;}//删除托盘中图标void DeleteTray();void CTestlDlg::DeleteTray(){    NOTIFYICONDATA nid;    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);    nid.hWnd = this-&gt;m_hWnd;    nid.uID = IDR_MAINFRAME;    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标}//退出程序需时需要DeleteTray();void CTestDlg::OnDestroy(){    CDialog::OnDestroy();    // TODO: 在此处添加消息处理程序代码    DeleteTray();}//修改风格使得他不在任务栏显示int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct){    if (CDialog::OnCreate(lpCreateStruct) == -1)        return -1;    // TODO:  在此添加您专用的创建代码    //修改风格使得他不在任务栏显示    ModifyStyleEx(WS_EX_APPWINDOW, WS_EX_TOOLWINDOW);    return 0;}</code></pre><p>DeleteTray改为：</p><pre><code>void CTestDlg::DeleteTray(){    NOTIFYICONDATA nid;    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);    nid.hWnd = this-&gt;m_hWnd;    nid.uID = IDR_MAINFRAME;    nid.uFlags = NIF_ICON /*| NIF_MESSAGE | NIF_TIP*/;    //nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称    //nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));    //wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标}</code></pre><p>否则会出现程序退出后，托盘图标还在的情况，鼠标移动到图标上后，图标一闪然后消失的问题。</p>]]></content>
     
@@ -1058,11 +1087,11 @@ void CIOCPMod
   </entry>
   
   <entry>
-    <title>C#与C++相互发送消息</title>
-    <link href="https://caojingyou.github.io/2017/03/01/C++%20%E6%9C%80%E5%B0%8F%E5%8C%96%E5%88%B0%E6%89%98%E7%9B%98(YHCAO--yhcao--2017-04-10-09,18,14)/"/>
-    <id>https://caojingyou.github.io/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/</id>
+    <title> C++ 最小化到托盘</title>
+    <link href="https://caojingyou.github.io/2017/03/01/C++%20%E6%9C%80%E5%B0%8F%E5%8C%96%E5%88%B0%E6%89%98%E7%9B%98/"/>
+    <id>https://caojingyou.github.io/2017/03/01/C++ 最小化到托盘/</id>
     <published>2017-03-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.084Z</updated>
+    <updated>2018-01-05T08:47:19.025Z</updated>
     
     <content type="html"><![CDATA[<h1 id="C-最小化到托盘"><a href="#C-最小化到托盘" class="headerlink" title="C++ 最小化到托盘"></a>C++ 最小化到托盘</h1><pre><code>#define  WM_SHOWTASK (WM_USER + 1)void CTestDlg::OnSysCommand(UINT nID, LPARAM lParam){    if ((nID &amp; 0xFFF0) == IDM_ABOUTBOX)    {        CAboutDlg dlgAbout;        dlgAbout.DoModal();    }    else    {        //增加关闭时最小化到托盘的函数        if (nID == SC_CLOSE) //SC_MINIMIZE        {            ToTray();            return;        }        CDialog::OnSysCommand(nID, lParam);    }}BEGIN_MESSAGE_MAP(CTestDlg, CDialog)    ON_MESSAGE(WM_SHOWTASK, OnShowTask)    //}}AFX_MSG_MAPEND_MESSAGE_MAP()//在托盘区添加图标 最小化到托盘函数void ToTray(void);void CTestDlg::ToTray(void){    NOTIFYICONDATA nid;    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);    nid.hWnd = this-&gt;m_hWnd;    nid.uID = IDR_MAINFRAME;    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条    Shell_NotifyIcon(NIM_ADD, &amp;nid);//在托盘区添加图标    ShowWindow(SW_HIDE);//隐藏主窗口}//恢复界面函数afx_msg LRESULT OnShowTask(WPARAM wParam, LPARAM lParam);//托盘事件LRESULT CTestDlg::OnShowTask(WPARAM wParam, LPARAM lParam){    if (wParam != IDR_MAINFRAME)    {        return 1;    }    switch(lParam)    {    case WM_RBUTTONUP://右键起来时弹出快捷菜单，这里只有一个关闭    {        LPPOINT lpoint = new tagPOINT;        ::GetCursorPos(lpoint);//得到鼠标位置        CMenu menu;        menu.CreatePopupMenu();//声明一个弹出式菜单        //增加菜单项“关闭”，点击则发送消息WM_DESTROY给主窗口（已        //隐藏），将程序结束。        menu.AppendMenu(MF_STRING, WM_DESTROY, _T(&quot;退出&quot;));        //确定弹出式菜单的位置        menu.TrackPopupMenu(TPM_LEFTALIGN, lpoint-&gt;x, lpoint-&gt;y, this);        //资源回收        HMENU hmenu = menu.Detach();        menu.DestroyMenu();        delete lpoint;    }    break;    case WM_LBUTTONDBLCLK://双击左键的处理    {        this-&gt;ShowWindow(SW_SHOW);//简单的显示主窗口        this-&gt;ShowWindow(SW_RESTORE);        DeleteTray();    }    break;    default:        break;    }    return 0;}//删除托盘中图标void DeleteTray();void CTestlDlg::DeleteTray(){    NOTIFYICONDATA nid;    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);    nid.hWnd = this-&gt;m_hWnd;    nid.uID = IDR_MAINFRAME;    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标}//退出程序需时需要DeleteTray();void CTestDlg::OnDestroy(){    CDialog::OnDestroy();    // TODO: 在此处添加消息处理程序代码    DeleteTray();}//修改风格使得他不在任务栏显示int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct){    if (CDialog::OnCreate(lpCreateStruct) == -1)        return -1;    // TODO:  在此添加您专用的创建代码    //修改风格使得他不在任务栏显示    ModifyStyleEx(WS_EX_APPWINDOW, WS_EX_TOOLWINDOW);    return 0;}</code></pre><p>DeleteTray改为：</p><pre><code>void CTestDlg::DeleteTray(){    NOTIFYICONDATA nid;    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);    nid.hWnd = this-&gt;m_hWnd;    nid.uID = IDR_MAINFRAME;    nid.uFlags = NIF_ICON /*| NIF_MESSAGE | NIF_TIP*/;    //nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称    //nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));    //wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标}</code></pre><p>否则会出现程序退出后，托盘图标还在的情况，鼠标移动到图标上后，图标一闪然后消失的问题。</p>]]></content>
     
@@ -1114,6 +1143,60 @@ void CIOCPMod
   </entry>
   
   <entry>
+    <title>C# 系统托盘图标</title>
+    <link href="https://caojingyou.github.io/2017/02/01/C#%20%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98%E5%9B%BE%E6%A0%87/"/>
+    <id>https://caojingyou.github.io/2017/02/01/C# 系统托盘图标/</id>
+    <published>2017-02-01T08:03:00.000Z</published>
+    <updated>2018-01-05T08:47:18.798Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p><p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p><p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p><p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p><h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p><h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p><pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;    &lt;ContextMenu&gt;      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;    &lt;/ContextMenu&gt;  &lt;/tb:TaskbarIcon.ContextMenu&gt;&lt;/tb:TaskbarIcon&gt;</code></pre><h2 id="使用代码："><a href="#使用代码：" class="headerlink" title="使用代码："></a>使用代码：</h2><pre><code>private bool bCanClose = false;public MainWindow(){    InitializeComponent();    this.Closing += MainWindow_Closing;}private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e){    if (!bCanClose)    {        this.Hide();        e.Cancel = true;    }}private void MenuItem_Click_Show(object sender, RoutedEventArgs e){    this.Show();}private void MenuItem_Click_Close(object sender, RoutedEventArgs e){    bCanClose = true;    this.Close();}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;C-系统托盘图标&quot;&gt;&lt;a href=&quot;#C-系统托盘图标&quot; class=&quot;headerlink&quot; title=&quot;C# 系统托盘图标&quot;&gt;&lt;/a&gt;C# 系统托盘图标&lt;/h1&gt;&lt;h2 id=&quot;WPF-NotifyIcon-资料&quot;&gt;&lt;a href=&quot;#WPF-Notify
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
+    
+      <category term="系统托盘" scheme="https://caojingyou.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C# 系统托盘图标</title>
+    <link href="https://caojingyou.github.io/2017/02/01/CShap%20%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98%E5%9B%BE%E6%A0%87/"/>
+    <id>https://caojingyou.github.io/2017/02/01/CShap 系统托盘图标/</id>
+    <published>2017-02-01T08:03:00.000Z</published>
+    <updated>2018-01-05T08:47:19.077Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p><p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p><p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p><p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p><h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p><h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml<window>添加</window></p><pre><code>xmlns:tb=&quot;http://www.hardcodet.net/taskbar&quot;</code></pre><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p><pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;    &lt;ContextMenu&gt;      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;    &lt;/ContextMenu&gt;  &lt;/tb:TaskbarIcon.ContextMenu&gt;&lt;/tb:TaskbarIcon&gt;</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;C-系统托盘图标&quot;&gt;&lt;a href=&quot;#C-系统托盘图标&quot; class=&quot;headerlink&quot; title=&quot;C# 系统托盘图标&quot;&gt;&lt;/a&gt;C# 系统托盘图标&lt;/h1&gt;&lt;h2 id=&quot;WPF-NotifyIcon-资料&quot;&gt;&lt;a href=&quot;#WPF-Notify
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
+    
+      <category term="系统托盘" scheme="https://caojingyou.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98/"/>
+    
+  </entry>
+  
+  <entry>
     <title>C#与C++相互发送消息</title>
     <link href="https://caojingyou.github.io/2017/02/01/C#%E4%B8%8EC++%E9%80%9A%E4%BF%A1/"/>
     <id>https://caojingyou.github.io/2017/02/01/C#与C++通信/</id>
@@ -1143,33 +1226,6 @@ void CIOCPMod
   </entry>
   
   <entry>
-    <title>C# 系统托盘图标</title>
-    <link href="https://caojingyou.github.io/2017/02/01/C#%20%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98%E5%9B%BE%E6%A0%87/"/>
-    <id>https://caojingyou.github.io/2017/02/01/C# 系统托盘图标/</id>
-    <published>2017-02-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:18.798Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p><p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p><p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p><p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p><h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p><h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p><pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;    &lt;ContextMenu&gt;      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;    &lt;/ContextMenu&gt;  &lt;/tb:TaskbarIcon.ContextMenu&gt;&lt;/tb:TaskbarIcon&gt;</code></pre><h2 id="使用代码："><a href="#使用代码：" class="headerlink" title="使用代码："></a>使用代码：</h2><pre><code>private bool bCanClose = false;public MainWindow(){    InitializeComponent();    this.Closing += MainWindow_Closing;}private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e){    if (!bCanClose)    {        this.Hide();        e.Cancel = true;    }}private void MenuItem_Click_Show(object sender, RoutedEventArgs e){    this.Show();}private void MenuItem_Click_Close(object sender, RoutedEventArgs e){    bCanClose = true;    this.Close();}</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;C-系统托盘图标&quot;&gt;&lt;a href=&quot;#C-系统托盘图标&quot; class=&quot;headerlink&quot; title=&quot;C# 系统托盘图标&quot;&gt;&lt;/a&gt;C# 系统托盘图标&lt;/h1&gt;&lt;h2 id=&quot;WPF-NotifyIcon-资料&quot;&gt;&lt;a href=&quot;#WPF-Notify
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
-    
-      <category term="系统托盘" scheme="https://caojingyou.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98/"/>
-    
-  </entry>
-  
-  <entry>
     <title>C#与C++相互发送消息</title>
     <link href="https://caojingyou.github.io/2017/02/01/CShap%E4%B8%8EC++%E9%80%9A%E4%BF%A1/"/>
     <id>https://caojingyou.github.io/2017/02/01/CShap与C++通信/</id>
@@ -1195,33 +1251,6 @@ void CIOCPMod
       <category term="通信" scheme="https://caojingyou.github.io/tags/%E9%80%9A%E4%BF%A1/"/>
     
       <category term="C++" scheme="https://caojingyou.github.io/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C# 系统托盘图标</title>
-    <link href="https://caojingyou.github.io/2017/02/01/CShap%20%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98%E5%9B%BE%E6%A0%87/"/>
-    <id>https://caojingyou.github.io/2017/02/01/CShap 系统托盘图标/</id>
-    <published>2017-02-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.077Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p><p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p><p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p><p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p><h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p><h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml<window>添加</window></p><pre><code>xmlns:tb=&quot;http://www.hardcodet.net/taskbar&quot;</code></pre><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p><pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;    &lt;ContextMenu&gt;      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;    &lt;/ContextMenu&gt;  &lt;/tb:TaskbarIcon.ContextMenu&gt;&lt;/tb:TaskbarIcon&gt;</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;C-系统托盘图标&quot;&gt;&lt;a href=&quot;#C-系统托盘图标&quot; class=&quot;headerlink&quot; title=&quot;C# 系统托盘图标&quot;&gt;&lt;/a&gt;C# 系统托盘图标&lt;/h1&gt;&lt;h2 id=&quot;WPF-NotifyIcon-资料&quot;&gt;&lt;a href=&quot;#WPF-Notify
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
-    
-      <category term="系统托盘" scheme="https://caojingyou.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98/"/>
     
   </entry>
   
@@ -1422,6 +1451,35 @@ HWND g
   
   <entry>
     <title>C# 进程间通信</title>
+    <link href="https://caojingyou.github.io/2016/11/01/C#%20%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/"/>
+    <id>https://caojingyou.github.io/2016/11/01/C# 进程间通信/</id>
+    <published>2016-11-01T08:03:00.000Z</published>
+    <updated>2018-01-05T08:47:19.096Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="使用SendMessage向另一进程发送WM-COPYDATA消息"><a href="#使用SendMessage向另一进程发送WM-COPYDATA消息" class="headerlink" title="使用SendMessage向另一进程发送WM_COPYDATA消息"></a>使用SendMessage向另一进程发送WM_COPYDATA消息</h1><h2 id="Send端："><a href="#Send端：" class="headerlink" title="Send端："></a>Send端：</h2><pre><code>using System;using System.Collections.Generic;using System.Linq;using System.Text;using System.Windows;using System.Windows.Controls;using System.Windows.Data;using System.Windows.Documents;using System.Windows.Input;using System.Windows.Media;using System.Windows.Media.Imaging;using System.Windows.Navigation;using System.Windows.Shapes;using System.Runtime.InteropServices;namespace SentTest{    /// &lt;summary&gt;    /// MainWindow.xaml 的交互逻辑    /// &lt;/summary&gt;    public partial class MainWindow : Window    {        public MainWindow()        {            InitializeComponent();            this.Title = &quot;发送窗口&quot;;        }        const int WM_COPYDATA = 0x004A;        public struct COPYDATASTRUCT        {            public IntPtr dwData;            public int cData;            [MarshalAs(UnmanagedType.LPStr)]            public string lpData;        }        [DllImport(&quot;User32.dll&quot;)]        public static extern int SendMessage(int hwnd, int msg, int wParam, ref COPYDATASTRUCT IParam);        [DllImport(&quot;User32.dll&quot;)]        public static extern int FindWindow(string lpClassName, string lpWindowName);        private void button1_Click(object sender, RoutedEventArgs e)        {            String strSent = &quot;需要发送的信息&quot;;            int WINDOW_HANDLE = FindWindow(null, &quot;接收窗口&quot;);            if (WINDOW_HANDLE != 0)            {                byte[] arr = System.Text.Encoding.Default.GetBytes(strSent);                int len = arr.Length;                COPYDATASTRUCT cdata;                cdata.dwData = (IntPtr)100;                cdata.lpData = strSent;                cdata.cData = len + 1;                SendMessage(WINDOW_HANDLE, WM_COPYDATA, 0, ref cdata);            }        }    }}</code></pre><h2 id="Get端："><a href="#Get端：" class="headerlink" title="Get端："></a>Get端：</h2><pre><code>using System;using System.Collections.Generic;using System.Linq;using System.Text;using System.Windows;using System.Windows.Controls;using System.Windows.Data;using System.Windows.Documents;using System.Windows.Input;using System.Windows.Media;using System.Windows.Media.Imaging;using System.Windows.Navigation;using System.Windows.Shapes;using System.Runtime.InteropServices;using System.Windows.Interop;namespace GetTest{    /// &lt;summary&gt;    /// MainWindow.xaml 的交互逻辑    /// &lt;/summary&gt;    public partial class MainWindow : Window    {        IntPtr hwnd;        public MainWindow()        {            InitializeComponent();            this.Title = &quot;接受窗口&quot;;            this.Loaded += new RoutedEventHandler(MainWindow_Loaded);            this.Closed += new EventHandler(MainWindow_Closed);        }        void MainWindow_Loaded(object sender, RoutedEventArgs e)        {            //窗口加载完毕才可用，否则会报错。            hwnd = new WindowInteropHelper(this).Handle;            HwndSource source = HwndSource.FromHwnd(hwnd);            if (source != null) source.AddHook(WndProc);        }        void MainWindow_Closed(object sender, EventArgs e)        {            try            {                HwndSource.FromHwnd(hwnd).RemoveHook(WndProc);            }            catch (Exception)            {                throw;            }        }        const int WM_COPYDATA = 0x004A;//WM_COPYDATA消息的主要目的是允许在进程间传递只读数据。        //Windows在通过WM_COPYDATA消息传递期间，不提供继承同步方式。        //其中,WM_COPYDATA对应的十六进制数为0x004A        public struct COPYDATASTRUCT        {            public IntPtr dwData;            public int cData;            [MarshalAs(UnmanagedType.LPStr)]            public string lpData;        }        //wpf用此方法        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)        {            if (msg == WM_COPYDATA)            {                COPYDATASTRUCT cdata = new COPYDATASTRUCT();                Type mytype = cdata.GetType();                cdata = (COPYDATASTRUCT)Marshal.PtrToStructure(lParam, mytype);                this.textBox1.Text = cdata.lpData;            }            return IntPtr.Zero;        }        //WinFrom用此方法        /* protected override void DefWndProc(ref Message m)        {            switch (m.Msg)            {            case WM_COPYDATA:                COPYDATASTRUCT cdata = new COPYDATASTRUCT();                Type mytype = cdata.GetType();                cdata = (COPYDATASTRUCT)m.GetLParam(mytype);                this.textBox1.Text = cdata.lpData;                break;            default:                base.DefWndProc(ref m);                break;            }        } */    }}</code></pre><h1 id="参考文档："><a href="#参考文档：" class="headerlink" title="参考文档："></a>参考文档：</h1><p><a href="http://blog.csdn.net/feiren127/article/details/5459827" target="_blank" rel="noopener">c# 进程间同步实现 进程之间通讯的几种方法 </a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;使用SendMessage向另一进程发送WM-COPYDATA消息&quot;&gt;&lt;a href=&quot;#使用SendMessage向另一进程发送WM-COPYDATA消息&quot; class=&quot;headerlink&quot; title=&quot;使用SendMessage向另一进程发送WM_COP
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
+    
+      <category term="VLC" scheme="https://caojingyou.github.io/tags/VLC/"/>
+    
+      <category term="通信" scheme="https://caojingyou.github.io/tags/%E9%80%9A%E4%BF%A1/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C# 进程间通信</title>
     <link href="https://caojingyou.github.io/2016/11/01/CShap%20%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/"/>
     <id>https://caojingyou.github.io/2016/11/01/CShap 进程间通信/</id>
     <published>2016-11-01T08:03:00.000Z</published>
@@ -1450,19 +1508,19 @@ HWND g
   </entry>
   
   <entry>
-    <title>C# 进程间通信</title>
-    <link href="https://caojingyou.github.io/2016/11/01/C#%20%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/"/>
-    <id>https://caojingyou.github.io/2016/11/01/C# 进程间通信/</id>
-    <published>2016-11-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.096Z</updated>
+    <title>C++ 引用计数技术及智能指针的简单实现</title>
+    <link href="https://caojingyou.github.io/2016/10/01/C++%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"/>
+    <id>https://caojingyou.github.io/2016/10/01/C++智能指针/</id>
+    <published>2016-10-01T08:03:00.000Z</published>
+    <updated>2018-01-05T08:47:19.086Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="使用SendMessage向另一进程发送WM-COPYDATA消息"><a href="#使用SendMessage向另一进程发送WM-COPYDATA消息" class="headerlink" title="使用SendMessage向另一进程发送WM_COPYDATA消息"></a>使用SendMessage向另一进程发送WM_COPYDATA消息</h1><h2 id="Send端："><a href="#Send端：" class="headerlink" title="Send端："></a>Send端：</h2><pre><code>using System;using System.Collections.Generic;using System.Linq;using System.Text;using System.Windows;using System.Windows.Controls;using System.Windows.Data;using System.Windows.Documents;using System.Windows.Input;using System.Windows.Media;using System.Windows.Media.Imaging;using System.Windows.Navigation;using System.Windows.Shapes;using System.Runtime.InteropServices;namespace SentTest{    /// &lt;summary&gt;    /// MainWindow.xaml 的交互逻辑    /// &lt;/summary&gt;    public partial class MainWindow : Window    {        public MainWindow()        {            InitializeComponent();            this.Title = &quot;发送窗口&quot;;        }        const int WM_COPYDATA = 0x004A;        public struct COPYDATASTRUCT        {            public IntPtr dwData;            public int cData;            [MarshalAs(UnmanagedType.LPStr)]            public string lpData;        }        [DllImport(&quot;User32.dll&quot;)]        public static extern int SendMessage(int hwnd, int msg, int wParam, ref COPYDATASTRUCT IParam);        [DllImport(&quot;User32.dll&quot;)]        public static extern int FindWindow(string lpClassName, string lpWindowName);        private void button1_Click(object sender, RoutedEventArgs e)        {            String strSent = &quot;需要发送的信息&quot;;            int WINDOW_HANDLE = FindWindow(null, &quot;接收窗口&quot;);            if (WINDOW_HANDLE != 0)            {                byte[] arr = System.Text.Encoding.Default.GetBytes(strSent);                int len = arr.Length;                COPYDATASTRUCT cdata;                cdata.dwData = (IntPtr)100;                cdata.lpData = strSent;                cdata.cData = len + 1;                SendMessage(WINDOW_HANDLE, WM_COPYDATA, 0, ref cdata);            }        }    }}</code></pre><h2 id="Get端："><a href="#Get端：" class="headerlink" title="Get端："></a>Get端：</h2><pre><code>using System;using System.Collections.Generic;using System.Linq;using System.Text;using System.Windows;using System.Windows.Controls;using System.Windows.Data;using System.Windows.Documents;using System.Windows.Input;using System.Windows.Media;using System.Windows.Media.Imaging;using System.Windows.Navigation;using System.Windows.Shapes;using System.Runtime.InteropServices;using System.Windows.Interop;namespace GetTest{    /// &lt;summary&gt;    /// MainWindow.xaml 的交互逻辑    /// &lt;/summary&gt;    public partial class MainWindow : Window    {        IntPtr hwnd;        public MainWindow()        {            InitializeComponent();            this.Title = &quot;接受窗口&quot;;            this.Loaded += new RoutedEventHandler(MainWindow_Loaded);            this.Closed += new EventHandler(MainWindow_Closed);        }        void MainWindow_Loaded(object sender, RoutedEventArgs e)        {            //窗口加载完毕才可用，否则会报错。            hwnd = new WindowInteropHelper(this).Handle;            HwndSource source = HwndSource.FromHwnd(hwnd);            if (source != null) source.AddHook(WndProc);        }        void MainWindow_Closed(object sender, EventArgs e)        {            try            {                HwndSource.FromHwnd(hwnd).RemoveHook(WndProc);            }            catch (Exception)            {                throw;            }        }        const int WM_COPYDATA = 0x004A;//WM_COPYDATA消息的主要目的是允许在进程间传递只读数据。        //Windows在通过WM_COPYDATA消息传递期间，不提供继承同步方式。        //其中,WM_COPYDATA对应的十六进制数为0x004A        public struct COPYDATASTRUCT        {            public IntPtr dwData;            public int cData;            [MarshalAs(UnmanagedType.LPStr)]            public string lpData;        }        //wpf用此方法        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)        {            if (msg == WM_COPYDATA)            {                COPYDATASTRUCT cdata = new COPYDATASTRUCT();                Type mytype = cdata.GetType();                cdata = (COPYDATASTRUCT)Marshal.PtrToStructure(lParam, mytype);                this.textBox1.Text = cdata.lpData;            }            return IntPtr.Zero;        }        //WinFrom用此方法        /* protected override void DefWndProc(ref Message m)        {            switch (m.Msg)            {            case WM_COPYDATA:                COPYDATASTRUCT cdata = new COPYDATASTRUCT();                Type mytype = cdata.GetType();                cdata = (COPYDATASTRUCT)m.GetLParam(mytype);                this.textBox1.Text = cdata.lpData;                break;            default:                base.DefWndProc(ref m);                break;            }        } */    }}</code></pre><h1 id="参考文档："><a href="#参考文档：" class="headerlink" title="参考文档："></a>参考文档：</h1><p><a href="http://blog.csdn.net/feiren127/article/details/5459827" target="_blank" rel="noopener">c# 进程间同步实现 进程之间通讯的几种方法 </a></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="引用计数技术及智能指针的简单实现"><a href="#引用计数技术及智能指针的简单实现" class="headerlink" title="引用计数技术及智能指针的简单实现"></a>引用计数技术及智能指针的简单实现</h1><h2 id="基础对象类"><a href="#基础对象类" class="headerlink" title="基础对象类"></a>基础对象类</h2><pre><code>class Point{public:    Point(int xVal = 0, int yVal = 0) : x(xVal), y(yVal) { }    int getX() const    {        return x;    }    int getY() const    {        return y;    }    void setX(int xVal)    {        x = xVal;    }    void setY(int yVal)    {        y = yVal;    }    private:    int x, y;};</code></pre><h2 id="辅助类"><a href="#辅助类" class="headerlink" title="辅助类"></a>辅助类</h2><pre><code>//模板类作为友元时要先有声明template &lt;typename T&gt;class SmartPtr;template &lt;typename T&gt;class U_Ptr     //辅助类{private:    //该类成员访问权限全部为private，因为不想让用户直接使用该类    friend class SmartPtr&lt;T&gt;;      //定义智能指针类为友元，因为智能指针类需要直接操纵辅助类    //构造函数的参数为基础对象的指针    U_Ptr(T *ptr) : p(ptr), count(1) { }    //析构函数    ~U_Ptr()    {        delete p;    }    //引用计数    int count;    //基础对象指针    T *p;};</code></pre><h2 id="智能指针类"><a href="#智能指针类" class="headerlink" title="智能指针类"></a>智能指针类</h2><pre><code>template &lt;typename T&gt;class SmartPtr   //智能指针类{public:    SmartPtr(T *ptr) : rp(new U_Ptr&lt;T&gt;(ptr)) { }     //构造函数    SmartPtr(const SmartPtr&lt;T&gt; &amp;sp) : rp(sp.rp)    {        ++rp-&gt;count;    //复制构造函数    }    SmartPtr &amp;operator=(const SmartPtr&lt;T&gt; &amp;rhs)      //重载赋值操作符    {        ++rhs.rp-&gt;count;     //首先将右操作数引用计数加1，        if (--rp-&gt;count == 0)     //然后将引用计数减1，可以应对自赋值            delete rp;        rp = rhs.rp;        return *this;    }    T &amp;operator *()         //重载*操作符    {        return *(rp-&gt;p);    }    T *operator -&gt;()       //重载-&gt;操作符    {        return rp-&gt;p;    }    ~SmartPtr()          //析构函数    {        if (--rp-&gt;count == 0)    //当引用计数减为0时，删除辅助类对象指针，从而删除基础对象            delete rp;        else            cout &lt;&lt; &quot;还有&quot; &lt;&lt; rp-&gt;count &lt;&lt; &quot;个指针指向基础对象&quot; &lt;&lt; endl;    }private:    U_Ptr&lt;T&gt; *rp;  //辅助类对象指针};</code></pre><p>使用测试</p><pre><code>int main(){    int *i = new int(2);    {        SmartPtr&lt;int&gt; ptr1(i);        {            SmartPtr&lt;int&gt; ptr2(ptr1);            {                SmartPtr&lt;int&gt; ptr3 = ptr2;                cout &lt;&lt; *ptr1 &lt;&lt; endl;                *ptr1 = 20;                cout &lt;&lt; *ptr2 &lt;&lt; endl;            }        }    }    system(&quot;pause&quot;);    return 0;}</code></pre><p>参考：</p><ul><li><a href="http://mp.weixin.qq.com/s?__biz=MzAxNDI5NzEzNg==&amp;mid=2651156666&amp;idx=1&amp;sn=4109903d526468f5913922d2f06e5a1a&amp;scene=0#wechat_redirect" target="_blank" rel="noopener">C++ 引用计数技术及智能指针的简单实现</a>(文章写的太好了，转过了以后用)</li></ul>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h1 id=&quot;使用SendMessage向另一进程发送WM-COPYDATA消息&quot;&gt;&lt;a href=&quot;#使用SendMessage向另一进程发送WM-COPYDATA消息&quot; class=&quot;headerlink&quot; title=&quot;使用SendMessage向另一进程发送WM_COP
+        &lt;h1 id=&quot;引用计数技术及智能指针的简单实现&quot;&gt;&lt;a href=&quot;#引用计数技术及智能指针的简单实现&quot; class=&quot;headerlink&quot; title=&quot;引用计数技术及智能指针的简单实现&quot;&gt;&lt;/a&gt;引用计数技术及智能指针的简单实现&lt;/h1&gt;&lt;h2 id=&quot;基础对象类&quot;&gt;&lt;a
       
     
     </summary>
@@ -1470,11 +1528,9 @@ HWND g
     
       <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
     
-      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
+      <category term="C++" scheme="https://caojingyou.github.io/tags/C/"/>
     
-      <category term="VLC" scheme="https://caojingyou.github.io/tags/VLC/"/>
-    
-      <category term="通信" scheme="https://caojingyou.github.io/tags/%E9%80%9A%E4%BF%A1/"/>
+      <category term="智能指针" scheme="https://caojingyou.github.io/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"/>
     
   </entry>
   
@@ -1506,33 +1562,6 @@ HWND g
       <category term="VLC" scheme="https://caojingyou.github.io/tags/VLC/"/>
     
       <category term="ffmpeg" scheme="https://caojingyou.github.io/tags/ffmpeg/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C++ 引用计数技术及智能指针的简单实现</title>
-    <link href="https://caojingyou.github.io/2016/10/01/C++%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"/>
-    <id>https://caojingyou.github.io/2016/10/01/C++智能指针/</id>
-    <published>2016-10-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.086Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="引用计数技术及智能指针的简单实现"><a href="#引用计数技术及智能指针的简单实现" class="headerlink" title="引用计数技术及智能指针的简单实现"></a>引用计数技术及智能指针的简单实现</h1><h2 id="基础对象类"><a href="#基础对象类" class="headerlink" title="基础对象类"></a>基础对象类</h2><pre><code>class Point{public:    Point(int xVal = 0, int yVal = 0) : x(xVal), y(yVal) { }    int getX() const    {        return x;    }    int getY() const    {        return y;    }    void setX(int xVal)    {        x = xVal;    }    void setY(int yVal)    {        y = yVal;    }    private:    int x, y;};</code></pre><h2 id="辅助类"><a href="#辅助类" class="headerlink" title="辅助类"></a>辅助类</h2><pre><code>//模板类作为友元时要先有声明template &lt;typename T&gt;class SmartPtr;template &lt;typename T&gt;class U_Ptr     //辅助类{private:    //该类成员访问权限全部为private，因为不想让用户直接使用该类    friend class SmartPtr&lt;T&gt;;      //定义智能指针类为友元，因为智能指针类需要直接操纵辅助类    //构造函数的参数为基础对象的指针    U_Ptr(T *ptr) : p(ptr), count(1) { }    //析构函数    ~U_Ptr()    {        delete p;    }    //引用计数    int count;    //基础对象指针    T *p;};</code></pre><h2 id="智能指针类"><a href="#智能指针类" class="headerlink" title="智能指针类"></a>智能指针类</h2><pre><code>template &lt;typename T&gt;class SmartPtr   //智能指针类{public:    SmartPtr(T *ptr) : rp(new U_Ptr&lt;T&gt;(ptr)) { }     //构造函数    SmartPtr(const SmartPtr&lt;T&gt; &amp;sp) : rp(sp.rp)    {        ++rp-&gt;count;    //复制构造函数    }    SmartPtr &amp;operator=(const SmartPtr&lt;T&gt; &amp;rhs)      //重载赋值操作符    {        ++rhs.rp-&gt;count;     //首先将右操作数引用计数加1，        if (--rp-&gt;count == 0)     //然后将引用计数减1，可以应对自赋值            delete rp;        rp = rhs.rp;        return *this;    }    T &amp;operator *()         //重载*操作符    {        return *(rp-&gt;p);    }    T *operator -&gt;()       //重载-&gt;操作符    {        return rp-&gt;p;    }    ~SmartPtr()          //析构函数    {        if (--rp-&gt;count == 0)    //当引用计数减为0时，删除辅助类对象指针，从而删除基础对象            delete rp;        else            cout &lt;&lt; &quot;还有&quot; &lt;&lt; rp-&gt;count &lt;&lt; &quot;个指针指向基础对象&quot; &lt;&lt; endl;    }private:    U_Ptr&lt;T&gt; *rp;  //辅助类对象指针};</code></pre><p>使用测试</p><pre><code>int main(){    int *i = new int(2);    {        SmartPtr&lt;int&gt; ptr1(i);        {            SmartPtr&lt;int&gt; ptr2(ptr1);            {                SmartPtr&lt;int&gt; ptr3 = ptr2;                cout &lt;&lt; *ptr1 &lt;&lt; endl;                *ptr1 = 20;                cout &lt;&lt; *ptr2 &lt;&lt; endl;            }        }    }    system(&quot;pause&quot;);    return 0;}</code></pre><p>参考：</p><ul><li><a href="http://mp.weixin.qq.com/s?__biz=MzAxNDI5NzEzNg==&amp;mid=2651156666&amp;idx=1&amp;sn=4109903d526468f5913922d2f06e5a1a&amp;scene=0#wechat_redirect" target="_blank" rel="noopener">C++ 引用计数技术及智能指针的简单实现</a>(文章写的太好了，转过了以后用)</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;引用计数技术及智能指针的简单实现&quot;&gt;&lt;a href=&quot;#引用计数技术及智能指针的简单实现&quot; class=&quot;headerlink&quot; title=&quot;引用计数技术及智能指针的简单实现&quot;&gt;&lt;/a&gt;引用计数技术及智能指针的简单实现&lt;/h1&gt;&lt;h2 id=&quot;基础对象类&quot;&gt;&lt;a
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="C++" scheme="https://caojingyou.github.io/tags/C/"/>
-    
-      <category term="智能指针" scheme="https://caojingyou.github.io/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"/>
     
   </entry>
   

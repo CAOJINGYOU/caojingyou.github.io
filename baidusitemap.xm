@@ -4,6 +4,29 @@
 
     
   <url>
+    <loc>https://caojingyou.github.io/2018/02/08/SVN%E7%89%88%E6%9C%AC%E5%8F%B7/</loc>
+    <lastmod>2018-02-08T07:24:09.237Z</lastmod>
+    <data>
+        <display>
+        <title>SVN版本号</title>
+        <pubTime>2018-02-08T07:24:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C/C++</tag>
+         
+        <tag>svn</tag>
+         
+        <tag>版本号</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://caojingyou.github.io/2018/02/01/VS%E5%B7%A5%E5%85%B7/</loc>
     <lastmod>2018-02-08T04:40:20.530Z</lastmod>
     <data>

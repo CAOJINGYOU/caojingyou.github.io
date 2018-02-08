@@ -714,6 +714,212 @@ cfa.Save();
 
 
   
+    <article id="post-SVN版本号" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/08/SVN版本号/">SVN版本号</a>
+    </h1>
+  
+
+        
+        <a href="/2018/02/08/SVN版本号/" class="archive-article-date">
+  	<time datetime="2018-02-08T07:24:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="SVN获取版本号"><a href="#SVN获取版本号" class="headerlink" title="SVN获取版本号"></a>SVN获取版本号</h1><h2 id="version-template-h"><a href="#version-template-h" class="headerlink" title="version_template.h"></a>version_template.h</h2><pre><code>#ifndef _VERSION_H_
+#define _VERSION_H_
+#define VER_MAJOR 1
+#define VER_MINOR 0
+#define VER_REVISION $WCREV$
+
+#define SVN_REVISION&quot;$WCMIXED?$WCRANGE$:$WCREV$$&quot;
+
+#define SVN_RANGE   $WCRANGE$
+#define SVN_REV $WCREV$
+#define SVN_REVISION&quot;$WCMIXED?SVN_RANGE:SVN_REV$&quot;
+#endif //!_VERSION_H_
+
+// Test file for SubWCRev
+
+char *Revision  = &quot;$WCREV$&quot;;
+char *Revision16= &quot;$WCREV&amp;0xFF$&quot;;
+char *Revisionp100  = &quot;$WCREV+100$&quot;;
+char *Revisionm100  = &quot;$WCREV-100$&quot;;
+char *Modified  = &quot;$WCMODS?Modified:Not modified$&quot;;
+char *Unversioned   = &quot;$WCUNVER?Unversioned items found:no unversioned items$&quot;;
+char *Date  = &quot;$WCDATE$&quot;;
+char *CustDate  = &quot;$WCDATE=%a, %d %B %Y$&quot;;
+char *DateUTC   = &quot;$WCDATEUTC$&quot;;
+char *CustDateUTC   = &quot;$WCDATEUTC=%a, %d %B %Y$&quot;;
+char *TimeNow   = &quot;$WCNOW$&quot;;
+char *TimeNowUTC= &quot;$WCNOWUTC$&quot;;
+char *RevRange  = &quot;$WCRANGE$&quot;;
+char *Mixed = &quot;$WCMIXED?Mixed revision WC:Not mixed$&quot;;
+char *ExtAllFixed   = &quot;$WCEXTALLFIXED?All externals fixed:Not all externals fixed$&quot;;
+char *IsTagged  = &quot;$WCISTAGGED?Tagged:Not tagged$&quot;;
+char *URL   = &quot;$WCURL$&quot;;
+char *isInSVN   = &quot;$WCINSVN?versioned:not versioned$&quot;;
+char *needslck  = &quot;$WCNEEDSLOCK?TRUE:FALSE$&quot;;
+char *islocked  = &quot;$WCISLOCKED?locked:not locked$&quot;;
+char *lockdateutc   = &quot;$WCLOCKDATEUTC$&quot;;
+char *lockdate  = &quot;$WCLOCKDATE$&quot;;
+char *lockcustutc   = &quot;$WCLOCKDATEUTC=%a, %d %B %Y$&quot;;
+char *lockcust  = &quot;$WCLOCKDATE=%a, %d %B %Y$&quot;;
+char *lockown   = &quot;$WCLOCKOWNER$&quot;;
+char *lockcmt   = &quot;$WCLOCKCOMMENT$&quot;;
+
+#if $WCMODS?1:0$
+#error Source is modified
+#endif
+
+// End of file
+</code></pre><h2 id="运行bat"><a href="#运行bat" class="headerlink" title="运行bat"></a>运行bat</h2><pre><code>setlocal
+
+::设置svn客户端安装目录
+set SVN_PATH=D:\Program Files\TortoiseSVN\bin 
+
+::设置工作目录，即工程目录
+set WORK_DIR=E:\code\C++\Demo
+
+::设置版本模版文件，对应第一步中新建的模板文件
+set VERSION_TEMPLATE=E:\code\C++\Demo\version_template.h
+
+::设置版本号生成文件，生成的文件就是我们需要使用的版本文件
+set VERSION_RELEASE=E:\code\C++\Demo\version.h
+
+::进入svn客户端安装目录
+cd %SVN_PATH%
+::执行更新版本号操作
+&quot;%SVN_PATH%\SubWCRev.exe&quot; &quot;%WORK_DIR%&quot; &quot;%VERSION_TEMPLATE%&quot; &quot;%VERSION_RELEASE%&quot;
+
+endlocal
+</code></pre><h2 id="生成version-h"><a href="#生成version-h" class="headerlink" title="生成version.h"></a>生成version.h</h2><pre><code>#ifndef _VERSION_H_
+#define _VERSION_H_
+#define VER_MAJOR 1
+#define VER_MINOR 0
+#define VER_REVISION 6185
+
+#define SVN_REVISION&quot;4620&quot;
+
+#define SVN_RANGE   4620:6185
+#define SVN_REV 6185
+#define SVN_REVISION&quot;SVN_RANGE&quot;
+#endif //!_VERSION_H_
+
+// Test file for SubWCRev
+
+char *Revision  = &quot;6185&quot;;
+char *Revision16= &quot;41&quot;;
+char *Revisionp100  = &quot;6285&quot;;
+char *Revisionm100  = &quot;6085&quot;;
+char *Modified  = &quot;Modified&quot;;
+char *Unversioned   = &quot;Unversioned items found&quot;;
+char *Date  = &quot;2018/02/07 10:00:58&quot;;
+char *CustDate  = &quot;Wed, 07 February 2018&quot;;
+char *DateUTC   = &quot;2018/02/07 02:00:58&quot;;
+char *CustDateUTC   = &quot;Wed, 07 February 2018&quot;;
+char *TimeNow   = &quot;2018/02/08 14:56:08&quot;;
+char *TimeNowUTC= &quot;2018/02/08 06:56:08&quot;;
+char *RevRange  = &quot;4620:6185&quot;;
+char *Mixed = &quot;Mixed revision WC&quot;;
+char *ExtAllFixed   = &quot;All externals fixed&quot;;
+char *IsTagged  = &quot;Not tagged&quot;;
+char *URL   = &quot;http://xxx&quot;;
+char *isInSVN   = &quot;versioned&quot;;
+char *needslck  = &quot;FALSE&quot;;
+char *islocked  = &quot;not locked&quot;;
+char *lockdateutc   = &quot;1970/01/01 00:00:00&quot;;
+char *lockdate  = &quot;1970/01/01 08:00:00&quot;;
+char *lockcustutc   = &quot;Thu, 01 January 1970&quot;;
+char *lockcust  = &quot;Thu, 01 January 1970&quot;;
+char *lockown   = &quot;&quot;;
+char *lockcmt   = &quot;&quot;;
+
+#if 1
+#error Source is modified
+#endif
+
+// End of file
+</code></pre><h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p>在VS2005的项目属性页-&gt;预生成事件-&gt;命令行中添加一句：</p>
+<pre><code>$(SolutionDir)\subwcrev.exe $(SolutionDir) $(SolutionDir)\src\qmlv\version_template.h $(SolutionDir)\src\qmlv\version.h
+</code></pre><p>SubWCRev 调用语法:</p>
+<pre><code>SubWCRev WorkingCopyPath [SrcVersionFile DstVersionFile]
+</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html" title="https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html" target="_blank" rel="noopener">https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html</a></p>
+<p><a href="http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html" title="http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html</a></p>
+<p><a href="https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html" title="https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">svn</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">版本号</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/02/08/SVN版本号/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-C++获取外部exe程序的返回值，判断图片颜色模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1392,99 +1598,6 @@ namespace APP02
 
 
   
-    <article id="post-程序只能启动一次" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/01/程序只能启动一次/">程序只能启动一次</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/01/程序只能启动一次/" class="archive-article-date">
-  	<time datetime="2017-12-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="程序只能启动一次"><a href="#程序只能启动一次" class="headerlink" title="程序只能启动一次"></a>程序只能启动一次</h1><pre><code>BOOL CIMServerApp::InitInstance()
-{
-    HANDLE hMutex=::CreateMutex(NULL,TRUE,&quot;NAME&quot;);//NAME随便写个
-    if (hMutex!=NULL)
-    {
-        if (GetLastError()==ERROR_ALREADY_EXISTS)
-        {
-            AfxMessageBox(&quot;已经有一个程序运行.&quot;);
-            return FALSE;
-        }
-    }
-}
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/01/程序只能启动一次/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -2019,6 +2132,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">美化桌面</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">svn</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">版本号</a>
               </li>
             
             <div class="clearfix"></div>
