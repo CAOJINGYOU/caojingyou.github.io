@@ -1128,16 +1128,27 @@ if &quot;%_ARG_%&quot; EQU &quot;&quot; (
     goto eof
 )
 
+if &quot;%_ARG_%&quot; EQU &quot;2005&quot; set &quot;ProgramFiles(x86)=%VS80COMNTOOLS%..\..\&quot;
+if &quot;%_ARG_%&quot; EQU &quot;2008&quot; set &quot;ProgramFiles(x86)=%VS90COMNTOOLS%..\..\&quot;
+if &quot;%_ARG_%&quot; EQU &quot;2010&quot; set &quot;ProgramFiles(x86)=%VS100COMNTOOLS%..\..\&quot;
+if &quot;%_ARG_%&quot; EQU &quot;2012&quot; set &quot;ProgramFiles(x86)=%VS110COMNTOOLS%..\..\&quot;
+if &quot;%_ARG_%&quot; EQU &quot;2013&quot; set &quot;ProgramFiles(x86)=%VS120COMNTOOLS%..\..\&quot;
+if &quot;%_ARG_%&quot; EQU &quot;2015&quot; set &quot;ProgramFiles(x86)=%VS140COMNTOOLS%..\..\&quot;
+
+echo &quot;%ProgramFiles(x86)%&quot;
+
 if NOT DEFINED ProgramFiles(x86) set ProgramFiles(x86)=C:\Program Files (x86)
 if NOT DEFINED VS80COMNTOOLS set VS80COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 8\Common7\Tools\
 if NOT DEFINED VS90COMNTOOLS set VS90COMNTOOLS=c:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\Tools\
 rem VS100COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\Tools\
 rem VS110COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\Tools\
 rem VS120COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\
-rem VS140COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\
-rem VS71COMNTOOLS=c:\Program Files (x86)\Microsoft Visual Studio .NET 2003\Common7\Tools\
-rem VS80COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 8\Common7\Tools\
-rem VS90COMNTOOLS=c:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\Tools\
+rem VS140COMNTOOLS=D:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\
+rem VS80COMNTOOLS=D:\Program Files (x86)\Microsoft Visual Studio 8\Common7\Tools\
+rem VS90COMNTOOLS=D:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\Tools\
+rem VSSDK140Install=D:\Program Files (x86)\Microsoft Visual Studio 14.0\VSSDK\
+
+
 
 set &quot;_OPT_=%2&quot;
 if NOT DEFINED _OPT_ set _OPT_=64
@@ -1145,11 +1156,11 @@ if &quot;%_OPT_%&quot; EQU &quot;x64&quot; set &quot;_OPT_=64&quot;
 
 if &quot;%_ARG_%&quot; EQU &quot;2005&quot; (
   if &quot;%_OPT_%&quot; EQU &quot;64&quot; (
-pushd &quot;%ProgramFiles(x86)%\Microsoft Visual Studio 8\VC\bin\amd64\&quot;
+pushd &quot;%ProgramFiles(x86)%\VC\bin\amd64\&quot;
 call vcvarsamd64.bat
 set PROCESSOR_ARCHITECTURE=AMD64
   ) else (
-pushd &quot;%ProgramFiles(x86)%\Microsoft Visual Studio 8\VC\bin&quot;
+pushd &quot;%ProgramFiles(x86)%\VC\bin&quot;
 call vcvars32.bat
 set PROCESSOR_ARCHITECTURE=x86
   )
@@ -1167,7 +1178,8 @@ if &quot;%_ARG_%&quot; EQU &quot;2013&quot; set &quot;_VC_=12.0&quot;
 if &quot;%_ARG_%&quot; EQU &quot;2015&quot; set &quot;_VC_=14.0&quot;
 
 if DEFINED _VC_ (
-  pushd &quot;%ProgramFiles(x86)%\Microsoft Visual Studio %_VC_%\VC\&quot;
+  echo &quot;%ProgramFiles(x86)%\VC\&quot;
+  pushd &quot;%ProgramFiles(x86)%\VC\&quot;
   if &quot;%_OPT_%&quot; EQU &quot;64&quot; (
 vcvarsall.bat x86_amd64
 set PROCESSOR_ARCHITECTURE=AMD64

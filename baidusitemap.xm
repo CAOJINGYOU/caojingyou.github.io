@@ -4,6 +4,27 @@
 
     
   <url>
+    <loc>https://caojingyou.github.io/2018/10/01/MSBuild%20(Visual%20C++)/</loc>
+    <lastmod>2018-03-14T07:45:54.477Z</lastmod>
+    <data>
+        <display>
+        <title>MSBuild</title>
+        <pubTime>2018-10-01T08:03:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>MSBuild</tag>
+         
+        <tag>VS</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://caojingyou.github.io/2017/10/15/Doxygen/</loc>
     <lastmod>2018-03-06T05:51:35.909Z</lastmod>
     <data>
@@ -304,27 +325,6 @@
         <tag>加密</tag>
          
         <tag>libssh2</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2018/10/01/MSBuild%20(Visual%20C++)/</loc>
-    <lastmod>2018-02-06T09:13:26.822Z</lastmod>
-    <data>
-        <display>
-        <title>MSBuild</title>
-        <pubTime>2018-10-01T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>MSBuild</tag>
-         
-        <tag>VS</tag>
          
          
            
