@@ -612,6 +612,139 @@ public class Program
 
 
   
+    <article id="post-tesseract-ocr" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/26/tesseract-ocr/">tesseract-ocr</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/26/tesseract-ocr/" class="archive-article-date">
+  	<time datetime="2018-03-26T09:01:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Python-中文OCR"><a href="#Python-中文OCR" class="headerlink" title="Python 中文OCR"></a>Python 中文OCR</h1><p><a href="https://github.com/tesseract-ocr/tesseract" target="_blank" rel="noopener">https://github.com/tesseract-ocr/tesseract</a></p>
+<p><a href="https://digi.bib.uni-mannheim.de/tesseract/doc/" target="_blank" rel="noopener">https://digi.bib.uni-mannheim.de/tesseract/doc/</a></p>
+<p><a href="https://blog.csdn.net/wwj_748/article/details/78109680?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="noopener">Python 中文OCR</a></p>
+<p>Tesseract的OCR引擎目前已作为开源项目发布在Google Project，其项目主页在这里查看<a href="https://github.com/tesseract-ocr" target="_blank" rel="noopener">https://github.com/tesseract-ocr</a>，<br>它支持中文OCR，并提供了一个命令行工具。python中对应的包是pytesseract. 通过这个工具我们可以识别图片上的文字。</p>
+<h1 id="tesseract安装"><a href="#tesseract安装" class="headerlink" title="tesseract安装"></a>tesseract安装</h1><p><a href="https://github.com/tesseract-ocr/tesseract/wiki" target="_blank" rel="noopener">https://github.com/tesseract-ocr/tesseract/wiki</a></p>
+<p><a href="https://github.com/UB-Mannheim/tesseract/wiki" target="_blank" rel="noopener">https://github.com/UB-Mannheim/tesseract/wiki</a></p>
+<p><a href="https://jingyan.baidu.com/article/219f4bf788addfde442d38fe.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/219f4bf788addfde442d38fe.html</a></p>
+<p>需要把安装路径设置到环境变量中</p>
+<h1 id="运行-Tesseract"><a href="#运行-Tesseract" class="headerlink" title="运行 Tesseract"></a>运行 Tesseract</h1><p>Tesseract 是 命令行 程序 ， 那么 第一 终端 或者 打开 一个 命令 提示 。 在 命令 使用 过程 是 这样 的 ：</p>
+<pre><code>tesseract imagename outputbase [-l lang] [-psm pagesegmode] [configfile...]
+</code></pre><p>结果 保存 到  out.txt </p>
+<pre><code>tesseract myscan.png out
+</code></pre><p> 用于 多个 语言</p>
+<pre><code>tesseract myscan.png out -l eng+deu
+</code></pre><p><a href="https://github.com/tesseract-ocr/tesseract/blob/master/doc/tesseract.1.asc" target="_blank" rel="noopener">其他各种选项</a></p>
+<p>1.jpg是当前目录中的1.jpg图片</p>
+<p>1.txt是指定结果输出到文本文件</p>
+<p>-l是指定使用的包</p>
+<p>chi_sim是中文识别包，equ是数学公式包，eng是英文包</p>
+<pre><code>tesseract 1.jpg 1.txt -l chi_sim+equ+eng
+</code></pre><h1 id="其他-语言"><a href="#其他-语言" class="headerlink" title="其他 语言"></a>其他 语言</h1><p><a href="https://github.com/tesseract-ocr/tessdata" target="_blank" rel="noopener">语言 tessdata 储存库 </a></p>
+<h1 id="训练语言"><a href="#训练语言" class="headerlink" title="训练语言"></a>训练语言</h1><p><a href="https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract" target="_blank" rel="noopener">https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract</a></p>
+<p><a href="https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00" target="_blank" rel="noopener">https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00</a></p>
+<p><a href="https://sourceforge.net/projects/vietocr/files/jTessBoxEditor/" title="jTessBoxEditor" target="_blank" rel="noopener">jTessBoxEditor</a></p>
+<p><a href="https://blog.csdn.net/cn_wk/article/details/52280567" target="_blank" rel="noopener">https://blog.csdn.net/cn_wk/article/details/52280567</a></p>
+<p><a href="http://www.bkjia.com/Pythonjc/1131343.html" target="_blank" rel="noopener">http://www.bkjia.com/Pythonjc/1131343.html</a></p>
+<p><a href="https://github.com/tesseract-ocr/tesseract/wiki/AddOns" target="_blank" rel="noopener">https://github.com/tesseract-ocr/tesseract/wiki/AddOns</a></p>
+<p><a href="http://zdenop.github.io/qt-box-editor/" target="_blank" rel="noopener">http://zdenop.github.io/qt-box-editor/</a></p>
+<p><a href="https://www.cnblogs.com/cnlian/p/5765871.html" target="_blank" rel="noopener">https://www.cnblogs.com/cnlian/p/5765871.html</a></p>
+<p>大体流程为：安装jTessBoxEditor -&gt; 获取样本文件 -&gt; Merge样本文件 –&gt; 生成BOX文件 -&gt; 定义字符配置文件 -&gt; 字符矫正 -&gt; 执行批处理文件 -&gt; 将生成的traineddata放入tessdata中</p>
+<p><a href="https://jingyan.baidu.com/article/cdddd41c90544f53cb00e1c3.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/cdddd41c90544f53cb00e1c3.html</a></p>
+<h1 id="python-pytesseract"><a href="#python-pytesseract" class="headerlink" title="python pytesseract"></a>python pytesseract</h1><p><a href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014320027235877860c87af5544f25a8deeb55141d60c5000" target="_blank" rel="noopener">Pillow</a></p>
+<p><a href="https://pillow.readthedocs.org/" target="_blank" rel="noopener">https://pillow.readthedocs.org/</a></p>
+<p><a href="https://pypi.python.org/pypi/pytesseract" target="_blank" rel="noopener">https://pypi.python.org/pypi/pytesseract</a></p>
+<pre><code>pip install pytesseract
+pip install pillow
+</code></pre><p>code:</p>
+<pre><code>#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import pytesseract
+from PIL import Image
+
+pytesseract.pytesseract.tesseract_cmd = r&apos;C:\Program Files (x86)\Tesseract-OCR\tesseract.exe&apos;
+# open image
+image = Image.open(&apos;test.png&apos;)
+code = pytesseract.image_to_string(image, lang=&apos;chi_sim&apos;)
+print(code)
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tesseract</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ocr</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/26/tesseract-ocr/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-WPF读写config配置文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1378,228 +1511,6 @@ ExeCmd(_T(&quot;identify -format &quot;%[colorspace]&quot; E:\\P70306-163226.jpg
 
 
   
-    <article id="post-Log4Net" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/15/Log4Net/">Log4Net</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/15/Log4Net/" class="archive-article-date">
-  	<time datetime="2017-12-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Log4Net"><a href="#Log4Net" class="headerlink" title="Log4Net"></a>Log4Net</h1><h2 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h2><pre><code>[assembly: log4net.Config.XmlConfigurator(Watch = true)]
-namespace APP02
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            ILog log = log4net.LogManager.GetLogger(&quot;Test&quot;);
-            log.Error(&quot;错误&quot;, new Exception(&quot;发生了一个异常&quot;));//错误
-            log.Fatal(&quot;严重错误&quot;, new Exception(&quot;发生了一个致命错误&quot;));//严重错误
-            log.Info(&quot;信息&quot;); //记录一般信息
-            log.Debug(&quot;调试信息&quot;);//记录调试信息
-            log.Warn(&quot;警告&quot;);//记录警告信息
-            Console.WriteLine(&quot;日志记录完毕。&quot;);
-            Console.Read();
-        }
-    }
-}
-</code></pre><p>或：</p>
-<pre><code>ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-            //记录错误日志
-            log.Info(&quot;error&quot;);
-</code></pre><h2 id="App-config文件配置："><a href="#App-config文件配置：" class="headerlink" title="App.config文件配置："></a>App.config文件配置：</h2><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
-&lt;configuration&gt;
-  &lt;configSections&gt;
-    &lt;section name=&quot;log4net&quot; type=&quot;System.Configuration.IgnoreSectionHandler&quot;/&gt;
-  &lt;/configSections&gt;
-  &lt;log4net&gt;
-    &lt;appender name=&quot;控制台输出&quot; type=&quot;log4net.Appender.ConsoleAppender&quot;&gt;
-      &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-        &lt;param name=&quot;ConversionPattern&quot; value=&quot;%d [%t] %-5p %c [%x] - %m%n&quot;  /&gt;
-      &lt;/layout&gt;
-    &lt;/appender&gt;
-    &lt;logger name=&quot;Test&quot;&gt;
-      &lt;level value=&quot;ALL&quot;/&gt;
-      &lt;appender-ref ref=&quot;控制台输出&quot; /&gt;
-    &lt;/logger&gt;
-  &lt;/log4net&gt;
-&lt;/configuration&gt;
-</code></pre><p>或：</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
-&lt;configuration&gt;
-  &lt;configSections&gt;
-    &lt;section name=&quot;log4net&quot; type=&quot;System.Configuration.IgnoreSectionHandler&quot;/&gt;
-  &lt;/configSections&gt;
-  &lt;appSettings&gt;
-  &lt;/appSettings&gt;
-  &lt;log4net&gt;
-    &lt;!--定义输出到文件中--&gt;
-    &lt;appender name=&quot;LogFileAppender&quot; type=&quot;log4net.Appender.FileAppender&quot;&gt;
-      &lt;!--定义文件存放位置--&gt;
-      &lt;file value=&quot;D:/log4netfile.txt&quot; /&gt;
-      &lt;appendToFile value=&quot;true&quot; /&gt;
-      &lt;rollingStyle value=&quot;Date&quot; /&gt;
-      &lt;datePattern value=&quot;yyyyMMdd-HH:mm:ss&quot; /&gt;
-      &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-        &lt;!--每条日志末尾的文字说明--&gt;
-        &lt;footer value=&quot;by 周公&quot; /&gt;
-        &lt;!--输出格式--&gt;
-        &lt;!--样例：2008-03-26 13:42:32,111 [10] INFO  Log4NetDemo.MainClass [(null)] - info--&gt;
-        &lt;conversionPattern value=&quot;记录时间：%date 线程ID:[%thread] 日志级别：%-5level 出错类：%logger property:[%property{NDC}] - 错误描述：%message%newline&quot; /&gt;
-      &lt;/layout&gt;
-    &lt;/appender&gt;
-    &lt;!--定义输出到控制台命令行中--&gt;
-    &lt;appender name=&quot;ConsoleAppender&quot; type=&quot;log4net.Appender.ConsoleAppender&quot;&gt;
-      &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-        &lt;conversionPattern value=&quot;%date [%thread] %-5level %logger [%property{NDC}] - %message%newline&quot; /&gt;
-      &lt;/layout&gt;
-    &lt;/appender&gt;
-    &lt;!--定义输出到windows事件中--&gt;
-    &lt;appender name=&quot;EventLogAppender&quot; type=&quot;log4net.Appender.EventLogAppender&quot;&gt;
-      &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-        &lt;conversionPattern value=&quot;%date [%thread] %-5level %logger [%property{NDC}] - %message%newline&quot; /&gt;
-      &lt;/layout&gt;
-    &lt;/appender&gt;
-    &lt;!--定义输出到数据库中，这里举例输出到Access数据库中，数据库为C盘的log4net.mdb--&gt;
-    &lt;appender name=&quot;AdoNetAppender_Access&quot; type=&quot;log4net.Appender.AdoNetAppender&quot;&gt;
-      &lt;connectionString value=&quot;Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:log4net.mdb&quot; /&gt;
-      &lt;commandText value=&quot;INSERT INTO LogDetails ([LogDate],[Thread],[Level],[Logger],[Message]) VALUES (@logDate, @thread, @logLevel, @logger,@message)&quot; /&gt;
-      &lt;!--定义各个参数--&gt;
-      &lt;parameter&gt;
-        &lt;parameterName value=&quot;@logDate&quot; /&gt;
-        &lt;dbType value=&quot;String&quot; /&gt;
-        &lt;size value=&quot;240&quot; /&gt;
-        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-          &lt;conversionPattern value=&quot;%date&quot; /&gt;
-        &lt;/layout&gt;
-      &lt;/parameter&gt;
-      &lt;parameter&gt;
-        &lt;parameterName value=&quot;@thread&quot; /&gt;
-        &lt;dbType value=&quot;String&quot; /&gt;
-        &lt;size value=&quot;240&quot; /&gt;
-        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-          &lt;conversionPattern value=&quot;%thread&quot; /&gt;
-        &lt;/layout&gt;
-      &lt;/parameter&gt;
-      &lt;parameter&gt;
-        &lt;parameterName value=&quot;@logLevel&quot; /&gt;
-        &lt;dbType value=&quot;String&quot; /&gt;
-        &lt;size value=&quot;240&quot; /&gt;
-        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-          &lt;conversionPattern value=&quot;%level&quot; /&gt;
-        &lt;/layout&gt;
-      &lt;/parameter&gt;
-      &lt;parameter&gt;
-        &lt;parameterName value=&quot;@logger&quot; /&gt;
-        &lt;dbType value=&quot;String&quot; /&gt;
-        &lt;size value=&quot;240&quot; /&gt;
-        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-          &lt;conversionPattern value=&quot;%logger&quot; /&gt;
-        &lt;/layout&gt;
-      &lt;/parameter&gt;
-      &lt;parameter&gt;
-        &lt;parameterName value=&quot;@message&quot; /&gt;
-        &lt;dbType value=&quot;String&quot; /&gt;
-        &lt;size value=&quot;240&quot; /&gt;
-        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-          &lt;conversionPattern value=&quot;%message&quot; /&gt;
-        &lt;/layout&gt;
-      &lt;/parameter&gt;
-    &lt;/appender&gt;
-    &lt;!--定义日志的输出媒介，下面定义日志以四种方式输出。也可以下面的按照一种类型或其他类型输出。--&gt;
-    &lt;root&gt;
-      &lt;!--文件形式记录日志--&gt;
-      &lt;appender-ref ref=&quot;LogFileAppender&quot; /&gt;
-      &lt;!--控制台控制显示日志--&gt;
-      &lt;appender-ref ref=&quot;ConsoleAppender&quot; /&gt;
-      &lt;!--Windows事件日志--&gt;
-      &lt;appender-ref ref=&quot;EventLogAppender&quot; /&gt;
-      &lt;!-- 如果不启用相应的日志记录，可以通过这种方式注释掉
-      &lt;appender-ref ref=&quot;AdoNetAppender_Access&quot; /&gt;
-      --&gt;
-    &lt;/root&gt;
-
-  &lt;/log4net&gt;
-&lt;/configuration&gt;
-</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="http://www.cnblogs.com/LiZhiW/p/4317198.html" target="_blank" rel="noopener">Log4Net使用详解</a></li>
-<li><a href="http://blog.csdn.net/zhoufoxcn/article/details/2220533" title="http://blog.csdn.net/zhoufoxcn/article/details/2220533" target="_blank" rel="noopener">http://blog.csdn.net/zhoufoxcn/article/details/2220533</a></li>
-<li><a href="http://blog.csdn.net/zhoufoxcn/article/details/6029021" title="http://blog.csdn.net/zhoufoxcn/article/details/6029021" target="_blank" rel="noopener">http://blog.csdn.net/zhoufoxcn/article/details/6029021</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Log4Net</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/15/Log4Net/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -2142,6 +2053,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">版本号</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">tesseract</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ocr</a>
               </li>
             
             <div class="clearfix"></div>

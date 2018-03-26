@@ -4,6 +4,29 @@
 
     
   <url>
+    <loc>https://caojingyou.github.io/2018/03/26/tesseract-ocr/</loc>
+    <lastmod>2018-03-26T09:01:44.441Z</lastmod>
+    <data>
+        <display>
+        <title>tesseract-ocr</title>
+        <pubTime>2018-03-26T09:01:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>Python</tag>
+         
+        <tag>tesseract</tag>
+         
+        <tag>ocr</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://caojingyou.github.io/2018/10/01/MSBuild%20(Visual%20C++)/</loc>
     <lastmod>2018-03-14T07:45:54.477Z</lastmod>
     <data>

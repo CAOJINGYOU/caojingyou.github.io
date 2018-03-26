@@ -156,6 +156,148 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-搭建个人博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/02/15/搭建个人博客/">搭建个人博客</a>
+    </h1>
+  
+
+        
+        <a href="/2016/02/15/搭建个人博客/" class="archive-article-date">
+  	<time datetime="2016-02-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-02-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="注册GitHub账号"><a href="#注册GitHub账号" class="headerlink" title="注册GitHub账号"></a>注册GitHub账号</h1><p>地址：<a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a>  </p>
+<h1 id="创建博客"><a href="#创建博客" class="headerlink" title="创建博客"></a>创建博客</h1><p>根据：<a href="http://isnowfy.github.io/about-simple-cn.html" target="_blank" rel="noopener">用静态页面生成静态博客 </a> </p>
+<h1 id="个性化博客"><a href="#个性化博客" class="headerlink" title="个性化博客"></a>个性化博客</h1><h2 id="做自己的simple"><a href="#做自己的simple" class="headerlink" title="做自己的simple:"></a>做自己的simple:</h2><p>根据：<a href="http://isnowfy.github.io/about-simple.html" target="_blank" rel="noopener">About Simple</a></p>
+<p>先fork，push到你fork之后的你的simple项目下,然后把src文件夹push到gh-pages分支</p>
+<pre><code>The template files are at /src/template, so you can modify the template files and css files. If you want use your own theme you can clone the project, modify the template files and push the entire src folder in your gh-pages branch which will allow you generate your own static blog.  
+</code></pre><h2 id="改名称："><a href="#改名称：" class="headerlink" title="改名称："></a>改名称：</h2><pre><code>You can use your own blog name, just modify the main.json file, and change name=&quot;username&quot;.  
+</code></pre><h2 id="设置disqus："><a href="#设置disqus：" class="headerlink" title="设置disqus："></a>设置disqus：</h2><pre><code>You can use disqus comment system, just modify the main.json file, and change disqus_shortname=&quot;&quot; to disqus_shortname=&quot;your_shortname&quot;. 
+</code></pre><p>实测要改成disqus_shortname=”Login”才能加载</p>
+<p>登录disqus： <a href="https://disqus.com/" target="_blank" rel="noopener">https://disqus.com/</a><br>在设置中的Website中填入博客地址  </p>
+<h2 id="添加多说评论系统："><a href="#添加多说评论系统：" class="headerlink" title="添加多说评论系统："></a>添加多说评论系统：</h2><h3 id="登录多说评论系统：http-duoshuo-com"><a href="#登录多说评论系统：http-duoshuo-com" class="headerlink" title="登录多说评论系统：http://duoshuo.com/"></a>登录多说评论系统：<a href="http://duoshuo.com/" target="_blank" rel="noopener">http://duoshuo.com/</a></h3><p>可知，在页面中加入以下代码即可：</p>
+<pre><code>&lt;!-- 多说评论框 start --&gt;
+    &lt;div class=&quot;ds-thread&quot; data-thread-key=&quot;ID&quot; data-title=&quot;请替换成文章的标题&quot; data-url=&quot;请替换成文章的网址&quot;&gt;&lt;/div&gt;
+&lt;!-- 多说评论框 end --&gt;
+&lt;!-- 多说公共JS代码 start (一个网页只需插入一次) --&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+var duoshuoQuery = {short_name:&quot;yhcao&quot;};
+    (function() {
+        var ds = document.createElement(&apos;script&apos;);
+        ds.type = &apos;text/javascript&apos;;ds.async = true;
+        ds.src = (document.location.protocol == &apos;https:&apos; ? &apos;https:&apos; : &apos;http:&apos;) + &apos;//static.duoshuo.com/embed.js&apos;;
+        ds.charset = &apos;UTF-8&apos;;
+        (document.getElementsByTagName(&apos;head&apos;)[0] 
+         || document.getElementsByTagName(&apos;body&apos;)[0]).appendChild(ds);
+    })();
+    &lt;/script&gt;
+&lt;!-- 多说公共JS代码 end --&gt;
+</code></pre><h3 id="修改自己simple项目的模版post-html"><a href="#修改自己simple项目的模版post-html" class="headerlink" title="修改自己simple项目的模版post.html"></a>修改自己simple项目的模版post.html</h3><pre><code>&lt;div class=&quot;entry&quot; id=&quot;main&quot;&gt;
+</code></pre><p>后添加：</p>
+<pre><code>&lt;div class=&quot;duoshuo-div&quot; id=&quot;duoshuo-div&quot;&gt;
+&lt;!-- 多说评论框 start 
+&lt;div class=&quot;ds-thread&quot; Id=&quot;data-duoshuo&quot; data-thread-key=&quot;ID&quot; data-title=&quot;标题&quot; data-url=&quot;http://caojingyou.github.io&quot;&gt;&lt;/div&gt; --&gt;
+&lt;!-- 多说评论框 end --&gt;
+&lt;!-- 多说公共JS代码 start (一个网页只需插入一次) --&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+var duoshuoQuery = {short_name:&quot;yhcao&quot;};
+    (function() {
+        var ds = document.createElement(&apos;script&apos;);
+        ds.type = &apos;text/javascript&apos;;ds.async = true;
+        ds.src = (document.location.protocol == &apos;https:&apos; ? &apos;https:&apos; : &apos;http:&apos;) + &apos;//static.duoshuo.com/embed.js&apos;;
+        ds.charset = &apos;UTF-8&apos;;
+        (document.getElementsByTagName(&apos;head&apos;)[0] 
+         || document.getElementsByTagName(&apos;body&apos;)[0]).appendChild(ds);
+    })();
+    &lt;/script&gt;
+&lt;!-- 多说公共JS代码 end --&gt;
+&lt;/div&gt;
+
+&lt;script id=&quot;pagesTemplate&quot; type=&quot;text/mustache&quot;&gt;
+</code></pre><p>后添加：</p>
+<pre><code>&lt;script id=&quot;duoshuo-sc&quot; type=&quot;text/mustache&quot;&gt;
+&lt;div class=&quot;ds-thread&quot; Id=&quot;data-duoshuo&quot; data-thread-key=&quot;{{key}}&quot; data-title=&quot;{{title}}&quot; data-url=&quot;博客网址{{url}}&quot;&gt;&lt;/div&gt;
+&lt;/script&gt;
+
+$(&quot;#main&quot;).prepend(contentHtml);
+</code></pre><p>后添加：</p>
+<pre><code>var duoshuoTemplate = Hogan.compile($(&quot;#duoshuo-sc&quot;).html());
+var duoshuoHtml = duoshuoTemplate.render({&quot;key&quot;: path, &quot;title&quot;: post.title, &quot;url&quot;: path});
+$(&quot;#duoshuo-div&quot;).prepend(duoshuoHtml);
+</code></pre><h3 id="添加百度站内搜索："><a href="#添加百度站内搜索：" class="headerlink" title="添加百度站内搜索："></a>添加百度站内搜索：</h3><p>进入百度站长平台<br>按照<a href="http://gengbiao.me/2014/10/22/hexo%e6%b7%bb%e5%8a%a0%e7%99%be%e5%ba%a6%e7%ab%99%e5%86%85%e6%90%9c%e7%b4%a2/#" target="_blank" rel="noopener">百度站内搜索</a>所讲进行操作即可</p>
+<h3 id="添加swiftype站内搜索："><a href="#添加swiftype站内搜索：" class="headerlink" title="添加swiftype站内搜索："></a>添加swiftype站内搜索：</h3><p>在github中百度站内搜索不识别，所有添加了swiftype而放弃百度。<br>网站地址：<a href="https://swiftype.com/" target="_blank" rel="noopener">https://swiftype.com/</a></p>
+<h2 id="参考文档："><a href="#参考文档：" class="headerlink" title="参考文档："></a>参考文档：</h2><p><a href="http://blog.csdn.net/renfufei/article/details/37725057/" target="_blank" rel="noopener">创建GitHub技术博客全攻略</a><br><a href="http://isnowfy.github.io/about-simple-cn.html" target="_blank" rel="noopener">用静态页面生成静态博客</a><br><a href="http://isnowfy.github.io/about-simple.html" target="_blank" rel="noopener">About Simple</a><br><a href="http://www.freehao123.com/github-farbox-dropbox/" target="_blank" rel="noopener">Github空间在线写文章和用Farbox,Droppages在Dropbox建博客网站</a><br><a href="http://gengbiao.me/2014/10/22/hexo%e6%b7%bb%e5%8a%a0%e7%99%be%e5%ba%a6%e7%ab%99%e5%86%85%e6%90%9c%e7%b4%a2/#" target="_blank" rel="noopener">百度站内搜索</a><br><a href="http://blog.csdn.net/v123411739/article/details/45092871" target="_blank" rel="noopener">使用swiftype实现站内搜索</a><br><a href="http://https//swiftype.com/documentation/sitemap" target="_blank" rel="noopener">Sitemap.xml Support</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Github Pages</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">GitHub</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/02/15/搭建个人博客/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-我喜爱的火狐浏览器插件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1085,6 +1227,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">版本号</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">tesseract</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ocr</a>
               </li>
             
             <div class="clearfix"></div>
