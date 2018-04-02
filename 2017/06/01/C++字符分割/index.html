@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2017/06/01/C++字符分割/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="AfxExtractSubString表头:  BOOL AFXAPI AfxExtractSubString ( CString&amp;amp; rString, LPCTSTR lpszFullString, int iSubString, TCHAR chSep = ‘\n’); 参数rString 对CString将得到一个单独的子字符串的对象。 lpszFullString 字符串包含字符串的">
-<meta property="og:updated_time" content="2018-01-05T08:47:19.035Z">
+<meta property="og:updated_time" content="2018-04-02T10:14:45.683Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++字符串分割">
 <meta name="twitter:description" content="AfxExtractSubString表头:  BOOL AFXAPI AfxExtractSubString ( CString&amp;amp; rString, LPCTSTR lpszFullString, int iSubString, TCHAR chSep = ‘\n’); 参数rString 对CString将得到一个单独的子字符串的对象。 lpszFullString 字符串包含字符串的">
@@ -249,6 +249,48 @@ int main()
   for (tokenizer::iterator it = tok.begin(); it != tok.end(); ++it) 
     std::cout &lt;&lt; *it &lt;&lt; std::endl; 
 } 
+</code></pre><h1 id="分词Boost-regex"><a href="#分词Boost-regex" class="headerlink" title="分词Boost.regex"></a>分词Boost.regex</h1><pre><code>void TestToken()
+{
+    using namespace std;
+    using namespace boost;
+    string str(&quot;tengxun@qq.com, aa@tt.com, bb@qq.com&quot;);
+    regex reg(&quot;\\w+&quot;);
+    sregex_token_iterator pos(str.begin(), str.end(), reg);
+    while (pos != sregex_token_iterator())
+    {
+        cout &lt;&lt; &quot;[&quot; &lt;&lt; *pos &lt;&lt; &quot;]&quot;;
+        ++pos;
+    }
+
+    cout &lt;&lt; endl;
+    //如果最后一个参数args为-1，则把匹配到的字符串视为分隔符
+    regex split_reg(&quot;,&quot;);
+    pos = sregex_token_iterator(str.begin(), str.end(), split_reg, -1);
+    while (pos != sregex_token_iterator())
+    {
+        cout &lt;&lt; &quot;[&quot; &lt;&lt; *pos &lt;&lt; &quot;]&quot;;
+        ++pos;
+    }
+    cout &lt;&lt; endl;
+    //如果最后一个参数args为正数，则返回匹配结果的第args个子串
+    regex split_sub_reg(&quot;(\\w*)@(\\w*).(\\w*)&quot;);
+    pos = sregex_token_iterator(str.begin(), str.end(), split_sub_reg, 1);
+    while (pos != sregex_token_iterator())
+    {
+        cout &lt;&lt; &quot;[&quot; &lt;&lt; *pos &lt;&lt; &quot;]&quot;;
+        ++pos;
+    }
+    cout &lt;&lt; endl;
+    //匹配并指定输出顺序
+    //从下面字符串中提取日期，并转换成 年月日 的顺序输出
+    std::string input(&quot;01/02/2003 blahblah 04/23/1999 blahblah 11/13/1981&quot;);
+    regex re(&quot;(\\d{2})/(\\d{2})/(\\d{4})&quot;); // find a date
+    int const sub_matches[] = { 3, 1, 2 }; // year，month， day
+    sregex_token_iterator begin(input.begin(), input.end(), re, sub_matches), end;
+    // write all the words to std::cout
+    std::ostream_iterator&lt; std::string &gt; out_iter(std::cout, &quot;\n&quot;);
+    std::copy(begin, end, out_iter);
+}
 </code></pre><p>参考：</p>
 <ul>
 <li><a href="http://www.cplusplus.com/faq/sequences/strings/split/" target="_blank" rel="noopener">http://www.cplusplus.com/faq/sequences/strings/split/</a></li>
