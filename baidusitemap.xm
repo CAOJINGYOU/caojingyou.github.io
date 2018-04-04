@@ -4,6 +4,27 @@
 
     
   <url>
+    <loc>https://caojingyou.github.io/2018/10/01/MSBuild%20(Visual%20C++)/</loc>
+    <lastmod>2018-04-04T01:24:31.783Z</lastmod>
+    <data>
+        <display>
+        <title>MSBuild</title>
+        <pubTime>2018-10-01T08:03:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>MSBuild</tag>
+         
+        <tag>VS</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://caojingyou.github.io/2017/07/15/boost/</loc>
     <lastmod>2018-04-03T01:36:47.145Z</lastmod>
     <data>
@@ -60,27 +81,6 @@
         <tag>tesseract</tag>
          
         <tag>ocr</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2018/10/01/MSBuild%20(Visual%20C++)/</loc>
-    <lastmod>2018-03-14T07:45:54.477Z</lastmod>
-    <data>
-        <display>
-        <title>MSBuild</title>
-        <pubTime>2018-10-01T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>MSBuild</tag>
-         
-        <tag>VS</tag>
          
          
            

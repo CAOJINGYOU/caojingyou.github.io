@@ -1202,7 +1202,33 @@ set PROCESSOR_ARCHITECTURE=x86
 rem
 rem That&apos;s all Folks!
 :eof
-</code></pre>
+</code></pre><h1 id="devenv"><a href="#devenv" class="headerlink" title="devenv"></a>devenv</h1><pre><code>@echo off
+
+cd /d %~dp0
+set BUILD_TARGET=%CD%\MyProject.sln
+
+echo.
+if &quot;&quot;==&quot;%VS80COMNTOOLS%&quot; (
+   echo environment variable &apos;VS80COMNTOOLS%&apos; has not been set
+   goto Exit_Fail
+)
+
+set DEVENV=%VS80COMNTOOLS%\..\IDE\devenv.com
+if not exist &quot;%DEVENV%&quot; (
+   echo file &quot;%DEVENV%&quot; can not be found
+   goto Exit_Fail
+)
+
+@echo on
+
+&quot;%DEVENV%&quot; &quot;%BUILD_TARGET%&quot; /Build Release
+
+:Exit_Fail
+
+pause
+</code></pre><p><code>Build</code>可换成<code>Rebuild</code></p>
+<p><a href="https://www.cnblogs.com/songxingzhu/p/5242159.html" target="_blank" rel="noopener">使用devenv/MSBuild在命令行编译sln或csproj</a></p>
+
       
 
       
