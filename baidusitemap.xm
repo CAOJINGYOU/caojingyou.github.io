@@ -4,6 +4,29 @@
 
     
   <url>
+    <loc>https://caojingyou.github.io/2016/08/15/%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85/</loc>
+    <lastmod>2018-04-11T07:46:48.316Z</lastmod>
+    <data>
+        <display>
+        <title>程序打包</title>
+        <pubTime>2016-08-15T08:03:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>打包</tag>
+         
+        <tag>InstallShield</tag>
+         
+        <tag>Inno</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://caojingyou.github.io/2018/10/01/MSBuild%20(Visual%20C++)/</loc>
     <lastmod>2018-04-04T01:24:31.783Z</lastmod>
     <data>
@@ -102,29 +125,6 @@
         <tag>C++</tag>
          
         <tag>Doxygen</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2016/08/15/%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85/</loc>
-    <lastmod>2018-03-01T06:08:14.067Z</lastmod>
-    <data>
-        <display>
-        <title>程序打包</title>
-        <pubTime>2016-08-15T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>打包</tag>
-         
-        <tag>InstallShield</tag>
-         
-        <tag>Inno</tag>
          
          
            
