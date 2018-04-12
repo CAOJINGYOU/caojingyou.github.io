@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://caojingyou.github.io/"/>
-  <updated>2018-02-06T09:15:13.240Z</updated>
+  <updated>2018-02-06T09:18:53.055Z</updated>
   <id>https://caojingyou.github.io/</id>
   
   <author>
@@ -15,65 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>libcur</title>
-    <link href="https://caojingyou.github.io/2018/12/01/libcur%E4%BD%BF%E7%94%A8/"/>
-    <id>https://caojingyou.github.io/2018/12/01/libcur使用/</id>
-    <published>2018-12-01T08:03:00.000Z</published>
-    <updated>2018-02-06T09:15:13.240Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h1><p><code>curl-curl-7_54_0.zip</code></p><p><a href="https://curl.haxx.se/download.html" title="https://curl.haxx.se/download.html" target="_blank" rel="noopener">https://curl.haxx.se/download.html</a></p><h1 id="github"><a href="#github" class="headerlink" title="github:"></a>github:</h1><p><a href="https://github.com/curl/curl" title="https://github.com/curl/curl" target="_blank" rel="noopener">https://github.com/curl/curl</a></p><h1 id="编译："><a href="#编译：" class="headerlink" title="编译："></a>编译：</h1><p>运行：curl\projects\generate.bat，生成vs工具可以打开的文件。</p><h2 id="需要用到其他库："><a href="#需要用到其他库：" class="headerlink" title="需要用到其他库："></a>需要用到其他库：</h2><p><a href="https://www.openssl.org/" target="_blank" rel="noopener">OpenSSL</a>, <a href="https://www.wolfssl.com/wolfSSL/Home.html" target="_blank" rel="noopener">wolfSSL</a> and <a href="https://www.libssh2.org/" target="_blank" rel="noopener">SSH2</a></p><h1 id="使用："><a href="#使用：" class="headerlink" title="使用："></a>使用：</h1><p>预处理器定义添加：<code>CURL_STATICLIB</code></p><p>附加依赖项：</p><pre><code>libcurl.libws2_32.libwinmm.libwldap32.lib</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="http://blog.csdn.net/huyiyang2010/article/details/7664201" title="http://blog.csdn.net/huyiyang2010/article/details/7664201" target="_blank" rel="noopener">http://blog.csdn.net/huyiyang2010/article/details/7664201</a></p><p><a href="http://blog.csdn.net/fengshuiyue/article/details/39530093/" title="http://blog.csdn.net/fengshuiyue/article/details/39530093/" target="_blank" rel="noopener">http://blog.csdn.net/fengshuiyue/article/details/39530093/</a></p><p><a href="http://www.cnblogs.com/suiyingjie/archive/2012/11/12/2766332.html" title="http://www.cnblogs.com/suiyingjie/archive/2012/11/12/2766332.html" target="_blank" rel="noopener">http://www.cnblogs.com/suiyingjie/archive/2012/11/12/2766332.html</a></p><p><a href="http://baike.baidu.com/link?url=IVlZbIwx9qZ5DUoUJMp69PSG6EvsWlzC9xrDrVEhN2SjjuDJ36HE50pQnMXV4z4f6Sw4mM_jkar70LcZa84NCq" title="http://baike.baidu.com/link?url=IVlZbIwx9qZ5DUoUJMp69PSG6EvsWlzC9xrDrVEhN2SjjuDJ36HE50pQnMXV4z4f6Sw4mM_jkar70LcZa84NCq" target="_blank" rel="noopener">http://baike.baidu.com/link?url=IVlZbIwx9qZ5DUoUJMp69PSG6EvsWlzC9xrDrVEhN2SjjuDJ36HE50pQnMXV4z4f6Sw4mM_jkar70LcZa84NCq</a></p><p><a href="https://curl.haxx.se/libcurl/c/libcurl-tutorial.html" title="https://curl.haxx.se/libcurl/c/libcurl-tutorial.html" target="_blank" rel="noopener">https://curl.haxx.se/libcurl/c/libcurl-tutorial.html</a></p><p><a href="https://curl.haxx.se/libcurl/c/example.html" title="https://curl.haxx.se/libcurl/c/example.html" target="_blank" rel="noopener">https://curl.haxx.se/libcurl/c/example.html</a></p><h1 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h1><p><a href="http://www.cnblogs.com/ytjjyy/archive/2012/05/19/2508803.html" title="http://www.cnblogs.com/ytjjyy/archive/2012/05/19/2508803.html" target="_blank" rel="noopener">http://www.cnblogs.com/ytjjyy/archive/2012/05/19/2508803.html</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;下载：&quot;&gt;&lt;a href=&quot;#下载：&quot; class=&quot;headerlink&quot; title=&quot;下载：&quot;&gt;&lt;/a&gt;下载：&lt;/h1&gt;&lt;p&gt;&lt;code&gt;curl-curl-7_54_0.zip&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://curl.hax
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="C/C++" scheme="https://caojingyou.github.io/tags/C-C/"/>
-    
-      <category term="libcur" scheme="https://caojingyou.github.io/tags/libcur/"/>
-    
-      <category term="网络" scheme="https://caojingyou.github.io/tags/%E7%BD%91%E7%BB%9C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>bypy</title>
-    <link href="https://caojingyou.github.io/2018/09/15/bypy/"/>
-    <id>https://caojingyou.github.io/2018/09/15/bypy/</id>
-    <published>2018-09-15T08:03:00.000Z</published>
-    <updated>2018-02-06T09:18:48.372Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="bypy"><a href="#bypy" class="headerlink" title="bypy"></a>bypy</h1><p><a href="https://github.com/houtianze/bypy" title="https://github.com/houtianze/bypy" target="_blank" rel="noopener">https://github.com/houtianze/bypy</a></p><p>TL;DR: <code>pip install bypy</code>. <code>Run bypy</code></p><p>安装配置完毕后可用命令行直接上传文件</p><pre><code>@echo offbypy -v upload E:\图片\Aatrox_Splash_0.jpg test/2.jpgpause</code></pre><h2 id="可能出现的问题"><a href="#可能出现的问题" class="headerlink" title="可能出现的问题"></a>可能出现的问题</h2><ol><li>第一次运行要授权，打开命令行中的提示网站，复制授权码到命令行中</li></ol><ol><li><p>可能会由于百度权限问题，使用百度云备份需要差不多一个月跟新一次授权，否则报错</p><p> OpenShift server failed, authorizing/refreshing with the Heroku server …</p></li></ol><p>或者不小心删除了</p><p><code>Hash Cache File &#39;/home/pipi/.bypy/bypy.hashcache.json&#39; not found, no caching</code><br><code>Note: Skip saving Hash Cache since it has not been updated.</code></p><p>这个应该不是错误，而是没有再次更新授权的提示吧。</p><p>更新(重新)授权办法如下：</p><p>运行</p><p><code>bypy.py -c</code></p><p>删除令牌文件，然后重新授权一次。如果还不行，去百度应用授权里删除bypy再重新授权。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;bypy&quot;&gt;&lt;a href=&quot;#bypy&quot; class=&quot;headerlink&quot; title=&quot;bypy&quot;&gt;&lt;/a&gt;bypy&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/houtianze/bypy&quot; title=&quot;https://git
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="Python" scheme="https://caojingyou.github.io/tags/Python/"/>
-    
-      <category term="bypy" scheme="https://caojingyou.github.io/tags/bypy/"/>
-    
-      <category term="百度云盘" scheme="https://caojingyou.github.io/tags/%E7%99%BE%E5%BA%A6%E4%BA%91%E7%9B%98/"/>
-    
-  </entry>
   
   <entry>
     <title>zlib</title>
@@ -247,6 +188,36 @@
   </entry>
   
   <entry>
+    <title>libcur</title>
+    <link href="https://caojingyou.github.io/2018/02/12/libcur%E4%BD%BF%E7%94%A8/"/>
+    <id>https://caojingyou.github.io/2018/02/12/libcur使用/</id>
+    <published>2018-02-12T08:03:00.000Z</published>
+    <updated>2018-04-12T06:48:47.753Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h1><p><code>curl-curl-7_54_0.zip</code></p><p><a href="https://curl.haxx.se/download.html" title="https://curl.haxx.se/download.html" target="_blank" rel="noopener">https://curl.haxx.se/download.html</a></p><h1 id="github"><a href="#github" class="headerlink" title="github:"></a>github:</h1><p><a href="https://github.com/curl/curl" title="https://github.com/curl/curl" target="_blank" rel="noopener">https://github.com/curl/curl</a></p><h1 id="编译："><a href="#编译：" class="headerlink" title="编译："></a>编译：</h1><p>运行：curl\projects\generate.bat，生成vs工具可以打开的文件。</p><h2 id="需要用到其他库："><a href="#需要用到其他库：" class="headerlink" title="需要用到其他库："></a>需要用到其他库：</h2><p><a href="https://www.openssl.org/" target="_blank" rel="noopener">OpenSSL</a>, <a href="https://www.wolfssl.com/wolfSSL/Home.html" target="_blank" rel="noopener">wolfSSL</a> and <a href="https://www.libssh2.org/" target="_blank" rel="noopener">SSH2</a></p><h1 id="使用："><a href="#使用：" class="headerlink" title="使用："></a>使用：</h1><p>预处理器定义添加：<code>CURL_STATICLIB</code></p><p>附加依赖项：</p><pre><code>libcurl.libws2_32.libwinmm.libwldap32.lib</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="http://blog.csdn.net/huyiyang2010/article/details/7664201" title="http://blog.csdn.net/huyiyang2010/article/details/7664201" target="_blank" rel="noopener">http://blog.csdn.net/huyiyang2010/article/details/7664201</a></p><p><a href="http://blog.csdn.net/fengshuiyue/article/details/39530093/" title="http://blog.csdn.net/fengshuiyue/article/details/39530093/" target="_blank" rel="noopener">http://blog.csdn.net/fengshuiyue/article/details/39530093/</a></p><p><a href="http://www.cnblogs.com/suiyingjie/archive/2012/11/12/2766332.html" title="http://www.cnblogs.com/suiyingjie/archive/2012/11/12/2766332.html" target="_blank" rel="noopener">http://www.cnblogs.com/suiyingjie/archive/2012/11/12/2766332.html</a></p><p><a href="http://baike.baidu.com/link?url=IVlZbIwx9qZ5DUoUJMp69PSG6EvsWlzC9xrDrVEhN2SjjuDJ36HE50pQnMXV4z4f6Sw4mM_jkar70LcZa84NCq" title="http://baike.baidu.com/link?url=IVlZbIwx9qZ5DUoUJMp69PSG6EvsWlzC9xrDrVEhN2SjjuDJ36HE50pQnMXV4z4f6Sw4mM_jkar70LcZa84NCq" target="_blank" rel="noopener">http://baike.baidu.com/link?url=IVlZbIwx9qZ5DUoUJMp69PSG6EvsWlzC9xrDrVEhN2SjjuDJ36HE50pQnMXV4z4f6Sw4mM_jkar70LcZa84NCq</a></p><p><a href="https://curl.haxx.se/libcurl/c/libcurl-tutorial.html" title="https://curl.haxx.se/libcurl/c/libcurl-tutorial.html" target="_blank" rel="noopener">https://curl.haxx.se/libcurl/c/libcurl-tutorial.html</a></p><p><a href="https://curl.haxx.se/libcurl/c/example.html" title="https://curl.haxx.se/libcurl/c/example.html" target="_blank" rel="noopener">https://curl.haxx.se/libcurl/c/example.html</a></p><h1 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h1><p><a href="http://www.cnblogs.com/ytjjyy/archive/2012/05/19/2508803.html" title="http://www.cnblogs.com/ytjjyy/archive/2012/05/19/2508803.html" target="_blank" rel="noopener">http://www.cnblogs.com/ytjjyy/archive/2012/05/19/2508803.html</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;下载：&quot;&gt;&lt;a href=&quot;#下载：&quot; class=&quot;headerlink&quot; title=&quot;下载：&quot;&gt;&lt;/a&gt;下载：&lt;/h1&gt;&lt;p&gt;&lt;code&gt;curl-curl-7_54_0.zip&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://curl.hax
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="C/C++" scheme="https://caojingyou.github.io/tags/C-C/"/>
+    
+      <category term="libcur" scheme="https://caojingyou.github.io/tags/libcur/"/>
+    
+      <category term="网络" scheme="https://caojingyou.github.io/tags/%E7%BD%91%E7%BB%9C/"/>
+    
+  </entry>
+  
+  <entry>
     <title>SVN版本号</title>
     <link href="https://caojingyou.github.io/2018/02/08/SVN%E7%89%88%E6%9C%AC%E5%8F%B7/"/>
     <id>https://caojingyou.github.io/2018/02/08/SVN版本号/</id>
@@ -345,6 +316,35 @@
       <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
     
       <category term="VS工具" scheme="https://caojingyou.github.io/tags/VS%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>bypy</title>
+    <link href="https://caojingyou.github.io/2018/01/25/bypy/"/>
+    <id>https://caojingyou.github.io/2018/01/25/bypy/</id>
+    <published>2018-01-25T08:03:00.000Z</published>
+    <updated>2018-04-12T06:49:09.403Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="bypy"><a href="#bypy" class="headerlink" title="bypy"></a>bypy</h1><p><a href="https://github.com/houtianze/bypy" title="https://github.com/houtianze/bypy" target="_blank" rel="noopener">https://github.com/houtianze/bypy</a></p><p>TL;DR: <code>pip install bypy</code>. <code>Run bypy</code></p><p>安装配置完毕后可用命令行直接上传文件</p><pre><code>@echo offbypy -v upload E:\图片\Aatrox_Splash_0.jpg test/2.jpgpause</code></pre><h2 id="可能出现的问题"><a href="#可能出现的问题" class="headerlink" title="可能出现的问题"></a>可能出现的问题</h2><ol><li>第一次运行要授权，打开命令行中的提示网站，复制授权码到命令行中</li></ol><ol><li><p>可能会由于百度权限问题，使用百度云备份需要差不多一个月跟新一次授权，否则报错</p><p> OpenShift server failed, authorizing/refreshing with the Heroku server …</p></li></ol><p>或者不小心删除了</p><p><code>Hash Cache File &#39;/home/pipi/.bypy/bypy.hashcache.json&#39; not found, no caching</code><br><code>Note: Skip saving Hash Cache since it has not been updated.</code></p><p>这个应该不是错误，而是没有再次更新授权的提示吧。</p><p>更新(重新)授权办法如下：</p><p>运行</p><p><code>bypy.py -c</code></p><p>删除令牌文件，然后重新授权一次。如果还不行，去百度应用授权里删除bypy再重新授权。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;bypy&quot;&gt;&lt;a href=&quot;#bypy&quot; class=&quot;headerlink&quot; title=&quot;bypy&quot;&gt;&lt;/a&gt;bypy&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/houtianze/bypy&quot; title=&quot;https://git
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="Python" scheme="https://caojingyou.github.io/tags/Python/"/>
+    
+      <category term="bypy" scheme="https://caojingyou.github.io/tags/bypy/"/>
+    
+      <category term="百度云盘" scheme="https://caojingyou.github.io/tags/%E7%99%BE%E5%BA%A6%E4%BA%91%E7%9B%98/"/>
     
   </entry>
   
