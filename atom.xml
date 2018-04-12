@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://caojingyou.github.io/"/>
-  <updated>2018-02-06T09:15:24.194Z</updated>
+  <updated>2018-02-06T09:15:13.240Z</updated>
   <id>https://caojingyou.github.io/</id>
   
   <author>
@@ -15,36 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>Hexo yilia主题</title>
-    <link href="https://caojingyou.github.io/2018/12/15/Hexo%20yilia%E4%B8%BB%E9%A2%98/"/>
-    <id>https://caojingyou.github.io/2018/12/15/Hexo yilia主题/</id>
-    <published>2018-12-15T08:03:00.000Z</published>
-    <updated>2018-02-06T09:15:24.194Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h1><ul><li><a href="https://github.com/litten/hexo-theme-yilia" title="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia</a></li><li><a href="http://litten.me/" title="http://litten.me/" target="_blank" rel="noopener">http://litten.me/</a></li><li><a href="https://github.com/litten/hexo-theme-yilia" title="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia</a></li><li><a href="https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5" title="https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5</a></li></ul><h1 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h1><p>关于SEO与RSS，需要在博客根目录（注意不是yilia根目录）安装这三个node_modules:</p><pre><code>npm install hexo-generator-feed --savenpm install hexo-generator-baidu-sitemap --savenpm install hexo-generator-sitemap --save</code></pre><p>分别对应：rss、百度爬虫sitemap、通用搜索引擎sitemap</p><h1 id="不显示标签："><a href="#不显示标签：" class="headerlink" title="不显示标签："></a>不显示标签：</h1><p>缺失模块。<br>1、在博客根目录（注意不是yilia根目录）执行以下命令：</p><p>npm i hexo-generator-json-content –save</p><p>2、在根目录_config.yml里添加配置：</p><pre><code>jsonContent:  meta: false  pages: false  posts:    title: true    date: true    path: true    text: true    raw: false    content: false    slug: false    updated: false    comments: false    link: false    permalink: false    excerpt: false    categories: false    tags: true</code></pre><h1 id="【Hexo】Hexo-Github构建个人博客-（五）：错误集"><a href="#【Hexo】Hexo-Github构建个人博客-（五）：错误集" class="headerlink" title="【Hexo】Hexo+Github构建个人博客 （五）：错误集"></a>【Hexo】Hexo+Github构建个人博客 （五）：错误集</h1><ul><li><a href="http://www.cnblogs.com/arvin0/p/6664239.html" title="http://www.cnblogs.com/arvin0/p/6664239.html" target="_blank" rel="noopener">http://www.cnblogs.com/arvin0/p/6664239.html</a></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;网址：&quot;&gt;&lt;a href=&quot;#网址：&quot; class=&quot;headerlink&quot; title=&quot;网址：&quot;&gt;&lt;/a&gt;网址：&lt;/h1&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;https://github.com/litten/hexo-theme-yilia&quot; title=&quot;
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="Hexo" scheme="https://caojingyou.github.io/tags/Hexo/"/>
-    
-      <category term="yilia主题" scheme="https://caojingyou.github.io/tags/yilia%E4%B8%BB%E9%A2%98/"/>
-    
-      <category term="博客" scheme="https://caojingyou.github.io/tags/%E5%8D%9A%E5%AE%A2/"/>
-    
-  </entry>
   
   <entry>
     <title>libcur</title>
@@ -77,169 +47,6 @@
   </entry>
   
   <entry>
-    <title>gitbook</title>
-    <link href="https://caojingyou.github.io/2018/11/15/gitbook/"/>
-    <id>https://caojingyou.github.io/2018/11/15/gitbook/</id>
-    <published>2018-11-15T08:03:00.000Z</published>
-    <updated>2018-02-06T09:15:30.783Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="gitbook"><a href="#gitbook" class="headerlink" title="gitbook"></a>gitbook</h1><p><a href="https://github.com/GitbookIO/gitbook" title="https://github.com/GitbookIO/gitbook" target="_blank" rel="noopener">https://github.com/GitbookIO/gitbook</a></p><p><a href="https://toolchain.gitbook.com/ebook.html" title="https://toolchain.gitbook.com/ebook.html" target="_blank" rel="noopener">https://toolchain.gitbook.com/ebook.html</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;gitbook&quot;&gt;&lt;a href=&quot;#gitbook&quot; class=&quot;headerlink&quot; title=&quot;gitbook&quot;&gt;&lt;/a&gt;gitbook&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/GitbookIO/gitbook&quot; tit
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="gitbook" scheme="https://caojingyou.github.io/tags/gitbook/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>libssh2</title>
-    <link href="https://caojingyou.github.io/2018/11/01/libssh2/"/>
-    <id>https://caojingyou.github.io/2018/11/01/libssh2/</id>
-    <published>2018-11-01T08:03:00.000Z</published>
-    <updated>2018-02-06T09:13:53.413Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="libssh2"><a href="#libssh2" class="headerlink" title="libssh2"></a>libssh2</h1><h2 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h2><p><a href="https://www.libssh2.org/" title="https://www.libssh2.org/" target="_blank" rel="noopener">https://www.libssh2.org/</a></p><p><a href="https://github.com/libssh2/libssh2" title="https://github.com/libssh2/libssh2" target="_blank" rel="noopener">https://github.com/libssh2/libssh2</a></p><h2 id="编译："><a href="#编译：" class="headerlink" title="编译："></a>编译：</h2><p>需要<a href="https://www.openssl.org/" target="_blank" rel="noopener">openssl</a>以及<a href="http://www.zlib.net/" target="_blank" rel="noopener">zlib</a></p><p>修改libssh下的win32目录下config.mk,修改openssl与zlib路径</p><p>在source根目录下nmake /f NMakefile</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;libssh2&quot;&gt;&lt;a href=&quot;#libssh2&quot; class=&quot;headerlink&quot; title=&quot;libssh2&quot;&gt;&lt;/a&gt;libssh2&lt;/h1&gt;&lt;h2 id=&quot;下载：&quot;&gt;&lt;a href=&quot;#下载：&quot; class=&quot;headerlink&quot; title=
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="加密" scheme="https://caojingyou.github.io/tags/%E5%8A%A0%E5%AF%86/"/>
-    
-      <category term="libssh2" scheme="https://caojingyou.github.io/tags/libssh2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C#用到的库</title>
-    <link href="https://caojingyou.github.io/2018/10/15/C#%E7%94%A8%E5%88%B0%E8%BF%87%E7%9A%84%E5%BA%93/"/>
-    <id>https://caojingyou.github.io/2018/10/15/C#用到过的库/</id>
-    <published>2018-10-15T08:03:00.000Z</published>
-    <updated>2018-02-06T09:18:03.584Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="扁平化界面"><a href="#扁平化界面" class="headerlink" title="扁平化界面"></a>扁平化界面</h1><p>MahApps.Metro</p><p>MahApps.Metro.IconPacks</p><p>MahApps.Metro.Resources</p><h1 id="系统托盘图标"><a href="#系统托盘图标" class="headerlink" title="系统托盘图标"></a>系统托盘图标</h1><p>WPF NotifyIcon</p><h1 id="Json-NET"><a href="#Json-NET" class="headerlink" title="Json.NET"></a>Json.NET</h1><p>Json.NET可序列化和反序列化、可以转成xml</p><h1 id="数据库访问"><a href="#数据库访问" class="headerlink" title="数据库访问"></a>数据库访问</h1><p>Entity Framework</p><h1 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h1><p>log4net</p><p>Nlog</p><h1 id="邮件"><a href="#邮件" class="headerlink" title="邮件"></a>邮件</h1><p>MailKit<br>与<br>MimeKit</p><h1 id="http"><a href="#http" class="headerlink" title="http"></a>http</h1><p>EasyHttp</p><p>httplib好用</p><h1 id="Excel"><a href="#Excel" class="headerlink" title="Excel"></a>Excel</h1><p>Epplus</p><p>NPIO</p><h1 id="任务调度器"><a href="#任务调度器" class="headerlink" title="任务调度器"></a>任务调度器</h1><p>TaskScheduler</p><p>TaskSchedulerEditor</p><h1 id="待研究的库"><a href="#待研究的库" class="headerlink" title="待研究的库"></a>待研究的库</h1><h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><p>NUnit</p><h2 id="界面库"><a href="#界面库" class="headerlink" title="界面库"></a>界面库</h2><p>MaterialDesignInXamlToolkit</p><p>Fluent.Ribbon</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;扁平化界面&quot;&gt;&lt;a href=&quot;#扁平化界面&quot; class=&quot;headerlink&quot; title=&quot;扁平化界面&quot;&gt;&lt;/a&gt;扁平化界面&lt;/h1&gt;&lt;p&gt;MahApps.Metro&lt;/p&gt;
-&lt;p&gt;MahApps.Metro.IconPacks&lt;/p&gt;
-&lt;p&gt;MahApp
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
-    
-      <category term="系统托盘" scheme="https://caojingyou.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98/"/>
-    
-      <category term="扁平化" scheme="https://caojingyou.github.io/tags/%E6%89%81%E5%B9%B3%E5%8C%96/"/>
-    
-      <category term="Json.NET" scheme="https://caojingyou.github.io/tags/Json-NET/"/>
-    
-      <category term="log4net" scheme="https://caojingyou.github.io/tags/log4net/"/>
-    
-      <category term="Nlog" scheme="https://caojingyou.github.io/tags/Nlog/"/>
-    
-      <category term="MailKit" scheme="https://caojingyou.github.io/tags/MailKit/"/>
-    
-      <category term="EasyHttp" scheme="https://caojingyou.github.io/tags/EasyHttp/"/>
-    
-      <category term="httplib" scheme="https://caojingyou.github.io/tags/httplib/"/>
-    
-      <category term="Epplus" scheme="https://caojingyou.github.io/tags/Epplus/"/>
-    
-      <category term="NPIO" scheme="https://caojingyou.github.io/tags/NPIO/"/>
-    
-      <category term="TaskScheduler" scheme="https://caojingyou.github.io/tags/TaskScheduler/"/>
-    
-      <category term="NUnit" scheme="https://caojingyou.github.io/tags/NUnit/"/>
-    
-      <category term="MaterialDesignInXamlToolkit" scheme="https://caojingyou.github.io/tags/MaterialDesignInXamlToolkit/"/>
-    
-      <category term="Fluent.Ribbon" scheme="https://caojingyou.github.io/tags/Fluent-Ribbon/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CppUnit</title>
-    <link href="https://caojingyou.github.io/2018/10/15/cppunit/"/>
-    <id>https://caojingyou.github.io/2018/10/15/cppunit/</id>
-    <published>2018-10-15T08:03:00.000Z</published>
-    <updated>2018-02-06T09:15:54.467Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="CppUnit"><a href="#CppUnit" class="headerlink" title="CppUnit"></a>CppUnit</h1><p><a href="https://sourceforge.net/projects/cppunit/?source=directory" target="_blank" rel="noopener">CppUnit - C++ port of JUnit</a></p><p><a href="https://www.freedesktop.org/wiki/Software/cppunit/" target="_blank" rel="noopener">cppunit-freedesktop.org</a></p><p><a href="http://cppunit.sourceforge.net/doc/lastest/index.html" target="_blank" rel="noopener">CppUnit Documentation</a></p><p><a href="https://baike.baidu.com/item/CppUnit/2218302?fr=aladdin" target="_blank" rel="noopener">CppUnit百度百科</a></p><p><a href="https://www.ibm.com/developerworks/cn/linux/l-cppunit/" target="_blank" rel="noopener">便利的开发工具 CppUnit 快速使用指南</a></p><p><a href="https://wenku.baidu.com/view/b7fcad4bcf84b9d528ea7ae1.html" target="_blank" rel="noopener">CppUnit源码解读</a></p><p><a href="http://morningspace.51.net/resource/cppunit/cppunit_anno.html" target="_blank" rel="noopener">晨光（Morning）CppUnit源码解读</a></p><p><a href="http://blog.csdn.net/eplanet/article/details/1844456" target="_blank" rel="noopener">C++——测试工具CppUnit的安装和配置</a></p><p><a href="http://blog.csdn.net/x_iya/article/details/8433716" target="_blank" rel="noopener">CppUnit在VS2010上的正确使用</a></p><p><a href="https://wenku.baidu.com/view/0997c8a30b1c59eef9c7b47f.html" target="_blank" rel="noopener">[vs2010 配置与实例] CppUnit快速入门</a></p><h1 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h1><p><a href="http://dev-www.libreoffice.org/src/cppunit-1.14.0.tar.gz" target="_blank" rel="noopener">cppunit-1.14.0.tar.gz</a></p><p><a href="https://sourceforge.net/projects/cppunit/files/cppunit/1.12.1/cppunit-1.12.1.tar.gz/download" target="_blank" rel="noopener">cppunit-1.12.1.tar.gz</a></p><h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><p>在CppUnit的源代码中，包含了几个测试工程的例子。</p><ul><li>CppUnitTestMain：一个实际的测试包（test suite）用来测试CppUnit。使用了TextTestRunner（文本方式的单元测试环境），利用CompilterOutputter进行post-build testing（即在编译结束之后紧跟着进行测试）。在配置中设定连接了cppunit的静态库和动态库。</li></ul><ul><li>CppUnitTestApp：包含了与CppUnitTestMain相同的测试包，但使用了MFC TestRunner（GUI方式的单元测试环境）</li></ul><ul><li>Hierarchy：一个演示如何子类化测试的例子（你也许更愿意使用HelperMacros.h以及宏CPPUNIT_TEST_SUB_SUITE，这种方式更为简洁清晰。本示例已经很久没有更新了）。</li></ul><ul><li>HostApp ：一个用MFC TestRunner演示各种失败测试的例子。也演示了MFC Unicode TestRunner。</li></ul><ul><li>TestPlugIn：一个演示如何为TestPlugInRunner编写TestPlugIn的例子（实验性的）。</li></ul><h1 id="判断宏"><a href="#判断宏" class="headerlink" title="判断宏"></a>判断宏</h1><p><code>CPPUNIT_ASSERT</code>是一个宏，判断后面的参数是否正确，CPPUNIT还有很多宏，如</p><pre><code>CPPUNIT_ASSERT(condition)                      // 确信condition为真CPPUNIT_ASSERT_MESSAGE(message, condition)     // 当condition为假时失败, 并打印messageCPPUNIT_FAIL(message)                          // 当前测试失败, 并打印messageCPPUNIT_ASSERT_EQUAL(expected, actual)         // 确信两者相等CPPUNIT_ASSERT_EQUAL_MESSAGE(message, expected, actual) // 失败的同时打印messageCPPUNIT_ASSERT_DOUBLES_EQUAL(expected, actual, delta)   // 当expected和actual之间差大于delta时失败</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;CppUnit&quot;&gt;&lt;a href=&quot;#CppUnit&quot; class=&quot;headerlink&quot; title=&quot;CppUnit&quot;&gt;&lt;/a&gt;CppUnit&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://sourceforge.net/projects/cppunit/
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="C/C++" scheme="https://caojingyou.github.io/tags/C-C/"/>
-    
-      <category term="CppUnit" scheme="https://caojingyou.github.io/tags/CppUnit/"/>
-    
-      <category term="单元测试" scheme="https://caojingyou.github.io/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MSBuild</title>
-    <link href="https://caojingyou.github.io/2018/10/01/MSBuild%20(Visual%20C++)/"/>
-    <id>https://caojingyou.github.io/2018/10/01/MSBuild (Visual C++)/</id>
-    <published>2018-10-01T08:03:00.000Z</published>
-    <updated>2018-04-04T01:24:31.783Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="Visual-Studio-文档"><a href="#Visual-Studio-文档" class="headerlink" title="Visual Studio 文档"></a>Visual Studio 文档</h1><p><a href="https://docs.microsoft.com/zh-cn/visualstudio/" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/visualstudio/</a></p><h1 id="MSBuild-Visual-C"><a href="#MSBuild-Visual-C" class="headerlink" title="MSBuild (Visual C++)"></a>MSBuild (Visual C++)</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/dd293626.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/dd293626.aspx</a></p><p>可以使用 MSBuild 工具从命令提示符处生成 Visual C++ 应用程序。 该生成过程由您可以创建和编辑的项目文件 (.vcxproj) 中的信息来控制。 该项目文件基于生成阶段、条件和事件指定生成选项</p><h1 id="MSBuild-Visual-C-概述"><a href="#MSBuild-Visual-C-概述" class="headerlink" title="MSBuild (Visual C++) 概述"></a>MSBuild (Visual C++) 概述</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/ee662426.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/ee662426.aspx</a></p><p>用户目标和属性</p><p>若要在命令行上最有效地使用 MSBuild，最好先了解哪些属性和目标是有用且相关。 大多数属性和目标可以帮助实施 Visual c + + 生成系统，并因此不与用户相关。 本部分介绍一些值得面向用户的属性和目标。</p><p>PlatformToolset 属性</p><p>PlatformToolset 属性确定在生成中使用的 Visual c + + 工具集。 属性的值与字符串组合成包含生成用于特定平台的项目所需的属性和目标文件的目录路径串联。</p><p>设置 PlatformToolset 属性设置为 v110 使用 Visual Studio 2012 中的 Visual C++ 工具和库来构建您的应用程序。</p><p>msbuild myProject.vcxproj /p:PlatformToolset=v110</p><p>设置 PlatformToolset 属性设置为 v100 使用 Visual C++ 2010 工具和库来构建您的应用程序。</p><p>msbuild myProject.vcxproj /p:PlatformToolset=v100</p><p>设置 PlatformToolset 属性设置为 v90 使用 Visual c + + 2008年工具和库来生成你的应用程序。 此属性才有效在计算机上必须已安装的 Visual c + + 2008年工具集。</p><p>msbuild myProject.vcxproj /p:PlatformToolset=v90</p><p>PreferredToolArchitecture 属性</p><p>PreferredToolArchitecture 属性确定是否在生成中使用 32 位或 64 位编译器和工具。 此属性不影响输出的平台体系结构或配置。 默认情况下，MSBuild 使用 x86 版本的编译器和工具，如果此属性未设置，或为设置为任何值以外 x64。</p><p>设置 PreferredToolArchitecture 属性设置为 x64 以使用 64 位编译器和工具来生成应用程序。</p><p>msbuild myProject.vcxproj /p:PreferredToolArchitecture=x64</p><p>UseEnv 属性</p><p>默认情况下，当前项目的特定于平台的设置重写路径、 INCLUDE、 LIB、 LIBPATH、 配置和平台环境变量。 设置 UseEnv 属性设置为 true 若要确保环境变量不重写。</p><p>msbuild myProject.vcxproj /p:UseEnv=true</p><p>目标</p><p>有数百个 Visual c + + 支持文件中的目标。 但是，大多数都是用户可忽略的面向系统的目标。 大多数系统目标前缀是下划线 (_)，或具有”PrepareFor”，”计算”，以”Before”，”After”，”之前”或”Post”开头的名称。</p><p>下表列出了几个值得面向用户的目标。</p><h1 id="MSBuild-命令行参考"><a href="#MSBuild-命令行参考" class="headerlink" title="MSBuild 命令行参考"></a>MSBuild 命令行参考</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/ms164311.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/ms164311.aspx</a></p><p><code>MSBuild.exe [Switches] [ProjectFile]</code> </p><pre><code>语法:                             MSBuild.exe [选项] [项目文件]描述:                    在项目文件中生成指定的目标。如果                     未指定项目文件，MSBuild 将搜索                     当前工作目录来查找文件扩展名                     以“proj”结尾的文件并使用该文件。开关:  /target:&lt;targets&gt;  在此项目中生成这些目标。使用                     分号或逗号分隔多个目标，或者分别指定                     每个目标。(缩写: /t)                     示例:                       /target:Resources;Compile  /property:&lt;n&gt;=&lt;v&gt;  设置或重写这些项目级属性。&lt;n&gt; 是                     属性名，&lt;v&gt; 为属性值。请使用                     分号或逗号分隔多个属性，或者                     分别指定每个属性。(缩写: /p)                     示例:                       /property:WarningLevel=2;OutDir=bin\Debug\  /maxcpucount[:n]   指定用于生成的最大                     并发进程数。如果未使用开关，则使用的默认值                     为 1。如果使用开关时不带值，                     MSBuild 将最多使用计算机上的                     处理器数。(缩写: /m[:n])  /toolsversion:&lt;version&gt;                     要在生成过程中使用的 MSBuild 工具集                     (任务、目标等) 的版本。此版本将重写                     个别项目指定的版本。(缩写:                     /tv)                     示例:                       /toolsversion:3.5  /verbosity:&lt;level&gt; 在事件日志中显示此级别的信息量。                     可用的详细级别有: q[uiet]、 m[inimal]、                     n[ormal]、d[etailed] 和 diag[nostic]。(缩写: /v)                     示例:                       /verbosity:quiet  /consoleloggerparameters:&lt;parameters&gt;                     控制台记录器的参数。(缩写: /clp)                     可用的参数有:                        PerformanceSummary -- 显示在任务、目标和项目上                            花费的时间。                        Summary -- 结束时显示错误和警告的摘要。                        NoSummary -- 结束时不显示错误和警告                            的摘要。                        ErrorsOnly -- 仅显示错误。                        WarningsOnly -- 仅显示警告。                        NoItemAndPropertyList -- 在开始生成每个项目时不显示                            项和属性的列表。                        ShowCommandLine -- 显示 TaskCommandLineEvent 消息                        ShowTimestamp -- 将时间戳作为所有消息的前缀                            显示。                        ShowEventId -- 显示已开始事件、已完成事件和消息                            的事件 ID。                        ForceNoAlign -- 不将文本与控制台缓冲区的大小                            匹配。                        DisableConsoleColor -- 将默认控制台颜色                            用于所有记录消息。                        DisableMPLogging -- 在非多处理器                            模式下运行时，禁用输出的多处理器                            日志记录样式。                        EnableMPLogging -- 即使在非多处理器                            模式下运行，也启用多处理器                            日志记录样式。默认情况下启用此日志记录样式。                        Verbosity -- 重写此记录器的  /verbosity                            设置。                     示例:                        /consoleloggerparameters:PerformanceSummary;NoSummary;                                                 Verbosity=minimal  /noconsolelogger   禁用默认控制台记录器，并且不将事件                     记录到控制台。(缩写:  /noconlog)  /fileLogger[n]     将生成输出记录到文件中。默认情况下，                     该文件在当前目录中，名称为                     “msbuild[n].log”。所有节点中的事件合并到                     单个日志中。fileLogger 的文件和                     其他参数的位置可以通过添加                     “/fileLoggerParameters[n]”开关来指定。                     “n”(如果存在)可以为 1-9 的数字，允许最多附加                     10 个文件记录器。(缩写:  /fl[n])  /fileloggerparameters[n]:&lt;parameters&gt;                     为文件记录器提供任何额外的参数。                     存在此开关意味着                     存在对应的 /filelogger[n] 开关。                    “n”(如果存在)可以为 1-9 的数字。                     任何分布式文件记录器也可以使用                     /fileloggerparameters，具体可参阅 /distributedFileLogger 的说明。                     (缩写: /flp[n])                     为控制台记录器列出的相同参数                     可用。某些其他可用参数有:                        LogFile -- 生成日志将写入其中的                            日志文件的路径。                        Append -- 确定是将生成日志附加到日志文件，                            还是覆盖日志文件。如果设置此                            开关，则会将生成日志附加到日志文件；                            如果不设置此开关，则会覆盖                            现有日志文件的内容。                            默认值为不附加到日志文件。                        Encoding -- 指定文件的编码，                            例如，UTF-8、Unicode 或 ASCII                     默认的详细级别为 Detailed。                     示例:                       /fileLoggerParameters:LogFile=MyLog.log;Append;                                           Verbosity=diagnostic;Encoding=UTF-8                       /flp:Summary;Verbosity=minimal;LogFile=msbuild.sum                       /flp1:warningsonly;logfile=msbuild.wrn                       /flp2:errorsonly;logfile=msbuild.err  /distributedlogger:&lt;central logger&gt;*&lt;forwarding logger&gt;                     使用此记录器来记录 MSBuild 中的事件，向每个节点                     附加不同的记录器实例。若要指定                     多个记录器，请分别指定每个记录器。                     (缩写 /dl)                     &lt;logger&gt; 语法为:                       [&lt;logger class&gt;,]&lt;logger assembly&gt;[;&lt;logger parameters&gt;]                     &lt;logger class&gt; 语法为:                       [&lt;partial or full namespace&gt;.]&lt;logger class name&gt;                     &lt;logger assembly&gt; 语法为:                       {&lt;assembly name&gt;[,&lt;strong name&gt;] | &lt;assembly file&gt;}                     &lt;logger parameters&gt; 是可选的，并且按键入的                     形式原样传递给记录器。(缩写: /l)                     示例:                       /dl:XMLLogger,MyLogger,Version=1.0.2,Culture=neutral                       /dl:MyLogger,C:\My.dll*ForwardingLogger,C:\Logger.dll  /distributedFileLogger                     将生成输出记录到多个日志文件，每个 MSBuild 节点                     一个日志文件。这些文件的初始位置为                     当前目录。默认情况下，这些文件名为                     “MSBuild&lt;nodeid&gt;.log”。可通过添加                     “/fileLoggerParameters”开关来指定                     这些文件的位置和 fileLogger 的其他参数。                     如果日志文件名是通过 fileLoggerParameters                     开关设置的，分布式记录器将使用 fileName 作为                     模板并将节点 ID 附加到此 fileName                     以便为每个节点创建一个日志文件。  /logger:&lt;logger&gt;   使用此记录器来记录 MSBuild 中的事件。若要指定                     多个记录器，请分别指定每个记录器。                     &lt;logger&gt; 语法为:                       [&lt;logger class&gt;,]&lt;logger assembly&gt;[;&lt;logger parameters&gt;]                    &lt;logger class&gt; 语法为:                        [&lt;partial or full namespace&gt;.]&lt;logger class name&gt;                   &lt;logger assembly&gt; 语法为:                        {&lt;assembly name&gt;[,&lt;strong name&gt;] | &lt;assembly file&gt;}                     &lt;logger parameters&gt; 是可选的，并按键入的                    形式原样传递给记录器。(缩写: /l)                     示例:                       /logger:XMLLogger,MyLogger,Version=1.0.2,Culture=neutral                       /logger:XMLLogger,C:\Loggers\MyLogger.dll;OutputAsHTML  /validate          依据默认架构验证项目。(缩写:                     /val)  /validate:&lt;schema&gt; 依据指定的架构验证项目。 (缩写:                     /val)                     示例:                       /validate:MyExtendedBuildSchema.xsd  /ignoreprojectextensions:&lt;扩展名&gt;                     确定要生成的项目文件时要忽略的                     扩展名的列表。使用分号或逗号来分隔                     多个扩展名。                     (缩写: /ignore)                     示例:                       /ignoreprojectextensions:.sln  /nodeReuse:&lt;parameters&gt;                     允许或禁止重复使用 MSBuild 节点。                     参数包括:                     True -- 生成完成后节点将保留，                             并且将由后面的生成重复使用(默认)                     False -- 生成完成后节点将不会保留                     (缩写: /nr)                     示例:                       /nr:true  /preprocess[:file]                     通过嵌入将在生成过程中导入的                     所有文件并标记其边界，                     创建一个聚合的项目文件。这对于                     了解导入什么文件、从何处导入以及                     这些文件在生成中的构成                     非常有用。默认情况下，输出将写入                     控制台窗口。如果提供输出文件的路径，                     则将改用该路径。                     (缩写: /pp)                      示例:                       /pp:out.txt  /detailedsummary                     在生成的结尾显示有关                     所生成的配置以及如何向节点安排                     这些配置的详细信息。                     (缩写:  /ds)  @&lt;file&gt;            从文本文件插入命令行设置。若要指定                     多个响应文件，请分别指定每个响应                     文件。                     自动从以下位置使用任何                     名为“msbuild.rsp”的响应文件:                     (1) msbuild.exe 的目录                     (2) 生成的第一个项目或解决方案的目录  /noautoresponse    不自动包括任何 MSBuild.rsp 文件。(缩写:                     /noautorsp)  /nologo            不显示启动版权标志和版权消息。  /version           仅显示版本信息。(缩写:  /ver)  /help              显示此用法消息。(缩写: /? 或 /h)示例:        MSBuild MyApp.sln /t:Rebuild /p:Configuration=Release        MSBuild MyApp.csproj /t:Clean                             /p:Configuration=Debug;TargetFrameworkVersion=v3.5</code></pre><p>示例</p><pre><code>MSBuild.exe MyProject.proj /t:rebuild </code></pre><h1 id="演练：使用-MSBuild-创建-Visual-C-项目"><a href="#演练：使用-MSBuild-创建-Visual-C-项目" class="headerlink" title="演练：使用 MSBuild 创建 Visual C++ 项目"></a>演练：使用 MSBuild 创建 Visual C++ 项目</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/dd293607.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/dd293607.aspx</a></p><pre><code>msbuild myproject.vcxproj /p:configuration=debugmsbuild myproject.vcxproj /t:clean</code></pre><h2 id="将-MSBuild-与生成目标结合使用"><a href="#将-MSBuild-与生成目标结合使用" class="headerlink" title="将 MSBuild 与生成目标结合使用"></a>将 MSBuild 与生成目标结合使用</h2><p>生成目标是指定的一组预定义命令或用户定义的命令，这组命令可在生成期间执行。 使用目标命令行选项 (/t) 可以指定生成目标。 对于 myproject 示例项目，预定义的 clean 目标将删除调试文件夹中的所有文件并创建新日志文件。<br>在命令提示符处，键入以下命令以清理 myproject。<br>    msbuild myproject.vcxproj /t:clean</p><h2 id="将-MSBuild-与生成属性结合使用"><a href="#将-MSBuild-与生成属性结合使用" class="headerlink" title="将 MSBuild 与生成属性结合使用"></a>将 MSBuild 与生成属性结合使用</h2><p>通过使用属性命令行选项 (/p)，您可以在项目生成文件中重写属性。 在 myproject 示例项目中，发布版本配置或调试版本配置是由 Configuration 属性指定的。 用来运行生成的应用程序的操作系统是由 Platform 属性指定的。<br>在命令提示符处，键入以下命令，以创建打算在 32 位 Windows 上运行的 myproject 应用程序的调试版本。</p><pre><code>msbuild myproject.vcxproj /p:configuration=debug /p:platform=win32</code></pre><p>假设 myproject 示例项目也为 64 位 Windows 定义了配置，并为名为 myplatform 的自定义操作系统定义了另一个配置。<br>在命令提示符处，键入以下命令，以创建在 64 位 Windows 上运行的发布版本。</p><pre><code>msbuild myproject.vcxproj /p:configuration=release /p:platform=x64</code></pre><p>在命令提示符处，键入以下命令以为 myplatform 创建发布版本。</p><pre><code>msbuild myproject.vcxproj /p:configuration=release /p:platform=myplatform</code></pre><h1 id="个人写的例子："><a href="#个人写的例子：" class="headerlink" title="个人写的例子："></a>个人写的例子：</h1><p>vs2005:</p><pre><code>call &quot;D:\Program Files (x86)\Microsoft Visual Studio 8\VC\vcvarsall.bat&quot; x86</code></pre><p>vs2010:</p><pre><code>call &quot;C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat&quot; x86</code></pre><p>vs2012:</p><pre><code>call &quot;C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat&quot; x86</code></pre><p>重新编译：</p><pre><code>MSBuild %~dp0..\Project\VC10\pro.sln /t:rebuild /p:configuration=&quot;Release&quot;</code></pre><h1 id="在命令行上生成"><a href="#在命令行上生成" class="headerlink" title="在命令行上生成"></a>在命令行上生成</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/f35ctcxw.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/f35ctcxw.aspx</a></p><h1 id="为命令行生成设置路径和环境变量"><a href="#为命令行生成设置路径和环境变量" class="headerlink" title="为命令行生成设置路径和环境变量"></a>为命令行生成设置路径和环境变量</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/f2ccy3wt.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/f2ccy3wt.aspx</a></p><h1 id="生成应用程序"><a href="#生成应用程序" class="headerlink" title="生成应用程序"></a>生成应用程序</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/ms181709.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/ms181709.aspx</a></p><p><a href="https://msdn.microsoft.com/zh-cn/library/ms244359.aspx" target="_blank" rel="noopener">Team Foundation Build 参考</a></p><h1 id="vcvars-bat-设置命令行编译环境"><a href="#vcvars-bat-设置命令行编译环境" class="headerlink" title="vcvars.bat 设置命令行编译环境"></a>vcvars.bat 设置命令行编译环境</h1><pre><code>@echo offif defined VSINSTALLDIR (    echo already installedgoto eof)set &quot;_ARG_=%1&quot;rem helpif &quot;%_ARG_%&quot; EQU &quot;&quot; (    echo syntax: %0 [2005 ^| 2008 ^| 2010 ^| 2012 ^| 2013 ^| 2015] [64]    goto eof)if &quot;%_ARG_%&quot; EQU &quot;2005&quot; set &quot;ProgramFiles(x86)=%VS80COMNTOOLS%..\..\&quot;if &quot;%_ARG_%&quot; EQU &quot;2008&quot; set &quot;ProgramFiles(x86)=%VS90COMNTOOLS%..\..\&quot;if &quot;%_ARG_%&quot; EQU &quot;2010&quot; set &quot;ProgramFiles(x86)=%VS100COMNTOOLS%..\..\&quot;if &quot;%_ARG_%&quot; EQU &quot;2012&quot; set &quot;ProgramFiles(x86)=%VS110COMNTOOLS%..\..\&quot;if &quot;%_ARG_%&quot; EQU &quot;2013&quot; set &quot;ProgramFiles(x86)=%VS120COMNTOOLS%..\..\&quot;if &quot;%_ARG_%&quot; EQU &quot;2015&quot; set &quot;ProgramFiles(x86)=%VS140COMNTOOLS%..\..\&quot;echo &quot;%ProgramFiles(x86)%&quot;if NOT DEFINED ProgramFiles(x86) set ProgramFiles(x86)=C:\Program Files (x86)if NOT DEFINED VS80COMNTOOLS set VS80COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 8\Common7\Tools\if NOT DEFINED VS90COMNTOOLS set VS90COMNTOOLS=c:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\Tools\rem VS100COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\Tools\rem VS110COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\Tools\rem VS120COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\rem VS140COMNTOOLS=D:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\rem VS80COMNTOOLS=D:\Program Files (x86)\Microsoft Visual Studio 8\Common7\Tools\rem VS90COMNTOOLS=D:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\Tools\rem VSSDK140Install=D:\Program Files (x86)\Microsoft Visual Studio 14.0\VSSDK\set &quot;_OPT_=%2&quot;if NOT DEFINED _OPT_ set _OPT_=64if &quot;%_OPT_%&quot; EQU &quot;x64&quot; set &quot;_OPT_=64&quot;if &quot;%_ARG_%&quot; EQU &quot;2005&quot; (  if &quot;%_OPT_%&quot; EQU &quot;64&quot; (pushd &quot;%ProgramFiles(x86)%\VC\bin\amd64\&quot;call vcvarsamd64.batset PROCESSOR_ARCHITECTURE=AMD64  ) else (pushd &quot;%ProgramFiles(x86)%\VC\bin&quot;call vcvars32.batset PROCESSOR_ARCHITECTURE=x86  )  popd  goto eof)rem set the variable _VC_set _VC_=if &quot;%_ARG_%&quot; EQU &quot;2008&quot; set &quot;_VC_=9.0&quot;if &quot;%_ARG_%&quot; EQU &quot;2010&quot; set &quot;_VC_=10.0&quot;if &quot;%_ARG_%&quot; EQU &quot;2012&quot; set &quot;_VC_=11.0&quot;if &quot;%_ARG_%&quot; EQU &quot;2013&quot; set &quot;_VC_=12.0&quot;if &quot;%_ARG_%&quot; EQU &quot;2015&quot; set &quot;_VC_=14.0&quot;if DEFINED _VC_ (  echo &quot;%ProgramFiles(x86)%\VC\&quot;  pushd &quot;%ProgramFiles(x86)%\VC\&quot;  if &quot;%_OPT_%&quot; EQU &quot;64&quot; (vcvarsall.bat x86_amd64set PROCESSOR_ARCHITECTURE=AMD64  ) else (vcvarsall.bat x86set PROCESSOR_ARCHITECTURE=x86  )  if errorlevel 1 (      echo.*** error - failed ***  ) else (      echo Success Environment for Visual Studio %_VC_% = %*  )  popd) else (  echo unknown version of Visual Studio %*  set _ARG_=  call:help)remrem That&apos;s all Folks!:eof</code></pre><h1 id="devenv"><a href="#devenv" class="headerlink" title="devenv"></a>devenv</h1><pre><code>@echo offcd /d %~dp0set BUILD_TARGET=%CD%\MyProject.slnecho.if &quot;&quot;==&quot;%VS80COMNTOOLS%&quot; (   echo environment variable &apos;VS80COMNTOOLS%&apos; has not been set   goto Exit_Fail)set DEVENV=%VS80COMNTOOLS%\..\IDE\devenv.comif not exist &quot;%DEVENV%&quot; (   echo file &quot;%DEVENV%&quot; can not be found   goto Exit_Fail)@echo on&quot;%DEVENV%&quot; &quot;%BUILD_TARGET%&quot; /Build Release:Exit_Failpause</code></pre><p><code>Build</code>可换成<code>Rebuild</code></p><p><a href="https://www.cnblogs.com/songxingzhu/p/5242159.html" target="_blank" rel="noopener">使用devenv/MSBuild在命令行编译sln或csproj</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;Visual-Studio-文档&quot;&gt;&lt;a href=&quot;#Visual-Studio-文档&quot; class=&quot;headerlink&quot; title=&quot;Visual Studio 文档&quot;&gt;&lt;/a&gt;Visual Studio 文档&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="MSBuild" scheme="https://caojingyou.github.io/tags/MSBuild/"/>
-    
-      <category term="VS" scheme="https://caojingyou.github.io/tags/VS/"/>
-    
-  </entry>
-  
-  <entry>
     <title>bypy</title>
     <link href="https://caojingyou.github.io/2018/09/15/bypy/"/>
     <id>https://caojingyou.github.io/2018/09/15/bypy/</id>
@@ -265,142 +72,6 @@
       <category term="bypy" scheme="https://caojingyou.github.io/tags/bypy/"/>
     
       <category term="百度云盘" scheme="https://caojingyou.github.io/tags/%E7%99%BE%E5%BA%A6%E4%BA%91%E7%9B%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>OpenSSL</title>
-    <link href="https://caojingyou.github.io/2018/09/01/OpenSSL/"/>
-    <id>https://caojingyou.github.io/2018/09/01/OpenSSL/</id>
-    <published>2018-09-01T08:03:00.000Z</published>
-    <updated>2018-02-06T09:12:43.078Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="OpenSSL"><a href="#OpenSSL" class="headerlink" title="OpenSSL"></a>OpenSSL</h1><p><a href="https://www.openssl.org/" title="https://www.openssl.org/" target="_blank" rel="noopener">https://www.openssl.org/</a></p><p><a href="https://github.com/openssl/openssl" title="https://github.com/openssl/openssl" target="_blank" rel="noopener">https://github.com/openssl/openssl</a></p><h1 id="编译："><a href="#编译：" class="headerlink" title="编译："></a>编译：</h1><p>安装<code>ActiveState Perl</code> </p><p><a href="https://www.perl.org/" title="https://www.perl.org/" target="_blank" rel="noopener">https://www.perl.org/</a></p><p><a href="https://www.activestate.com/activeperl/downloads/thank-you?dl=http://downloads.activestate.com/ActivePerl/releases/5.24.1.2402/ActivePerl-5.24.1.2402-MSWin32-x86-64int-401627.exe" title="https://www.activestate.com/activeperl/downloads/thank-you?dl=http://downloads.activestate.com/ActivePerl/releases/5.24.1.2402/ActivePerl-5.24.1.2402-MSWin32-x86-64int-401627.exe" target="_blank" rel="noopener">ActivePerl-5.24.1.2402-MSWin32-x86-64int-401627.exe</a></p><p>Perl 在 Window 平台上有 ActiveStatePerl 和 Strawberry Perl 编译器。</p><p>ActiveState Perl和 Strawberry Perl最大的区别是 Strawberry Perl 里面有多包含一些 CPAN 里的模块， 所以Strawberry Perl 下载的安装文件有 80多M, 而ActiveState Perl 只有20M 左右。</p><p>使用libcur中的<code>build-openssl.bat</code>编译</p><p><a href="http://files.cnblogs.com/files/yhcao/build-openssl.rar" title="http://files.cnblogs.com/files/yhcao/build-openssl.rar" target="_blank" rel="noopener">build-openssl.rar</a></p><h2 id="需要文件："><a href="#需要文件：" class="headerlink" title="需要文件："></a>需要文件：</h2><pre><code>$ copy /b inc32\openssl\*       c:\openssl\include\openssl$ copy /b out32dll\ssleay32.lib c:\openssl\lib$ copy /b out32dll\libeay32.lib c:\openssl\lib$ copy /b out32dll\ssleay32.dll c:\openssl\bin$ copy /b out32dll\libeay32.dll c:\openssl\bin$ copy /b out32dll\openssl.exe  c:\openssl\bin</code></pre><p><a href="http://slproweb.com/products/Win32OpenSSL.html" target="_blank" rel="noopener">http://slproweb.com/products/Win32OpenSSL.html</a></p><h1 id="安装程序："><a href="#安装程序：" class="headerlink" title="安装程序："></a>安装程序：</h1><p>或到此处下载：</p><p><a href="http://slproweb.com/products/Win32OpenSSL.html" title="http://slproweb.com/products/Win32OpenSSL.html" target="_blank" rel="noopener">http://slproweb.com/products/Win32OpenSSL.html</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;OpenSSL&quot;&gt;&lt;a href=&quot;#OpenSSL&quot; class=&quot;headerlink&quot; title=&quot;OpenSSL&quot;&gt;&lt;/a&gt;OpenSSL&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://www.openssl.org/&quot; title=&quot;https://
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="OpenSSL" scheme="https://caojingyou.github.io/tags/OpenSSL/"/>
-    
-      <category term="加密" scheme="https://caojingyou.github.io/tags/%E5%8A%A0%E5%AF%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Python</title>
-    <link href="https://caojingyou.github.io/2018/08/01/Python/"/>
-    <id>https://caojingyou.github.io/2018/08/01/Python/</id>
-    <published>2018-08-01T08:03:00.000Z</published>
-    <updated>2018-02-06T09:12:02.420Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a href="https://www.python.org/" title="https://www.python.org/" target="_blank" rel="noopener">https://www.python.org/</a></p><h2 id="第三方包安装方法"><a href="#第三方包安装方法" class="headerlink" title="第三方包安装方法"></a>第三方包安装方法</h2><h3 id="第一种方法（不使用pip或者easy-install-："><a href="#第一种方法（不使用pip或者easy-install-：" class="headerlink" title="第一种方法（不使用pip或者easy_install)："></a>第一种方法（不使用pip或者easy_install)：</h3><p>Step1:在网上找到的需要的包，下载下来。<code>eg. rsa-3.1.4.tar.gz</code></p><p>Step2:解压缩该文件。</p><p>Step3:命令行工具cd切换到所要安装的包的目录，找到<code>setup.py</code>文件，然后输入<code>python setup.py install</code></p><h3 id="第二种方法（使用pip或者easy-install）："><a href="#第二种方法（使用pip或者easy-install）：" class="headerlink" title="第二种方法（使用pip或者easy_install）："></a>第二种方法（使用pip或者easy_install）：</h3><p>直接打开cmd，敲<code>pip install rsa</code>。</p><h2 id="VS-Code"><a href="#VS-Code" class="headerlink" title="VS Code"></a>VS Code</h2><h3 id="安装python插件"><a href="#安装python插件" class="headerlink" title="安装python插件"></a>安装python插件</h3><p>打开VScode，Ctrl+p<br>输入 “ext install python”</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;下载&quot;&gt;&lt;a href=&quot;#下载&quot; class=&quot;headerlink&quot; title=&quot;下载&quot;&gt;&lt;/a&gt;下载&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://www.python.org/&quot; title=&quot;https://www.python.org/&quot; targ
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="Python" scheme="https://caojingyou.github.io/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>SQLite NET</title>
-    <link href="https://caojingyou.github.io/2018/07/01/SQLite%20NET/"/>
-    <id>https://caojingyou.github.io/2018/07/01/SQLite NET/</id>
-    <published>2018-07-01T08:03:00.000Z</published>
-    <updated>2018-02-06T09:18:51.927Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="C-程序中使用-SQLite-数据库"><a href="#C-程序中使用-SQLite-数据库" class="headerlink" title="C# 程序中使用 SQLite 数据库"></a>C# 程序中使用 SQLite 数据库</h1><pre><code>using System;using System.Data;using System.Data.SQLite;//C# 使用 SQLite 数据测试程序public class Program{    public static void Main(string[] args)    {        using (SQLiteConnection con = new SQLiteConnection(&quot;Data Source=c:\\test.db3;Pooling=true;FailIfMissing=false&quot;))        {            //打开数据库文件 c:\\test.db3，不存在则创建            con.Open();            using (SQLiteCommand cmd = new SQLiteCommand())            {                cmd.Connection = con;                //检查是否存在表 test，不存在则创建                Boolean testTableExists = false;                cmd.CommandText = &quot;SELECT * FROM sqlite_master WHERE type=&apos;table&apos; and name=&apos;test&apos;&quot;;                using(SQLiteDataReader dr = cmd.ExecuteReader())                {                    if (dr.Read())                    {                        testTableExists = true;                    }                }                if (!testTableExists)                {                    cmd.CommandText = &quot;CREATE TABLE [test] (id int, name nvarchar(20))&quot;;                    cmd.ExecuteNonQuery();                }                //清空 test 表                cmd.CommandText = &quot;DELETE FROM [test]&quot;;                cmd.ExecuteNonQuery();                //插入测试数据                for (int i = 1; i &lt;= 5; i++)                {                    cmd.CommandText = string.Format(&quot;INSERT INTO [test] VALUES ({0}, &apos;中文测试&apos;)&quot;, i);                    cmd.ExecuteNonQuery();                }                //读取数据                cmd.CommandText = &quot;SELECT * FROM [test]&quot;;                using (SQLiteDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))                {                    while (dr.Read())                    {                        Console.WriteLine(&quot;第{0} 条：{1}&quot;, dr.GetValue(0), dr.GetString(1));                    }                }            }        }        Console.WriteLine(&quot;Press any key to continue...&quot;);        Console.ReadKey();    }}</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul><li><a href="http://unmi.cc/csharp-use-sqlite-db/" title="http://unmi.cc/csharp-use-sqlite-db/" target="_blank" rel="noopener">http://unmi.cc/csharp-use-sqlite-db/</a></li><li><a href="http://blog.163.com/baiyunping333@126/blog/static/2439447220093162323933/" title="http://blog.163.com/baiyunping333@126/blog/static/2439447220093162323933/" target="_blank" rel="noopener">http://blog.163.com/baiyunping333@126/blog/static/2439447220093162323933/</a></li><li><a href="http://www.sqlite.org/lang_keywords.html" title="http://www.sqlite.org/lang_keywords.html" target="_blank" rel="noopener">http://www.sqlite.org/lang_keywords.html</a></li><li><a href="http://www.sqlite.org/lang_corefunc.html" title="http://www.sqlite.org/lang_corefunc.html" target="_blank" rel="noopener">http://www.sqlite.org/lang_corefunc.html</a></li><li><a href="http://www.infoq.com/cn/news/2008/01/sqlite-in-three-minutes" title="http://www.infoq.com/cn/news/2008/01/sqlite-in-three-minutes" target="_blank" rel="noopener">http://www.infoq.com/cn/news/2008/01/sqlite-in-three-minutes</a></li><li><a href="http://www.sqlite.org/cvstrac/wiki?p=ManagementTools" title="http://www.sqlite.org/cvstrac/wiki?p=ManagementTools" target="_blank" rel="noopener">http://www.sqlite.org/cvstrac/wiki?p=ManagementTools</a></li><li><a href="http://www.cnblogs.com/spymaster/archive/2008/09/10/1288419.html" title="http://www.cnblogs.com/spymaster/archive/2008/09/10/1288419.html" target="_blank" rel="noopener">http://www.cnblogs.com/spymaster/archive/2008/09/10/1288419.html</a></li><li><a href="http://www.jb51.net/article/26381.htm" title="http://www.jb51.net/article/26381.htm" target="_blank" rel="noopener">http://www.jb51.net/article/26381.htm</a></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;C-程序中使用-SQLite-数据库&quot;&gt;&lt;a href=&quot;#C-程序中使用-SQLite-数据库&quot; class=&quot;headerlink&quot; title=&quot;C# 程序中使用 SQLite 数据库&quot;&gt;&lt;/a&gt;C# 程序中使用 SQLite 数据库&lt;/h1&gt;&lt;pre&gt;&lt;c
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
-    
-      <category term="SQLite NET" scheme="https://caojingyou.github.io/tags/SQLite-NET/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>VA Snippet 与 代码片段管理器</title>
-    <link href="https://caojingyou.github.io/2018/06/01/VA%20Snippet%20%E4%B8%8E%20%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5%E7%AE%A1%E7%90%86%E5%99%A8/"/>
-    <id>https://caojingyou.github.io/2018/06/01/VA Snippet 与 代码片段管理器/</id>
-    <published>2018-06-01T08:03:00.000Z</published>
-    <updated>2018-02-06T09:10:59.635Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="VA-Snippet"><a href="#VA-Snippet" class="headerlink" title="VA Snippet"></a>VA Snippet</h1><p><a href="http://docs.wholetomato.com/default.asp?W171" target="_blank" rel="noopener">Introduction to VA Snippets</a></p><h2 id="备份VA-Snippet-tpl文件"><a href="#备份VA-Snippet-tpl文件" class="headerlink" title="备份VA Snippet.tpl文件"></a>备份VA Snippet.tpl文件</h2><p>Backup your current VA Snippets, for the programming languages of interest. You can find your VA Snippets in .tpl files in:</p><pre><code>%APPDATA%\VisualAssist\Autotext\</code></pre><h1 id="代码片段管理器"><a href="#代码片段管理器" class="headerlink" title="代码片段管理器"></a>代码片段管理器</h1>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;VA-Snippet&quot;&gt;&lt;a href=&quot;#VA-Snippet&quot; class=&quot;headerlink&quot; title=&quot;VA Snippet&quot;&gt;&lt;/a&gt;VA Snippet&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;http://docs.wholetomato.com/d
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="VS" scheme="https://caojingyou.github.io/tags/VS/"/>
-    
-      <category term="C/C++" scheme="https://caojingyou.github.io/tags/C-C/"/>
-    
-      <category term="代码片段" scheme="https://caojingyou.github.io/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>wolfSSL</title>
-    <link href="https://caojingyou.github.io/2018/05/01/wolfSSL/"/>
-    <id>https://caojingyou.github.io/2018/05/01/wolfSSL/</id>
-    <published>2018-05-01T08:03:00.000Z</published>
-    <updated>2018-02-06T09:12:52.887Z</updated>
-    
-    <content type="html"><![CDATA[<p>下载：</p><p><a href="https://github.com/wolfSSL/wolfssl" title="https://github.com/wolfSSL/wolfssl" target="_blank" rel="noopener">https://github.com/wolfSSL/wolfssl</a></p><p><a href="https://www.wolfssl.com/wolfSSL/Home.html" title="https://www.wolfssl.com/wolfSSL/Home.html" target="_blank" rel="noopener">https://www.wolfssl.com/wolfSSL/Home.html</a></p><p><a href="http://www.updatestar.com/directdownload/wolfssl/2264982" title="http://www.updatestar.com/directdownload/wolfssl/2264982" target="_blank" rel="noopener">http://www.updatestar.com/directdownload/wolfssl/2264982</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;下载：&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/wolfSSL/wolfssl&quot; title=&quot;https://github.com/wolfSSL/wolfssl&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https:/
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="加密" scheme="https://caojingyou.github.io/tags/%E5%8A%A0%E5%AF%86/"/>
-    
-      <category term="wolfSSL" scheme="https://caojingyou.github.io/tags/wolfSSL/"/>
     
   </entry>
   
@@ -492,13 +163,97 @@
   </entry>
   
   <entry>
+    <title>VA Snippet 与 代码片段管理器</title>
+    <link href="https://caojingyou.github.io/2018/02/21/VA%20Snippet%20%E4%B8%8E%20%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5%E7%AE%A1%E7%90%86%E5%99%A8/"/>
+    <id>https://caojingyou.github.io/2018/02/21/VA Snippet 与 代码片段管理器/</id>
+    <published>2018-02-21T08:03:00.000Z</published>
+    <updated>2018-04-12T06:24:19.436Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="VA-Snippet"><a href="#VA-Snippet" class="headerlink" title="VA Snippet"></a>VA Snippet</h1><p><a href="http://docs.wholetomato.com/default.asp?W171" target="_blank" rel="noopener">Introduction to VA Snippets</a></p><h2 id="备份VA-Snippet-tpl文件"><a href="#备份VA-Snippet-tpl文件" class="headerlink" title="备份VA Snippet.tpl文件"></a>备份VA Snippet.tpl文件</h2><p>Backup your current VA Snippets, for the programming languages of interest. You can find your VA Snippets in .tpl files in:</p><pre><code>%APPDATA%\VisualAssist\Autotext\</code></pre><h1 id="代码片段管理器"><a href="#代码片段管理器" class="headerlink" title="代码片段管理器"></a>代码片段管理器</h1>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;VA-Snippet&quot;&gt;&lt;a href=&quot;#VA-Snippet&quot; class=&quot;headerlink&quot; title=&quot;VA Snippet&quot;&gt;&lt;/a&gt;VA Snippet&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;http://docs.wholetomato.com/d
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="VS" scheme="https://caojingyou.github.io/tags/VS/"/>
+    
+      <category term="C/C++" scheme="https://caojingyou.github.io/tags/C-C/"/>
+    
+      <category term="代码片段" scheme="https://caojingyou.github.io/tags/%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C#用到的库</title>
+    <link href="https://caojingyou.github.io/2018/02/15/C#%E7%94%A8%E5%88%B0%E8%BF%87%E7%9A%84%E5%BA%93/"/>
+    <id>https://caojingyou.github.io/2018/02/15/C#用到过的库/</id>
+    <published>2018-02-15T08:03:00.000Z</published>
+    <updated>2018-04-12T06:30:29.501Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="扁平化界面"><a href="#扁平化界面" class="headerlink" title="扁平化界面"></a>扁平化界面</h1><p>MahApps.Metro</p><p>MahApps.Metro.IconPacks</p><p>MahApps.Metro.Resources</p><h1 id="系统托盘图标"><a href="#系统托盘图标" class="headerlink" title="系统托盘图标"></a>系统托盘图标</h1><p>WPF NotifyIcon</p><h1 id="Json-NET"><a href="#Json-NET" class="headerlink" title="Json.NET"></a>Json.NET</h1><p>Json.NET可序列化和反序列化、可以转成xml</p><h1 id="数据库访问"><a href="#数据库访问" class="headerlink" title="数据库访问"></a>数据库访问</h1><p>Entity Framework</p><h1 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h1><p>log4net</p><p>Nlog</p><h1 id="邮件"><a href="#邮件" class="headerlink" title="邮件"></a>邮件</h1><p>MailKit<br>与<br>MimeKit</p><h1 id="http"><a href="#http" class="headerlink" title="http"></a>http</h1><p>EasyHttp</p><p>httplib好用</p><h1 id="Excel"><a href="#Excel" class="headerlink" title="Excel"></a>Excel</h1><p>Epplus</p><p>NPIO</p><h1 id="任务调度器"><a href="#任务调度器" class="headerlink" title="任务调度器"></a>任务调度器</h1><p>TaskScheduler</p><p>TaskSchedulerEditor</p><h1 id="待研究的库"><a href="#待研究的库" class="headerlink" title="待研究的库"></a>待研究的库</h1><h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><p>NUnit</p><h2 id="界面库"><a href="#界面库" class="headerlink" title="界面库"></a>界面库</h2><p>MaterialDesignInXamlToolkit</p><p>Fluent.Ribbon</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;扁平化界面&quot;&gt;&lt;a href=&quot;#扁平化界面&quot; class=&quot;headerlink&quot; title=&quot;扁平化界面&quot;&gt;&lt;/a&gt;扁平化界面&lt;/h1&gt;&lt;p&gt;MahApps.Metro&lt;/p&gt;
+&lt;p&gt;MahApps.Metro.IconPacks&lt;/p&gt;
+&lt;p&gt;MahApp
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
+    
+      <category term="系统托盘" scheme="https://caojingyou.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98/"/>
+    
+      <category term="扁平化" scheme="https://caojingyou.github.io/tags/%E6%89%81%E5%B9%B3%E5%8C%96/"/>
+    
+      <category term="Json.NET" scheme="https://caojingyou.github.io/tags/Json-NET/"/>
+    
+      <category term="log4net" scheme="https://caojingyou.github.io/tags/log4net/"/>
+    
+      <category term="Nlog" scheme="https://caojingyou.github.io/tags/Nlog/"/>
+    
+      <category term="MailKit" scheme="https://caojingyou.github.io/tags/MailKit/"/>
+    
+      <category term="EasyHttp" scheme="https://caojingyou.github.io/tags/EasyHttp/"/>
+    
+      <category term="httplib" scheme="https://caojingyou.github.io/tags/httplib/"/>
+    
+      <category term="Epplus" scheme="https://caojingyou.github.io/tags/Epplus/"/>
+    
+      <category term="NPIO" scheme="https://caojingyou.github.io/tags/NPIO/"/>
+    
+      <category term="TaskScheduler" scheme="https://caojingyou.github.io/tags/TaskScheduler/"/>
+    
+      <category term="NUnit" scheme="https://caojingyou.github.io/tags/NUnit/"/>
+    
+      <category term="MaterialDesignInXamlToolkit" scheme="https://caojingyou.github.io/tags/MaterialDesignInXamlToolkit/"/>
+    
+      <category term="Fluent.Ribbon" scheme="https://caojingyou.github.io/tags/Fluent-Ribbon/"/>
+    
+  </entry>
+  
+  <entry>
     <title>SVN版本号</title>
     <link href="https://caojingyou.github.io/2018/02/08/SVN%E7%89%88%E6%9C%AC%E5%8F%B7/"/>
     <id>https://caojingyou.github.io/2018/02/08/SVN版本号/</id>
     <published>2018-02-08T07:24:00.000Z</published>
-    <updated>2018-02-08T07:24:09.237Z</updated>
+    <updated>2018-03-07T06:05:11.378Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="SVN获取版本号"><a href="#SVN获取版本号" class="headerlink" title="SVN获取版本号"></a>SVN获取版本号</h1><h2 id="version-template-h"><a href="#version-template-h" class="headerlink" title="version_template.h"></a>version_template.h</h2><pre><code>#ifndef _VERSION_H_#define _VERSION_H_#define VER_MAJOR 1#define VER_MINOR 0#define VER_REVISION $WCREV$#define SVN_REVISION&quot;$WCMIXED?$WCRANGE$:$WCREV$$&quot;#define SVN_RANGE   $WCRANGE$#define SVN_REV $WCREV$#define SVN_REVISION&quot;$WCMIXED?SVN_RANGE:SVN_REV$&quot;#endif //!_VERSION_H_// Test file for SubWCRevchar *Revision  = &quot;$WCREV$&quot;;char *Revision16= &quot;$WCREV&amp;0xFF$&quot;;char *Revisionp100  = &quot;$WCREV+100$&quot;;char *Revisionm100  = &quot;$WCREV-100$&quot;;char *Modified  = &quot;$WCMODS?Modified:Not modified$&quot;;char *Unversioned   = &quot;$WCUNVER?Unversioned items found:no unversioned items$&quot;;char *Date  = &quot;$WCDATE$&quot;;char *CustDate  = &quot;$WCDATE=%a, %d %B %Y$&quot;;char *DateUTC   = &quot;$WCDATEUTC$&quot;;char *CustDateUTC   = &quot;$WCDATEUTC=%a, %d %B %Y$&quot;;char *TimeNow   = &quot;$WCNOW$&quot;;char *TimeNowUTC= &quot;$WCNOWUTC$&quot;;char *RevRange  = &quot;$WCRANGE$&quot;;char *Mixed = &quot;$WCMIXED?Mixed revision WC:Not mixed$&quot;;char *ExtAllFixed   = &quot;$WCEXTALLFIXED?All externals fixed:Not all externals fixed$&quot;;char *IsTagged  = &quot;$WCISTAGGED?Tagged:Not tagged$&quot;;char *URL   = &quot;$WCURL$&quot;;char *isInSVN   = &quot;$WCINSVN?versioned:not versioned$&quot;;char *needslck  = &quot;$WCNEEDSLOCK?TRUE:FALSE$&quot;;char *islocked  = &quot;$WCISLOCKED?locked:not locked$&quot;;char *lockdateutc   = &quot;$WCLOCKDATEUTC$&quot;;char *lockdate  = &quot;$WCLOCKDATE$&quot;;char *lockcustutc   = &quot;$WCLOCKDATEUTC=%a, %d %B %Y$&quot;;char *lockcust  = &quot;$WCLOCKDATE=%a, %d %B %Y$&quot;;char *lockown   = &quot;$WCLOCKOWNER$&quot;;char *lockcmt   = &quot;$WCLOCKCOMMENT$&quot;;#if $WCMODS?1:0$#error Source is modified#endif// End of file</code></pre><h2 id="运行bat"><a href="#运行bat" class="headerlink" title="运行bat"></a>运行bat</h2><pre><code>setlocal::设置svn客户端安装目录set SVN_PATH=D:\Program Files\TortoiseSVN\bin ::设置工作目录，即工程目录set WORK_DIR=E:\code\C++\Demo::设置版本模版文件，对应第一步中新建的模板文件set VERSION_TEMPLATE=E:\code\C++\Demo\version_template.h::设置版本号生成文件，生成的文件就是我们需要使用的版本文件set VERSION_RELEASE=E:\code\C++\Demo\version.h::进入svn客户端安装目录cd %SVN_PATH%::执行更新版本号操作&quot;%SVN_PATH%\SubWCRev.exe&quot; &quot;%WORK_DIR%&quot; &quot;%VERSION_TEMPLATE%&quot; &quot;%VERSION_RELEASE%&quot;endlocal</code></pre><h2 id="生成version-h"><a href="#生成version-h" class="headerlink" title="生成version.h"></a>生成version.h</h2><pre><code>#ifndef _VERSION_H_#define _VERSION_H_#define VER_MAJOR 1#define VER_MINOR 0#define VER_REVISION 6185#define SVN_REVISION&quot;4620&quot;#define SVN_RANGE   4620:6185#define SVN_REV 6185#define SVN_REVISION&quot;SVN_RANGE&quot;#endif //!_VERSION_H_// Test file for SubWCRevchar *Revision  = &quot;6185&quot;;char *Revision16= &quot;41&quot;;char *Revisionp100  = &quot;6285&quot;;char *Revisionm100  = &quot;6085&quot;;char *Modified  = &quot;Modified&quot;;char *Unversioned   = &quot;Unversioned items found&quot;;char *Date  = &quot;2018/02/07 10:00:58&quot;;char *CustDate  = &quot;Wed, 07 February 2018&quot;;char *DateUTC   = &quot;2018/02/07 02:00:58&quot;;char *CustDateUTC   = &quot;Wed, 07 February 2018&quot;;char *TimeNow   = &quot;2018/02/08 14:56:08&quot;;char *TimeNowUTC= &quot;2018/02/08 06:56:08&quot;;char *RevRange  = &quot;4620:6185&quot;;char *Mixed = &quot;Mixed revision WC&quot;;char *ExtAllFixed   = &quot;All externals fixed&quot;;char *IsTagged  = &quot;Not tagged&quot;;char *URL   = &quot;http://xxx&quot;;char *isInSVN   = &quot;versioned&quot;;char *needslck  = &quot;FALSE&quot;;char *islocked  = &quot;not locked&quot;;char *lockdateutc   = &quot;1970/01/01 00:00:00&quot;;char *lockdate  = &quot;1970/01/01 08:00:00&quot;;char *lockcustutc   = &quot;Thu, 01 January 1970&quot;;char *lockcust  = &quot;Thu, 01 January 1970&quot;;char *lockown   = &quot;&quot;;char *lockcmt   = &quot;&quot;;#if 1#error Source is modified#endif// End of file</code></pre><h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p>在VS2005的项目属性页-&gt;预生成事件-&gt;命令行中添加一句：</p><pre><code>$(SolutionDir)\subwcrev.exe $(SolutionDir) $(SolutionDir)\src\qmlv\version_template.h $(SolutionDir)\src\qmlv\version.h</code></pre><p>SubWCRev 调用语法:</p><pre><code>SubWCRev WorkingCopyPath [SrcVersionFile DstVersionFile]</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html" title="https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html" target="_blank" rel="noopener">https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html</a></p><p><a href="http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html" title="http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html</a></p><p><a href="https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html" title="https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html</a></p>]]></content>
+    <content type="html"><![CDATA[<h1 id="SVN获取版本号"><a href="#SVN获取版本号" class="headerlink" title="SVN获取版本号"></a>SVN获取版本号</h1><h2 id="version-template-h"><a href="#version-template-h" class="headerlink" title="version_template.h"></a>version_template.h</h2><pre><code>#ifndef _VERSION_H_#define _VERSION_H_#define VER_MAJOR 1#define VER_MINOR 0#define VER_REVISION $WCREV$#define SVN_REVISION&quot;$WCMIXED?$WCRANGE$:$WCREV$$&quot;#define SVN_RANGE   $WCRANGE$#define SVN_REV $WCREV$#define SVN_REVISION&quot;$WCMIXED?SVN_RANGE:SVN_REV$&quot;#endif //!_VERSION_H_// Test file for SubWCRevchar *Revision  = &quot;$WCREV$&quot;;char *Revision16= &quot;$WCREV&amp;0xFF$&quot;;char *Revisionp100  = &quot;$WCREV+100$&quot;;char *Revisionm100  = &quot;$WCREV-100$&quot;;char *Modified  = &quot;$WCMODS?Modified:Not modified$&quot;;char *Unversioned   = &quot;$WCUNVER?Unversioned items found:no unversioned items$&quot;;char *Date  = &quot;$WCDATE$&quot;;char *CustDate  = &quot;$WCDATE=%a, %d %B %Y$&quot;;char *DateUTC   = &quot;$WCDATEUTC$&quot;;char *CustDateUTC   = &quot;$WCDATEUTC=%a, %d %B %Y$&quot;;char *TimeNow   = &quot;$WCNOW$&quot;;char *TimeNowUTC= &quot;$WCNOWUTC$&quot;;char *RevRange  = &quot;$WCRANGE$&quot;;char *Mixed = &quot;$WCMIXED?Mixed revision WC:Not mixed$&quot;;char *ExtAllFixed   = &quot;$WCEXTALLFIXED?All externals fixed:Not all externals fixed$&quot;;char *IsTagged  = &quot;$WCISTAGGED?Tagged:Not tagged$&quot;;char *URL   = &quot;$WCURL$&quot;;char *isInSVN   = &quot;$WCINSVN?versioned:not versioned$&quot;;char *needslck  = &quot;$WCNEEDSLOCK?TRUE:FALSE$&quot;;char *islocked  = &quot;$WCISLOCKED?locked:not locked$&quot;;char *lockdateutc   = &quot;$WCLOCKDATEUTC$&quot;;char *lockdate  = &quot;$WCLOCKDATE$&quot;;char *lockcustutc   = &quot;$WCLOCKDATEUTC=%a, %d %B %Y$&quot;;char *lockcust  = &quot;$WCLOCKDATE=%a, %d %B %Y$&quot;;char *lockown   = &quot;$WCLOCKOWNER$&quot;;char *lockcmt   = &quot;$WCLOCKCOMMENT$&quot;;#if $WCMODS?1:0$#error Source is modified#endif// End of file</code></pre><h2 id="运行bat"><a href="#运行bat" class="headerlink" title="运行bat"></a>运行bat</h2><pre><code>setlocal::设置svn客户端安装目录set SVN_PATH=D:\Program Files\TortoiseSVN\bin ::设置工作目录，即工程目录set WORK_DIR=E:\code\C++\Demo::设置版本模版文件，对应第一步中新建的模板文件set VERSION_TEMPLATE=E:\code\C++\Demo\version_template.h::设置版本号生成文件，生成的文件就是我们需要使用的版本文件set VERSION_RELEASE=E:\code\C++\Demo\version.h::进入svn客户端安装目录cd %SVN_PATH%::执行更新版本号操作&quot;%SVN_PATH%\SubWCRev.exe&quot; &quot;%WORK_DIR%&quot; &quot;%VERSION_TEMPLATE%&quot; &quot;%VERSION_RELEASE%&quot;endlocal</code></pre><h2 id="生成version-h"><a href="#生成version-h" class="headerlink" title="生成version.h"></a>生成version.h</h2><pre><code>#ifndef _VERSION_H_#define _VERSION_H_#define VER_MAJOR 1#define VER_MINOR 0#define VER_REVISION 6185#define SVN_REVISION&quot;4620&quot;#define SVN_RANGE   4620:6185#define SVN_REV 6185#define SVN_REVISION&quot;SVN_RANGE&quot;#endif //!_VERSION_H_// Test file for SubWCRevchar *Revision  = &quot;6185&quot;;char *Revision16= &quot;41&quot;;char *Revisionp100  = &quot;6285&quot;;char *Revisionm100  = &quot;6085&quot;;char *Modified  = &quot;Modified&quot;;char *Unversioned   = &quot;Unversioned items found&quot;;char *Date  = &quot;2018/02/07 10:00:58&quot;;char *CustDate  = &quot;Wed, 07 February 2018&quot;;char *DateUTC   = &quot;2018/02/07 02:00:58&quot;;char *CustDateUTC   = &quot;Wed, 07 February 2018&quot;;char *TimeNow   = &quot;2018/02/08 14:56:08&quot;;char *TimeNowUTC= &quot;2018/02/08 06:56:08&quot;;char *RevRange  = &quot;4620:6185&quot;;char *Mixed = &quot;Mixed revision WC&quot;;char *ExtAllFixed   = &quot;All externals fixed&quot;;char *IsTagged  = &quot;Not tagged&quot;;char *URL   = &quot;http://xxx&quot;;char *isInSVN   = &quot;versioned&quot;;char *needslck  = &quot;FALSE&quot;;char *islocked  = &quot;not locked&quot;;char *lockdateutc   = &quot;1970/01/01 00:00:00&quot;;char *lockdate  = &quot;1970/01/01 08:00:00&quot;;char *lockcustutc   = &quot;Thu, 01 January 1970&quot;;char *lockcust  = &quot;Thu, 01 January 1970&quot;;char *lockown   = &quot;&quot;;char *lockcmt   = &quot;&quot;;#if 1#error Source is modified#endif// End of file</code></pre><h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p>在VS2005的项目属性页-&gt;预生成事件-&gt;命令行中添加一句：</p><pre><code>$(SolutionDir)\subwcrev.exe $(SolutionDir) $(SolutionDir)\src\qmlv\version_template.h $(SolutionDir)\src\qmlv\version.h</code></pre><p>SubWCRev 调用语法:</p><pre><code>SubWCRev WorkingCopyPath [SrcVersionFile DstVersionFile]</code></pre><h1 id="svn版本日志"><a href="#svn版本日志" class="headerlink" title="svn版本日志"></a>svn版本日志</h1><p>Apache-Subversion-1.9.7：</p><pre><code>&quot;svn.exe&quot; log --incremental -r4620&quot;svn.exe&quot; log --incremental -r4522</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html" title="https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html" target="_blank" rel="noopener">https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html</a></p><p><a href="http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html" title="http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html</a></p><p><a href="https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html" title="https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html</a></p><p><a href="http://blog.csdn.net/yangxiao2shi/article/details/50719286/" title="http://blog.csdn.net/yangxiao2shi/article/details/50719286/" target="_blank" rel="noopener">http://blog.csdn.net/yangxiao2shi/article/details/50719286/</a></p><p><a href="https://www.visualsvn.com/support/svnbook/ref/svn/" title="https://www.visualsvn.com/support/svnbook/ref/svn/" target="_blank" rel="noopener">https://www.visualsvn.com/support/svnbook/ref/svn/</a></p><p><a href="https://www.visualsvn.com/support/svnbook/ref/svn/c/log/" title="https://www.visualsvn.com/support/svnbook/ref/svn/c/log/" target="_blank" rel="noopener">https://www.visualsvn.com/support/svnbook/ref/svn/c/log/</a></p>]]></content>
     
     <summary type="html">
     
@@ -517,6 +272,33 @@
       <category term="svn" scheme="https://caojingyou.github.io/tags/svn/"/>
     
       <category term="版本号" scheme="https://caojingyou.github.io/tags/%E7%89%88%E6%9C%AC%E5%8F%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>OpenSSL</title>
+    <link href="https://caojingyou.github.io/2018/02/02/OpenSSL/"/>
+    <id>https://caojingyou.github.io/2018/02/02/OpenSSL/</id>
+    <published>2018-02-02T08:03:00.000Z</published>
+    <updated>2018-04-12T06:25:41.592Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="OpenSSL"><a href="#OpenSSL" class="headerlink" title="OpenSSL"></a>OpenSSL</h1><p><a href="https://www.openssl.org/" title="https://www.openssl.org/" target="_blank" rel="noopener">https://www.openssl.org/</a></p><p><a href="https://github.com/openssl/openssl" title="https://github.com/openssl/openssl" target="_blank" rel="noopener">https://github.com/openssl/openssl</a></p><h1 id="编译："><a href="#编译：" class="headerlink" title="编译："></a>编译：</h1><p>安装<code>ActiveState Perl</code> </p><p><a href="https://www.perl.org/" title="https://www.perl.org/" target="_blank" rel="noopener">https://www.perl.org/</a></p><p><a href="https://www.activestate.com/activeperl/downloads/thank-you?dl=http://downloads.activestate.com/ActivePerl/releases/5.24.1.2402/ActivePerl-5.24.1.2402-MSWin32-x86-64int-401627.exe" title="https://www.activestate.com/activeperl/downloads/thank-you?dl=http://downloads.activestate.com/ActivePerl/releases/5.24.1.2402/ActivePerl-5.24.1.2402-MSWin32-x86-64int-401627.exe" target="_blank" rel="noopener">ActivePerl-5.24.1.2402-MSWin32-x86-64int-401627.exe</a></p><p>Perl 在 Window 平台上有 ActiveStatePerl 和 Strawberry Perl 编译器。</p><p>ActiveState Perl和 Strawberry Perl最大的区别是 Strawberry Perl 里面有多包含一些 CPAN 里的模块， 所以Strawberry Perl 下载的安装文件有 80多M, 而ActiveState Perl 只有20M 左右。</p><p>使用libcur中的<code>build-openssl.bat</code>编译</p><p><a href="http://files.cnblogs.com/files/yhcao/build-openssl.rar" title="http://files.cnblogs.com/files/yhcao/build-openssl.rar" target="_blank" rel="noopener">build-openssl.rar</a></p><h2 id="需要文件："><a href="#需要文件：" class="headerlink" title="需要文件："></a>需要文件：</h2><pre><code>$ copy /b inc32\openssl\*       c:\openssl\include\openssl$ copy /b out32dll\ssleay32.lib c:\openssl\lib$ copy /b out32dll\libeay32.lib c:\openssl\lib$ copy /b out32dll\ssleay32.dll c:\openssl\bin$ copy /b out32dll\libeay32.dll c:\openssl\bin$ copy /b out32dll\openssl.exe  c:\openssl\bin</code></pre><p><a href="http://slproweb.com/products/Win32OpenSSL.html" target="_blank" rel="noopener">http://slproweb.com/products/Win32OpenSSL.html</a></p><h1 id="安装程序："><a href="#安装程序：" class="headerlink" title="安装程序："></a>安装程序：</h1><p>或到此处下载：</p><p><a href="http://slproweb.com/products/Win32OpenSSL.html" title="http://slproweb.com/products/Win32OpenSSL.html" target="_blank" rel="noopener">http://slproweb.com/products/Win32OpenSSL.html</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;OpenSSL&quot;&gt;&lt;a href=&quot;#OpenSSL&quot; class=&quot;headerlink&quot; title=&quot;OpenSSL&quot;&gt;&lt;/a&gt;OpenSSL&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://www.openssl.org/&quot; title=&quot;https://
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="OpenSSL" scheme="https://caojingyou.github.io/tags/OpenSSL/"/>
+    
+      <category term="加密" scheme="https://caojingyou.github.io/tags/%E5%8A%A0%E5%AF%86/"/>
     
   </entry>
   
@@ -567,6 +349,120 @@
   </entry>
   
   <entry>
+    <title>CppUnit</title>
+    <link href="https://caojingyou.github.io/2018/01/18/cppunit/"/>
+    <id>https://caojingyou.github.io/2018/01/18/cppunit/</id>
+    <published>2018-01-18T08:03:00.000Z</published>
+    <updated>2018-04-12T06:28:32.912Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="CppUnit"><a href="#CppUnit" class="headerlink" title="CppUnit"></a>CppUnit</h1><p><a href="https://sourceforge.net/projects/cppunit/?source=directory" target="_blank" rel="noopener">CppUnit - C++ port of JUnit</a></p><p><a href="https://www.freedesktop.org/wiki/Software/cppunit/" target="_blank" rel="noopener">cppunit-freedesktop.org</a></p><p><a href="http://cppunit.sourceforge.net/doc/lastest/index.html" target="_blank" rel="noopener">CppUnit Documentation</a></p><p><a href="https://baike.baidu.com/item/CppUnit/2218302?fr=aladdin" target="_blank" rel="noopener">CppUnit百度百科</a></p><p><a href="https://www.ibm.com/developerworks/cn/linux/l-cppunit/" target="_blank" rel="noopener">便利的开发工具 CppUnit 快速使用指南</a></p><p><a href="https://wenku.baidu.com/view/b7fcad4bcf84b9d528ea7ae1.html" target="_blank" rel="noopener">CppUnit源码解读</a></p><p><a href="http://morningspace.51.net/resource/cppunit/cppunit_anno.html" target="_blank" rel="noopener">晨光（Morning）CppUnit源码解读</a></p><p><a href="http://blog.csdn.net/eplanet/article/details/1844456" target="_blank" rel="noopener">C++——测试工具CppUnit的安装和配置</a></p><p><a href="http://blog.csdn.net/x_iya/article/details/8433716" target="_blank" rel="noopener">CppUnit在VS2010上的正确使用</a></p><p><a href="https://wenku.baidu.com/view/0997c8a30b1c59eef9c7b47f.html" target="_blank" rel="noopener">[vs2010 配置与实例] CppUnit快速入门</a></p><h1 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h1><p><a href="http://dev-www.libreoffice.org/src/cppunit-1.14.0.tar.gz" target="_blank" rel="noopener">cppunit-1.14.0.tar.gz</a></p><p><a href="https://sourceforge.net/projects/cppunit/files/cppunit/1.12.1/cppunit-1.12.1.tar.gz/download" target="_blank" rel="noopener">cppunit-1.12.1.tar.gz</a></p><h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><p>在CppUnit的源代码中，包含了几个测试工程的例子。</p><ul><li>CppUnitTestMain：一个实际的测试包（test suite）用来测试CppUnit。使用了TextTestRunner（文本方式的单元测试环境），利用CompilterOutputter进行post-build testing（即在编译结束之后紧跟着进行测试）。在配置中设定连接了cppunit的静态库和动态库。</li></ul><ul><li>CppUnitTestApp：包含了与CppUnitTestMain相同的测试包，但使用了MFC TestRunner（GUI方式的单元测试环境）</li></ul><ul><li>Hierarchy：一个演示如何子类化测试的例子（你也许更愿意使用HelperMacros.h以及宏CPPUNIT_TEST_SUB_SUITE，这种方式更为简洁清晰。本示例已经很久没有更新了）。</li></ul><ul><li>HostApp ：一个用MFC TestRunner演示各种失败测试的例子。也演示了MFC Unicode TestRunner。</li></ul><ul><li>TestPlugIn：一个演示如何为TestPlugInRunner编写TestPlugIn的例子（实验性的）。</li></ul><h1 id="判断宏"><a href="#判断宏" class="headerlink" title="判断宏"></a>判断宏</h1><p><code>CPPUNIT_ASSERT</code>是一个宏，判断后面的参数是否正确，CPPUNIT还有很多宏，如</p><pre><code>CPPUNIT_ASSERT(condition)                      // 确信condition为真CPPUNIT_ASSERT_MESSAGE(message, condition)     // 当condition为假时失败, 并打印messageCPPUNIT_FAIL(message)                          // 当前测试失败, 并打印messageCPPUNIT_ASSERT_EQUAL(expected, actual)         // 确信两者相等CPPUNIT_ASSERT_EQUAL_MESSAGE(message, expected, actual) // 失败的同时打印messageCPPUNIT_ASSERT_DOUBLES_EQUAL(expected, actual, delta)   // 当expected和actual之间差大于delta时失败</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;CppUnit&quot;&gt;&lt;a href=&quot;#CppUnit&quot; class=&quot;headerlink&quot; title=&quot;CppUnit&quot;&gt;&lt;/a&gt;CppUnit&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://sourceforge.net/projects/cppunit/
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="C/C++" scheme="https://caojingyou.github.io/tags/C-C/"/>
+    
+      <category term="CppUnit" scheme="https://caojingyou.github.io/tags/CppUnit/"/>
+    
+      <category term="单元测试" scheme="https://caojingyou.github.io/tags/%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hexo yilia主题</title>
+    <link href="https://caojingyou.github.io/2018/01/10/Hexo%20yilia%E4%B8%BB%E9%A2%98/"/>
+    <id>https://caojingyou.github.io/2018/01/10/Hexo yilia主题/</id>
+    <published>2018-01-10T08:03:00.000Z</published>
+    <updated>2018-04-12T06:19:37.448Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h1><ul><li><a href="https://github.com/litten/hexo-theme-yilia" title="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia</a></li><li><a href="http://litten.me/" title="http://litten.me/" target="_blank" rel="noopener">http://litten.me/</a></li><li><a href="https://github.com/litten/hexo-theme-yilia" title="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia</a></li><li><a href="https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5" title="https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5</a></li></ul><h1 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h1><p>关于SEO与RSS，需要在博客根目录（注意不是yilia根目录）安装这三个node_modules:</p><pre><code>npm install hexo-generator-feed --savenpm install hexo-generator-baidu-sitemap --savenpm install hexo-generator-sitemap --save</code></pre><p>分别对应：rss、百度爬虫sitemap、通用搜索引擎sitemap</p><h1 id="不显示标签："><a href="#不显示标签：" class="headerlink" title="不显示标签："></a>不显示标签：</h1><p>缺失模块。<br>1、在博客根目录（注意不是yilia根目录）执行以下命令：</p><p>npm i hexo-generator-json-content –save</p><p>2、在根目录_config.yml里添加配置：</p><pre><code>jsonContent:  meta: false  pages: false  posts:    title: true    date: true    path: true    text: true    raw: false    content: false    slug: false    updated: false    comments: false    link: false    permalink: false    excerpt: false    categories: false    tags: true</code></pre><h1 id="【Hexo】Hexo-Github构建个人博客-（五）：错误集"><a href="#【Hexo】Hexo-Github构建个人博客-（五）：错误集" class="headerlink" title="【Hexo】Hexo+Github构建个人博客 （五）：错误集"></a>【Hexo】Hexo+Github构建个人博客 （五）：错误集</h1><ul><li><a href="http://www.cnblogs.com/arvin0/p/6664239.html" title="http://www.cnblogs.com/arvin0/p/6664239.html" target="_blank" rel="noopener">http://www.cnblogs.com/arvin0/p/6664239.html</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;网址：&quot;&gt;&lt;a href=&quot;#网址：&quot; class=&quot;headerlink&quot; title=&quot;网址：&quot;&gt;&lt;/a&gt;网址：&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;https://github.com/litten/hexo-theme-yilia&quot; title=&quot;
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="Hexo" scheme="https://caojingyou.github.io/tags/Hexo/"/>
+    
+      <category term="yilia主题" scheme="https://caojingyou.github.io/tags/yilia%E4%B8%BB%E9%A2%98/"/>
+    
+      <category term="博客" scheme="https://caojingyou.github.io/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>SQLite NET</title>
+    <link href="https://caojingyou.github.io/2018/01/09/SQLite%20NET/"/>
+    <id>https://caojingyou.github.io/2018/01/09/SQLite NET/</id>
+    <published>2018-01-09T08:03:00.000Z</published>
+    <updated>2018-04-12T06:24:45.603Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="C-程序中使用-SQLite-数据库"><a href="#C-程序中使用-SQLite-数据库" class="headerlink" title="C# 程序中使用 SQLite 数据库"></a>C# 程序中使用 SQLite 数据库</h1><pre><code>using System;using System.Data;using System.Data.SQLite;//C# 使用 SQLite 数据测试程序public class Program{    public static void Main(string[] args)    {        using (SQLiteConnection con = new SQLiteConnection(&quot;Data Source=c:\\test.db3;Pooling=true;FailIfMissing=false&quot;))        {            //打开数据库文件 c:\\test.db3，不存在则创建            con.Open();            using (SQLiteCommand cmd = new SQLiteCommand())            {                cmd.Connection = con;                //检查是否存在表 test，不存在则创建                Boolean testTableExists = false;                cmd.CommandText = &quot;SELECT * FROM sqlite_master WHERE type=&apos;table&apos; and name=&apos;test&apos;&quot;;                using(SQLiteDataReader dr = cmd.ExecuteReader())                {                    if (dr.Read())                    {                        testTableExists = true;                    }                }                if (!testTableExists)                {                    cmd.CommandText = &quot;CREATE TABLE [test] (id int, name nvarchar(20))&quot;;                    cmd.ExecuteNonQuery();                }                //清空 test 表                cmd.CommandText = &quot;DELETE FROM [test]&quot;;                cmd.ExecuteNonQuery();                //插入测试数据                for (int i = 1; i &lt;= 5; i++)                {                    cmd.CommandText = string.Format(&quot;INSERT INTO [test] VALUES ({0}, &apos;中文测试&apos;)&quot;, i);                    cmd.ExecuteNonQuery();                }                //读取数据                cmd.CommandText = &quot;SELECT * FROM [test]&quot;;                using (SQLiteDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))                {                    while (dr.Read())                    {                        Console.WriteLine(&quot;第{0} 条：{1}&quot;, dr.GetValue(0), dr.GetString(1));                    }                }            }        }        Console.WriteLine(&quot;Press any key to continue...&quot;);        Console.ReadKey();    }}</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul><li><a href="http://unmi.cc/csharp-use-sqlite-db/" title="http://unmi.cc/csharp-use-sqlite-db/" target="_blank" rel="noopener">http://unmi.cc/csharp-use-sqlite-db/</a></li><li><a href="http://blog.163.com/baiyunping333@126/blog/static/2439447220093162323933/" title="http://blog.163.com/baiyunping333@126/blog/static/2439447220093162323933/" target="_blank" rel="noopener">http://blog.163.com/baiyunping333@126/blog/static/2439447220093162323933/</a></li><li><a href="http://www.sqlite.org/lang_keywords.html" title="http://www.sqlite.org/lang_keywords.html" target="_blank" rel="noopener">http://www.sqlite.org/lang_keywords.html</a></li><li><a href="http://www.sqlite.org/lang_corefunc.html" title="http://www.sqlite.org/lang_corefunc.html" target="_blank" rel="noopener">http://www.sqlite.org/lang_corefunc.html</a></li><li><a href="http://www.infoq.com/cn/news/2008/01/sqlite-in-three-minutes" title="http://www.infoq.com/cn/news/2008/01/sqlite-in-three-minutes" target="_blank" rel="noopener">http://www.infoq.com/cn/news/2008/01/sqlite-in-three-minutes</a></li><li><a href="http://www.sqlite.org/cvstrac/wiki?p=ManagementTools" title="http://www.sqlite.org/cvstrac/wiki?p=ManagementTools" target="_blank" rel="noopener">http://www.sqlite.org/cvstrac/wiki?p=ManagementTools</a></li><li><a href="http://www.cnblogs.com/spymaster/archive/2008/09/10/1288419.html" title="http://www.cnblogs.com/spymaster/archive/2008/09/10/1288419.html" target="_blank" rel="noopener">http://www.cnblogs.com/spymaster/archive/2008/09/10/1288419.html</a></li><li><a href="http://www.jb51.net/article/26381.htm" title="http://www.jb51.net/article/26381.htm" target="_blank" rel="noopener">http://www.jb51.net/article/26381.htm</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;C-程序中使用-SQLite-数据库&quot;&gt;&lt;a href=&quot;#C-程序中使用-SQLite-数据库&quot; class=&quot;headerlink&quot; title=&quot;C# 程序中使用 SQLite 数据库&quot;&gt;&lt;/a&gt;C# 程序中使用 SQLite 数据库&lt;/h1&gt;&lt;pre&gt;&lt;c
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
+    
+      <category term="SQLite NET" scheme="https://caojingyou.github.io/tags/SQLite-NET/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>wolfSSL</title>
+    <link href="https://caojingyou.github.io/2018/01/08/wolfSSL/"/>
+    <id>https://caojingyou.github.io/2018/01/08/wolfSSL/</id>
+    <published>2018-01-08T08:03:00.000Z</published>
+    <updated>2018-04-12T06:23:51.676Z</updated>
+    
+    <content type="html"><![CDATA[<p>下载：</p><p><a href="https://github.com/wolfSSL/wolfssl" title="https://github.com/wolfSSL/wolfssl" target="_blank" rel="noopener">https://github.com/wolfSSL/wolfssl</a></p><p><a href="https://www.wolfssl.com/wolfSSL/Home.html" title="https://www.wolfssl.com/wolfSSL/Home.html" target="_blank" rel="noopener">https://www.wolfssl.com/wolfSSL/Home.html</a></p><p><a href="http://www.updatestar.com/directdownload/wolfssl/2264982" title="http://www.updatestar.com/directdownload/wolfssl/2264982" target="_blank" rel="noopener">http://www.updatestar.com/directdownload/wolfssl/2264982</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;下载：&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/wolfSSL/wolfssl&quot; title=&quot;https://github.com/wolfSSL/wolfssl&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https:/
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="加密" scheme="https://caojingyou.github.io/tags/%E5%8A%A0%E5%AF%86/"/>
+    
+      <category term="wolfSSL" scheme="https://caojingyou.github.io/tags/wolfSSL/"/>
+    
+  </entry>
+  
+  <entry>
     <title>个人喜欢的电脑软件</title>
     <link href="https://caojingyou.github.io/2018/01/01/%E4%B8%AA%E4%BA%BA%E5%96%9C%E6%AC%A2%E7%9A%84%E7%94%B5%E8%84%91%E8%BD%AF%E4%BB%B6/"/>
     <id>https://caojingyou.github.io/2018/01/01/个人喜欢的电脑软件/</id>
@@ -595,6 +491,33 @@
       <category term="个人喜欢" scheme="https://caojingyou.github.io/tags/%E4%B8%AA%E4%BA%BA%E5%96%9C%E6%AC%A2/"/>
     
       <category term="美化桌面" scheme="https://caojingyou.github.io/tags/%E7%BE%8E%E5%8C%96%E6%A1%8C%E9%9D%A2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>MSBuild</title>
+    <link href="https://caojingyou.github.io/2017/12/21/MSBuild%20(Visual%20C++)/"/>
+    <id>https://caojingyou.github.io/2017/12/21/MSBuild (Visual C++)/</id>
+    <published>2017-12-21T08:03:00.000Z</published>
+    <updated>2018-04-12T06:26:11.672Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Visual-Studio-文档"><a href="#Visual-Studio-文档" class="headerlink" title="Visual Studio 文档"></a>Visual Studio 文档</h1><p><a href="https://docs.microsoft.com/zh-cn/visualstudio/" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/visualstudio/</a></p><h1 id="MSBuild-Visual-C"><a href="#MSBuild-Visual-C" class="headerlink" title="MSBuild (Visual C++)"></a>MSBuild (Visual C++)</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/dd293626.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/dd293626.aspx</a></p><p>可以使用 MSBuild 工具从命令提示符处生成 Visual C++ 应用程序。 该生成过程由您可以创建和编辑的项目文件 (.vcxproj) 中的信息来控制。 该项目文件基于生成阶段、条件和事件指定生成选项</p><h1 id="MSBuild-Visual-C-概述"><a href="#MSBuild-Visual-C-概述" class="headerlink" title="MSBuild (Visual C++) 概述"></a>MSBuild (Visual C++) 概述</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/ee662426.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/ee662426.aspx</a></p><p>用户目标和属性</p><p>若要在命令行上最有效地使用 MSBuild，最好先了解哪些属性和目标是有用且相关。 大多数属性和目标可以帮助实施 Visual c + + 生成系统，并因此不与用户相关。 本部分介绍一些值得面向用户的属性和目标。</p><p>PlatformToolset 属性</p><p>PlatformToolset 属性确定在生成中使用的 Visual c + + 工具集。 属性的值与字符串组合成包含生成用于特定平台的项目所需的属性和目标文件的目录路径串联。</p><p>设置 PlatformToolset 属性设置为 v110 使用 Visual Studio 2012 中的 Visual C++ 工具和库来构建您的应用程序。</p><p>msbuild myProject.vcxproj /p:PlatformToolset=v110</p><p>设置 PlatformToolset 属性设置为 v100 使用 Visual C++ 2010 工具和库来构建您的应用程序。</p><p>msbuild myProject.vcxproj /p:PlatformToolset=v100</p><p>设置 PlatformToolset 属性设置为 v90 使用 Visual c + + 2008年工具和库来生成你的应用程序。 此属性才有效在计算机上必须已安装的 Visual c + + 2008年工具集。</p><p>msbuild myProject.vcxproj /p:PlatformToolset=v90</p><p>PreferredToolArchitecture 属性</p><p>PreferredToolArchitecture 属性确定是否在生成中使用 32 位或 64 位编译器和工具。 此属性不影响输出的平台体系结构或配置。 默认情况下，MSBuild 使用 x86 版本的编译器和工具，如果此属性未设置，或为设置为任何值以外 x64。</p><p>设置 PreferredToolArchitecture 属性设置为 x64 以使用 64 位编译器和工具来生成应用程序。</p><p>msbuild myProject.vcxproj /p:PreferredToolArchitecture=x64</p><p>UseEnv 属性</p><p>默认情况下，当前项目的特定于平台的设置重写路径、 INCLUDE、 LIB、 LIBPATH、 配置和平台环境变量。 设置 UseEnv 属性设置为 true 若要确保环境变量不重写。</p><p>msbuild myProject.vcxproj /p:UseEnv=true</p><p>目标</p><p>有数百个 Visual c + + 支持文件中的目标。 但是，大多数都是用户可忽略的面向系统的目标。 大多数系统目标前缀是下划线 (_)，或具有”PrepareFor”，”计算”，以”Before”，”After”，”之前”或”Post”开头的名称。</p><p>下表列出了几个值得面向用户的目标。</p><h1 id="MSBuild-命令行参考"><a href="#MSBuild-命令行参考" class="headerlink" title="MSBuild 命令行参考"></a>MSBuild 命令行参考</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/ms164311.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/ms164311.aspx</a></p><p><code>MSBuild.exe [Switches] [ProjectFile]</code> </p><pre><code>语法:                             MSBuild.exe [选项] [项目文件]描述:                    在项目文件中生成指定的目标。如果                     未指定项目文件，MSBuild 将搜索                     当前工作目录来查找文件扩展名                     以“proj”结尾的文件并使用该文件。开关:  /target:&lt;targets&gt;  在此项目中生成这些目标。使用                     分号或逗号分隔多个目标，或者分别指定                     每个目标。(缩写: /t)                     示例:                       /target:Resources;Compile  /property:&lt;n&gt;=&lt;v&gt;  设置或重写这些项目级属性。&lt;n&gt; 是                     属性名，&lt;v&gt; 为属性值。请使用                     分号或逗号分隔多个属性，或者                     分别指定每个属性。(缩写: /p)                     示例:                       /property:WarningLevel=2;OutDir=bin\Debug\  /maxcpucount[:n]   指定用于生成的最大                     并发进程数。如果未使用开关，则使用的默认值                     为 1。如果使用开关时不带值，                     MSBuild 将最多使用计算机上的                     处理器数。(缩写: /m[:n])  /toolsversion:&lt;version&gt;                     要在生成过程中使用的 MSBuild 工具集                     (任务、目标等) 的版本。此版本将重写                     个别项目指定的版本。(缩写:                     /tv)                     示例:                       /toolsversion:3.5  /verbosity:&lt;level&gt; 在事件日志中显示此级别的信息量。                     可用的详细级别有: q[uiet]、 m[inimal]、                     n[ormal]、d[etailed] 和 diag[nostic]。(缩写: /v)                     示例:                       /verbosity:quiet  /consoleloggerparameters:&lt;parameters&gt;                     控制台记录器的参数。(缩写: /clp)                     可用的参数有:                        PerformanceSummary -- 显示在任务、目标和项目上                            花费的时间。                        Summary -- 结束时显示错误和警告的摘要。                        NoSummary -- 结束时不显示错误和警告                            的摘要。                        ErrorsOnly -- 仅显示错误。                        WarningsOnly -- 仅显示警告。                        NoItemAndPropertyList -- 在开始生成每个项目时不显示                            项和属性的列表。                        ShowCommandLine -- 显示 TaskCommandLineEvent 消息                        ShowTimestamp -- 将时间戳作为所有消息的前缀                            显示。                        ShowEventId -- 显示已开始事件、已完成事件和消息                            的事件 ID。                        ForceNoAlign -- 不将文本与控制台缓冲区的大小                            匹配。                        DisableConsoleColor -- 将默认控制台颜色                            用于所有记录消息。                        DisableMPLogging -- 在非多处理器                            模式下运行时，禁用输出的多处理器                            日志记录样式。                        EnableMPLogging -- 即使在非多处理器                            模式下运行，也启用多处理器                            日志记录样式。默认情况下启用此日志记录样式。                        Verbosity -- 重写此记录器的  /verbosity                            设置。                     示例:                        /consoleloggerparameters:PerformanceSummary;NoSummary;                                                 Verbosity=minimal  /noconsolelogger   禁用默认控制台记录器，并且不将事件                     记录到控制台。(缩写:  /noconlog)  /fileLogger[n]     将生成输出记录到文件中。默认情况下，                     该文件在当前目录中，名称为                     “msbuild[n].log”。所有节点中的事件合并到                     单个日志中。fileLogger 的文件和                     其他参数的位置可以通过添加                     “/fileLoggerParameters[n]”开关来指定。                     “n”(如果存在)可以为 1-9 的数字，允许最多附加                     10 个文件记录器。(缩写:  /fl[n])  /fileloggerparameters[n]:&lt;parameters&gt;                     为文件记录器提供任何额外的参数。                     存在此开关意味着                     存在对应的 /filelogger[n] 开关。                    “n”(如果存在)可以为 1-9 的数字。                     任何分布式文件记录器也可以使用                     /fileloggerparameters，具体可参阅 /distributedFileLogger 的说明。                     (缩写: /flp[n])                     为控制台记录器列出的相同参数                     可用。某些其他可用参数有:                        LogFile -- 生成日志将写入其中的                            日志文件的路径。                        Append -- 确定是将生成日志附加到日志文件，                            还是覆盖日志文件。如果设置此                            开关，则会将生成日志附加到日志文件；                            如果不设置此开关，则会覆盖                            现有日志文件的内容。                            默认值为不附加到日志文件。                        Encoding -- 指定文件的编码，                            例如，UTF-8、Unicode 或 ASCII                     默认的详细级别为 Detailed。                     示例:                       /fileLoggerParameters:LogFile=MyLog.log;Append;                                           Verbosity=diagnostic;Encoding=UTF-8                       /flp:Summary;Verbosity=minimal;LogFile=msbuild.sum                       /flp1:warningsonly;logfile=msbuild.wrn                       /flp2:errorsonly;logfile=msbuild.err  /distributedlogger:&lt;central logger&gt;*&lt;forwarding logger&gt;                     使用此记录器来记录 MSBuild 中的事件，向每个节点                     附加不同的记录器实例。若要指定                     多个记录器，请分别指定每个记录器。                     (缩写 /dl)                     &lt;logger&gt; 语法为:                       [&lt;logger class&gt;,]&lt;logger assembly&gt;[;&lt;logger parameters&gt;]                     &lt;logger class&gt; 语法为:                       [&lt;partial or full namespace&gt;.]&lt;logger class name&gt;                     &lt;logger assembly&gt; 语法为:                       {&lt;assembly name&gt;[,&lt;strong name&gt;] | &lt;assembly file&gt;}                     &lt;logger parameters&gt; 是可选的，并且按键入的                     形式原样传递给记录器。(缩写: /l)                     示例:                       /dl:XMLLogger,MyLogger,Version=1.0.2,Culture=neutral                       /dl:MyLogger,C:\My.dll*ForwardingLogger,C:\Logger.dll  /distributedFileLogger                     将生成输出记录到多个日志文件，每个 MSBuild 节点                     一个日志文件。这些文件的初始位置为                     当前目录。默认情况下，这些文件名为                     “MSBuild&lt;nodeid&gt;.log”。可通过添加                     “/fileLoggerParameters”开关来指定                     这些文件的位置和 fileLogger 的其他参数。                     如果日志文件名是通过 fileLoggerParameters                     开关设置的，分布式记录器将使用 fileName 作为                     模板并将节点 ID 附加到此 fileName                     以便为每个节点创建一个日志文件。  /logger:&lt;logger&gt;   使用此记录器来记录 MSBuild 中的事件。若要指定                     多个记录器，请分别指定每个记录器。                     &lt;logger&gt; 语法为:                       [&lt;logger class&gt;,]&lt;logger assembly&gt;[;&lt;logger parameters&gt;]                    &lt;logger class&gt; 语法为:                        [&lt;partial or full namespace&gt;.]&lt;logger class name&gt;                   &lt;logger assembly&gt; 语法为:                        {&lt;assembly name&gt;[,&lt;strong name&gt;] | &lt;assembly file&gt;}                     &lt;logger parameters&gt; 是可选的，并按键入的                    形式原样传递给记录器。(缩写: /l)                     示例:                       /logger:XMLLogger,MyLogger,Version=1.0.2,Culture=neutral                       /logger:XMLLogger,C:\Loggers\MyLogger.dll;OutputAsHTML  /validate          依据默认架构验证项目。(缩写:                     /val)  /validate:&lt;schema&gt; 依据指定的架构验证项目。 (缩写:                     /val)                     示例:                       /validate:MyExtendedBuildSchema.xsd  /ignoreprojectextensions:&lt;扩展名&gt;                     确定要生成的项目文件时要忽略的                     扩展名的列表。使用分号或逗号来分隔                     多个扩展名。                     (缩写: /ignore)                     示例:                       /ignoreprojectextensions:.sln  /nodeReuse:&lt;parameters&gt;                     允许或禁止重复使用 MSBuild 节点。                     参数包括:                     True -- 生成完成后节点将保留，                             并且将由后面的生成重复使用(默认)                     False -- 生成完成后节点将不会保留                     (缩写: /nr)                     示例:                       /nr:true  /preprocess[:file]                     通过嵌入将在生成过程中导入的                     所有文件并标记其边界，                     创建一个聚合的项目文件。这对于                     了解导入什么文件、从何处导入以及                     这些文件在生成中的构成                     非常有用。默认情况下，输出将写入                     控制台窗口。如果提供输出文件的路径，                     则将改用该路径。                     (缩写: /pp)                      示例:                       /pp:out.txt  /detailedsummary                     在生成的结尾显示有关                     所生成的配置以及如何向节点安排                     这些配置的详细信息。                     (缩写:  /ds)  @&lt;file&gt;            从文本文件插入命令行设置。若要指定                     多个响应文件，请分别指定每个响应                     文件。                     自动从以下位置使用任何                     名为“msbuild.rsp”的响应文件:                     (1) msbuild.exe 的目录                     (2) 生成的第一个项目或解决方案的目录  /noautoresponse    不自动包括任何 MSBuild.rsp 文件。(缩写:                     /noautorsp)  /nologo            不显示启动版权标志和版权消息。  /version           仅显示版本信息。(缩写:  /ver)  /help              显示此用法消息。(缩写: /? 或 /h)示例:        MSBuild MyApp.sln /t:Rebuild /p:Configuration=Release        MSBuild MyApp.csproj /t:Clean                             /p:Configuration=Debug;TargetFrameworkVersion=v3.5</code></pre><p>示例</p><pre><code>MSBuild.exe MyProject.proj /t:rebuild </code></pre><h1 id="演练：使用-MSBuild-创建-Visual-C-项目"><a href="#演练：使用-MSBuild-创建-Visual-C-项目" class="headerlink" title="演练：使用 MSBuild 创建 Visual C++ 项目"></a>演练：使用 MSBuild 创建 Visual C++ 项目</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/dd293607.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/dd293607.aspx</a></p><pre><code>msbuild myproject.vcxproj /p:configuration=debugmsbuild myproject.vcxproj /t:clean</code></pre><h2 id="将-MSBuild-与生成目标结合使用"><a href="#将-MSBuild-与生成目标结合使用" class="headerlink" title="将 MSBuild 与生成目标结合使用"></a>将 MSBuild 与生成目标结合使用</h2><p>生成目标是指定的一组预定义命令或用户定义的命令，这组命令可在生成期间执行。 使用目标命令行选项 (/t) 可以指定生成目标。 对于 myproject 示例项目，预定义的 clean 目标将删除调试文件夹中的所有文件并创建新日志文件。<br>在命令提示符处，键入以下命令以清理 myproject。<br>    msbuild myproject.vcxproj /t:clean</p><h2 id="将-MSBuild-与生成属性结合使用"><a href="#将-MSBuild-与生成属性结合使用" class="headerlink" title="将 MSBuild 与生成属性结合使用"></a>将 MSBuild 与生成属性结合使用</h2><p>通过使用属性命令行选项 (/p)，您可以在项目生成文件中重写属性。 在 myproject 示例项目中，发布版本配置或调试版本配置是由 Configuration 属性指定的。 用来运行生成的应用程序的操作系统是由 Platform 属性指定的。<br>在命令提示符处，键入以下命令，以创建打算在 32 位 Windows 上运行的 myproject 应用程序的调试版本。</p><pre><code>msbuild myproject.vcxproj /p:configuration=debug /p:platform=win32</code></pre><p>假设 myproject 示例项目也为 64 位 Windows 定义了配置，并为名为 myplatform 的自定义操作系统定义了另一个配置。<br>在命令提示符处，键入以下命令，以创建在 64 位 Windows 上运行的发布版本。</p><pre><code>msbuild myproject.vcxproj /p:configuration=release /p:platform=x64</code></pre><p>在命令提示符处，键入以下命令以为 myplatform 创建发布版本。</p><pre><code>msbuild myproject.vcxproj /p:configuration=release /p:platform=myplatform</code></pre><h1 id="个人写的例子："><a href="#个人写的例子：" class="headerlink" title="个人写的例子："></a>个人写的例子：</h1><p>vs2005:</p><pre><code>call &quot;D:\Program Files (x86)\Microsoft Visual Studio 8\VC\vcvarsall.bat&quot; x86</code></pre><p>vs2010:</p><pre><code>call &quot;C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat&quot; x86</code></pre><p>vs2012:</p><pre><code>call &quot;C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat&quot; x86</code></pre><p>重新编译：</p><pre><code>MSBuild %~dp0..\Project\VC10\pro.sln /t:rebuild /p:configuration=&quot;Release&quot;</code></pre><h1 id="在命令行上生成"><a href="#在命令行上生成" class="headerlink" title="在命令行上生成"></a>在命令行上生成</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/f35ctcxw.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/f35ctcxw.aspx</a></p><h1 id="为命令行生成设置路径和环境变量"><a href="#为命令行生成设置路径和环境变量" class="headerlink" title="为命令行生成设置路径和环境变量"></a>为命令行生成设置路径和环境变量</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/f2ccy3wt.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/f2ccy3wt.aspx</a></p><h1 id="生成应用程序"><a href="#生成应用程序" class="headerlink" title="生成应用程序"></a>生成应用程序</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/ms181709.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/ms181709.aspx</a></p><p><a href="https://msdn.microsoft.com/zh-cn/library/ms244359.aspx" target="_blank" rel="noopener">Team Foundation Build 参考</a></p><h1 id="vcvars-bat-设置命令行编译环境"><a href="#vcvars-bat-设置命令行编译环境" class="headerlink" title="vcvars.bat 设置命令行编译环境"></a>vcvars.bat 设置命令行编译环境</h1><pre><code>@echo offif defined VSINSTALLDIR (    echo already installedgoto eof)set &quot;_ARG_=%1&quot;rem helpif &quot;%_ARG_%&quot; EQU &quot;&quot; (    echo syntax: %0 [2005 ^| 2008 ^| 2010 ^| 2012 ^| 2013 ^| 2015] [64]    goto eof)if &quot;%_ARG_%&quot; EQU &quot;2005&quot; set &quot;ProgramFiles(x86)=%VS80COMNTOOLS%..\..\&quot;if &quot;%_ARG_%&quot; EQU &quot;2008&quot; set &quot;ProgramFiles(x86)=%VS90COMNTOOLS%..\..\&quot;if &quot;%_ARG_%&quot; EQU &quot;2010&quot; set &quot;ProgramFiles(x86)=%VS100COMNTOOLS%..\..\&quot;if &quot;%_ARG_%&quot; EQU &quot;2012&quot; set &quot;ProgramFiles(x86)=%VS110COMNTOOLS%..\..\&quot;if &quot;%_ARG_%&quot; EQU &quot;2013&quot; set &quot;ProgramFiles(x86)=%VS120COMNTOOLS%..\..\&quot;if &quot;%_ARG_%&quot; EQU &quot;2015&quot; set &quot;ProgramFiles(x86)=%VS140COMNTOOLS%..\..\&quot;echo &quot;%ProgramFiles(x86)%&quot;if NOT DEFINED ProgramFiles(x86) set ProgramFiles(x86)=C:\Program Files (x86)if NOT DEFINED VS80COMNTOOLS set VS80COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 8\Common7\Tools\if NOT DEFINED VS90COMNTOOLS set VS90COMNTOOLS=c:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\Tools\rem VS100COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\Tools\rem VS110COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\Tools\rem VS120COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\rem VS140COMNTOOLS=D:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\rem VS80COMNTOOLS=D:\Program Files (x86)\Microsoft Visual Studio 8\Common7\Tools\rem VS90COMNTOOLS=D:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\Tools\rem VSSDK140Install=D:\Program Files (x86)\Microsoft Visual Studio 14.0\VSSDK\set &quot;_OPT_=%2&quot;if NOT DEFINED _OPT_ set _OPT_=64if &quot;%_OPT_%&quot; EQU &quot;x64&quot; set &quot;_OPT_=64&quot;if &quot;%_ARG_%&quot; EQU &quot;2005&quot; (  if &quot;%_OPT_%&quot; EQU &quot;64&quot; (pushd &quot;%ProgramFiles(x86)%\VC\bin\amd64\&quot;call vcvarsamd64.batset PROCESSOR_ARCHITECTURE=AMD64  ) else (pushd &quot;%ProgramFiles(x86)%\VC\bin&quot;call vcvars32.batset PROCESSOR_ARCHITECTURE=x86  )  popd  goto eof)rem set the variable _VC_set _VC_=if &quot;%_ARG_%&quot; EQU &quot;2008&quot; set &quot;_VC_=9.0&quot;if &quot;%_ARG_%&quot; EQU &quot;2010&quot; set &quot;_VC_=10.0&quot;if &quot;%_ARG_%&quot; EQU &quot;2012&quot; set &quot;_VC_=11.0&quot;if &quot;%_ARG_%&quot; EQU &quot;2013&quot; set &quot;_VC_=12.0&quot;if &quot;%_ARG_%&quot; EQU &quot;2015&quot; set &quot;_VC_=14.0&quot;if DEFINED _VC_ (  echo &quot;%ProgramFiles(x86)%\VC\&quot;  pushd &quot;%ProgramFiles(x86)%\VC\&quot;  if &quot;%_OPT_%&quot; EQU &quot;64&quot; (vcvarsall.bat x86_amd64set PROCESSOR_ARCHITECTURE=AMD64  ) else (vcvarsall.bat x86set PROCESSOR_ARCHITECTURE=x86  )  if errorlevel 1 (      echo.*** error - failed ***  ) else (      echo Success Environment for Visual Studio %_VC_% = %*  )  popd) else (  echo unknown version of Visual Studio %*  set _ARG_=  call:help)remrem That&apos;s all Folks!:eof</code></pre><h1 id="devenv"><a href="#devenv" class="headerlink" title="devenv"></a>devenv</h1><pre><code>@echo offcd /d %~dp0set BUILD_TARGET=%CD%\MyProject.slnecho.if &quot;&quot;==&quot;%VS80COMNTOOLS%&quot; (   echo environment variable &apos;VS80COMNTOOLS%&apos; has not been set   goto Exit_Fail)set DEVENV=%VS80COMNTOOLS%\..\IDE\devenv.comif not exist &quot;%DEVENV%&quot; (   echo file &quot;%DEVENV%&quot; can not be found   goto Exit_Fail)@echo on&quot;%DEVENV%&quot; &quot;%BUILD_TARGET%&quot; /Build Release:Exit_Failpause</code></pre><p><code>Build</code>可换成<code>Rebuild</code></p><p><a href="https://www.cnblogs.com/songxingzhu/p/5242159.html" target="_blank" rel="noopener">使用devenv/MSBuild在命令行编译sln或csproj</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;Visual-Studio-文档&quot;&gt;&lt;a href=&quot;#Visual-Studio-文档&quot; class=&quot;headerlink&quot; title=&quot;Visual Studio 文档&quot;&gt;&lt;/a&gt;Visual Studio 文档&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="MSBuild" scheme="https://caojingyou.github.io/tags/MSBuild/"/>
+    
+      <category term="VS" scheme="https://caojingyou.github.io/tags/VS/"/>
     
   </entry>
   
@@ -655,11 +578,38 @@
   </entry>
   
   <entry>
+    <title>libssh2</title>
+    <link href="https://caojingyou.github.io/2017/11/24/libssh2/"/>
+    <id>https://caojingyou.github.io/2017/11/24/libssh2/</id>
+    <published>2017-11-24T08:03:00.000Z</published>
+    <updated>2018-04-12T06:26:52.577Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="libssh2"><a href="#libssh2" class="headerlink" title="libssh2"></a>libssh2</h1><h2 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h2><p><a href="https://www.libssh2.org/" title="https://www.libssh2.org/" target="_blank" rel="noopener">https://www.libssh2.org/</a></p><p><a href="https://github.com/libssh2/libssh2" title="https://github.com/libssh2/libssh2" target="_blank" rel="noopener">https://github.com/libssh2/libssh2</a></p><h2 id="编译："><a href="#编译：" class="headerlink" title="编译："></a>编译：</h2><p>需要<a href="https://www.openssl.org/" target="_blank" rel="noopener">openssl</a>以及<a href="http://www.zlib.net/" target="_blank" rel="noopener">zlib</a></p><p>修改libssh下的win32目录下config.mk,修改openssl与zlib路径</p><p>在source根目录下nmake /f NMakefile</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;libssh2&quot;&gt;&lt;a href=&quot;#libssh2&quot; class=&quot;headerlink&quot; title=&quot;libssh2&quot;&gt;&lt;/a&gt;libssh2&lt;/h1&gt;&lt;h2 id=&quot;下载：&quot;&gt;&lt;a href=&quot;#下载：&quot; class=&quot;headerlink&quot; title=
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="加密" scheme="https://caojingyou.github.io/tags/%E5%8A%A0%E5%AF%86/"/>
+    
+      <category term="libssh2" scheme="https://caojingyou.github.io/tags/libssh2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>C++与浏览器交互</title>
     <link href="https://caojingyou.github.io/2017/11/15/C++%E4%B8%8E%E6%B5%8F%E8%A7%88%E5%99%A8%E4%BA%A4%E4%BA%92/"/>
     <id>https://caojingyou.github.io/2017/11/15/C++与浏览器交互/</id>
     <published>2017-11-15T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.056Z</updated>
+    <updated>2018-04-12T06:29:23.054Z</updated>
     
     <content type="html"><![CDATA[<h1 id="WebBrowser"><a href="#WebBrowser" class="headerlink" title="WebBrowser"></a>WebBrowser</h1><ul><li><a href="http://blog.csdn.net/charlessimonyi/article/details/18447471" target="_blank" rel="noopener">http://blog.csdn.net/charlessimonyi/article/details/18447471</a></li><li><a href="http://blog.csdn.net/charlessimonyi/article/details/18450783" target="_blank" rel="noopener">http://blog.csdn.net/charlessimonyi/article/details/18450783</a></li><li><a href="http://blog.csdn.net/charlessimonyi/article/details/50984903" target="_blank" rel="noopener">http://blog.csdn.net/charlessimonyi/article/details/50984903</a></li><li><a href="https://www.codeproject.com/articles/2352/javascript-call-from-c" target="_blank" rel="noopener">https://www.codeproject.com/articles/2352/javascript-call-from-c</a></li></ul><h1 id="CEF"><a href="#CEF" class="headerlink" title="CEF"></a>CEF</h1><ul><li><a href="https://www.codeproject.com/Articles/1105945/Embedding-a-Chromium-browser-in-an-MFC-application" target="_blank" rel="noopener">https://www.codeproject.com/Articles/1105945/Embedding-a-Chromium-browser-in-an-MFC-application</a></li><li><a href="http://blog.csdn.net/daoxwj/article/details/8783629/" target="_blank" rel="noopener">http://blog.csdn.net/daoxwj/article/details/8783629/</a></li><li><a href="http://blog.csdn.net/daoxwj/article/details/8786911" target="_blank" rel="noopener">http://blog.csdn.net/daoxwj/article/details/8786911</a></li><li><a href="http://mariusbancila.ro/blog/2016/05/05/building-the-64-bit-version-of-chromium-embedded-framework-on-windows/" target="_blank" rel="noopener">http://mariusbancila.ro/blog/2016/05/05/building-the-64-bit-version-of-chromium-embedded-framework-on-windows/</a></li><li><a href="https://www.codeproject.com/Tips/785840/A-Simple-Windows-Example-Using-the-Chromium-Embedd" target="_blank" rel="noopener">https://www.codeproject.com/Tips/785840/A-Simple-Windows-Example-Using-the-Chromium-Embedd</a></li><li><a href="https://bitbucket.org/chromiumembedded/cef" target="_blank" rel="noopener">https://bitbucket.org/chromiumembedded/cef</a></li><li><a href="http://blog.csdn.net/mfcing/article/details/43953433" target="_blank" rel="noopener">http://blog.csdn.net/mfcing/article/details/43953433</a></li><li><a href="http://blog.csdn.net/mfcing/article/details/52066579" target="_blank" rel="noopener">http://blog.csdn.net/mfcing/article/details/52066579</a></li></ul><ol><li>CefClient：回调管理类，包含5个接口用于创建其它的回调类的对象</li><li>CefLifeSpanHandler: 回调类，用于控制popup对话框的创建和关闭等操作</li><li>CefLoadHandler: 回调类，可以用来监听frame的加载开始，完成，错误等信息</li><li>CefRequestHandler: 回调类，用于监听资源加载，重定向等信息</li><li>CefDisplayHandler: 回调类，用于监听页面加载状态，地址变化，标题等得信息</li><li>CefGeolocationHandler: 回调类，用于CEF3向嵌入者申请geolocation的权限</li><li>CefApp: 与进程，命令行参数，代理，资源管理相关的回调类，用于让CEF3的调用者们定制自己的逻辑</li><li>CefBrowser: renderer进程中执行浏览相关的类，例如前进，后退等</li><li>CefBrowserHost: browser进程中的执行浏览相关的类，其会把请求发送给CefBrowser</li><li>CefFrame: 表示的是页面中的一个Frame，可以加载特定url，在该运行环境下执行JavaScript代码等得。</li><li>V8：CEF3提供支持V8extension的接口，但是这有两个限制，第一，v8 extension仅在Renderer进程使用；第二，仅在沙箱模型关闭时使用</li></ol><p>需要安装cmake</p><ul><li><a href="https://cmake.org/" target="_blank" rel="noopener">https://cmake.org/</a></li><li><a href="https://cmake.org/download/" target="_blank" rel="noopener">https://cmake.org/download/</a></li><li></li></ul><h1 id="V8"><a href="#V8" class="headerlink" title="V8"></a>V8</h1><ul><li><a href="https://github.com/v8/v8/wiki" target="_blank" rel="noopener">https://github.com/v8/v8/wiki</a></li></ul><h1 id="SWIG"><a href="#SWIG" class="headerlink" title="SWIG"></a>SWIG</h1><p>SWIG 是一个非常优秀的开源工具，支持您将 C/C++ 代码与任何主流脚本语言相集成。此外，它向更广泛的受众公开了基本代码，改善了可测试性，让您的 Ruby 代码库某部分能快速写出高性能的 C/C++ 模块。</p><ul><li><a href="https://www.ibm.com/developerworks/cn/aix/library/au-swig/" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/aix/library/au-swig/</a></li><li><a href="https://github.com/swig/swig" target="_blank" rel="noopener">https://github.com/swig/swig</a></li><li><a href="http://www.swig.org/download.html?cm_mc_uid=85410804137714897351221&amp;cm_mc_sid_50200000=1489735122" target="_blank" rel="noopener">http://www.swig.org/download.html?cm_mc_uid=85410804137714897351221&amp;cm_mc_sid_50200000=1489735122</a></li></ul>]]></content>
     
@@ -679,6 +629,33 @@
       <category term="C++" scheme="https://caojingyou.github.io/tags/C/"/>
     
       <category term="浏览器" scheme="https://caojingyou.github.io/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/"/>
+    
+      <category term="CEF" scheme="https://caojingyou.github.io/tags/CEF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>gitbook</title>
+    <link href="https://caojingyou.github.io/2017/11/05/gitbook/"/>
+    <id>https://caojingyou.github.io/2017/11/05/gitbook/</id>
+    <published>2017-11-05T08:03:00.000Z</published>
+    <updated>2018-04-12T06:27:40.994Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="gitbook"><a href="#gitbook" class="headerlink" title="gitbook"></a>gitbook</h1><p><a href="https://github.com/GitbookIO/gitbook" title="https://github.com/GitbookIO/gitbook" target="_blank" rel="noopener">https://github.com/GitbookIO/gitbook</a></p><p><a href="https://toolchain.gitbook.com/ebook.html" title="https://toolchain.gitbook.com/ebook.html" target="_blank" rel="noopener">https://toolchain.gitbook.com/ebook.html</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;gitbook&quot;&gt;&lt;a href=&quot;#gitbook&quot; class=&quot;headerlink&quot; title=&quot;gitbook&quot;&gt;&lt;/a&gt;gitbook&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/GitbookIO/gitbook&quot; tit
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="gitbook" scheme="https://caojingyou.github.io/tags/gitbook/"/>
     
   </entry>
   
@@ -820,6 +797,31 @@
       <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
     
       <category term="Shell" scheme="https://caojingyou.github.io/tags/Shell/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Python</title>
+    <link href="https://caojingyou.github.io/2017/08/21/Python/"/>
+    <id>https://caojingyou.github.io/2017/08/21/Python/</id>
+    <published>2017-08-21T08:03:00.000Z</published>
+    <updated>2018-04-12T06:25:16.824Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a href="https://www.python.org/" title="https://www.python.org/" target="_blank" rel="noopener">https://www.python.org/</a></p><h2 id="第三方包安装方法"><a href="#第三方包安装方法" class="headerlink" title="第三方包安装方法"></a>第三方包安装方法</h2><h3 id="第一种方法（不使用pip或者easy-install-："><a href="#第一种方法（不使用pip或者easy-install-：" class="headerlink" title="第一种方法（不使用pip或者easy_install)："></a>第一种方法（不使用pip或者easy_install)：</h3><p>Step1:在网上找到的需要的包，下载下来。<code>eg. rsa-3.1.4.tar.gz</code></p><p>Step2:解压缩该文件。</p><p>Step3:命令行工具cd切换到所要安装的包的目录，找到<code>setup.py</code>文件，然后输入<code>python setup.py install</code></p><h3 id="第二种方法（使用pip或者easy-install）："><a href="#第二种方法（使用pip或者easy-install）：" class="headerlink" title="第二种方法（使用pip或者easy_install）："></a>第二种方法（使用pip或者easy_install）：</h3><p>直接打开cmd，敲<code>pip install rsa</code>。</p><h2 id="VS-Code"><a href="#VS-Code" class="headerlink" title="VS Code"></a>VS Code</h2><h3 id="安装python插件"><a href="#安装python插件" class="headerlink" title="安装python插件"></a>安装python插件</h3><p>打开VScode，Ctrl+p<br>输入 “ext install python”</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;下载&quot;&gt;&lt;a href=&quot;#下载&quot; class=&quot;headerlink&quot; title=&quot;下载&quot;&gt;&lt;/a&gt;下载&lt;/h2&gt;&lt;p&gt;&lt;a href=&quot;https://www.python.org/&quot; title=&quot;https://www.python.org/&quot; targ
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="Python" scheme="https://caojingyou.github.io/tags/Python/"/>
     
   </entry>
   
@@ -1089,11 +1091,11 @@ void CIOCPMod
   </entry>
   
   <entry>
-    <title>C#与C++相互发送消息</title>
-    <link href="https://caojingyou.github.io/2017/03/01/C++%20%E6%9C%80%E5%B0%8F%E5%8C%96%E5%88%B0%E6%89%98%E7%9B%98(YHCAO--yhcao--2017-04-10-09,18,14)/"/>
-    <id>https://caojingyou.github.io/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/</id>
+    <title> C++ 最小化到托盘</title>
+    <link href="https://caojingyou.github.io/2017/03/01/C++%20%E6%9C%80%E5%B0%8F%E5%8C%96%E5%88%B0%E6%89%98%E7%9B%98/"/>
+    <id>https://caojingyou.github.io/2017/03/01/C++ 最小化到托盘/</id>
     <published>2017-03-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.084Z</updated>
+    <updated>2018-01-05T08:47:19.025Z</updated>
     
     <content type="html"><![CDATA[<h1 id="C-最小化到托盘"><a href="#C-最小化到托盘" class="headerlink" title="C++ 最小化到托盘"></a>C++ 最小化到托盘</h1><pre><code>#define  WM_SHOWTASK (WM_USER + 1)void CTestDlg::OnSysCommand(UINT nID, LPARAM lParam){    if ((nID &amp; 0xFFF0) == IDM_ABOUTBOX)    {        CAboutDlg dlgAbout;        dlgAbout.DoModal();    }    else    {        //增加关闭时最小化到托盘的函数        if (nID == SC_CLOSE) //SC_MINIMIZE        {            ToTray();            return;        }        CDialog::OnSysCommand(nID, lParam);    }}BEGIN_MESSAGE_MAP(CTestDlg, CDialog)    ON_MESSAGE(WM_SHOWTASK, OnShowTask)    //}}AFX_MSG_MAPEND_MESSAGE_MAP()//在托盘区添加图标 最小化到托盘函数void ToTray(void);void CTestDlg::ToTray(void){    NOTIFYICONDATA nid;    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);    nid.hWnd = this-&gt;m_hWnd;    nid.uID = IDR_MAINFRAME;    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条    Shell_NotifyIcon(NIM_ADD, &amp;nid);//在托盘区添加图标    ShowWindow(SW_HIDE);//隐藏主窗口}//恢复界面函数afx_msg LRESULT OnShowTask(WPARAM wParam, LPARAM lParam);//托盘事件LRESULT CTestDlg::OnShowTask(WPARAM wParam, LPARAM lParam){    if (wParam != IDR_MAINFRAME)    {        return 1;    }    switch(lParam)    {    case WM_RBUTTONUP://右键起来时弹出快捷菜单，这里只有一个关闭    {        LPPOINT lpoint = new tagPOINT;        ::GetCursorPos(lpoint);//得到鼠标位置        CMenu menu;        menu.CreatePopupMenu();//声明一个弹出式菜单        //增加菜单项“关闭”，点击则发送消息WM_DESTROY给主窗口（已        //隐藏），将程序结束。        menu.AppendMenu(MF_STRING, WM_DESTROY, _T(&quot;退出&quot;));        //确定弹出式菜单的位置        menu.TrackPopupMenu(TPM_LEFTALIGN, lpoint-&gt;x, lpoint-&gt;y, this);        //资源回收        HMENU hmenu = menu.Detach();        menu.DestroyMenu();        delete lpoint;    }    break;    case WM_LBUTTONDBLCLK://双击左键的处理    {        this-&gt;ShowWindow(SW_SHOW);//简单的显示主窗口        this-&gt;ShowWindow(SW_RESTORE);        DeleteTray();    }    break;    default:        break;    }    return 0;}//删除托盘中图标void DeleteTray();void CTestlDlg::DeleteTray(){    NOTIFYICONDATA nid;    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);    nid.hWnd = this-&gt;m_hWnd;    nid.uID = IDR_MAINFRAME;    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标}//退出程序需时需要DeleteTray();void CTestDlg::OnDestroy(){    CDialog::OnDestroy();    // TODO: 在此处添加消息处理程序代码    DeleteTray();}//修改风格使得他不在任务栏显示int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct){    if (CDialog::OnCreate(lpCreateStruct) == -1)        return -1;    // TODO:  在此添加您专用的创建代码    //修改风格使得他不在任务栏显示    ModifyStyleEx(WS_EX_APPWINDOW, WS_EX_TOOLWINDOW);    return 0;}</code></pre><p>DeleteTray改为：</p><pre><code>void CTestDlg::DeleteTray(){    NOTIFYICONDATA nid;    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);    nid.hWnd = this-&gt;m_hWnd;    nid.uID = IDR_MAINFRAME;    nid.uFlags = NIF_ICON /*| NIF_MESSAGE | NIF_TIP*/;    //nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称    //nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));    //wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标}</code></pre><p>否则会出现程序退出后，托盘图标还在的情况，鼠标移动到图标上后，图标一闪然后消失的问题。</p>]]></content>
     
@@ -1116,11 +1118,11 @@ void CIOCPMod
   </entry>
   
   <entry>
-    <title> C++ 最小化到托盘</title>
-    <link href="https://caojingyou.github.io/2017/03/01/C++%20%E6%9C%80%E5%B0%8F%E5%8C%96%E5%88%B0%E6%89%98%E7%9B%98/"/>
-    <id>https://caojingyou.github.io/2017/03/01/C++ 最小化到托盘/</id>
+    <title>C#与C++相互发送消息</title>
+    <link href="https://caojingyou.github.io/2017/03/01/C++%20%E6%9C%80%E5%B0%8F%E5%8C%96%E5%88%B0%E6%89%98%E7%9B%98(YHCAO--yhcao--2017-04-10-09,18,14)/"/>
+    <id>https://caojingyou.github.io/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/</id>
     <published>2017-03-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.025Z</updated>
+    <updated>2018-01-05T08:47:19.084Z</updated>
     
     <content type="html"><![CDATA[<h1 id="C-最小化到托盘"><a href="#C-最小化到托盘" class="headerlink" title="C++ 最小化到托盘"></a>C++ 最小化到托盘</h1><pre><code>#define  WM_SHOWTASK (WM_USER + 1)void CTestDlg::OnSysCommand(UINT nID, LPARAM lParam){    if ((nID &amp; 0xFFF0) == IDM_ABOUTBOX)    {        CAboutDlg dlgAbout;        dlgAbout.DoModal();    }    else    {        //增加关闭时最小化到托盘的函数        if (nID == SC_CLOSE) //SC_MINIMIZE        {            ToTray();            return;        }        CDialog::OnSysCommand(nID, lParam);    }}BEGIN_MESSAGE_MAP(CTestDlg, CDialog)    ON_MESSAGE(WM_SHOWTASK, OnShowTask)    //}}AFX_MSG_MAPEND_MESSAGE_MAP()//在托盘区添加图标 最小化到托盘函数void ToTray(void);void CTestDlg::ToTray(void){    NOTIFYICONDATA nid;    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);    nid.hWnd = this-&gt;m_hWnd;    nid.uID = IDR_MAINFRAME;    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条    Shell_NotifyIcon(NIM_ADD, &amp;nid);//在托盘区添加图标    ShowWindow(SW_HIDE);//隐藏主窗口}//恢复界面函数afx_msg LRESULT OnShowTask(WPARAM wParam, LPARAM lParam);//托盘事件LRESULT CTestDlg::OnShowTask(WPARAM wParam, LPARAM lParam){    if (wParam != IDR_MAINFRAME)    {        return 1;    }    switch(lParam)    {    case WM_RBUTTONUP://右键起来时弹出快捷菜单，这里只有一个关闭    {        LPPOINT lpoint = new tagPOINT;        ::GetCursorPos(lpoint);//得到鼠标位置        CMenu menu;        menu.CreatePopupMenu();//声明一个弹出式菜单        //增加菜单项“关闭”，点击则发送消息WM_DESTROY给主窗口（已        //隐藏），将程序结束。        menu.AppendMenu(MF_STRING, WM_DESTROY, _T(&quot;退出&quot;));        //确定弹出式菜单的位置        menu.TrackPopupMenu(TPM_LEFTALIGN, lpoint-&gt;x, lpoint-&gt;y, this);        //资源回收        HMENU hmenu = menu.Detach();        menu.DestroyMenu();        delete lpoint;    }    break;    case WM_LBUTTONDBLCLK://双击左键的处理    {        this-&gt;ShowWindow(SW_SHOW);//简单的显示主窗口        this-&gt;ShowWindow(SW_RESTORE);        DeleteTray();    }    break;    default:        break;    }    return 0;}//删除托盘中图标void DeleteTray();void CTestlDlg::DeleteTray(){    NOTIFYICONDATA nid;    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);    nid.hWnd = this-&gt;m_hWnd;    nid.uID = IDR_MAINFRAME;    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标}//退出程序需时需要DeleteTray();void CTestDlg::OnDestroy(){    CDialog::OnDestroy();    // TODO: 在此处添加消息处理程序代码    DeleteTray();}//修改风格使得他不在任务栏显示int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct){    if (CDialog::OnCreate(lpCreateStruct) == -1)        return -1;    // TODO:  在此添加您专用的创建代码    //修改风格使得他不在任务栏显示    ModifyStyleEx(WS_EX_APPWINDOW, WS_EX_TOOLWINDOW);    return 0;}</code></pre><p>DeleteTray改为：</p><pre><code>void CTestDlg::DeleteTray(){    NOTIFYICONDATA nid;    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);    nid.hWnd = this-&gt;m_hWnd;    nid.uID = IDR_MAINFRAME;    nid.uFlags = NIF_ICON /*| NIF_MESSAGE | NIF_TIP*/;    //nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称    //nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));    //wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标}</code></pre><p>否则会出现程序退出后，托盘图标还在的情况，鼠标移动到图标上后，图标一闪然后消失的问题。</p>]]></content>
     
@@ -1172,11 +1174,67 @@ void CIOCPMod
   </entry>
   
   <entry>
+    <title>C# 系统托盘图标</title>
+    <link href="https://caojingyou.github.io/2017/02/01/C#%20%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98%E5%9B%BE%E6%A0%87/"/>
+    <id>https://caojingyou.github.io/2017/02/01/C# 系统托盘图标/</id>
+    <published>2017-02-01T08:03:00.000Z</published>
+    <updated>2018-01-05T08:47:18.798Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p><p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p><p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p><p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p><h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p><h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p><pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;    &lt;ContextMenu&gt;      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;    &lt;/ContextMenu&gt;  &lt;/tb:TaskbarIcon.ContextMenu&gt;&lt;/tb:TaskbarIcon&gt;</code></pre><h2 id="使用代码："><a href="#使用代码：" class="headerlink" title="使用代码："></a>使用代码：</h2><pre><code>private bool bCanClose = false;public MainWindow(){    InitializeComponent();    this.Closing += MainWindow_Closing;}private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e){    if (!bCanClose)    {        this.Hide();        e.Cancel = true;    }}private void MenuItem_Click_Show(object sender, RoutedEventArgs e){    this.Show();}private void MenuItem_Click_Close(object sender, RoutedEventArgs e){    bCanClose = true;    this.Close();}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;C-系统托盘图标&quot;&gt;&lt;a href=&quot;#C-系统托盘图标&quot; class=&quot;headerlink&quot; title=&quot;C# 系统托盘图标&quot;&gt;&lt;/a&gt;C# 系统托盘图标&lt;/h1&gt;&lt;h2 id=&quot;WPF-NotifyIcon-资料&quot;&gt;&lt;a href=&quot;#WPF-Notify
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
+    
+      <category term="系统托盘" scheme="https://caojingyou.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98/"/>
+    
+  </entry>
+  
+  <entry>
     <title>C#与C++相互发送消息</title>
     <link href="https://caojingyou.github.io/2017/02/01/C#%E4%B8%8EC++%E9%80%9A%E4%BF%A1/"/>
     <id>https://caojingyou.github.io/2017/02/01/C#与C++通信/</id>
     <published>2017-02-01T08:03:00.000Z</published>
     <updated>2018-01-05T08:47:19.040Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="C-与C-相互发送消息"><a href="#C-与C-相互发送消息" class="headerlink" title="C#与C++相互发送消息"></a>C#与C++相互发送消息</h1><h2 id="C-端："><a href="#C-端：" class="headerlink" title="C#端："></a>C#端：</h2><pre><code>namespace CshapMessage{    /// &lt;summary&gt;    /// MainWindow.xaml 的交互逻辑    /// &lt;/summary&gt;    public partial class MainWindow : Window    {        IntPtr hwnd;        const int WM_COPYDATA = 0x004A;        public struct COPYDATASTRUCT        {            public IntPtr dwData;            public int cData;            [MarshalAs(UnmanagedType.LPStr)]            public string lpData;        }        [DllImport(&quot;User32.dll&quot;)]        public static extern int SendMessage(int hwnd, int msg, int wParam, ref COPYDATASTRUCT IParam);        [DllImport(&quot;User32.dll&quot;)]        public static extern int FindWindow(string lpClassName, string lpWindowName);        public MainWindow()        {            InitializeComponent();            this.Title = &quot;CshapMessage&quot;;            this.Loaded += MainWindow_Loaded;            this.Closed += MainWindow_Closed;        }        private void MainWindow_Closed(object sender, EventArgs e)        {            try            {                HwndSource.FromHwnd(hwnd).RemoveHook(WndProc);            }            catch (Exception) { }        }        private void MainWindow_Loaded(object sender, RoutedEventArgs e)        {            hwnd = new WindowInteropHelper(this).Handle;            HwndSource.FromHwnd(hwnd).AddHook(new HwndSourceHook(WndProc));        }        /// &lt;summary&gt;        /// 向C++程序 CshapMessage发送消息        /// &lt;/summary&gt;        /// &lt;param name=&quot;nMessgeId&quot;&gt;&lt;/param&gt;        /// &lt;param name=&quot;strSend&quot;&gt;&lt;/param&gt;        /// &lt;returns&gt;&lt;/returns&gt;        private bool CshapSendMessage(int nMessgeId, String strSend)        {            int WINDOW_HANDLE = FindWindow(null, &quot;VcMessage&quot;);//VcMessage为向C++程序发送的窗口名称            if (WINDOW_HANDLE != 0)            {                COPYDATASTRUCT cdata;                cdata.dwData = (IntPtr)100;//这里可以传入一些自定义的数据，但只能是4字节整数                 cdata.lpData = strSend;//消息字符串                cdata.cData = System.Text.Encoding.Default.GetBytes(strSend).Length+1;//注意，这里的长度是按字节来算的                SendMessage(WINDOW_HANDLE, WM_COPYDATA, 0, ref cdata);            }            else            {                return false;            }            return true;        }        private void button_Click(object sender, RoutedEventArgs e)        {            String strSend = &quot;C#发送的信息&quot;;            int nMessageId = 100;            if (CshapSendMessage(nMessageId,strSend))            {                MessageBox.Show(&quot;发送消息成功&quot;);            }            else            {                MessageBox.Show(&quot;消息发送失败，请打开VcMessage程序&quot;);            }        }        //接收消息。        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)        {            if (msg == WM_COPYDATA)            {                COPYDATASTRUCT cdata = new COPYDATASTRUCT();                Type mytype = cdata.GetType();                cdata = (COPYDATASTRUCT)Marshal.PtrToStructure(lParam, mytype);                switch (cdata.dwData.ToInt32())                {                    case 1:                        {                            string strRecv = cdata.lpData;                            break;                        }                    default:                        break;                }            }            return IntPtr.Zero;        }    }}</code></pre><h2 id="C-端：-1"><a href="#C-端：-1" class="headerlink" title="C++端："></a>C++端：</h2><pre><code>BOOL CVcMessageDlg::OnCopyData(CWnd* pWnd, COPYDATASTRUCT* pCopyDataStruct){    // TODO: 在此添加消息处理程序代码和/或调用默认值    //接收C#发送来的数据    switch (pCopyDataStruct-&gt;dwData)    {    case 100:    {        CStringA strRecv = (char*)pCopyDataStruct-&gt;lpData;        break;    }    default:    {        break;    }    }    return CDialogEx::OnCopyData(pWnd, pCopyDataStruct);}void CVcMessageDlg::OnBnClickedButton1(){    // TODO: 在此添加控件通知处理程序代码    CStringA strSend = &quot;VC发送的数据&quot;;    if (VCSendMessage(1,strSend))    {        AfxMessageBox(_T(&quot;消息发送成功&quot;));    }     else    {        AfxMessageBox(_T(&quot;消息发送失败&quot;));    }}//************************************// Method:    VCSendMessage// FullName:  CVcMessageDlg::VCSendMessage// Access:    public // Returns:   BOOL// Qualifier: 向C#程序 CshapMessage发送消息// Parameter: int nMessgeId// Parameter: CStringA strSend//************************************BOOL CVcMessageDlg::VCSendMessage(int nMessgeId,CStringA strSend){    HWND hSendWindow = this-&gt;m_hWnd;    if (hSendWindow == NULL)    {        return FALSE;    }    CWnd *phwnd = FindWindow(NULL, _T(&quot;CshapMessage&quot;));    HWND hRecvWindow = NULL;    if (phwnd == NULL)    {        return FALSE;    }    hRecvWindow = phwnd-&gt;GetSafeHwnd();    if (hRecvWindow == NULL)    {        return FALSE;    }    COPYDATASTRUCT CopyData;    CopyData.dwData = nMessgeId;    CopyData.cbData = strSend.GetLength()+1;    CopyData.lpData = (PVOID)strSend.GetBuffer(CopyData.cbData);    ::SendMessage(hRecvWindow, WM_COPYDATA, (WPARAM)hSendWindow, (LPARAM)&amp;CopyData);    return TRUE;}</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;C-与C-相互发送消息&quot;&gt;&lt;a href=&quot;#C-与C-相互发送消息&quot; class=&quot;headerlink&quot; title=&quot;C#与C++相互发送消息&quot;&gt;&lt;/a&gt;C#与C++相互发送消息&lt;/h1&gt;&lt;h2 id=&quot;C-端：&quot;&gt;&lt;a href=&quot;#C-端：&quot; class
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
+    
+      <category term="通信" scheme="https://caojingyou.github.io/tags/%E9%80%9A%E4%BF%A1/"/>
+    
+      <category term="C++" scheme="https://caojingyou.github.io/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C#与C++相互发送消息</title>
+    <link href="https://caojingyou.github.io/2017/02/01/CShap%E4%B8%8EC++%E9%80%9A%E4%BF%A1/"/>
+    <id>https://caojingyou.github.io/2017/02/01/CShap与C++通信/</id>
+    <published>2017-02-01T08:03:00.000Z</published>
+    <updated>2018-01-05T08:47:19.092Z</updated>
     
     <content type="html"><![CDATA[<h1 id="C-与C-相互发送消息"><a href="#C-与C-相互发送消息" class="headerlink" title="C#与C++相互发送消息"></a>C#与C++相互发送消息</h1><h2 id="C-端："><a href="#C-端：" class="headerlink" title="C#端："></a>C#端：</h2><pre><code>namespace CshapMessage{    /// &lt;summary&gt;    /// MainWindow.xaml 的交互逻辑    /// &lt;/summary&gt;    public partial class MainWindow : Window    {        IntPtr hwnd;        const int WM_COPYDATA = 0x004A;        public struct COPYDATASTRUCT        {            public IntPtr dwData;            public int cData;            [MarshalAs(UnmanagedType.LPStr)]            public string lpData;        }        [DllImport(&quot;User32.dll&quot;)]        public static extern int SendMessage(int hwnd, int msg, int wParam, ref COPYDATASTRUCT IParam);        [DllImport(&quot;User32.dll&quot;)]        public static extern int FindWindow(string lpClassName, string lpWindowName);        public MainWindow()        {            InitializeComponent();            this.Title = &quot;CshapMessage&quot;;            this.Loaded += MainWindow_Loaded;            this.Closed += MainWindow_Closed;        }        private void MainWindow_Closed(object sender, EventArgs e)        {            try            {                HwndSource.FromHwnd(hwnd).RemoveHook(WndProc);            }            catch (Exception) { }        }        private void MainWindow_Loaded(object sender, RoutedEventArgs e)        {            hwnd = new WindowInteropHelper(this).Handle;            HwndSource.FromHwnd(hwnd).AddHook(new HwndSourceHook(WndProc));        }        /// &lt;summary&gt;        /// 向C++程序 CshapMessage发送消息        /// &lt;/summary&gt;        /// &lt;param name=&quot;nMessgeId&quot;&gt;&lt;/param&gt;        /// &lt;param name=&quot;strSend&quot;&gt;&lt;/param&gt;        /// &lt;returns&gt;&lt;/returns&gt;        private bool CshapSendMessage(int nMessgeId, String strSend)        {            int WINDOW_HANDLE = FindWindow(null, &quot;VcMessage&quot;);//VcMessage为向C++程序发送的窗口名称            if (WINDOW_HANDLE != 0)            {                COPYDATASTRUCT cdata;                cdata.dwData = (IntPtr)100;//这里可以传入一些自定义的数据，但只能是4字节整数                 cdata.lpData = strSend;//消息字符串                cdata.cData = System.Text.Encoding.Default.GetBytes(strSend).Length+1;//注意，这里的长度是按字节来算的                SendMessage(WINDOW_HANDLE, WM_COPYDATA, 0, ref cdata);            }            else            {                return false;            }            return true;        }        private void button_Click(object sender, RoutedEventArgs e)        {            String strSend = &quot;C#发送的信息&quot;;            int nMessageId = 100;            if (CshapSendMessage(nMessageId,strSend))            {                MessageBox.Show(&quot;发送消息成功&quot;);            }            else            {                MessageBox.Show(&quot;消息发送失败，请打开VcMessage程序&quot;);            }        }        //接收消息。        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)        {            if (msg == WM_COPYDATA)            {                COPYDATASTRUCT cdata = new COPYDATASTRUCT();                Type mytype = cdata.GetType();                cdata = (COPYDATASTRUCT)Marshal.PtrToStructure(lParam, mytype);                switch (cdata.dwData.ToInt32())                {                    case 1:                        {                            string strRecv = cdata.lpData;                            break;                        }                    default:                        break;                }            }            return IntPtr.Zero;        }    }}</code></pre><h2 id="C-端：-1"><a href="#C-端：-1" class="headerlink" title="C++端："></a>C++端：</h2><pre><code>BOOL CVcMessageDlg::OnCopyData(CWnd* pWnd, COPYDATASTRUCT* pCopyDataStruct){    // TODO: 在此添加消息处理程序代码和/或调用默认值    //接收C#发送来的数据    switch (pCopyDataStruct-&gt;dwData)    {    case 100:    {        CStringA strRecv = (char*)pCopyDataStruct-&gt;lpData;        break;    }    default:    {        break;    }    }    return CDialogEx::OnCopyData(pWnd, pCopyDataStruct);}void CVcMessageDlg::OnBnClickedButton1(){    // TODO: 在此添加控件通知处理程序代码    CStringA strSend = &quot;VC发送的数据&quot;;    if (VCSendMessage(1,strSend))    {        AfxMessageBox(_T(&quot;消息发送成功&quot;));    }     else    {        AfxMessageBox(_T(&quot;消息发送失败&quot;));    }}//************************************// Method:    VCSendMessage// FullName:  CVcMessageDlg::VCSendMessage// Access:    public // Returns:   BOOL// Qualifier: 向C#程序 CshapMessage发送消息// Parameter: int nMessgeId// Parameter: CStringA strSend//************************************BOOL CVcMessageDlg::VCSendMessage(int nMessgeId,CStringA strSend){    HWND hSendWindow = this-&gt;m_hWnd;    if (hSendWindow == NULL)    {        return FALSE;    }    CWnd *phwnd = FindWindow(NULL, _T(&quot;CshapMessage&quot;));    HWND hRecvWindow = NULL;    if (phwnd == NULL)    {        return FALSE;    }    hRecvWindow = phwnd-&gt;GetSafeHwnd();    if (hRecvWindow == NULL)    {        return FALSE;    }    COPYDATASTRUCT CopyData;    CopyData.dwData = nMessgeId;    CopyData.cbData = strSend.GetLength()+1;    CopyData.lpData = (PVOID)strSend.GetBuffer(CopyData.cbData);    ::SendMessage(hRecvWindow, WM_COPYDATA, (WPARAM)hSendWindow, (LPARAM)&amp;CopyData);    return TRUE;}</code></pre>]]></content>
     
@@ -1228,62 +1286,6 @@ void CIOCPMod
   </entry>
   
   <entry>
-    <title>C# 系统托盘图标</title>
-    <link href="https://caojingyou.github.io/2017/02/01/C#%20%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98%E5%9B%BE%E6%A0%87/"/>
-    <id>https://caojingyou.github.io/2017/02/01/C# 系统托盘图标/</id>
-    <published>2017-02-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:18.798Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p><p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p><p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p><p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p><h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p><h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p><pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;    &lt;ContextMenu&gt;      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;    &lt;/ContextMenu&gt;  &lt;/tb:TaskbarIcon.ContextMenu&gt;&lt;/tb:TaskbarIcon&gt;</code></pre><h2 id="使用代码："><a href="#使用代码：" class="headerlink" title="使用代码："></a>使用代码：</h2><pre><code>private bool bCanClose = false;public MainWindow(){    InitializeComponent();    this.Closing += MainWindow_Closing;}private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e){    if (!bCanClose)    {        this.Hide();        e.Cancel = true;    }}private void MenuItem_Click_Show(object sender, RoutedEventArgs e){    this.Show();}private void MenuItem_Click_Close(object sender, RoutedEventArgs e){    bCanClose = true;    this.Close();}</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;C-系统托盘图标&quot;&gt;&lt;a href=&quot;#C-系统托盘图标&quot; class=&quot;headerlink&quot; title=&quot;C# 系统托盘图标&quot;&gt;&lt;/a&gt;C# 系统托盘图标&lt;/h1&gt;&lt;h2 id=&quot;WPF-NotifyIcon-资料&quot;&gt;&lt;a href=&quot;#WPF-Notify
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
-    
-      <category term="系统托盘" scheme="https://caojingyou.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C#与C++相互发送消息</title>
-    <link href="https://caojingyou.github.io/2017/02/01/CShap%E4%B8%8EC++%E9%80%9A%E4%BF%A1/"/>
-    <id>https://caojingyou.github.io/2017/02/01/CShap与C++通信/</id>
-    <published>2017-02-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.092Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="C-与C-相互发送消息"><a href="#C-与C-相互发送消息" class="headerlink" title="C#与C++相互发送消息"></a>C#与C++相互发送消息</h1><h2 id="C-端："><a href="#C-端：" class="headerlink" title="C#端："></a>C#端：</h2><pre><code>namespace CshapMessage{    /// &lt;summary&gt;    /// MainWindow.xaml 的交互逻辑    /// &lt;/summary&gt;    public partial class MainWindow : Window    {        IntPtr hwnd;        const int WM_COPYDATA = 0x004A;        public struct COPYDATASTRUCT        {            public IntPtr dwData;            public int cData;            [MarshalAs(UnmanagedType.LPStr)]            public string lpData;        }        [DllImport(&quot;User32.dll&quot;)]        public static extern int SendMessage(int hwnd, int msg, int wParam, ref COPYDATASTRUCT IParam);        [DllImport(&quot;User32.dll&quot;)]        public static extern int FindWindow(string lpClassName, string lpWindowName);        public MainWindow()        {            InitializeComponent();            this.Title = &quot;CshapMessage&quot;;            this.Loaded += MainWindow_Loaded;            this.Closed += MainWindow_Closed;        }        private void MainWindow_Closed(object sender, EventArgs e)        {            try            {                HwndSource.FromHwnd(hwnd).RemoveHook(WndProc);            }            catch (Exception) { }        }        private void MainWindow_Loaded(object sender, RoutedEventArgs e)        {            hwnd = new WindowInteropHelper(this).Handle;            HwndSource.FromHwnd(hwnd).AddHook(new HwndSourceHook(WndProc));        }        /// &lt;summary&gt;        /// 向C++程序 CshapMessage发送消息        /// &lt;/summary&gt;        /// &lt;param name=&quot;nMessgeId&quot;&gt;&lt;/param&gt;        /// &lt;param name=&quot;strSend&quot;&gt;&lt;/param&gt;        /// &lt;returns&gt;&lt;/returns&gt;        private bool CshapSendMessage(int nMessgeId, String strSend)        {            int WINDOW_HANDLE = FindWindow(null, &quot;VcMessage&quot;);//VcMessage为向C++程序发送的窗口名称            if (WINDOW_HANDLE != 0)            {                COPYDATASTRUCT cdata;                cdata.dwData = (IntPtr)100;//这里可以传入一些自定义的数据，但只能是4字节整数                 cdata.lpData = strSend;//消息字符串                cdata.cData = System.Text.Encoding.Default.GetBytes(strSend).Length+1;//注意，这里的长度是按字节来算的                SendMessage(WINDOW_HANDLE, WM_COPYDATA, 0, ref cdata);            }            else            {                return false;            }            return true;        }        private void button_Click(object sender, RoutedEventArgs e)        {            String strSend = &quot;C#发送的信息&quot;;            int nMessageId = 100;            if (CshapSendMessage(nMessageId,strSend))            {                MessageBox.Show(&quot;发送消息成功&quot;);            }            else            {                MessageBox.Show(&quot;消息发送失败，请打开VcMessage程序&quot;);            }        }        //接收消息。        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)        {            if (msg == WM_COPYDATA)            {                COPYDATASTRUCT cdata = new COPYDATASTRUCT();                Type mytype = cdata.GetType();                cdata = (COPYDATASTRUCT)Marshal.PtrToStructure(lParam, mytype);                switch (cdata.dwData.ToInt32())                {                    case 1:                        {                            string strRecv = cdata.lpData;                            break;                        }                    default:                        break;                }            }            return IntPtr.Zero;        }    }}</code></pre><h2 id="C-端：-1"><a href="#C-端：-1" class="headerlink" title="C++端："></a>C++端：</h2><pre><code>BOOL CVcMessageDlg::OnCopyData(CWnd* pWnd, COPYDATASTRUCT* pCopyDataStruct){    // TODO: 在此添加消息处理程序代码和/或调用默认值    //接收C#发送来的数据    switch (pCopyDataStruct-&gt;dwData)    {    case 100:    {        CStringA strRecv = (char*)pCopyDataStruct-&gt;lpData;        break;    }    default:    {        break;    }    }    return CDialogEx::OnCopyData(pWnd, pCopyDataStruct);}void CVcMessageDlg::OnBnClickedButton1(){    // TODO: 在此添加控件通知处理程序代码    CStringA strSend = &quot;VC发送的数据&quot;;    if (VCSendMessage(1,strSend))    {        AfxMessageBox(_T(&quot;消息发送成功&quot;));    }     else    {        AfxMessageBox(_T(&quot;消息发送失败&quot;));    }}//************************************// Method:    VCSendMessage// FullName:  CVcMessageDlg::VCSendMessage// Access:    public // Returns:   BOOL// Qualifier: 向C#程序 CshapMessage发送消息// Parameter: int nMessgeId// Parameter: CStringA strSend//************************************BOOL CVcMessageDlg::VCSendMessage(int nMessgeId,CStringA strSend){    HWND hSendWindow = this-&gt;m_hWnd;    if (hSendWindow == NULL)    {        return FALSE;    }    CWnd *phwnd = FindWindow(NULL, _T(&quot;CshapMessage&quot;));    HWND hRecvWindow = NULL;    if (phwnd == NULL)    {        return FALSE;    }    hRecvWindow = phwnd-&gt;GetSafeHwnd();    if (hRecvWindow == NULL)    {        return FALSE;    }    COPYDATASTRUCT CopyData;    CopyData.dwData = nMessgeId;    CopyData.cbData = strSend.GetLength()+1;    CopyData.lpData = (PVOID)strSend.GetBuffer(CopyData.cbData);    ::SendMessage(hRecvWindow, WM_COPYDATA, (WPARAM)hSendWindow, (LPARAM)&amp;CopyData);    return TRUE;}</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;C-与C-相互发送消息&quot;&gt;&lt;a href=&quot;#C-与C-相互发送消息&quot; class=&quot;headerlink&quot; title=&quot;C#与C++相互发送消息&quot;&gt;&lt;/a&gt;C#与C++相互发送消息&lt;/h1&gt;&lt;h2 id=&quot;C-端：&quot;&gt;&lt;a href=&quot;#C-端：&quot; class
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
-    
-      <category term="通信" scheme="https://caojingyou.github.io/tags/%E9%80%9A%E4%BF%A1/"/>
-    
-      <category term="C++" scheme="https://caojingyou.github.io/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
     <title>钩子</title>
     <link href="https://caojingyou.github.io/2017/01/15/%E9%92%A9%E5%AD%90/"/>
     <id>https://caojingyou.github.io/2017/01/15/钩子/</id>
@@ -1318,10 +1320,10 @@ HWND g
   
   <entry>
     <title>C#运行外部程序的两种方法</title>
-    <link href="https://caojingyou.github.io/2017/01/01/C#%20ShellExcute%E4%B8%8EProcess/"/>
-    <id>https://caojingyou.github.io/2017/01/01/C# ShellExcute与Process/</id>
+    <link href="https://caojingyou.github.io/2017/01/01/CShap%20ShellExcute%E4%B8%8EProcess/"/>
+    <id>https://caojingyou.github.io/2017/01/01/CShap ShellExcute与Process/</id>
     <published>2017-01-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.049Z</updated>
+    <updated>2018-01-05T08:47:19.099Z</updated>
     
     <content type="html"><![CDATA[<h1 id="C-运行外部程序的两种方法"><a href="#C-运行外部程序的两种方法" class="headerlink" title="C#运行外部程序的两种方法"></a>C#运行外部程序的两种方法</h1><h2 id="ShellExecute"><a href="#ShellExecute" class="headerlink" title="ShellExecute"></a>ShellExecute</h2><pre><code>using System.Runtime.InteropServices;public enum ShowWindowCommands : int{    SW_HIDE = 0,    SW_SHOWNORMAL = 1,    //用最近的大小和位置显示，激活    SW_NORMAL = 1,    SW_SHOWMINIMIZED = 2,    SW_SHOWMAXIMIZED = 3,    SW_MAXIMIZE = 3,    SW_SHOWNOACTIVATE = 4,    SW_SHOW = 5,    SW_MINIMIZE = 6,    SW_SHOWMINNOACTIVE = 7,    SW_SHOWNA = 8,    SW_RESTORE = 9,    SW_SHOWDEFAULT = 10,    SW_MAX = 10}[DllImport(&quot;shell32.dll&quot;)]public static extern IntPtr ShellExecute(    IntPtr hwnd,    string lpszOp,    string lpszFile,    string lpszParams,    string lpszDir,    ShowWindowCommands FsShowCmd);</code></pre><h3 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h3><pre><code>ShellExecute(IntPtr.Zero, &quot;open&quot;, UrlOrPath, null, null, ShowWindowCommands.SW_SHOWNORMAL);</code></pre><p>UrlOrPath可为exe路径或者网页url(使用默认浏览器打开网页url)</p><p>使用ie打开网页url</p><pre><code>ShellExecute(NULL, &quot;open&quot;, &quot;IEXPLORE&quot;, &quot;http://www.csdn.net&quot;, NULL, SW_SHOWMAXIMIZED);</code></pre><h2 id="Process"><a href="#Process" class="headerlink" title="Process"></a>Process</h2><pre><code>using System.Diagnostics;private static string Execute(string exePath, string parameters){    string result = String.Empty;    using (Process p = new Process())    {        p.StartInfo.UseShellExecute = false;        p.StartInfo.CreateNoWindow = true;        p.StartInfo.RedirectStandardOutput = true;        p.StartInfo.FileName = exePath;        p.StartInfo.Arguments = parameters;        p.Start();        p.WaitForExit();        result = p.StandardOutput.ReadToEnd();    }    return result;}</code></pre>]]></content>
     
@@ -1345,10 +1347,10 @@ HWND g
   
   <entry>
     <title>C#运行外部程序的两种方法</title>
-    <link href="https://caojingyou.github.io/2017/01/01/CShap%20ShellExcute%E4%B8%8EProcess/"/>
-    <id>https://caojingyou.github.io/2017/01/01/CShap ShellExcute与Process/</id>
+    <link href="https://caojingyou.github.io/2017/01/01/C#%20ShellExcute%E4%B8%8EProcess/"/>
+    <id>https://caojingyou.github.io/2017/01/01/C# ShellExcute与Process/</id>
     <published>2017-01-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.099Z</updated>
+    <updated>2018-01-05T08:47:19.049Z</updated>
     
     <content type="html"><![CDATA[<h1 id="C-运行外部程序的两种方法"><a href="#C-运行外部程序的两种方法" class="headerlink" title="C#运行外部程序的两种方法"></a>C#运行外部程序的两种方法</h1><h2 id="ShellExecute"><a href="#ShellExecute" class="headerlink" title="ShellExecute"></a>ShellExecute</h2><pre><code>using System.Runtime.InteropServices;public enum ShowWindowCommands : int{    SW_HIDE = 0,    SW_SHOWNORMAL = 1,    //用最近的大小和位置显示，激活    SW_NORMAL = 1,    SW_SHOWMINIMIZED = 2,    SW_SHOWMAXIMIZED = 3,    SW_MAXIMIZE = 3,    SW_SHOWNOACTIVATE = 4,    SW_SHOW = 5,    SW_MINIMIZE = 6,    SW_SHOWMINNOACTIVE = 7,    SW_SHOWNA = 8,    SW_RESTORE = 9,    SW_SHOWDEFAULT = 10,    SW_MAX = 10}[DllImport(&quot;shell32.dll&quot;)]public static extern IntPtr ShellExecute(    IntPtr hwnd,    string lpszOp,    string lpszFile,    string lpszParams,    string lpszDir,    ShowWindowCommands FsShowCmd);</code></pre><h3 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h3><pre><code>ShellExecute(IntPtr.Zero, &quot;open&quot;, UrlOrPath, null, null, ShowWindowCommands.SW_SHOWNORMAL);</code></pre><p>UrlOrPath可为exe路径或者网页url(使用默认浏览器打开网页url)</p><p>使用ie打开网页url</p><pre><code>ShellExecute(NULL, &quot;open&quot;, &quot;IEXPLORE&quot;, &quot;http://www.csdn.net&quot;, NULL, SW_SHOWMAXIMIZED);</code></pre><h2 id="Process"><a href="#Process" class="headerlink" title="Process"></a>Process</h2><pre><code>using System.Diagnostics;private static string Execute(string exePath, string parameters){    string result = String.Empty;    using (Process p = new Process())    {        p.StartInfo.UseShellExecute = false;        p.StartInfo.CreateNoWindow = true;        p.StartInfo.RedirectStandardOutput = true;        p.StartInfo.FileName = exePath;        p.StartInfo.Arguments = parameters;        p.Start();        p.WaitForExit();        result = p.StandardOutput.ReadToEnd();    }    return result;}</code></pre>]]></content>
     
@@ -1399,10 +1401,10 @@ HWND g
   
   <entry>
     <title>C# http</title>
-    <link href="https://caojingyou.github.io/2016/12/01/C#%20http/"/>
-    <id>https://caojingyou.github.io/2016/12/01/C# http/</id>
+    <link href="https://caojingyou.github.io/2016/12/01/CShap%20http/"/>
+    <id>https://caojingyou.github.io/2016/12/01/CShap http/</id>
     <published>2016-12-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.028Z</updated>
+    <updated>2018-01-05T08:47:19.038Z</updated>
     
     <content type="html"><![CDATA[<h1 id="minihttpd"><a href="#minihttpd" class="headerlink" title="minihttpd"></a>minihttpd</h1><p>minihttpd：HTTPWeb服务器库</p><p><a href="https://www.codeproject.com/articles/11342/minihttpd-an-http-web-server-library" target="_blank" rel="noopener">https://www.codeproject.com/articles/11342/minihttpd-an-http-web-server-library</a></p><h1 id="Embedded-NET-HTTP-Server"><a href="#Embedded-NET-HTTP-Server" class="headerlink" title="Embedded .NET HTTP Server"></a>Embedded .NET HTTP Server</h1><p>嵌入式.NET的HTTP服务器</p><p><a href="https://www.codeproject.com/Articles/25050/Embedded-NET-HTTP-Server" target="_blank" rel="noopener">https://www.codeproject.com/Articles/25050/Embedded-NET-HTTP-Server</a></p><h1 id="HttpLib"><a href="#HttpLib" class="headerlink" title="HttpLib"></a>HttpLib</h1><p>HttpLib是一个免费的.net(Apache 2.0许可协议)web请求帮助,让开发人员更容易访问和从互联网下载资源</p><p><a href="http://httplib.codeplex.com/" target="_blank" rel="noopener">http://httplib.codeplex.com/</a></p>]]></content>
     
@@ -1427,10 +1429,10 @@ HWND g
   
   <entry>
     <title>C# http</title>
-    <link href="https://caojingyou.github.io/2016/12/01/CShap%20http/"/>
-    <id>https://caojingyou.github.io/2016/12/01/CShap http/</id>
+    <link href="https://caojingyou.github.io/2016/12/01/C#%20http/"/>
+    <id>https://caojingyou.github.io/2016/12/01/C# http/</id>
     <published>2016-12-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.038Z</updated>
+    <updated>2018-01-05T08:47:19.028Z</updated>
     
     <content type="html"><![CDATA[<h1 id="minihttpd"><a href="#minihttpd" class="headerlink" title="minihttpd"></a>minihttpd</h1><p>minihttpd：HTTPWeb服务器库</p><p><a href="https://www.codeproject.com/articles/11342/minihttpd-an-http-web-server-library" target="_blank" rel="noopener">https://www.codeproject.com/articles/11342/minihttpd-an-http-web-server-library</a></p><h1 id="Embedded-NET-HTTP-Server"><a href="#Embedded-NET-HTTP-Server" class="headerlink" title="Embedded .NET HTTP Server"></a>Embedded .NET HTTP Server</h1><p>嵌入式.NET的HTTP服务器</p><p><a href="https://www.codeproject.com/Articles/25050/Embedded-NET-HTTP-Server" target="_blank" rel="noopener">https://www.codeproject.com/Articles/25050/Embedded-NET-HTTP-Server</a></p><h1 id="HttpLib"><a href="#HttpLib" class="headerlink" title="HttpLib"></a>HttpLib</h1><p>HttpLib是一个免费的.net(Apache 2.0许可协议)web请求帮助,让开发人员更容易访问和从互联网下载资源</p><p><a href="http://httplib.codeplex.com/" target="_blank" rel="noopener">http://httplib.codeplex.com/</a></p>]]></content>
     
@@ -1537,6 +1539,37 @@ HWND g
   </entry>
   
   <entry>
+    <title>C# 视频编辑</title>
+    <link href="https://caojingyou.github.io/2016/10/01/C#%20%E8%A7%86%E9%A2%91%E7%BC%96%E8%BE%91/"/>
+    <id>https://caojingyou.github.io/2016/10/01/C# 视频编辑/</id>
+    <published>2016-10-01T08:03:00.000Z</published>
+    <updated>2018-01-05T08:47:19.068Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="VidCoder"><a href="#VidCoder" class="headerlink" title="VidCoder"></a>VidCoder</h1><p>VidCoder是一个开源免费的DVD/蓝光视频抓取和转码软件.使用HandBrake做为编码引擎.比Handbrake拥有更友好的用户界面.</p><p>可裁剪、剪切、字幕编辑、转码等。</p><p>官网：<br><a href="http://vidcoder.codeplex.com/" target="_blank" rel="noopener">http://vidcoder.codeplex.com/</a></p><h1 id="VLC-media-player"><a href="#VLC-media-player" class="headerlink" title="VLC media player"></a>VLC media player</h1><p>VLC 是一款自由、开源的跨平台多媒体播放器及框架，可播放大多数多媒体文件，以及 DVD、音频 CD、VCD 及各类流媒体协议。</p><p>官网：<a href="http://www.videolan.org/vlc/" target="_blank" rel="noopener">http://www.videolan.org/vlc/</a></p><h1 id="ffmpeg-Mencoder"><a href="#ffmpeg-Mencoder" class="headerlink" title="ffmpeg + Mencoder"></a>ffmpeg + Mencoder</h1><p>ffmpeg下载：<a href="http://ffmpeg.org/download.html" target="_blank" rel="noopener">http://ffmpeg.org/download.html</a></p><p>Mencoder下载：<a href="http://www.mplayerhq.hu/design7/dload.html" target="_blank" rel="noopener">http://www.mplayerhq.hu/design7/dload.html</a></p><p>C#调用ffmpeg的方法，仅供参考：<a href="https://github.com/CAOJINGYOU/VideoEditor" target="_blank" rel="noopener">VideoEditor</a></p><h1 id="SharpFFmpeg"><a href="#SharpFFmpeg" class="headerlink" title="SharpFFmpeg"></a>SharpFFmpeg</h1><p>SharpFFmpeg 是一个 ffmpeg 的 C# 绑定版本，允许 .NET 开发者轻松的创建音频和视频应用。</p><p>个人没用过，感觉不错，一会有机会研究下。</p><p>下载地址：<a href="https://sourceforge.net/projects/sharpffmpeg/" target="_blank" rel="noopener">https://sourceforge.net/projects/sharpffmpeg/</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;VidCoder&quot;&gt;&lt;a href=&quot;#VidCoder&quot; class=&quot;headerlink&quot; title=&quot;VidCoder&quot;&gt;&lt;/a&gt;VidCoder&lt;/h1&gt;&lt;p&gt;VidCoder是一个开源免费的DVD/蓝光视频抓取和转码软件.使用HandBrake做为编
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
+    
+      <category term="VidCoder" scheme="https://caojingyou.github.io/tags/VidCoder/"/>
+    
+      <category term="VLC" scheme="https://caojingyou.github.io/tags/VLC/"/>
+    
+      <category term="ffmpeg" scheme="https://caojingyou.github.io/tags/ffmpeg/"/>
+    
+  </entry>
+  
+  <entry>
     <title>C++ 引用计数技术及智能指针的简单实现</title>
     <link href="https://caojingyou.github.io/2016/10/01/C++%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"/>
     <id>https://caojingyou.github.io/2016/10/01/C++智能指针/</id>
@@ -1569,37 +1602,6 @@ HWND g
     <id>https://caojingyou.github.io/2016/10/01/CShap 视频编辑/</id>
     <published>2016-10-01T08:03:00.000Z</published>
     <updated>2018-01-05T08:47:19.076Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="VidCoder"><a href="#VidCoder" class="headerlink" title="VidCoder"></a>VidCoder</h1><p>VidCoder是一个开源免费的DVD/蓝光视频抓取和转码软件.使用HandBrake做为编码引擎.比Handbrake拥有更友好的用户界面.</p><p>可裁剪、剪切、字幕编辑、转码等。</p><p>官网：<br><a href="http://vidcoder.codeplex.com/" target="_blank" rel="noopener">http://vidcoder.codeplex.com/</a></p><h1 id="VLC-media-player"><a href="#VLC-media-player" class="headerlink" title="VLC media player"></a>VLC media player</h1><p>VLC 是一款自由、开源的跨平台多媒体播放器及框架，可播放大多数多媒体文件，以及 DVD、音频 CD、VCD 及各类流媒体协议。</p><p>官网：<a href="http://www.videolan.org/vlc/" target="_blank" rel="noopener">http://www.videolan.org/vlc/</a></p><h1 id="ffmpeg-Mencoder"><a href="#ffmpeg-Mencoder" class="headerlink" title="ffmpeg + Mencoder"></a>ffmpeg + Mencoder</h1><p>ffmpeg下载：<a href="http://ffmpeg.org/download.html" target="_blank" rel="noopener">http://ffmpeg.org/download.html</a></p><p>Mencoder下载：<a href="http://www.mplayerhq.hu/design7/dload.html" target="_blank" rel="noopener">http://www.mplayerhq.hu/design7/dload.html</a></p><p>C#调用ffmpeg的方法，仅供参考：<a href="https://github.com/CAOJINGYOU/VideoEditor" target="_blank" rel="noopener">VideoEditor</a></p><h1 id="SharpFFmpeg"><a href="#SharpFFmpeg" class="headerlink" title="SharpFFmpeg"></a>SharpFFmpeg</h1><p>SharpFFmpeg 是一个 ffmpeg 的 C# 绑定版本，允许 .NET 开发者轻松的创建音频和视频应用。</p><p>个人没用过，感觉不错，一会有机会研究下。</p><p>下载地址：<a href="https://sourceforge.net/projects/sharpffmpeg/" target="_blank" rel="noopener">https://sourceforge.net/projects/sharpffmpeg/</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;VidCoder&quot;&gt;&lt;a href=&quot;#VidCoder&quot; class=&quot;headerlink&quot; title=&quot;VidCoder&quot;&gt;&lt;/a&gt;VidCoder&lt;/h1&gt;&lt;p&gt;VidCoder是一个开源免费的DVD/蓝光视频抓取和转码软件.使用HandBrake做为编
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
-    
-      <category term="VidCoder" scheme="https://caojingyou.github.io/tags/VidCoder/"/>
-    
-      <category term="VLC" scheme="https://caojingyou.github.io/tags/VLC/"/>
-    
-      <category term="ffmpeg" scheme="https://caojingyou.github.io/tags/ffmpeg/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C# 视频编辑</title>
-    <link href="https://caojingyou.github.io/2016/10/01/C#%20%E8%A7%86%E9%A2%91%E7%BC%96%E8%BE%91/"/>
-    <id>https://caojingyou.github.io/2016/10/01/C# 视频编辑/</id>
-    <published>2016-10-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.068Z</updated>
     
     <content type="html"><![CDATA[<h1 id="VidCoder"><a href="#VidCoder" class="headerlink" title="VidCoder"></a>VidCoder</h1><p>VidCoder是一个开源免费的DVD/蓝光视频抓取和转码软件.使用HandBrake做为编码引擎.比Handbrake拥有更友好的用户界面.</p><p>可裁剪、剪切、字幕编辑、转码等。</p><p>官网：<br><a href="http://vidcoder.codeplex.com/" target="_blank" rel="noopener">http://vidcoder.codeplex.com/</a></p><h1 id="VLC-media-player"><a href="#VLC-media-player" class="headerlink" title="VLC media player"></a>VLC media player</h1><p>VLC 是一款自由、开源的跨平台多媒体播放器及框架，可播放大多数多媒体文件，以及 DVD、音频 CD、VCD 及各类流媒体协议。</p><p>官网：<a href="http://www.videolan.org/vlc/" target="_blank" rel="noopener">http://www.videolan.org/vlc/</a></p><h1 id="ffmpeg-Mencoder"><a href="#ffmpeg-Mencoder" class="headerlink" title="ffmpeg + Mencoder"></a>ffmpeg + Mencoder</h1><p>ffmpeg下载：<a href="http://ffmpeg.org/download.html" target="_blank" rel="noopener">http://ffmpeg.org/download.html</a></p><p>Mencoder下载：<a href="http://www.mplayerhq.hu/design7/dload.html" target="_blank" rel="noopener">http://www.mplayerhq.hu/design7/dload.html</a></p><p>C#调用ffmpeg的方法，仅供参考：<a href="https://github.com/CAOJINGYOU/VideoEditor" target="_blank" rel="noopener">VideoEditor</a></p><h1 id="SharpFFmpeg"><a href="#SharpFFmpeg" class="headerlink" title="SharpFFmpeg"></a>SharpFFmpeg</h1><p>SharpFFmpeg 是一个 ffmpeg 的 C# 绑定版本，允许 .NET 开发者轻松的创建音频和视频应用。</p><p>个人没用过，感觉不错，一会有机会研究下。</p><p>下载地址：<a href="https://sourceforge.net/projects/sharpffmpeg/" target="_blank" rel="noopener">https://sourceforge.net/projects/sharpffmpeg/</a></p>]]></content>
     

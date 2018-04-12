@@ -156,321 +156,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-Log4Net" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/15/Log4Net/">Log4Net</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/15/Log4Net/" class="archive-article-date">
-  	<time datetime="2017-12-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Log4Net"><a href="#Log4Net" class="headerlink" title="Log4Net"></a>Log4Net</h1><h2 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h2><pre><code>[assembly: log4net.Config.XmlConfigurator(Watch = true)]
-namespace APP02
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            ILog log = log4net.LogManager.GetLogger(&quot;Test&quot;);
-            log.Error(&quot;错误&quot;, new Exception(&quot;发生了一个异常&quot;));//错误
-            log.Fatal(&quot;严重错误&quot;, new Exception(&quot;发生了一个致命错误&quot;));//严重错误
-            log.Info(&quot;信息&quot;); //记录一般信息
-            log.Debug(&quot;调试信息&quot;);//记录调试信息
-            log.Warn(&quot;警告&quot;);//记录警告信息
-            Console.WriteLine(&quot;日志记录完毕。&quot;);
-            Console.Read();
-        }
-    }
-}
-</code></pre><p>或：</p>
-<pre><code>ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-            //记录错误日志
-            log.Info(&quot;error&quot;);
-</code></pre><h2 id="App-config文件配置："><a href="#App-config文件配置：" class="headerlink" title="App.config文件配置："></a>App.config文件配置：</h2><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
-&lt;configuration&gt;
-  &lt;configSections&gt;
-    &lt;section name=&quot;log4net&quot; type=&quot;System.Configuration.IgnoreSectionHandler&quot;/&gt;
-  &lt;/configSections&gt;
-  &lt;log4net&gt;
-    &lt;appender name=&quot;控制台输出&quot; type=&quot;log4net.Appender.ConsoleAppender&quot;&gt;
-      &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-        &lt;param name=&quot;ConversionPattern&quot; value=&quot;%d [%t] %-5p %c [%x] - %m%n&quot;  /&gt;
-      &lt;/layout&gt;
-    &lt;/appender&gt;
-    &lt;logger name=&quot;Test&quot;&gt;
-      &lt;level value=&quot;ALL&quot;/&gt;
-      &lt;appender-ref ref=&quot;控制台输出&quot; /&gt;
-    &lt;/logger&gt;
-  &lt;/log4net&gt;
-&lt;/configuration&gt;
-</code></pre><p>或：</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
-&lt;configuration&gt;
-  &lt;configSections&gt;
-    &lt;section name=&quot;log4net&quot; type=&quot;System.Configuration.IgnoreSectionHandler&quot;/&gt;
-  &lt;/configSections&gt;
-  &lt;appSettings&gt;
-  &lt;/appSettings&gt;
-  &lt;log4net&gt;
-    &lt;!--定义输出到文件中--&gt;
-    &lt;appender name=&quot;LogFileAppender&quot; type=&quot;log4net.Appender.FileAppender&quot;&gt;
-      &lt;!--定义文件存放位置--&gt;
-      &lt;file value=&quot;D:/log4netfile.txt&quot; /&gt;
-      &lt;appendToFile value=&quot;true&quot; /&gt;
-      &lt;rollingStyle value=&quot;Date&quot; /&gt;
-      &lt;datePattern value=&quot;yyyyMMdd-HH:mm:ss&quot; /&gt;
-      &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-        &lt;!--每条日志末尾的文字说明--&gt;
-        &lt;footer value=&quot;by 周公&quot; /&gt;
-        &lt;!--输出格式--&gt;
-        &lt;!--样例：2008-03-26 13:42:32,111 [10] INFO  Log4NetDemo.MainClass [(null)] - info--&gt;
-        &lt;conversionPattern value=&quot;记录时间：%date 线程ID:[%thread] 日志级别：%-5level 出错类：%logger property:[%property{NDC}] - 错误描述：%message%newline&quot; /&gt;
-      &lt;/layout&gt;
-    &lt;/appender&gt;
-    &lt;!--定义输出到控制台命令行中--&gt;
-    &lt;appender name=&quot;ConsoleAppender&quot; type=&quot;log4net.Appender.ConsoleAppender&quot;&gt;
-      &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-        &lt;conversionPattern value=&quot;%date [%thread] %-5level %logger [%property{NDC}] - %message%newline&quot; /&gt;
-      &lt;/layout&gt;
-    &lt;/appender&gt;
-    &lt;!--定义输出到windows事件中--&gt;
-    &lt;appender name=&quot;EventLogAppender&quot; type=&quot;log4net.Appender.EventLogAppender&quot;&gt;
-      &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-        &lt;conversionPattern value=&quot;%date [%thread] %-5level %logger [%property{NDC}] - %message%newline&quot; /&gt;
-      &lt;/layout&gt;
-    &lt;/appender&gt;
-    &lt;!--定义输出到数据库中，这里举例输出到Access数据库中，数据库为C盘的log4net.mdb--&gt;
-    &lt;appender name=&quot;AdoNetAppender_Access&quot; type=&quot;log4net.Appender.AdoNetAppender&quot;&gt;
-      &lt;connectionString value=&quot;Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:log4net.mdb&quot; /&gt;
-      &lt;commandText value=&quot;INSERT INTO LogDetails ([LogDate],[Thread],[Level],[Logger],[Message]) VALUES (@logDate, @thread, @logLevel, @logger,@message)&quot; /&gt;
-      &lt;!--定义各个参数--&gt;
-      &lt;parameter&gt;
-        &lt;parameterName value=&quot;@logDate&quot; /&gt;
-        &lt;dbType value=&quot;String&quot; /&gt;
-        &lt;size value=&quot;240&quot; /&gt;
-        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-          &lt;conversionPattern value=&quot;%date&quot; /&gt;
-        &lt;/layout&gt;
-      &lt;/parameter&gt;
-      &lt;parameter&gt;
-        &lt;parameterName value=&quot;@thread&quot; /&gt;
-        &lt;dbType value=&quot;String&quot; /&gt;
-        &lt;size value=&quot;240&quot; /&gt;
-        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-          &lt;conversionPattern value=&quot;%thread&quot; /&gt;
-        &lt;/layout&gt;
-      &lt;/parameter&gt;
-      &lt;parameter&gt;
-        &lt;parameterName value=&quot;@logLevel&quot; /&gt;
-        &lt;dbType value=&quot;String&quot; /&gt;
-        &lt;size value=&quot;240&quot; /&gt;
-        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-          &lt;conversionPattern value=&quot;%level&quot; /&gt;
-        &lt;/layout&gt;
-      &lt;/parameter&gt;
-      &lt;parameter&gt;
-        &lt;parameterName value=&quot;@logger&quot; /&gt;
-        &lt;dbType value=&quot;String&quot; /&gt;
-        &lt;size value=&quot;240&quot; /&gt;
-        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-          &lt;conversionPattern value=&quot;%logger&quot; /&gt;
-        &lt;/layout&gt;
-      &lt;/parameter&gt;
-      &lt;parameter&gt;
-        &lt;parameterName value=&quot;@message&quot; /&gt;
-        &lt;dbType value=&quot;String&quot; /&gt;
-        &lt;size value=&quot;240&quot; /&gt;
-        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-          &lt;conversionPattern value=&quot;%message&quot; /&gt;
-        &lt;/layout&gt;
-      &lt;/parameter&gt;
-    &lt;/appender&gt;
-    &lt;!--定义日志的输出媒介，下面定义日志以四种方式输出。也可以下面的按照一种类型或其他类型输出。--&gt;
-    &lt;root&gt;
-      &lt;!--文件形式记录日志--&gt;
-      &lt;appender-ref ref=&quot;LogFileAppender&quot; /&gt;
-      &lt;!--控制台控制显示日志--&gt;
-      &lt;appender-ref ref=&quot;ConsoleAppender&quot; /&gt;
-      &lt;!--Windows事件日志--&gt;
-      &lt;appender-ref ref=&quot;EventLogAppender&quot; /&gt;
-      &lt;!-- 如果不启用相应的日志记录，可以通过这种方式注释掉
-      &lt;appender-ref ref=&quot;AdoNetAppender_Access&quot; /&gt;
-      --&gt;
-    &lt;/root&gt;
-
-  &lt;/log4net&gt;
-&lt;/configuration&gt;
-</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="http://www.cnblogs.com/LiZhiW/p/4317198.html" target="_blank" rel="noopener">Log4Net使用详解</a></li>
-<li><a href="http://blog.csdn.net/zhoufoxcn/article/details/2220533" title="http://blog.csdn.net/zhoufoxcn/article/details/2220533" target="_blank" rel="noopener">http://blog.csdn.net/zhoufoxcn/article/details/2220533</a></li>
-<li><a href="http://blog.csdn.net/zhoufoxcn/article/details/6029021" title="http://blog.csdn.net/zhoufoxcn/article/details/6029021" target="_blank" rel="noopener">http://blog.csdn.net/zhoufoxcn/article/details/6029021</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Log4Net</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/15/Log4Net/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-程序只能启动一次" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/01/程序只能启动一次/">程序只能启动一次</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/01/程序只能启动一次/" class="archive-article-date">
-  	<time datetime="2017-12-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="程序只能启动一次"><a href="#程序只能启动一次" class="headerlink" title="程序只能启动一次"></a>程序只能启动一次</h1><pre><code>BOOL CIMServerApp::InitInstance()
-{
-    HANDLE hMutex=::CreateMutex(NULL,TRUE,&quot;NAME&quot;);//NAME随便写个
-    if (hMutex!=NULL)
-    {
-        if (GetLastError()==ERROR_ALREADY_EXISTS)
-        {
-            AfxMessageBox(&quot;已经有一个程序运行.&quot;);
-            return FALSE;
-        }
-    }
-}
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/01/程序只能启动一次/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-C++与浏览器交互" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -558,6 +243,10 @@ namespace APP02
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">浏览器</a>
         		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CEF</a>
+        		</li>
       		
 		</ul>
 	</div>
@@ -567,6 +256,85 @@ namespace APP02
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/11/15/C++与浏览器交互/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-gitbook" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/05/gitbook/">gitbook</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/05/gitbook/" class="archive-article-date">
+  	<time datetime="2017-11-05T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="gitbook"><a href="#gitbook" class="headerlink" title="gitbook"></a>gitbook</h1><p><a href="https://github.com/GitbookIO/gitbook" title="https://github.com/GitbookIO/gitbook" target="_blank" rel="noopener">https://github.com/GitbookIO/gitbook</a></p>
+<p><a href="https://toolchain.gitbook.com/ebook.html" title="https://toolchain.gitbook.com/ebook.html" target="_blank" rel="noopener">https://toolchain.gitbook.com/ebook.html</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">gitbook</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/05/gitbook/">展开全文 >></a>
         </p>
       
 
@@ -2388,6 +2156,89 @@ esac
 
 
   
+    <article id="post-Python" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/21/Python/">Python</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/21/Python/" class="archive-article-date">
+  	<time datetime="2017-08-21T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a href="https://www.python.org/" title="https://www.python.org/" target="_blank" rel="noopener">https://www.python.org/</a></p>
+<h2 id="第三方包安装方法"><a href="#第三方包安装方法" class="headerlink" title="第三方包安装方法"></a>第三方包安装方法</h2><h3 id="第一种方法（不使用pip或者easy-install-："><a href="#第一种方法（不使用pip或者easy-install-：" class="headerlink" title="第一种方法（不使用pip或者easy_install)："></a>第一种方法（不使用pip或者easy_install)：</h3><p>Step1:在网上找到的需要的包，下载下来。<code>eg. rsa-3.1.4.tar.gz</code></p>
+<p>Step2:解压缩该文件。</p>
+<p>Step3:命令行工具cd切换到所要安装的包的目录，找到<code>setup.py</code>文件，然后输入<code>python setup.py install</code></p>
+<h3 id="第二种方法（使用pip或者easy-install）："><a href="#第二种方法（使用pip或者easy-install）：" class="headerlink" title="第二种方法（使用pip或者easy_install）："></a>第二种方法（使用pip或者easy_install）：</h3><p>直接打开cmd，敲<code>pip install rsa</code>。</p>
+<h2 id="VS-Code"><a href="#VS-Code" class="headerlink" title="VS Code"></a>VS Code</h2><h3 id="安装python插件"><a href="#安装python插件" class="headerlink" title="安装python插件"></a>安装python插件</h3><p>打开VScode，Ctrl+p<br>输入 “ext install python”</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/21/Python/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-获取所有本机IP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -3189,6 +3040,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ocr</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CEF</a>
               </li>
             
             <div class="clearfix"></div>

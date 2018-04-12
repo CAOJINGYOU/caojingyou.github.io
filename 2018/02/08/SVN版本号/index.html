@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2018/02/08/SVN版本号/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="SVN获取版本号version_template.h#ifndef _VERSION_H_ #define _VERSION_H_ #define VER_MAJOR 1 #define VER_MINOR 0 #define VER_REVISION $WCREV$  #define SVN_REVISION&amp;quot;$WCMIXED?$WCRANGE$:$WCREV$$&amp;quot;  #de">
-<meta property="og:updated_time" content="2018-02-08T07:24:09.237Z">
+<meta property="og:updated_time" content="2018-03-07T06:05:11.378Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SVN版本号">
 <meta name="twitter:description" content="SVN获取版本号version_template.h#ifndef _VERSION_H_ #define _VERSION_H_ #define VER_MAJOR 1 #define VER_MINOR 0 #define VER_REVISION $WCREV$  #define SVN_REVISION&amp;quot;$WCMIXED?$WCRANGE$:$WCREV$$&amp;quot;  #de">
@@ -296,9 +296,15 @@ char *lockcmt   = &quot;&quot;;
 <pre><code>$(SolutionDir)\subwcrev.exe $(SolutionDir) $(SolutionDir)\src\qmlv\version_template.h $(SolutionDir)\src\qmlv\version.h
 </code></pre><p>SubWCRev 调用语法:</p>
 <pre><code>SubWCRev WorkingCopyPath [SrcVersionFile DstVersionFile]
+</code></pre><h1 id="svn版本日志"><a href="#svn版本日志" class="headerlink" title="svn版本日志"></a>svn版本日志</h1><p>Apache-Subversion-1.9.7：</p>
+<pre><code>&quot;svn.exe&quot; log --incremental -r4620
+&quot;svn.exe&quot; log --incremental -r4522
 </code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html" title="https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html" target="_blank" rel="noopener">https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html</a></p>
 <p><a href="http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html" title="http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html</a></p>
 <p><a href="https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html" title="https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html</a></p>
+<p><a href="http://blog.csdn.net/yangxiao2shi/article/details/50719286/" title="http://blog.csdn.net/yangxiao2shi/article/details/50719286/" target="_blank" rel="noopener">http://blog.csdn.net/yangxiao2shi/article/details/50719286/</a></p>
+<p><a href="https://www.visualsvn.com/support/svnbook/ref/svn/" title="https://www.visualsvn.com/support/svnbook/ref/svn/" target="_blank" rel="noopener">https://www.visualsvn.com/support/svnbook/ref/svn/</a></p>
+<p><a href="https://www.visualsvn.com/support/svnbook/ref/svn/c/log/" title="https://www.visualsvn.com/support/svnbook/ref/svn/c/log/" target="_blank" rel="noopener">https://www.visualsvn.com/support/svnbook/ref/svn/c/log/</a></p>
 
       
 
@@ -425,18 +431,18 @@ char *lockcmt   = &quot;&quot;;
   
 <nav id="article-nav">
   
-    <a href="/2018/03/01/WPF读写config配置文件/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/02/15/C#用到过的库/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          WPF读写config配置文件
+          C#用到的库
         
       </div>
     </a>
   
   
-    <a href="/2018/02/02/C++获取外部exe程序的返回值，判断图片颜色模式/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+    <a href="/2018/02/02/OpenSSL/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">OpenSSL</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -1015,6 +1021,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">ocr</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CEF</a>
               </li>
             
             <div class="clearfix"></div>
