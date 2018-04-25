@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2017/09/15/Crypto++/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="Crypto++学习// MyTest.cpp : 定义控制台应用程序的入口点。 //  #include &amp;quot;stdafx.h&amp;quot;  #include &amp;lt;iomanip&amp;gt;//setw与setfill头文件  #define CRYPTOPP_ENABLE_NAMESPACE_WEAK 1  #include &amp;quot;cryptlib.h&amp;quot; #includ">
-<meta property="og:updated_time" content="2018-01-05T08:47:19.088Z">
+<meta property="og:updated_time" content="2018-04-19T07:48:45.525Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Crypto++">
 <meta name="twitter:description" content="Crypto++学习// MyTest.cpp : 定义控制台应用程序的入口点。 //  #include &amp;quot;stdafx.h&amp;quot;  #include &amp;lt;iomanip&amp;gt;//setw与setfill头文件  #define CRYPTOPP_ENABLE_NAMESPACE_WEAK 1  #include &amp;quot;cryptlib.h&amp;quot; #includ">
@@ -556,7 +556,56 @@ int _tmain(int argc, _TCHAR *argv[])
     //http://www.cppblog.com/ArthasLee/archive/2010/12/01/135186.html
     return 0;
 }
-</code></pre>
+</code></pre><p>ChannelSwitch</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+#include &lt;cryptopp/channels.h&gt; 
+#include &lt;cryptopp/filters.h&gt; 
+#include &lt;cryptopp/sha.h&gt; 
+#include &lt;cryptopp/hex.h&gt;
+
+int main(int argc, char *argv[]) {
+std::string message = &quot;Now is the time for all good men to come to the aide of their country&quot;;
+
+// Allow user to override default message from command line arg.
+if(argc == 2 &amp;&amp; argv[1] != NULL) 
+    message = std::string(argv[1]);
+
+// Set hash variables
+std::string s1, s2, s3, s4;
+CryptoPP::SHA1 sha1; CryptoPP::SHA224 sha224; CryptoPP::SHA256 sha256; CryptoPP::SHA512 sha512;
+
+// Run hash functions
+CryptoPP::HashFilter f1(sha1, new CryptoPP::HexEncoder(new CryptoPP::StringSink(s1)));
+CryptoPP::HashFilter f2(sha224, new CryptoPP::HexEncoder(new CryptoPP::StringSink(s2)));
+CryptoPP::HashFilter f3(sha256, new CryptoPP::HexEncoder(new CryptoPP::StringSink(s3)));
+CryptoPP::HashFilter f4(sha512, new CryptoPP::HexEncoder(new CryptoPP::StringSink(s4)));
+
+// Set route to default
+CryptoPP::ChannelSwitch cs;
+cs.AddDefaultRoute(f1);
+cs.AddDefaultRoute(f2);
+cs.AddDefaultRoute(f3);
+cs.AddDefaultRoute(f4);
+
+CryptoPP::StringSource ss(message, true /*pumpAll*/, new CryptoPP::Redirector(cs));
+
+std::cout &lt;&lt; &quot;Message: &quot; &lt;&lt; message &lt;&lt; std::endl;
+std::cout &lt;&lt; &quot;SHA-1: &quot; &lt;&lt; s1 &lt;&lt; std::endl;
+std::cout &lt;&lt; &quot;SHA-224: &quot; &lt;&lt; s2 &lt;&lt; std::endl;
+std::cout &lt;&lt; &quot;SHA-256: &quot; &lt;&lt; s3 &lt;&lt; std::endl;
+std::cout &lt;&lt; &quot;SHA-512: &quot; &lt;&lt; s4 &lt;&lt; std::endl;
+}
+</code></pre><p>文档：</p>
+<ul>
+<li><a href="https://www.cryptopp.com/docs/ref/index.html" title="https://www.cryptopp.com/docs/ref/index.html" target="_blank" rel="noopener">https://www.cryptopp.com/docs/ref/index.html</a></li>
+<li><a href="https://www.cryptopp.com/wiki/Main_Page" title="https://www.cryptopp.com/wiki/Main_Page" target="_blank" rel="noopener">https://www.cryptopp.com/wiki/Main_Page</a></li>
+<li><a href="https://www.cryptopp.com/wiki/Special:AllPages" title="https://www.cryptopp.com/wiki/Special:AllPages" target="_blank" rel="noopener">https://www.cryptopp.com/wiki/Special:AllPages</a></li>
+<li><a href="https://www.cryptopp.com/wiki/Category:Class" title="https://www.cryptopp.com/wiki/Category:Class" target="_blank" rel="noopener">https://www.cryptopp.com/wiki/Category:Class</a><br>-<a href="https://www.cryptopp.com/wiki/Category:Sample" title="https://www.cryptopp.com/wiki/Category:Sample" target="_blank" rel="noopener">https://www.cryptopp.com/wiki/Category:Sample</a></li>
+<li><a href="https://www.cryptopp.com/wiki/ChannelSwitch" title="https://www.cryptopp.com/wiki/ChannelSwitch" target="_blank" rel="noopener">https://www.cryptopp.com/wiki/ChannelSwitch</a></li>
+<li><a href="https://www.cryptopp.com/wiki/Recommended_Books" title="https://www.cryptopp.com/wiki/Recommended_Books" target="_blank" rel="noopener">https://www.cryptopp.com/wiki/Recommended_Books</a></li>
+</ul>
+
       
 
       
@@ -1280,6 +1329,54 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CEF</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">c++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ATL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">WTL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Photoshop插件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Cryptlib</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Jenkins</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">自动构建</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">duilib</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">插件框架</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">regex</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Boost</a>
               </li>
             
             <div class="clearfix"></div>

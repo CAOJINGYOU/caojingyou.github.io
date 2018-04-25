@@ -156,6 +156,1104 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-jQuery" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/01/jQuery/">jQuery</a>
+    </h1>
+  
+
+        
+        <a href="/2016/07/01/jQuery/" class="archive-article-date">
+  	<time datetime="2016-07-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="jQuery"><a href="#jQuery" class="headerlink" title="jQuery"></a>jQuery</h1><p>jQuery是一个快速,小,功能丰富的JavaScript库。 它使 HTML文档遍历和操作、事件处理、 动画和Ajax更简单和易于使用的API,在工作 众多的浏览器。 和多功能性的结合 可扩展性,jQuery已经改变了数百万人的方式写 JavaScript。</p>
+<h2 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h2><ol>
+<li><a href="http://jquery.com/" title="http://jquery.com/" target="_blank" rel="noopener">http://jquery.com/</a></li>
+<li><a href="https://jquery.com/download/" title="https://1. jquery.com/download/" target="_blank" rel="noopener">https://jquery.com/download/</a></li>
+<li><a href="http://www.jquery123.com/" title="http://www.jquery123.com/" target="_blank" rel="noopener">http://www.jquery123.com/</a></li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">jQuery</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/07/01/jQuery/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-C++ tinyXML使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/15/C++ tinyXML使用/">C++ tinyXML使用</a>
+    </h1>
+  
+
+        
+        <a href="/2016/06/15/C++ tinyXML使用/" class="archive-article-date">
+  	<time datetime="2016-06-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="tinyXML下载："><a href="#tinyXML下载：" class="headerlink" title="tinyXML下载："></a>tinyXML下载：</h1><p><a href="http://sourceforge.net/projects/tinyxml/" title="http://sourceforge.net/projects/tinyxml/" target="_blank" rel="noopener">http://sourceforge.net/projects/tinyxml/</a></p>
+<h1 id="加载到项目："><a href="#加载到项目：" class="headerlink" title="加载到项目："></a>加载到项目：</h1><p>这六个文件添加到你的c++工程中，分别是tinystr.h、tinystr.cpp、tinyxml.h、tinyxml.cpp、tinyxmlerror.cpp、tinyxmlparser.cpp</p>
+<p>添加头文件</p>
+<pre><code>#include &quot;tinyxml.h&quot;
+</code></pre><h1 id="使用："><a href="#使用：" class="headerlink" title="使用："></a>使用：</h1><pre><code>_bstr_t errorWords;
+
+TiXmlDocument pXmlDoc;
+
+TiXmlDeclaration pDeclaration;
+pDeclaration.Parse( &quot;&lt;?xml version=&apos;1.0&apos; encoding=&apos;UTF-8&apos;?&gt;&quot;, 0, TIXML_ENCODING_UNKNOWN );//插入头
+pXmlDoc.InsertEndChild(pDeclaration);
+TiXmlElement xElement(&quot;proof-result&quot;);
+TiXmlElement errorElement(&quot;error-result&quot;);
+
+TiXmlElement errorLevelElement(&quot;error&quot;);
+errorLevelElement.SetAttribute(&quot;level&quot;,szLevel);//设置节点属性
+TiXmlText  levelText(m_pCheckResult[i].ErrWord);
+levelText.SetCDATA(true);//设置DATA属性
+errorLevelElement.InsertEndChild(levelText);
+errorElement.InsertEndChild(errorLevelElement);
+TiXmlElement replaceElement(&quot;replace&quot;);
+
+TiXmlText  replaceText(errorWords);
+replaceText.SetCDATA(true);
+replaceElement.InsertEndChild(replaceText);//插入文本
+errorElement.InsertEndChild(replaceElement);
+TiXmlElement positionElement(&quot;position&quot;);
+
+TiXmlText  szLevelText(errorWords);
+positionElement.InsertEndChild(szLevelText);
+errorElement.InsertEndChild(positionElement);
+TiXmlElement source_sentenceElement(&quot;source_sentence&quot;);
+TiXmlText  sentenseText(sentense);
+sentenseText.SetCDATA(true);
+source_sentenceElement.InsertEndChild(sentenseText);
+errorElement.InsertEndChild(source_sentenceElement);
+xElement.InsertEndChild(errorElement);
+
+TiXmlElement leader_sort_errorsElement(&quot;leader_sort_errors&quot;);
+leader_sort_errorsElement.SetAttribute(&quot;count&quot;,szCount);
+TiXmlText  szLeaderBufferText((const char*)szLeaderBuffer);
+szLeaderBufferText.SetCDATA(true);
+leader_sort_errorsElement.InsertEndChild(szLeaderBufferText);
+xElement.InsertEndChild(leader_sort_errorsElement);
+
+pXmlDoc.InsertEndChild(xElement);//插入根节点
+
+//获得生成的xml字符串
+TiXmlPrinter printer;
+printer.SetStreamPrinting();
+pXmlDoc.Accept( &amp;printer );
+_bstr_t bstrOutPutSentense(printer.CStr());
+</code></pre><h1 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h1><p>可以查看tinyXML自带的文档</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">tinyXML</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">XML</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/06/15/C++ tinyXML使用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-electron之Windows下使用 html js css 开发桌面应用程序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/01/electron之Windows下使用 html js css 开发桌面应用程序/">electron之Windows下使用 html js css 开发桌面应用程序</a>
+    </h1>
+  
+
+        
+        <a href="/2016/06/01/electron之Windows下使用 html js css 开发桌面应用程序/" class="archive-article-date">
+  	<time datetime="2016-06-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-atom-electron"><a href="#1-atom-electron" class="headerlink" title="1.atom/electron"></a>1.atom/electron</h1><h2 id="github"><a href="#github" class="headerlink" title="github:"></a>github:</h2><p><a href="https://github.com/atom/electron" target="_blank" rel="noopener">https://github.com/atom/electron</a></p>
+<h2 id="中文文档："><a href="#中文文档：" class="headerlink" title="中文文档："></a>中文文档：</h2><p><a href="https://github.com/atom/electron/tree/master/docs-translations/zh-CN" target="_blank" rel="noopener">https://github.com/atom/electron/tree/master/docs-translations/zh-CN</a></p>
+<h1 id="2-下载-electron-v0-36-5-win32-x64"><a href="#2-下载-electron-v0-36-5-win32-x64" class="headerlink" title="2.下载 electron-v0.36.5-win32-x64"></a>2.下载 electron-v0.36.5-win32-x64</h1><p><a href="https://github.com/atom/electron/releases/download/v0.36.5/electron-v0.36.5-win32-x64.zip" target="_blank" rel="noopener">https://github.com/atom/electron/releases/download/v0.36.5/electron-v0.36.5-win32-x64.zip</a></p>
+<h1 id="3-新建一个项目-快速入门："><a href="#3-新建一个项目-快速入门：" class="headerlink" title="3.新建一个项目-快速入门："></a>3.新建一个项目-快速入门：</h1><p><a href="https://github.com/atom/electron/blob/master/docs-translations/zh-CN/tutorial/quick-start.md" target="_blank" rel="noopener">https://github.com/atom/electron/blob/master/docs-translations/zh-CN/tutorial/quick-start.md</a></p>
+<p>大体上，一个 Electron 应用的目录结构如下：</p>
+<pre><code>your-app/
+├── package.json
+├── main.js
+└── index.html
+</code></pre><h2 id="you-app"><a href="#you-app" class="headerlink" title="you-app:"></a>you-app:</h2><p><a href="http://files.cnblogs.com/files/yhcao/electron%E4%B9%8BWindows%E4%B8%8B%E4%BD%BF%E7%94%A8html%2Cjs%2Ccss%2C%E5%BC%80%E5%8F%91%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F_you-app.rar" target="_blank" rel="noopener">electron之Windows下使用html,js,css,开发桌面应用程序_you-app.rar</a></p>
+<h3 id="package-json："><a href="#package-json：" class="headerlink" title="package.json："></a>package.json：</h3><pre><code>{
+  &quot;name&quot;: &quot;your-app&quot;,
+  &quot;version&quot; : &quot;0.1.0&quot;,
+  &quot;main&quot;: &quot;main.js&quot;
+}
+</code></pre><h3 id="main-js："><a href="#main-js：" class="headerlink" title="main.js："></a>main.js：</h3><pre><code>var app = require(&apos;app&apos;);  // 控制应用生命周期的模块。
+var BrowserWindow = require(&apos;browser-window&apos;);  // 创建原生浏览器窗口的模块
+// 保持一个对于 window 对象的全局引用，不然，当 JavaScript 被 GC，
+// window 会被自动地关闭
+var mainWindow = null;
+// 当所有窗口被关闭了，退出。
+app.on(&apos;window-all-closed&apos;, function() {
+  // 在 OS X 上，通常用户在明确地按下 Cmd + Q 之前
+  // 应用会保持活动状态
+  if (process.platform != &apos;darwin&apos;) {
+app.quit();
+  }
+});
+// 当 Electron 完成了初始化并且准备创建浏览器窗口的时候
+// 这个方法就被调用
+app.on(&apos;ready&apos;, function() {
+  // 创建浏览器窗口。
+  mainWindow = new BrowserWindow({width: 800, height: 600});
+  // 加载应用的 index.html
+  mainWindow.loadURL(&apos;file://&apos; + __dirname + &apos;/index.html&apos;);
+  // 打开开发工具
+  mainWindow.openDevTools();
+  // 当 window 被关闭，这个事件会被发出
+  mainWindow.on(&apos;closed&apos;, function() {
+// 取消引用 window 对象，如果你的应用支持多窗口的话，
+// 通常会把多个 window 对象存放在一个数组里面，
+// 但这次不是。
+mainWindow = null;
+  });
+});
+</code></pre><h3 id="index-html："><a href="#index-html：" class="headerlink" title="index.html："></a>index.html：</h3><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+&lt;title&gt;Hello World!&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+&lt;h1&gt;Hello World!&lt;/h1&gt;
+We are using io.js &lt;script&gt;document.write(process.version)&lt;/script&gt;
+and Electron &lt;script&gt;document.write(process.versions[&apos;electron&apos;])&lt;/script&gt;.
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h1 id="4-应用部署"><a href="#4-应用部署" class="headerlink" title="4.应用部署:"></a>4.应用部署:</h1><p><a href="https://github.com/atom/electron/blob/master/docs-translations/zh-CN/tutorial/application-distribution.md" target="_blank" rel="noopener">https://github.com/atom/electron/blob/master/docs-translations/zh-CN/tutorial/application-distribution.md</a></p>
+<p>为了使用Electron部署你的应用程序，你存放应用程序的文件夹需要叫做 app 并且需要放在 Electron 的资源文件夹下（在 OS X 中是指 Electron.app/Contents/Resources/，在 Linux 和 Windows 中是指 resources/） 就像这样：</p>
+<p>在 Windows 和 Linux 中:</p>
+<pre><code>electron/resources/app
+├── package.json
+├── main.js
+└── index.html
+</code></pre><h2 id="Windows环境下的NodeJS-NPM-Bower安装配置"><a href="#Windows环境下的NodeJS-NPM-Bower安装配置" class="headerlink" title="Windows环境下的NodeJS+NPM+Bower安装配置"></a>Windows环境下的NodeJS+NPM+Bower安装配置</h2><p><a href="http://jingyan.baidu.com/article/2d5afd69e243cc85a2e28efa.html" target="_blank" rel="noopener">http://jingyan.baidu.com/article/2d5afd69e243cc85a2e28efa.html</a></p>
+<h2 id="下载并安装node-v5-5-0-x64-msi"><a href="#下载并安装node-v5-5-0-x64-msi" class="headerlink" title="下载并安装node-v5.5.0-x64.msi"></a>下载并安装node-v5.5.0-x64.msi</h2><p><a href="https://nodejs.org/dist/v5.5.0/node-v5.5.0-x64.msi" target="_blank" rel="noopener">https://nodejs.org/dist/v5.5.0/node-v5.5.0-x64.msi</a></p>
+<h3 id="检验是否安装成功："><a href="#检验是否安装成功：" class="headerlink" title="检验是否安装成功："></a>检验是否安装成功：</h3><pre><code>C:\Users\yhcao&gt;node -v
+v5.5.0
+
+C:\Users\yhcao&gt;npm -v
+3.3.12
+</code></pre><h3 id="用nmp打包成asar"><a href="#用nmp打包成asar" class="headerlink" title="用nmp打包成asar:"></a>用nmp打包成asar:</h3><p>第一步：安装asar</p>
+<pre><code>npm install -g asar
+</code></pre><p>第二步：打包</p>
+<pre><code>asar pack your-app app.asar
+</code></pre><p>例如：asar pack F:\atom_project\myatom_1 F:\atom_project\app.asar<br>这样就会把myatom_1打包成app.asar</p>
+<p><a href="http://files.cnblogs.com/files/yhcao/electron%E4%B9%8BWindows%E4%B8%8B%E4%BD%BF%E7%94%A8html%2Cjs%2Ccss%2C%E5%BC%80%E5%8F%91%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F_app.rar" target="_blank" rel="noopener">electron之Windows下使用html,js,css,开发桌面应用程序_app.rar</a></p>
+<h1 id="5-更改Electron名称"><a href="#5-更改Electron名称" class="headerlink" title="5.更改Electron名称"></a>5.更改Electron名称</h1><p>你可以将 electron.exe 改成任意你喜欢的名字，然后可以使用像 <a href="https://github.com/atom/rcedit" target="_blank" rel="noopener">rcedit</a> 或者<a href="http://www.resedit.net/" target="_blank" rel="noopener">ResEdit</a> 编辑它的icon和其他信息。</p>
+<h2 id="ResEdit"><a href="#ResEdit" class="headerlink" title="ResEdit:"></a>ResEdit:</h2><p><a href="http://www.cr173.com/soft/12721.html" target="_blank" rel="noopener">http://www.cr173.com/soft/12721.html</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">electron</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">桌面应用程序</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/06/01/electron之Windows下使用 html js css 开发桌面应用程序/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-agsxmpp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/01/agsxmpp/">agsxmpp</a>
+    </h1>
+  
+
+        
+        <a href="/2016/05/01/agsxmpp/" class="archive-article-date">
+  	<time datetime="2016-05-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="agsXMPP使用"><a href="#agsXMPP使用" class="headerlink" title="agsXMPP使用"></a>agsXMPP使用</h1><p>agsXMPP中的例子已经有注册、登录、添加好友、接收好友添加请求、发送消息、接收消息等功能。</p>
+<h2 id="修改用户密码"><a href="#修改用户密码" class="headerlink" title="修改用户密码"></a>修改用户密码</h2><p>登录后可用以下方法修改密码</p>
+<pre><code>IQ iq = new IQ(IqType.set);
+Register riq = new Register();
+riq.Username = &quot;Username&quot;;
+riq.Password = &quot;Password&quot;;
+iq.Query = riq;
+XmppClientConnection.Send(iq);
+</code></pre><p>此代码生成的xml为：</p>
+<pre><code>&lt;query xmlns=&quot;jabber:iq:register&quot;&gt;&lt;username&gt;yhcao&lt;/username&gt;&lt;password&gt;yhcao1&lt;/password&gt;&lt;/query&gt;
+</code></pre><h2 id="程序例子"><a href="#程序例子" class="headerlink" title="程序例子"></a>程序例子</h2><p><a href="http://files.cnblogs.com/files/yhcao/IM.rar" title="http://files.cnblogs.com/files/yhcao/IM.rar" target="_blank" rel="noopener">http://files.cnblogs.com/files/yhcao/IM.rar</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">agsXMP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">即时通讯</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/05/01/agsxmpp/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-EChart" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/01/EChart/">EChart</a>
+    </h1>
+  
+
+        
+        <a href="/2016/05/01/EChart/" class="archive-article-date">
+  	<time datetime="2016-05-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="EChart"><a href="#EChart" class="headerlink" title="EChart"></a>EChart</h1><p>ECharts，一个纯 Javascript 的图表库，可以流畅的运行在 PC 和移动设备上，兼容当前绝大部分浏览器（IE8/9/10/11，Chrome，Firefox，Safari等），底层依赖轻量级的 Canvas 类库 ZRender，提供直观，生动，可交互，可高度个性化定制的数据可视化图表。</p>
+<h1 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h1><ol>
+<li><a href="http://echarts.baidu.com/" title="http://echarts.baidu.com/" target="_blank" rel="noopener">http://echarts.baidu.com/</a></li>
+<li><a href="https://github.com/ecomfe/echarts" title="https://github.com/ecomfe/echarts" target="_blank" rel="noopener">https://github.com/ecomfe/echarts</a></li>
+<li><a href="http://echarts.baidu.com/echarts2/index.html" title="http://echarts.baidu.com/echarts2/index.html" target="_blank" rel="noopener">http://echarts.baidu.com/echarts2/index.html</a></li>
+<li><a href="http://echarts.baidu.com/download.html" title="http://echarts.baidu.com/download.html" target="_blank" rel="noopener">http://echarts.baidu.com/download.html</a></li>
+</ol>
+<h2 id="丰富的图表类型"><a href="#丰富的图表类型" class="headerlink" title="丰富的图表类型"></a>丰富的图表类型</h2><p>ECharts 提供了常规的折线图，柱状图，散点图，饼图，K线图，用于统计的盒形图，用于地理数据可视化的地图，热力图，线图，用于关系数据可视化的关系图，treemap，多维数据可视化的平行坐标，还有用于 BI 的漏斗图，仪表盘，并且支持图与图之间的混搭。</p>
+<h2 id="引入-ECharts"><a href="#引入-ECharts" class="headerlink" title="引入 ECharts"></a>引入 ECharts</h2><p>ECharts 3 开始不再强制使用 AMD 的方式按需引入，代码里也不再内置 AMD 加载器。因此引入方式简单了很多，只需要像普通的 JavaScript 库一样用 script 标签引入。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;header&gt;</span><br><span class="line">	&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">	&lt;!-- 引入 ECharts 文件 --&gt;</span><br><span class="line">	&lt;script src=&quot;echarts.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/header&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="绘制一个简单的图表"><a href="#绘制一个简单的图表" class="headerlink" title="绘制一个简单的图表"></a>绘制一个简单的图表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!-- 为 ECharts 准备一个具备大小（宽高）的Dom --&gt;</span><br><span class="line">    &lt;div id=&quot;main&quot; style=&quot;width: 600px;height:400px;&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<p>然后就可以通过 echarts.init 方法初始化一个 echarts 实例并通过 setOption 方法生成一个简单的柱状图，下面是完整代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;ECharts&lt;/title&gt;</span><br><span class="line">    &lt;!-- 引入 echarts.js --&gt;</span><br><span class="line">    &lt;script src=&quot;echarts.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!-- 为ECharts准备一个具备大小（宽高）的Dom --&gt;</span><br><span class="line">    &lt;div id=&quot;main&quot; style=&quot;width: 600px;height:400px;&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">        // 基于准备好的dom，初始化echarts实例</span><br><span class="line">        var myChart = echarts.init(document.getElementById(&apos;main&apos;));</span><br><span class="line"></span><br><span class="line">        // 指定图表的配置项和数据</span><br><span class="line">        var option = &#123;</span><br><span class="line">            title: &#123;</span><br><span class="line">                text: &apos;ECharts 入门示例&apos;</span><br><span class="line">            &#125;,</span><br><span class="line">            tooltip: &#123;&#125;,</span><br><span class="line">            legend: &#123;</span><br><span class="line">                data:[&apos;销量&apos;]</span><br><span class="line">            &#125;,</span><br><span class="line">            xAxis: &#123;</span><br><span class="line">                data: [&quot;衬衫&quot;,&quot;羊毛衫&quot;,&quot;雪纺衫&quot;,&quot;裤子&quot;,&quot;高跟鞋&quot;,&quot;袜子&quot;]</span><br><span class="line">            &#125;,</span><br><span class="line">            yAxis: &#123;&#125;,</span><br><span class="line">            series: [&#123;</span><br><span class="line">                name: &apos;销量&apos;,</span><br><span class="line">                type: &apos;bar&apos;,</span><br><span class="line">                data: [5, 20, 36, 10, 10, 20]</span><br><span class="line">            &#125;]</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        // 使用刚指定的配置项和数据显示图表。</span><br><span class="line">        myChart.setOption(option);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">EChart</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">图表</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/05/01/EChart/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-xmpp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/15/xmpp/">xmpp</a>
+    </h1>
+  
+
+        
+        <a href="/2016/04/15/xmpp/" class="archive-article-date">
+  	<time datetime="2016-04-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-04-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="xmpp学习"><a href="#xmpp学习" class="headerlink" title="xmpp学习"></a>xmpp学习</h1><hr>
+<h2 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h2><p><a href="http://www.igniterealtime.org/downloads/index.jsp" target="_blank" rel="noopener">Openfire</a></p>
+<p>服务器：Openfire 4.0.2</p>
+<p>客户端：Spark 2.7.7</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="Openfire安装："><a href="#Openfire安装：" class="headerlink" title="Openfire安装："></a>Openfire安装：</h3><p>根据提示一直下一步，服务器域名设置为：localhost(ps:如果使用gloox，还是直接用机器名，因为gloox不识别ip)；数据库使用内嵌数据库或别的标准数据库。</p>
+<p>使用mysql的时候需要注意要用管理员权限打开Openfire,否则会出现如下错误：</p>
+<pre><code>HTTP ERROR 500
+Problem accessing /setup/setup-profile-settings.jsp. Reason: 
+
+    Server Error
+
+Caused by:
+</code></pre><p>安装完成后浏览器登录：<a href="http://127.0.0.1:9090" target="_blank" rel="noopener">http://127.0.0.1:9090</a></p>
+<h3 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h3><p>分别在两台电脑上安装Spark，创建各自用户，互添加好友，然后就可以通信了。</p>
+<h2 id="自己实现客户端"><a href="#自己实现客户端" class="headerlink" title="自己实现客户端"></a>自己实现客户端</h2><h3 id="使用agsXMPP"><a href="#使用agsXMPP" class="headerlink" title="使用agsXMPP"></a>使用agsXMPP</h3><p>很好用，直接到官网下载即可，有详细例子，但是程序运行时调试输出信息中会有</p>
+<pre><code>在 System.Net.Sockets.SocketException 中第一次偶然出现的“System.dll”类型的异常
+</code></pre><p>的提示</p>
+<p>网上说可能是服务器的问题，暂时没找。</p>
+<h3 id="使用gloox"><a href="#使用gloox" class="headerlink" title="使用gloox"></a>使用gloox</h3><h4 id="下载gloox"><a href="#下载gloox" class="headerlink" title="下载gloox"></a>下载gloox</h4><p>下载地址：<a href="https://camaya.net/gloox/download/" title="https://camaya.net/gloox/download/" target="_blank" rel="noopener">https://camaya.net/gloox/download/</a></p>
+<p>gloox 0.9.9.12：<a href="http://camaya.net/download/gloox-0.9.9.12.tar.bz2" title="http://camaya.net/download/gloox-0.9.9.12.tar.bz2" target="_blank" rel="noopener">http://camaya.net/download/gloox-0.9.9.12.tar.bz2</a></p>
+<p>直接用vs打开gloox.vcxproj即可运行</p>
+<p>gloox 1.0.15：<a href="http://camaya.net/download/gloox-1.0.15.tar.bz2" title="http://camaya.net/download/gloox-1.0.15.tar.bz2" target="_blank" rel="noopener">http://camaya.net/download/gloox-1.0.15.tar.bz2</a></p>
+<p>直接用vs打开gloox.vcxproj运行会有问题，需要修改一下文件。<br>以下提供一个可在vs2013中直接运行的gloox</p>
+<p><a href="http://files.cnblogs.com/files/yhcao/gloox_lib_with_vs2013.rar" target="_blank" rel="noopener">gloox_lib_with_vs2013.rar</a></p>
+<p>svn地址：<br>gloox-1.0：svn co svn://svn.camaya.net/gloox/branches/1.0</p>
+<h4 id="调试例子"><a href="#调试例子" class="headerlink" title="调试例子"></a>调试例子</h4><ol>
+<li>新建一个win32控制台空项目,字符集为多字节</li>
+<li>新建筛选器gloox</li>
+<li>把gloox中src文件夹与config.h.win文件复制到新项目中</li>
+<li>修改src文件夹为gloox,并把其中文件(不包括子目录)添加到筛选器gloox中</li>
+<li>加载gloox文件夹下的examples中例子进行调试</li>
+</ol>
+<p>例如：MyGloox2015下MyGloox项目</p>
+<p><a href="http://files.cnblogs.com/files/yhcao/MyGloox.rar" title="MyGloox.rar" target="_blank" rel="noopener">MyGloox.rar</a></p>
+<h4 id="gloox内存泄露"><a href="#gloox内存泄露" class="headerlink" title="gloox内存泄露"></a>gloox内存泄露</h4><p>本人发现不管是直接使用gloox还是自己封装gloox，都会有内存泄露，找了几个版本以及别人写的程序，发现都有内存泄露的问题。</p>
+<h3 id="使用libstrophe"><a href="#使用libstrophe" class="headerlink" title="使用libstrophe"></a>使用libstrophe</h3><h4 id="libstrophe编译"><a href="#libstrophe编译" class="headerlink" title="libstrophe编译"></a>libstrophe编译</h4><ol>
+<li><p>下载libstrophe-master.zip</p>
+</li>
+<li><p>解压，看看各目录，expat是空的，再下载expat，解压，不需要编译，把.h和.c放到expat\lib下面。</p>
+</li>
+<li><p>然后先编译expat，顺利编译出 lib文件、</p>
+</li>
+<li><p>再编译libstrophe工程，会提示没有parser.c。看说明文档，libstrophe缺省用的是expat,可选用libxml2，进入src下，看到有parser_libxml2.c和parser_expat.c，很明显，把parser_expat.c改名成parser.c就可以了。编译通过。</p>
+</li>
+<li><p>再编译其他例子工程，提示没有va_copy。vc2008时好象没有兼容它，不过也没关系，这问题肯定很多人碰到过，果然随便一google，就有答案了， #define一下就行了。</p>
+<pre><code>#ifndef va_copy
+# ifdef __va_copy
+# define va_copy(DEST,SRC) __va_copy((DEST),(SRC))
+# else
+# define va_copy(DEST, SRC) memcpy((&amp;DEST), (&amp;SRC), sizeof(va_list))
+# endif
+#endif 
+</code></pre></li>
+</ol>
+<p>或者</p>
+<pre><code>#ifndef va_copy
+#define va_copy(d,s) ((d) = (s))
+#endif
+</code></pre><ol>
+<li>全部编译通过，测试登录和发消息，api简洁明了，是目前见过最好用的xmpp库。当然gloox和qxmpp也都很好用，还有libjingle功能更强，各取所需。</li>
+</ol>
+<p>个人又遇到一个错误：</p>
+<pre><code>1&gt;libstrophe.lib(sasl.obj) : error LNK2019: 无法解析的外部符号 _SCRAM_SHA1_ClientSignature，该符号在函数 _sasl_scram_sha1 中被引用
+1&gt;libstrophe.lib(sasl.obj) : error LNK2019: 无法解析的外部符号 _SCRAM_SHA1_ClientKey，该符号在函数 _sasl_scram_sha1 中被引用
+1&gt;E:\code\C\Local\xmpp\libstrophe-0.8.8\libstrophe-0.8.8\vs2008\Debug\roster example.exe : fatal error LNK1120: 2 个无法解析的外部命令
+</code></pre><p>此问题需要把sasl.c与auth.c文件</p>
+<p>如果还不行请用这个：</p>
+<p><a href="http://files.cnblogs.com/files/yhcao/libstrophe%28%E5%8F%AF%E7%94%A8%29.rar" title="http://files.cnblogs.com/files/yhcao/libstrophe%28%E5%8F%AF%E7%94%A8%29.rar" target="_blank" rel="noopener">libstrophe(可用).rar</a></p>
+<p>可用vs2008与vs2012直接打开</p>
+<h4 id="libstrophe文档"><a href="#libstrophe文档" class="headerlink" title="libstrophe文档"></a>libstrophe文档</h4><p><a href="http://strophe.im/libstrophe/doc/0.8-snapshot/" title="http://strophe.im/libstrophe/doc/0.8-snapshot/" target="_blank" rel="noopener">http://strophe.im/libstrophe/doc/0.8-snapshot/</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">即时通讯</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">xmpp</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Openfire</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">agsXMPP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">gloox</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">libstrophe</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/04/15/xmpp/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Qt安装配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/01/Qt安装配置/">Qt安装配置</a>
+    </h1>
+  
+
+        
+        <a href="/2016/04/01/Qt安装配置/" class="archive-article-date">
+  	<time datetime="2016-04-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-04-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Qt-Creator"><a href="#Qt-Creator" class="headerlink" title="Qt Creator:"></a>Qt Creator:</h1><h2 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h2><p><a href="http://download.qt.io/official_releases/qt/5.5/5.5.0/qt-opensource-windows-x86-mingw492-5.5.0.exe" target="_blank" rel="noopener">Qt 5.5.1 for Windows 32-bit(MinGW 4.9.2, 1.0 GB)</a>:<a href="http://download.qt.io/official_releases/qt/5.5/5.5.0/qt-opensource-windows-x86-mingw492-5.5.0.exe" target="_blank" rel="noopener">http://download.qt.io/official_releases/qt/5.5/5.5.0/qt-opensource-windows-x86-mingw492-5.5.0.exe</a></p>
+<p>安装：</p>
+<p>一直“下一步”安装下去。</p>
+<h2 id="Qt-Creator运行："><a href="#Qt-Creator运行：" class="headerlink" title="Qt Creator运行："></a>Qt Creator运行：</h2><p>用Qt Creator创建项目：<br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135230436-2035070806.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135300327-642081944.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135329124-11023139.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135348983-981255417.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135405702-1719283850.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135425343-750603627.png" alt=""></p>
+<hr>
+<h1 id="Visual-Studio"><a href="#Visual-Studio" class="headerlink" title="Visual Studio:"></a>Visual Studio:</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载:"></a>下载:</h2><p><a href="http://download.qt-project.org/official_releases/vsaddin/qt-vs-addin-1.2.4-opensource.exe" target="_blank" rel="noopener">Visual Studio Add-in 1.2.4 for Qt5(156 MB)</a>:<a href="http://download.qt-project.org/official_releases/vsaddin/qt-vs-addin-1.2.4-opensource.exe" target="_blank" rel="noopener">http://download.qt-project.org/official_releases/vsaddin/qt-vs-addin-1.2.4-opensource.exe</a></p>
+<p><a href="http://download.qt.io/official_releases/qt/5.5/5.5.1/qt-opensource-windows-x86-msvc2013_64-5.5.1.exe" target="_blank" rel="noopener">Qt 5.5.1 for Windows 64-bit (VS 2013, 823 MB)</a>或<a href="http://download.qt.io/official_releases/qt/5.5/5.5.1/qt-opensource-windows-x86-msvc2013-5.5.1.exe" target="_blank" rel="noopener">Qt 5.5.1 for Windows 32-bit (VS 2013, 804 MB)</a></p>
+<h2 id="vs2013进行QT配置："><a href="#vs2013进行QT配置：" class="headerlink" title="vs2013进行QT配置："></a>vs2013进行QT配置：</h2><p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135450046-76850689.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135504546-1612990196.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135519155-1738395535.png" alt=""></p>
+<h2 id="创建项目："><a href="#创建项目：" class="headerlink" title="创建项目："></a>创建项目：</h2><p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135534624-413319152.png" alt=""></p>
+<p>一直下一步。</p>
+<h1 id="常见问题："><a href="#常见问题：" class="headerlink" title="常见问题："></a>常见问题：</h1><p>可以成功安装到V2013上，但是却出现了下面的问题： Qt5Widgetsd.lib(Qt5Widgetsd.dll) : fatal error LNK1112: 模块计算机类型“x64”与目标计算机类型“X86”冲突</p>
+<p><a href="http://jingyan.baidu.com/article/a948d65159d8890a2dcd2e84.html" target="_blank" rel="noopener">百度百科解决方法</a>：<a href="http://jingyan.baidu.com/article/a948d65159d8890a2dcd2e84.html" target="_blank" rel="noopener">http://jingyan.baidu.com/article/a948d65159d8890a2dcd2e84.html</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Qt</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/04/01/Qt安装配置/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Maven环境配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/15/Maven环境配置/">Maven环境配置</a>
+    </h1>
+  
+
+        
+        <a href="/2016/03/15/Maven环境配置/" class="archive-article-date">
+  	<time datetime="2016-03-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-03-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-下载Maven"><a href="#1-下载Maven" class="headerlink" title="1.下载Maven:"></a>1.下载Maven:</h1><p>下载地址：<a href="http://maven.apache.org/" target="_blank" rel="noopener">http://maven.apache.org/</a></p>
+<h1 id="2-安装-Maven"><a href="#2-安装-Maven" class="headerlink" title="2.安装 Maven"></a>2.安装 Maven</h1><p>如果需要使用到 Maven ，必须首先安装 Maven ， Maven 的下载地址在 Apache Maven 中有，您也可以点击这里下载 zip ,tar.gz。</p>
+<p>下载好 Maven 后，需要简单安装下。将下载的  zip  或者  tar.gz  包解压到需要安装到的目录。 接下简单配置下环境变量：</p>
+<ol>
+<li>新建环境变量  M2_HOME  ,输入值为 Maven 的安装目录。</li>
+<li>新建环境变量  M2  ，输入值为:  %M2_HOME%\bin  。</li>
+<li>将 M2 环境变量加入  Path  的最后，如：  ;%M2%  ;。</li>
+<li><p>环境变量就这么简单配置下就可以了。打开命令行窗口输入  mvn -version  。可以看到如下输出：</p>
+<p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151103151936539-1813106675.png" alt=""></p>
+</li>
+</ol>
+<p>看到以上输出，您的 Maven 环境就已经搭建好了。</p>
+<p>来源： <a href="http://maven.oschina.net/help.html" target="_blank" rel="noopener">http://maven.oschina.net/help.html</a></p>
+<h1 id="3-配置eclipse"><a href="#3-配置eclipse" class="headerlink" title="3.配置eclipse:"></a>3.配置eclipse:</h1><p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151103152011211-772620241.png" alt=""></p>
+<p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151103152029711-1972974655.png" alt=""></p>
+<h1 id="4-设置JRE"><a href="#4-设置JRE" class="headerlink" title="4.设置JRE:"></a>4.设置JRE:</h1><p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151103152055383-1622076243.png" alt=""></p>
+<pre><code>-Dmaven.multiModuleProjectDirectory=$M2_HOME
+</code></pre><p>网址：<a href="http://www.cnblogs.com/yhcao/p/4901815.html" target="_blank" rel="noopener">http://www.cnblogs.com/yhcao/p/4901815.html</a></p>
+<h1 id="5-为项目安装Maven"><a href="#5-为项目安装Maven" class="headerlink" title="5.为项目安装Maven:"></a>5.为项目安装Maven:</h1><p>选中选项右键</p>
+<p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151103152154649-802120497.png" alt=""></p>
+<p>如果出现错误，请检查网络。（公司网络不能访问外网，出错了，最后让网管开通外网才成功）</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Maven</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">eclipse</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/03/15/Maven环境配置/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-CentOS下安装hadoop" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/01/CentOS下安装hadoop/">CentOS下安装hadoop</a>
+    </h1>
+  
+
+        
+        <a href="/2016/03/01/CentOS下安装hadoop/" class="archive-article-date">
+  	<time datetime="2016-03-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-03-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="CentOS下安装hadoop"><a href="#CentOS下安装hadoop" class="headerlink" title="CentOS下安装hadoop"></a>CentOS下安装hadoop</h1><h2 id="用户配置"><a href="#用户配置" class="headerlink" title="用户配置"></a>用户配置</h2><h3 id="添加用户"><a href="#添加用户" class="headerlink" title="添加用户"></a>添加用户</h3><pre><code>adduser hadoop
+passwd hadoop
+</code></pre><h3 id="权限配置"><a href="#权限配置" class="headerlink" title="权限配置"></a>权限配置</h3><pre><code>chmod u+w /etc/sudoers
+vi /etc/sudoers
+在
+root    ALL=(ALL) ALL
+下添加
+hadoop    ALL=(ALL) ALL
+chmod u-w /etc/sudoers
+</code></pre><h2 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h2><h3 id="查看防火墙状态"><a href="#查看防火墙状态" class="headerlink" title="查看防火墙状态"></a>查看防火墙状态</h3><pre><code>service iptables status
+</code></pre><h3 id="关闭防火墙-1"><a href="#关闭防火墙-1" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h3><pre><code>service iptables stop
+</code></pre><h3 id="查看防火墙开机启动状态"><a href="#查看防火墙开机启动状态" class="headerlink" title="查看防火墙开机启动状态"></a>查看防火墙开机启动状态</h3><pre><code>chkconfig iptables --list
+</code></pre><h3 id="关闭防火墙开机启动"><a href="#关闭防火墙开机启动" class="headerlink" title="关闭防火墙开机启动"></a>关闭防火墙开机启动</h3><pre><code>chkconfig iptables off
+</code></pre><h2 id="安装JDK1-7"><a href="#安装JDK1-7" class="headerlink" title="安装JDK1.7"></a>安装JDK1.7</h2><h3 id="卸载系统自带OpenJDK"><a href="#卸载系统自带OpenJDK" class="headerlink" title="卸载系统自带OpenJDK"></a>卸载系统自带OpenJDK</h3><h4 id="查看目前系统jdk"><a href="#查看目前系统jdk" class="headerlink" title="查看目前系统jdk"></a>查看目前系统jdk</h4><pre><code>rpm -qa | grep jdk
+</code></pre><h4 id="得到结果："><a href="#得到结果：" class="headerlink" title="得到结果："></a>得到结果：</h4><pre><code>java-1.7.0-openjdk-1.7.0.51-2.4.5.5.el7.x86_64
+java-1.7.0-openjdk-headless-1.7.0.51-2.4.5.5.el7.x86_64
+</code></pre><h4 id="卸载："><a href="#卸载：" class="headerlink" title="卸载："></a>卸载：</h4><pre><code>rpm -e --nodeps java-1.7.0-openjdk-1.7.0.51-2.4.5.5.el7.x86_64
+rpm -e --nodeps java-1.7.0-openjdk-headless-1.7.0.51-2.4.5.5.el7.x86_64
+</code></pre><h3 id="下载JDK1-7"><a href="#下载JDK1-7" class="headerlink" title="下载JDK1.7"></a>下载JDK1.7</h3><p>下载地址： <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html" title="jdk-7u79-linux-x64.tar.gz" target="_blank" rel="noopener">jdk-7u79-linux-x64.tar.gz</a> <a href="http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-linux-x64.tar.gz" title="下载" target="_blank" rel="noopener">下载</a></p>
+<h3 id="上传hadoop文件"><a href="#上传hadoop文件" class="headerlink" title="上传hadoop文件"></a>上传hadoop文件</h3><p>使用<a href="http://https//filezilla-project.org/" target="_blank" rel="noopener">Filezilla client</a>把jdk-7u79-linux-x64.tar.gz放到CentOS目录/usr/lib/jvm中(<a href="http://jingyan.baidu.com/article/219f4bf7d28185de442d38d2.html" target="_blank" rel="noopener">史上最简单的上传文件到linux系统方法</a>)</p>
+<h3 id="修改权限"><a href="#修改权限" class="headerlink" title="修改权限"></a>修改权限</h3><pre><code>sudo chmod u+x jdk-7u79-linux-x64.tar.gz
+</code></pre><h3 id="解压JDK1-7"><a href="#解压JDK1-7" class="headerlink" title="解压JDK1.7"></a>解压JDK1.7</h3><pre><code>cd /usr/lib/jvm
+sudo tar -zxvf ./jdk-7u79-linux-x64.tar.gz  -C /usr/lib/jvm  
+</code></pre><h3 id="配置环境"><a href="#配置环境" class="headerlink" title="配置环境"></a>配置环境</h3><h4 id="打开profile文件："><a href="#打开profile文件：" class="headerlink" title="打开profile文件："></a>打开profile文件：</h4><pre><code>sudo gedit /etc/profile
+</code></pre><h4 id="在文件最下边输入："><a href="#在文件最下边输入：" class="headerlink" title="在文件最下边输入："></a>在文件最下边输入：</h4><pre><code>export JAVA_HOME=/usr/lib/jvm/jdk1.7.0_4579
+export JRE_HOME=/usr/lib/jvm/jdk1.7.0_4579/jre
+export CLASSPATH=.:$JRE_HOME/lib/tr.jar:$JAVA_HOME/lib:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib:$CLASSPATH
+export PATH=$JAVA_HOME/bin:$PATH
+</code></pre><h4 id="使其立刻生效："><a href="#使其立刻生效：" class="headerlink" title="使其立刻生效："></a>使其立刻生效：</h4><pre><code>source /etc/profile
+</code></pre><h3 id="验证是否成功"><a href="#验证是否成功" class="headerlink" title="验证是否成功"></a>验证是否成功</h3><pre><code>java -version
+</code></pre><h3 id="手动设置系统默认JDK"><a href="#手动设置系统默认JDK" class="headerlink" title="手动设置系统默认JDK"></a>手动设置系统默认JDK</h3><pre><code>sudo update-alternatives --install /usr/bin/java java /usr/lib/jvm/jdk1.7.0_79/bin/java 300
+sudo update-alternatives --install /usr/bin/javac javac /usr/lib/jvm/jdk1.7.0_79/bin/javac 300
+sudo update-alternatives --install /usr/bin/jar jar /usr/lib/jvm/jdk1.7.0_79/bin/jar 300
+sudo update-alternatives --config java
+</code></pre><h2 id="配置SSH免密码登陆"><a href="#配置SSH免密码登陆" class="headerlink" title="配置SSH免密码登陆"></a>配置SSH免密码登陆</h2><h3 id="进入用户的根目录下"><a href="#进入用户的根目录下" class="headerlink" title="进入用户的根目录下"></a>进入用户的根目录下</h3><pre><code>ssh-keygen -t dsa -P &apos;&apos; -f ~/.ssh/id_dsa
+cat ~/.ssh/id_dsa.pub &gt;&gt; ~/.ssh/authorized_keys
+</code></pre><h3 id="验证是否安装成功"><a href="#验证是否安装成功" class="headerlink" title="验证是否安装成功"></a>验证是否安装成功</h3><pre><code>ssh -version
+</code></pre><h3 id="登陆"><a href="#登陆" class="headerlink" title="登陆"></a>登陆</h3><pre><code>ssh localhost
+</code></pre><h2 id="安装Hadoop2-6-0"><a href="#安装Hadoop2-6-0" class="headerlink" title="安装Hadoop2.6.0"></a>安装Hadoop2.6.0</h2><h3 id="下载hadoop2-6"><a href="#下载hadoop2-6" class="headerlink" title="下载hadoop2.6"></a>下载hadoop2.6</h3><p><a href="http://mirrors.hust.edu.cn/apache/hadoop/common/stable/hadoop-2.6.0.tar.gz" target="_blank" rel="noopener">hadoop-2.6.0.tar.gz</a></p>
+<h3 id="解压hadoop-2-6-0-tar-gz"><a href="#解压hadoop-2-6-0-tar-gz" class="headerlink" title="解压hadoop-2.6.0.tar.gz"></a>解压hadoop-2.6.0.tar.gz</h3><h4 id="进入-usr-local-hadoop"><a href="#进入-usr-local-hadoop" class="headerlink" title="进入/usr/local/hadoop"></a>进入/usr/local/hadoop</h4><pre><code>sudo tar -zxvf ./hadoop-2.6.0.tar.gz -C /usr/local
+cd /usr/local/
+sudo mv ./hadoop-2.6.0/ ./hadoop
+sudo chown -R hadoop:hadoop ./hadoop
+</code></pre><h3 id="配置hadoop2-6-0环境"><a href="#配置hadoop2-6-0环境" class="headerlink" title="配置hadoop2.6.0环境"></a>配置hadoop2.6.0环境</h3><h4 id="打开profile"><a href="#打开profile" class="headerlink" title="打开profile"></a>打开profile</h4><pre><code>sudo gedit /etc/profile
+</code></pre><h3 id="在最下边添加："><a href="#在最下边添加：" class="headerlink" title="在最下边添加："></a>在最下边添加：</h3><pre><code># set hadoop path
+export HADOOP_HOME=/usr/local/hadoop
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+</code></pre><h4 id="使其立刻生效：-1"><a href="#使其立刻生效：-1" class="headerlink" title="使其立刻生效："></a>使其立刻生效：</h4><pre><code>source /etc/profile
+</code></pre><h3 id="修改-usr-local-hadoop-etc-hadoop-hadoop-env-sh"><a href="#修改-usr-local-hadoop-etc-hadoop-hadoop-env-sh" class="headerlink" title="修改/usr/local/hadoop/etc/hadoop/hadoop-env.sh"></a>修改/usr/local/hadoop/etc/hadoop/hadoop-env.sh</h3><pre><code>export JAVA_HOME=/usr/lib/jvm/jdk1.7.0_79
+</code></pre><h2 id="伪分布式Hadoop2-6-0配置"><a href="#伪分布式Hadoop2-6-0配置" class="headerlink" title="伪分布式Hadoop2.6.0配置"></a>伪分布式Hadoop2.6.0配置</h2><h3 id="etc-hadoop-core-site-xml"><a href="#etc-hadoop-core-site-xml" class="headerlink" title="etc / hadoop / core-site.xml:"></a>etc / hadoop / core-site.xml:</h3><pre><code>&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;fs.defaultFS&lt;/name&gt;
+        &lt;value&gt;hdfs://localhost:9000&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre><h3 id="etc-hadoop-hdfs-site-xml"><a href="#etc-hadoop-hdfs-site-xml" class="headerlink" title="etc / hadoop / hdfs-site.xml:"></a>etc / hadoop / hdfs-site.xml:</h3><pre><code>&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.replication&lt;/name&gt;
+        &lt;value&gt;1&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+</code></pre><h2 id="启动Hadoop2-6-0"><a href="#启动Hadoop2-6-0" class="headerlink" title="启动Hadoop2.6.0"></a>启动Hadoop2.6.0</h2><h3 id="进入hadoop的bin目录"><a href="#进入hadoop的bin目录" class="headerlink" title="进入hadoop的bin目录"></a>进入hadoop的bin目录</h3><pre><code>cd /usr/local/hadoop/bin
+</code></pre><h3 id="格式化Hadoop的文件系统HDFS"><a href="#格式化Hadoop的文件系统HDFS" class="headerlink" title="格式化Hadoop的文件系统HDFS"></a>格式化Hadoop的文件系统HDFS</h3><pre><code>hdfs namenode -format
+</code></pre><h3 id="进入hadoop的sbin目录"><a href="#进入hadoop的sbin目录" class="headerlink" title="进入hadoop的sbin目录"></a>进入hadoop的sbin目录</h3><pre><code>cd /usr/local/hadoop/sbin
+</code></pre><h3 id="启动所有进程"><a href="#启动所有进程" class="headerlink" title="启动所有进程"></a>启动所有进程</h3><pre><code>start-all.sh
+</code></pre><p>成功的话，会看到 successfully formatted 的提示，且倒数第5行的提示如下，Exitting with status 0 表示成功，若为 Exitting with status 1 则是出错。若出错（不该如此，请仔细检查之前步骤），可试着加上 sudo, 既 sudo bin/hdfs namenode -format 再试试看。</p>
+<h3 id="关闭命令"><a href="#关闭命令" class="headerlink" title="关闭命令"></a>关闭命令</h3><pre><code>stop-all.sh
+</code></pre><h3 id="用jps查看启动的进程"><a href="#用jps查看启动的进程" class="headerlink" title="用jps查看启动的进程"></a>用jps查看启动的进程</h3><pre><code>Jps
+ResourceManager
+NameNode
+DataNode
+SecondaryNameNode
+NodeManager
+</code></pre><h2 id="浏览器访问：http-localhost-50070"><a href="#浏览器访问：http-localhost-50070" class="headerlink" title="浏览器访问：http://localhost:50070"></a>浏览器访问：<a href="http://localhost:50070" target="_blank" rel="noopener">http://localhost:50070</a></h2><h2 id="hadoop进程管理页面http-localhost-8088"><a href="#hadoop进程管理页面http-localhost-8088" class="headerlink" title="hadoop进程管理页面http://localhost:8088"></a>hadoop进程管理页面<a href="http://localhost:8088" target="_blank" rel="noopener">http://localhost:8088</a></h2><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><pre><code>WARN util.NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+</code></pre><p>原因是hadoop-2.6.0.tar.gz安装包是在32位机器上编译的，64位的机器加载本地库.so文件时出错，不影响使用。</p>
+<h3 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h3><pre><code>1、重新编译源码后将新的lib/native替换到集群中原来的lib/native
+2、修改hadoop-env.sh ，增加
+export HADOOP_OPTS=&quot;-Djava.library.path=$HADOOP_PREFIX/lib:$HADOOP_PREFIX/lib/native&quot;
+</code></pre><hr>
+<h4 id="文档参考："><a href="#文档参考：" class="headerlink" title="文档参考："></a>文档参考：</h4><ol>
+<li><a href="http://www.aboutyun.com/thread-10554-1-1.html" target="_blank" rel="noopener">hadoop 2.6.0单节点-伪分布式模式安装</a></li>
+<li><a href="http://hadoop.apache.org/docs/current/hadoop-project-dist/hadoop-common/singlecluster.html" target="_blank" rel="noopener">Hadoop:设置一个节点集群</a></li>
+<li><a href="http://www.powerxing.com/install-hadoop/" target="_blank" rel="noopener">Hadoop安装教程_单机/伪分布式配置_Hadoop2.6.0/Ubuntu14.04</a></li>
+<li><a href="http://www.linuxidc.com/linux/2015-03/114669.htm" target="_blank" rel="noopener">Hadoop入门基础教程之服务器基础环境搭建</a></li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">CentOS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hadoop</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/03/01/CentOS下安装hadoop/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-搭建个人博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -298,396 +1396,9 @@ $(&quot;#duoshuo-div&quot;).prepend(duoshuoHtml);
 
 
   
-    <article id="post-我喜爱的火狐浏览器插件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/02/01/我喜爱的火狐浏览器插件/">我喜爱的火狐浏览器插件</a>
-    </h1>
-  
-
-        
-        <a href="/2016/02/01/我喜爱的火狐浏览器插件/" class="archive-article-date">
-  	<time datetime="2016-02-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-02-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="书签管理"><a href="#书签管理" class="headerlink" title="书签管理"></a>书签管理</h3><p>xmarks<br><a href="https://download.xmarks.com/download/firefox" target="_blank" rel="noopener">https://download.xmarks.com/download/firefox</a></p>
-<hr>
-<h3 id="密码管理"><a href="#密码管理" class="headerlink" title="密码管理"></a>密码管理</h3><p>LastPass Password Manager<br><a href="https://lastpass.com/" target="_blank" rel="noopener">https://lastpass.com/</a>  </p>
-<hr>
-<h3 id="离线阅读器"><a href="#离线阅读器" class="headerlink" title="离线阅读器"></a>离线阅读器</h3><p>Instaright<br><a href="https://addons.mozilla.org/en-US/firefox/addon/instaright-social-bookmarks/" target="_blank" rel="noopener">https://addons.mozilla.org/en-US/firefox/addon/instaright-social-bookmarks/</a><br><a href="https://www.instapaper.com/u" target="_blank" rel="noopener">https://www.instapaper.com/u</a>  </p>
-<hr>
-<h3 id="Readablity"><a href="#Readablity" class="headerlink" title="Readablity"></a>Readablity</h3><p><a href="https://www.readability.com/addons" target="_blank" rel="noopener">https://www.readability.com/addons</a><br><a href="https://www.readability.com/" target="_blank" rel="noopener">https://www.readability.com/</a>  </p>
-<hr>
-<h3 id="Pocket"><a href="#Pocket" class="headerlink" title="Pocket"></a>Pocket</h3><p><a href="https://activations.cdn.mozilla.net/en-US/pocket.html" target="_blank" rel="noopener">https://activations.cdn.mozilla.net/en-US/pocket.html</a>  </p>
-<hr>
-<h3 id="有道网页翻译"><a href="#有道网页翻译" class="headerlink" title="有道网页翻译"></a>有道网页翻译</h3><p><a href="http://mozilla.com.cn/thread-52722-1-1.html" target="_blank" rel="noopener">http://mozilla.com.cn/thread-52722-1-1.html</a>  </p>
-<hr>
-<h3 id="网页截图"><a href="#网页截图" class="headerlink" title="网页截图"></a>网页截图</h3><p><a href="https://addons.mozilla.org/zh-CN/firefox/addon/easyscreenshot/?src=userprofile" target="_blank" rel="noopener">https://addons.mozilla.org/zh-CN/firefox/addon/easyscreenshot/?src=userprofile</a><br><a href="http://mozilla.com.cn/thread-230325-1-1.html" target="_blank" rel="noopener">http://mozilla.com.cn/thread-230325-1-1.html</a>  </p>
-<hr>
-<h3 id="为知笔记"><a href="#为知笔记" class="headerlink" title="为知笔记"></a>为知笔记</h3><p><a href="https://addons.mozilla.org/zh-Cn/firefox/addon/wiznote-web-clipper/?src=userprofile" target="_blank" rel="noopener">https://addons.mozilla.org/zh-Cn/firefox/addon/wiznote-web-clipper/?src=userprofile</a>  </p>
-<hr>
-<h3 id="Evernote-Web-Clipper-and-Evernote-Clearly"><a href="#Evernote-Web-Clipper-and-Evernote-Clearly" class="headerlink" title="Evernote Web Clipper and Evernote Clearly"></a>Evernote Web Clipper and Evernote Clearly</h3><p><a href="https://addons.mozilla.org/zh-CN/firefox/user/evernote-corp/?src=api" target="_blank" rel="noopener">https://addons.mozilla.org/zh-CN/firefox/user/evernote-corp/?src=api</a>  </p>
-<hr>
-<h3 id="Todoist"><a href="#Todoist" class="headerlink" title="Todoist"></a>Todoist</h3><p><a href="https://addons.mozilla.org/zh-CN/firefox/user/todoist/?src=api" target="_blank" rel="noopener">https://addons.mozilla.org/zh-CN/firefox/user/todoist/?src=api</a>  </p>
-<hr>
-<h3 id="滴答清单"><a href="#滴答清单" class="headerlink" title="滴答清单"></a>滴答清单</h3><p><a href="https://addons.mozilla.org/zh-CN/firefox/user/appest/?src=api" target="_blank" rel="noopener">https://addons.mozilla.org/zh-CN/firefox/user/appest/?src=api</a></p>
-<h3 id="onetab-标签页转换成一个列表"><a href="#onetab-标签页转换成一个列表" class="headerlink" title="onetab 标签页转换成一个列表"></a>onetab 标签页转换成一个列表</h3><p><a href="https://www.one-tab.com/" target="_blank" rel="noopener">https://www.one-tab.com/</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">火狐</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">浏览器插件</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/02/01/我喜爱的火狐浏览器插件/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Markdown编辑器使用法术" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/21/Markdown编辑器使用法术/">Markdown编辑器使用法术</a>
-    </h1>
-  
-
-        
-        <a href="/2016/01/21/Markdown编辑器使用法术/" class="archive-article-date">
-  	<time datetime="2016-01-21T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-01-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="欢迎使用Markdown编辑器写博客"><a href="#欢迎使用Markdown编辑器写博客" class="headerlink" title="欢迎使用Markdown编辑器写博客"></a>欢迎使用Markdown编辑器写博客</h1><p>本Markdown编辑器使用<a href="https://github.com/benweet/stackedit" target="_blank" rel="noopener">StackEdit</a>修改而来，用它写博客，将会带来全新的体验哦：</p>
-<ul>
-<li><strong>Markdown和扩展Markdown简洁的语法</strong></li>
-<li><strong>代码块高亮</strong></li>
-<li><strong>图片链接和图片上传</strong></li>
-<li><strong><em>LaTex</em>数学公式</strong></li>
-<li><strong>UML序列图和流程图</strong></li>
-<li><strong>离线写博客</strong></li>
-<li><strong>导入导出Markdown文件</strong></li>
-<li><strong>丰富的快捷键</strong></li>
-</ul>
-<hr>
-<h2 id="快捷键"><a href="#快捷键" class="headerlink" title="快捷键"></a>快捷键</h2><ul>
-<li>加粗    <code>Ctrl + B</code> </li>
-<li>斜体    <code>Ctrl + I</code> </li>
-<li>引用    <code>Ctrl + Q</code></li>
-<li>插入链接    <code>Ctrl + L</code></li>
-<li>插入代码    <code>Ctrl + K</code></li>
-<li>插入图片    <code>Ctrl + G</code></li>
-<li>提升标题    <code>Ctrl + H</code></li>
-<li>有序列表    <code>Ctrl + O</code></li>
-<li>无序列表    <code>Ctrl + U</code></li>
-<li>横线    <code>Ctrl + R</code></li>
-<li>撤销    <code>Ctrl + Z</code></li>
-<li>重做    <code>Ctrl + Y</code></li>
-</ul>
-<h2 id="Markdown及扩展"><a href="#Markdown及扩展" class="headerlink" title="Markdown及扩展"></a>Markdown及扩展</h2><blockquote>
-<p>Markdown 是一种轻量级标记语言，它允许人们使用易读易写的纯文本格式编写文档，然后转换成格式丰富的HTML页面。    —— <a href="https://zh.wikipedia.org/wiki/Markdown" target="_blank"> [ 维基百科 ]</a></p>
-</blockquote>
-<p>使用简单的符号标识不同的标题，将某些文字标记为<strong>粗体</strong>或者<em>斜体</em>，创建一个<a href="http://www.csdn.net" target="_blank" rel="noopener">链接</a>等，详细语法参考帮助？。</p>
-<p>本编辑器支持 <strong>Markdown Extra</strong> , 　扩展了很多好用的功能。具体请参考<a href="https://github.com/jmcmanus/pagedown-extra" title="Pagedown Extra" target="_blank" rel="noopener">Github</a>.  </p>
-<h3 id="表格"><a href="#表格" class="headerlink" title="表格"></a>表格</h3><p><strong>Markdown　Extra</strong>　表格语法：</p>
-<table>
-<thead>
-<tr>
-<th>项目</th>
-<th>价格</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Computer</td>
-<td>$1600</td>
-</tr>
-<tr>
-<td>Phone</td>
-<td>$12</td>
-</tr>
-<tr>
-<td>Pipe</td>
-<td>$1</td>
-</tr>
-</tbody>
-</table>
-<p>可以使用冒号来定义对齐方式：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">项目</th>
-<th style="text-align:right">价格</th>
-<th style="text-align:center">数量</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">Computer</td>
-<td style="text-align:right">1600 元</td>
-<td style="text-align:center">5</td>
-</tr>
-<tr>
-<td style="text-align:left">Phone</td>
-<td style="text-align:right">12 元</td>
-<td style="text-align:center">12</td>
-</tr>
-<tr>
-<td style="text-align:left">Pipe</td>
-<td style="text-align:right">1 元</td>
-<td style="text-align:center">234</td>
-</tr>
-</tbody>
-</table>
-<p>###定义列表</p>
-<p><strong>Markdown　Extra</strong>　定义列表语法：<br>项目１<br>项目２<br>:   定义 A<br>:   定义 B</p>
-<p>项目３<br>:   定义 C</p>
-<p>:   定义 D</p>
-<pre><code>&gt; 定义D内容
-</code></pre><h3 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h3><p>代码块语法遵循标准markdown代码，例如：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@requires_authorization</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">somefunc</span><span class="params">(param1=<span class="string">''</span>, param2=<span class="number">0</span>)</span>:</span></span><br><span class="line">    <span class="string">'''A docstring'''</span></span><br><span class="line">    <span class="keyword">if</span> param1 &gt; param2: <span class="comment"># interesting</span></span><br><span class="line">        <span class="keyword">print</span> <span class="string">'Greater'</span></span><br><span class="line">    <span class="keyword">return</span> (param2 - param1 + <span class="number">1</span>) <span class="keyword">or</span> <span class="keyword">None</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomeClass</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>message = <span class="string">'''interpreter</span></span><br><span class="line"><span class="string"><span class="meta">... </span>prompt'''</span></span><br></pre></td></tr></table></figure></p>
-<p>###脚注<br>生成一个脚注[^footnote].<br>  [^footnote]: 这里是 <strong>脚注</strong> 的 <em>内容</em>.</p>
-<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><p>用 <code>[TOC]</code>来生成目录：</p>
-<p>[TOC]</p>
-<h3 id="数学公式"><a href="#数学公式" class="headerlink" title="数学公式"></a>数学公式</h3><p>使用MathJax渲染<em>LaTex</em> 数学公式，详见<a href="http://math.stackexchange.com/" target="_blank" rel="noopener">math.stackexchange.com</a>.</p>
-<ul>
-<li>行内公式，数学公式为：$\Gamma(n) = (n-1)!\quad\forall n\in\mathbb N$。</li>
-<li>块级公式：</li>
-</ul>
-<p>$$    x = \dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a} $$</p>
-<p>更多LaTex语法请参考 <a href="http://meta.math.stackexchange.com/questions/5020/mathjax-basic-tutorial-and-quick-reference" target="_blank" rel="noopener">这儿</a>.</p>
-<h3 id="UML-图"><a href="#UML-图" class="headerlink" title="UML 图:"></a>UML 图:</h3><p>可以渲染序列图：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">张三-&gt;李四: 嘿，小四儿, 写博客了没?</span><br><span class="line">Note right of 李四: 李四愣了一下，说：</span><br><span class="line">李四--&gt;张三: 忙得吐血，哪有时间写。</span><br></pre></td></tr></table></figure>
-<p>或者流程图：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">st=&gt;start: 开始</span><br><span class="line">e=&gt;end: 结束</span><br><span class="line">op=&gt;operation: 我的操作</span><br><span class="line">cond=&gt;condition: 确认？</span><br><span class="line"></span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op</span><br></pre></td></tr></table></figure>
-<ul>
-<li>关于 <strong>序列图</strong> 语法，参考 <a href="http://bramp.github.io/js-sequence-diagrams/" target="_blank" rel="noopener">这儿</a>,</li>
-<li>关于 <strong>流程图</strong> 语法，参考 <a href="http://adrai.github.io/flowchart.js/" target="_blank" rel="noopener">这儿</a>.</li>
-</ul>
-<h2 id="离线写博客"><a href="#离线写博客" class="headerlink" title="离线写博客"></a>离线写博客</h2><p>即使用户在没有网络的情况下，也可以通过本编辑器离线写博客（直接在曾经使用过的浏览器中输入<a href="http://write.blog.csdn.net/mdeditor" target="_blank" rel="noopener">write.blog.csdn.net/mdeditor</a>即可。<strong>Markdown编辑器</strong>使用浏览器离线存储将内容保存在本地。</p>
-<p>用户写博客的过程中，内容实时保存在浏览器缓存中，在用户关闭浏览器或者其它异常情况下，内容不会丢失。用户再次打开浏览器时，会显示上次用户正在编辑的没有发表的内容。</p>
-<p>博客发表后，本地缓存将被删除。　</p>
-<p>用户可以选择 <i class="icon-disk"></i> 把正在写的博客保存到服务器草稿箱，即使换浏览器或者清除缓存，内容也不会丢失。</p>
-<blockquote>
-<p><strong>注意：</strong>虽然浏览器存储大部分时候都比较可靠，但为了您的数据安全，在联网后，<strong>请务必及时发表或者保存到服务器草稿箱</strong>。</p>
-</blockquote>
-<p>##浏览器兼容</p>
-<ol>
-<li>目前，本编辑器对Chrome浏览器支持最为完整。建议大家使用较新版本的Chrome。</li>
-<li>IE９以下不支持</li>
-<li>IE９，１０，１１存在以下问题<ol>
-<li>不支持离线功能</li>
-<li>IE9不支持文件导入导出</li>
-<li>IE10不支持拖拽文件导入</li>
-</ol>
-</li>
-</ol>
-<hr>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Markdown</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/01/21/Markdown编辑器使用法术/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ABOUT ME" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/01/ABOUT ME/">ABOUT ME</a>
-    </h1>
-  
-
-        
-        <a href="/2016/01/01/ABOUT ME/" class="archive-article-date">
-  	<time datetime="2016-01-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-01-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>You can also find me here.</p>
-<p><a href="http://caojingyou.github.io/" target="_blank" rel="noopener">caojingyou.github.io</a></p>
-<p><a href="https://github.com/CAOJINGYOU" target="_blank" rel="noopener">caojingyou@github</a></p>
-<p><a href="http://weibo.com/chihun" target="_blank" rel="noopener">caojingyou@weibo</a></p>
-<p><a href="http://blog.csdn.net/chihun_love" target="_blank" rel="noopener">caojingyou@csdn</a></p>
-<p><a href="https://www.gitbook.com/@caojingyou" target="_blank" rel="noopener">caojingyou@GitBook</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ABOUT ME</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/01/01/ABOUT ME/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span>
+      <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
     </nav>
   
 
@@ -1239,6 +1950,54 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CEF</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">c++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ATL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">WTL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Photoshop插件</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Cryptlib</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Jenkins</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">自动构建</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">duilib</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">插件框架</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">正则表达式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">regex</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Boost</a>
               </li>
             
             <div class="clearfix"></div>

@@ -4,6 +4,226 @@
 
     
   <url>
+    <loc>https://caojingyou.github.io/2017/09/15/Crypto++/</loc>
+    <lastmod>2018-04-19T07:48:45.525Z</lastmod>
+    <data>
+        <display>
+        <title>Crypto++</title>
+        <pubTime>2017-09-15T08:03:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C++</tag>
+         
+        <tag>代码</tag>
+         
+        <tag>Crypto++</tag>
+         
+        <tag>密码</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/04/18/Cryptlib/</loc>
+    <lastmod>2018-04-18T09:29:33.323Z</lastmod>
+    <data>
+        <display>
+        <title>Cryptlib</title>
+        <pubTime>2018-04-18T09:28:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C++</tag>
+         
+        <tag>代码</tag>
+         
+        <tag>密码</tag>
+         
+        <tag>Cryptlib</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/04/18/%E6%8F%92%E4%BB%B6%E6%A1%86%E6%9E%B6/</loc>
+    <lastmod>2018-04-18T07:11:03.799Z</lastmod>
+    <data>
+        <display>
+        <title>插件框架</title>
+        <pubTime>2018-04-18T06:48:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C++</tag>
+         
+        <tag>插件框架</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/04/16/CEF/</loc>
+    <lastmod>2018-04-16T09:28:06.898Z</lastmod>
+    <data>
+        <display>
+        <title>CEF</title>
+        <pubTime>2018-04-16T01:53:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>CEF</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/03/20/Adobe%20Photoshop%E6%8F%92%E4%BB%B6%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2018-04-13T07:23:15.537Z</lastmod>
+    <data>
+        <display>
+        <title>Adobe Photoshop插件开发</title>
+        <pubTime>2018-03-20T01:53:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C++</tag>
+         
+        <tag>Photoshop插件</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/04/12/ATL%E4%B8%8EWTL/</loc>
+    <lastmod>2018-04-13T07:22:35.580Z</lastmod>
+    <data>
+        <display>
+        <title>ATL与WTL</title>
+        <pubTime>2018-04-12T01:53:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>c++</tag>
+         
+        <tag>ATL</tag>
+         
+        <tag>WTL</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/03/21/C#%E8%B0%83%E7%94%A8C++/</loc>
+    <lastmod>2018-04-13T07:21:38.639Z</lastmod>
+    <data>
+        <display>
+        <title>C#调用C++</title>
+        <pubTime>2018-03-21T01:53:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C#</tag>
+         
+        <tag>C++</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/04/12/duilib/</loc>
+    <lastmod>2018-04-13T07:20:15.884Z</lastmod>
+    <data>
+        <display>
+        <title>duilib</title>
+        <pubTime>2018-04-12T01:53:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>ATL</tag>
+         
+        <tag>duilib</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/03/02/Jenkins/</loc>
+    <lastmod>2018-04-13T07:19:36.684Z</lastmod>
+    <data>
+        <display>
+        <title>Jenkins</title>
+        <pubTime>2018-03-02T01:53:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>Jenkins</tag>
+         
+        <tag>自动构建</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/04/03/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
+    <lastmod>2018-04-13T07:16:03.886Z</lastmod>
+    <data>
+        <display>
+        <title>正则表达式</title>
+        <pubTime>2018-04-03T01:53:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>正则表达式</tag>
+         
+        <tag>regex</tag>
+         
+        <tag>Boost</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://caojingyou.github.io/2018/01/25/bypy/</loc>
     <lastmod>2018-04-12T06:49:09.403Z</lastmod>
     <data>
@@ -759,31 +979,6 @@
         <tag>C++</tag>
          
         <tag>代码</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2017/09/15/Crypto++/</loc>
-    <lastmod>2018-01-05T08:47:19.088Z</lastmod>
-    <data>
-        <display>
-        <title>Crypto++</title>
-        <pubTime>2017-09-15T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>C++</tag>
-         
-        <tag>代码</tag>
-         
-        <tag>Crypto++</tag>
-         
-        <tag>密码</tag>
          
          
            
