@@ -156,6 +156,135 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-C++与浏览器交互" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/15/C++与浏览器交互/">C++与浏览器交互</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/15/C++与浏览器交互/" class="archive-article-date">
+  	<time datetime="2017-11-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="WebBrowser"><a href="#WebBrowser" class="headerlink" title="WebBrowser"></a>WebBrowser</h1><ul>
+<li><a href="http://blog.csdn.net/charlessimonyi/article/details/18447471" target="_blank" rel="noopener">http://blog.csdn.net/charlessimonyi/article/details/18447471</a></li>
+<li><a href="http://blog.csdn.net/charlessimonyi/article/details/18450783" target="_blank" rel="noopener">http://blog.csdn.net/charlessimonyi/article/details/18450783</a></li>
+<li><a href="http://blog.csdn.net/charlessimonyi/article/details/50984903" target="_blank" rel="noopener">http://blog.csdn.net/charlessimonyi/article/details/50984903</a></li>
+<li><a href="https://www.codeproject.com/articles/2352/javascript-call-from-c" target="_blank" rel="noopener">https://www.codeproject.com/articles/2352/javascript-call-from-c</a></li>
+</ul>
+<h1 id="CEF"><a href="#CEF" class="headerlink" title="CEF"></a>CEF</h1><ul>
+<li><a href="https://www.codeproject.com/Articles/1105945/Embedding-a-Chromium-browser-in-an-MFC-application" target="_blank" rel="noopener">https://www.codeproject.com/Articles/1105945/Embedding-a-Chromium-browser-in-an-MFC-application</a></li>
+<li><a href="http://blog.csdn.net/daoxwj/article/details/8783629/" target="_blank" rel="noopener">http://blog.csdn.net/daoxwj/article/details/8783629/</a></li>
+<li><a href="http://blog.csdn.net/daoxwj/article/details/8786911" target="_blank" rel="noopener">http://blog.csdn.net/daoxwj/article/details/8786911</a></li>
+<li><a href="http://mariusbancila.ro/blog/2016/05/05/building-the-64-bit-version-of-chromium-embedded-framework-on-windows/" target="_blank" rel="noopener">http://mariusbancila.ro/blog/2016/05/05/building-the-64-bit-version-of-chromium-embedded-framework-on-windows/</a></li>
+<li><a href="https://www.codeproject.com/Tips/785840/A-Simple-Windows-Example-Using-the-Chromium-Embedd" target="_blank" rel="noopener">https://www.codeproject.com/Tips/785840/A-Simple-Windows-Example-Using-the-Chromium-Embedd</a></li>
+<li><a href="https://bitbucket.org/chromiumembedded/cef" target="_blank" rel="noopener">https://bitbucket.org/chromiumembedded/cef</a></li>
+<li><a href="http://blog.csdn.net/mfcing/article/details/43953433" target="_blank" rel="noopener">http://blog.csdn.net/mfcing/article/details/43953433</a></li>
+<li><a href="http://blog.csdn.net/mfcing/article/details/52066579" target="_blank" rel="noopener">http://blog.csdn.net/mfcing/article/details/52066579</a></li>
+</ul>
+<ol>
+<li>CefClient：回调管理类，包含5个接口用于创建其它的回调类的对象</li>
+<li>CefLifeSpanHandler: 回调类，用于控制popup对话框的创建和关闭等操作</li>
+<li>CefLoadHandler: 回调类，可以用来监听frame的加载开始，完成，错误等信息</li>
+<li>CefRequestHandler: 回调类，用于监听资源加载，重定向等信息</li>
+<li>CefDisplayHandler: 回调类，用于监听页面加载状态，地址变化，标题等得信息</li>
+<li>CefGeolocationHandler: 回调类，用于CEF3向嵌入者申请geolocation的权限</li>
+<li>CefApp: 与进程，命令行参数，代理，资源管理相关的回调类，用于让CEF3的调用者们定制自己的逻辑</li>
+<li>CefBrowser: renderer进程中执行浏览相关的类，例如前进，后退等</li>
+<li>CefBrowserHost: browser进程中的执行浏览相关的类，其会把请求发送给CefBrowser</li>
+<li>CefFrame: 表示的是页面中的一个Frame，可以加载特定url，在该运行环境下执行JavaScript代码等得。</li>
+<li>V8：CEF3提供支持V8extension的接口，但是这有两个限制，第一，v8 extension仅在Renderer进程使用；第二，仅在沙箱模型关闭时使用</li>
+</ol>
+<p>需要安装cmake</p>
+<ul>
+<li><a href="https://cmake.org/" target="_blank" rel="noopener">https://cmake.org/</a></li>
+<li><a href="https://cmake.org/download/" target="_blank" rel="noopener">https://cmake.org/download/</a></li>
+<li></li>
+</ul>
+<h1 id="V8"><a href="#V8" class="headerlink" title="V8"></a>V8</h1><ul>
+<li><a href="https://github.com/v8/v8/wiki" target="_blank" rel="noopener">https://github.com/v8/v8/wiki</a></li>
+</ul>
+<h1 id="SWIG"><a href="#SWIG" class="headerlink" title="SWIG"></a>SWIG</h1><p>SWIG 是一个非常优秀的开源工具，支持您将 C/C++ 代码与任何主流脚本语言相集成。此外，它向更广泛的受众公开了基本代码，改善了可测试性，让您的 Ruby 代码库某部分能快速写出高性能的 C/C++ 模块。</p>
+<ul>
+<li><a href="https://www.ibm.com/developerworks/cn/aix/library/au-swig/" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/aix/library/au-swig/</a></li>
+<li><a href="https://github.com/swig/swig" target="_blank" rel="noopener">https://github.com/swig/swig</a></li>
+<li><a href="http://www.swig.org/download.html?cm_mc_uid=85410804137714897351221&amp;cm_mc_sid_50200000=1489735122" target="_blank" rel="noopener">http://www.swig.org/download.html?cm_mc_uid=85410804137714897351221&amp;cm_mc_sid_50200000=1489735122</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">浏览器</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CEF</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/15/C++与浏览器交互/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-gitbook" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -2410,187 +2539,6 @@ BOOL ToggleTransparent(COLORREF crKey, BYTE bAlpha, DWORD dwFlags)
 
 
   
-    <article id="post-boost" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/15/boost/">boost</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/15/boost/" class="archive-article-date">
-  	<time datetime="2017-07-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="使用Visual-Studio-IDE构建"><a href="#使用Visual-Studio-IDE构建" class="headerlink" title="使用Visual Studio IDE构建"></a>使用Visual Studio IDE构建</h1><ul>
-<li><p>From Visual Studio’s File menu, select New &gt; Project…</p>
-</li>
-<li><p>In the left-hand pane of the resulting New Project dialog, select Visual C++ &gt; Win32.</p>
-</li>
-<li><p>In the right-hand pane, select Win32 Console Application (VS8.0) or Win32 Console Project (VS7.1).</p>
-</li>
-<li><p>In the name field, enter “example”</p>
-</li>
-<li><p>Right-click example in the Solution Explorer pane and select Properties from the resulting pop-up menu</p>
-</li>
-<li><p>In Configuration Properties &gt; C/C++ &gt; General &gt; Additional Include Directories, enter the path to the Boost root directory, for example</p>
-<p>  C:\Program Files\boost\boost_1_63_0</p>
-</li>
-<li><p>In Configuration Properties &gt; C/C++ &gt; Precompiled Headers, change Use Precompiled Header (/Yu) to Not Using Precompiled Headers.</p>
-</li>
-<li><p>Replace the contents of the example.cpp generated by the IDE with the example code above.</p>
-<pre><code>#include &lt;boost/lambda/lambda.hpp&gt;
-#include &lt;iostream&gt;
-#include &lt;iterator&gt;
-#include &lt;algorithm&gt;
-
-int main()
-{
-    using namespace boost::lambda;
-    typedef std::istream_iterator&lt;int&gt; in;
-
-    std::for_each(
-        in(std::cin), in(), std::cout &lt;&lt; (_1 * 3) &lt;&lt; &quot; &quot; );
-}
-</code></pre></li>
-<li><p>From the Build menu, select Build Solution.</p>
-</li>
-</ul>
-<h1 id="头文件与库"><a href="#头文件与库" class="headerlink" title="头文件与库"></a>头文件与库</h1><p>Nothing to Build?</p>
-<p>Most Boost libraries are header-only: they consist entirely of header files containing templates and inline functions, and require no separately-compiled library binaries or special treatment when linking.</p>
-<p>The only Boost libraries that must be built separately are:</p>
-<pre><code>Boost.Chrono
-Boost.Context
-Boost.Filesystem
-Boost.GraphParallel
-Boost.IOStreams
-Boost.Locale
-Boost.Log (see build documentation)
-Boost.MPI
-Boost.ProgramOptions
-Boost.Python (see the Boost.Python build documentation before building and installing it)
-Boost.Regex
-Boost.Serialization
-Boost.Signals
-Boost.System
-Boost.Thread
-Boost.Timer
-Boost.Wave
-</code></pre><p>A few libraries have optional separately-compiled binaries:</p>
-<pre><code>Boost.DateTime has a binary component that is only needed if you&apos;re using its to_string/from_string or serialization features, or if you&apos;re targeting Visual C++ 6.x or Borland.
-Boost.Graph also has a binary component that is only needed if you intend to parse GraphViz files.
-Boost.Math has binary components for the TR1 and C99 cmath functions.
-Boost.Random has a binary component which is only needed if you&apos;re using random_device.
-Boost.Test can be used in “header-only” or “separately compiled” mode, although separate compilation is recommended for serious use.
-Boost.Exception provides non-intrusive implementation of exception_ptr for 32-bit _MSC_VER==1310 and _MSC_VER==1400 which requires a separately-compiled binary. This is enabled by #define BOOST_ENABLE_NON_INTRUSIVE_EXCEPTION_PTR.
-</code></pre><h1 id="从源代码构建"><a href="#从源代码构建" class="headerlink" title="从源代码构建"></a>从源代码构建</h1><p>使用Visual Studio命令提示</p>
-<p>If you wish to build from source with Visual C++, you can use a simple build procedure described in this section. Open the command prompt and change your current directory to the Boost root directory. Then, type the following commands:</p>
-<pre><code>bootstrap
-.\b2
-</code></pre><p>The first command prepares the Boost.Build system for use. The second command invokes Boost.Build to build the separately-compiled Boost libraries. Please consult the <a href="http://www.boost.org/build/doc/html/bbv2/overview/invocation.html" target="_blank" rel="noopener">Boost.Build documentation</a> for a list of allowed options.</p>
-<h2 id="构建动态库、静态库"><a href="#构建动态库、静态库" class="headerlink" title="构建动态库、静态库"></a>构建动态库、静态库</h2><p>编译，可以简单的使用b2 install，也可以指定存放目录，或者寻找网上其它帮助文章。</p>
-<p>查看帮助可以输入：.\b2 –help</p>
-<p>比如要开启多线程编译：b2 install threading=multi</p>
-<p>设置生成的是debug或者release</p>
-<p>备注：如果是使用VS2013，请指定输出库类型，否则会缺一个lib文件：</p>
-<p>“无法打开文件 libboost_thread_vc120_mt_sgd-1_55.lib”。</p>
-<p>在2013时，我是使用下面的语句进行编译：</p>
-<pre><code>// 如果要获取动态库：
-
-bjam install stage --toolset=msvc-12.0 --stagedir=&quot;C:\Boost\boost_vc_120&quot; link=shared runtime-link=shared threading=multi debug release  
-
-// 如果是要获取静态库：
-
-bjam install stage --toolset=msvc-12.0 --stagedir=&quot;C:\Boost\boost_vc_120&quot; link=static runtime-link=static threading=multi debug release  
-</code></pre><p>其中，注意修改–toolset=msvc-12.0，将12.0修改成对应的vs版本号，12.0是VS2013的版本号。</p>
-<p>目标地址也要修改成你所需的。</p>
-<p>注意，不要漏了install，它会帮你把头文件集合到一个文件夹中。</p>
-<p>编译过程有一个复制过程，编译需要的时间比较长，本次编译过程中，会在C盘根目录下生成一个boost文件夹，然后包含include和lib文件夹，这就是我们将要使用的头文件和库文件。</p>
-<h2 id="出现“boost-此时不应有-Microsoft。”的问题："><a href="#出现“boost-此时不应有-Microsoft。”的问题：" class="headerlink" title="出现“boost 此时不应有 \Microsoft。”的问题："></a>出现“boost 此时不应有 \Microsoft。”的问题：</h2><p><a href="http://blog.csdn.net/poem_qianmo/article/details/26048697" target="_blank" rel="noopener">解决VS命令提示符 “Setting environment for using Microsoft Visual Studio. 此时不应有”系列错误</a></p>
-<h1 id="使用预编译的二进制文件boost库"><a href="#使用预编译的二进制文件boost库" class="headerlink" title="使用预编译的二进制文件boost库"></a>使用预编译的二进制文件boost库</h1><p><a href="https://sourceforge.net/projects/boost/files/boost-binaries/1.63.0/boost_1_63_0-msvc-14.0-32.exe/download" target="_blank" rel="noopener">boost_1_63_0-msvc-14.0-32.exe</a></p>
-<p><a href="https://sourceforge.net/projects/boost/files/boost-binaries/1.63.0/boost_1_63_0-msvc-10.0-64.exe/download" target="_blank" rel="noopener">boost_1_63_0-msvc-14.0-64.exe</a></p>
-<p><a href="https://sourceforge.net/projects/boost/files/boost-binaries/1.63.0/" target="_blank" rel="noopener">https://sourceforge.net/projects/boost/files/boost-binaries/1.63.0/</a></p>
-<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="http://www.boost.org/" target="_blank" rel="noopener">http://www.boost.org/</a></li>
-<li><a href="http://zh.highscore.de/cpp/boost/" target="_blank" rel="noopener">http://zh.highscore.de/cpp/boost/</a></li>
-<li><a href="http://stlchina.huhoo.net/twiki/bin/view.pl/Main/BoostChina" target="_blank" rel="noopener">http://stlchina.huhoo.net/twiki/bin/view.pl/Main/BoostChina</a></li>
-<li><a href="http://www.boost.org/doc/libs/1_63_0/more/getting_started/windows.html" target="_blank" rel="noopener">http://www.boost.org/doc/libs/1_63_0/more/getting_started/windows.html</a></li>
-<li><a href="https://sourceforge.net/projects/boost/?source=directory" target="_blank" rel="noopener">https://sourceforge.net/projects/boost/?source=directory</a></li>
-<li><a href="http://jingyan.baidu.com/article/a3aad71aa1ebe7b1fb009681.html" target="_blank" rel="noopener">win7 vs2012/2013 编译boost 1.55</a></li>
-<li><a href="http://www.cnblogs.com/lidabo/p/3782400.html" target="_blank" rel="noopener">Win7+vs2010下安装boost_1_46_1库</a></li>
-<li><a href="http://www.cnblogs.com/lidabo/p/3782193.html" target="_blank" rel="noopener">vs2008编译boost</a></li>
-<li><a href="https://blog.csdn.net/qingyulove/article/details/78863457" target="_blank" rel="noopener">C++ Boost在VS2017中的使用</a></li>
-<li><a href="http://sourceforge.net/projects/boost/files/boost-docs/" target="_blank" rel="noopener">PDF version of this manual is also available.</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">boost</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/15/boost/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -3193,6 +3141,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Boost</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">目录监控</a>
               </li>
             
             <div class="clearfix"></div>

@@ -156,6 +156,151 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-目录监控" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/27/目录监控/">目录监控</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/27/目录监控/" class="archive-article-date">
+  	<time datetime="2018-04-27T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="FileSystemWatcher"><a href="#FileSystemWatcher" class="headerlink" title="FileSystemWatcher"></a>FileSystemWatcher</h1><pre><code>// &lt;https://msdn.microsoft.com/zh-cn/library/chzww271.aspx&gt;
+// monitor_fs.cpp
+// compile with: /clr
+#using &lt;system.dll&gt;
+
+using namespace System;
+using namespace System::IO;
+
+ref class FSEventHandler
+{
+public:
+    void OnChanged (Object ^source, FileSystemEventArgs ^e)
+    {
+        Console::WriteLine(&quot;File: {0} {1}&quot;,
+                           e-&gt;FullPath, e-&gt;ChangeType);
+    }
+    void OnRenamed(Object ^source, RenamedEventArgs ^e)
+    {
+        Console::WriteLine(&quot;File: {0} renamed to {1}&quot;,
+                           e-&gt;OldFullPath, e-&gt;FullPath);
+    }
+};
+
+int main()
+{
+    array&lt;String ^&gt; ^args = Environment::GetCommandLineArgs();
+
+    if(args-&gt;Length &lt; 2)
+    {
+        Console::WriteLine(&quot;Usage: Watcher.exe &lt;directory&gt;&quot;);
+        return -1;
+    }
+
+    FileSystemWatcher ^fsWatcher = gcnew FileSystemWatcher( );
+    fsWatcher-&gt;Path = args[1];
+    fsWatcher-&gt;NotifyFilter = static_cast&lt;NotifyFilters&gt;
+                              (NotifyFilters::FileName |
+                               NotifyFilters::Attributes |
+                               NotifyFilters::LastAccess |
+                               NotifyFilters::LastWrite |
+                               NotifyFilters::Security |
+                               NotifyFilters::Size );
+
+    FSEventHandler ^handler = gcnew FSEventHandler();
+    fsWatcher-&gt;Changed += gcnew FileSystemEventHandler(
+                              handler, &amp;FSEventHandler::OnChanged);
+    fsWatcher-&gt;Created += gcnew FileSystemEventHandler(
+                              handler, &amp;FSEventHandler::OnChanged);
+    fsWatcher-&gt;Deleted += gcnew FileSystemEventHandler(
+                              handler, &amp;FSEventHandler::OnChanged);
+    fsWatcher-&gt;Renamed += gcnew RenamedEventHandler(
+                              handler, &amp;FSEventHandler::OnRenamed);
+
+    fsWatcher-&gt;EnableRaisingEvents = true;
+
+    Console::WriteLine(&quot;Press Enter to quit the sample.&quot;);
+    Console::ReadLine( );
+}
+</code></pre><h1 id="目录监视器-Directory-Monitor"><a href="#目录监视器-Directory-Monitor" class="headerlink" title="目录监视器(Directory Monitor)"></a>目录监视器(Directory Monitor)</h1><p>使用Boost.Asio扩展<br><a href="http://www.highscore.de/boost/dir_monitor.zip" title="http://www.highscore.de/boost/dir_monitor.zip" target="_blank" rel="noopener">http://www.highscore.de/boost/dir_monitor.zip</a></p>
+<h1 id="SHChangeNotifyRegister"><a href="#SHChangeNotifyRegister" class="headerlink" title="SHChangeNotifyRegister"></a>SHChangeNotifyRegister</h1><p>Win SDK Samples 下 ChangeNotifyWatcher 项目，使用<code>SHChangeNotifyRegister</code></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">boost</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">目录监控</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/27/目录监控/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Cryptlib" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -427,6 +572,90 @@
 
 
   
+    <article id="post-duilib" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/12/duilib/">duilib</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/12/duilib/" class="archive-article-date">
+  	<time datetime="2018-04-12T01:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="duilib"><a href="#duilib" class="headerlink" title="duilib"></a>duilib</h1><p><a href="https://github.com/duilib/duilib" target="_blank" rel="noopener">https://github.com/duilib/duilib</a></p>
+<h2 id="设计器："><a href="#设计器：" class="headerlink" title="设计器："></a>设计器：</h2><p>DuiDesigner</p>
+<h2 id="教程："><a href="#教程：" class="headerlink" title="教程："></a>教程：</h2><p><a href="www.cnblogs.com/Alberl/category/520438.html">2013 duilib入门简明教程</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ATL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">duilib</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/12/duilib/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-ATL与WTL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -495,90 +724,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/04/12/ATL与WTL/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-duilib" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/12/duilib/">duilib</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/12/duilib/" class="archive-article-date">
-  	<time datetime="2018-04-12T01:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="duilib"><a href="#duilib" class="headerlink" title="duilib"></a>duilib</h1><p><a href="https://github.com/duilib/duilib" target="_blank" rel="noopener">https://github.com/duilib/duilib</a></p>
-<h2 id="设计器："><a href="#设计器：" class="headerlink" title="设计器："></a>设计器：</h2><p>DuiDesigner</p>
-<h2 id="教程："><a href="#教程：" class="headerlink" title="教程："></a>教程：</h2><p><a href="www.cnblogs.com/Alberl/category/520438.html">2013 duilib入门简明教程</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ATL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">duilib</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/12/duilib/">展开全文 >></a>
         </p>
       
 
@@ -1811,88 +1956,6 @@ print(code)
 
 
   
-    <article id="post-Adobe Photoshop插件开发" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/20/Adobe Photoshop插件开发/">Adobe Photoshop插件开发</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/20/Adobe Photoshop插件开发/" class="archive-article-date">
-  	<time datetime="2018-03-20T01:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://www.adobe.com/devnet/photoshop/sdk.html" title="https://www.adobe.com/devnet/photoshop/sdk.html" target="_blank" rel="noopener">Photoshop SDK</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Photoshop插件</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/20/Adobe Photoshop插件开发/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -2495,6 +2558,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Boost</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">目录监控</a>
               </li>
             
             <div class="clearfix"></div>
