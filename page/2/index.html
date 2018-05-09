@@ -156,6 +156,238 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-tesseract-ocr" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/26/tesseract-ocr/">tesseract-ocr</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/26/tesseract-ocr/" class="archive-article-date">
+  	<time datetime="2018-03-26T09:01:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Python-中文OCR"><a href="#Python-中文OCR" class="headerlink" title="Python 中文OCR"></a>Python 中文OCR</h1><p><a href="https://github.com/tesseract-ocr/tesseract" target="_blank" rel="noopener">https://github.com/tesseract-ocr/tesseract</a></p>
+<p><a href="https://digi.bib.uni-mannheim.de/tesseract/doc/" target="_blank" rel="noopener">https://digi.bib.uni-mannheim.de/tesseract/doc/</a></p>
+<p><a href="https://blog.csdn.net/wwj_748/article/details/78109680?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="noopener">Python 中文OCR</a></p>
+<p>Tesseract的OCR引擎目前已作为开源项目发布在Google Project，其项目主页在这里查看<a href="https://github.com/tesseract-ocr" target="_blank" rel="noopener">https://github.com/tesseract-ocr</a>，<br>它支持中文OCR，并提供了一个命令行工具。python中对应的包是pytesseract. 通过这个工具我们可以识别图片上的文字。</p>
+<h1 id="tesseract安装"><a href="#tesseract安装" class="headerlink" title="tesseract安装"></a>tesseract安装</h1><p><a href="https://github.com/tesseract-ocr/tesseract/wiki" target="_blank" rel="noopener">https://github.com/tesseract-ocr/tesseract/wiki</a></p>
+<p><a href="https://github.com/UB-Mannheim/tesseract/wiki" target="_blank" rel="noopener">https://github.com/UB-Mannheim/tesseract/wiki</a></p>
+<p><a href="https://jingyan.baidu.com/article/219f4bf788addfde442d38fe.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/219f4bf788addfde442d38fe.html</a></p>
+<p>需要把安装路径设置到环境变量中</p>
+<h1 id="运行-Tesseract"><a href="#运行-Tesseract" class="headerlink" title="运行 Tesseract"></a>运行 Tesseract</h1><p>Tesseract 是 命令行 程序 ， 那么 第一 终端 或者 打开 一个 命令 提示 。 在 命令 使用 过程 是 这样 的 ：</p>
+<pre><code>tesseract imagename outputbase [-l lang] [-psm pagesegmode] [configfile...]
+</code></pre><p>结果 保存 到  out.txt </p>
+<pre><code>tesseract myscan.png out
+</code></pre><p> 用于 多个 语言</p>
+<pre><code>tesseract myscan.png out -l eng+deu
+</code></pre><p><a href="https://github.com/tesseract-ocr/tesseract/blob/master/doc/tesseract.1.asc" target="_blank" rel="noopener">其他各种选项</a></p>
+<p>1.jpg是当前目录中的1.jpg图片</p>
+<p>1.txt是指定结果输出到文本文件</p>
+<p>-l是指定使用的包</p>
+<p>chi_sim是中文识别包，equ是数学公式包，eng是英文包</p>
+<pre><code>tesseract 1.jpg 1.txt -l chi_sim+equ+eng
+</code></pre><h1 id="其他-语言"><a href="#其他-语言" class="headerlink" title="其他 语言"></a>其他 语言</h1><p><a href="https://github.com/tesseract-ocr/tessdata" target="_blank" rel="noopener">语言 tessdata 储存库 </a></p>
+<h1 id="训练语言"><a href="#训练语言" class="headerlink" title="训练语言"></a>训练语言</h1><p><a href="https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract" target="_blank" rel="noopener">https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract</a></p>
+<p><a href="https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00" target="_blank" rel="noopener">https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00</a></p>
+<p><a href="https://sourceforge.net/projects/vietocr/files/jTessBoxEditor/" title="jTessBoxEditor" target="_blank" rel="noopener">jTessBoxEditor</a></p>
+<p><a href="https://blog.csdn.net/cn_wk/article/details/52280567" target="_blank" rel="noopener">https://blog.csdn.net/cn_wk/article/details/52280567</a></p>
+<p><a href="http://www.bkjia.com/Pythonjc/1131343.html" target="_blank" rel="noopener">http://www.bkjia.com/Pythonjc/1131343.html</a></p>
+<p><a href="https://github.com/tesseract-ocr/tesseract/wiki/AddOns" target="_blank" rel="noopener">https://github.com/tesseract-ocr/tesseract/wiki/AddOns</a></p>
+<p><a href="http://zdenop.github.io/qt-box-editor/" target="_blank" rel="noopener">http://zdenop.github.io/qt-box-editor/</a></p>
+<p><a href="https://www.cnblogs.com/cnlian/p/5765871.html" target="_blank" rel="noopener">https://www.cnblogs.com/cnlian/p/5765871.html</a></p>
+<p>大体流程为：安装jTessBoxEditor -&gt; 获取样本文件 -&gt; Merge样本文件 –&gt; 生成BOX文件 -&gt; 定义字符配置文件 -&gt; 字符矫正 -&gt; 执行批处理文件 -&gt; 将生成的traineddata放入tessdata中</p>
+<p><a href="https://jingyan.baidu.com/article/cdddd41c90544f53cb00e1c3.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/cdddd41c90544f53cb00e1c3.html</a></p>
+<p><a href="https://blog.csdn.net/woaipangruimao/article/details/78741022" target="_blank" rel="noopener">https://blog.csdn.net/woaipangruimao/article/details/78741022</a></p>
+<h1 id="python-pytesseract"><a href="#python-pytesseract" class="headerlink" title="python pytesseract"></a>python pytesseract</h1><p><a href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014320027235877860c87af5544f25a8deeb55141d60c5000" target="_blank" rel="noopener">Pillow</a></p>
+<p><a href="https://pillow.readthedocs.org/" target="_blank" rel="noopener">https://pillow.readthedocs.org/</a></p>
+<p><a href="https://pypi.python.org/pypi/pytesseract" target="_blank" rel="noopener">https://pypi.python.org/pypi/pytesseract</a></p>
+<pre><code>pip install pytesseract
+pip install pillow
+</code></pre><p>code:</p>
+<pre><code>#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import pytesseract
+from PIL import Image
+
+pytesseract.pytesseract.tesseract_cmd = r&apos;C:\Program Files (x86)\Tesseract-OCR\tesseract.exe&apos;
+# open image
+image = Image.open(&apos;test.png&apos;)
+code = pytesseract.image_to_string(image, lang=&apos;chi_sim&apos;)
+print(code)
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tesseract</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ocr</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/26/tesseract-ocr/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-C#调用C++" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/21/C#调用C++/">C#调用C++</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/21/C#调用C++/" class="archive-article-date">
+  	<time datetime="2018-03-21T01:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="互操作"><a href="#互操作" class="headerlink" title="互操作"></a>互操作</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/ms177552(v=vs.90" target="_blank" rel="noopener">互操作</a>.aspx)<br>包含以下内容：</p>
+<ul>
+<li>CLR/本机互操作性</li>
+<li>C++ Interop</li>
+<li>COM 互操作</li>
+<li>P/Invoke</li>
+<li>C++ 支持库</li>
+<li>在 MFC 中使用 Windows 窗体</li>
+</ul>
+<h1 id="P-Invoke"><a href="#P-Invoke" class="headerlink" title="P/Invoke"></a>P/Invoke</h1><p><a href="https://baike.baidu.com/item/P%2FInvoke/9872691?fr=aladdin" target="_blank" rel="noopener">P/Invoke</a></p>
+<p><a href="https://msdn.microsoft.com/zh-cn/library/aa686045.aspx" title="https://msdn.microsoft.com/zh-cn/library/aa686045.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/aa686045.aspx</a></p>
+<p><a href="https://www.zhihu.com/question/55901875" title="https://www.zhihu.com/question/55901875" target="_blank" rel="noopener">https://www.zhihu.com/question/55901875</a></p>
+<h1 id="C-CLI"><a href="#C-CLI" class="headerlink" title="C++/CLI"></a>C++/CLI</h1><p><a href="https://baike.baidu.com/item/C++%2FCLI/8375456?fr=aladdin" target="_blank" rel="noopener">C++/CLI</a></p>
+<p><a href="https://msdn.microsoft.com/zh-cn/library/ms235281(v=vs.90" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/ms235281(v=vs.90).aspx</a>.aspx “<a href="https://msdn.microsoft.com/zh-cn/library/ms235281(v=vs.90).aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/ms235281(v=vs.90).aspx</a>“)</p>
+<p><a href="http://www.cnblogs.com/TianFang/p/4946049.html" title="http://www.cnblogs.com/TianFang/p/4946049.html" target="_blank" rel="noopener">http://www.cnblogs.com/TianFang/p/4946049.html</a></p>
+<h1 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/2x8kf7zx(v=vs.120" target="_blank" rel="noopener">使用 C++ 互操作（隐式 PInvoke）</a>.aspx “使用 C++ 互操作（隐式 PInvoke）”)</p>
+<p><a href="https://msdn.microsoft.com/zh-cn/library/eyzhw3s8(v=vs.120" target="_blank" rel="noopener">在 C++ 中使用显式 PInvoke（DllImport 特性）</a>.aspx)</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/21/C#调用C++/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Adobe Photoshop插件开发" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1082,354 +1314,6 @@ $ copy /b out32dll\openssl.exe  c:\openssl\bin
 
 
   
-    <article id="post-C++获取外部exe程序的返回值，判断图片颜色模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-获取外部exe程序的返回值"><a href="#C-获取外部exe程序的返回值" class="headerlink" title="C++获取外部exe程序的返回值"></a>C++获取外部exe程序的返回值</h1><pre><code>#include &quot;stdafx.h&quot;
-#include &lt;Windows.h&gt;
-#include &lt;iostream&gt;
-using namespace std;
-
-int _tmain(int argc, _TCHAR *argv[])
-{
-    STARTUPINFOA si;
-    PROCESS_INFORMATION pi;
-
-    ZeroMemory(&amp;pi,   sizeof(pi));
-    ZeroMemory(&amp;si,   sizeof(si));
-    si.cb = sizeof(STARTUPINFOA);
-
-    TCHAR cmd[256] = _T(&quot;D:\\7za.exe a D:\\nv1.zip D:\\test\\*.*&quot;);
-    BOOL working = ::CreateProcess(NULL, cmd, NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS , NULL, NULL, &amp;si, &amp;pi);
-
-    if (working == 0)
-    {
-        DWORD error = GetLastError();
-        cout &lt;&lt; &quot;CreateProcess Error : &quot; &lt;&lt; error &lt;&lt; endl;
-        getchar();
-        return 0;
-    }
-
-    WaitForSingleObject(pi.hProcess, INFINITE);
-
-    unsigned long Result;
-    GetExitCodeProcess(pi.hProcess, &amp;Result);
-
-    cout &lt;&lt; &quot;Exit Code : &quot; &lt;&lt; Result &lt;&lt; endl;
-    getchar();
-
-    return 0;
-}
-</code></pre><h1 id="调用命令行程序并获取返回信息"><a href="#调用命令行程序并获取返回信息" class="headerlink" title="调用命令行程序并获取返回信息"></a>调用命令行程序并获取返回信息</h1><pre><code>CString ExeCmd(CString pszCmd)
-{
-    //创建匿名管道
-    SECURITY_ATTRIBUTES sa = {sizeof(SECURITY_ATTRIBUTES), NULL, TRUE};
-    HANDLE hRead, hWrite;
-    if (!CreatePipe(&amp;hRead, &amp;hWrite, &amp;sa, 0))
-    {
-        return _T(&quot;&quot;);
-    }
-
-    //设置命令行进程启动信息(以隐藏方式启动命令并定位其输出到hWrite)
-    STARTUPINFO si = {sizeof(STARTUPINFO)};
-    GetStartupInfo(&amp;si);
-    si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
-    si.wShowWindow = SW_HIDE;
-    si.hStdError = hWrite;
-    si.hStdOutput = hWrite;
-
-    //启动命令行
-    PROCESS_INFORMATION pi;
-    if (!CreateProcess(NULL, (LPWSTR)(LPCWSTR)pszCmd, NULL, NULL, TRUE, NULL, NULL, NULL, &amp;si, &amp;pi))
-    {
-        return _T(&quot;&quot;);
-    }
-
-    //立即关闭hWrite
-    CloseHandle(hWrite);
-
-    //读取命令行返回值
-    char buff[1024] = {0};
-    DWORD dwRead = 0;
-    while (ReadFile(hRead, buff, 1024, &amp;dwRead, NULL))
-    {
-    }
-    CString strRet(buff);
-    CloseHandle(hRead);
-
-    return strRet;
-}
-</code></pre><p>使用：</p>
-<pre><code>ExeCmd(_T(&quot;ping baidu.com&quot;));
-ExeCmd(_T(&quot;identify -format &quot;%[colorspace]&quot; E:\\P70306-163226.jpg&quot;));
-</code></pre><h1 id="其他参考："><a href="#其他参考：" class="headerlink" title="其他参考："></a>其他参考：</h1><pre><code>BOOL    Start(LPCTSTR lpszTaskInfo)
-{
-    if (!lpszTaskInfo)
-    {
-        return FALSE;
-    }
-    if (m_hRenderProcess)
-    {
-        if (Wait(0))
-        {
-            m_nProgress = 0;
-            SAFE_CLOSE_HANDLE(m_hRenderProcess);
-            m_dwRenderThreadId = 0;
-        }
-        else
-        {
-            return FALSE;
-        }
-    }
-
-    BOOL bRet = FALSE;
-    HANDLE hDebugInfo = NULL;
-    do
-    {
-        TCHAR szDebugLog[MAX_PATH];
-        _tcscpy(szDebugLog, m_szFastRenderExPath);
-        _tcscat(szDebugLog, _T(&quot;.debug&quot;));
-        SECURITY_ATTRIBUTES sa;
-        sa.nLength = sizeof(sa);
-        sa.lpSecurityDescriptor = NULL;
-        sa.bInheritHandle = TRUE;
-        hDebugInfo = CreateFile(szDebugLog, FILE_WRITE_DATA, FILE_SHARE_READ, &amp;sa, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-
-        STARTUPINFO si;
-        PROCESS_INFORMATION pi;
-        ZeroMemory( &amp;si, sizeof(si) );
-        si.cb = sizeof(si);
-        ZeroMemory( &amp;pi, sizeof(pi) );
-        si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
-        si.hStdInput = NULL;
-        si.hStdOutput = hDebugInfo;
-        si.hStdError = hDebugInfo;
-        si.wShowWindow = SW_HIDE;
-
-        TCHAR szCmdline[MAX_PATH * 2];
-        _sntprintf(szCmdline, ARRAYSIZE(szCmdline), _T(&quot; -i \&quot;%s\&quot;&quot;), lpszTaskInfo); // 第一个空格非常重要
-        // Start the child process.
-        if( !CreateProcess( m_szFastRenderExPath,   // Module name
-                            szCmdline,      // Command line
-                            NULL,           // Process handle not inheritable
-                            NULL,           // Thread handle not inheritable
-                            TRUE,          // Set handle inheritance to FALSE
-                            0,              // No creation flags
-                            NULL,           // Use parent&apos;s environment block
-                            NULL,           // Use parent&apos;s starting directory
-                            &amp;si,            // Pointer to STARTUPINFO structure
-                            &amp;pi )           // Pointer to PROCESS_INFORMATION structure
-          )
-        {
-            break;
-        }
-        // Close process and thread handles.
-        m_hRenderProcess = pi.hProcess;
-        CloseHandle( pi.hThread );
-        m_dwRenderThreadId = pi.dwThreadId;
-
-        // Start the message receive thread
-        if (!m_dwReceiveThreadId)
-        {
-            HANDLE hThread = (HANDLE) _beginthreadex(NULL,    0, ThreadFn, this, 0, &amp;m_dwReceiveThreadId);
-            if (hThread == NULL)
-            {
-                break;
-            }
-            CloseHandle(hThread);
-        }
-
-        if (!m_hMsgEvent)
-        {
-            m_hMsgEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
-        }
-        else
-        {
-            ResetEvent(m_hMsgEvent);
-        }
-
-        bRet = TRUE;
-    }
-    while (FALSE);
-
-    SAFE_CLOSE_HANDLE(hDebugInfo);
-
-    if (!bRet)
-    {
-        if (m_hRenderProcess)
-        {
-            TerminateProcess(m_hRenderProcess, -1);
-            SAFE_CLOSE_HANDLE(m_hRenderProcess);
-        }
-        m_dwRenderThreadId = 0;
-        SAFE_CLOSE_HANDLE(m_hMsgEvent);
-    }
-
-    return bRet;
-}
-</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="http://blog.csdn.net/lgh1700/article/details/7713500" title="http://blog.csdn.net/lgh1700/article/details/7713500" target="_blank" rel="noopener">C++获取外部exe程序的返回值 </a></li>
-<li><a href="http://www.cnblogs.com/acloud/archive/2012/08/30/2663395.html" target="_blank" rel="noopener">调用命令行程序并获取返回信息</a></li>
-<li><a href="http://dahua2.blog.163.com/blog/static/1748435142015317633489/" target="_blank" rel="noopener">ImageMagick–identify详解</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/02/C++获取外部exe程序的返回值，判断图片颜色模式/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-VS工具" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/01/VS工具/">VS工具</a>
-    </h1>
-  
-
-        
-        <a href="/2018/02/01/VS工具/" class="archive-article-date">
-  	<time datetime="2018-02-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="MSDN-Code-Gallery"><a href="#MSDN-Code-Gallery" class="headerlink" title="MSDN Code Gallery"></a>MSDN Code Gallery</h1><p><a href="https://code.msdn.microsoft.com/" title="https://code.msdn.microsoft.com/" target="_blank" rel="noopener">https://code.msdn.microsoft.com/</a></p>
-<h1 id="Visual-Studio-Gallery"><a href="#Visual-Studio-Gallery" class="headerlink" title="Visual Studio Gallery"></a>Visual Studio Gallery</h1><p><a href="https://visualstudiogallery.msdn.microsoft.com/" title="https://visualstudiogallery.msdn.microsoft.com/" target="_blank" rel="noopener">https://visualstudiogallery.msdn.microsoft.com/</a></p>
-<h1 id="cppcheck"><a href="#cppcheck" class="headerlink" title="cppcheck"></a>cppcheck</h1><p><a href="http://cppcheck.sourceforge.net/" title="http://cppcheck.sourceforge.net/" target="_blank" rel="noopener">http://cppcheck.sourceforge.net/</a></p>
-<p><a href="https://github.com/danmar/cppcheck" title="https://github.com/danmar/cppcheck" target="_blank" rel="noopener">https://github.com/danmar/cppcheck</a></p>
-<p><a href="http://cppcheck.sourceforge.net/manual.html" title="http://cppcheck.sourceforge.net/manual.html" target="_blank" rel="noopener">http://cppcheck.sourceforge.net/manual.html</a></p>
-<h1 id="Resharper"><a href="#Resharper" class="headerlink" title="Resharper"></a>Resharper</h1><p>深度代码分析，智能代码协助，实时错误代码高亮显示，解决方案范围内代码分析，快速代码更正，一步完成代码格式化和清理，业界领先的自动代码重构，高级的集成单元测试方案，和强大的解决方案内导航和搜索</p>
-<p><a href="https://www.jetbrains.com/resharper/" title="https://www.jetbrains.com/resharper/" target="_blank" rel="noopener">https://www.jetbrains.com/resharper/</a></p>
-<h1 id="CodeMaid"><a href="#CodeMaid" class="headerlink" title="CodeMaid"></a>CodeMaid</h1><p>整理代码</p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=SteveCadwallader.CodeMaid" title="https://marketplace.visualstudio.com/items?itemName=SteveCadwallader.CodeMaid" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=SteveCadwallader.CodeMaid</a></p>
-<h1 id="ClaudiaIDE"><a href="#ClaudiaIDE" class="headerlink" title="ClaudiaIDE"></a>ClaudiaIDE</h1><p>vs背景</p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=kbuchi.ClaudiaIDE" title="https://marketplace.visualstudio.com/items?itemName=kbuchi.ClaudiaIDE" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=kbuchi.ClaudiaIDE</a></p>
-<h1 id="VSColorOutput"><a href="#VSColorOutput" class="headerlink" title="VSColorOutput"></a>VSColorOutput</h1><p>vs彩色输出信息</p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=MikeWard-AnnArbor.VSColorOutput" title="https://marketplace.visualstudio.com/items?itemName=MikeWard-AnnArbor.VSColorOutput" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=MikeWard-AnnArbor.VSColorOutput</a></p>
-<h1 id="VS10x-Comments-Extender"><a href="#VS10x-Comments-Extender" class="headerlink" title="VS10x Comments Extender"></a>VS10x Comments Extender</h1><p>更改代码注释样式</p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.VS10xCommentsExtender" title="https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.VS10xCommentsExtender" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.VS10xCommentsExtender</a></p>
-<h1 id="VS10x-CodeMAP"><a href="#VS10x-CodeMAP" class="headerlink" title="VS10x CodeMAP"></a>VS10x CodeMAP</h1><p>可视化代码</p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.VS10xCodeMAP" title="https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.VS10xCodeMAP" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.VS10xCodeMAP</a></p>
-<h1 id="VS10x-Editor-View-Enhancer"><a href="#VS10x-Editor-View-Enhancer" class="headerlink" title="VS10x Editor View Enhancer"></a>VS10x Editor View Enhancer</h1><p>增强 代码 编辑器 突出 显示 类 和 成员 名称</p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.VS10xEditorViewEnhancer" title="https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.VS10xEditorViewEnhancer" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.VS10xEditorViewEnhancer</a></p>
-<h1 id="Atomineer-Pro-Documentation"><a href="#Atomineer-Pro-Documentation" class="headerlink" title="Atomineer Pro Documentation"></a>Atomineer Pro Documentation</h1><p>生成Doxygen注释</p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=JasonWilliams.AtomineerProDocumentation" title="https://marketplace.visualstudio.com/items?itemName=JasonWilliams.AtomineerProDocumentation" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=JasonWilliams.AtomineerProDocumentation</a></p>
-<h1 id="Atomineer-Pro-Documentation-Trial"><a href="#Atomineer-Pro-Documentation-Trial" class="headerlink" title="Atomineer Pro Documentation Trial"></a>Atomineer Pro Documentation Trial</h1><p>生成Doxygen注释</p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=JasonWilliams.AtomineerProDocumentationTrial" title="https://marketplace.visualstudio.com/items?itemName=JasonWilliams.AtomineerProDocumentationTrial" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=JasonWilliams.AtomineerProDocumentationTrial</a></p>
-<h1 id="DoxygenComments"><a href="#DoxygenComments" class="headerlink" title="DoxygenComments"></a>DoxygenComments</h1><p>Doxygen注释高亮</p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=OleksandrManenko.DoxygenComments" title="https://marketplace.visualstudio.com/items?itemName=OleksandrManenko.DoxygenComments" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=OleksandrManenko.DoxygenComments</a></p>
-<h1 id="XML-Comments"><a href="#XML-Comments" class="headerlink" title="XML Comments"></a>XML Comments</h1><p>xml注释</p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=UwePhilipps.XMLComments" title="https://marketplace.visualstudio.com/items?itemName=UwePhilipps.XMLComments" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=UwePhilipps.XMLComments</a></p>
-<h1 id="Go-To-Definition"><a href="#Go-To-Definition" class="headerlink" title="Go To Definition"></a>Go To Definition</h1><p>转到定义</p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=NoahRichards.GoToDefinition" title="https://marketplace.visualstudio.com/items?itemName=NoahRichards.GoToDefinition" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=NoahRichards.GoToDefinition</a></p>
-<h1 id="AnkhSVN"><a href="#AnkhSVN" class="headerlink" title="AnkhSVN"></a>AnkhSVN</h1><p>svn</p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=vs-publisher-303797.AnkhSVN-SubversionSupportSCCProvider" title="https://marketplace.visualstudio.com/items?itemName=vs-publisher-303797.AnkhSVN-SubversionSupportSCCProvider" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=vs-publisher-303797.AnkhSVN-SubversionSupportSCCProvider</a></p>
-<h1 id="Code-Compare"><a href="#Code-Compare" class="headerlink" title="Code Compare"></a>Code Compare</h1><p>代码对比</p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=DevartSoftware.CodeCompare" title="https://marketplace.visualstudio.com/items?itemName=DevartSoftware.CodeCompare" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=DevartSoftware.CodeCompare</a></p>
-<h1 id="Indent-Guides"><a href="#Indent-Guides" class="headerlink" title="Indent Guides"></a>Indent Guides</h1><p>花括号虚线</p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=SteveDowerMSFT.IndentGuides" title="https://marketplace.visualstudio.com/items?itemName=SteveDowerMSFT.IndentGuides" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=SteveDowerMSFT.IndentGuides</a></p>
-<h1 id="Hide-Main-Menu"><a href="#Hide-Main-Menu" class="headerlink" title="Hide Main Menu"></a>Hide Main Menu</h1><p>隐藏主菜单</p>
-<p><a href="https://marketplace.visualstudio.com/items?itemName=MatthewJohnsonMSFT.HideMainMenu" title="https://marketplace.visualstudio.com/items?itemName=MatthewJohnsonMSFT.HideMainMenu" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=MatthewJohnsonMSFT.HideMainMenu</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">VS工具</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/01/VS工具/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -2036,6 +1920,54 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">目录监控</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">CCNET</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CppUTest</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Google Test</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Google Mock</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Boost.Test</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MicrosoftCppUnitTest</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Conan</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">vcpkg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nuget</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">cppcheck</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Resharper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CodeMaid</a>
               </li>
             
             <div class="clearfix"></div>

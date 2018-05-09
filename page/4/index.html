@@ -156,6 +156,185 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-程序只能启动一次" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/01/程序只能启动一次/">程序只能启动一次</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/01/程序只能启动一次/" class="archive-article-date">
+  	<time datetime="2017-12-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="程序只能启动一次"><a href="#程序只能启动一次" class="headerlink" title="程序只能启动一次"></a>程序只能启动一次</h1><pre><code>BOOL CIMServerApp::InitInstance()
+{
+    HANDLE hMutex=::CreateMutex(NULL,TRUE,&quot;NAME&quot;);//NAME随便写个
+    if (hMutex!=NULL)
+    {
+        if (GetLastError()==ERROR_ALREADY_EXISTS)
+        {
+            AfxMessageBox(&quot;已经有一个程序运行.&quot;);
+            return FALSE;
+        }
+    }
+}
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/01/程序只能启动一次/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-libssh2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/24/libssh2/">libssh2</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/24/libssh2/" class="archive-article-date">
+  	<time datetime="2017-11-24T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="libssh2"><a href="#libssh2" class="headerlink" title="libssh2"></a>libssh2</h1><h2 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h2><p><a href="https://www.libssh2.org/" title="https://www.libssh2.org/" target="_blank" rel="noopener">https://www.libssh2.org/</a></p>
+<p><a href="https://github.com/libssh2/libssh2" title="https://github.com/libssh2/libssh2" target="_blank" rel="noopener">https://github.com/libssh2/libssh2</a></p>
+<h2 id="编译："><a href="#编译：" class="headerlink" title="编译："></a>编译：</h2><p>需要<a href="https://www.openssl.org/" target="_blank" rel="noopener">openssl</a>以及<a href="http://www.zlib.net/" target="_blank" rel="noopener">zlib</a></p>
+<p>修改libssh下的win32目录下config.mk,修改openssl与zlib路径</p>
+<p>在source根目录下nmake /f NMakefile</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">加密</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">libssh2</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/24/libssh2/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-C++与浏览器交互" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -2288,257 +2467,6 @@ esac
 
 
   
-    <article id="post-获取所有本机IP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/15/获取所有本机IP/">获取所有本机IP</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/15/获取所有本机IP/" class="archive-article-date">
-  	<time datetime="2017-08-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <pre><code>#include &lt;WinSock2.h&gt;
-#include &lt;Iphlpapi.h&gt;
-#pragma comment(lib,&quot;iphlpapi.lib&quot;)
-
-// 获得本机的IP地址
-void CIOCPModel::GetLocalIP(CStringArray &amp;arrIp)
-{
-    //PIP_ADAPTER_INFO结构体指针存储本机网卡信息
-    PIP_ADAPTER_INFO pIpAdapterInfo = new IP_ADAPTER_INFO();
-    //得到结构体大小,用于GetAdaptersInfo参数
-    unsigned long stSize = sizeof(IP_ADAPTER_INFO);
-    //调用GetAdaptersInfo函数,填充pIpAdapterInfo指针变量;其中stSize参数既是一个输入量也是一个输出量
-    int nRel = GetAdaptersInfo(pIpAdapterInfo, &amp;stSize);
-    if (ERROR_BUFFER_OVERFLOW == nRel)
-    {
-        //如果函数返回的是ERROR_BUFFER_OVERFLOW
-        //则说明GetAdaptersInfo参数传递的内存空间不够,同时其传出stSize,表示需要的空间大小
-        //这也是说明为什么stSize既是一个输入量也是一个输出量
-        //释放原来的内存空间
-        delete pIpAdapterInfo;
-        //重新申请内存空间用来存储所有网卡信息
-        pIpAdapterInfo = (PIP_ADAPTER_INFO)new BYTE[stSize];
-        //再次调用GetAdaptersInfo函数,填充pIpAdapterInfo指针变量
-        nRel = GetAdaptersInfo(pIpAdapterInfo, &amp;stSize);
-    }
-    if (ERROR_SUCCESS == nRel)
-    {
-        //输出网卡信息
-        while (pIpAdapterInfo)
-        {
-            IP_ADDR_STRING *pIpAddrString = &amp;(pIpAdapterInfo-&gt;IpAddressList);
-            do
-            {
-                CString strTemp = pIpAddrString-&gt;IpAddress.String;
-
-                arrIp.Add(strTemp);
-                pIpAddrString = pIpAddrString-&gt;Next;
-            }
-            while (pIpAddrString);
-            pIpAdapterInfo = pIpAdapterInfo-&gt;Next;
-        }
-    }
-    //释放内存空间
-    if (pIpAdapterInfo)
-    {
-        delete pIpAdapterInfo;
-    }
-}
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/15/获取所有本机IP/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-MFC背景透明" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/01/MFC背景透明/">MFC背景透明</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/01/MFC背景透明/" class="archive-article-date">
-  	<time datetime="2017-08-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="一："><a href="#一：" class="headerlink" title="一："></a>一：</h1><pre><code>typedef BOOL (WINAPI *lpfnSetLayeredWindowAttributes)(HWND hWnd, COLORREF crKey, BYTE bAlpha, DWORD dwFlags);
-lpfnSetLayeredWindowAttributes SetLayeredWindowAttributes;   //设置成边缘透明
-COLORREF maskColor = RGB(240, 240, 240);
-HMODULE hUser32 = GetModuleHandle(_T(&quot;user32.dll&quot;)); //加载动态链接库
-SetLayeredWindowAttributes = (lpfnSetLayeredWindowAttributes)GetProcAddress(hUser32, &quot;SetLayeredWindowAttributes&quot;);            //取得SetLayeredWindowAttributes函数指针            //为窗口加入WS_EX_LAYERED扩展属性
-SetWindowLong(this-&gt;GetSafeHwnd(), GWL_EXSTYLE, GetWindowLong(GetSafeHwnd(), GWL_EXSTYLE)^WS_EX_LAYERED);             //调用SetLayeredWinowAttributes函数
-/*SetLayeredWindowAttributes(this-&gt;GetSafeHwnd(), maskColor, 192, LWA_COLORKEY);  */
-SetLayeredWindowAttributes(this-&gt;GetSafeHwnd(), maskColor, 255, LWA_ALPHA | LWA_COLORKEY);
-FreeLibrary(hUser32);   //释放动态链
-//LWA_ALPHA时：crKey参数无效，bAlpha参数有效；
-//LWA_COLORKEY：窗体中的所有颜色为crKey的地方将变为透明，bAlpha参数无效。
-//LWA_ALPHA | LWA_COLORKEY：crKey的地方将变为全透明，而其它地方根据bAlpha参数确定透明度。
-</code></pre><h1 id="二："><a href="#二：" class="headerlink" title="二："></a>二：</h1><pre><code>COLORREF m_bgcolor = RGB(0, 0, 0);
-BOOL m_bTransparent = ToggleTransparent(m_bgcolor, 100, LWA_ALPHA);
-BOOL ToggleTransparent(COLORREF crKey, BYTE bAlpha, DWORD dwFlags)
-{
-    BOOL bResult;
-    LONG dwExStyle;
-    dwExStyle = GetWindowLong(this-&gt;GetSafeHwnd(), GWL_EXSTYLE);
-    if (dwExStyle &amp; WS_EX_LAYERED)
-    {
-        dwExStyle &amp;= ~(WS_EX_LAYERED);
-        bResult = FALSE;
-    }
-    else
-    {
-        dwExStyle |= (WS_EX_LAYERED);
-        bResult = TRUE;
-    }
-    SetWindowLong(this-&gt;GetSafeHwnd(), GWL_EXSTYLE, dwExStyle);
-    SetLayeredWindowAttributes( crKey, bAlpha, dwFlags);
-    return bResult;
-}
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">MFC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">背景透明</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/01/MFC背景透明/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -3145,6 +3073,54 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">目录监控</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">CCNET</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CppUTest</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Google Test</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Google Mock</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Boost.Test</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">MicrosoftCppUnitTest</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Conan</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">vcpkg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nuget</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">cppcheck</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Resharper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CodeMaid</a>
               </li>
             
             <div class="clearfix"></div>

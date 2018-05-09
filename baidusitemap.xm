@@ -4,6 +4,97 @@
 
     
   <url>
+    <loc>https://caojingyou.github.io/2018/02/01/VS%E5%B7%A5%E5%85%B7/</loc>
+    <lastmod>2018-05-09T08:29:40.626Z</lastmod>
+    <data>
+        <display>
+        <title>VS工具</title>
+        <pubTime>2018-02-01T08:03:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>Doxygen</tag>
+         
+        <tag>VS工具</tag>
+         
+        <tag>Conan</tag>
+         
+        <tag>vcpkg</tag>
+         
+        <tag>nuget</tag>
+         
+        <tag>cppcheck</tag>
+         
+        <tag>Resharper</tag>
+         
+        <tag>CodeMaid</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/05/02/C++%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/</loc>
+    <lastmod>2018-05-09T07:26:59.404Z</lastmod>
+    <data>
+        <display>
+        <title>C++单元测试</title>
+        <pubTime>2018-05-02T09:03:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C/C++</tag>
+         
+        <tag>CppUnit</tag>
+         
+        <tag>单元测试</tag>
+         
+        <tag>CppUTest</tag>
+         
+        <tag>Google Test</tag>
+         
+        <tag>Google Mock</tag>
+         
+        <tag>Boost.Test</tag>
+         
+        <tag>MicrosoftCppUnitTest</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/05/07/%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA/</loc>
+    <lastmod>2018-05-07T01:51:08.877Z</lastmod>
+    <data>
+        <display>
+        <title>自动构建</title>
+        <pubTime>2018-05-07T01:47:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>MSBuild</tag>
+         
+        <tag>Jenkins</tag>
+         
+        <tag>自动构建</tag>
+         
+        <tag>CCNET</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://caojingyou.github.io/2017/07/15/boost/</loc>
     <lastmod>2018-05-02T01:19:52.697Z</lastmod>
     <data>
@@ -698,25 +789,6 @@
         <tag>C++</tag>
          
         <tag>Doxygen</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2018/02/01/VS%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2018-02-08T05:30:12.527Z</lastmod>
-    <data>
-        <display>
-        <title>VS工具</title>
-        <pubTime>2018-02-01T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>VS工具</tag>
          
          
            
