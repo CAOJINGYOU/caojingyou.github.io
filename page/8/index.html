@@ -156,6 +156,168 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Github Pages和Hexo创建静态博客网站" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/01/Github Pages和Hexo创建静态博客网站/">Github Pages和Hexo创建静态博客网站</a>
+    </h1>
+  
+
+        
+        <a href="/2016/09/01/Github Pages和Hexo创建静态博客网站/" class="archive-article-date">
+  	<time datetime="2016-09-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-09-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Github-Pages和Hexo创建静态博客网站"><a href="#Github-Pages和Hexo创建静态博客网站" class="headerlink" title="Github Pages和Hexo创建静态博客网站"></a>Github Pages和Hexo创建静态博客网站</h1><h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p>本人是window环境，所以下载window版。</p>
+<p>下载地址：<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">https://nodejs.org/en/download/</a></p>
+<h2 id="下载-msysgit"><a href="#下载-msysgit" class="headerlink" title="下载 msysgit"></a>下载 msysgit</h2><p>下载地址：<a href="https://git-for-windows.github.io/" target="_blank" rel="noopener">https://git-for-windows.github.io/</a></p>
+<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p>点击鼠标右键菜单Git Bash Here</p>
+<pre><code>npm install hexo-cli -g
+npm install hexo --save
+#如果命令无法运行，可以尝试更换taobao的npm源
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+</code></pre><p>创建一个blog目录</p>
+<p>执行命令：</p>
+<pre><code>hexo init
+npm install
+</code></pre><p>安装插件，可跳过此步骤：</p>
+<pre><code>npm install hexo-generator-index --save
+npm install hexo-generator-archive --save
+npm install hexo-generator-category --save
+npm install hexo-generator-tag --save
+npm install hexo-server --save
+npm install hexo-deployer-git --save
+npm install hexo-deployer-heroku --save
+npm install hexo-deployer-rsync --save
+npm install hexo-deployer-openshift --save
+npm install hexo-renderer-marked@0.2 --save
+npm install hexo-renderer-stylus@0.2 --save
+npm install hexo-generator-feed@1 --save
+npm install hexo-generator-sitemap@1 --save
+</code></pre><p>最好执行：</p>
+<pre><code>npm install hexo-generator-feed --save
+npm install hexo-generator-baidu-sitemap --save
+npm install hexo-generator-sitemap --save
+</code></pre><p>分别对应：rss、百度爬虫sitemap、通用搜索引擎sitemap</p>
+<p>运行本地Hexo:</p>
+<pre><code>hexo generate
+hexo server
+</code></pre><p>浏览器查看效果：</p>
+<pre><code>localhost:4000
+</code></pre><h2 id="上传到Github"><a href="#上传到Github" class="headerlink" title="上传到Github"></a>上传到Github</h2><p>找到主项目的https地址：<a href="https://xxx/github.io.git" target="_blank" rel="noopener">https://xxx/github.io.git</a></p>
+<p>打开blog文件夹下_config.yml文件修改：</p>
+<pre><code>deploy:
+  type: git
+  repository: https://xxx/github.io.git
+  branch: master
+</code></pre><p>执行命令：</p>
+<pre><code>hexo g -d
+</code></pre><h2 id="换主题"><a href="#换主题" class="headerlink" title="换主题"></a>换主题</h2><p>Hexo主题：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
+<p>执行命令下载主题：</p>
+<p>git clone <a href="https://github.com/xxx.git(主题地址" target="_blank" rel="noopener">https://github.com/xxx.git(主题地址</a>) themes/xxx(主题文件夹)</p>
+<p>修改_config.yml文件：</p>
+<pre><code>theme: xxx（主题名）
+</code></pre><p>执行命令：</p>
+<pre><code>hexo g
+hexo s
+</code></pre><p>打开<a href="http://localhost:4000/即可看到效果。" target="_blank" rel="noopener">http://localhost:4000/即可看到效果。</a></p>
+<h2 id="部署到Github"><a href="#部署到Github" class="headerlink" title="部署到Github"></a>部署到Github</h2><p>执行命令：</p>
+<pre><code>hexo clean   
+hexo g -d
+</code></pre><h2 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h2><pre><code>hexo n &quot;文章标题&quot; #新建md文件
+hexo g -d #生成并部署
+</code></pre><h1 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h1><p>Create a new post</p>
+<pre><code>hexo new &quot;My New Post&quot;
+</code></pre><p>Run server</p>
+<pre><code>hexo server
+</code></pre><p>Generate static files</p>
+<pre><code>hexo generate
+</code></pre><p>Deploy to remote sites</p>
+<pre><code>hexo deploy
+</code></pre><h1 id="错误："><a href="#错误：" class="headerlink" title="错误："></a>错误：</h1><p>hexo d后 ERROR Deployer not found: git</p>
+<pre><code>npm install --save hexo-deployer-git
+</code></pre><h1 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h1><p><a href="https://github.com/litten/hexo-theme-yilia" title="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia</a></p>
+<p><a href="https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5" title="https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5</a></p>
+<p>参考：</p>
+<ul>
+<li><a href="http://blog.csdn.net/ljcitworld/article/details/50901626" target="_blank" rel="noopener">小白独立搭建博客–Github Pages和Hexo简明教程</a></li>
+<li><a href="http://www.jianshu.com/p/73779eacb494" target="_blank" rel="noopener">Hexo 靜態博客使用指南</a></li>
+<li><a href="http://wiki.jikexueyuan.com/project/hexo-document/" target="_blank" rel="noopener">Hexo 中文版</a></li>
+<li><a href="http://www.jianshu.com/p/cc38fc9493d4" target="_blank" rel="noopener">解决hexo d命令提交部署博客发生的TaskCanceledException异常</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Github Pages</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">静态博客</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/09/01/Github Pages和Hexo创建静态博客网站/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-程序打包" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1232,99 +1394,6 @@ Caused by:
 
 
   
-    <article id="post-Qt安装配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/01/Qt安装配置/">Qt安装配置</a>
-    </h1>
-  
-
-        
-        <a href="/2016/04/01/Qt安装配置/" class="archive-article-date">
-  	<time datetime="2016-04-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-04-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Qt-Creator"><a href="#Qt-Creator" class="headerlink" title="Qt Creator:"></a>Qt Creator:</h1><h2 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h2><p><a href="http://download.qt.io/official_releases/qt/5.5/5.5.0/qt-opensource-windows-x86-mingw492-5.5.0.exe" target="_blank" rel="noopener">Qt 5.5.1 for Windows 32-bit(MinGW 4.9.2, 1.0 GB)</a>:<a href="http://download.qt.io/official_releases/qt/5.5/5.5.0/qt-opensource-windows-x86-mingw492-5.5.0.exe" target="_blank" rel="noopener">http://download.qt.io/official_releases/qt/5.5/5.5.0/qt-opensource-windows-x86-mingw492-5.5.0.exe</a></p>
-<p>安装：</p>
-<p>一直“下一步”安装下去。</p>
-<h2 id="Qt-Creator运行："><a href="#Qt-Creator运行：" class="headerlink" title="Qt Creator运行："></a>Qt Creator运行：</h2><p>用Qt Creator创建项目：<br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135230436-2035070806.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135300327-642081944.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135329124-11023139.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135348983-981255417.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135405702-1719283850.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135425343-750603627.png" alt=""></p>
-<hr>
-<h1 id="Visual-Studio"><a href="#Visual-Studio" class="headerlink" title="Visual Studio:"></a>Visual Studio:</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载:"></a>下载:</h2><p><a href="http://download.qt-project.org/official_releases/vsaddin/qt-vs-addin-1.2.4-opensource.exe" target="_blank" rel="noopener">Visual Studio Add-in 1.2.4 for Qt5(156 MB)</a>:<a href="http://download.qt-project.org/official_releases/vsaddin/qt-vs-addin-1.2.4-opensource.exe" target="_blank" rel="noopener">http://download.qt-project.org/official_releases/vsaddin/qt-vs-addin-1.2.4-opensource.exe</a></p>
-<p><a href="http://download.qt.io/official_releases/qt/5.5/5.5.1/qt-opensource-windows-x86-msvc2013_64-5.5.1.exe" target="_blank" rel="noopener">Qt 5.5.1 for Windows 64-bit (VS 2013, 823 MB)</a>或<a href="http://download.qt.io/official_releases/qt/5.5/5.5.1/qt-opensource-windows-x86-msvc2013-5.5.1.exe" target="_blank" rel="noopener">Qt 5.5.1 for Windows 32-bit (VS 2013, 804 MB)</a></p>
-<h2 id="vs2013进行QT配置："><a href="#vs2013进行QT配置：" class="headerlink" title="vs2013进行QT配置："></a>vs2013进行QT配置：</h2><p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135450046-76850689.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135504546-1612990196.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135519155-1738395535.png" alt=""></p>
-<h2 id="创建项目："><a href="#创建项目：" class="headerlink" title="创建项目："></a>创建项目：</h2><p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135534624-413319152.png" alt=""></p>
-<p>一直下一步。</p>
-<h1 id="常见问题："><a href="#常见问题：" class="headerlink" title="常见问题："></a>常见问题：</h1><p>可以成功安装到V2013上，但是却出现了下面的问题： Qt5Widgetsd.lib(Qt5Widgetsd.dll) : fatal error LNK1112: 模块计算机类型“x64”与目标计算机类型“X86”冲突</p>
-<p><a href="http://jingyan.baidu.com/article/a948d65159d8890a2dcd2e84.html" target="_blank" rel="noopener">百度百科解决方法</a>：<a href="http://jingyan.baidu.com/article/a948d65159d8890a2dcd2e84.html" target="_blank" rel="noopener">http://jingyan.baidu.com/article/a948d65159d8890a2dcd2e84.html</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Qt</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/04/01/Qt安装配置/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
@@ -1979,6 +2048,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CodeMaid</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
             
             <div class="clearfix"></div>

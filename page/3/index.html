@@ -156,6 +156,105 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-OpenSSL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/02/OpenSSL/">OpenSSL</a>
+    </h1>
+  
+
+        
+        <a href="/2018/02/02/OpenSSL/" class="archive-article-date">
+  	<time datetime="2018-02-02T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="OpenSSL"><a href="#OpenSSL" class="headerlink" title="OpenSSL"></a>OpenSSL</h1><p><a href="https://www.openssl.org/" title="https://www.openssl.org/" target="_blank" rel="noopener">https://www.openssl.org/</a></p>
+<p><a href="https://github.com/openssl/openssl" title="https://github.com/openssl/openssl" target="_blank" rel="noopener">https://github.com/openssl/openssl</a></p>
+<h1 id="编译："><a href="#编译：" class="headerlink" title="编译："></a>编译：</h1><p>安装<code>ActiveState Perl</code> </p>
+<p><a href="https://www.perl.org/" title="https://www.perl.org/" target="_blank" rel="noopener">https://www.perl.org/</a></p>
+<p><a href="https://www.activestate.com/activeperl/downloads/thank-you?dl=http://downloads.activestate.com/ActivePerl/releases/5.24.1.2402/ActivePerl-5.24.1.2402-MSWin32-x86-64int-401627.exe" title="https://www.activestate.com/activeperl/downloads/thank-you?dl=http://downloads.activestate.com/ActivePerl/releases/5.24.1.2402/ActivePerl-5.24.1.2402-MSWin32-x86-64int-401627.exe" target="_blank" rel="noopener">ActivePerl-5.24.1.2402-MSWin32-x86-64int-401627.exe</a></p>
+<p>Perl 在 Window 平台上有 ActiveStatePerl 和 Strawberry Perl 编译器。</p>
+<p>ActiveState Perl和 Strawberry Perl最大的区别是 Strawberry Perl 里面有多包含一些 CPAN 里的模块， 所以Strawberry Perl 下载的安装文件有 80多M, 而ActiveState Perl 只有20M 左右。</p>
+<p>使用libcur中的<code>build-openssl.bat</code>编译</p>
+<p><a href="http://files.cnblogs.com/files/yhcao/build-openssl.rar" title="http://files.cnblogs.com/files/yhcao/build-openssl.rar" target="_blank" rel="noopener">build-openssl.rar</a></p>
+<h2 id="需要文件："><a href="#需要文件：" class="headerlink" title="需要文件："></a>需要文件：</h2><pre><code>$ copy /b inc32\openssl\*       c:\openssl\include\openssl
+$ copy /b out32dll\ssleay32.lib c:\openssl\lib
+$ copy /b out32dll\libeay32.lib c:\openssl\lib
+$ copy /b out32dll\ssleay32.dll c:\openssl\bin
+$ copy /b out32dll\libeay32.dll c:\openssl\bin
+$ copy /b out32dll\openssl.exe  c:\openssl\bin
+</code></pre><p><a href="http://slproweb.com/products/Win32OpenSSL.html" target="_blank" rel="noopener">http://slproweb.com/products/Win32OpenSSL.html</a></p>
+<h1 id="安装程序："><a href="#安装程序：" class="headerlink" title="安装程序："></a>安装程序：</h1><p>或到此处下载：</p>
+<p><a href="http://slproweb.com/products/Win32OpenSSL.html" title="http://slproweb.com/products/Win32OpenSSL.html" target="_blank" rel="noopener">http://slproweb.com/products/Win32OpenSSL.html</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">OpenSSL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">加密</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/02/02/OpenSSL/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-C++获取外部exe程序的返回值，判断图片颜色模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1710,228 +1809,6 @@ pause
 
 
   
-    <article id="post-Log4Net" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/15/Log4Net/">Log4Net</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/15/Log4Net/" class="archive-article-date">
-  	<time datetime="2017-12-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Log4Net"><a href="#Log4Net" class="headerlink" title="Log4Net"></a>Log4Net</h1><h2 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h2><pre><code>[assembly: log4net.Config.XmlConfigurator(Watch = true)]
-namespace APP02
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            ILog log = log4net.LogManager.GetLogger(&quot;Test&quot;);
-            log.Error(&quot;错误&quot;, new Exception(&quot;发生了一个异常&quot;));//错误
-            log.Fatal(&quot;严重错误&quot;, new Exception(&quot;发生了一个致命错误&quot;));//严重错误
-            log.Info(&quot;信息&quot;); //记录一般信息
-            log.Debug(&quot;调试信息&quot;);//记录调试信息
-            log.Warn(&quot;警告&quot;);//记录警告信息
-            Console.WriteLine(&quot;日志记录完毕。&quot;);
-            Console.Read();
-        }
-    }
-}
-</code></pre><p>或：</p>
-<pre><code>ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-            //记录错误日志
-            log.Info(&quot;error&quot;);
-</code></pre><h2 id="App-config文件配置："><a href="#App-config文件配置：" class="headerlink" title="App.config文件配置："></a>App.config文件配置：</h2><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
-&lt;configuration&gt;
-  &lt;configSections&gt;
-    &lt;section name=&quot;log4net&quot; type=&quot;System.Configuration.IgnoreSectionHandler&quot;/&gt;
-  &lt;/configSections&gt;
-  &lt;log4net&gt;
-    &lt;appender name=&quot;控制台输出&quot; type=&quot;log4net.Appender.ConsoleAppender&quot;&gt;
-      &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-        &lt;param name=&quot;ConversionPattern&quot; value=&quot;%d [%t] %-5p %c [%x] - %m%n&quot;  /&gt;
-      &lt;/layout&gt;
-    &lt;/appender&gt;
-    &lt;logger name=&quot;Test&quot;&gt;
-      &lt;level value=&quot;ALL&quot;/&gt;
-      &lt;appender-ref ref=&quot;控制台输出&quot; /&gt;
-    &lt;/logger&gt;
-  &lt;/log4net&gt;
-&lt;/configuration&gt;
-</code></pre><p>或：</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
-&lt;configuration&gt;
-  &lt;configSections&gt;
-    &lt;section name=&quot;log4net&quot; type=&quot;System.Configuration.IgnoreSectionHandler&quot;/&gt;
-  &lt;/configSections&gt;
-  &lt;appSettings&gt;
-  &lt;/appSettings&gt;
-  &lt;log4net&gt;
-    &lt;!--定义输出到文件中--&gt;
-    &lt;appender name=&quot;LogFileAppender&quot; type=&quot;log4net.Appender.FileAppender&quot;&gt;
-      &lt;!--定义文件存放位置--&gt;
-      &lt;file value=&quot;D:/log4netfile.txt&quot; /&gt;
-      &lt;appendToFile value=&quot;true&quot; /&gt;
-      &lt;rollingStyle value=&quot;Date&quot; /&gt;
-      &lt;datePattern value=&quot;yyyyMMdd-HH:mm:ss&quot; /&gt;
-      &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-        &lt;!--每条日志末尾的文字说明--&gt;
-        &lt;footer value=&quot;by 周公&quot; /&gt;
-        &lt;!--输出格式--&gt;
-        &lt;!--样例：2008-03-26 13:42:32,111 [10] INFO  Log4NetDemo.MainClass [(null)] - info--&gt;
-        &lt;conversionPattern value=&quot;记录时间：%date 线程ID:[%thread] 日志级别：%-5level 出错类：%logger property:[%property{NDC}] - 错误描述：%message%newline&quot; /&gt;
-      &lt;/layout&gt;
-    &lt;/appender&gt;
-    &lt;!--定义输出到控制台命令行中--&gt;
-    &lt;appender name=&quot;ConsoleAppender&quot; type=&quot;log4net.Appender.ConsoleAppender&quot;&gt;
-      &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-        &lt;conversionPattern value=&quot;%date [%thread] %-5level %logger [%property{NDC}] - %message%newline&quot; /&gt;
-      &lt;/layout&gt;
-    &lt;/appender&gt;
-    &lt;!--定义输出到windows事件中--&gt;
-    &lt;appender name=&quot;EventLogAppender&quot; type=&quot;log4net.Appender.EventLogAppender&quot;&gt;
-      &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-        &lt;conversionPattern value=&quot;%date [%thread] %-5level %logger [%property{NDC}] - %message%newline&quot; /&gt;
-      &lt;/layout&gt;
-    &lt;/appender&gt;
-    &lt;!--定义输出到数据库中，这里举例输出到Access数据库中，数据库为C盘的log4net.mdb--&gt;
-    &lt;appender name=&quot;AdoNetAppender_Access&quot; type=&quot;log4net.Appender.AdoNetAppender&quot;&gt;
-      &lt;connectionString value=&quot;Provider=Microsoft.Jet.OLEDB.4.0;Data Source=C:log4net.mdb&quot; /&gt;
-      &lt;commandText value=&quot;INSERT INTO LogDetails ([LogDate],[Thread],[Level],[Logger],[Message]) VALUES (@logDate, @thread, @logLevel, @logger,@message)&quot; /&gt;
-      &lt;!--定义各个参数--&gt;
-      &lt;parameter&gt;
-        &lt;parameterName value=&quot;@logDate&quot; /&gt;
-        &lt;dbType value=&quot;String&quot; /&gt;
-        &lt;size value=&quot;240&quot; /&gt;
-        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-          &lt;conversionPattern value=&quot;%date&quot; /&gt;
-        &lt;/layout&gt;
-      &lt;/parameter&gt;
-      &lt;parameter&gt;
-        &lt;parameterName value=&quot;@thread&quot; /&gt;
-        &lt;dbType value=&quot;String&quot; /&gt;
-        &lt;size value=&quot;240&quot; /&gt;
-        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-          &lt;conversionPattern value=&quot;%thread&quot; /&gt;
-        &lt;/layout&gt;
-      &lt;/parameter&gt;
-      &lt;parameter&gt;
-        &lt;parameterName value=&quot;@logLevel&quot; /&gt;
-        &lt;dbType value=&quot;String&quot; /&gt;
-        &lt;size value=&quot;240&quot; /&gt;
-        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-          &lt;conversionPattern value=&quot;%level&quot; /&gt;
-        &lt;/layout&gt;
-      &lt;/parameter&gt;
-      &lt;parameter&gt;
-        &lt;parameterName value=&quot;@logger&quot; /&gt;
-        &lt;dbType value=&quot;String&quot; /&gt;
-        &lt;size value=&quot;240&quot; /&gt;
-        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-          &lt;conversionPattern value=&quot;%logger&quot; /&gt;
-        &lt;/layout&gt;
-      &lt;/parameter&gt;
-      &lt;parameter&gt;
-        &lt;parameterName value=&quot;@message&quot; /&gt;
-        &lt;dbType value=&quot;String&quot; /&gt;
-        &lt;size value=&quot;240&quot; /&gt;
-        &lt;layout type=&quot;log4net.Layout.PatternLayout&quot;&gt;
-          &lt;conversionPattern value=&quot;%message&quot; /&gt;
-        &lt;/layout&gt;
-      &lt;/parameter&gt;
-    &lt;/appender&gt;
-    &lt;!--定义日志的输出媒介，下面定义日志以四种方式输出。也可以下面的按照一种类型或其他类型输出。--&gt;
-    &lt;root&gt;
-      &lt;!--文件形式记录日志--&gt;
-      &lt;appender-ref ref=&quot;LogFileAppender&quot; /&gt;
-      &lt;!--控制台控制显示日志--&gt;
-      &lt;appender-ref ref=&quot;ConsoleAppender&quot; /&gt;
-      &lt;!--Windows事件日志--&gt;
-      &lt;appender-ref ref=&quot;EventLogAppender&quot; /&gt;
-      &lt;!-- 如果不启用相应的日志记录，可以通过这种方式注释掉
-      &lt;appender-ref ref=&quot;AdoNetAppender_Access&quot; /&gt;
-      --&gt;
-    &lt;/root&gt;
-
-  &lt;/log4net&gt;
-&lt;/configuration&gt;
-</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="http://www.cnblogs.com/LiZhiW/p/4317198.html" target="_blank" rel="noopener">Log4Net使用详解</a></li>
-<li><a href="http://blog.csdn.net/zhoufoxcn/article/details/2220533" title="http://blog.csdn.net/zhoufoxcn/article/details/2220533" target="_blank" rel="noopener">http://blog.csdn.net/zhoufoxcn/article/details/2220533</a></li>
-<li><a href="http://blog.csdn.net/zhoufoxcn/article/details/6029021" title="http://blog.csdn.net/zhoufoxcn/article/details/6029021" target="_blank" rel="noopener">http://blog.csdn.net/zhoufoxcn/article/details/6029021</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Log4Net</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/15/Log4Net/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -2586,6 +2463,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CodeMaid</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
             
             <div class="clearfix"></div>

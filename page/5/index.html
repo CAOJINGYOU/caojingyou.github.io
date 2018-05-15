@@ -156,6 +156,89 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Python" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/21/Python/">Python</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/21/Python/" class="archive-article-date">
+  	<time datetime="2017-08-21T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a href="https://www.python.org/" title="https://www.python.org/" target="_blank" rel="noopener">https://www.python.org/</a></p>
+<h2 id="第三方包安装方法"><a href="#第三方包安装方法" class="headerlink" title="第三方包安装方法"></a>第三方包安装方法</h2><h3 id="第一种方法（不使用pip或者easy-install-："><a href="#第一种方法（不使用pip或者easy-install-：" class="headerlink" title="第一种方法（不使用pip或者easy_install)："></a>第一种方法（不使用pip或者easy_install)：</h3><p>Step1:在网上找到的需要的包，下载下来。<code>eg. rsa-3.1.4.tar.gz</code></p>
+<p>Step2:解压缩该文件。</p>
+<p>Step3:命令行工具cd切换到所要安装的包的目录，找到<code>setup.py</code>文件，然后输入<code>python setup.py install</code></p>
+<h3 id="第二种方法（使用pip或者easy-install）："><a href="#第二种方法（使用pip或者easy-install）：" class="headerlink" title="第二种方法（使用pip或者easy_install）："></a>第二种方法（使用pip或者easy_install）：</h3><p>直接打开cmd，敲<code>pip install rsa</code>。</p>
+<h2 id="VS-Code"><a href="#VS-Code" class="headerlink" title="VS Code"></a>VS Code</h2><h3 id="安装python插件"><a href="#安装python插件" class="headerlink" title="安装python插件"></a>安装python插件</h3><p>打开VScode，Ctrl+p<br>输入 “ext install python”</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/21/Python/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-获取所有本机IP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -7201,210 +7284,6 @@ if (!WriteFile(hMailslot, buf, strlen(buf) + 1, &amp;dwSize, NULL))
 
 
   
-    <article id="post-C++ 最小化到托盘" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/01/C++ 最小化到托盘/"> C++ 最小化到托盘</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/01/C++ 最小化到托盘/" class="archive-article-date">
-  	<time datetime="2017-03-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-最小化到托盘"><a href="#C-最小化到托盘" class="headerlink" title="C++ 最小化到托盘"></a>C++ 最小化到托盘</h1><pre><code>#define  WM_SHOWTASK (WM_USER + 1)
-void CTestDlg::OnSysCommand(UINT nID, LPARAM lParam)
-{
-    if ((nID &amp; 0xFFF0) == IDM_ABOUTBOX)
-    {
-        CAboutDlg dlgAbout;
-        dlgAbout.DoModal();
-    }
-    else
-    {
-        //增加关闭时最小化到托盘的函数
-        if (nID == SC_CLOSE) //SC_MINIMIZE
-        {
-            ToTray();
-            return;
-        }
-        CDialog::OnSysCommand(nID, lParam);
-    }
-}
-BEGIN_MESSAGE_MAP(CTestDlg, CDialog)
-    ON_MESSAGE(WM_SHOWTASK, OnShowTask)
-    //}}AFX_MSG_MAP
-END_MESSAGE_MAP()
-//在托盘区添加图标 最小化到托盘函数
-void ToTray(void);
-void CTestDlg::ToTray(void)
-{
-    NOTIFYICONDATA nid;
-    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-    nid.hWnd = this-&gt;m_hWnd;
-    nid.uID = IDR_MAINFRAME;
-    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
-    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
-    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条
-    Shell_NotifyIcon(NIM_ADD, &amp;nid);//在托盘区添加图标
-    ShowWindow(SW_HIDE);//隐藏主窗口
-}
-//恢复界面函数
-afx_msg LRESULT OnShowTask(WPARAM wParam, LPARAM lParam);
-//托盘事件
-LRESULT CTestDlg::OnShowTask(WPARAM wParam, LPARAM lParam)
-{
-    if (wParam != IDR_MAINFRAME)
-    {
-        return 1;
-    }
-    switch(lParam)
-    {
-    case WM_RBUTTONUP://右键起来时弹出快捷菜单，这里只有一个关闭
-    {
-        LPPOINT lpoint = new tagPOINT;
-        ::GetCursorPos(lpoint);//得到鼠标位置
-        CMenu menu;
-        menu.CreatePopupMenu();//声明一个弹出式菜单
-        //增加菜单项“关闭”，点击则发送消息WM_DESTROY给主窗口（已
-        //隐藏），将程序结束。
-        menu.AppendMenu(MF_STRING, WM_DESTROY, _T(&quot;退出&quot;));
-        //确定弹出式菜单的位置
-        menu.TrackPopupMenu(TPM_LEFTALIGN, lpoint-&gt;x, lpoint-&gt;y, this);
-        //资源回收
-        HMENU hmenu = menu.Detach();
-        menu.DestroyMenu();
-        delete lpoint;
-    }
-    break;
-    case WM_LBUTTONDBLCLK://双击左键的处理
-    {
-        this-&gt;ShowWindow(SW_SHOW);//简单的显示主窗口
-        this-&gt;ShowWindow(SW_RESTORE);
-        DeleteTray();
-    }
-    break;
-    default:
-        break;
-    }
-    return 0;
-}
-//删除托盘中图标
-void DeleteTray();
-void CTestlDlg::DeleteTray()
-{
-    NOTIFYICONDATA nid;
-    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-    nid.hWnd = this-&gt;m_hWnd;
-    nid.uID = IDR_MAINFRAME;
-    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
-    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
-    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
-    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
-}
-//退出程序需时需要DeleteTray();
-void CTestDlg::OnDestroy()
-{
-    CDialog::OnDestroy();
-    // TODO: 在此处添加消息处理程序代码
-    DeleteTray();
-}
-//修改风格使得他不在任务栏显示
-int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
-{
-    if (CDialog::OnCreate(lpCreateStruct) == -1)
-        return -1;
-    // TODO:  在此添加您专用的创建代码
-    //修改风格使得他不在任务栏显示
-    ModifyStyleEx(WS_EX_APPWINDOW, WS_EX_TOOLWINDOW);
-    return 0;
-}
-</code></pre><p>DeleteTray改为：</p>
-<pre><code>void CTestDlg::DeleteTray()
-{
-    NOTIFYICONDATA nid;
-    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-    nid.hWnd = this-&gt;m_hWnd;
-    nid.uID = IDR_MAINFRAME;
-    nid.uFlags = NIF_ICON /*| NIF_MESSAGE | NIF_TIP*/;
-    //nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
-    //nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-    //wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
-    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
-}
-</code></pre><p>否则会出现程序退出后，托盘图标还在的情况，鼠标移动到图标上后，图标一闪然后消失的问题。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/01/C++ 最小化到托盘/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
@@ -8059,6 +7938,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CodeMaid</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
               </li>
             
             <div class="clearfix"></div>
