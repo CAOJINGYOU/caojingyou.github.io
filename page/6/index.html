@@ -156,150 +156,267 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-C++进程间通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/">C#与C++相互发送消息</a>
+      <a class="article-title" href="/2017/04/01/C++进程间通信/">C++进程间通信</a>
     </h1>
   
 
         
-        <a href="/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/" class="archive-article-date">
-  	<time datetime="2017-03-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-01</time>
+        <a href="/2017/04/01/C++进程间通信/" class="archive-article-date">
+  	<time datetime="2017-04-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="C-最小化到托盘"><a href="#C-最小化到托盘" class="headerlink" title="C++ 最小化到托盘"></a>C++ 最小化到托盘</h1><pre><code>#define  WM_SHOWTASK (WM_USER + 1)
-void CTestDlg::OnSysCommand(UINT nID, LPARAM lParam)
-{
-    if ((nID &amp; 0xFFF0) == IDM_ABOUTBOX)
-    {
-        CAboutDlg dlgAbout;
-        dlgAbout.DoModal();
-    }
-    else
-    {
-        //增加关闭时最小化到托盘的函数
-        if (nID == SC_CLOSE) //SC_MINIMIZE
-        {
-            ToTray();
-            return;
-        }
-        CDialog::OnSysCommand(nID, lParam);
-    }
-}
-BEGIN_MESSAGE_MAP(CTestDlg, CDialog)
-    ON_MESSAGE(WM_SHOWTASK, OnShowTask)
-    //}}AFX_MSG_MAP
-END_MESSAGE_MAP()
-//在托盘区添加图标 最小化到托盘函数
-void ToTray(void);
-void CTestDlg::ToTray(void)
-{
-    NOTIFYICONDATA nid;
-    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-    nid.hWnd = this-&gt;m_hWnd;
-    nid.uID = IDR_MAINFRAME;
-    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
-    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
-    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条
-    Shell_NotifyIcon(NIM_ADD, &amp;nid);//在托盘区添加图标
-    ShowWindow(SW_HIDE);//隐藏主窗口
-}
-//恢复界面函数
-afx_msg LRESULT OnShowTask(WPARAM wParam, LPARAM lParam);
-//托盘事件
-LRESULT CTestDlg::OnShowTask(WPARAM wParam, LPARAM lParam)
-{
-    if (wParam != IDR_MAINFRAME)
-    {
-        return 1;
-    }
-    switch(lParam)
-    {
-    case WM_RBUTTONUP://右键起来时弹出快捷菜单，这里只有一个关闭
-    {
-        LPPOINT lpoint = new tagPOINT;
-        ::GetCursorPos(lpoint);//得到鼠标位置
-        CMenu menu;
-        menu.CreatePopupMenu();//声明一个弹出式菜单
-        //增加菜单项“关闭”，点击则发送消息WM_DESTROY给主窗口（已
-        //隐藏），将程序结束。
-        menu.AppendMenu(MF_STRING, WM_DESTROY, _T(&quot;退出&quot;));
-        //确定弹出式菜单的位置
-        menu.TrackPopupMenu(TPM_LEFTALIGN, lpoint-&gt;x, lpoint-&gt;y, this);
-        //资源回收
-        HMENU hmenu = menu.Detach();
-        menu.DestroyMenu();
-        delete lpoint;
-    }
-    break;
-    case WM_LBUTTONDBLCLK://双击左键的处理
-    {
-        this-&gt;ShowWindow(SW_SHOW);//简单的显示主窗口
-        this-&gt;ShowWindow(SW_RESTORE);
-        DeleteTray();
-    }
-    break;
-    default:
-        break;
-    }
-    return 0;
-}
-//删除托盘中图标
-void DeleteTray();
-void CTestlDlg::DeleteTray()
-{
-    NOTIFYICONDATA nid;
-    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-    nid.hWnd = this-&gt;m_hWnd;
-    nid.uID = IDR_MAINFRAME;
-    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
-    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
-    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
-    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
-}
-//退出程序需时需要DeleteTray();
-void CTestDlg::OnDestroy()
-{
-    CDialog::OnDestroy();
-    // TODO: 在此处添加消息处理程序代码
-    DeleteTray();
-}
-//修改风格使得他不在任务栏显示
-int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
-{
-    if (CDialog::OnCreate(lpCreateStruct) == -1)
-        return -1;
-    // TODO:  在此添加您专用的创建代码
-    //修改风格使得他不在任务栏显示
-    ModifyStyleEx(WS_EX_APPWINDOW, WS_EX_TOOLWINDOW);
-    return 0;
-}
-</code></pre><p>DeleteTray改为：</p>
-<pre><code>void CTestDlg::DeleteTray()
-{
-    NOTIFYICONDATA nid;
-    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-    nid.hWnd = this-&gt;m_hWnd;
-    nid.uID = IDR_MAINFRAME;
-    nid.uFlags = NIF_ICON /*| NIF_MESSAGE | NIF_TIP*/;
-    //nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
-    //nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-    //wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
-    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
-}
-</code></pre><p>否则会出现程序退出后，托盘图标还在的情况，鼠标移动到图标上后，图标一闪然后消失的问题。</p>
+        <h1 id="C-进程间通信"><a href="#C-进程间通信" class="headerlink" title="C++进程间通信"></a>C++进程间通信</h1><p>进程间通讯的四种方式：剪贴板、匿名管道、命名管道和邮槽</p>
+<h2 id="剪切板"><a href="#剪切板" class="headerlink" title="剪切板"></a>剪切板</h2><pre><code>//设置剪切板内容
 
+CString str;
+this-&gt;GetDlgItemText(IDC_EDIT1, str);
+
+OpenClipboard();//打开剪贴板查看,并防止其他应用程序修改剪贴板的内容.
+EmptyClipboard();//EmptyClipboard Function该函数清空剪切板并释放剪切板内数据的句柄。函数在之后会将剪切板的所有权指派给当前打开剪切板的窗口。
+HANDLE hclip = GlobalAlloc(GMEM_MOVEABLE, str.GetLength() + 1);
+char *pBuf = (char *)GlobalLock(hclip);
+
+//WideCharToMultiByte()//字形转换
+strcpy(pBuf, str.GetBuffer());
+//memcpy(pBuf, str.GetBuffer(), GetLength()+2);
+GlobalLock(hclip);
+
+SetClipboardData(CF_TEXT, hclip);//SetClipboardData是把指定数据按照指定格式放入剪切板中
+CloseClipboard();//关闭剪贴板,这使其他窗口或程序能访问剪贴板。
+
+//获得剪切板内容
+
+OpenClipboard();
+if (IsClipboardFormatAvailable(CF_TEXT))//是以NULL结尾的ASCII字符的文本格式,则该函数返回值为true,否则为false。
+{
+    HANDLE hclip;
+    hclip = GetClipboardData(CF_TEXT);//用来打开剪贴板并获取剪贴板内容。
+    char *pBuf =  (char *)GlobalLock(hclip);
+    GlobalUnlock(hclip);
+    CString STR;
+    SetDlgItemText(IDC_EDIT1, pBuf);
+}
+CloseClipboard();
+
+//参考：
+//http://bbs.kechuang.org/t/72605
+//http://www.cnblogs.com/BoyXiao/archive/2010/12/25/1916677.html
+</code></pre><h2 id="匿名管道"><a href="#匿名管道" class="headerlink" title="匿名管道"></a>匿名管道</h2><pre><code>//父进程实现
+
+//创建匿名管道
+SECURITY_ATTRIBUTES sa;
+sa.bInheritHandle = TRUE;
+sa.lpSecurityDescriptor = NULL;
+sa.nLength = sizeof(SECURITY_ATTRIBUTES);
+
+if (!CreatePipe(&amp;m_hRead, &amp;m_hWrite, &amp;sa, 0))
+{
+    AfxMessageBox(_T(&quot;create pipe error&quot;));
+}
+
+//子进程的创建
+STARTUPINFO sui;
+PROCESS_INFORMATION pi;
+sui.cb = sizeof(STARTUPINFO);
+ZeroMemory(&amp;sui, sizeof(STARTUPINFO));
+
+sui.dwFlags = STARTF_USESTDHANDLES;
+sui.hStdInput = m_hRead;
+sui.hStdOutput = m_hWrite;
+sui.hStdError = GetStdHandle(STD_ERROR_HANDLE);
+
+if (!CreateProcess(_T(&quot;../debug/child.exe&quot;), NULL , NULL, NULL, TRUE, 0, NULL, NULL, &amp;sui, &amp;pi ))
+
+{
+    AfxMessageBox(_T(&quot;创建子进程错误&quot;));
+}
+
+
+//关闭进程 线程计数器
+if (pi.hThread)
+{
+    CloseHandle(pi.hThread);
+}
+if (pi.hProcess)
+{
+    CloseHandle(pi.hProcess);
+}
+
+//发送数据
+
+char buf[] = &quot;this is pipe server&quot;;
+DWORD dwWrite = 0;
+if (!WriteFile(m_hWrite, buf, strlen(buf) + 1, &amp;dwWrite, NULL))
+{
+    AfxMessageBox(_T(&quot;write error parent&quot;));
+}
+
+//接收数据
+
+char buf[128] = {0};
+DWORD dwRead = 0;
+ReadFile(m_hRead, buf, sizeof(buf), &amp;dwRead, NULL );
+
+//子进程实现
+
+//获取继承自父进程的匿名管道读写句柄
+m_hRead = GetStdHandle(STD_INPUT_HANDLE);
+m_hWrite = GetStdHandle(STD_OUTPUT_HANDLE);
+
+//写入数据
+
+char buf[] = &quot;this is pipe child&quot;;
+DWORD dwWrite = 0;
+if (!WriteFile(m_hWrite, buf, strlen(buf) + 1, &amp;dwWrite, NULL))
+{
+    AfxMessageBox(_T(&quot;write error child&quot;));
+}
+
+//读取数据
+
+char buf[128] = {0};
+DWORD dwRead = 0;
+ReadFile(m_hRead, buf, sizeof(buf), &amp;dwRead, NULL );
+
+//参考
+http://www.cnblogs.com/BoyXiao/archive/2011/01/01/1923828.html
+</code></pre><h2 id="命名管道"><a href="#命名管道" class="headerlink" title="命名管道"></a>命名管道</h2><pre><code>//服务端
+
+//创建命名管
+
+m_hPipe = CreateNamedPipe(_T(&quot;\\\\.\\pipe\\mypipe&quot;), PIPE_ACCESS_DUPLEX | FILE_FLAG_OVERLAPPED, /*OVERLAPPED是为了满足异步实现非阻塞的工能，当连接上用事件通知*/
+                          0, 1, 1024, 1024, 0, NULL);
+
+if (m_hPipe == INVALID_HANDLE_VALUE)
+{
+    return;
+}
+
+//创建事件
+HANDLE hEvent;
+hEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+if (!hEvent)
+{
+    MessageBox(_T(&quot;创建事件对象失败！&quot;));
+    CloseHandle(m_hPipe);
+    m_hPipe = NULL;
+    return;
+}
+
+OVERLAPPED ovlap;
+ZeroMemory(&amp;ovlap, sizeof(OVERLAPPED));
+ovlap.hEvent = hEvent;
+
+if (!ConnectNamedPipe(m_hPipe, &amp;ovlap))
+{
+    if (ERROR_IO_PENDING != GetLastError())
+    {
+        MessageBox(_T(&quot;等待客户连接失败！&quot;));
+        CloseHandle(m_hPipe);
+        CloseHandle(hEvent);
+        m_hPipe = NULL;
+        return;
+    }
+}
+
+//重叠操作
+if (WAIT_FAILED == WaitForSingleObject(hEvent, INFINITE))
+{
+    MessageBox(_T(&quot;等待对象失败！&quot;));
+    CloseHandle(m_hPipe);
+    CloseHandle(hEvent);
+    m_hPipe = NULL;
+    return;
+}
+CloseHandle(hEvent);
+
+//写数据
+
+char buf[] = &quot;this is named pipe server&quot;;
+DWORD dwWrite = 0;
+WriteFile(m_hPipe, buf, strlen(buf) + 1, &amp;dwWrite, NULL);
+
+//读数据
+
+char buf[128] = {0};
+DWORD dwRead = 0;
+ReadFile(m_hPipe, buf, 128, &amp;dwRead, NULL);
+
+//客户端
+
+//连接命名管道
+if (!WaitNamedPipe(_T(&quot;\\\\.\\pipe\\mypipe&quot;), NMPWAIT_WAIT_FOREVER))
+{
+    return;
+}
+
+m_hPipe = CreateFile(_T(&quot;\\\\.\\pipe\\mypipe&quot;), GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+
+//写入数据
+
+char buf[] = &quot;this is named pipe client&quot;;
+DWORD dwWrite = 0;
+WriteFile(m_hPipe, buf, strlen(buf) + 1, &amp;dwWrite, NULL);
+
+//读取数据
+
+char buf[128] = {0};
+DWORD dwRead = 0;
+ReadFile(m_hPipe, buf, 128, &amp;dwRead, NULL);
+
+
+//参考
+//http://www.cnblogs.com/BoyXiao/archive/2011/01/02/1924188.html
+</code></pre><h2 id="邮槽"><a href="#邮槽" class="headerlink" title="邮槽"></a>邮槽</h2><pre><code>//服务端
+
+HANDLE hMail = CreateMailslot(_T(&quot;\\\\.\\mailslot\\myslot&quot;), 424, MAILSLOT_WAIT_FOREVER, NULL);
+if (hMail == INVALID_HANDLE_VALUE)
+{
+    int nRes = GetLastError();
+    CString str;
+    str.Format(_T(&quot;%s&quot;), nRes);
+    AfxMessageBox(str);
+    return;
+}
+char buf[424] = {0};
+DWORD dwSize = 0;
+ReadFile(hMail, buf, 424, &amp;dwSize, NULL);
+CString str;
+str = buf;
+MessageBox(str);
+
+//客户端
+HANDLE hMailslot;
+hMailslot = CreateFile(_T(&quot;\\\\.\\mailslot\\myslot&quot;), GENERIC_WRITE,
+                       FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+if (INVALID_HANDLE_VALUE == hMailslot)
+{
+    MessageBox(_T(&quot;打开邮槽失败！&quot;));
+    return;
+}
+
+char buf[] = &quot;this is mail slot client&quot;;
+DWORD dwSize = 0;
+if (!WriteFile(hMailslot, buf, strlen(buf) + 1, &amp;dwSize, NULL))
+{
+    MessageBox(_T(&quot;写入邮槽失败！&quot;));
+}
+
+//http://blog.csdn.net/kylin_p/article/details/5146797
+//http://www.cnblogs.com/BoyXiao/archive/2010/12/31/1923462.html
+//http://www.cnblogs.com/jzincnblogs/p/5192654.html
+</code></pre>
       
 
       
@@ -316,7 +433,7 @@ int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">通信</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -330,7 +447,7 @@ int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/04/01/C++进程间通信/">展开全文 >></a>
         </p>
       
 
@@ -564,6 +681,210 @@ int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 
   
+    <article id="post-C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/">C#与C++相互发送消息</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/" class="archive-article-date">
+  	<time datetime="2017-03-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="C-最小化到托盘"><a href="#C-最小化到托盘" class="headerlink" title="C++ 最小化到托盘"></a>C++ 最小化到托盘</h1><pre><code>#define  WM_SHOWTASK (WM_USER + 1)
+void CTestDlg::OnSysCommand(UINT nID, LPARAM lParam)
+{
+    if ((nID &amp; 0xFFF0) == IDM_ABOUTBOX)
+    {
+        CAboutDlg dlgAbout;
+        dlgAbout.DoModal();
+    }
+    else
+    {
+        //增加关闭时最小化到托盘的函数
+        if (nID == SC_CLOSE) //SC_MINIMIZE
+        {
+            ToTray();
+            return;
+        }
+        CDialog::OnSysCommand(nID, lParam);
+    }
+}
+BEGIN_MESSAGE_MAP(CTestDlg, CDialog)
+    ON_MESSAGE(WM_SHOWTASK, OnShowTask)
+    //}}AFX_MSG_MAP
+END_MESSAGE_MAP()
+//在托盘区添加图标 最小化到托盘函数
+void ToTray(void);
+void CTestDlg::ToTray(void)
+{
+    NOTIFYICONDATA nid;
+    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
+    nid.hWnd = this-&gt;m_hWnd;
+    nid.uID = IDR_MAINFRAME;
+    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
+    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
+    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
+    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条
+    Shell_NotifyIcon(NIM_ADD, &amp;nid);//在托盘区添加图标
+    ShowWindow(SW_HIDE);//隐藏主窗口
+}
+//恢复界面函数
+afx_msg LRESULT OnShowTask(WPARAM wParam, LPARAM lParam);
+//托盘事件
+LRESULT CTestDlg::OnShowTask(WPARAM wParam, LPARAM lParam)
+{
+    if (wParam != IDR_MAINFRAME)
+    {
+        return 1;
+    }
+    switch(lParam)
+    {
+    case WM_RBUTTONUP://右键起来时弹出快捷菜单，这里只有一个关闭
+    {
+        LPPOINT lpoint = new tagPOINT;
+        ::GetCursorPos(lpoint);//得到鼠标位置
+        CMenu menu;
+        menu.CreatePopupMenu();//声明一个弹出式菜单
+        //增加菜单项“关闭”，点击则发送消息WM_DESTROY给主窗口（已
+        //隐藏），将程序结束。
+        menu.AppendMenu(MF_STRING, WM_DESTROY, _T(&quot;退出&quot;));
+        //确定弹出式菜单的位置
+        menu.TrackPopupMenu(TPM_LEFTALIGN, lpoint-&gt;x, lpoint-&gt;y, this);
+        //资源回收
+        HMENU hmenu = menu.Detach();
+        menu.DestroyMenu();
+        delete lpoint;
+    }
+    break;
+    case WM_LBUTTONDBLCLK://双击左键的处理
+    {
+        this-&gt;ShowWindow(SW_SHOW);//简单的显示主窗口
+        this-&gt;ShowWindow(SW_RESTORE);
+        DeleteTray();
+    }
+    break;
+    default:
+        break;
+    }
+    return 0;
+}
+//删除托盘中图标
+void DeleteTray();
+void CTestlDlg::DeleteTray()
+{
+    NOTIFYICONDATA nid;
+    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
+    nid.hWnd = this-&gt;m_hWnd;
+    nid.uID = IDR_MAINFRAME;
+    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
+    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
+    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
+    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
+    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
+}
+//退出程序需时需要DeleteTray();
+void CTestDlg::OnDestroy()
+{
+    CDialog::OnDestroy();
+    // TODO: 在此处添加消息处理程序代码
+    DeleteTray();
+}
+//修改风格使得他不在任务栏显示
+int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+    if (CDialog::OnCreate(lpCreateStruct) == -1)
+        return -1;
+    // TODO:  在此添加您专用的创建代码
+    //修改风格使得他不在任务栏显示
+    ModifyStyleEx(WS_EX_APPWINDOW, WS_EX_TOOLWINDOW);
+    return 0;
+}
+</code></pre><p>DeleteTray改为：</p>
+<pre><code>void CTestDlg::DeleteTray()
+{
+    NOTIFYICONDATA nid;
+    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
+    nid.hWnd = this-&gt;m_hWnd;
+    nid.uID = IDR_MAINFRAME;
+    nid.uFlags = NIF_ICON /*| NIF_MESSAGE | NIF_TIP*/;
+    //nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
+    //nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
+    //wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
+    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
+}
+</code></pre><p>否则会出现程序退出后，托盘图标还在的情况，鼠标移动到图标上后，图标一闪然后消失的问题。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-C++中判断某一文件或目录是否存在" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -766,19 +1087,19 @@ int GetFilePath(std::string &amp;strFilePath)
 
 
   
-    <article id="post-CShap 系统托盘图标" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-C# 系统托盘图标" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/01/CShap 系统托盘图标/">C# 系统托盘图标</a>
+      <a class="article-title" href="/2017/02/01/C# 系统托盘图标/">C# 系统托盘图标</a>
     </h1>
   
 
         
-        <a href="/2017/02/01/CShap 系统托盘图标/" class="archive-article-date">
+        <a href="/2017/02/01/C# 系统托盘图标/" class="archive-article-date">
   	<time datetime="2017-02-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-01</time>
 </a>
         
@@ -792,9 +1113,7 @@ int GetFilePath(std::string &amp;strFilePath)
 <p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p>
 <h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf
 </code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p>
-<h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml<window>添加</window></p>
-<pre><code>xmlns:tb=&quot;http://www.hardcodet.net/taskbar&quot;
-</code></pre><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p>
+<h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p>
 <pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;
   IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;
   ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;
@@ -805,6 +1124,34 @@ int GetFilePath(std::string &amp;strFilePath)
     &lt;/ContextMenu&gt;
   &lt;/tb:TaskbarIcon.ContextMenu&gt;
 &lt;/tb:TaskbarIcon&gt;
+</code></pre><h2 id="使用代码："><a href="#使用代码：" class="headerlink" title="使用代码："></a>使用代码：</h2><pre><code>private bool bCanClose = false;
+
+public MainWindow()
+{
+    InitializeComponent();
+
+    this.Closing += MainWindow_Closing;
+}
+
+private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+{
+    if (!bCanClose)
+    {
+        this.Hide();
+        e.Cancel = true;
+    }
+}
+
+private void MenuItem_Click_Show(object sender, RoutedEventArgs e)
+{
+    this.Show();
+}
+
+private void MenuItem_Click_Close(object sender, RoutedEventArgs e)
+{
+    bCanClose = true;
+    this.Close();
+}
 </code></pre>
       
 
@@ -836,7 +1183,7 @@ int GetFilePath(std::string &amp;strFilePath)
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/01/CShap 系统托盘图标/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/02/01/C# 系统托盘图标/">展开全文 >></a>
         </p>
       
 
@@ -1140,6 +1487,106 @@ BOOL CVcMessageDlg::VCSendMessage(int nMessgeId,CStringA strSend)
 
 
   
+    <article id="post-CShap 系统托盘图标" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/01/CShap 系统托盘图标/">C# 系统托盘图标</a>
+    </h1>
+  
+
+        
+        <a href="/2017/02/01/CShap 系统托盘图标/" class="archive-article-date">
+  	<time datetime="2017-02-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p>
+<p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p>
+<p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p>
+<p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p>
+<h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf
+</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p>
+<h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml<window>添加</window></p>
+<pre><code>xmlns:tb=&quot;http://www.hardcodet.net/taskbar&quot;
+</code></pre><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p>
+<pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;
+  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;
+  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;
+  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;
+    &lt;ContextMenu&gt;
+      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;
+      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;
+    &lt;/ContextMenu&gt;
+  &lt;/tb:TaskbarIcon.ContextMenu&gt;
+&lt;/tb:TaskbarIcon&gt;
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/02/01/CShap 系统托盘图标/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-CShap与C++通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1385,132 +1832,6 @@ BOOL CVcMessageDlg::VCSendMessage(int nMessgeId,CStringA strSend)
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/02/01/CShap与C++通信/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-C# 系统托盘图标" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/01/C# 系统托盘图标/">C# 系统托盘图标</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/01/C# 系统托盘图标/" class="archive-article-date">
-  	<time datetime="2017-02-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p>
-<p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p>
-<p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p>
-<p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p>
-<h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf
-</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p>
-<h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p>
-<pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;
-  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;
-  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;
-  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;
-    &lt;ContextMenu&gt;
-      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;
-      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;
-    &lt;/ContextMenu&gt;
-  &lt;/tb:TaskbarIcon.ContextMenu&gt;
-&lt;/tb:TaskbarIcon&gt;
-</code></pre><h2 id="使用代码："><a href="#使用代码：" class="headerlink" title="使用代码："></a>使用代码：</h2><pre><code>private bool bCanClose = false;
-
-public MainWindow()
-{
-    InitializeComponent();
-
-    this.Closing += MainWindow_Closing;
-}
-
-private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-{
-    if (!bCanClose)
-    {
-        this.Hide();
-        e.Cancel = true;
-    }
-}
-
-private void MenuItem_Click_Show(object sender, RoutedEventArgs e)
-{
-    this.Show();
-}
-
-private void MenuItem_Click_Close(object sender, RoutedEventArgs e)
-{
-    bCanClose = true;
-    this.Close();
-}
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/01/C# 系统托盘图标/">展开全文 >></a>
         </p>
       
 
@@ -1885,141 +2206,6 @@ SetHook(this-&gt;m_hWnd);
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/01/15/钩子/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-C# ShellExcute与Process" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/01/C# ShellExcute与Process/">C#运行外部程序的两种方法</a>
-    </h1>
-  
-
-        
-        <a href="/2017/01/01/C# ShellExcute与Process/" class="archive-article-date">
-  	<time datetime="2017-01-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-运行外部程序的两种方法"><a href="#C-运行外部程序的两种方法" class="headerlink" title="C#运行外部程序的两种方法"></a>C#运行外部程序的两种方法</h1><h2 id="ShellExecute"><a href="#ShellExecute" class="headerlink" title="ShellExecute"></a>ShellExecute</h2><pre><code>using System.Runtime.InteropServices;
-
-public enum ShowWindowCommands : int
-{
-
-    SW_HIDE = 0,
-    SW_SHOWNORMAL = 1,    //用最近的大小和位置显示，激活
-    SW_NORMAL = 1,
-    SW_SHOWMINIMIZED = 2,
-    SW_SHOWMAXIMIZED = 3,
-    SW_MAXIMIZE = 3,
-    SW_SHOWNOACTIVATE = 4,
-    SW_SHOW = 5,
-    SW_MINIMIZE = 6,
-    SW_SHOWMINNOACTIVE = 7,
-    SW_SHOWNA = 8,
-    SW_RESTORE = 9,
-    SW_SHOWDEFAULT = 10,
-    SW_MAX = 10
-}
-[DllImport(&quot;shell32.dll&quot;)]
-public static extern IntPtr ShellExecute(
-    IntPtr hwnd,
-    string lpszOp,
-    string lpszFile,
-    string lpszParams,
-    string lpszDir,
-    ShowWindowCommands FsShowCmd
-);
-</code></pre><h3 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h3><pre><code>ShellExecute(IntPtr.Zero, &quot;open&quot;, UrlOrPath, null, null, ShowWindowCommands.SW_SHOWNORMAL);
-</code></pre><p>UrlOrPath可为exe路径或者网页url(使用默认浏览器打开网页url)</p>
-<p>使用ie打开网页url</p>
-<pre><code>ShellExecute(NULL, &quot;open&quot;, &quot;IEXPLORE&quot;, &quot;http://www.csdn.net&quot;, NULL, SW_SHOWMAXIMIZED);
-</code></pre><h2 id="Process"><a href="#Process" class="headerlink" title="Process"></a>Process</h2><pre><code>using System.Diagnostics;
-
-private static string Execute(string exePath, string parameters)
-{
-    string result = String.Empty;
-
-    using (Process p = new Process())
-    {
-        p.StartInfo.UseShellExecute = false;
-        p.StartInfo.CreateNoWindow = true;
-        p.StartInfo.RedirectStandardOutput = true;
-        p.StartInfo.FileName = exePath;
-        p.StartInfo.Arguments = parameters;
-        p.Start();
-        p.WaitForExit();
-
-        result = p.StandardOutput.ReadToEnd();
-    }
-
-    return result;
-}
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">运行外部程序</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/01/01/C# ShellExcute与Process/">展开全文 >></a>
         </p>
       
 
@@ -2842,6 +3028,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">笔记</a>
               </li>
             
             <div class="clearfix"></div>

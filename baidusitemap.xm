@@ -4,6 +4,27 @@
 
     
   <url>
+    <loc>https://caojingyou.github.io/2018/05/15/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%A6%85/</loc>
+    <lastmod>2018-05-15T01:32:36.078Z</lastmod>
+    <data>
+        <display>
+        <title>设计模式之禅-笔记</title>
+        <pubTime>2018-05-15T01:32:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>设计模式</tag>
+         
+        <tag>笔记</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://caojingyou.github.io/2018/05/09/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2018-05-14T10:17:52.994Z</lastmod>
     <data>

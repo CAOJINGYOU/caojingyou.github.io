@@ -156,6 +156,123 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-设计模式之禅" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/15/设计模式之禅/">设计模式之禅-笔记</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/15/设计模式之禅/" class="archive-article-date">
+  	<time datetime="2018-05-15T01:32:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="设计模式之禅"><a href="#设计模式之禅" class="headerlink" title="设计模式之禅"></a>设计模式之禅</h1><h2 id="秦小波"><a href="#秦小波" class="headerlink" title="秦小波"></a>秦小波</h2><h3 id="Citation-APA-秦小波-2010-设计模式之禅-Kindle-Android-version-Retrieved-from-Amazon-com"><a href="#Citation-APA-秦小波-2010-设计模式之禅-Kindle-Android-version-Retrieved-from-Amazon-com" class="headerlink" title="Citation (APA): 秦小波. (2010). 设计模式之禅 [Kindle Android version]. Retrieved from Amazon.com"></a>Citation (APA): 秦小波. (2010). 设计模式之禅 [Kindle Android version]. Retrieved from Amazon.com</h3><p>单例模式和原型模式非常容易理解，单例模式是要保持在内存中只有一个对象，原型模式是要求通过复制的方式产生一个新的对象，这两个不容易混淆。</p>
+<p>工厂方法模式注重的是整体对象的创建方法，而建造者模式注重的是部件构建的过程，旨在通过一步一步的精确构造创建出一个复杂的对象。</p>
+<p>一般来说，工厂方法模式的对象粒度比较粗，建造者模式的产品对象粒度比较细。</p>
+<p>如果需要详细关注一个产品部件的生产、安装步骤，则选择建造者，否则选择工厂方法模式。</p>
+<p>抽象工厂模式实现对产品家族的创建，一个产品家族是这样的一系列产品：具有不同分类维度的产品组合，采用抽象工厂模式则是不需要关心构建过程，只关心什么产品由什么工厂生产即可。</p>
+<p>为什么叫结构类模式呢？因为它们都是通过组合类或对象产生更大结构以适应更高层次的逻辑需求。</p>
+<p>装饰模式就是代理模式的一个特殊应用，两者的共同点是都具有相同的接口，不同点则是代理模式着重对代理过程的控制，而装饰模式则是对类的功能进行加强或减弱，它着重类的功能变化，</p>
+<p>代理模式和装饰模式有非常相似的地方，甚至代码实现都非常相似，特别是装饰模式中省略抽象装饰角色后，两者代码基本上相同，但是还是有细微的差别。代理模式是把当前的行为或功能委托给其他对象执行，代理类负责接口限定：是否可以调用真实角色，以及是否对发送到真实角色的消息进行变形处理，它不对被主题角色（也就是被代理类）的功能做任何处理，保证原汁原味的调用。代理模式使用到极致开发就是AOP，这是各位采用Spring架构开发必然要使用到的技术，它就是使用了代理和反射的技术。装饰模式是在要保证接口不变的情况下加强类的功能，它保证的是被修饰的对象功能比原始对象丰富（当然，也可以减弱），但不做准入条件判断和准入参数过滤，如是否可以执行类的功能，过滤输入参数是否合规等，这不是装饰模式关心的。</p>
+<p>装饰模式和适配器模式在通用类图上没有太多的相似点，差别比较大，但是它们的功能有相似的地方：都是包装作用，都是通过委托方式实现其功能。不同点是：装饰模式包装的是自己的兄弟类，隶属于同一个家族（相同接口或父类），适配器模式则修饰非血缘关系类，把一个非本家族的对象伪装成本家族的对象，注意是伪装，因此它的本质还是非相同接口的对象。</p>
+<p>装饰模式很容易扩展！今天不用这个修饰，好，去掉；明天想再使用，好，加上。这都没有问题。而且装饰类可以继续扩展下去；但是适配器模式就不同了，它在两个不同对象之间架起了一座沟通的桥梁，建立容易，去掉就比较困难了，需要从系统整体考虑是否能够撤销。</p>
+<p>行为类模式包括责任链模式、命令模式、解释器模式、迭代器模式、中介者模式、备忘录模式、观察者模式、状态模式、策略模式、模板方法模式、访问者模式。</p>
+<p>命令模式和策略模式的类图确实很相似，只是命令模式多了一个接收者（Receiver）角色。它们虽然同为行为类模式，但是两者的区别还是很明显的。策略模式的意图是封装算法，它认为“算法”已经是一个完整的、不可拆分的原子业务（注意这里是原子业务，而不是原子对象），即其意图是让这些算法独立，并且可以相互替换，让行为的变化独立于拥有行为的客户；而命令模式则是对动作的解耦，把一个动作的执行分为执行对象（接收者角色）、执行行为（命令角色），让两者相互独立而不相互影响。</p>
+<p>策略模式和命令模式相似，特别是命令模式退化时，比如无接收者（接收者非常简单或者接收者是一个Java的基础操作，无需专门编写一个接收者），在这种情况下，命令模式和策略模式的类图完全一样，代码实现也比较类似，但是两者还是有区别的。</p>
+<p>策略模式关注的是算法替换的问题，一个新的算法投产，旧算法退休，或者提供多种算法由调用者自己选择使用，算法的自由更替是它实现的要点。换句话说，策略模式关注的是算法的完整性、封装性，只有具备了这两个条件才能保证其可以自由切换。命令模式则关注的是解耦问题，如何让请求者和执行者解耦是它需要首先解决的，解耦的要求就是把请求的内容封装为一个一个的命令，由接收者执行。由于封装成了命令，就同时可以对命令进行多种处理，例如撤销、记录等。</p>
+<p>策略模式中的抽象算法和具体算法与命令模式的接收者非常相似，但是它们的职责不同。策略模式中的具体算法是负责一个完整算法逻辑，它是不可再拆分的原子业务单元，一旦变更就是对算法整体的变更。</p>
+<p>策略模式适用于算法要求变换的场景，而命令模式适用于解耦两个有紧耦合关系的对象场合或者多命令多撤销的场景。</p>
+<p>策略模式封装的是不同的算法，算法之间没有交互，以达到算法可以自由切换的目的；而状态模式封装的是不同的状态，以达到状态切换行为随之发生改变的目的。这两种模式虽然都有变换的行为，但是两者的目标却是不同的。</p>
+<p>策略模式的环境角色只是一个委托作用，负责算法的替换；而状态模式的环境角色不仅仅是委托行为，它还具有登记状态变化的功能，与具体的状态类协作，共同完成状态切换行为随之切换的任务。</p>
+<p>策略模式只是确保算法可以自由切换，但是什么时候用什么算法它决定不了；而状态模式对外暴露的是行为，状态的变化一般是由环境角色和具体状态共同完成的，也就是说状态模式封装了状态的变化而暴露了不同的行为或行为结果。</p>
+<p>在责任链模式中，上下节点没有关系，都是接收同样的对象，所有传递的对象都是从链首传递过来，上一节点是什么没有关系，只要按照自己的逻辑处理就成。而触发链模式就不同了，它的上下级关系很亲密，下级对上级顶礼膜拜，上级对下级绝对信任，链中的任意两个相邻节点都是一个牢固的独立团体。</p>
+<p>在责任链模式中，一个消息从链首传递进来后，就开始沿着链条向链尾运动，方向是单一的、固定的；而触发链模式则不同，由于它采用的是观察者模式，所以有非常大的灵活性，一个消息传递到链首后，具体怎么传递是不固定的，可以以广播方式传递，也可以以跳跃方式传递，这取决于处理消息的逻辑。</p>
+<p>创建类模式描述如何创建对象，行为类模式关注如何管理对象的行为，结构类模式则着重于如何建立一个软件结构，虽然三种模式的着重点不同，</p>
+<p>策略模式实现两种算法的自由切换，它提供了这样的保证：封装邮件的两种行为是可选择的，至于选择哪个算法是由上层模块决定的。策略模式要完成的任务就是提供两种可以替换的算法。</p>
+<p>桥梁模式关注的是抽象和实现的分离，它是结构型模式，</p>
+<p>简单来说，策略模式是使用继承和多态建立一套可以自由切换算法的模式，桥梁模式是在不破坏封装的前提下解决抽象和实现都可以独立扩展的模式。桥梁模式必然有两个“桥墩”——抽象化角色和实现化角色，只要桥墩搭建好，桥就有了，而策略模式只有一个抽象角色，可以没有实现，也可以有很多实现。</p>
+<p>门面模式为复杂的子系统提供一个统一的访问界面，它定义的是一个高层接口，该接口使得子系统更加容易使用，避免外部模块深入到子系统内部而产生与子系统内部细节耦合的问题。中介者模式使用一个中介对象来封装一系列同事对象的交互行为，它使各对象之间不再显式地引用，从而使其耦合松散，建立一个可扩展的应用架构。</p>
+<p>门面模式和中介者模式之间的区别还是比较明显的，门面模式是以封装和隔离为主要任务，而中介者模式则是以调和同事类之间的关系为主，因为要调和，所以具有了部分的业务逻辑控制。</p>
+<p>门面模式只是增加了一个门面，它对子系统来说没有增加任何的功能，子系统若脱离门面模式是完全可以独立运行的。而中介者模式则增加了业务功能，它把各个同事类中的原有耦合关系移植到了中介者，同事类不可能脱离中介者而独立存在，除非是想增加系统的复杂性和降低扩展性。</p>
+<p>门面模式是一种简单的封装，所有的请求处理都委托给子系统完成，而中介者模式则需要有一个中心，由中心协调同事类完成，并且中心本身也完成部分业务，它属于更进一步的业务功能封装。</p>
+<p>包装模式包括：装饰模式、适配器模式、门面模式、代理模式、桥梁模式。</p>
+<p>5个包装模式是大家在系统设计中经常会用到的模式，它们具有相似的特征：都是通过委托的方式对一个对象或一系列对象（例如门面模式）施行包装，有了包装，设计的系统才更加灵活、稳定，并且极具扩展性。从实现的角度来看，它们都是代理的一种具体表现形式，</p>
+<p>装饰模式是一种特殊的代理模式，它倡导的是在不改变接口的前提下为对象增强功能，或者动态添加额外职责。就扩展性而言，它比子类更加灵活，例如在一个已经运行的项目中，可以很轻松地通过增加装饰类来扩展系统的功能。适配器模式的主要意图是接口转换，把一个对象的接口转换成系统希望的另外一个接口，这里的系统指的不仅仅是一个应用，也可能是某个环境，比如通过接口转换可以屏蔽外界接口，以免外界接口深入系统内部，从而提高系统的稳定性和可靠性。桥梁模式是在抽象层产生耦合，解决的是自行扩展的问题，它可以使两个有耦合关系的对象互不影响地扩展，比如对于使用笔画图这样的需求，可以采用桥梁模式设计成用什么笔（铅笔、毛笔）画什么图（圆形、方形）的方案，至于以后需求的变更，如增加笔的类型，增加图形等，对该设计来说是小菜一碟。门面模式是一个粗粒度的封装，它提供一个方便访问子系统的接口，不具有任何的业务逻辑，仅仅是一个访问复杂系统的快速通道，没有它，子系统照样运行，有了它，只是更方便访问而已。</p>
+<h1 id="23种设计模式彩图"><a href="#23种设计模式彩图" class="headerlink" title="23种设计模式彩图"></a>23种设计模式彩图</h1><p><img src="https://i.imgur.com/WT9XrQv.png" alt=""></p>
+<p><img src="https://i.imgur.com/oOq0ZC4.png" alt=""></p>
+<p><img src="https://i.imgur.com/ujyOLJH.png" alt=""></p>
+<p><img src="https://i.imgur.com/fAc8qmZ.png" alt=""></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/15/设计模式之禅/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-设计模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -3304,846 +3421,6 @@ int main()
 
 
   
-    <article id="post-正则表达式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/正则表达式/">正则表达式</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/03/正则表达式/" class="archive-article-date">
-  	<time datetime="2018-04-03T01:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="c-regex"><a href="#c-regex" class="headerlink" title="c regex"></a>c regex</h1><ol>
-<li>编译正则表达式 <code>regcomp()</code></li>
-<li>匹配正则表达式 <code>regexec()</code></li>
-<li>释放正则表达式 <code>regfree()</code></li>
-<li>错误处理 <code>regerror()</code></li>
-</ol>
-<pre><code>#include &lt;stdio.h&gt;
-#include &lt;regex.h&gt;  //标准c不支持，Linux常带有此文件
-
-int main(){
-    regex_t reg;    //定义一个正则实例
-    const char* pattern = &quot;^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*.\\w+([-.]\\w+)*$&quot;; //定义模式串
-    regcomp(&amp;reg, pattern, REG_EXTENDED);    //编译正则模式串
-
-    char* buf = &quot;david19842003@gmail.com&quot;;   //定义待匹配串
-    const size_t nmatch = 1;    //定义匹配结果最大允许数
-    regmatch_t pmatch[1];   //定义匹配结果在待匹配串中的下标范围
-    int status = regexec(&amp;reg, buf, nmatch, pmatch, 0); //匹配他
-
-    if (status == REG_NOMATCH){ //如果没匹配上
-        printf(&quot;No Match\n&quot;);
-    }
-    else if (status == 0){  //如果匹配上了
-        printf(&quot;Match\n&quot;);
-        for (int i = pmatch[0].rm_so; i &lt; pmatch[0].rm_eo; i++){    //遍历输出匹配范围的字符串
-            printf(&quot;%c&quot;, buf[i]);
-        }
-        printf(&quot;\n&quot;);
-    }
-    regfree(&amp;reg);  //释放正则表达式
-    return 0;
-}
-</code></pre><p>1.<code>int regcomp (regex_t *compiled, const char *pattern, int cflags)</code></p>
-<ul>
-<li><code>regex_t</code> 是一个结构体数据类型，用来存放编译后的正则表达式<ul>
-<li><code>regex_t</code> 的成员<code>re_nsub</code> 用来存储正则表达式中的子正则表达式的个数，子正则表达式就是用圆括号包起来的部分表达式</li>
-</ul>
-</li>
-<li><code>pattern</code> 是指向我们写好的正则表达式的指针</li>
-<li><code>cflags</code> 有如下4个值或者是它们或运算(|)后的值：<ul>
-<li>REG_EXTENDED 以功能更加强大的扩展正则表达式的方式进行匹配。</li>
-<li>REG_ICASE 匹配字母时忽略大小写。</li>
-<li>REG_NOSUB 不用存储匹配后的结果。</li>
-<li>REG_NEWLINE 识别换行符，这样’$’就可以从行尾开始匹配，’^’就可以从行的开头开始匹配</li>
-</ul>
-</li>
-</ul>
-<p>2.<code>int regexec (regex_t *compiled, char *string, size_t nmatch, regmatch_t matchptr [], int eflags)</code></p>
-<ul>
-<li>如果在编译正则表达式的时候没有指定cflags的参数为REG_NEWLINE，则默认情况下是忽略换行符的，也就是把整个文本串当作一个字符串处理。执行成功返回0<ul>
-<li><code>regmatch_t</code> 是一个结构体数据类型，在regex.h中定义：<code>typedef struct{regoff_t rm_so;regoff_t rm_eo;} regmatch_t;</code></li>
-<li>成员<code>rm_so</code> 存放匹配文本串在目标串中的开始位置，<code>rm_eo</code>存放结束位置</li>
-<li>通常我们以数组的形式定义一组这样的结构。因为往往我们的正则表达式中还包含子正则表达式。数组0单元存放主正则表达式位置，后边的单元依次存放子正则表达式位置</li>
-</ul>
-</li>
-<li><code>compiled</code> 是已经用<code>regcomp</code>函数编译好的正则表达式</li>
-<li><code>string</code> 是目标文本串</li>
-<li><code>nmatch</code> 是<code>regmatch_t</code>结构体数组的长度</li>
-<li><code>matchptr regmatch_t</code>类型的结构体数组，存放匹配文本串的位置信息</li>
-<li><code>eflags</code> 有两个值<ul>
-<li><code>REG_NOTBOL</code> 按我的理解是如果指定了这个值，那么’^’就不会从我们的目标串开始匹配。总之我到现在还不是很明白这个参数的意义</li>
-<li><code>REG_NOTEOL</code> 和上边那个作用差不多，不过这个指定结束<code>end of line</code></li>
-</ul>
-</li>
-</ul>
-<p>3.<code>void regfree (regex_t *compiled)</code></p>
-<ul>
-<li>清空compiled指向的regex_t结构体的内容</li>
-<li>如果是重新编译的话，一定要先清空regex_t结构体c</li>
-</ul>
-<p>4.<code>size_t regerror (int errcode, regex_t *compiled, char *buffer, size_t length)</code></p>
-<ul>
-<li><code>当执行regcomp</code> 或者<code>regexec</code> 产生错误的时候，就可以调用这个函数而返回一个包含错误信息的字符串</li>
-<li><code>errcode</code> <code>是由regcomp</code> 和 <code>regexec</code> 函数返回的错误代号</li>
-<li><code>compiled</code> 是已经用<code>regcomp</code>函数编译好的正则表达式，这个值可以为<code>NULL</code></li>
-<li><code>buffer</code> 指向用来存放错误信息的字符串的内存空间</li>
-<li><code>length</code> 指明<code>buffer</code>的长度，如果这个错误信息的长度大于这个值，则<code>regerror</code> 函数会自动截断超出的字符串，但他仍然会返回完整的字符串的长度。所以我们可以用如下的方法先得到错误字符串的长度。</li>
-</ul>
-<pre><code>`size_t length = regerror (errcode, compiled, NULL, 0);`
-</code></pre><p>转载：<br><a href="http://www.yingzinanfei.com/2017/02/06/c-regex-yongfa/" target="_blank" rel="noopener">c regex 用法</a></p>
-<h1 id="C-regex"><a href="#C-regex" class="headerlink" title="C++ regex"></a>C++ regex</h1><p><a href="https://msdn.microsoft.com/en-us/library/bb982382.aspx" target="_blank" rel="noopener">regex头文件</a></p>
-<p><a href="https://msdn.microsoft.com/en-us/library/bb982727.aspx" target="_blank" rel="noopener">Regular Expressions (C++)</a></p>
-<p><a href="https://msdn.microsoft.com/zh-cn/ch/library/bb982727.aspx" target="_blank" rel="noopener">正则表达式 (C++)</a></p>
-<p><a href="https://docs.microsoft.com/zh-cn/cpp/standard-library/regular-expressions-cpp" target="_blank" rel="noopener">正则表达式 (C++)</a></p>
-<p><a href="https://docs.microsoft.com/zh-cn/cpp/standard-library/regex" target="_blank" rel="noopener">微软regex</a></p>
-<p><a href="https://docs.microsoft.com/zh-cn/cpp/standard-library/regex-typedefs" target="_blank" rel="noopener">regex typedefs</a></p>
-<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><ul>
-<li><code>basic_regex</code>    包装正则表达式。</li>
-<li><code>match_results</code>    包含一系列子匹配项。</li>
-<li><code>regex_constants</code>    包含各种类型的常量。</li>
-<li><code>regex_error</code>    报告错误的正则表达式。</li>
-<li><code>regex_iterator</code>    循环访问匹配结果。</li>
-<li><code>regex_traits</code>    描述用于匹配的元素的特征。</li>
-<li><code>regex_traits&lt;char&gt;</code>    描述用于匹配的 <code>char</code> 的特征。</li>
-<li><code>regex_traits&lt;wchar_t&gt;</code>    描述用于匹配的 <code>wchar_t</code> 的特征。</li>
-<li><code>regex_token_iterator</code>    循环访问子匹配项。</li>
-<li><code>sub_match</code>    介绍子匹配项。</li>
-</ul>
-<h2 id="类型定义"><a href="#类型定义" class="headerlink" title="类型定义"></a>类型定义</h2><ul>
-<li><code>cmatch</code>    <code>char match_results</code> 的类型定义。</li>
-<li><code>cregex_iterator</code>    <code>char regex_iterator</code> 的类型定义。</li>
-<li><code>cregex_token_iterator</code>    <code>char regex_token_iterator</code> 的类型定义。</li>
-<li><code>csub_match</code>    <code>char sub_match</code> 的类型定义。</li>
-<li><code>regex</code>    <code>char basic_regex</code> 的类型定义。</li>
-<li><code>smatch</code>    <code>string match_results</code> 的类型定义。</li>
-<li><code>sregex_iterator</code>    <code>string regex_iterator</code> 的类型定义。</li>
-<li><code>sregex_token_iterator</code>    <code>string regex_token_iterator</code> 的类型定义。</li>
-<li><code>ssub_match</code>    <code>string sub_match</code> 的类型定义。</li>
-<li><code>wcmatch</code>    <code>wchar_t match_results</code> 的类型定义。</li>
-<li><code>wcregex_iterator</code>    <code>wchar_t regex_iterator</code> 的类型定义。</li>
-<li><code>wcregex_token_iterator</code>    <code>wchar_t regex_token_iterator</code> 的类型定义。</li>
-<li><code>wcsub_match</code>    <code>wchar_t sub_match</code> 的类型定义。</li>
-<li><code>wregex</code>    <code>wchar_t basic_regex</code> 的类型定义。</li>
-<li><code>wsmatch</code>    <code>wstring match_results</code> 的类型定义。</li>
-<li><code>wsregex_iterator</code>    <code>wstring regex_iterator</code> 的类型定义。</li>
-<li><code>wsregex_token_iterator</code>    <code>wstring regex_token_iterator</code> 的类型定义。</li>
-<li><code>wssub_match</code>    <code>wstring sub_match</code> 的类型定义。</li>
-</ul>
-<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ul>
-<li><code>regex_match</code>    与正则表达式完全匹配。</li>
-<li><code>regex_replace</code>    替换匹配正则表达式。</li>
-<li><code>regex_search</code>    搜索正则表达式匹配项。</li>
-<li><code>swap</code>    交换 <code>basic_regex</code> 或 <code>match_results</code> 对象。</li>
-</ul>
-<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><ul>
-<li><code>operator==</code>    比较各种对象，相等。</li>
-<li><code>operator!=</code>    比较各种对象，不相等。</li>
-<li><code>operator&lt;</code>    比较各种对象，小于。</li>
-<li><code>operator&lt;=</code>    比较各种对象，小于或等于。</li>
-<li><code>operator&gt;</code>    比较各种对象，大于。</li>
-<li><code>operator&gt;=</code>    比较各种对象，大于或等于。</li>
-<li><code>operator&lt;&lt;</code>    将 sub_match 插入流中。</li>
-</ul>
-<h2 id="regex-match"><a href="#regex-match" class="headerlink" title="regex_match"></a><code>regex_match</code></h2><pre><code>#include &quot;stdafx.h&quot;  
-#include &lt;regex&gt;   
-#include &lt;iostream&gt;   
-
-using namespace std;  
-
-int _tmain(int argc, _TCHAR* argv[])  
-{  
-
-    // (1) with char*  
-    // Note how const char* requires cmatch and regex  
-    const char *first = &quot;abc&quot;;  
-    const char *last = first + strlen(first);  
-    cmatch narrowMatch;  
-    regex rx(&quot;a(b)c&quot;);  
-
-    bool found = regex_match(first, last, narrowMatch, rx);  
-
-    // (1) with std::wstring  
-    // Note how wstring requires wsmatch and wregex.  
-    // Note use of const iterators cbegin() and cend().  
-    wstring target(L&quot;Hello&quot;);  
-    wsmatch wideMatch;  
-    wregex wrx(L&quot;He(l+)o&quot;);  
-
-    if (regex_match(target.cbegin(), target.cend(), wideMatch, wrx))  
-        wcout &lt;&lt; L&quot;The matching text is:&quot; &lt;&lt; wideMatch.str() &lt;&lt; endl;   
-
-    // (2) with std::string  
-    string target2(&quot;Drizzle&quot;);  
-    regex rx2(R&quot;(D\w+e)&quot;); // no double backslashes with raw string literal  
-    found = regex_match(target2.cbegin(), target2.cend(), rx2);  
-
-    // (3) with wchar_t*  
-    const wchar_t* target3 = L&quot;2014-04-02&quot;;  
-    wcmatch wideMatch2;  
-
-    // LR&quot;(...)&quot; is a  raw wide-string literal. Open and close parens  
-    // are delimiters, not string elements.  
-    wregex wrx2(LR&quot;(\d{4}(-|/)\d{2}(-|/)\d{2})&quot;);   
-    if (regex_match(target3, wideMatch2, wrx2))  
-    {  
-        wcout &lt;&lt; L&quot;Matching text: &quot; &lt;&lt; wideMatch2.str() &lt;&lt; endl;  
-    }  
-
-     return 0;  
-}
-</code></pre><h2 id="regex-replace"><a href="#regex-replace" class="headerlink" title="regex_replace"></a><code>regex_replace</code></h2><pre><code>// std__regex__regex_replace.cpp   
-// compile with: /EHsc   
-#include &lt;regex&gt;   
-#include &lt;iostream&gt;   
-
-int main()   
-    {   
-    char buf[20];   
-    const char *first = &quot;axayaz&quot;;   
-    const char *last = first + strlen(first);   
-    std::regex rx(&quot;a&quot;);   
-    std::string fmt(&quot;A&quot;);   
-    std::regex_constants::match_flag_type fonly =   
-        std::regex_constants::format_first_only;   
-
- *std::regex_replace(&amp;buf[0], first, last, rx, fmt) = &apos;\0&apos;;   
-    std::cout &lt;&lt; &quot;replacement == &quot; &lt;&lt; &amp;buf[0] &lt;&lt; std::endl;   
-
- *std::regex_replace(&amp;buf[0], first, last, rx, fmt, fonly) = &apos;\0&apos;;   
-    std::cout &lt;&lt; &quot;replacement == &quot; &lt;&lt; &amp;buf[0] &lt;&lt; std::endl;   
-
-    std::string str(&quot;adaeaf&quot;);   
-    std::cout &lt;&lt; &quot;replacement == &quot;   
-        &lt;&lt; std::regex_replace(str, rx, fmt) &lt;&lt; std::endl;   
-
-    std::cout &lt;&lt; &quot;replacement == &quot;   
-        &lt;&lt; std::regex_replace(str, rx, fmt, fonly) &lt;&lt; std::endl;   
-
-    return (0);   
-    }
-</code></pre><p>结果：</p>
-<pre><code>replacement == AxAyAz  
-replacement == Axayaz  
-replacement == AdAeAf  
-replacement == Adaeaf 
-</code></pre><h2 id="regex-search"><a href="#regex-search" class="headerlink" title="regex_search"></a><code>regex_search</code></h2><pre><code>// std__regex__regex_search.cpp   
-// compile with: /EHsc   
-#include &lt;regex&gt;   
-#include &lt;iostream&gt;   
-
-int main()   
-    {   
-    const char *first = &quot;abcd&quot;;   
-    const char *last = first + strlen(first);   
-    std::cmatch mr;   
-    std::regex rx(&quot;abc&quot;);   
-    std::regex_constants::match_flag_type fl =   
-        std::regex_constants::match_default;   
-
-    std::cout &lt;&lt; &quot;search(f, f+1, \&quot;abc\&quot;) == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; regex_search(first, first + 1, rx, fl) &lt;&lt; std::endl;   
-
-    std::cout &lt;&lt; &quot;search(f, l, \&quot;abc\&quot;) == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; regex_search(first, last, mr, rx) &lt;&lt; std::endl;   
-    std::cout &lt;&lt; &quot;  matched: \&quot;&quot; &lt;&lt; mr.str() &lt;&lt; &quot;\&quot;&quot; &lt;&lt; std::endl;   
-
-    std::cout &lt;&lt; &quot;search(\&quot;a\&quot;, \&quot;abc\&quot;) == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; regex_search(&quot;a&quot;, rx) &lt;&lt; std::endl;   
-
-    std::cout &lt;&lt; &quot;search(\&quot;xabcd\&quot;, \&quot;abc\&quot;) == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; regex_search(&quot;xabcd&quot;, mr, rx) &lt;&lt; std::endl;   
-    std::cout &lt;&lt; &quot;  matched: \&quot;&quot; &lt;&lt; mr.str() &lt;&lt; &quot;\&quot;&quot; &lt;&lt; std::endl;   
-
-    std::cout &lt;&lt; &quot;search(string, \&quot;abc\&quot;) == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; regex_search(std::string(&quot;a&quot;), rx) &lt;&lt; std::endl;   
-
-    std::string str(&quot;abcabc&quot;);   
-    std::match_results&lt;std::string::const_iterator&gt; mr2;   
-    std::cout &lt;&lt; &quot;search(string, \&quot;abc\&quot;) == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; regex_search(str, mr2, rx) &lt;&lt; std::endl;   
-    std::cout &lt;&lt; &quot;  matched: \&quot;&quot; &lt;&lt; mr2.str() &lt;&lt; &quot;\&quot;&quot; &lt;&lt; std::endl;   
-
-    return (0);   
-}
-</code></pre><h2 id="match-results"><a href="#match-results" class="headerlink" title="match_results"></a><code>match_results</code></h2><pre><code>// std__regex__match_results_begin.cpp   
-// compile with: /EHsc   
-#include &lt;regex&gt;   
-#include &lt;iostream&gt;   
-
-int main()   
-    {   
-    std::regex rx(&quot;c(a*)|(b)&quot;);   
-    std::cmatch mr;   
-
-    std::regex_search(&quot;xcaaay&quot;, mr, rx);   
-
-    std::cout &lt;&lt; &quot;prefix: matched == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; mr.prefix().matched   
-        &lt;&lt; &quot;, value == &quot; &lt;&lt; mr.prefix() &lt;&lt; std::endl;   
-    std::cout &lt;&lt; &quot;whole match: &quot; &lt;&lt; mr.length() &lt;&lt; &quot; chars, value == &quot;   
-        &lt;&lt; mr.str() &lt;&lt; std::endl;   
-    std::cout &lt;&lt; &quot;suffix: matched == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; mr.suffix().matched   
-        &lt;&lt; &quot;, value == &quot; &lt;&lt; mr.suffix() &lt;&lt; std::endl;   
-    std::cout &lt;&lt; std::endl;   
-
-    std::string fmt(&quot;\&quot;c(a*)|(b)\&quot; matched \&quot;$0\&quot;\n&quot;   
-        &quot;\&quot;(a*)\&quot; matched \&quot;$1\&quot;\n&quot;   
-        &quot;\&quot;(b)\&quot; matched \&quot;$2\&quot;\n&quot;);   
-    std::cout &lt;&lt; mr.format(fmt) &lt;&lt; std::endl;   
-    std::cout &lt;&lt; std::endl;   
-
-// index through submatches   
-    for (size_t n = 0; n &lt; mr.size(); ++n)   
-        {   
-        std::cout &lt;&lt; &quot;submatch[&quot; &lt;&lt; n &lt;&lt; &quot;]: matched == &quot; &lt;&lt; std::boolalpha   
-            &lt;&lt; mr[n].matched &lt;&lt;   
-            &quot; at position &quot; &lt;&lt; mr.position(n) &lt;&lt; std::endl;   
-        std::cout &lt;&lt; &quot;  &quot; &lt;&lt; mr.length(n)   
-            &lt;&lt; &quot; chars, value == &quot; &lt;&lt; mr[n] &lt;&lt; std::endl;   
-        }   
-    std::cout &lt;&lt; std::endl;   
-
-// iterate through submatches   
-    for (std::cmatch::iterator it = mr.begin(); it != mr.end(); ++it)   
-        {   
-        std::cout &lt;&lt; &quot;next submatch: matched == &quot; &lt;&lt; std::boolalpha   
-            &lt;&lt; it-&gt;matched &lt;&lt; std::endl;   
-        std::cout &lt;&lt; &quot;  &quot; &lt;&lt; it-&gt;length()   
-            &lt;&lt; &quot; chars, value == &quot; &lt;&lt; *it &lt;&lt; std::endl;   
-        }   
-    std::cout &lt;&lt; std::endl;   
-
-// other members   
-    std::cmatch mr1(mr);   
-    mr = mr1;   
-    mr.swap(mr1);   
-
-    char buf[10];   
- *mr.format(&amp;buf[0], &quot;&lt;$0&gt;&quot;) = &apos;\0&apos;;   
-    std::cout &lt;&lt; &amp;buf[0] &lt;&lt; std::endl;   
-    std::cout &lt;&lt; &quot;empty == &quot; &lt;&lt; std::boolalpha &lt;&lt; mr.empty() &lt;&lt; std::endl;   
-
-    std::cmatch::allocator_type al = mr.get_allocator();   
-    std::cmatch::string_type str = std::string(&quot;x&quot;);   
-    std::cmatch::size_type maxsiz = mr.max_size();   
-    std::cmatch::char_type ch = &apos;x&apos;;   
-    std::cmatch::difference_type dif = mr.begin() - mr.end();   
-    std::cmatch::const_iterator cit = mr.begin();   
-    std::cmatch::value_type val = *cit;   
-    std::cmatch::const_reference cref = val;   
-    std::cmatch::reference ref = val;   
-
-    maxsiz = maxsiz;  // to quiet &quot;unused&quot; warnings   
-    if (ref == cref)   
-        ch = ch;   
-    dif = dif;   
-
-    return (0);   
-    }
-</code></pre><h2 id="sub-match"><a href="#sub-match" class="headerlink" title="sub_match"></a><code>sub_match</code></h2><pre><code>// std__regex__sub_match_compare.cpp   
-// compile with: /EHsc   
-#include &lt;regex&gt;   
-#include &lt;iostream&gt;   
-
-int main()   
-    {   
-    std::regex rx(&quot;c(a*)|(b)&quot;);   
-    std::cmatch mr;   
-
-    std::regex_search(&quot;xcaaay&quot;, mr, rx);   
-
-    std::csub_match sub = mr[1];   
-    std::cout &lt;&lt; &quot;matched == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; sub.matched &lt;&lt; std::endl;   
-    std::cout &lt;&lt; &quot;length == &quot; &lt;&lt; sub.length() &lt;&lt; std::endl;   
-
-    std::csub_match::difference_type dif = std::distance(sub.first, sub.second);   
-    std::cout &lt;&lt; &quot;difference == &quot; &lt;&lt; dif &lt;&lt; std::endl;   
-
-    std::csub_match::iterator first = sub.first;   
-    std::csub_match::iterator last = sub.second;   
-    std::cout &lt;&lt; &quot;range == &quot; &lt;&lt; std::string(first, last)   
-        &lt;&lt; std::endl;   
-    std::cout &lt;&lt; &quot;string == &quot; &lt;&lt; sub &lt;&lt; std::endl;   
-
-    std::csub_match::value_type *ptr = &quot;aab&quot;;   
-    std::cout &lt;&lt; &quot;compare(\&quot;aab\&quot;) == &quot;   
-        &lt;&lt; sub.compare(ptr) &lt;&lt; std::endl;   
-    std::cout &lt;&lt; &quot;compare(string) == &quot;   
-        &lt;&lt; sub.compare(std::string(&quot;AAA&quot;)) &lt;&lt; std::endl;   
-    std::cout &lt;&lt; &quot;compare(sub) == &quot;   
-        &lt;&lt; sub.compare(sub) &lt;&lt; std::endl;   
-
-    return (0);   
-    }
-</code></pre><h2 id="regex-error"><a href="#regex-error" class="headerlink" title="regex_error"></a><code>regex_error</code></h2><pre><code>// std__regex__regex_error_code.cpp   
-// compile with: /EHsc   
-#include &lt;regex&gt;   
-#include &lt;iostream&gt;   
-
-int main()   
-    {   
-    std::regex_error paren(std::regex_constants::error_paren);   
-
-    try   
-        {   
-        std::regex rx(&quot;(a&quot;);   
-        }   
-    catch (const std::regex_error&amp; rerr)   
-        {   
-        std::cout &lt;&lt; &quot;regex error: &quot;   
-            &lt;&lt; (rerr.code() == paren.code()   
-                 &quot;unbalanced parentheses&quot; : &quot;&quot;)   
-            &lt;&lt; std::endl;   
-        }   
-    catch (...)   
-        {   
-        std::cout &lt;&lt; &quot;unknown exception&quot; &lt;&lt; std::endl;   
-        }   
-
-    return (0);   
-    }
-</code></pre><h2 id="regex-iterator"><a href="#regex-iterator" class="headerlink" title="regex_iterator"></a><code>regex_iterator</code></h2><pre><code>// std__regex__regex_iterator_difference_type.cpp   
-// compile with: /EHsc   
-#include &lt;regex&gt;   
-#include &lt;iostream&gt;   
-
-typedef std::regex_iterator&lt;const char *&gt; Myiter;   
-int main()   
-    {   
-    const char *pat = &quot;axayaz&quot;;   
-    Myiter::regex_type rx(&quot;a&quot;);   
-    Myiter next(pat, pat + strlen(pat), rx);   
-    Myiter end;   
-
-    for (; next != end; ++next)   
-        std::cout &lt;&lt; &quot;match == &quot; &lt;&lt; next-&gt;str() &lt;&lt; std::endl;   
-
-// other members   
-    Myiter it1(pat, pat + strlen(pat), rx);   
-    Myiter it2(it1);   
-    next = it1;   
-
-    Myiter::iterator_category cat = std::forward_iterator_tag();   
-    Myiter::difference_type dif = -3;   
-    Myiter::value_type mr = *it1;   
-    Myiter::reference ref = mr;   
-    Myiter::pointer ptr = &amp;ref;   
-
-    dif = dif; // to quiet &quot;unused&quot; warnings   
-    ptr = ptr;   
-
-    return (0);   
-    }
-</code></pre><h2 id="regex-token-iterator"><a href="#regex-token-iterator" class="headerlink" title="regex_token_iterator"></a><code>regex_token_iterator</code></h2><pre><code>#include &lt;regex&gt;   
-#include &lt;iostream&gt;   
-
-typedef std::regex_token_iterator&lt;const char *&gt; Myiter;   
-int main()   
-    {   
-    const char *pat = &quot;aaxaayaaz&quot;;   
-    Myiter::regex_type rx(&quot;(a)a&quot;);   
-    Myiter next(pat, pat + strlen(pat), rx);   
-    Myiter end;   
-
-// show whole match   
-    for (; next != end; ++next)   
-        std::cout &lt;&lt; &quot;match == &quot; &lt;&lt; next-&gt;str() &lt;&lt; std::endl;   
-    std::cout &lt;&lt; std::endl;   
-
-// show prefix before match   
-    next = Myiter(pat, pat + strlen(pat), rx, -1);   
-    for (; next != end; ++next)   
-        std::cout &lt;&lt; &quot;match == &quot; &lt;&lt; next-&gt;str() &lt;&lt; std::endl;   
-    std::cout &lt;&lt; std::endl;   
-
-// show (a) submatch only   
-    next = Myiter(pat, pat + strlen(pat), rx, 1);   
-    for (; next != end; ++next)   
-        std::cout &lt;&lt; &quot;match == &quot; &lt;&lt; next-&gt;str() &lt;&lt; std::endl;   
-    std::cout &lt;&lt; std::endl;   
-
-// show prefixes and submatches   
-    std::vector&lt;int&gt; vec;   
-    vec.push_back(-1);   
-    vec.push_back(1);   
-    next = Myiter(pat, pat + strlen(pat), rx, vec);   
-    for (; next != end; ++next)   
-        std::cout &lt;&lt; &quot;match == &quot; &lt;&lt; next-&gt;str() &lt;&lt; std::endl;   
-    std::cout &lt;&lt; std::endl;   
-
-// show prefixes and whole matches   
-    int arr[] = {-1, 0};   
-    next = Myiter(pat, pat + strlen(pat), rx, arr);   
-    for (; next != end; ++next)   
-        std::cout &lt;&lt; &quot;match == &quot; &lt;&lt; next-&gt;str() &lt;&lt; std::endl;   
-    std::cout &lt;&lt; std::endl;   
-
-// other members   
-    Myiter it1(pat, pat + strlen(pat), rx);   
-    Myiter it2(it1);   
-    next = it1;   
-
-    Myiter::iterator_category cat = std::forward_iterator_tag();   
-    Myiter::difference_type dif = -3;   
-    Myiter::value_type mr = *it1;   
-    Myiter::reference ref = mr;   
-    Myiter::pointer ptr = &amp;ref;   
-
-    dif = dif; // to quiet &quot;unused&quot; warnings   
-    ptr = ptr;   
-
-    return (0);   
-    }
-</code></pre><h2 id="regex-traits"><a href="#regex-traits" class="headerlink" title="regex_traits"></a><code>regex_traits</code></h2><pre><code>// std__regex__regex_traits_char_class_type.cpp   
-// compile with: /EHsc   
-#include &lt;regex&gt;   
-#include &lt;iostream&gt;   
-
-typedef std::regex_traits&lt;char&gt; Mytr;   
-int main()   
-    {   
-    Mytr tr;   
-
-    Mytr::char_type ch = tr.translate(&apos;a&apos;);   
-    std::cout &lt;&lt; &quot;translate(&apos;a&apos;) == &apos;a&apos; == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; (ch == &apos;a&apos;) &lt;&lt; std::endl;   
-
-    std::cout &lt;&lt; &quot;nocase &apos;a&apos; == &apos;A&apos; == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; (tr.translate_nocase(&apos;a&apos;) == tr.translate_nocase(&apos;A&apos;))   
-        &lt;&lt; std::endl;   
-
-    const char *lbegin = &quot;abc&quot;;   
-    const char *lend = lbegin + strlen(lbegin);   
-    Mytr::size_type size = tr.length(lbegin);   
-    std::cout &lt;&lt; &quot;length(\&quot;abc\&quot;) == &quot; &lt;&lt; size &lt;&lt;std::endl;   
-
-    Mytr::string_type str = tr.transform(lbegin, lend);   
-    std::cout &lt;&lt; &quot;transform(\&quot;abc\&quot;) &lt; \&quot;abc\&quot; == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; (str &lt; &quot;abc&quot;) &lt;&lt; std::endl;   
-
-    const char *ubegin = &quot;ABC&quot;;   
-    const char *uend = ubegin + strlen(ubegin);   
-    std::cout &lt;&lt; &quot;primary \&quot;ABC\&quot; &lt; \&quot;abc\&quot; == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; (tr.transform_primary(ubegin, uend) &lt;   
-            tr.transform_primary(lbegin, lend))   
-        &lt;&lt; std::endl;   
-
-    const char *dig = &quot;digit&quot;;   
-    Mytr::char_class_type cl = tr.lookup_classname(dig, dig + 5);   
-    std::cout &lt;&lt; &quot;class digit == d == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; (cl == tr.lookup_classname(dig, dig + 1))   
-        &lt;&lt; std::endl;   
-
-    std::cout &lt;&lt; &quot;&apos;3&apos; is digit == &quot; &lt;&lt;std::boolalpha   
-        &lt;&lt; tr.isctype(&apos;3&apos;, tr.lookup_classname(dig, dig + 5))   
-        &lt;&lt; std::endl;   
-
-    std::cout &lt;&lt; &quot;hex C == &quot; &lt;&lt; tr.value(&apos;C&apos;, 16) &lt;&lt; std::endl;   
-
-// other members   
-    str = tr.lookup_collatename(dig, dig + 5);   
-
-    Mytr::locale_type loc = tr.getloc();   
-    tr.imbue(loc);   
-
-    return (0);   
-    }
-</code></pre><h2 id="C-正则表达式库"><a href="#C-正则表达式库" class="headerlink" title="C++正则表达式库"></a>C++正则表达式库</h2><p><a href="http://zh.cppreference.com/w/cpp/regex" target="_blank" rel="noopener">C++正则表达式库</a></p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;iterator&gt;
-#include &lt;string&gt;
-#include &lt;regex&gt;
-
-int main()
-{
-    std::string s = &quot;Some people, when confronted with a problem, think &quot;
-        &quot;\&quot;I know, I&apos;ll use regular expressions.\&quot; &quot;
-        &quot;Now they have two problems.&quot;;
-
-    std::regex self_regex(&quot;REGULAR EXPRESSIONS&quot;,
-            std::regex_constants::ECMAScript | std::regex_constants::icase);
-    if (std::regex_search(s, self_regex)) {
-        std::cout &lt;&lt; &quot;Text contains the phrase &apos;regular expressions&apos;\n&quot;;
-    }
-
-    std::regex word_regex(&quot;(\\S+)&quot;);
-    auto words_begin = 
-        std::sregex_iterator(s.begin(), s.end(), word_regex);
-    auto words_end = std::sregex_iterator();
-
-    std::cout &lt;&lt; &quot;Found &quot;
-              &lt;&lt; std::distance(words_begin, words_end)
-              &lt;&lt; &quot; words\n&quot;;
-
-    const int N = 6;
-    std::cout &lt;&lt; &quot;Words longer than &quot; &lt;&lt; N &lt;&lt; &quot; characters:\n&quot;;
-    for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
-        std::smatch match = *i;
-        std::string match_str = match.str();
-        if (match_str.size() &gt; N) {
-            std::cout &lt;&lt; &quot;  &quot; &lt;&lt; match_str &lt;&lt; &apos;\n&apos;;
-        }
-    }
-
-    std::regex long_word_regex(&quot;(\\w{7,})&quot;);
-    std::string new_s = std::regex_replace(s, long_word_regex, &quot;[$&amp;]&quot;);
-    std::cout &lt;&lt; new_s &lt;&lt; &apos;\n&apos;;
-}
-</code></pre><h2 id="ECMA与POSIX区别"><a href="#ECMA与POSIX区别" class="headerlink" title="ECMA与POSIX区别"></a>ECMA与POSIX区别</h2><pre><code>#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;regex&gt;
-
-int main()
-{
-    std::string str = &quot;zzxayyzz&quot;;
-    std::regex re1(&quot;.*(a|xayy)&quot;); // ECMA
-    std::regex re2(&quot;.*(a|xayy)&quot;, std::regex::extended); // POSIX
-
-    std::cout &lt;&lt; &quot;Searching for .*(a|xayy) in zzxayyzz:\n&quot;;
-    std::smatch m;
-    std::regex_search(str, m, re1);
-    std::cout &lt;&lt; &quot; ECMA (depth first search) match: &quot; &lt;&lt; m[0] &lt;&lt; &apos;\n&apos;;
-    std::regex_search(str, m, re2);
-    std::cout &lt;&lt; &quot; POSIX (leftmost longest)  match: &quot; &lt;&lt; m[0] &lt;&lt; &apos;\n&apos;;
-}
-</code></pre><h1 id="boost-regex"><a href="#boost-regex" class="headerlink" title="boost regex"></a>boost regex</h1><p>1 boost::regex_match</p>
-<p>正则表达式匹配</p>
-<p>2 boost::regex_replace</p>
-<p>正则表达式替换</p>
-<p>3 boost::regex_search</p>
-<p>正则表达式检索</p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;boost/regex.hpp&gt;
-
-void main()
-{
-    std::string str = &quot;chinaen 8Glish&quot;;
-
-    boost::regex expr(&quot;(\\w+)\\s(\\w+)&quot;);
-
-    //+ 用来表示重复一或多次
-    //d-digit 任何0-9之间的数字
-    //s-space 任何空格字符
-    //u-upper A-Z之间的大写字母。如果设置了地域的话，可能包含其他字符
-    //w-word 任何单词字符-字母数字下划线
-
-    std::cout &lt;&lt; boost::regex_match(str, expr) &lt;&lt; std::endl;//匹配1，不匹配0
-
-    boost::smatch what;
-
-    if (boost::regex_search(str, what, expr))//正则表达式检索
-    {
-        std::cout &lt;&lt; what[0] &lt;&lt; std::endl;
-        std::cout &lt;&lt; what[1] &lt;&lt; std::endl;
-        std::cout &lt;&lt; what[2] &lt;&lt; std::endl;
-        std::cout &lt;&lt; what[3] &lt;&lt; std::endl;
-    }
-    else
-    {
-        std::cout &lt;&lt; &quot;检索失败&quot; &lt;&lt; std::endl;
-    }
-}
-</code></pre><p>boost::regex_replace</p>
-<p>正则表达式替换</p>
-<p>//s-space 任何空格字符</p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;boost/regex.hpp&gt;
-
-void main()
-{
-    std::string str = &quot;chinaen 8Glish&quot;;
-
-    boost::regex expr(&quot;\\s&quot;);//s-space 任何空格字符
-
-    std::string tihuan = &quot;____&quot;;
-
-    std::cout &lt;&lt; boost::regex_replace(str, expr, tihuan) &lt;&lt; std::endl;//把expr替换
-}
-</code></pre><p>以上内容转载：<a href="https://www.cnblogs.com/denggelin/p/5769624.html" target="_blank" rel="noopener">https://www.cnblogs.com/denggelin/p/5769624.html</a></p>
-<p><a href="https://yq.aliyun.com/articles/75580" target="_blank" rel="noopener">Boost学习之正则表达式–regex</a></p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;boost/regex.hpp&gt;
-
-using namespace std;
-int main(int argc, char* argv[])
-{    
-    //( 1 )   ((  3  )  2 )((  5 )4)(    6    )   
-    //(\w+)://((\w+\.)*\w+)((/\w*)*)(/\w+\.\w+)?
-    //^协议://网址(x.x...x)/路径(n个\字串)/网页文件(xxx.xxx)
-    const char *szReg = &quot;(\\w+)://((\\w+\\.)*\\w+)((/\\w*)*)(/\\w+\\.\\w+)?&quot;;
-    const char *szStr = &quot;http://www.cppprog.com/2009/0112/48.html&quot;;
-
-    {    //字符串匹配
-        boost::regex reg( szReg );
-        bool r=boost::regex_match( szStr , reg);
-        assert(r);
-    }
-
-    {    //提取子串
-        boost::cmatch mat;
-        boost::regex reg( szReg );
-        bool r=boost::regex_match( szStr, mat, reg);
-        if(r) //如果匹配成功
-        {
-            //显示所有子串
-            for(boost::cmatch::iterator itr=mat.begin(); itr!=mat.end(); ++itr)
-            {
-                //       指向子串对应首位置        指向子串对应尾位置          子串内容
-                cout &lt;&lt; itr-&gt;first-szStr &lt;&lt; &apos; &apos; &lt;&lt; itr-&gt;second-szStr &lt;&lt; &apos; &apos; &lt;&lt; *itr &lt;&lt; endl;
-            }
-        }
-        //也可直接取指定位置信息
-        if(mat[4].matched) cout &lt;&lt; &quot;Path is&quot; &lt;&lt; mat[4] &lt;&lt; endl;
-    }
-
-    { //查找
-        boost::cmatch mat;
-        boost::regex reg( &quot;\\d+&quot; );    //查找字符串里的数字
-        if(boost::regex_search(szStr, mat, reg))
-        {
-            cout &lt;&lt; &quot;searched:&quot; &lt;&lt; mat[0] &lt;&lt; endl;
-        }
-    }
-
-    { //替换
-        boost::regex reg( szReg );
-        string s = boost::regex_replace( string(szStr), reg, &quot;ftp://$2$5&quot;);
-        cout &lt;&lt; &quot;ftp site:&quot;&lt;&lt; s &lt;&lt; endl;
-    }
-    { //替换2，把&lt;&gt;&amp;转换成网页字符
-        string s1 = &quot;(&lt;)|(&gt;)|(&amp;)&quot;;
-        string s2 = &quot;(?1&lt;)(?2&gt;)(?3&amp;)&quot;;
-        boost::regex reg( s1 );
-        string s = boost::regex_replace( string(&quot;cout &lt;&lt; a&amp;b &lt;&lt; endl;&quot;), reg, s2, boost::match_default | boost::format_all);
-        cout &lt;&lt; &quot;HTML:&quot;&lt;&lt; s &lt;&lt; endl;
-    }
-
-    { //使用迭代器找出所有数字
-        boost::regex reg( &quot;\\d+&quot; );    //查找字符串里的数字
-        boost::cregex_iterator itrBegin = make_regex_iterator(szStr,reg); //(szStr, szStr+strlen(szStr), reg);
-        boost::cregex_iterator itrEnd;
-        for(boost::cregex_iterator itr=itrBegin; itr!=itrEnd; ++itr)
-        {
-            //       指向子串对应首位置        指向子串对应尾位置          子串内容
-            cout &lt;&lt; (*itr)[0].first-szStr &lt;&lt; &apos; &apos; &lt;&lt; (*itr)[0].second-szStr &lt;&lt; &apos; &apos; &lt;&lt; *itr &lt;&lt; endl;
-        }
-    }
-
-    { //使用迭代器拆分字符串
-        boost::regex reg(&quot;/&quot;);  //按/符拆分字符串
-        boost::cregex_token_iterator itrBegin = make_regex_token_iterator(szStr,reg,-1); //使用-1参数时拆分，使用其它数字时表示取第几个子串，可使用数组取多个串
-        boost::cregex_token_iterator itrEnd;
-        for(boost::cregex_token_iterator itr=itrBegin; itr!=itrEnd; ++itr)
-        {
-            cout &lt;&lt; *itr &lt;&lt; endl;
-        }
-    }
-
-    { //使用迭代器拆分字符串2
-        boost::regex reg(&quot;(.)/(.)&quot;);  //取/的前一字符和后一字符（这个字符串形象貌似有点邪恶-_-）
-        int subs[] = {1,2};        // 第一子串和第二子串
-        boost::cregex_token_iterator itrBegin = make_regex_token_iterator(szStr,reg,subs); //使用-1参数时拆分，使用其它数字时表示取第几个子串，可使用数组取多个串
-        boost::cregex_token_iterator itrEnd;
-        for(boost::cregex_token_iterator itr=itrBegin; itr!=itrEnd; ++itr)
-        {
-            cout &lt;&lt; *itr &lt;&lt; endl;
-        }
-    }
-
-    cin.get();
-    return 0;
-}
-</code></pre><p><a href="https://blog.csdn.net/leonardwang/article/details/6035171?spm=a2c4e.11153940.blogcont75580.15.3a02b5f4uSDlxO" target="_blank" rel="noopener">正则表达式 boost Regex</a></p>
-<h1 id="NET-正则表达式"><a href="#NET-正则表达式" class="headerlink" title=".NET 正则表达式"></a>.NET 正则表达式</h1><p><a href="https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expressions" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expressions</a></p>
-<p><a href="http://download.microsoft.com/download/D/2/4/D240EBF6-A9BA-4E4F-A63F-AEB6DA0B921C/Regular%20expressions%20quick%20reference.docx" target="_blank" rel="noopener">http://download.microsoft.com/download/D/2/4/D240EBF6-A9BA-4E4F-A63F-AEB6DA0B921C/Regular%20expressions%20quick%20reference.docx</a></p>
-<p><a href="https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expression-language-quick-reference" target="_blank" rel="noopener">正则表达式语言 - 快速参考</a></p>
-<p><a href="https://msdn.microsoft.com/zh-cn/library/system.text.regularexpressions.regex.aspx" target="_blank" rel="noopener">Regex 类</a></p>
-<h1 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h1><p><a href="http://www.zjmainstay.cn/regexp-lookaround" target="_blank" rel="noopener">深入理解正则表达式环视的概念与用法</a></p>
-<p><a href="http://tool.oschina.net/uploads/apidocs/jquery/regexp.html" target="_blank" rel="noopener">表达式全集</a></p>
-<p><a href="http://www.jb51.net/tools/zhengze.html" target="_blank" rel="noopener">正则表达式30分钟入门教程</a></p>
-<p><a href="http://www.regexlab.com/zh/regref.htm" target="_blank" rel="noopener">揭开正则表达式的神秘面纱</a></p>
-<p><a href="http://blog.jobbole.com/96708/" target="_blank" rel="noopener">正则表达式 30 分钟入门教程</a></p>
-<p><a href="http://blog.jobbole.com/75188/" target="_blank" rel="noopener">Python正则表达式指南</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">正则表达式</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">regex</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Boost</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/正则表达式/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -4802,6 +4079,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">设计模式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">笔记</a>
               </li>
             
             <div class="clearfix"></div>
