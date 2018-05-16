@@ -135,6 +135,27 @@
 
     
   <url>
+    <loc>https://caojingyou.github.io/2018/05/02/linux%E4%B8%8BC%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2018-05-02T10:13:56.655Z</lastmod>
+    <data>
+        <display>
+        <title>linux下C开发</title>
+        <pubTime>2018-05-02T10:09:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C/C++</tag>
+         
+        <tag>linux</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://caojingyou.github.io/2017/07/15/boost/</loc>
     <lastmod>2018-05-02T01:19:52.697Z</lastmod>
     <data>
