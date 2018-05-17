@@ -334,7 +334,7 @@
 
     
   <url>
-    <loc>https://caojingyou.github.io/2018/03/21/C#%E8%B0%83%E7%94%A8C++/</loc>
+    <loc>https://caojingyou.github.io/2018/03/21/CShap%E8%B0%83%E7%94%A8C++/</loc>
     <lastmod>2018-04-13T07:21:38.639Z</lastmod>
     <data>
         <display>
@@ -1056,29 +1056,6 @@
 
     
   <url>
-    <loc>https://caojingyou.github.io/2016/11/01/C#%20%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/</loc>
-    <lastmod>2018-01-05T08:47:19.096Z</lastmod>
-    <data>
-        <display>
-        <title>C# 进程间通信</title>
-        <pubTime>2016-11-01T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>C#</tag>
-         
-        <tag>VLC</tag>
-         
-        <tag>通信</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://caojingyou.github.io/2017/12/15/Log4Net/</loc>
     <lastmod>2018-01-05T08:47:19.094Z</lastmod>
     <data>
@@ -1343,31 +1320,6 @@
 
     
   <url>
-    <loc>https://caojingyou.github.io/2016/10/01/C#%20%E8%A7%86%E9%A2%91%E7%BC%96%E8%BE%91/</loc>
-    <lastmod>2018-01-05T08:47:19.068Z</lastmod>
-    <data>
-        <display>
-        <title>C# 视频编辑</title>
-        <pubTime>2016-10-01T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>C#</tag>
-         
-        <tag>VidCoder</tag>
-         
-        <tag>VLC</tag>
-         
-        <tag>ffmpeg</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://caojingyou.github.io/2017/11/01/wxWidgets/</loc>
     <lastmod>2018-01-05T08:47:19.067Z</lastmod>
     <data>
@@ -1584,27 +1536,6 @@
 
     
   <url>
-    <loc>https://caojingyou.github.io/2017/01/01/C#%20ShellExcute%E4%B8%8EProcess/</loc>
-    <lastmod>2018-01-05T08:47:19.049Z</lastmod>
-    <data>
-        <display>
-        <title>C#运行外部程序的两种方法</title>
-        <pubTime>2017-01-01T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>C#</tag>
-         
-        <tag>运行外部程序</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://caojingyou.github.io/2016/06/01/electron%E4%B9%8BWindows%E4%B8%8B%E4%BD%BF%E7%94%A8%20html%20js%20css%20%E5%BC%80%E5%8F%91%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/</loc>
     <lastmod>2018-01-05T08:47:19.047Z</lastmod>
     <data>
@@ -1680,29 +1611,6 @@
         <pubTime>2017-04-01T08:03:00.000Z</pubTime>
         
         <tag>随笔</tag>
-         
-        <tag>通信</tag>
-         
-        <tag>C++</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2017/02/01/C#%E4%B8%8EC++%E9%80%9A%E4%BF%A1/</loc>
-    <lastmod>2018-01-05T08:47:19.040Z</lastmod>
-    <data>
-        <display>
-        <title>C#与C++相互发送消息</title>
-        <pubTime>2017-02-01T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>C#</tag>
          
         <tag>通信</tag>
          
@@ -1838,27 +1746,6 @@
 
     
   <url>
-    <loc>https://caojingyou.github.io/2016/12/01/C#%20http/</loc>
-    <lastmod>2018-01-05T08:47:19.028Z</lastmod>
-    <data>
-        <display>
-        <title>C# http</title>
-        <pubTime>2016-12-01T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>http</tag>
-         
-        <tag>C#</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://caojingyou.github.io/2016/04/15/xmpp/</loc>
     <lastmod>2018-01-05T08:47:19.027Z</lastmod>
     <data>
@@ -1937,27 +1824,6 @@
         <title></title>
         <pubTime>2018-02-02T03:31:11.040Z</pubTime>
         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2017/02/01/C#%20%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98%E5%9B%BE%E6%A0%87/</loc>
-    <lastmod>2018-01-05T08:47:18.798Z</lastmod>
-    <data>
-        <display>
-        <title>C# 系统托盘图标</title>
-        <pubTime>2017-02-01T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>C#</tag>
-         
-        <tag>系统托盘</tag>
-         
          
            
         </display>

@@ -282,33 +282,6 @@
   </entry>
   
   <entry>
-    <title>duilib</title>
-    <link href="https://caojingyou.github.io/2018/04/12/duilib/"/>
-    <id>https://caojingyou.github.io/2018/04/12/duilib/</id>
-    <published>2018-04-12T01:53:00.000Z</published>
-    <updated>2018-04-13T07:20:15.884Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="duilib"><a href="#duilib" class="headerlink" title="duilib"></a>duilib</h1><p><a href="https://github.com/duilib/duilib" target="_blank" rel="noopener">https://github.com/duilib/duilib</a></p><h2 id="设计器："><a href="#设计器：" class="headerlink" title="设计器："></a>设计器：</h2><p>DuiDesigner</p><h2 id="教程："><a href="#教程：" class="headerlink" title="教程："></a>教程：</h2><p><a href="www.cnblogs.com/Alberl/category/520438.html">2013 duilib入门简明教程</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;duilib&quot;&gt;&lt;a href=&quot;#duilib&quot; class=&quot;headerlink&quot; title=&quot;duilib&quot;&gt;&lt;/a&gt;duilib&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/duilib/duilib&quot; target=&quot;_bl
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="ATL" scheme="https://caojingyou.github.io/tags/ATL/"/>
-    
-      <category term="duilib" scheme="https://caojingyou.github.io/tags/duilib/"/>
-    
-  </entry>
-  
-  <entry>
     <title>ATL与WTL</title>
     <link href="https://caojingyou.github.io/2018/04/12/ATL%E4%B8%8EWTL/"/>
     <id>https://caojingyou.github.io/2018/04/12/ATL与WTL/</id>
@@ -337,6 +310,33 @@
       <category term="ATL" scheme="https://caojingyou.github.io/tags/ATL/"/>
     
       <category term="WTL" scheme="https://caojingyou.github.io/tags/WTL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>duilib</title>
+    <link href="https://caojingyou.github.io/2018/04/12/duilib/"/>
+    <id>https://caojingyou.github.io/2018/04/12/duilib/</id>
+    <published>2018-04-12T01:53:00.000Z</published>
+    <updated>2018-04-13T07:20:15.884Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="duilib"><a href="#duilib" class="headerlink" title="duilib"></a>duilib</h1><p><a href="https://github.com/duilib/duilib" target="_blank" rel="noopener">https://github.com/duilib/duilib</a></p><h2 id="设计器："><a href="#设计器：" class="headerlink" title="设计器："></a>设计器：</h2><p>DuiDesigner</p><h2 id="教程："><a href="#教程：" class="headerlink" title="教程："></a>教程：</h2><p><a href="www.cnblogs.com/Alberl/category/520438.html">2013 duilib入门简明教程</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;duilib&quot;&gt;&lt;a href=&quot;#duilib&quot; class=&quot;headerlink&quot; title=&quot;duilib&quot;&gt;&lt;/a&gt;duilib&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://github.com/duilib/duilib&quot; target=&quot;_bl
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="ATL" scheme="https://caojingyou.github.io/tags/ATL/"/>
+    
+      <category term="duilib" scheme="https://caojingyou.github.io/tags/duilib/"/>
     
   </entry>
   
@@ -431,8 +431,8 @@
   
   <entry>
     <title>C#调用C++</title>
-    <link href="https://caojingyou.github.io/2018/03/21/C#%E8%B0%83%E7%94%A8C++/"/>
-    <id>https://caojingyou.github.io/2018/03/21/C#调用C++/</id>
+    <link href="https://caojingyou.github.io/2018/03/21/CShap%E8%B0%83%E7%94%A8C++/"/>
+    <id>https://caojingyou.github.io/2018/03/21/CShap调用C++/</id>
     <published>2018-03-21T01:53:00.000Z</published>
     <updated>2018-04-13T07:21:38.639Z</updated>
     
@@ -1626,89 +1626,6 @@ void CIOCPMod
   </entry>
   
   <entry>
-    <title>C# 系统托盘图标</title>
-    <link href="https://caojingyou.github.io/2017/02/01/CShap%20%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98%E5%9B%BE%E6%A0%87/"/>
-    <id>https://caojingyou.github.io/2017/02/01/CShap 系统托盘图标/</id>
-    <published>2017-02-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.077Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p><p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p><p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p><p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p><h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p><h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml<window>添加</window></p><pre><code>xmlns:tb=&quot;http://www.hardcodet.net/taskbar&quot;</code></pre><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p><pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;    &lt;ContextMenu&gt;      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;    &lt;/ContextMenu&gt;  &lt;/tb:TaskbarIcon.ContextMenu&gt;&lt;/tb:TaskbarIcon&gt;</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;C-系统托盘图标&quot;&gt;&lt;a href=&quot;#C-系统托盘图标&quot; class=&quot;headerlink&quot; title=&quot;C# 系统托盘图标&quot;&gt;&lt;/a&gt;C# 系统托盘图标&lt;/h1&gt;&lt;h2 id=&quot;WPF-NotifyIcon-资料&quot;&gt;&lt;a href=&quot;#WPF-Notify
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
-    
-      <category term="系统托盘" scheme="https://caojingyou.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C#与C++相互发送消息</title>
-    <link href="https://caojingyou.github.io/2017/02/01/C#%E4%B8%8EC++%E9%80%9A%E4%BF%A1/"/>
-    <id>https://caojingyou.github.io/2017/02/01/C#与C++通信/</id>
-    <published>2017-02-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.040Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="C-与C-相互发送消息"><a href="#C-与C-相互发送消息" class="headerlink" title="C#与C++相互发送消息"></a>C#与C++相互发送消息</h1><h2 id="C-端："><a href="#C-端：" class="headerlink" title="C#端："></a>C#端：</h2><pre><code>namespace CshapMessage{    /// &lt;summary&gt;    /// MainWindow.xaml 的交互逻辑    /// &lt;/summary&gt;    public partial class MainWindow : Window    {        IntPtr hwnd;        const int WM_COPYDATA = 0x004A;        public struct COPYDATASTRUCT        {            public IntPtr dwData;            public int cData;            [MarshalAs(UnmanagedType.LPStr)]            public string lpData;        }        [DllImport(&quot;User32.dll&quot;)]        public static extern int SendMessage(int hwnd, int msg, int wParam, ref COPYDATASTRUCT IParam);        [DllImport(&quot;User32.dll&quot;)]        public static extern int FindWindow(string lpClassName, string lpWindowName);        public MainWindow()        {            InitializeComponent();            this.Title = &quot;CshapMessage&quot;;            this.Loaded += MainWindow_Loaded;            this.Closed += MainWindow_Closed;        }        private void MainWindow_Closed(object sender, EventArgs e)        {            try            {                HwndSource.FromHwnd(hwnd).RemoveHook(WndProc);            }            catch (Exception) { }        }        private void MainWindow_Loaded(object sender, RoutedEventArgs e)        {            hwnd = new WindowInteropHelper(this).Handle;            HwndSource.FromHwnd(hwnd).AddHook(new HwndSourceHook(WndProc));        }        /// &lt;summary&gt;        /// 向C++程序 CshapMessage发送消息        /// &lt;/summary&gt;        /// &lt;param name=&quot;nMessgeId&quot;&gt;&lt;/param&gt;        /// &lt;param name=&quot;strSend&quot;&gt;&lt;/param&gt;        /// &lt;returns&gt;&lt;/returns&gt;        private bool CshapSendMessage(int nMessgeId, String strSend)        {            int WINDOW_HANDLE = FindWindow(null, &quot;VcMessage&quot;);//VcMessage为向C++程序发送的窗口名称            if (WINDOW_HANDLE != 0)            {                COPYDATASTRUCT cdata;                cdata.dwData = (IntPtr)100;//这里可以传入一些自定义的数据，但只能是4字节整数                 cdata.lpData = strSend;//消息字符串                cdata.cData = System.Text.Encoding.Default.GetBytes(strSend).Length+1;//注意，这里的长度是按字节来算的                SendMessage(WINDOW_HANDLE, WM_COPYDATA, 0, ref cdata);            }            else            {                return false;            }            return true;        }        private void button_Click(object sender, RoutedEventArgs e)        {            String strSend = &quot;C#发送的信息&quot;;            int nMessageId = 100;            if (CshapSendMessage(nMessageId,strSend))            {                MessageBox.Show(&quot;发送消息成功&quot;);            }            else            {                MessageBox.Show(&quot;消息发送失败，请打开VcMessage程序&quot;);            }        }        //接收消息。        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)        {            if (msg == WM_COPYDATA)            {                COPYDATASTRUCT cdata = new COPYDATASTRUCT();                Type mytype = cdata.GetType();                cdata = (COPYDATASTRUCT)Marshal.PtrToStructure(lParam, mytype);                switch (cdata.dwData.ToInt32())                {                    case 1:                        {                            string strRecv = cdata.lpData;                            break;                        }                    default:                        break;                }            }            return IntPtr.Zero;        }    }}</code></pre><h2 id="C-端：-1"><a href="#C-端：-1" class="headerlink" title="C++端："></a>C++端：</h2><pre><code>BOOL CVcMessageDlg::OnCopyData(CWnd* pWnd, COPYDATASTRUCT* pCopyDataStruct){    // TODO: 在此添加消息处理程序代码和/或调用默认值    //接收C#发送来的数据    switch (pCopyDataStruct-&gt;dwData)    {    case 100:    {        CStringA strRecv = (char*)pCopyDataStruct-&gt;lpData;        break;    }    default:    {        break;    }    }    return CDialogEx::OnCopyData(pWnd, pCopyDataStruct);}void CVcMessageDlg::OnBnClickedButton1(){    // TODO: 在此添加控件通知处理程序代码    CStringA strSend = &quot;VC发送的数据&quot;;    if (VCSendMessage(1,strSend))    {        AfxMessageBox(_T(&quot;消息发送成功&quot;));    }     else    {        AfxMessageBox(_T(&quot;消息发送失败&quot;));    }}//************************************// Method:    VCSendMessage// FullName:  CVcMessageDlg::VCSendMessage// Access:    public // Returns:   BOOL// Qualifier: 向C#程序 CshapMessage发送消息// Parameter: int nMessgeId// Parameter: CStringA strSend//************************************BOOL CVcMessageDlg::VCSendMessage(int nMessgeId,CStringA strSend){    HWND hSendWindow = this-&gt;m_hWnd;    if (hSendWindow == NULL)    {        return FALSE;    }    CWnd *phwnd = FindWindow(NULL, _T(&quot;CshapMessage&quot;));    HWND hRecvWindow = NULL;    if (phwnd == NULL)    {        return FALSE;    }    hRecvWindow = phwnd-&gt;GetSafeHwnd();    if (hRecvWindow == NULL)    {        return FALSE;    }    COPYDATASTRUCT CopyData;    CopyData.dwData = nMessgeId;    CopyData.cbData = strSend.GetLength()+1;    CopyData.lpData = (PVOID)strSend.GetBuffer(CopyData.cbData);    ::SendMessage(hRecvWindow, WM_COPYDATA, (WPARAM)hSendWindow, (LPARAM)&amp;CopyData);    return TRUE;}</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;C-与C-相互发送消息&quot;&gt;&lt;a href=&quot;#C-与C-相互发送消息&quot; class=&quot;headerlink&quot; title=&quot;C#与C++相互发送消息&quot;&gt;&lt;/a&gt;C#与C++相互发送消息&lt;/h1&gt;&lt;h2 id=&quot;C-端：&quot;&gt;&lt;a href=&quot;#C-端：&quot; class
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
-    
-      <category term="通信" scheme="https://caojingyou.github.io/tags/%E9%80%9A%E4%BF%A1/"/>
-    
-      <category term="C++" scheme="https://caojingyou.github.io/tags/C/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C# 系统托盘图标</title>
-    <link href="https://caojingyou.github.io/2017/02/01/C#%20%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98%E5%9B%BE%E6%A0%87/"/>
-    <id>https://caojingyou.github.io/2017/02/01/C# 系统托盘图标/</id>
-    <published>2017-02-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:18.798Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p><p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p><p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p><p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p><h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p><h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p><pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;    &lt;ContextMenu&gt;      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;    &lt;/ContextMenu&gt;  &lt;/tb:TaskbarIcon.ContextMenu&gt;&lt;/tb:TaskbarIcon&gt;</code></pre><h2 id="使用代码："><a href="#使用代码：" class="headerlink" title="使用代码："></a>使用代码：</h2><pre><code>private bool bCanClose = false;public MainWindow(){    InitializeComponent();    this.Closing += MainWindow_Closing;}private void MainWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e){    if (!bCanClose)    {        this.Hide();        e.Cancel = true;    }}private void MenuItem_Click_Show(object sender, RoutedEventArgs e){    this.Show();}private void MenuItem_Click_Close(object sender, RoutedEventArgs e){    bCanClose = true;    this.Close();}</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;C-系统托盘图标&quot;&gt;&lt;a href=&quot;#C-系统托盘图标&quot; class=&quot;headerlink&quot; title=&quot;C# 系统托盘图标&quot;&gt;&lt;/a&gt;C# 系统托盘图标&lt;/h1&gt;&lt;h2 id=&quot;WPF-NotifyIcon-资料&quot;&gt;&lt;a href=&quot;#WPF-Notify
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
-    
-      <category term="系统托盘" scheme="https://caojingyou.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98/"/>
-    
-  </entry>
-  
-  <entry>
     <title>C#与C++相互发送消息</title>
     <link href="https://caojingyou.github.io/2017/02/01/CShap%E4%B8%8EC++%E9%80%9A%E4%BF%A1/"/>
     <id>https://caojingyou.github.io/2017/02/01/CShap与C++通信/</id>
@@ -1734,6 +1651,33 @@ void CIOCPMod
       <category term="通信" scheme="https://caojingyou.github.io/tags/%E9%80%9A%E4%BF%A1/"/>
     
       <category term="C++" scheme="https://caojingyou.github.io/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C# 系统托盘图标</title>
+    <link href="https://caojingyou.github.io/2017/02/01/CShap%20%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98%E5%9B%BE%E6%A0%87/"/>
+    <id>https://caojingyou.github.io/2017/02/01/CShap 系统托盘图标/</id>
+    <published>2017-02-01T08:03:00.000Z</published>
+    <updated>2018-01-05T08:47:19.077Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p><p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p><p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p><p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p><h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p><h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml<window>添加</window></p><pre><code>xmlns:tb=&quot;http://www.hardcodet.net/taskbar&quot;</code></pre><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p><pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;    &lt;ContextMenu&gt;      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;    &lt;/ContextMenu&gt;  &lt;/tb:TaskbarIcon.ContextMenu&gt;&lt;/tb:TaskbarIcon&gt;</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;C-系统托盘图标&quot;&gt;&lt;a href=&quot;#C-系统托盘图标&quot; class=&quot;headerlink&quot; title=&quot;C# 系统托盘图标&quot;&gt;&lt;/a&gt;C# 系统托盘图标&lt;/h1&gt;&lt;h2 id=&quot;WPF-NotifyIcon-资料&quot;&gt;&lt;a href=&quot;#WPF-Notify
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
+    
+      <category term="系统托盘" scheme="https://caojingyou.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98/"/>
     
   </entry>
   
@@ -1798,33 +1742,6 @@ HWND g
   </entry>
   
   <entry>
-    <title>C#运行外部程序的两种方法</title>
-    <link href="https://caojingyou.github.io/2017/01/01/C#%20ShellExcute%E4%B8%8EProcess/"/>
-    <id>https://caojingyou.github.io/2017/01/01/C# ShellExcute与Process/</id>
-    <published>2017-01-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.049Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="C-运行外部程序的两种方法"><a href="#C-运行外部程序的两种方法" class="headerlink" title="C#运行外部程序的两种方法"></a>C#运行外部程序的两种方法</h1><h2 id="ShellExecute"><a href="#ShellExecute" class="headerlink" title="ShellExecute"></a>ShellExecute</h2><pre><code>using System.Runtime.InteropServices;public enum ShowWindowCommands : int{    SW_HIDE = 0,    SW_SHOWNORMAL = 1,    //用最近的大小和位置显示，激活    SW_NORMAL = 1,    SW_SHOWMINIMIZED = 2,    SW_SHOWMAXIMIZED = 3,    SW_MAXIMIZE = 3,    SW_SHOWNOACTIVATE = 4,    SW_SHOW = 5,    SW_MINIMIZE = 6,    SW_SHOWMINNOACTIVE = 7,    SW_SHOWNA = 8,    SW_RESTORE = 9,    SW_SHOWDEFAULT = 10,    SW_MAX = 10}[DllImport(&quot;shell32.dll&quot;)]public static extern IntPtr ShellExecute(    IntPtr hwnd,    string lpszOp,    string lpszFile,    string lpszParams,    string lpszDir,    ShowWindowCommands FsShowCmd);</code></pre><h3 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h3><pre><code>ShellExecute(IntPtr.Zero, &quot;open&quot;, UrlOrPath, null, null, ShowWindowCommands.SW_SHOWNORMAL);</code></pre><p>UrlOrPath可为exe路径或者网页url(使用默认浏览器打开网页url)</p><p>使用ie打开网页url</p><pre><code>ShellExecute(NULL, &quot;open&quot;, &quot;IEXPLORE&quot;, &quot;http://www.csdn.net&quot;, NULL, SW_SHOWMAXIMIZED);</code></pre><h2 id="Process"><a href="#Process" class="headerlink" title="Process"></a>Process</h2><pre><code>using System.Diagnostics;private static string Execute(string exePath, string parameters){    string result = String.Empty;    using (Process p = new Process())    {        p.StartInfo.UseShellExecute = false;        p.StartInfo.CreateNoWindow = true;        p.StartInfo.RedirectStandardOutput = true;        p.StartInfo.FileName = exePath;        p.StartInfo.Arguments = parameters;        p.Start();        p.WaitForExit();        result = p.StandardOutput.ReadToEnd();    }    return result;}</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;C-运行外部程序的两种方法&quot;&gt;&lt;a href=&quot;#C-运行外部程序的两种方法&quot; class=&quot;headerlink&quot; title=&quot;C#运行外部程序的两种方法&quot;&gt;&lt;/a&gt;C#运行外部程序的两种方法&lt;/h1&gt;&lt;h2 id=&quot;ShellExecute&quot;&gt;&lt;a href
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
-    
-      <category term="运行外部程序" scheme="https://caojingyou.github.io/tags/%E8%BF%90%E8%A1%8C%E5%A4%96%E9%83%A8%E7%A8%8B%E5%BA%8F/"/>
-    
-  </entry>
-  
-  <entry>
     <title>制作CAB包</title>
     <link href="https://caojingyou.github.io/2016/12/15/%E5%88%B6%E4%BD%9CCAB%E5%8C%85/"/>
     <id>https://caojingyou.github.io/2016/12/15/制作CAB包/</id>
@@ -1848,34 +1765,6 @@ HWND g
       <category term="制作CAB包" scheme="https://caojingyou.github.io/tags/%E5%88%B6%E4%BD%9CCAB%E5%8C%85/"/>
     
       <category term="打包" scheme="https://caojingyou.github.io/tags/%E6%89%93%E5%8C%85/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C# http</title>
-    <link href="https://caojingyou.github.io/2016/12/01/C#%20http/"/>
-    <id>https://caojingyou.github.io/2016/12/01/C# http/</id>
-    <published>2016-12-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.028Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="minihttpd"><a href="#minihttpd" class="headerlink" title="minihttpd"></a>minihttpd</h1><p>minihttpd：HTTPWeb服务器库</p><p><a href="https://www.codeproject.com/articles/11342/minihttpd-an-http-web-server-library" target="_blank" rel="noopener">https://www.codeproject.com/articles/11342/minihttpd-an-http-web-server-library</a></p><h1 id="Embedded-NET-HTTP-Server"><a href="#Embedded-NET-HTTP-Server" class="headerlink" title="Embedded .NET HTTP Server"></a>Embedded .NET HTTP Server</h1><p>嵌入式.NET的HTTP服务器</p><p><a href="https://www.codeproject.com/Articles/25050/Embedded-NET-HTTP-Server" target="_blank" rel="noopener">https://www.codeproject.com/Articles/25050/Embedded-NET-HTTP-Server</a></p><h1 id="HttpLib"><a href="#HttpLib" class="headerlink" title="HttpLib"></a>HttpLib</h1><p>HttpLib是一个免费的.net(Apache 2.0许可协议)web请求帮助,让开发人员更容易访问和从互联网下载资源</p><p><a href="http://httplib.codeplex.com/" target="_blank" rel="noopener">http://httplib.codeplex.com/</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;minihttpd&quot;&gt;&lt;a href=&quot;#minihttpd&quot; class=&quot;headerlink&quot; title=&quot;minihttpd&quot;&gt;&lt;/a&gt;minihttpd&lt;/h1&gt;&lt;p&gt;minihttpd：HTTPWeb服务器库&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;http
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="http" scheme="https://caojingyou.github.io/tags/http/"/>
-    
-      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
     
   </entry>
   
@@ -1934,35 +1823,6 @@ HWND g
   
   <entry>
     <title>C# 进程间通信</title>
-    <link href="https://caojingyou.github.io/2016/11/01/C#%20%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/"/>
-    <id>https://caojingyou.github.io/2016/11/01/C# 进程间通信/</id>
-    <published>2016-11-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.096Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="使用SendMessage向另一进程发送WM-COPYDATA消息"><a href="#使用SendMessage向另一进程发送WM-COPYDATA消息" class="headerlink" title="使用SendMessage向另一进程发送WM_COPYDATA消息"></a>使用SendMessage向另一进程发送WM_COPYDATA消息</h1><h2 id="Send端："><a href="#Send端：" class="headerlink" title="Send端："></a>Send端：</h2><pre><code>using System;using System.Collections.Generic;using System.Linq;using System.Text;using System.Windows;using System.Windows.Controls;using System.Windows.Data;using System.Windows.Documents;using System.Windows.Input;using System.Windows.Media;using System.Windows.Media.Imaging;using System.Windows.Navigation;using System.Windows.Shapes;using System.Runtime.InteropServices;namespace SentTest{    /// &lt;summary&gt;    /// MainWindow.xaml 的交互逻辑    /// &lt;/summary&gt;    public partial class MainWindow : Window    {        public MainWindow()        {            InitializeComponent();            this.Title = &quot;发送窗口&quot;;        }        const int WM_COPYDATA = 0x004A;        public struct COPYDATASTRUCT        {            public IntPtr dwData;            public int cData;            [MarshalAs(UnmanagedType.LPStr)]            public string lpData;        }        [DllImport(&quot;User32.dll&quot;)]        public static extern int SendMessage(int hwnd, int msg, int wParam, ref COPYDATASTRUCT IParam);        [DllImport(&quot;User32.dll&quot;)]        public static extern int FindWindow(string lpClassName, string lpWindowName);        private void button1_Click(object sender, RoutedEventArgs e)        {            String strSent = &quot;需要发送的信息&quot;;            int WINDOW_HANDLE = FindWindow(null, &quot;接收窗口&quot;);            if (WINDOW_HANDLE != 0)            {                byte[] arr = System.Text.Encoding.Default.GetBytes(strSent);                int len = arr.Length;                COPYDATASTRUCT cdata;                cdata.dwData = (IntPtr)100;                cdata.lpData = strSent;                cdata.cData = len + 1;                SendMessage(WINDOW_HANDLE, WM_COPYDATA, 0, ref cdata);            }        }    }}</code></pre><h2 id="Get端："><a href="#Get端：" class="headerlink" title="Get端："></a>Get端：</h2><pre><code>using System;using System.Collections.Generic;using System.Linq;using System.Text;using System.Windows;using System.Windows.Controls;using System.Windows.Data;using System.Windows.Documents;using System.Windows.Input;using System.Windows.Media;using System.Windows.Media.Imaging;using System.Windows.Navigation;using System.Windows.Shapes;using System.Runtime.InteropServices;using System.Windows.Interop;namespace GetTest{    /// &lt;summary&gt;    /// MainWindow.xaml 的交互逻辑    /// &lt;/summary&gt;    public partial class MainWindow : Window    {        IntPtr hwnd;        public MainWindow()        {            InitializeComponent();            this.Title = &quot;接受窗口&quot;;            this.Loaded += new RoutedEventHandler(MainWindow_Loaded);            this.Closed += new EventHandler(MainWindow_Closed);        }        void MainWindow_Loaded(object sender, RoutedEventArgs e)        {            //窗口加载完毕才可用，否则会报错。            hwnd = new WindowInteropHelper(this).Handle;            HwndSource source = HwndSource.FromHwnd(hwnd);            if (source != null) source.AddHook(WndProc);        }        void MainWindow_Closed(object sender, EventArgs e)        {            try            {                HwndSource.FromHwnd(hwnd).RemoveHook(WndProc);            }            catch (Exception)            {                throw;            }        }        const int WM_COPYDATA = 0x004A;//WM_COPYDATA消息的主要目的是允许在进程间传递只读数据。        //Windows在通过WM_COPYDATA消息传递期间，不提供继承同步方式。        //其中,WM_COPYDATA对应的十六进制数为0x004A        public struct COPYDATASTRUCT        {            public IntPtr dwData;            public int cData;            [MarshalAs(UnmanagedType.LPStr)]            public string lpData;        }        //wpf用此方法        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)        {            if (msg == WM_COPYDATA)            {                COPYDATASTRUCT cdata = new COPYDATASTRUCT();                Type mytype = cdata.GetType();                cdata = (COPYDATASTRUCT)Marshal.PtrToStructure(lParam, mytype);                this.textBox1.Text = cdata.lpData;            }            return IntPtr.Zero;        }        //WinFrom用此方法        /* protected override void DefWndProc(ref Message m)        {            switch (m.Msg)            {            case WM_COPYDATA:                COPYDATASTRUCT cdata = new COPYDATASTRUCT();                Type mytype = cdata.GetType();                cdata = (COPYDATASTRUCT)m.GetLParam(mytype);                this.textBox1.Text = cdata.lpData;                break;            default:                base.DefWndProc(ref m);                break;            }        } */    }}</code></pre><h1 id="参考文档："><a href="#参考文档：" class="headerlink" title="参考文档："></a>参考文档：</h1><p><a href="http://blog.csdn.net/feiren127/article/details/5459827" target="_blank" rel="noopener">c# 进程间同步实现 进程之间通讯的几种方法 </a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;使用SendMessage向另一进程发送WM-COPYDATA消息&quot;&gt;&lt;a href=&quot;#使用SendMessage向另一进程发送WM-COPYDATA消息&quot; class=&quot;headerlink&quot; title=&quot;使用SendMessage向另一进程发送WM_COP
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
-    
-      <category term="VLC" scheme="https://caojingyou.github.io/tags/VLC/"/>
-    
-      <category term="通信" scheme="https://caojingyou.github.io/tags/%E9%80%9A%E4%BF%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C# 进程间通信</title>
     <link href="https://caojingyou.github.io/2016/11/01/CShap%20%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1/"/>
     <id>https://caojingyou.github.io/2016/11/01/CShap 进程间通信/</id>
     <published>2016-11-01T08:03:00.000Z</published>
@@ -1996,37 +1856,6 @@ HWND g
     <id>https://caojingyou.github.io/2016/10/01/CShap 视频编辑/</id>
     <published>2016-10-01T08:03:00.000Z</published>
     <updated>2018-01-05T08:47:19.076Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="VidCoder"><a href="#VidCoder" class="headerlink" title="VidCoder"></a>VidCoder</h1><p>VidCoder是一个开源免费的DVD/蓝光视频抓取和转码软件.使用HandBrake做为编码引擎.比Handbrake拥有更友好的用户界面.</p><p>可裁剪、剪切、字幕编辑、转码等。</p><p>官网：<br><a href="http://vidcoder.codeplex.com/" target="_blank" rel="noopener">http://vidcoder.codeplex.com/</a></p><h1 id="VLC-media-player"><a href="#VLC-media-player" class="headerlink" title="VLC media player"></a>VLC media player</h1><p>VLC 是一款自由、开源的跨平台多媒体播放器及框架，可播放大多数多媒体文件，以及 DVD、音频 CD、VCD 及各类流媒体协议。</p><p>官网：<a href="http://www.videolan.org/vlc/" target="_blank" rel="noopener">http://www.videolan.org/vlc/</a></p><h1 id="ffmpeg-Mencoder"><a href="#ffmpeg-Mencoder" class="headerlink" title="ffmpeg + Mencoder"></a>ffmpeg + Mencoder</h1><p>ffmpeg下载：<a href="http://ffmpeg.org/download.html" target="_blank" rel="noopener">http://ffmpeg.org/download.html</a></p><p>Mencoder下载：<a href="http://www.mplayerhq.hu/design7/dload.html" target="_blank" rel="noopener">http://www.mplayerhq.hu/design7/dload.html</a></p><p>C#调用ffmpeg的方法，仅供参考：<a href="https://github.com/CAOJINGYOU/VideoEditor" target="_blank" rel="noopener">VideoEditor</a></p><h1 id="SharpFFmpeg"><a href="#SharpFFmpeg" class="headerlink" title="SharpFFmpeg"></a>SharpFFmpeg</h1><p>SharpFFmpeg 是一个 ffmpeg 的 C# 绑定版本，允许 .NET 开发者轻松的创建音频和视频应用。</p><p>个人没用过，感觉不错，一会有机会研究下。</p><p>下载地址：<a href="https://sourceforge.net/projects/sharpffmpeg/" target="_blank" rel="noopener">https://sourceforge.net/projects/sharpffmpeg/</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;VidCoder&quot;&gt;&lt;a href=&quot;#VidCoder&quot; class=&quot;headerlink&quot; title=&quot;VidCoder&quot;&gt;&lt;/a&gt;VidCoder&lt;/h1&gt;&lt;p&gt;VidCoder是一个开源免费的DVD/蓝光视频抓取和转码软件.使用HandBrake做为编
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
-    
-      <category term="VidCoder" scheme="https://caojingyou.github.io/tags/VidCoder/"/>
-    
-      <category term="VLC" scheme="https://caojingyou.github.io/tags/VLC/"/>
-    
-      <category term="ffmpeg" scheme="https://caojingyou.github.io/tags/ffmpeg/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C# 视频编辑</title>
-    <link href="https://caojingyou.github.io/2016/10/01/C#%20%E8%A7%86%E9%A2%91%E7%BC%96%E8%BE%91/"/>
-    <id>https://caojingyou.github.io/2016/10/01/C# 视频编辑/</id>
-    <published>2016-10-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.068Z</updated>
     
     <content type="html"><![CDATA[<h1 id="VidCoder"><a href="#VidCoder" class="headerlink" title="VidCoder"></a>VidCoder</h1><p>VidCoder是一个开源免费的DVD/蓝光视频抓取和转码软件.使用HandBrake做为编码引擎.比Handbrake拥有更友好的用户界面.</p><p>可裁剪、剪切、字幕编辑、转码等。</p><p>官网：<br><a href="http://vidcoder.codeplex.com/" target="_blank" rel="noopener">http://vidcoder.codeplex.com/</a></p><h1 id="VLC-media-player"><a href="#VLC-media-player" class="headerlink" title="VLC media player"></a>VLC media player</h1><p>VLC 是一款自由、开源的跨平台多媒体播放器及框架，可播放大多数多媒体文件，以及 DVD、音频 CD、VCD 及各类流媒体协议。</p><p>官网：<a href="http://www.videolan.org/vlc/" target="_blank" rel="noopener">http://www.videolan.org/vlc/</a></p><h1 id="ffmpeg-Mencoder"><a href="#ffmpeg-Mencoder" class="headerlink" title="ffmpeg + Mencoder"></a>ffmpeg + Mencoder</h1><p>ffmpeg下载：<a href="http://ffmpeg.org/download.html" target="_blank" rel="noopener">http://ffmpeg.org/download.html</a></p><p>Mencoder下载：<a href="http://www.mplayerhq.hu/design7/dload.html" target="_blank" rel="noopener">http://www.mplayerhq.hu/design7/dload.html</a></p><p>C#调用ffmpeg的方法，仅供参考：<a href="https://github.com/CAOJINGYOU/VideoEditor" target="_blank" rel="noopener">VideoEditor</a></p><h1 id="SharpFFmpeg"><a href="#SharpFFmpeg" class="headerlink" title="SharpFFmpeg"></a>SharpFFmpeg</h1><p>SharpFFmpeg 是一个 ffmpeg 的 C# 绑定版本，允许 .NET 开发者轻松的创建音频和视频应用。</p><p>个人没用过，感觉不错，一会有机会研究下。</p><p>下载地址：<a href="https://sourceforge.net/projects/sharpffmpeg/" target="_blank" rel="noopener">https://sourceforge.net/projects/sharpffmpeg/</a></p>]]></content>
     
