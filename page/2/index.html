@@ -156,6 +156,195 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-CEF" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/16/CEF/">CEF</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/16/CEF/" class="archive-article-date">
+  	<time datetime="2018-04-16T01:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>主页：<a href="http://opensource.spotify.com/cefbuilds/index.html" target="_blank" rel="noopener">http://opensource.spotify.com/cefbuilds/index.html</a></p>
+<p>CEF 全称是 Chromium Embedded Framework（Chromium 嵌入式框架），它主要目的是开发一个基于 Google Chromium 的 Webbrowser 控件。CEF 支持一系列的编程语言和操作系统，并且能很容易地整合到新的或已有的工程中去。</p>
+<p>它的设计思想政治就是易用且兼顾性能。CEF 基本的框架包含 C/C++ 程序接口，通过本地库的接口来实现，而这个库则会隔离宿主程序和 Chromium &amp; Webkit 的操作细节。它在浏览器控件和宿主程序之间提供紧密的整合，它支持用户插件，协议，JavaScript 对象以及 javascript 扩展，宿主程序可以随意地控件资源下载，导航，下下文内容和打印等，并且可以跟 Google Chrome 浏览器一起，支持高性能和 HTML5 技术。</p>
+<p>CEF3文档：<a href="http://magpcss.org/ceforum/apidocs3/" title="http://magpcss.org/ceforum/apidocs3/" target="_blank" rel="noopener">http://magpcss.org/ceforum/apidocs3/</a></p>
+<p>二进制发布包目录结构大致如下:</p>
+<pre><code>[解压目录]
+  |-include -- 头文件目录
+  |-Debug   -- 编译好的CEF库，Debug版
+  |-Release -- 编译好的CEF库，Release版
+  |-Resources   -- CEF库需要的资源文件
+  |-libcef_dll  -- CEF的C++包装类库源代码，需要手动编译
+  |-tests   -- 包含了一些测试工程
+  |-CMakeLists.txt  --CMake工程文件
+</code></pre><p>参考：</p>
+<p><a href="https://github.com/fanfeilong/cefutil" title="https://github.com/fanfeilong/cefutil" target="_blank" rel="noopener">https://github.com/fanfeilong/cefutil</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CEF</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/16/CEF/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-ATL与WTL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/12/ATL与WTL/">ATL与WTL</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/12/ATL与WTL/" class="archive-article-date">
+  	<time datetime="2018-04-12T01:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="ATL"><a href="#ATL" class="headerlink" title="ATL"></a>ATL</h1><p>ATL中所使用的基本技术包括以下几个方面：</p>
+<ul>
+<li>COM技术</li>
+<li>C++模板类技术（Template)</li>
+<li>C++多继承技术（Multi-Inheritance)</li>
+</ul>
+<p><a href="https://msdn.microsoft.com/zh-cn/library/hh967573.aspx" target="_blank" rel="noopener">MFC 和 ATL</a></p>
+<h1 id="WTL"><a href="#WTL" class="headerlink" title="WTL"></a>WTL</h1><p><a href="https://sourceforge.net/projects/wtl/" target="_blank" rel="noopener">https://sourceforge.net/projects/wtl/</a></p>
+<p>AppWizard目录执行</p>
+<pre><code>wscript Setup.js
+</code></pre><p><a href="https://sourceforge.net/projects/visualfc/" title="https://sourceforge.net/projects/visualfc/" target="_blank" rel="noopener">visualfc</a></p>
+<p><a href="http://www.winmsg.com/cn/orbit.htm" title="http://www.winmsg.com/cn/orbit.htm" target="_blank" rel="noopener">WTL for MFC programmer 系列文章(翻译)</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ATL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">WTL</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/12/ATL与WTL/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-duilib" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1716,245 +1905,6 @@ cfa.Save();
 
 
   
-    <article id="post-VA Snippet 与 代码片段管理器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/21/VA Snippet 与 代码片段管理器/">VA Snippet 与 代码片段管理器</a>
-    </h1>
-  
-
-        
-        <a href="/2018/02/21/VA Snippet 与 代码片段管理器/" class="archive-article-date">
-  	<time datetime="2018-02-21T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="VA-Snippet"><a href="#VA-Snippet" class="headerlink" title="VA Snippet"></a>VA Snippet</h1><p><a href="http://docs.wholetomato.com/default.asp?W171" target="_blank" rel="noopener">Introduction to VA Snippets</a></p>
-<h2 id="备份VA-Snippet-tpl文件"><a href="#备份VA-Snippet-tpl文件" class="headerlink" title="备份VA Snippet.tpl文件"></a>备份VA Snippet.tpl文件</h2><p>Backup your current VA Snippets, for the programming languages of interest. You can find your VA Snippets in .tpl files in:</p>
-<pre><code>%APPDATA%\VisualAssist\Autotext\
-</code></pre><h1 id="代码片段管理器"><a href="#代码片段管理器" class="headerlink" title="代码片段管理器"></a>代码片段管理器</h1>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">VS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码片段</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/21/VA Snippet 与 代码片段管理器/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-CShap用到过的库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/15/CShap用到过的库/">C#用到的库</a>
-    </h1>
-  
-
-        
-        <a href="/2018/02/15/CShap用到过的库/" class="archive-article-date">
-  	<time datetime="2018-02-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="扁平化界面"><a href="#扁平化界面" class="headerlink" title="扁平化界面"></a>扁平化界面</h1><p>MahApps.Metro</p>
-<p>MahApps.Metro.IconPacks</p>
-<p>MahApps.Metro.Resources</p>
-<h1 id="系统托盘图标"><a href="#系统托盘图标" class="headerlink" title="系统托盘图标"></a>系统托盘图标</h1><p>WPF NotifyIcon</p>
-<h1 id="Json-NET"><a href="#Json-NET" class="headerlink" title="Json.NET"></a>Json.NET</h1><p>Json.NET可序列化和反序列化、可以转成xml</p>
-<h1 id="数据库访问"><a href="#数据库访问" class="headerlink" title="数据库访问"></a>数据库访问</h1><p>Entity Framework</p>
-<h1 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h1><p>log4net</p>
-<p>Nlog</p>
-<h1 id="邮件"><a href="#邮件" class="headerlink" title="邮件"></a>邮件</h1><p>MailKit<br>与<br>MimeKit</p>
-<h1 id="http"><a href="#http" class="headerlink" title="http"></a>http</h1><p>EasyHttp</p>
-<p>httplib好用</p>
-<h1 id="Excel"><a href="#Excel" class="headerlink" title="Excel"></a>Excel</h1><p>Epplus</p>
-<p>NPIO</p>
-<h1 id="任务调度器"><a href="#任务调度器" class="headerlink" title="任务调度器"></a>任务调度器</h1><p>TaskScheduler</p>
-<p>TaskSchedulerEditor</p>
-<h1 id="待研究的库"><a href="#待研究的库" class="headerlink" title="待研究的库"></a>待研究的库</h1><h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><p>NUnit</p>
-<h2 id="界面库"><a href="#界面库" class="headerlink" title="界面库"></a>界面库</h2><p>MaterialDesignInXamlToolkit</p>
-<p>Fluent.Ribbon</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">扁平化</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Json.NET</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">log4net</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Nlog</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MailKit</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">EasyHttp</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">httplib</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Epplus</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">NPIO</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">TaskScheduler</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">NUnit</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MaterialDesignInXamlToolkit</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Fluent.Ribbon</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/15/CShap用到过的库/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -2621,6 +2571,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">NLog</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">X3框架</a>
               </li>
             
             <div class="clearfix"></div>
