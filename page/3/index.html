@@ -156,6 +156,108 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-WPF读写config配置文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/01/WPF读写config配置文件/">WPF读写config配置文件</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/01/WPF读写config配置文件/" class="archive-article-date">
+  	<time datetime="2018-03-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="设置："><a href="#设置：" class="headerlink" title="设置："></a>设置：</h1><p>在引用里添加</p>
+<pre><code>System.Configuration
+</code></pre><p>如果你想给程序配置一些参数，就在app.config文件<configuration>标签中添加<appsettings>.例如下面：</appsettings></configuration></p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;  
+&lt;configuration&gt;  
+  &lt;appSettings&gt;  
+    &lt;add key=&quot;Path&quot; value=&quot;D:\&quot;/&gt;  
+    &lt;add key=&quot;NAME&quot; value=&quot;123&quot;/&gt;  
+  &lt;/appSettings&gt;  
+&lt;/configuration&gt;
+</code></pre><p>读操作：</p>
+<pre><code>string strPath = ConfigurationManager.AppSettings[&quot;Path&quot;]; 
+</code></pre><p>写操作：</p>
+<pre><code>Configuration cfa = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None); 
+cfa.AppSettings.Settings[&quot;NAME&quot;].Value = &quot;WANGLICHAO&quot;; 
+cfa.Save(); 
+</code></pre><p>是配置立刻起作用：</p>
+<pre><code>Save()
+</code></pre><p>后加</p>
+<pre><code>ConfigurationManager.RefreshSection(&quot;appSettings&quot;);
+</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="http://www.cnblogs.com/fei12/p/3331100.html" target="_blank" rel="noopener">WPF读写config配置文件</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">WPF</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">配置文件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/01/WPF读写config配置文件/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-VA Snippet 与 代码片段管理器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1422,126 +1524,6 @@ CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, actual, delta)   // 当expected和actual�
 
 
   
-    <article id="post-Hexo yilia主题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/10/Hexo yilia主题/">Hexo yilia主题</a>
-    </h1>
-  
-
-        
-        <a href="/2018/01/10/Hexo yilia主题/" class="archive-article-date">
-  	<time datetime="2018-01-10T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h1><ul>
-<li><a href="https://github.com/litten/hexo-theme-yilia" title="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia</a></li>
-<li><a href="http://litten.me/" title="http://litten.me/" target="_blank" rel="noopener">http://litten.me/</a></li>
-<li><a href="https://github.com/litten/hexo-theme-yilia" title="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia</a></li>
-<li><a href="https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5" title="https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5</a></li>
-</ul>
-<h1 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h1><p>关于SEO与RSS，需要在博客根目录（注意不是yilia根目录）安装这三个node_modules:</p>
-<pre><code>npm install hexo-generator-feed --save
-npm install hexo-generator-baidu-sitemap --save
-npm install hexo-generator-sitemap --save
-</code></pre><p>分别对应：rss、百度爬虫sitemap、通用搜索引擎sitemap</p>
-<h1 id="不显示标签："><a href="#不显示标签：" class="headerlink" title="不显示标签："></a>不显示标签：</h1><p>缺失模块。<br>1、在博客根目录（注意不是yilia根目录）执行以下命令：</p>
-<p>npm i hexo-generator-json-content –save</p>
-<p>2、在根目录_config.yml里添加配置：</p>
-<pre><code>jsonContent:
-  meta: false
-  pages: false
-  posts:
-    title: true
-    date: true
-    path: true
-    text: true
-    raw: false
-    content: false
-    slug: false
-    updated: false
-    comments: false
-    link: false
-    permalink: false
-    excerpt: false
-    categories: false
-    tags: true
-</code></pre><h1 id="【Hexo】Hexo-Github构建个人博客-（五）：错误集"><a href="#【Hexo】Hexo-Github构建个人博客-（五）：错误集" class="headerlink" title="【Hexo】Hexo+Github构建个人博客 （五）：错误集"></a>【Hexo】Hexo+Github构建个人博客 （五）：错误集</h1><ul>
-<li><a href="http://www.cnblogs.com/arvin0/p/6664239.html" title="http://www.cnblogs.com/arvin0/p/6664239.html" target="_blank" rel="noopener">http://www.cnblogs.com/arvin0/p/6664239.html</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">yilia主题</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">博客</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/10/Hexo yilia主题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -2216,6 +2198,30 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">X3框架</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Socket</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">grpc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">flatbuffer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ZeroMQ</a>
               </li>
             
             <div class="clearfix"></div>

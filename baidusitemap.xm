@@ -4,6 +4,58 @@
 
     
   <url>
+    <loc>https://caojingyou.github.io/2017/05/02/ZeroMQ/</loc>
+    <lastmod>2018-05-21T09:19:54.026Z</lastmod>
+    <data>
+        <display>
+        <title>ZeroMQ</title>
+        <pubTime>2017-05-02T10:09:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>即时通讯</tag>
+         
+        <tag>ZeroMQ</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/05/21/CShap%E5%92%8CC++%20Socket%E9%80%9A%E4%BF%A1/</loc>
+    <lastmod>2018-05-21T08:36:19.454Z</lastmod>
+    <data>
+        <display>
+        <title>CShap和C++ Socket通信</title>
+        <pubTime>2018-05-21T06:00:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C#</tag>
+         
+        <tag>C/C++</tag>
+         
+        <tag>Socket</tag>
+         
+        <tag>Java</tag>
+         
+        <tag>protobuf</tag>
+         
+        <tag>grpc</tag>
+         
+        <tag>flatbuffer</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://caojingyou.github.io/2018/05/09/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2018-05-18T09:17:34.474Z</lastmod>
     <data>

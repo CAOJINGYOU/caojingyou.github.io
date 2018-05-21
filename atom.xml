@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://caojingyou.github.io/"/>
-  <updated>2018-05-18T06:59:04.626Z</updated>
+  <updated>2018-05-21T08:36:19.454Z</updated>
   <id>https://caojingyou.github.io/</id>
   
   <author>
@@ -15,6 +15,45 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CShap和C++ Socket通信</title>
+    <link href="https://caojingyou.github.io/2018/05/21/CShap%E5%92%8CC++%20Socket%E9%80%9A%E4%BF%A1/"/>
+    <id>https://caojingyou.github.io/2018/05/21/CShap和C++ Socket通信/</id>
+    <published>2018-05-21T06:00:00.000Z</published>
+    <updated>2018-05-21T08:36:19.454Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="通信传输数据类型"><a href="#通信传输数据类型" class="headerlink" title="通信传输数据类型"></a>通信传输数据类型</h1><p>C++:char*</p><p>C#:byte[]</p><p>java:byte[]</p><h1 id="传输不定长度的数据"><a href="#传输不定长度的数据" class="headerlink" title="传输不定长度的数据"></a>传输不定长度的数据</h1><p>1 以结束符标记<br>2 长度 + 数据</p><h2 id="C-和-C-结构体Socket通信"><a href="#C-和-C-结构体Socket通信" class="headerlink" title="C# 和 C++ 结构体Socket通信"></a>C# 和 C++ 结构体Socket通信</h2><p><img src="https://i.imgur.com/RiswVtr.jpg" alt=""></p><pre><code>仿照C++结构体写出C#的结构来using System.Runtime.InteropServices;[Serializable] // 指示可序列化[StructLayout(LayoutKind.Sequential, Pack = 1)] // 按1字节对齐public struct Operator{    public ushort id;    [MarshalAs(UnmanagedType.ByValArray, SizeConst = 11)] // 声明一个字符数组，大小为11    public char[] name;    [MarshalAs(UnmanagedType.ByValArray, SizeConst = 9)]    public char[] pass;    public Operator(string user, string pass) // 初始化    {        this.id = 10000;        this.name = user.PadRight(11, &apos;\0&apos;).ToCharArray();        this.pass = pass.PadRight(9, &apos;\0&apos;).ToCharArray();    }}整个结构的字节数是22bytes。对应的C++结构体是：typedef struct{    WORD id;    CHAR name[11];    CHAR password[9];} Operator;发送的时候先要把结构转换成字节数组using System.Runtime.InteropServices;/// &lt;summary&gt;/// 将结构转换为字节数组/// &lt;/summary&gt;/// &lt;param name=&quot;obj&quot;&gt;结构对象&lt;/param&gt;/// &lt;returns&gt;字节数组&lt;/returns&gt;public byte[] StructToBytes(object obj){    //得到结构体的大小    int size = Marshal.SizeOf(obj);    //创建byte数组    byte[] bytes = new byte[size];    //分配结构体大小的内存空间    IntPtr structPtr = Marshal.AllocHGlobal(size);    //将结构体拷到分配好的内存空间    Marshal.StructureToPtr(obj, structPtr, false);    //从内存空间拷到byte数组    Marshal.Copy(structPtr, bytes, 0, size);    //释放内存空间    Marshal.FreeHGlobal(structPtr);    //返回byte数组    return bytes;}接收的时候需要把字节数组转换成结构/// &lt;summary&gt;/// byte数组转结构/// &lt;/summary&gt;/// &lt;param name=&quot;bytes&quot;&gt;byte数组&lt;/param&gt;/// &lt;param name=&quot;type&quot;&gt;结构类型&lt;/param&gt;/// &lt;returns&gt;转换后的结构&lt;/returns&gt;public object BytesToStruct(byte[] bytes, Type type){    //得到结构的大小    int size = Marshal.SizeOf(type);    Log(size.ToString(), 1);    //byte数组长度小于结构的大小    if (size &gt; bytes.Length)    {        //返回空        return null;    }    //分配结构大小的内存空间    IntPtr structPtr = Marshal.AllocHGlobal(size);    //将byte数组拷到分配好的内存空间    Marshal.Copy(bytes, 0, structPtr, size);    //将内存空间转换为目标结构    object obj = Marshal.PtrToStructure(structPtr, type);    //释放内存空间    Marshal.FreeHGlobal(structPtr);    //返回结构    return obj;}实际操作：using System.Collections;using System.Collections.Generic;using System.Net;using System.Net.Sockets;byte[] Message = StructToBytes(new Operator(&quot;user&quot;, &quot;pass&quot;)); // 将结构转换成字节数组TcpClient socket = new TcpClient();socket.Connect(ip, port);NetworkStream ns = Socket.GetStream();ns.Write(Message, 0, Message.Length); // 发送byte[] Recv = new byte[1024]; // 缓冲int NumberOfRecv = 0;IList&lt;byte&gt; newRecv = new List&lt;byte&gt;();ns.ReadTimeout = 3000;try{    do    {        // 接收响应        NumberOfRecv = ns.Read(Recv, 0, Recv.Length);        for (int i = 0; i &lt; NumberOfRecv; i++)            newRecv.Add(Recv[i]);    }    while (ns.DataAvailable);    byte[] resultRecv = new byte[newRecv.Count];    newRecv.CopyTo(resultRecv, 0);    Operator MyOper = new Operator();    MyOper = (Operator)BytesToStruct(resultRecv, MyOper.GetType()); // 将字节数组转换成结构    在这里取值的时候可能会出现只能取到一个字段，剩余的取不到的问题，怎么回事我也搞不懂，反正我的解决办法就是按照字节的顺序从resultRecv里分别取出对应的字段的字节数组，然后解码，例如：    Operator.name是11个字节，最后一位是0，Operator.id是2个字节，那么从第3位到第12位的字节就是Operator.name的内容，取出另存为一个数组MyOperName，Encoding.Default.GetString(MyOperName)就是MyOper.name的内容。    socket.Close();    ns.Close();    可以看到，该仁兄在接收解析的时候，还是被C#的默认排序给黑到了，这里还是建议暂时用比较笨的方法，等待大牛出来好方法：  所以比较笨的解决办法是，把所有定义好的数据结构先手动进行按名字排序！~~自己对数据结构中的类型名称进行按名字排序</code></pre><h1 id="protobuf或者flatbuffer"><a href="#protobuf或者flatbuffer" class="headerlink" title="protobuf或者flatbuffer"></a>protobuf或者flatbuffer</h1><h2 id="Protocol-Buffer"><a href="#Protocol-Buffer" class="headerlink" title="Protocol Buffer"></a>Protocol Buffer</h2><p>Protocol Buffers（简称protobuf）是谷歌的一项技术，用于将结构化的数据序列化、反序列化，经常用于网络传输。</p><p><a href="https://github.com/google/protobuf" title="https://github.com/google/protobuf" target="_blank" rel="noopener">https://github.com/google/protobuf</a></p><p><a href="https://github.com/google/protobuf/tree/master/examples" title="https://github.com/google/protobuf/tree/master/examples" target="_blank" rel="noopener">https://github.com/google/protobuf/tree/master/examples</a></p><p><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-gpb/index.html" title="Google Protocol Buffer 的使用和原理" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/linux/l-cn-gpb/index.html</a></p><p><a href="https://blog.csdn.net/shensky711/article/details/69696392" title="Protocol Buffers 3.0 技术手册" target="_blank" rel="noopener">https://blog.csdn.net/shensky711/article/details/69696392</a></p><p><a href="https://blog.csdn.net/u012391923/article/details/54908464" title="Protocol Buffers编程指南与应用" target="_blank" rel="noopener">https://blog.csdn.net/u012391923/article/details/54908464</a></p><p><a href="https://blog.csdn.net/carson_ho/article/details/70568606" title="Protocol Buffer 序列化原理大揭秘 - 为什么Protocol Buffer性能这么好？" target="_blank" rel="noopener">https://blog.csdn.net/carson_ho/article/details/70568606</a></p><h3 id="gRPC"><a href="#gRPC" class="headerlink" title="gRPC"></a>gRPC</h3><p>gRPC是由Google主导开发的RPC框架，使用HTTP/2协议并用ProtoBuf作为序列化工具。</p><p><a href="https://grpc.io/" title="https://grpc.io/" target="_blank" rel="noopener">https://grpc.io/</a></p><p><a href="https://github.com/grpc/grpc" title="https://github.com/grpc/grpc" target="_blank" rel="noopener">https://github.com/grpc/grpc</a></p><p><a href="https://grpc.io/docs/quickstart/" title="https://grpc.io/docs/quickstart/" target="_blank" rel="noopener">https://grpc.io/docs/quickstart/</a></p><p><a href="http://doc.oschina.net/grpc?t=57966" title="gRPC 官方文档中文版" target="_blank" rel="noopener">http://doc.oschina.net/grpc?t=57966</a></p><h2 id="flatbuffers"><a href="#flatbuffers" class="headerlink" title="flatbuffers"></a>flatbuffers</h2><p>跨平台序列化工具FlatBuffers，提供了C++/Java/Go/C#接口支持，这是一个注重性能和资源使用的序列化类库。相较于Protocol Buffers，其更适用于移动设备，FlatBuffers提供更高的性能以及更低的资源需求。</p><p><a href="https://github.com/google/flatbuffers" title="https://github.com/google/flatbuffers" target="_blank" rel="noopener">https://github.com/google/flatbuffers</a></p><p><a href="http://google.github.io/flatbuffers/index.html" title="http://google.github.io/flatbuffers/index.html" target="_blank" rel="noopener">http://google.github.io/flatbuffers/index.html</a></p><p><a href="https://www.jianshu.com/p/6eb04a149cd8" target="_blank" rel="noopener">FlatBuffers使用简介</a></p><p><a href="https://blog.csdn.net/linuxheik/article/details/70743394" title="FlatBuffers学习总结" target="_blank" rel="noopener">https://blog.csdn.net/linuxheik/article/details/70743394</a></p><p><a href="https://www.race604.com/flatbuffers-intro/" title="FlatBuffers 体验" target="_blank" rel="noopener">https://www.race604.com/flatbuffers-intro/</a></p><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="http://blog.sina.com.cn/s/blog_668aae7801019mdf.html" title="http://blog.sina.com.cn/s/blog_668aae7801019mdf.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_668aae7801019mdf.html</a></p><p><a href="https://www.cnblogs.com/dudulang971/archive/2010/04/13/1710844.html" title="https://www.cnblogs.com/dudulang971/archive/2010/04/13/1710844.html" target="_blank" rel="noopener">https://www.cnblogs.com/dudulang971/archive/2010/04/13/1710844.html</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;通信传输数据类型&quot;&gt;&lt;a href=&quot;#通信传输数据类型&quot; class=&quot;headerlink&quot; title=&quot;通信传输数据类型&quot;&gt;&lt;/a&gt;通信传输数据类型&lt;/h1&gt;&lt;p&gt;C++:char*&lt;/p&gt;
+&lt;p&gt;C#:byte[]&lt;/p&gt;
+&lt;p&gt;java:byte[]&lt;
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
+    
+      <category term="C/C++" scheme="https://caojingyou.github.io/tags/C-C/"/>
+    
+      <category term="Socket" scheme="https://caojingyou.github.io/tags/Socket/"/>
+    
+      <category term="Java" scheme="https://caojingyou.github.io/tags/Java/"/>
+    
+      <category term="protobuf" scheme="https://caojingyou.github.io/tags/protobuf/"/>
+    
+      <category term="grpc" scheme="https://caojingyou.github.io/tags/grpc/"/>
+    
+      <category term="flatbuffer" scheme="https://caojingyou.github.io/tags/flatbuffer/"/>
+    
+  </entry>
   
   <entry>
     <title>X3框架</title>
@@ -1544,6 +1583,34 @@ void CIOCPMod
   </entry>
   
   <entry>
+    <title>ZeroMQ</title>
+    <link href="https://caojingyou.github.io/2017/05/02/ZeroMQ/"/>
+    <id>https://caojingyou.github.io/2017/05/02/ZeroMQ/</id>
+    <published>2017-05-02T10:09:00.000Z</published>
+    <updated>2018-05-21T09:19:54.026Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="http://zeromq.org/" target="_blank" rel="noopener">http://zeromq.org/</a></p><p><a href="https://github.com/zeromq" title="https://github.com/zeromq" target="_blank" rel="noopener">https://github.com/zeromq</a></p><p><a href="http://zeromq.org/distro:microsoft-windows" title="http://zeromq.org/distro:microsoft-windows" target="_blank" rel="noopener">http://zeromq.org/distro:microsoft-windows</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;http://zeromq.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;http://zeromq.org/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/zeromq&quot; title=&quot;http
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="即时通讯" scheme="https://caojingyou.github.io/tags/%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF/"/>
+    
+      <category term="ZeroMQ" scheme="https://caojingyou.github.io/tags/ZeroMQ/"/>
+    
+  </entry>
+  
+  <entry>
     <title>ImageMagick</title>
     <link href="https://caojingyou.github.io/2017/04/15/ImageMagick/"/>
     <id>https://caojingyou.github.io/2017/04/15/ImageMagick/</id>
@@ -1599,11 +1666,11 @@ void CIOCPMod
   </entry>
   
   <entry>
-    <title>C#与C++相互发送消息</title>
-    <link href="https://caojingyou.github.io/2017/03/01/C++%20%E6%9C%80%E5%B0%8F%E5%8C%96%E5%88%B0%E6%89%98%E7%9B%98(YHCAO--yhcao--2017-04-10-09,18,14)/"/>
-    <id>https://caojingyou.github.io/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/</id>
+    <title> C++ 最小化到托盘</title>
+    <link href="https://caojingyou.github.io/2017/03/01/C++%20%E6%9C%80%E5%B0%8F%E5%8C%96%E5%88%B0%E6%89%98%E7%9B%98/"/>
+    <id>https://caojingyou.github.io/2017/03/01/C++ 最小化到托盘/</id>
     <published>2017-03-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.084Z</updated>
+    <updated>2018-01-05T08:47:19.025Z</updated>
     
     <content type="html"><![CDATA[<h1 id="C-最小化到托盘"><a href="#C-最小化到托盘" class="headerlink" title="C++ 最小化到托盘"></a>C++ 最小化到托盘</h1><pre><code>#define  WM_SHOWTASK (WM_USER + 1)void CTestDlg::OnSysCommand(UINT nID, LPARAM lParam){    if ((nID &amp; 0xFFF0) == IDM_ABOUTBOX)    {        CAboutDlg dlgAbout;        dlgAbout.DoModal();    }    else    {        //增加关闭时最小化到托盘的函数        if (nID == SC_CLOSE) //SC_MINIMIZE        {            ToTray();            return;        }        CDialog::OnSysCommand(nID, lParam);    }}BEGIN_MESSAGE_MAP(CTestDlg, CDialog)    ON_MESSAGE(WM_SHOWTASK, OnShowTask)    //}}AFX_MSG_MAPEND_MESSAGE_MAP()//在托盘区添加图标 最小化到托盘函数void ToTray(void);void CTestDlg::ToTray(void){    NOTIFYICONDATA nid;    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);    nid.hWnd = this-&gt;m_hWnd;    nid.uID = IDR_MAINFRAME;    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条    Shell_NotifyIcon(NIM_ADD, &amp;nid);//在托盘区添加图标    ShowWindow(SW_HIDE);//隐藏主窗口}//恢复界面函数afx_msg LRESULT OnShowTask(WPARAM wParam, LPARAM lParam);//托盘事件LRESULT CTestDlg::OnShowTask(WPARAM wParam, LPARAM lParam){    if (wParam != IDR_MAINFRAME)    {        return 1;    }    switch(lParam)    {    case WM_RBUTTONUP://右键起来时弹出快捷菜单，这里只有一个关闭    {        LPPOINT lpoint = new tagPOINT;        ::GetCursorPos(lpoint);//得到鼠标位置        CMenu menu;        menu.CreatePopupMenu();//声明一个弹出式菜单        //增加菜单项“关闭”，点击则发送消息WM_DESTROY给主窗口（已        //隐藏），将程序结束。        menu.AppendMenu(MF_STRING, WM_DESTROY, _T(&quot;退出&quot;));        //确定弹出式菜单的位置        menu.TrackPopupMenu(TPM_LEFTALIGN, lpoint-&gt;x, lpoint-&gt;y, this);        //资源回收        HMENU hmenu = menu.Detach();        menu.DestroyMenu();        delete lpoint;    }    break;    case WM_LBUTTONDBLCLK://双击左键的处理    {        this-&gt;ShowWindow(SW_SHOW);//简单的显示主窗口        this-&gt;ShowWindow(SW_RESTORE);        DeleteTray();    }    break;    default:        break;    }    return 0;}//删除托盘中图标void DeleteTray();void CTestlDlg::DeleteTray(){    NOTIFYICONDATA nid;    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);    nid.hWnd = this-&gt;m_hWnd;    nid.uID = IDR_MAINFRAME;    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标}//退出程序需时需要DeleteTray();void CTestDlg::OnDestroy(){    CDialog::OnDestroy();    // TODO: 在此处添加消息处理程序代码    DeleteTray();}//修改风格使得他不在任务栏显示int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct){    if (CDialog::OnCreate(lpCreateStruct) == -1)        return -1;    // TODO:  在此添加您专用的创建代码    //修改风格使得他不在任务栏显示    ModifyStyleEx(WS_EX_APPWINDOW, WS_EX_TOOLWINDOW);    return 0;}</code></pre><p>DeleteTray改为：</p><pre><code>void CTestDlg::DeleteTray(){    NOTIFYICONDATA nid;    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);    nid.hWnd = this-&gt;m_hWnd;    nid.uID = IDR_MAINFRAME;    nid.uFlags = NIF_ICON /*| NIF_MESSAGE | NIF_TIP*/;    //nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称    //nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));    //wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标}</code></pre><p>否则会出现程序退出后，托盘图标还在的情况，鼠标移动到图标上后，图标一闪然后消失的问题。</p>]]></content>
     
@@ -1626,11 +1693,11 @@ void CIOCPMod
   </entry>
   
   <entry>
-    <title> C++ 最小化到托盘</title>
-    <link href="https://caojingyou.github.io/2017/03/01/C++%20%E6%9C%80%E5%B0%8F%E5%8C%96%E5%88%B0%E6%89%98%E7%9B%98/"/>
-    <id>https://caojingyou.github.io/2017/03/01/C++ 最小化到托盘/</id>
+    <title>C#与C++相互发送消息</title>
+    <link href="https://caojingyou.github.io/2017/03/01/C++%20%E6%9C%80%E5%B0%8F%E5%8C%96%E5%88%B0%E6%89%98%E7%9B%98(YHCAO--yhcao--2017-04-10-09,18,14)/"/>
+    <id>https://caojingyou.github.io/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/</id>
     <published>2017-03-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.025Z</updated>
+    <updated>2018-01-05T08:47:19.084Z</updated>
     
     <content type="html"><![CDATA[<h1 id="C-最小化到托盘"><a href="#C-最小化到托盘" class="headerlink" title="C++ 最小化到托盘"></a>C++ 最小化到托盘</h1><pre><code>#define  WM_SHOWTASK (WM_USER + 1)void CTestDlg::OnSysCommand(UINT nID, LPARAM lParam){    if ((nID &amp; 0xFFF0) == IDM_ABOUTBOX)    {        CAboutDlg dlgAbout;        dlgAbout.DoModal();    }    else    {        //增加关闭时最小化到托盘的函数        if (nID == SC_CLOSE) //SC_MINIMIZE        {            ToTray();            return;        }        CDialog::OnSysCommand(nID, lParam);    }}BEGIN_MESSAGE_MAP(CTestDlg, CDialog)    ON_MESSAGE(WM_SHOWTASK, OnShowTask)    //}}AFX_MSG_MAPEND_MESSAGE_MAP()//在托盘区添加图标 最小化到托盘函数void ToTray(void);void CTestDlg::ToTray(void){    NOTIFYICONDATA nid;    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);    nid.hWnd = this-&gt;m_hWnd;    nid.uID = IDR_MAINFRAME;    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条    Shell_NotifyIcon(NIM_ADD, &amp;nid);//在托盘区添加图标    ShowWindow(SW_HIDE);//隐藏主窗口}//恢复界面函数afx_msg LRESULT OnShowTask(WPARAM wParam, LPARAM lParam);//托盘事件LRESULT CTestDlg::OnShowTask(WPARAM wParam, LPARAM lParam){    if (wParam != IDR_MAINFRAME)    {        return 1;    }    switch(lParam)    {    case WM_RBUTTONUP://右键起来时弹出快捷菜单，这里只有一个关闭    {        LPPOINT lpoint = new tagPOINT;        ::GetCursorPos(lpoint);//得到鼠标位置        CMenu menu;        menu.CreatePopupMenu();//声明一个弹出式菜单        //增加菜单项“关闭”，点击则发送消息WM_DESTROY给主窗口（已        //隐藏），将程序结束。        menu.AppendMenu(MF_STRING, WM_DESTROY, _T(&quot;退出&quot;));        //确定弹出式菜单的位置        menu.TrackPopupMenu(TPM_LEFTALIGN, lpoint-&gt;x, lpoint-&gt;y, this);        //资源回收        HMENU hmenu = menu.Detach();        menu.DestroyMenu();        delete lpoint;    }    break;    case WM_LBUTTONDBLCLK://双击左键的处理    {        this-&gt;ShowWindow(SW_SHOW);//简单的显示主窗口        this-&gt;ShowWindow(SW_RESTORE);        DeleteTray();    }    break;    default:        break;    }    return 0;}//删除托盘中图标void DeleteTray();void CTestlDlg::DeleteTray(){    NOTIFYICONDATA nid;    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);    nid.hWnd = this-&gt;m_hWnd;    nid.uID = IDR_MAINFRAME;    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标}//退出程序需时需要DeleteTray();void CTestDlg::OnDestroy(){    CDialog::OnDestroy();    // TODO: 在此处添加消息处理程序代码    DeleteTray();}//修改风格使得他不在任务栏显示int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct){    if (CDialog::OnCreate(lpCreateStruct) == -1)        return -1;    // TODO:  在此添加您专用的创建代码    //修改风格使得他不在任务栏显示    ModifyStyleEx(WS_EX_APPWINDOW, WS_EX_TOOLWINDOW);    return 0;}</code></pre><p>DeleteTray改为：</p><pre><code>void CTestDlg::DeleteTray(){    NOTIFYICONDATA nid;    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);    nid.hWnd = this-&gt;m_hWnd;    nid.uID = IDR_MAINFRAME;    nid.uFlags = NIF_ICON /*| NIF_MESSAGE | NIF_TIP*/;    //nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称    //nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));    //wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标}</code></pre><p>否则会出现程序退出后，托盘图标还在的情况，鼠标移动到图标上后，图标一闪然后消失的问题。</p>]]></content>
     
@@ -1907,6 +1974,33 @@ HWND g
   </entry>
   
   <entry>
+    <title>C++ 引用计数技术及智能指针的简单实现</title>
+    <link href="https://caojingyou.github.io/2016/10/01/C++%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"/>
+    <id>https://caojingyou.github.io/2016/10/01/C++智能指针/</id>
+    <published>2016-10-01T08:03:00.000Z</published>
+    <updated>2018-01-05T08:47:19.086Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="引用计数技术及智能指针的简单实现"><a href="#引用计数技术及智能指针的简单实现" class="headerlink" title="引用计数技术及智能指针的简单实现"></a>引用计数技术及智能指针的简单实现</h1><h2 id="基础对象类"><a href="#基础对象类" class="headerlink" title="基础对象类"></a>基础对象类</h2><pre><code>class Point{public:    Point(int xVal = 0, int yVal = 0) : x(xVal), y(yVal) { }    int getX() const    {        return x;    }    int getY() const    {        return y;    }    void setX(int xVal)    {        x = xVal;    }    void setY(int yVal)    {        y = yVal;    }    private:    int x, y;};</code></pre><h2 id="辅助类"><a href="#辅助类" class="headerlink" title="辅助类"></a>辅助类</h2><pre><code>//模板类作为友元时要先有声明template &lt;typename T&gt;class SmartPtr;template &lt;typename T&gt;class U_Ptr     //辅助类{private:    //该类成员访问权限全部为private，因为不想让用户直接使用该类    friend class SmartPtr&lt;T&gt;;      //定义智能指针类为友元，因为智能指针类需要直接操纵辅助类    //构造函数的参数为基础对象的指针    U_Ptr(T *ptr) : p(ptr), count(1) { }    //析构函数    ~U_Ptr()    {        delete p;    }    //引用计数    int count;    //基础对象指针    T *p;};</code></pre><h2 id="智能指针类"><a href="#智能指针类" class="headerlink" title="智能指针类"></a>智能指针类</h2><pre><code>template &lt;typename T&gt;class SmartPtr   //智能指针类{public:    SmartPtr(T *ptr) : rp(new U_Ptr&lt;T&gt;(ptr)) { }     //构造函数    SmartPtr(const SmartPtr&lt;T&gt; &amp;sp) : rp(sp.rp)    {        ++rp-&gt;count;    //复制构造函数    }    SmartPtr &amp;operator=(const SmartPtr&lt;T&gt; &amp;rhs)      //重载赋值操作符    {        ++rhs.rp-&gt;count;     //首先将右操作数引用计数加1，        if (--rp-&gt;count == 0)     //然后将引用计数减1，可以应对自赋值            delete rp;        rp = rhs.rp;        return *this;    }    T &amp;operator *()         //重载*操作符    {        return *(rp-&gt;p);    }    T *operator -&gt;()       //重载-&gt;操作符    {        return rp-&gt;p;    }    ~SmartPtr()          //析构函数    {        if (--rp-&gt;count == 0)    //当引用计数减为0时，删除辅助类对象指针，从而删除基础对象            delete rp;        else            cout &lt;&lt; &quot;还有&quot; &lt;&lt; rp-&gt;count &lt;&lt; &quot;个指针指向基础对象&quot; &lt;&lt; endl;    }private:    U_Ptr&lt;T&gt; *rp;  //辅助类对象指针};</code></pre><p>使用测试</p><pre><code>int main(){    int *i = new int(2);    {        SmartPtr&lt;int&gt; ptr1(i);        {            SmartPtr&lt;int&gt; ptr2(ptr1);            {                SmartPtr&lt;int&gt; ptr3 = ptr2;                cout &lt;&lt; *ptr1 &lt;&lt; endl;                *ptr1 = 20;                cout &lt;&lt; *ptr2 &lt;&lt; endl;            }        }    }    system(&quot;pause&quot;);    return 0;}</code></pre><p>参考：</p><ul><li><a href="http://mp.weixin.qq.com/s?__biz=MzAxNDI5NzEzNg==&amp;mid=2651156666&amp;idx=1&amp;sn=4109903d526468f5913922d2f06e5a1a&amp;scene=0#wechat_redirect" target="_blank" rel="noopener">C++ 引用计数技术及智能指针的简单实现</a>(文章写的太好了，转过了以后用)</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;引用计数技术及智能指针的简单实现&quot;&gt;&lt;a href=&quot;#引用计数技术及智能指针的简单实现&quot; class=&quot;headerlink&quot; title=&quot;引用计数技术及智能指针的简单实现&quot;&gt;&lt;/a&gt;引用计数技术及智能指针的简单实现&lt;/h1&gt;&lt;h2 id=&quot;基础对象类&quot;&gt;&lt;a
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="C++" scheme="https://caojingyou.github.io/tags/C/"/>
+    
+      <category term="智能指针" scheme="https://caojingyou.github.io/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"/>
+    
+  </entry>
+  
+  <entry>
     <title>C# 视频编辑</title>
     <link href="https://caojingyou.github.io/2016/10/01/CShap%20%E8%A7%86%E9%A2%91%E7%BC%96%E8%BE%91/"/>
     <id>https://caojingyou.github.io/2016/10/01/CShap 视频编辑/</id>
@@ -1934,33 +2028,6 @@ HWND g
       <category term="VLC" scheme="https://caojingyou.github.io/tags/VLC/"/>
     
       <category term="ffmpeg" scheme="https://caojingyou.github.io/tags/ffmpeg/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>C++ 引用计数技术及智能指针的简单实现</title>
-    <link href="https://caojingyou.github.io/2016/10/01/C++%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"/>
-    <id>https://caojingyou.github.io/2016/10/01/C++智能指针/</id>
-    <published>2016-10-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.086Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="引用计数技术及智能指针的简单实现"><a href="#引用计数技术及智能指针的简单实现" class="headerlink" title="引用计数技术及智能指针的简单实现"></a>引用计数技术及智能指针的简单实现</h1><h2 id="基础对象类"><a href="#基础对象类" class="headerlink" title="基础对象类"></a>基础对象类</h2><pre><code>class Point{public:    Point(int xVal = 0, int yVal = 0) : x(xVal), y(yVal) { }    int getX() const    {        return x;    }    int getY() const    {        return y;    }    void setX(int xVal)    {        x = xVal;    }    void setY(int yVal)    {        y = yVal;    }    private:    int x, y;};</code></pre><h2 id="辅助类"><a href="#辅助类" class="headerlink" title="辅助类"></a>辅助类</h2><pre><code>//模板类作为友元时要先有声明template &lt;typename T&gt;class SmartPtr;template &lt;typename T&gt;class U_Ptr     //辅助类{private:    //该类成员访问权限全部为private，因为不想让用户直接使用该类    friend class SmartPtr&lt;T&gt;;      //定义智能指针类为友元，因为智能指针类需要直接操纵辅助类    //构造函数的参数为基础对象的指针    U_Ptr(T *ptr) : p(ptr), count(1) { }    //析构函数    ~U_Ptr()    {        delete p;    }    //引用计数    int count;    //基础对象指针    T *p;};</code></pre><h2 id="智能指针类"><a href="#智能指针类" class="headerlink" title="智能指针类"></a>智能指针类</h2><pre><code>template &lt;typename T&gt;class SmartPtr   //智能指针类{public:    SmartPtr(T *ptr) : rp(new U_Ptr&lt;T&gt;(ptr)) { }     //构造函数    SmartPtr(const SmartPtr&lt;T&gt; &amp;sp) : rp(sp.rp)    {        ++rp-&gt;count;    //复制构造函数    }    SmartPtr &amp;operator=(const SmartPtr&lt;T&gt; &amp;rhs)      //重载赋值操作符    {        ++rhs.rp-&gt;count;     //首先将右操作数引用计数加1，        if (--rp-&gt;count == 0)     //然后将引用计数减1，可以应对自赋值            delete rp;        rp = rhs.rp;        return *this;    }    T &amp;operator *()         //重载*操作符    {        return *(rp-&gt;p);    }    T *operator -&gt;()       //重载-&gt;操作符    {        return rp-&gt;p;    }    ~SmartPtr()          //析构函数    {        if (--rp-&gt;count == 0)    //当引用计数减为0时，删除辅助类对象指针，从而删除基础对象            delete rp;        else            cout &lt;&lt; &quot;还有&quot; &lt;&lt; rp-&gt;count &lt;&lt; &quot;个指针指向基础对象&quot; &lt;&lt; endl;    }private:    U_Ptr&lt;T&gt; *rp;  //辅助类对象指针};</code></pre><p>使用测试</p><pre><code>int main(){    int *i = new int(2);    {        SmartPtr&lt;int&gt; ptr1(i);        {            SmartPtr&lt;int&gt; ptr2(ptr1);            {                SmartPtr&lt;int&gt; ptr3 = ptr2;                cout &lt;&lt; *ptr1 &lt;&lt; endl;                *ptr1 = 20;                cout &lt;&lt; *ptr2 &lt;&lt; endl;            }        }    }    system(&quot;pause&quot;);    return 0;}</code></pre><p>参考：</p><ul><li><a href="http://mp.weixin.qq.com/s?__biz=MzAxNDI5NzEzNg==&amp;mid=2651156666&amp;idx=1&amp;sn=4109903d526468f5913922d2f06e5a1a&amp;scene=0#wechat_redirect" target="_blank" rel="noopener">C++ 引用计数技术及智能指针的简单实现</a>(文章写的太好了，转过了以后用)</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;引用计数技术及智能指针的简单实现&quot;&gt;&lt;a href=&quot;#引用计数技术及智能指针的简单实现&quot; class=&quot;headerlink&quot; title=&quot;引用计数技术及智能指针的简单实现&quot;&gt;&lt;/a&gt;引用计数技术及智能指针的简单实现&lt;/h1&gt;&lt;h2 id=&quot;基础对象类&quot;&gt;&lt;a
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="C++" scheme="https://caojingyou.github.io/tags/C/"/>
-    
-      <category term="智能指针" scheme="https://caojingyou.github.io/tags/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"/>
     
   </entry>
   
@@ -2189,6 +2256,33 @@ HWND g
   </entry>
   
   <entry>
+    <title>EChart</title>
+    <link href="https://caojingyou.github.io/2016/05/01/EChart/"/>
+    <id>https://caojingyou.github.io/2016/05/01/EChart/</id>
+    <published>2016-05-01T08:03:00.000Z</published>
+    <updated>2018-01-05T08:47:19.050Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="EChart"><a href="#EChart" class="headerlink" title="EChart"></a>EChart</h1><p>ECharts，一个纯 Javascript 的图表库，可以流畅的运行在 PC 和移动设备上，兼容当前绝大部分浏览器（IE8/9/10/11，Chrome，Firefox，Safari等），底层依赖轻量级的 Canvas 类库 ZRender，提供直观，生动，可交互，可高度个性化定制的数据可视化图表。</p><h1 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h1><ol><li><a href="http://echarts.baidu.com/" title="http://echarts.baidu.com/" target="_blank" rel="noopener">http://echarts.baidu.com/</a></li><li><a href="https://github.com/ecomfe/echarts" title="https://github.com/ecomfe/echarts" target="_blank" rel="noopener">https://github.com/ecomfe/echarts</a></li><li><a href="http://echarts.baidu.com/echarts2/index.html" title="http://echarts.baidu.com/echarts2/index.html" target="_blank" rel="noopener">http://echarts.baidu.com/echarts2/index.html</a></li><li><a href="http://echarts.baidu.com/download.html" title="http://echarts.baidu.com/download.html" target="_blank" rel="noopener">http://echarts.baidu.com/download.html</a></li></ol><h2 id="丰富的图表类型"><a href="#丰富的图表类型" class="headerlink" title="丰富的图表类型"></a>丰富的图表类型</h2><p>ECharts 提供了常规的折线图，柱状图，散点图，饼图，K线图，用于统计的盒形图，用于地理数据可视化的地图，热力图，线图，用于关系数据可视化的关系图，treemap，多维数据可视化的平行坐标，还有用于 BI 的漏斗图，仪表盘，并且支持图与图之间的混搭。</p><h2 id="引入-ECharts"><a href="#引入-ECharts" class="headerlink" title="引入 ECharts"></a>引入 ECharts</h2><p>ECharts 3 开始不再强制使用 AMD 的方式按需引入，代码里也不再内置 AMD 加载器。因此引入方式简单了很多，只需要像普通的 JavaScript 库一样用 script 标签引入。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;header&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;!-- 引入 ECharts 文件 --&gt;</span><br><span class="line">&lt;script src=&quot;echarts.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/header&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure><h2 id="绘制一个简单的图表"><a href="#绘制一个简单的图表" class="headerlink" title="绘制一个简单的图表"></a>绘制一个简单的图表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!-- 为 ECharts 准备一个具备大小（宽高）的Dom --&gt;</span><br><span class="line">    &lt;div id=&quot;main&quot; style=&quot;width: 600px;height:400px;&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure><p>然后就可以通过 echarts.init 方法初始化一个 echarts 实例并通过 setOption 方法生成一个简单的柱状图，下面是完整代码。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;ECharts&lt;/title&gt;</span><br><span class="line">    &lt;!-- 引入 echarts.js --&gt;</span><br><span class="line">    &lt;script src=&quot;echarts.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!-- 为ECharts准备一个具备大小（宽高）的Dom --&gt;</span><br><span class="line">    &lt;div id=&quot;main&quot; style=&quot;width: 600px;height:400px;&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">        // 基于准备好的dom，初始化echarts实例</span><br><span class="line">        var myChart = echarts.init(document.getElementById(&apos;main&apos;));</span><br><span class="line"></span><br><span class="line">        // 指定图表的配置项和数据</span><br><span class="line">        var option = &#123;</span><br><span class="line">            title: &#123;</span><br><span class="line">                text: &apos;ECharts 入门示例&apos;</span><br><span class="line">            &#125;,</span><br><span class="line">            tooltip: &#123;&#125;,</span><br><span class="line">            legend: &#123;</span><br><span class="line">                data:[&apos;销量&apos;]</span><br><span class="line">            &#125;,</span><br><span class="line">            xAxis: &#123;</span><br><span class="line">                data: [&quot;衬衫&quot;,&quot;羊毛衫&quot;,&quot;雪纺衫&quot;,&quot;裤子&quot;,&quot;高跟鞋&quot;,&quot;袜子&quot;]</span><br><span class="line">            &#125;,</span><br><span class="line">            yAxis: &#123;&#125;,</span><br><span class="line">            series: [&#123;</span><br><span class="line">                name: &apos;销量&apos;,</span><br><span class="line">                type: &apos;bar&apos;,</span><br><span class="line">                data: [5, 20, 36, 10, 10, 20]</span><br><span class="line">            &#125;]</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        // 使用刚指定的配置项和数据显示图表。</span><br><span class="line">        myChart.setOption(option);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;EChart&quot;&gt;&lt;a href=&quot;#EChart&quot; class=&quot;headerlink&quot; title=&quot;EChart&quot;&gt;&lt;/a&gt;EChart&lt;/h1&gt;&lt;p&gt;ECharts，一个纯 Javascript 的图表库，可以流畅的运行在 PC 和移动设备上，兼容当前绝大部
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="EChart" scheme="https://caojingyou.github.io/tags/EChart/"/>
+    
+      <category term="图表" scheme="https://caojingyou.github.io/tags/%E5%9B%BE%E8%A1%A8/"/>
+    
+  </entry>
+  
+  <entry>
     <title>agsxmpp</title>
     <link href="https://caojingyou.github.io/2016/05/01/agsxmpp/"/>
     <id>https://caojingyou.github.io/2016/05/01/agsxmpp/</id>
@@ -2214,33 +2308,6 @@ HWND g
       <category term="agsXMP" scheme="https://caojingyou.github.io/tags/agsXMP/"/>
     
       <category term="即时通讯" scheme="https://caojingyou.github.io/tags/%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>EChart</title>
-    <link href="https://caojingyou.github.io/2016/05/01/EChart/"/>
-    <id>https://caojingyou.github.io/2016/05/01/EChart/</id>
-    <published>2016-05-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.050Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="EChart"><a href="#EChart" class="headerlink" title="EChart"></a>EChart</h1><p>ECharts，一个纯 Javascript 的图表库，可以流畅的运行在 PC 和移动设备上，兼容当前绝大部分浏览器（IE8/9/10/11，Chrome，Firefox，Safari等），底层依赖轻量级的 Canvas 类库 ZRender，提供直观，生动，可交互，可高度个性化定制的数据可视化图表。</p><h1 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h1><ol><li><a href="http://echarts.baidu.com/" title="http://echarts.baidu.com/" target="_blank" rel="noopener">http://echarts.baidu.com/</a></li><li><a href="https://github.com/ecomfe/echarts" title="https://github.com/ecomfe/echarts" target="_blank" rel="noopener">https://github.com/ecomfe/echarts</a></li><li><a href="http://echarts.baidu.com/echarts2/index.html" title="http://echarts.baidu.com/echarts2/index.html" target="_blank" rel="noopener">http://echarts.baidu.com/echarts2/index.html</a></li><li><a href="http://echarts.baidu.com/download.html" title="http://echarts.baidu.com/download.html" target="_blank" rel="noopener">http://echarts.baidu.com/download.html</a></li></ol><h2 id="丰富的图表类型"><a href="#丰富的图表类型" class="headerlink" title="丰富的图表类型"></a>丰富的图表类型</h2><p>ECharts 提供了常规的折线图，柱状图，散点图，饼图，K线图，用于统计的盒形图，用于地理数据可视化的地图，热力图，线图，用于关系数据可视化的关系图，treemap，多维数据可视化的平行坐标，还有用于 BI 的漏斗图，仪表盘，并且支持图与图之间的混搭。</p><h2 id="引入-ECharts"><a href="#引入-ECharts" class="headerlink" title="引入 ECharts"></a>引入 ECharts</h2><p>ECharts 3 开始不再强制使用 AMD 的方式按需引入，代码里也不再内置 AMD 加载器。因此引入方式简单了很多，只需要像普通的 JavaScript 库一样用 script 标签引入。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;header&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;!-- 引入 ECharts 文件 --&gt;</span><br><span class="line">&lt;script src=&quot;echarts.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/header&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure><h2 id="绘制一个简单的图表"><a href="#绘制一个简单的图表" class="headerlink" title="绘制一个简单的图表"></a>绘制一个简单的图表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!-- 为 ECharts 准备一个具备大小（宽高）的Dom --&gt;</span><br><span class="line">    &lt;div id=&quot;main&quot; style=&quot;width: 600px;height:400px;&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure><p>然后就可以通过 echarts.init 方法初始化一个 echarts 实例并通过 setOption 方法生成一个简单的柱状图，下面是完整代码。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;ECharts&lt;/title&gt;</span><br><span class="line">    &lt;!-- 引入 echarts.js --&gt;</span><br><span class="line">    &lt;script src=&quot;echarts.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!-- 为ECharts准备一个具备大小（宽高）的Dom --&gt;</span><br><span class="line">    &lt;div id=&quot;main&quot; style=&quot;width: 600px;height:400px;&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">        // 基于准备好的dom，初始化echarts实例</span><br><span class="line">        var myChart = echarts.init(document.getElementById(&apos;main&apos;));</span><br><span class="line"></span><br><span class="line">        // 指定图表的配置项和数据</span><br><span class="line">        var option = &#123;</span><br><span class="line">            title: &#123;</span><br><span class="line">                text: &apos;ECharts 入门示例&apos;</span><br><span class="line">            &#125;,</span><br><span class="line">            tooltip: &#123;&#125;,</span><br><span class="line">            legend: &#123;</span><br><span class="line">                data:[&apos;销量&apos;]</span><br><span class="line">            &#125;,</span><br><span class="line">            xAxis: &#123;</span><br><span class="line">                data: [&quot;衬衫&quot;,&quot;羊毛衫&quot;,&quot;雪纺衫&quot;,&quot;裤子&quot;,&quot;高跟鞋&quot;,&quot;袜子&quot;]</span><br><span class="line">            &#125;,</span><br><span class="line">            yAxis: &#123;&#125;,</span><br><span class="line">            series: [&#123;</span><br><span class="line">                name: &apos;销量&apos;,</span><br><span class="line">                type: &apos;bar&apos;,</span><br><span class="line">                data: [5, 20, 36, 10, 10, 20]</span><br><span class="line">            &#125;]</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        // 使用刚指定的配置项和数据显示图表。</span><br><span class="line">        myChart.setOption(option);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;EChart&quot;&gt;&lt;a href=&quot;#EChart&quot; class=&quot;headerlink&quot; title=&quot;EChart&quot;&gt;&lt;/a&gt;EChart&lt;/h1&gt;&lt;p&gt;ECharts，一个纯 Javascript 的图表库，可以流畅的运行在 PC 和移动设备上，兼容当前绝大部
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="EChart" scheme="https://caojingyou.github.io/tags/EChart/"/>
-    
-      <category term="图表" scheme="https://caojingyou.github.io/tags/%E5%9B%BE%E8%A1%A8/"/>
     
   </entry>
   

@@ -156,6 +156,151 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-获得GetLastError()内容" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/15/获得GetLastError()内容/">获得GetLastError()内容</a>
+    </h1>
+  
+
+        
+        <a href="/2017/06/15/获得GetLastError()内容/" class="archive-article-date">
+  	<time datetime="2017-06-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>GetStrError(CString&amp; strError, const DWORD&amp; dwErr)
+{
+    LPVOID lpMsgBuf;
+    //DWORD dw = GetLastError();
+    FormatMessage (
+        FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
+        NULL,
+        dwErr,
+        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+        (LPTSTR) &amp;lpMsgBuf,
+        0, NULL );
+    strError = (char *)lpMsgBuf;
+    LocalFree(lpMsgBuf);
+}
+</code></pre><p>个人写的：</p>
+<pre><code>GetStrError(CString &amp;strError, const DWORD &amp;dwErr)
+{
+    LPVOID lpMsgBuf;
+    //DWORD dw = GetLastError();
+    FormatMessage (
+        FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
+        NULL,
+        dwErr,
+        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+        (LPTSTR) &amp;lpMsgBuf,
+        0, NULL );
+    strError = (char *)lpMsgBuf;
+    LocalFree(lpMsgBuf);
+}
+
+MyAfxMessageBox(CString strError)
+{
+    CString str;
+    DWORD dwErr = GetLastError();
+    GetStrError(str, dwErr);
+    CString strTemp;
+    strTemp.Format(_T(&quot;程序运行错误!%s\r\n错误码:%lu\r\n错误内容:%s&quot;), strError, dwErr, str);
+    AfxMessageBox(strTemp);
+}
+
+try
+{
+    AfxMessageBox(strMsg, MB_ICONINFORMATION);
+}
+catch (CMemoryException *e)
+{
+    MyAfxMessageBox(_T(&quot;CMemoryException&quot;));
+}
+catch (CFileException *e)
+{
+    MyAfxMessageBox(_T(&quot;CFileException&quot;));
+}
+catch (CException *e)
+{
+    MyAfxMessageBox(_T(&quot;CException&quot;));
+}
+catch(...)
+{
+    MyAfxMessageBox(_T(&quot;其他&quot;));
+}
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">GetLastError</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/06/15/获得GetLastError()内容/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-C++字符分割" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -437,6 +582,90 @@ int main()
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/05/15/GUID/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-ZeroMQ" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/02/ZeroMQ/">ZeroMQ</a>
+    </h1>
+  
+
+        
+        <a href="/2017/05/02/ZeroMQ/" class="archive-article-date">
+  	<time datetime="2017-05-02T10:09:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://zeromq.org/" target="_blank" rel="noopener">http://zeromq.org/</a></p>
+<p><a href="https://github.com/zeromq" title="https://github.com/zeromq" target="_blank" rel="noopener">https://github.com/zeromq</a></p>
+<p><a href="http://zeromq.org/distro:microsoft-windows" title="http://zeromq.org/distro:microsoft-windows" target="_blank" rel="noopener">http://zeromq.org/distro:microsoft-windows</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">即时通讯</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ZeroMQ</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/05/02/ZeroMQ/">展开全文 >></a>
         </p>
       
 
@@ -1089,210 +1318,6 @@ if (!WriteFile(hMailslot, buf, strlen(buf) + 1, &amp;dwSize, NULL))
 
 
   
-    <article id="post-C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/">C#与C++相互发送消息</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/" class="archive-article-date">
-  	<time datetime="2017-03-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-最小化到托盘"><a href="#C-最小化到托盘" class="headerlink" title="C++ 最小化到托盘"></a>C++ 最小化到托盘</h1><pre><code>#define  WM_SHOWTASK (WM_USER + 1)
-void CTestDlg::OnSysCommand(UINT nID, LPARAM lParam)
-{
-    if ((nID &amp; 0xFFF0) == IDM_ABOUTBOX)
-    {
-        CAboutDlg dlgAbout;
-        dlgAbout.DoModal();
-    }
-    else
-    {
-        //增加关闭时最小化到托盘的函数
-        if (nID == SC_CLOSE) //SC_MINIMIZE
-        {
-            ToTray();
-            return;
-        }
-        CDialog::OnSysCommand(nID, lParam);
-    }
-}
-BEGIN_MESSAGE_MAP(CTestDlg, CDialog)
-    ON_MESSAGE(WM_SHOWTASK, OnShowTask)
-    //}}AFX_MSG_MAP
-END_MESSAGE_MAP()
-//在托盘区添加图标 最小化到托盘函数
-void ToTray(void);
-void CTestDlg::ToTray(void)
-{
-    NOTIFYICONDATA nid;
-    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-    nid.hWnd = this-&gt;m_hWnd;
-    nid.uID = IDR_MAINFRAME;
-    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
-    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
-    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条
-    Shell_NotifyIcon(NIM_ADD, &amp;nid);//在托盘区添加图标
-    ShowWindow(SW_HIDE);//隐藏主窗口
-}
-//恢复界面函数
-afx_msg LRESULT OnShowTask(WPARAM wParam, LPARAM lParam);
-//托盘事件
-LRESULT CTestDlg::OnShowTask(WPARAM wParam, LPARAM lParam)
-{
-    if (wParam != IDR_MAINFRAME)
-    {
-        return 1;
-    }
-    switch(lParam)
-    {
-    case WM_RBUTTONUP://右键起来时弹出快捷菜单，这里只有一个关闭
-    {
-        LPPOINT lpoint = new tagPOINT;
-        ::GetCursorPos(lpoint);//得到鼠标位置
-        CMenu menu;
-        menu.CreatePopupMenu();//声明一个弹出式菜单
-        //增加菜单项“关闭”，点击则发送消息WM_DESTROY给主窗口（已
-        //隐藏），将程序结束。
-        menu.AppendMenu(MF_STRING, WM_DESTROY, _T(&quot;退出&quot;));
-        //确定弹出式菜单的位置
-        menu.TrackPopupMenu(TPM_LEFTALIGN, lpoint-&gt;x, lpoint-&gt;y, this);
-        //资源回收
-        HMENU hmenu = menu.Detach();
-        menu.DestroyMenu();
-        delete lpoint;
-    }
-    break;
-    case WM_LBUTTONDBLCLK://双击左键的处理
-    {
-        this-&gt;ShowWindow(SW_SHOW);//简单的显示主窗口
-        this-&gt;ShowWindow(SW_RESTORE);
-        DeleteTray();
-    }
-    break;
-    default:
-        break;
-    }
-    return 0;
-}
-//删除托盘中图标
-void DeleteTray();
-void CTestlDlg::DeleteTray()
-{
-    NOTIFYICONDATA nid;
-    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-    nid.hWnd = this-&gt;m_hWnd;
-    nid.uID = IDR_MAINFRAME;
-    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
-    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
-    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
-    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
-}
-//退出程序需时需要DeleteTray();
-void CTestDlg::OnDestroy()
-{
-    CDialog::OnDestroy();
-    // TODO: 在此处添加消息处理程序代码
-    DeleteTray();
-}
-//修改风格使得他不在任务栏显示
-int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
-{
-    if (CDialog::OnCreate(lpCreateStruct) == -1)
-        return -1;
-    // TODO:  在此添加您专用的创建代码
-    //修改风格使得他不在任务栏显示
-    ModifyStyleEx(WS_EX_APPWINDOW, WS_EX_TOOLWINDOW);
-    return 0;
-}
-</code></pre><p>DeleteTray改为：</p>
-<pre><code>void CTestDlg::DeleteTray()
-{
-    NOTIFYICONDATA nid;
-    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-    nid.hWnd = this-&gt;m_hWnd;
-    nid.uID = IDR_MAINFRAME;
-    nid.uFlags = NIF_ICON /*| NIF_MESSAGE | NIF_TIP*/;
-    //nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
-    //nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-    //wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
-    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
-}
-</code></pre><p>否则会出现程序退出后，托盘图标还在的情况，鼠标移动到图标上后，图标一闪然后消失的问题。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-C++ 最小化到托盘" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1468,6 +1493,210 @@ int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/03/01/C++ 最小化到托盘/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/">C#与C++相互发送消息</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/" class="archive-article-date">
+  	<time datetime="2017-03-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="C-最小化到托盘"><a href="#C-最小化到托盘" class="headerlink" title="C++ 最小化到托盘"></a>C++ 最小化到托盘</h1><pre><code>#define  WM_SHOWTASK (WM_USER + 1)
+void CTestDlg::OnSysCommand(UINT nID, LPARAM lParam)
+{
+    if ((nID &amp; 0xFFF0) == IDM_ABOUTBOX)
+    {
+        CAboutDlg dlgAbout;
+        dlgAbout.DoModal();
+    }
+    else
+    {
+        //增加关闭时最小化到托盘的函数
+        if (nID == SC_CLOSE) //SC_MINIMIZE
+        {
+            ToTray();
+            return;
+        }
+        CDialog::OnSysCommand(nID, lParam);
+    }
+}
+BEGIN_MESSAGE_MAP(CTestDlg, CDialog)
+    ON_MESSAGE(WM_SHOWTASK, OnShowTask)
+    //}}AFX_MSG_MAP
+END_MESSAGE_MAP()
+//在托盘区添加图标 最小化到托盘函数
+void ToTray(void);
+void CTestDlg::ToTray(void)
+{
+    NOTIFYICONDATA nid;
+    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
+    nid.hWnd = this-&gt;m_hWnd;
+    nid.uID = IDR_MAINFRAME;
+    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
+    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
+    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
+    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条
+    Shell_NotifyIcon(NIM_ADD, &amp;nid);//在托盘区添加图标
+    ShowWindow(SW_HIDE);//隐藏主窗口
+}
+//恢复界面函数
+afx_msg LRESULT OnShowTask(WPARAM wParam, LPARAM lParam);
+//托盘事件
+LRESULT CTestDlg::OnShowTask(WPARAM wParam, LPARAM lParam)
+{
+    if (wParam != IDR_MAINFRAME)
+    {
+        return 1;
+    }
+    switch(lParam)
+    {
+    case WM_RBUTTONUP://右键起来时弹出快捷菜单，这里只有一个关闭
+    {
+        LPPOINT lpoint = new tagPOINT;
+        ::GetCursorPos(lpoint);//得到鼠标位置
+        CMenu menu;
+        menu.CreatePopupMenu();//声明一个弹出式菜单
+        //增加菜单项“关闭”，点击则发送消息WM_DESTROY给主窗口（已
+        //隐藏），将程序结束。
+        menu.AppendMenu(MF_STRING, WM_DESTROY, _T(&quot;退出&quot;));
+        //确定弹出式菜单的位置
+        menu.TrackPopupMenu(TPM_LEFTALIGN, lpoint-&gt;x, lpoint-&gt;y, this);
+        //资源回收
+        HMENU hmenu = menu.Detach();
+        menu.DestroyMenu();
+        delete lpoint;
+    }
+    break;
+    case WM_LBUTTONDBLCLK://双击左键的处理
+    {
+        this-&gt;ShowWindow(SW_SHOW);//简单的显示主窗口
+        this-&gt;ShowWindow(SW_RESTORE);
+        DeleteTray();
+    }
+    break;
+    default:
+        break;
+    }
+    return 0;
+}
+//删除托盘中图标
+void DeleteTray();
+void CTestlDlg::DeleteTray()
+{
+    NOTIFYICONDATA nid;
+    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
+    nid.hWnd = this-&gt;m_hWnd;
+    nid.uID = IDR_MAINFRAME;
+    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
+    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
+    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
+    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
+    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
+}
+//退出程序需时需要DeleteTray();
+void CTestDlg::OnDestroy()
+{
+    CDialog::OnDestroy();
+    // TODO: 在此处添加消息处理程序代码
+    DeleteTray();
+}
+//修改风格使得他不在任务栏显示
+int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+    if (CDialog::OnCreate(lpCreateStruct) == -1)
+        return -1;
+    // TODO:  在此添加您专用的创建代码
+    //修改风格使得他不在任务栏显示
+    ModifyStyleEx(WS_EX_APPWINDOW, WS_EX_TOOLWINDOW);
+    return 0;
+}
+</code></pre><p>DeleteTray改为：</p>
+<pre><code>void CTestDlg::DeleteTray()
+{
+    NOTIFYICONDATA nid;
+    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
+    nid.hWnd = this-&gt;m_hWnd;
+    nid.uID = IDR_MAINFRAME;
+    nid.uFlags = NIF_ICON /*| NIF_MESSAGE | NIF_TIP*/;
+    //nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
+    //nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
+    //wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
+    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
+}
+</code></pre><p>否则会出现程序退出后，托盘图标还在的情况，鼠标移动到图标上后，图标一闪然后消失的问题。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/">展开全文 >></a>
         </p>
       
 
@@ -1944,480 +2173,6 @@ BOOL CVcMessageDlg::VCSendMessage(int nMessgeId,CStringA strSend)
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/02/01/CShap与C++通信/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-CShap 系统托盘图标" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/01/CShap 系统托盘图标/">C# 系统托盘图标</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/01/CShap 系统托盘图标/" class="archive-article-date">
-  	<time datetime="2017-02-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p>
-<p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p>
-<p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p>
-<p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p>
-<h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf
-</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p>
-<h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml<window>添加</window></p>
-<pre><code>xmlns:tb=&quot;http://www.hardcodet.net/taskbar&quot;
-</code></pre><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p>
-<pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;
-  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;
-  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;
-  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;
-    &lt;ContextMenu&gt;
-      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;
-      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;
-    &lt;/ContextMenu&gt;
-  &lt;/tb:TaskbarIcon.ContextMenu&gt;
-&lt;/tb:TaskbarIcon&gt;
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/01/CShap 系统托盘图标/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-钩子" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/15/钩子/">钩子</a>
-    </h1>
-  
-
-        
-        <a href="/2017/01/15/钩子/" class="archive-article-date">
-  	<time datetime="2017-01-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="进程内钩子"><a href="#进程内钩子" class="headerlink" title="进程内钩子"></a>进程内钩子</h1><pre><code>//进程内钩子
-
-//鼠标钩子过程函数
-HHOOK g_hHookDm = NULL;
-HWND g_DestWndH = NULL;
-
-LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
-{
-    //此区间内的消息都是鼠标消息
-    if (WM_MOUSEMOVE &lt;= wParam &amp;&amp; wParam &lt;= WM_MOUSEWHEEL)
-    {
-        if (g_DestWndH != NULL)
-        {
-            ::SendMessage(g_DestWndH, wParam, wParam, lParam);
-            //鼠标钩子,lParam是MOUSEHOOKSTRUCT结构指针
-            PMOUSEHOOKSTRUCT lpMsg = (PMOUSEHOOKSTRUCT)lParam;
-            lpMsg-&gt;hwnd = NULL;
-            lpMsg-&gt;dwExtraInfo = 0L;
-            lpMsg-&gt;pt = CPoint(0, 0);
-            lpMsg-&gt;wHitTestCode = 0L;
-        }
-        return 1;//如果不想让此消息再往下传，返回非0
-    }
-    else
-    {
-        return ::CallNextHookEx(g_hHookDm, nCode, wParam, lParam);
-    }
-}
-
-//创建钩子过程
-if (g_hHookDm == NULL)
-{
-    //如果dwThreadid指定的线程是由当前进程创建，并且钩子过程在当时进程中，那么hMod必须设置为NULL.
-    g_hHookDm = ::SetWindowsHookEx(WH_MOUSE, MouseProc, NULL, GetCurrentThreadId());
-    if (g_hHookDm != NULL)
-    {
-        g_DestWndH = m_hWnd;//保存目的窗口句柄
-    }
-}
-
-//消毁进程内钩子
-if (g_hHookDm != NULL)
-{
-    UnhookWindowsHookEx(g_hHookDm);
-    g_DestWndH = NULL;
-}
-
-全局钩子-MFC扩展DLL
-
-/新建一个CMouseHook的导出类
-#pragma once
-
-// CMouseHook 命令目标
-//.h
-class AFX_EXT_CLASS CMouseHook : public CObject    //AFX_EXT_CLASS宏声明类为导出类
-{
-public:
-    CMouseHook();
-    virtual ~CMouseHook();
-
-public:
-    BOOL StartHook(HWND hWnd); //安装钩子函数
-
-    BOOL StopHook();//卸载钩子函数
-};
-
-//.cpp
-#include &lt;afxwin.h&gt;
-#include &lt;afxdllx.h&gt;
-
-#ifdef _DEBUG
-#define new DEBUG_NEW
-#endif
-
-#define  WM_TOTASK (WM_USER + 2)
-
-#pragma data_seg(&quot;SharedDataName&quot;)
-
-HHOOK g_mouseHook;
-HHOOK g_keyboardHook;
-
-HWND g_hwnd = NULL;
-
-HINSTANCE glhInstance = NULL; //DLL实例句柄
-
-#pragma data_seg()
-
-#pragma comment(linker,&quot;/section:.SharedDataName,rws&quot;)
-
-static AFX_EXTENSION_MODULE MyMouseHookDLL = { NULL, NULL };
-
-extern &quot;C&quot; int APIENTRY
-DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
-{
-    // 如果使用 lpReserved，请将此移除
-    UNREFERENCED_PARAMETER(lpReserved);
-
-    if (dwReason == DLL_PROCESS_ATTACH)
-    {
-        TRACE0(&quot;MyMouseHook.DLL 正在初始化!\n&quot;);
-
-        // 扩展 DLL 一次性初始化
-        if (!AfxInitExtensionModule(MyMouseHookDLL, hInstance))
-            return 0;
-
-        // 将此 DLL 插入到资源链中
-        // 注意: 如果此扩展 DLL 由
-        //  MFC 规则 DLL (如 ActiveX 控件)隐式链接到，
-        //  而不是由 MFC 应用程序链接到，则需要
-        //  将此行从 DllMain 中移除并将其放置在一个
-        //  从此扩展 DLL 导出的单独的函数中。使用此扩展 DLL 的
-        //  规则 DLL 然后应显式
-        //  调用该函数以初始化此扩展 DLL。否则，
-        //  CDynLinkLibrary 对象不会附加到
-        //  规则 DLL 的资源链，并将导致严重的
-        //  问题。
-
-        new CDynLinkLibrary(MyMouseHookDLL);
-        glhInstance = hInstance; //插入保存DLL
-    }
-    else if (dwReason == DLL_PROCESS_DETACH)
-    {
-        TRACE0(&quot;MyMouseHook.DLL 正在终止!\n&quot;);
-
-        // 在调用析构函数之前终止该库
-        AfxTermExtensionModule(MyMouseHookDLL);
-    }
-    return 1;   // 确定
-}
-
-LRESULT CALLBACK MouseProc(
-    int nCode,      // hook code
-    WPARAM wParam,  // message identifier
-    LPARAM lParam   // mouse coordinates
-) //鼠标钩子过程
-{
-    LPMOUSEHOOKSTRUCT pMouseHook = (MOUSEHOOKSTRUCT FAR *)lParam;
-    if (nCode &gt;= 0)
-    {
-        if (WM_LBUTTONDOWN == wParam)
-        {
-
-            //鼠标钩子,lParam是MOUSEHOOKSTRUCT结构指针
-            PMOUSEHOOKSTRUCT lpMsg = (PMOUSEHOOKSTRUCT)lParam;
-            CPoint point = lpMsg-&gt;pt;
-
-            RECT rect;
-            ::GetWindowRect(g_hwnd, &amp;rect);    //得到整个窗口在屏幕上的矩形框位置
-
-            if ((point.x &lt; rect.left || point.x &gt; rect.right) || (point.y &lt; rect.top || point.y &gt; rect.bottom))
-            {
-                ::SendMessage(g_hwnd, WM_SYSCOMMAND, WM_TOTASK, 0);
-            }
-        }
-    }
-    return CallNextHookEx(g_mouseHook, nCode, wParam, lParam);
-}
-
-LRESULT CALLBACK KeyboardProc(
-    int code,       // hook code
-    WPARAM wParam,  // virtual-key code
-    LPARAM lParam   // keystroke-message information
-)//键盘钩子过程
-{
-    if(VK_F2 == wParam)
-    {
-        ::SendMessage(g_hwnd, WM_CLOSE, 0, 0);
-        ::UnhookWindowsHookEx(g_mouseHook);
-        ::UnhookWindowsHookEx(g_keyboardHook);
-    }
-    else
-        return 1;
-}
-
-//安装钩子并设定接收显示窗口句柄
-BOOL CMouseHook::StartHook(HWND hWnd)
-{
-    BOOL bResult = FALSE;
-    g_hwnd = hWnd;
-    g_mouseHook =::SetWindowsHookEx(WH_MOUSE, MouseProc, glhInstance/*::GetModuleHandle(_T(&quot;MyMouseHook.dll&quot;))*/, 0);
-    g_keyboardHook =::SetWindowsHookEx(WH_KEYBOARD, KeyboardProc, ::GetModuleHandle(_T(&quot;MyMouseHook.dll&quot;)), 0);
-    /*=================================================================================
-    HHOOK SetWindowsHookEx( int idHook,HOOKPROC lpfn, INSTANCE hMod,DWORD dwThreadId )
-    　　参数idHook表示钩子类型，它是和钩子函数类型一一对应的。
-    比如，WH_KEYBOARD表示安装的是键盘钩子，WH_MOUSE表示是鼠标钩子等等。
-
-    　　Lpfn是钩子函数的地址。
-
-    　　HMod是钩子函数所在的实例的句柄。对于线程钩子，该参数为NULL；
-    对于系统钩子，该参数为钩子函数所在的DLL句柄。
-
-    　　dwThreadId 指定钩子所监视的线程的线程号。对于全局钩子，该参数为NULL。
-
-    　　SetWindowsHookEx返回所安装的钩子句柄。
-    值得注意的是线程钩子和系统钩子的钩子函数的位置有很大的差别。
-    线程钩子一般在当前线程或者当前线程派生的线程内，
-    而系统钩子必须放在独立的动态链接库中，实现起来要麻烦一些。
-    ==================================================================================*/
-    if(g_mouseHook != NULL)
-        bResult = TRUE;
-
-    if(g_keyboardHook != NULL)
-        bResult = TRUE;
-
-    //设置显示目标窗口标题编辑框的句柄
-    return bResult;
-}
-
-//卸载钩子
-BOOL CMouseHook::StopHook()
-{
-    BOOL bResult = FALSE;
-    if(g_mouseHook)
-    {
-        bResult = UnhookWindowsHookEx(g_mouseHook);
-        if(bResult)
-        {
-            g_mouseHook = NULL;
-        }
-    }
-
-    if(g_keyboardHook)
-    {
-        bResult = UnhookWindowsHookEx(g_keyboardHook);
-        if(bResult)
-        {
-            g_keyboardHook = NULL;
-        }
-    }
-
-    return bResult;
-}
-</code></pre><h1 id="全局钩子-WIN32-DLL"><a href="#全局钩子-WIN32-DLL" class="headerlink" title="全局钩子-WIN32  DLL"></a>全局钩子-WIN32  DLL</h1><pre><code>#pragma data_seg(&quot;MySec&quot;)
-HHOOK g_mouseHook;
-HHOOK g_keyboardHook;
-HWND g_hwnd = NULL;
-#pragma data_seg()
-#pragma comment(linker,&quot;/section:MySec,RWS&quot;)   //设置链接器，使MySec节拥有属性为 RWS (READ WRITE SHARED )
-
-LRESULT CALLBACK MouseProc(
-    int nCode,      // hook code
-    WPARAM wParam,  // message identifier
-    LPARAM lParam   // mouse coordinates
-) //鼠标钩子过程
-{
-    return 1;
-}
-
-LRESULT CALLBACK KeyboardProc(
-    int code,       // hook code
-    WPARAM wParam,  // virtual-key code
-    LPARAM lParam   // keystroke-message information
-)//键盘钩子过程
-{
-    if(VK_F2 == wParam)
-    {
-        ::SendMessage(g_hwnd, WM_CLOSE, 0, 0);
-        ::UnhookWindowsHookEx(g_mouseHook);
-        ::UnhookWindowsHookEx(g_keyboardHook);
-    }
-    else
-        return 1;
-}
-
-void SetHook(HWND hwnd)
-{
-    g_hwnd = hwnd;
-    g_mouseHook =::SetWindowsHookEx(WH_MOUSE, MouseProc, ::GetModuleHandle(_T(&quot;dll_hook.dll&quot;)), 0);
-    g_keyboardHook =::SetWindowsHookEx(WH_KEYBOARD, KeyboardProc, ::GetModuleHandle(_T(&quot;dll_hook.dll&quot;)), 0);
-}
-
-//之后我们添加def文件
-//或者在def(模块定义文件中 )
-
-LIBRARY    &quot;Hook&quot;
-EXPORTS
-SetHook @2
-SECTIONS
-MySec   READ WRITE SHARED
-
-//编译下，编译通过之后可以看到 hook_dll.dll  和  hook_dll.lib文件。
-//接着我们写一个测试程序，新建MFC工程 选择对话框程序.拷贝hook_dll.dll  和  hook_dll.lib到工程目录下，在链接器命令行加上  hook_dll.lib.
-//在OnInitDialog()函数之前 定义DLL函数：
-
-_declspec(dllimport) void SetHook(HWND hwnd);
-//在OnInitDialog()内添加
-
-SetHook(this-&gt;m_hWnd);
-</code></pre><p> </p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">钩子</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/01/15/钩子/">展开全文 >></a>
         </p>
       
 
@@ -3121,6 +2876,30 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">X3框架</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Socket</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">grpc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">flatbuffer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ZeroMQ</a>
               </li>
             
             <div class="clearfix"></div>

@@ -156,6 +156,278 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-CShap和C++ Socket通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/21/CShap和C++ Socket通信/">CShap和C++ Socket通信</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/21/CShap和C++ Socket通信/" class="archive-article-date">
+  	<time datetime="2018-05-21T06:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="通信传输数据类型"><a href="#通信传输数据类型" class="headerlink" title="通信传输数据类型"></a>通信传输数据类型</h1><p>C++:char*</p>
+<p>C#:byte[]</p>
+<p>java:byte[]</p>
+<h1 id="传输不定长度的数据"><a href="#传输不定长度的数据" class="headerlink" title="传输不定长度的数据"></a>传输不定长度的数据</h1><p>1 以结束符标记<br>2 长度 + 数据</p>
+<h2 id="C-和-C-结构体Socket通信"><a href="#C-和-C-结构体Socket通信" class="headerlink" title="C# 和 C++ 结构体Socket通信"></a>C# 和 C++ 结构体Socket通信</h2><p><img src="https://i.imgur.com/RiswVtr.jpg" alt=""></p>
+<pre><code>仿照C++结构体写出C#的结构来
+
+using System.Runtime.InteropServices;
+
+[Serializable] // 指示可序列化
+[StructLayout(LayoutKind.Sequential, Pack = 1)] // 按1字节对齐
+public struct Operator
+
+{
+    public ushort id;
+    [MarshalAs(UnmanagedType.ByValArray, SizeConst = 11)] // 声明一个字符数组，大小为11
+    public char[] name;
+    [MarshalAs(UnmanagedType.ByValArray, SizeConst = 9)]
+    public char[] pass;
+
+    public Operator(string user, string pass) // 初始化
+    {
+        this.id = 10000;
+        this.name = user.PadRight(11, &apos;\0&apos;).ToCharArray();
+        this.pass = pass.PadRight(9, &apos;\0&apos;).ToCharArray();
+    }
+}
+
+整个结构的字节数是22bytes。
+
+对应的C++结构体是：
+
+typedef struct
+{
+    WORD id;
+    CHAR name[11];
+    CHAR password[9];
+} Operator;
+
+发送的时候先要把结构转换成字节数组
+
+using System.Runtime.InteropServices;
+
+/// &lt;summary&gt;
+/// 将结构转换为字节数组
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;obj&quot;&gt;结构对象&lt;/param&gt;
+/// &lt;returns&gt;字节数组&lt;/returns&gt;
+public byte[] StructToBytes(object obj)
+{
+    //得到结构体的大小
+    int size = Marshal.SizeOf(obj);
+    //创建byte数组
+    byte[] bytes = new byte[size];
+    //分配结构体大小的内存空间
+    IntPtr structPtr = Marshal.AllocHGlobal(size);
+    //将结构体拷到分配好的内存空间
+    Marshal.StructureToPtr(obj, structPtr, false);
+    //从内存空间拷到byte数组
+    Marshal.Copy(structPtr, bytes, 0, size);
+    //释放内存空间
+    Marshal.FreeHGlobal(structPtr);
+    //返回byte数组
+    return bytes;
+
+}
+
+接收的时候需要把字节数组转换成结构
+
+/// &lt;summary&gt;
+/// byte数组转结构
+/// &lt;/summary&gt;
+/// &lt;param name=&quot;bytes&quot;&gt;byte数组&lt;/param&gt;
+/// &lt;param name=&quot;type&quot;&gt;结构类型&lt;/param&gt;
+/// &lt;returns&gt;转换后的结构&lt;/returns&gt;
+public object BytesToStruct(byte[] bytes, Type type)
+{
+    //得到结构的大小
+    int size = Marshal.SizeOf(type);
+    Log(size.ToString(), 1);
+    //byte数组长度小于结构的大小
+    if (size &gt; bytes.Length)
+    {
+        //返回空
+        return null;
+    }
+    //分配结构大小的内存空间
+    IntPtr structPtr = Marshal.AllocHGlobal(size);
+    //将byte数组拷到分配好的内存空间
+    Marshal.Copy(bytes, 0, structPtr, size);
+    //将内存空间转换为目标结构
+    object obj = Marshal.PtrToStructure(structPtr, type);
+    //释放内存空间
+    Marshal.FreeHGlobal(structPtr);
+    //返回结构
+    return obj;
+}
+
+
+实际操作：
+
+using System.Collections;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Sockets;
+
+byte[] Message = StructToBytes(new Operator(&quot;user&quot;, &quot;pass&quot;)); // 将结构转换成字节数组
+
+TcpClient socket = new TcpClient();
+
+socket.Connect(ip, port);
+
+NetworkStream ns = Socket.GetStream();
+
+ns.Write(Message, 0, Message.Length); // 发送
+
+byte[] Recv = new byte[1024]; // 缓冲
+
+int NumberOfRecv = 0;
+
+IList&lt;byte&gt; newRecv = new List&lt;byte&gt;();
+ns.ReadTimeout = 3000;
+try
+{
+    do
+    {
+        // 接收响应
+        NumberOfRecv = ns.Read(Recv, 0, Recv.Length);
+        for (int i = 0; i &lt; NumberOfRecv; i++)
+            newRecv.Add(Recv[i]);
+    }
+    while (ns.DataAvailable);
+    byte[] resultRecv = new byte[newRecv.Count];
+    newRecv.CopyTo(resultRecv, 0);
+
+    Operator MyOper = new Operator();
+
+    MyOper = (Operator)BytesToStruct(resultRecv, MyOper.GetType()); // 将字节数组转换成结构
+
+    在这里取值的时候可能会出现只能取到一个字段，剩余的取不到的问题，怎么回事我也搞不懂，反正我的解决办法就是按照字节的顺序从resultRecv里分别取出对应的字段的字节数组，然后解码，例如：
+
+    Operator.name是11个字节，最后一位是0，Operator.id是2个字节，那么从第3位到第12位的字节就是Operator.name的内容，取出另存为一个数组MyOperName，Encoding.Default.GetString(MyOperName)就是MyOper.name的内容。
+
+    socket.Close();
+
+    ns.Close();
+
+    可以看到，该仁兄在接收解析的时候，还是被C#的默认排序给黑到了，这里还是建议暂时用比较笨的方法，等待大牛出来好方法：
+  所以比较笨的解决办法是，把所有定义好的数据结构先手动进行按名字排序！~~
+
+自己对数据结构中的类型名称进行按名字排序
+</code></pre><h1 id="protobuf或者flatbuffer"><a href="#protobuf或者flatbuffer" class="headerlink" title="protobuf或者flatbuffer"></a>protobuf或者flatbuffer</h1><h2 id="Protocol-Buffer"><a href="#Protocol-Buffer" class="headerlink" title="Protocol Buffer"></a>Protocol Buffer</h2><p>Protocol Buffers（简称protobuf）是谷歌的一项技术，用于将结构化的数据序列化、反序列化，经常用于网络传输。</p>
+<p><a href="https://github.com/google/protobuf" title="https://github.com/google/protobuf" target="_blank" rel="noopener">https://github.com/google/protobuf</a></p>
+<p><a href="https://github.com/google/protobuf/tree/master/examples" title="https://github.com/google/protobuf/tree/master/examples" target="_blank" rel="noopener">https://github.com/google/protobuf/tree/master/examples</a></p>
+<p><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-gpb/index.html" title="Google Protocol Buffer 的使用和原理" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/linux/l-cn-gpb/index.html</a></p>
+<p><a href="https://blog.csdn.net/shensky711/article/details/69696392" title="Protocol Buffers 3.0 技术手册" target="_blank" rel="noopener">https://blog.csdn.net/shensky711/article/details/69696392</a></p>
+<p><a href="https://blog.csdn.net/u012391923/article/details/54908464" title="Protocol Buffers编程指南与应用" target="_blank" rel="noopener">https://blog.csdn.net/u012391923/article/details/54908464</a></p>
+<p><a href="https://blog.csdn.net/carson_ho/article/details/70568606" title="Protocol Buffer 序列化原理大揭秘 - 为什么Protocol Buffer性能这么好？" target="_blank" rel="noopener">https://blog.csdn.net/carson_ho/article/details/70568606</a></p>
+<h3 id="gRPC"><a href="#gRPC" class="headerlink" title="gRPC"></a>gRPC</h3><p>gRPC是由Google主导开发的RPC框架，使用HTTP/2协议并用ProtoBuf作为序列化工具。</p>
+<p><a href="https://grpc.io/" title="https://grpc.io/" target="_blank" rel="noopener">https://grpc.io/</a></p>
+<p><a href="https://github.com/grpc/grpc" title="https://github.com/grpc/grpc" target="_blank" rel="noopener">https://github.com/grpc/grpc</a></p>
+<p><a href="https://grpc.io/docs/quickstart/" title="https://grpc.io/docs/quickstart/" target="_blank" rel="noopener">https://grpc.io/docs/quickstart/</a></p>
+<p><a href="http://doc.oschina.net/grpc?t=57966" title="gRPC 官方文档中文版" target="_blank" rel="noopener">http://doc.oschina.net/grpc?t=57966</a></p>
+<h2 id="flatbuffers"><a href="#flatbuffers" class="headerlink" title="flatbuffers"></a>flatbuffers</h2><p>跨平台序列化工具FlatBuffers，提供了C++/Java/Go/C#接口支持，这是一个注重性能和资源使用的序列化类库。相较于Protocol Buffers，其更适用于移动设备，FlatBuffers提供更高的性能以及更低的资源需求。</p>
+<p><a href="https://github.com/google/flatbuffers" title="https://github.com/google/flatbuffers" target="_blank" rel="noopener">https://github.com/google/flatbuffers</a></p>
+<p><a href="http://google.github.io/flatbuffers/index.html" title="http://google.github.io/flatbuffers/index.html" target="_blank" rel="noopener">http://google.github.io/flatbuffers/index.html</a></p>
+<p><a href="https://www.jianshu.com/p/6eb04a149cd8" target="_blank" rel="noopener">FlatBuffers使用简介</a></p>
+<p><a href="https://blog.csdn.net/linuxheik/article/details/70743394" title="FlatBuffers学习总结" target="_blank" rel="noopener">https://blog.csdn.net/linuxheik/article/details/70743394</a></p>
+<p><a href="https://www.race604.com/flatbuffers-intro/" title="FlatBuffers 体验" target="_blank" rel="noopener">https://www.race604.com/flatbuffers-intro/</a></p>
+<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="http://blog.sina.com.cn/s/blog_668aae7801019mdf.html" title="http://blog.sina.com.cn/s/blog_668aae7801019mdf.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_668aae7801019mdf.html</a></p>
+<p><a href="https://www.cnblogs.com/dudulang971/archive/2010/04/13/1710844.html" title="https://www.cnblogs.com/dudulang971/archive/2010/04/13/1710844.html" target="_blank" rel="noopener">https://www.cnblogs.com/dudulang971/archive/2010/04/13/1710844.html</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Socket</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">protobuf</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">grpc</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flatbuffer</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/21/CShap和C++ Socket通信/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-X3框架" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -4773,93 +5045,6 @@ int main()
 
 
   
-    <article id="post-插件框架" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/18/插件框架/">插件框架</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/18/插件框架/" class="archive-article-date">
-  	<time datetime="2018-04-18T06:48:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="插件框架"><a href="#插件框架" class="headerlink" title="插件框架"></a>插件框架</h1><p><a href="pluma-framework" title="http://pluma-framework.sourceforge.net">pluma-framework</a></p>
-<p><a href="https://www.devbean.net/category/plugin/" title="https://www.devbean.net/category/plugin/" target="_blank" rel="noopener">自己动手写插件框架</a></p>
-<p><a href="http://files.devbean.net/code/plugin.zip" target="_blank" rel="noopener">自己动手写插件框架-源代码</a></p>
-<p><a href="https://github.com/sld666666/cptf" target="_blank" rel="noopener">cpp plugin template framework</a></p>
-<p><a href="https://download.csdn.net/download/zhouxuguang236/7466253" target="_blank" rel="noopener">C++跨平台插件实例</a></p>
-<p><a href="https://github.com/linuxzjh/traditionalDevelopment" target="_blank" rel="noopener">traditionalDevelopment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">插件框架</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/18/插件框架/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -5534,6 +5719,30 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">X3框架</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Socket</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">grpc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">flatbuffer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ZeroMQ</a>
               </li>
             
             <div class="clearfix"></div>

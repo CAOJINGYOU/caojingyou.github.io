@@ -156,6 +156,281 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Github Pages和Hexo创建静态博客网站" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/01/Github Pages和Hexo创建静态博客网站/">Github Pages和Hexo创建静态博客网站</a>
+    </h1>
+  
+
+        
+        <a href="/2016/09/01/Github Pages和Hexo创建静态博客网站/" class="archive-article-date">
+  	<time datetime="2016-09-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-09-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Github-Pages和Hexo创建静态博客网站"><a href="#Github-Pages和Hexo创建静态博客网站" class="headerlink" title="Github Pages和Hexo创建静态博客网站"></a>Github Pages和Hexo创建静态博客网站</h1><h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p>本人是window环境，所以下载window版。</p>
+<p>下载地址：<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">https://nodejs.org/en/download/</a></p>
+<h2 id="下载-msysgit"><a href="#下载-msysgit" class="headerlink" title="下载 msysgit"></a>下载 msysgit</h2><p>下载地址：<a href="https://git-for-windows.github.io/" target="_blank" rel="noopener">https://git-for-windows.github.io/</a></p>
+<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p>点击鼠标右键菜单Git Bash Here</p>
+<pre><code>npm install hexo-cli -g
+npm install hexo --save
+#如果命令无法运行，可以尝试更换taobao的npm源
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+</code></pre><p>创建一个blog目录</p>
+<p>执行命令：</p>
+<pre><code>hexo init
+npm install
+</code></pre><p>安装插件，可跳过此步骤：</p>
+<pre><code>npm install hexo-generator-index --save
+npm install hexo-generator-archive --save
+npm install hexo-generator-category --save
+npm install hexo-generator-tag --save
+npm install hexo-server --save
+npm install hexo-deployer-git --save
+npm install hexo-deployer-heroku --save
+npm install hexo-deployer-rsync --save
+npm install hexo-deployer-openshift --save
+npm install hexo-renderer-marked@0.2 --save
+npm install hexo-renderer-stylus@0.2 --save
+npm install hexo-generator-feed@1 --save
+npm install hexo-generator-sitemap@1 --save
+</code></pre><p>最好执行：</p>
+<pre><code>npm install hexo-generator-feed --save
+npm install hexo-generator-baidu-sitemap --save
+npm install hexo-generator-sitemap --save
+</code></pre><p>分别对应：rss、百度爬虫sitemap、通用搜索引擎sitemap</p>
+<p>运行本地Hexo:</p>
+<pre><code>hexo generate
+hexo server
+</code></pre><p>浏览器查看效果：</p>
+<pre><code>localhost:4000
+</code></pre><h2 id="上传到Github"><a href="#上传到Github" class="headerlink" title="上传到Github"></a>上传到Github</h2><p>找到主项目的https地址：<a href="https://xxx/github.io.git" target="_blank" rel="noopener">https://xxx/github.io.git</a></p>
+<p>打开blog文件夹下_config.yml文件修改：</p>
+<pre><code>deploy:
+  type: git
+  repository: https://xxx/github.io.git
+  branch: master
+</code></pre><p>执行命令：</p>
+<pre><code>hexo g -d
+</code></pre><h2 id="换主题"><a href="#换主题" class="headerlink" title="换主题"></a>换主题</h2><p>Hexo主题：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
+<p>执行命令下载主题：</p>
+<p>git clone <a href="https://github.com/xxx.git(主题地址" target="_blank" rel="noopener">https://github.com/xxx.git(主题地址</a>) themes/xxx(主题文件夹)</p>
+<p>修改_config.yml文件：</p>
+<pre><code>theme: xxx（主题名）
+</code></pre><p>执行命令：</p>
+<pre><code>hexo g
+hexo s
+</code></pre><p>打开<a href="http://localhost:4000/即可看到效果。" target="_blank" rel="noopener">http://localhost:4000/即可看到效果。</a></p>
+<h2 id="部署到Github"><a href="#部署到Github" class="headerlink" title="部署到Github"></a>部署到Github</h2><p>执行命令：</p>
+<pre><code>hexo clean   
+hexo g -d
+</code></pre><h2 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h2><pre><code>hexo n &quot;文章标题&quot; #新建md文件
+hexo g -d #生成并部署
+</code></pre><h1 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h1><p>Create a new post</p>
+<pre><code>hexo new &quot;My New Post&quot;
+</code></pre><p>Run server</p>
+<pre><code>hexo server
+</code></pre><p>Generate static files</p>
+<pre><code>hexo generate
+</code></pre><p>Deploy to remote sites</p>
+<pre><code>hexo deploy
+</code></pre><h1 id="错误："><a href="#错误：" class="headerlink" title="错误："></a>错误：</h1><p>hexo d后 ERROR Deployer not found: git</p>
+<pre><code>npm install --save hexo-deployer-git
+</code></pre><h1 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h1><p><a href="https://github.com/litten/hexo-theme-yilia" title="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia</a></p>
+<p><a href="https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5" title="https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5</a></p>
+<p>参考：</p>
+<ul>
+<li><a href="http://blog.csdn.net/ljcitworld/article/details/50901626" target="_blank" rel="noopener">小白独立搭建博客–Github Pages和Hexo简明教程</a></li>
+<li><a href="http://www.jianshu.com/p/73779eacb494" target="_blank" rel="noopener">Hexo 靜態博客使用指南</a></li>
+<li><a href="http://wiki.jikexueyuan.com/project/hexo-document/" target="_blank" rel="noopener">Hexo 中文版</a></li>
+<li><a href="http://www.jianshu.com/p/cc38fc9493d4" target="_blank" rel="noopener">解决hexo d命令提交部署博客发生的TaskCanceledException异常</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Github Pages</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">静态博客</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/09/01/Github Pages和Hexo创建静态博客网站/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-程序打包" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/15/程序打包/">程序打包</a>
+    </h1>
+  
+
+        
+        <a href="/2016/08/15/程序打包/" class="archive-article-date">
+  	<time datetime="2016-08-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-08-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Visual-Studio-Installer"><a href="#Visual-Studio-Installer" class="headerlink" title="Visual Studio Installer"></a>Visual Studio Installer</h1><p><a href="http://www.cnblogs.com/daban/archive/2012/06/27/2565449.html" target="_blank" rel="noopener">VS2010程序打包操作</a></p>
+<h1 id="InstallShield"><a href="#InstallShield" class="headerlink" title="InstallShield"></a>InstallShield</h1><p><a href="http://liucw.blog.51cto.com/6751239/1220134" target="_blank" rel="noopener">InstallShield使用完全教程</a></p>
+<p><a href="http://www.jb51.net/softjc/467.html" target="_blank" rel="noopener">探索InstallShield——制作一个完整的应用程序安装实例</a></p>
+<p><a href="http://blog.csdn.net/duanbeibei/article/details/50333603" target="_blank" rel="noopener">一个完整的Installshield安装程序实例</a> </p>
+<p>从Visual Studio 2012开始，微软就把自家原来的安装与部署工具彻底废掉了，转而让大家去安装使用第三方的打包工具“InstallShield Limited Edition for Visual Studio”，注意这个版本是免费的，只需要邮件注册下，就会有要注册码。</p>
+<p><a href="http://www.cnblogs.com/zhuxiaohui/p/5139740.html" target="_blank" rel="noopener">Visual Studio InstallShield</a></p>
+<p><a href="http://www.cnblogs.com/wuhuacong/p/4438761.html" target="_blank" rel="noopener">Visual Studio InstallShield</a></p>
+<h1 id="Inno"><a href="#Inno" class="headerlink" title="Inno"></a>Inno</h1><p><a href="http://blog.csdn.net/ruifangcui7758/article/details/6662646" target="_blank" rel="noopener">Inno setup 简单打包教程</a> </p>
+<p>官网上下载的不能新建中文项目，所以还是到网上找汉化版的吧。</p>
+<pre><code>&quot;ISCC.exe&quot; &quot;%~dp0..\Inno Setup\PeriodicalEditor.iss&quot;
+</code></pre><h1 id="advanced-installer"><a href="#advanced-installer" class="headerlink" title="advanced installer"></a>advanced installer</h1><p><a href="http://anger6678.blog.163.com/blog/static/3293226201072944119412/" target="_blank" rel="noopener">Advanced Installer汉化版教程</a></p>
+<h1 id="NSIS"><a href="#NSIS" class="headerlink" title="NSIS"></a>NSIS</h1><p><a href="http://blog.csdn.net/csxiaoshui/article/details/45310135" target="_blank" rel="noopener">NSIS简介</a> </p>
+<p><a href="http://www.cnblogs.com/modou/p/3573772.html" target="_blank" rel="noopener">使用NSIS制作安装包</a></p>
+<p><a href="http://www.hanzify.org/teach/index.php?Go=Show::196-1108396800" target="_blank" rel="noopener">NSIS安装制作基础教程[初级篇]</a></p>
+<p><a href="http://hmne.sourceforge.net/" target="_blank" rel="noopener">NIS Edit</a></p>
+<p><a href="https://sourceforge.net/projects/nsis/" target="_blank" rel="noopener">NSIS: Nullsoft Scriptable Install System</a></p>
+<p><a href="http://www.nsisfans.com/" title="NSIS中文论坛" target="_blank" rel="noopener">http://www.nsisfans.com/</a></p>
+<p><a href="http://blog.csdn.net/sdujava2011/article/details/51271567" target="_blank" rel="noopener">NSIS UI 美化类插件分享 </a></p>
+<p><a href="http://www.aceui.cn" target="_blank" rel="noopener">www.aceui.cn-nsSkinEngine</a></p>
+<p><a href="https://github.com/cppfuns/nsSkinEngine_NSIS_demo" target="_blank" rel="noopener">nsSkinEngine_NSIS_demo</a></p>
+<h1 id="牛牛安装包界面美化控件-nsNiuniuSkin"><a href="#牛牛安装包界面美化控件-nsNiuniuSkin" class="headerlink" title="牛牛安装包界面美化控件 [nsNiuniuSkin]"></a>牛牛安装包界面美化控件 [nsNiuniuSkin]</h1><p><a href="http://www.ggniu.cn/download.htm" title="http://www.ggniu.cn/download.htm" target="_blank" rel="noopener">http://www.ggniu.cn/download.htm</a></p>
+<h1 id="WixToolSet"><a href="#WixToolSet" class="headerlink" title="WixToolSet"></a>WixToolSet</h1><p><a href="http://wixtoolset.org/" title="http://wixtoolset.org/" target="_blank" rel="noopener">http://wixtoolset.org/</a></p>
+<p><a href="http://wixtoolset.org/releases/" target="_blank" rel="noopener">http://wixtoolset.org/releases/</a></p>
+<p><a href="https://www.firegiant.com/wix/tutorial/" title="WiX Toolset Tutorial" target="_blank" rel="noopener">https://www.firegiant.com/wix/tutorial/</a></p>
+<p><a href="http://blog.csdn.net/xxdddail/article/details/12652233" target="_blank" rel="noopener">WIX安装图文并茂简易说明</a></p>
+<p><a href="http://www.cnblogs.com/stoneniqiu/category/522235.html" title="http://www.cnblogs.com/stoneniqiu/category/522235.html" target="_blank" rel="noopener">http://www.cnblogs.com/stoneniqiu/category/522235.html</a></p>
+<p><a href="https://www.firegiant.com/wix/tutorial/getting-started/the-files-inside/" title="https://www.firegiant.com/wix/tutorial/getting-started/the-files-inside/" target="_blank" rel="noopener">https://www.firegiant.com/wix/tutorial/getting-started/the-files-inside/</a></p>
+<p><a href="http://wixtoolset.org/documentation/manual/v3/" title="http://wixtoolset.org/documentation/manual/v3/" target="_blank" rel="noopener">http://wixtoolset.org/documentation/manual/v3/</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">打包</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">InstallShield</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Inno</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/08/15/程序打包/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-我喜欢的Notepad++插件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -762,6 +1037,100 @@ C:\Users\yhcao&gt;npm -v
 
 
   
+    <article id="post-EChart" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/01/EChart/">EChart</a>
+    </h1>
+  
+
+        
+        <a href="/2016/05/01/EChart/" class="archive-article-date">
+  	<time datetime="2016-05-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="EChart"><a href="#EChart" class="headerlink" title="EChart"></a>EChart</h1><p>ECharts，一个纯 Javascript 的图表库，可以流畅的运行在 PC 和移动设备上，兼容当前绝大部分浏览器（IE8/9/10/11，Chrome，Firefox，Safari等），底层依赖轻量级的 Canvas 类库 ZRender，提供直观，生动，可交互，可高度个性化定制的数据可视化图表。</p>
+<h1 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h1><ol>
+<li><a href="http://echarts.baidu.com/" title="http://echarts.baidu.com/" target="_blank" rel="noopener">http://echarts.baidu.com/</a></li>
+<li><a href="https://github.com/ecomfe/echarts" title="https://github.com/ecomfe/echarts" target="_blank" rel="noopener">https://github.com/ecomfe/echarts</a></li>
+<li><a href="http://echarts.baidu.com/echarts2/index.html" title="http://echarts.baidu.com/echarts2/index.html" target="_blank" rel="noopener">http://echarts.baidu.com/echarts2/index.html</a></li>
+<li><a href="http://echarts.baidu.com/download.html" title="http://echarts.baidu.com/download.html" target="_blank" rel="noopener">http://echarts.baidu.com/download.html</a></li>
+</ol>
+<h2 id="丰富的图表类型"><a href="#丰富的图表类型" class="headerlink" title="丰富的图表类型"></a>丰富的图表类型</h2><p>ECharts 提供了常规的折线图，柱状图，散点图，饼图，K线图，用于统计的盒形图，用于地理数据可视化的地图，热力图，线图，用于关系数据可视化的关系图，treemap，多维数据可视化的平行坐标，还有用于 BI 的漏斗图，仪表盘，并且支持图与图之间的混搭。</p>
+<h2 id="引入-ECharts"><a href="#引入-ECharts" class="headerlink" title="引入 ECharts"></a>引入 ECharts</h2><p>ECharts 3 开始不再强制使用 AMD 的方式按需引入，代码里也不再内置 AMD 加载器。因此引入方式简单了很多，只需要像普通的 JavaScript 库一样用 script 标签引入。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;header&gt;</span><br><span class="line">	&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">	&lt;!-- 引入 ECharts 文件 --&gt;</span><br><span class="line">	&lt;script src=&quot;echarts.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/header&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="绘制一个简单的图表"><a href="#绘制一个简单的图表" class="headerlink" title="绘制一个简单的图表"></a>绘制一个简单的图表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!-- 为 ECharts 准备一个具备大小（宽高）的Dom --&gt;</span><br><span class="line">    &lt;div id=&quot;main&quot; style=&quot;width: 600px;height:400px;&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<p>然后就可以通过 echarts.init 方法初始化一个 echarts 实例并通过 setOption 方法生成一个简单的柱状图，下面是完整代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;ECharts&lt;/title&gt;</span><br><span class="line">    &lt;!-- 引入 echarts.js --&gt;</span><br><span class="line">    &lt;script src=&quot;echarts.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!-- 为ECharts准备一个具备大小（宽高）的Dom --&gt;</span><br><span class="line">    &lt;div id=&quot;main&quot; style=&quot;width: 600px;height:400px;&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">        // 基于准备好的dom，初始化echarts实例</span><br><span class="line">        var myChart = echarts.init(document.getElementById(&apos;main&apos;));</span><br><span class="line"></span><br><span class="line">        // 指定图表的配置项和数据</span><br><span class="line">        var option = &#123;</span><br><span class="line">            title: &#123;</span><br><span class="line">                text: &apos;ECharts 入门示例&apos;</span><br><span class="line">            &#125;,</span><br><span class="line">            tooltip: &#123;&#125;,</span><br><span class="line">            legend: &#123;</span><br><span class="line">                data:[&apos;销量&apos;]</span><br><span class="line">            &#125;,</span><br><span class="line">            xAxis: &#123;</span><br><span class="line">                data: [&quot;衬衫&quot;,&quot;羊毛衫&quot;,&quot;雪纺衫&quot;,&quot;裤子&quot;,&quot;高跟鞋&quot;,&quot;袜子&quot;]</span><br><span class="line">            &#125;,</span><br><span class="line">            yAxis: &#123;&#125;,</span><br><span class="line">            series: [&#123;</span><br><span class="line">                name: &apos;销量&apos;,</span><br><span class="line">                type: &apos;bar&apos;,</span><br><span class="line">                data: [5, 20, 36, 10, 10, 20]</span><br><span class="line">            &#125;]</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        // 使用刚指定的配置项和数据显示图表。</span><br><span class="line">        myChart.setOption(option);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">EChart</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">图表</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/05/01/EChart/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-agsxmpp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -829,100 +1198,6 @@ XmppClientConnection.Send(iq);
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2016/05/01/agsxmpp/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-EChart" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/01/EChart/">EChart</a>
-    </h1>
-  
-
-        
-        <a href="/2016/05/01/EChart/" class="archive-article-date">
-  	<time datetime="2016-05-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="EChart"><a href="#EChart" class="headerlink" title="EChart"></a>EChart</h1><p>ECharts，一个纯 Javascript 的图表库，可以流畅的运行在 PC 和移动设备上，兼容当前绝大部分浏览器（IE8/9/10/11，Chrome，Firefox，Safari等），底层依赖轻量级的 Canvas 类库 ZRender，提供直观，生动，可交互，可高度个性化定制的数据可视化图表。</p>
-<h1 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h1><ol>
-<li><a href="http://echarts.baidu.com/" title="http://echarts.baidu.com/" target="_blank" rel="noopener">http://echarts.baidu.com/</a></li>
-<li><a href="https://github.com/ecomfe/echarts" title="https://github.com/ecomfe/echarts" target="_blank" rel="noopener">https://github.com/ecomfe/echarts</a></li>
-<li><a href="http://echarts.baidu.com/echarts2/index.html" title="http://echarts.baidu.com/echarts2/index.html" target="_blank" rel="noopener">http://echarts.baidu.com/echarts2/index.html</a></li>
-<li><a href="http://echarts.baidu.com/download.html" title="http://echarts.baidu.com/download.html" target="_blank" rel="noopener">http://echarts.baidu.com/download.html</a></li>
-</ol>
-<h2 id="丰富的图表类型"><a href="#丰富的图表类型" class="headerlink" title="丰富的图表类型"></a>丰富的图表类型</h2><p>ECharts 提供了常规的折线图，柱状图，散点图，饼图，K线图，用于统计的盒形图，用于地理数据可视化的地图，热力图，线图，用于关系数据可视化的关系图，treemap，多维数据可视化的平行坐标，还有用于 BI 的漏斗图，仪表盘，并且支持图与图之间的混搭。</p>
-<h2 id="引入-ECharts"><a href="#引入-ECharts" class="headerlink" title="引入 ECharts"></a>引入 ECharts</h2><p>ECharts 3 开始不再强制使用 AMD 的方式按需引入，代码里也不再内置 AMD 加载器。因此引入方式简单了很多，只需要像普通的 JavaScript 库一样用 script 标签引入。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;header&gt;</span><br><span class="line">	&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">	&lt;!-- 引入 ECharts 文件 --&gt;</span><br><span class="line">	&lt;script src=&quot;echarts.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/header&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="绘制一个简单的图表"><a href="#绘制一个简单的图表" class="headerlink" title="绘制一个简单的图表"></a>绘制一个简单的图表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!-- 为 ECharts 准备一个具备大小（宽高）的Dom --&gt;</span><br><span class="line">    &lt;div id=&quot;main&quot; style=&quot;width: 600px;height:400px;&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
-<p>然后就可以通过 echarts.init 方法初始化一个 echarts 实例并通过 setOption 方法生成一个简单的柱状图，下面是完整代码。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;ECharts&lt;/title&gt;</span><br><span class="line">    &lt;!-- 引入 echarts.js --&gt;</span><br><span class="line">    &lt;script src=&quot;echarts.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!-- 为ECharts准备一个具备大小（宽高）的Dom --&gt;</span><br><span class="line">    &lt;div id=&quot;main&quot; style=&quot;width: 600px;height:400px;&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">        // 基于准备好的dom，初始化echarts实例</span><br><span class="line">        var myChart = echarts.init(document.getElementById(&apos;main&apos;));</span><br><span class="line"></span><br><span class="line">        // 指定图表的配置项和数据</span><br><span class="line">        var option = &#123;</span><br><span class="line">            title: &#123;</span><br><span class="line">                text: &apos;ECharts 入门示例&apos;</span><br><span class="line">            &#125;,</span><br><span class="line">            tooltip: &#123;&#125;,</span><br><span class="line">            legend: &#123;</span><br><span class="line">                data:[&apos;销量&apos;]</span><br><span class="line">            &#125;,</span><br><span class="line">            xAxis: &#123;</span><br><span class="line">                data: [&quot;衬衫&quot;,&quot;羊毛衫&quot;,&quot;雪纺衫&quot;,&quot;裤子&quot;,&quot;高跟鞋&quot;,&quot;袜子&quot;]</span><br><span class="line">            &#125;,</span><br><span class="line">            yAxis: &#123;&#125;,</span><br><span class="line">            series: [&#123;</span><br><span class="line">                name: &apos;销量&apos;,</span><br><span class="line">                type: &apos;bar&apos;,</span><br><span class="line">                data: [5, 20, 36, 10, 10, 20]</span><br><span class="line">            &#125;]</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        // 使用刚指定的配置项和数据显示图表。</span><br><span class="line">        myChart.setOption(option);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">EChart</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">图表</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/05/01/EChart/">展开全文 >></a>
         </p>
       
 
@@ -1090,201 +1365,6 @@ Caused by:
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2016/04/15/xmpp/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Qt安装配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/04/01/Qt安装配置/">Qt安装配置</a>
-    </h1>
-  
-
-        
-        <a href="/2016/04/01/Qt安装配置/" class="archive-article-date">
-  	<time datetime="2016-04-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-04-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Qt-Creator"><a href="#Qt-Creator" class="headerlink" title="Qt Creator:"></a>Qt Creator:</h1><h2 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h2><p><a href="http://download.qt.io/official_releases/qt/5.5/5.5.0/qt-opensource-windows-x86-mingw492-5.5.0.exe" target="_blank" rel="noopener">Qt 5.5.1 for Windows 32-bit(MinGW 4.9.2, 1.0 GB)</a>:<a href="http://download.qt.io/official_releases/qt/5.5/5.5.0/qt-opensource-windows-x86-mingw492-5.5.0.exe" target="_blank" rel="noopener">http://download.qt.io/official_releases/qt/5.5/5.5.0/qt-opensource-windows-x86-mingw492-5.5.0.exe</a></p>
-<p>安装：</p>
-<p>一直“下一步”安装下去。</p>
-<h2 id="Qt-Creator运行："><a href="#Qt-Creator运行：" class="headerlink" title="Qt Creator运行："></a>Qt Creator运行：</h2><p>用Qt Creator创建项目：<br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135230436-2035070806.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135300327-642081944.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135329124-11023139.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135348983-981255417.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135405702-1719283850.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135425343-750603627.png" alt=""></p>
-<hr>
-<h1 id="Visual-Studio"><a href="#Visual-Studio" class="headerlink" title="Visual Studio:"></a>Visual Studio:</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载:"></a>下载:</h2><p><a href="http://download.qt-project.org/official_releases/vsaddin/qt-vs-addin-1.2.4-opensource.exe" target="_blank" rel="noopener">Visual Studio Add-in 1.2.4 for Qt5(156 MB)</a>:<a href="http://download.qt-project.org/official_releases/vsaddin/qt-vs-addin-1.2.4-opensource.exe" target="_blank" rel="noopener">http://download.qt-project.org/official_releases/vsaddin/qt-vs-addin-1.2.4-opensource.exe</a></p>
-<p><a href="http://download.qt.io/official_releases/qt/5.5/5.5.1/qt-opensource-windows-x86-msvc2013_64-5.5.1.exe" target="_blank" rel="noopener">Qt 5.5.1 for Windows 64-bit (VS 2013, 823 MB)</a>或<a href="http://download.qt.io/official_releases/qt/5.5/5.5.1/qt-opensource-windows-x86-msvc2013-5.5.1.exe" target="_blank" rel="noopener">Qt 5.5.1 for Windows 32-bit (VS 2013, 804 MB)</a></p>
-<h2 id="vs2013进行QT配置："><a href="#vs2013进行QT配置：" class="headerlink" title="vs2013进行QT配置："></a>vs2013进行QT配置：</h2><p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135450046-76850689.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135504546-1612990196.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135519155-1738395535.png" alt=""></p>
-<h2 id="创建项目："><a href="#创建项目：" class="headerlink" title="创建项目："></a>创建项目：</h2><p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135534624-413319152.png" alt=""></p>
-<p>一直下一步。</p>
-<h1 id="常见问题："><a href="#常见问题：" class="headerlink" title="常见问题："></a>常见问题：</h1><p>可以成功安装到V2013上，但是却出现了下面的问题： Qt5Widgetsd.lib(Qt5Widgetsd.dll) : fatal error LNK1112: 模块计算机类型“x64”与目标计算机类型“X86”冲突</p>
-<p><a href="http://jingyan.baidu.com/article/a948d65159d8890a2dcd2e84.html" target="_blank" rel="noopener">百度百科解决方法</a>：<a href="http://jingyan.baidu.com/article/a948d65159d8890a2dcd2e84.html" target="_blank" rel="noopener">http://jingyan.baidu.com/article/a948d65159d8890a2dcd2e84.html</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Qt</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/04/01/Qt安装配置/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Maven环境配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/03/15/Maven环境配置/">Maven环境配置</a>
-    </h1>
-  
-
-        
-        <a href="/2016/03/15/Maven环境配置/" class="archive-article-date">
-  	<time datetime="2016-03-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-03-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-下载Maven"><a href="#1-下载Maven" class="headerlink" title="1.下载Maven:"></a>1.下载Maven:</h1><p>下载地址：<a href="http://maven.apache.org/" target="_blank" rel="noopener">http://maven.apache.org/</a></p>
-<h1 id="2-安装-Maven"><a href="#2-安装-Maven" class="headerlink" title="2.安装 Maven"></a>2.安装 Maven</h1><p>如果需要使用到 Maven ，必须首先安装 Maven ， Maven 的下载地址在 Apache Maven 中有，您也可以点击这里下载 zip ,tar.gz。</p>
-<p>下载好 Maven 后，需要简单安装下。将下载的  zip  或者  tar.gz  包解压到需要安装到的目录。 接下简单配置下环境变量：</p>
-<ol>
-<li>新建环境变量  M2_HOME  ,输入值为 Maven 的安装目录。</li>
-<li>新建环境变量  M2  ，输入值为:  %M2_HOME%\bin  。</li>
-<li>将 M2 环境变量加入  Path  的最后，如：  ;%M2%  ;。</li>
-<li><p>环境变量就这么简单配置下就可以了。打开命令行窗口输入  mvn -version  。可以看到如下输出：</p>
-<p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151103151936539-1813106675.png" alt=""></p>
-</li>
-</ol>
-<p>看到以上输出，您的 Maven 环境就已经搭建好了。</p>
-<p>来源： <a href="http://maven.oschina.net/help.html" target="_blank" rel="noopener">http://maven.oschina.net/help.html</a></p>
-<h1 id="3-配置eclipse"><a href="#3-配置eclipse" class="headerlink" title="3.配置eclipse:"></a>3.配置eclipse:</h1><p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151103152011211-772620241.png" alt=""></p>
-<p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151103152029711-1972974655.png" alt=""></p>
-<h1 id="4-设置JRE"><a href="#4-设置JRE" class="headerlink" title="4.设置JRE:"></a>4.设置JRE:</h1><p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151103152055383-1622076243.png" alt=""></p>
-<pre><code>-Dmaven.multiModuleProjectDirectory=$M2_HOME
-</code></pre><p>网址：<a href="http://www.cnblogs.com/yhcao/p/4901815.html" target="_blank" rel="noopener">http://www.cnblogs.com/yhcao/p/4901815.html</a></p>
-<h1 id="5-为项目安装Maven"><a href="#5-为项目安装Maven" class="headerlink" title="5.为项目安装Maven:"></a>5.为项目安装Maven:</h1><p>选中选项右键</p>
-<p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151103152154649-802120497.png" alt=""></p>
-<p>如果出现错误，请检查网络。（公司网络不能访问外网，出错了，最后让网管开通外网才成功）</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Maven</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">eclipse</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/03/15/Maven环境配置/">展开全文 >></a>
         </p>
       
 
@@ -1988,6 +2068,30 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">X3框架</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Socket</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">grpc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">flatbuffer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ZeroMQ</a>
               </li>
             
             <div class="clearfix"></div>

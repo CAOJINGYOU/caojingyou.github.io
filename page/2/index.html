@@ -156,6 +156,93 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-插件框架" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/18/插件框架/">插件框架</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/18/插件框架/" class="archive-article-date">
+  	<time datetime="2018-04-18T06:48:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="插件框架"><a href="#插件框架" class="headerlink" title="插件框架"></a>插件框架</h1><p><a href="pluma-framework" title="http://pluma-framework.sourceforge.net">pluma-framework</a></p>
+<p><a href="https://www.devbean.net/category/plugin/" title="https://www.devbean.net/category/plugin/" target="_blank" rel="noopener">自己动手写插件框架</a></p>
+<p><a href="http://files.devbean.net/code/plugin.zip" target="_blank" rel="noopener">自己动手写插件框架-源代码</a></p>
+<p><a href="https://github.com/sld666666/cptf" target="_blank" rel="noopener">cpp plugin template framework</a></p>
+<p><a href="https://download.csdn.net/download/zhouxuguang236/7466253" target="_blank" rel="noopener">C++跨平台插件实例</a></p>
+<p><a href="https://github.com/linuxzjh/traditionalDevelopment" target="_blank" rel="noopener">traditionalDevelopment</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">插件框架</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/18/插件框架/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-CEF" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1803,108 +1890,6 @@ print(code)
 
 
   
-    <article id="post-WPF读写config配置文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/01/WPF读写config配置文件/">WPF读写config配置文件</a>
-    </h1>
-  
-
-        
-        <a href="/2018/03/01/WPF读写config配置文件/" class="archive-article-date">
-  	<time datetime="2018-03-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="设置："><a href="#设置：" class="headerlink" title="设置："></a>设置：</h1><p>在引用里添加</p>
-<pre><code>System.Configuration
-</code></pre><p>如果你想给程序配置一些参数，就在app.config文件<configuration>标签中添加<appsettings>.例如下面：</appsettings></configuration></p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;  
-&lt;configuration&gt;  
-  &lt;appSettings&gt;  
-    &lt;add key=&quot;Path&quot; value=&quot;D:\&quot;/&gt;  
-    &lt;add key=&quot;NAME&quot; value=&quot;123&quot;/&gt;  
-  &lt;/appSettings&gt;  
-&lt;/configuration&gt;
-</code></pre><p>读操作：</p>
-<pre><code>string strPath = ConfigurationManager.AppSettings[&quot;Path&quot;]; 
-</code></pre><p>写操作：</p>
-<pre><code>Configuration cfa = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None); 
-cfa.AppSettings.Settings[&quot;NAME&quot;].Value = &quot;WANGLICHAO&quot;; 
-cfa.Save(); 
-</code></pre><p>是配置立刻起作用：</p>
-<pre><code>Save()
-</code></pre><p>后加</p>
-<pre><code>ConfigurationManager.RefreshSection(&quot;appSettings&quot;);
-</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="http://www.cnblogs.com/fei12/p/3331100.html" target="_blank" rel="noopener">WPF读写config配置文件</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">WPF</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">配置文件</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/01/WPF读写config配置文件/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -2579,6 +2564,30 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">X3框架</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Socket</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">grpc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">flatbuffer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ZeroMQ</a>
               </li>
             
             <div class="clearfix"></div>

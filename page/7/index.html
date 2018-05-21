@@ -156,6 +156,480 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-CShap 系统托盘图标" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/01/CShap 系统托盘图标/">C# 系统托盘图标</a>
+    </h1>
+  
+
+        
+        <a href="/2017/02/01/CShap 系统托盘图标/" class="archive-article-date">
+  	<time datetime="2017-02-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p>
+<p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p>
+<p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p>
+<p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p>
+<h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf
+</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p>
+<h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml<window>添加</window></p>
+<pre><code>xmlns:tb=&quot;http://www.hardcodet.net/taskbar&quot;
+</code></pre><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p>
+<pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;
+  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;
+  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;
+  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;
+    &lt;ContextMenu&gt;
+      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;
+      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;
+    &lt;/ContextMenu&gt;
+  &lt;/tb:TaskbarIcon.ContextMenu&gt;
+&lt;/tb:TaskbarIcon&gt;
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/02/01/CShap 系统托盘图标/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-钩子" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/15/钩子/">钩子</a>
+    </h1>
+  
+
+        
+        <a href="/2017/01/15/钩子/" class="archive-article-date">
+  	<time datetime="2017-01-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="进程内钩子"><a href="#进程内钩子" class="headerlink" title="进程内钩子"></a>进程内钩子</h1><pre><code>//进程内钩子
+
+//鼠标钩子过程函数
+HHOOK g_hHookDm = NULL;
+HWND g_DestWndH = NULL;
+
+LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
+{
+    //此区间内的消息都是鼠标消息
+    if (WM_MOUSEMOVE &lt;= wParam &amp;&amp; wParam &lt;= WM_MOUSEWHEEL)
+    {
+        if (g_DestWndH != NULL)
+        {
+            ::SendMessage(g_DestWndH, wParam, wParam, lParam);
+            //鼠标钩子,lParam是MOUSEHOOKSTRUCT结构指针
+            PMOUSEHOOKSTRUCT lpMsg = (PMOUSEHOOKSTRUCT)lParam;
+            lpMsg-&gt;hwnd = NULL;
+            lpMsg-&gt;dwExtraInfo = 0L;
+            lpMsg-&gt;pt = CPoint(0, 0);
+            lpMsg-&gt;wHitTestCode = 0L;
+        }
+        return 1;//如果不想让此消息再往下传，返回非0
+    }
+    else
+    {
+        return ::CallNextHookEx(g_hHookDm, nCode, wParam, lParam);
+    }
+}
+
+//创建钩子过程
+if (g_hHookDm == NULL)
+{
+    //如果dwThreadid指定的线程是由当前进程创建，并且钩子过程在当时进程中，那么hMod必须设置为NULL.
+    g_hHookDm = ::SetWindowsHookEx(WH_MOUSE, MouseProc, NULL, GetCurrentThreadId());
+    if (g_hHookDm != NULL)
+    {
+        g_DestWndH = m_hWnd;//保存目的窗口句柄
+    }
+}
+
+//消毁进程内钩子
+if (g_hHookDm != NULL)
+{
+    UnhookWindowsHookEx(g_hHookDm);
+    g_DestWndH = NULL;
+}
+
+全局钩子-MFC扩展DLL
+
+/新建一个CMouseHook的导出类
+#pragma once
+
+// CMouseHook 命令目标
+//.h
+class AFX_EXT_CLASS CMouseHook : public CObject    //AFX_EXT_CLASS宏声明类为导出类
+{
+public:
+    CMouseHook();
+    virtual ~CMouseHook();
+
+public:
+    BOOL StartHook(HWND hWnd); //安装钩子函数
+
+    BOOL StopHook();//卸载钩子函数
+};
+
+//.cpp
+#include &lt;afxwin.h&gt;
+#include &lt;afxdllx.h&gt;
+
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#endif
+
+#define  WM_TOTASK (WM_USER + 2)
+
+#pragma data_seg(&quot;SharedDataName&quot;)
+
+HHOOK g_mouseHook;
+HHOOK g_keyboardHook;
+
+HWND g_hwnd = NULL;
+
+HINSTANCE glhInstance = NULL; //DLL实例句柄
+
+#pragma data_seg()
+
+#pragma comment(linker,&quot;/section:.SharedDataName,rws&quot;)
+
+static AFX_EXTENSION_MODULE MyMouseHookDLL = { NULL, NULL };
+
+extern &quot;C&quot; int APIENTRY
+DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
+{
+    // 如果使用 lpReserved，请将此移除
+    UNREFERENCED_PARAMETER(lpReserved);
+
+    if (dwReason == DLL_PROCESS_ATTACH)
+    {
+        TRACE0(&quot;MyMouseHook.DLL 正在初始化!\n&quot;);
+
+        // 扩展 DLL 一次性初始化
+        if (!AfxInitExtensionModule(MyMouseHookDLL, hInstance))
+            return 0;
+
+        // 将此 DLL 插入到资源链中
+        // 注意: 如果此扩展 DLL 由
+        //  MFC 规则 DLL (如 ActiveX 控件)隐式链接到，
+        //  而不是由 MFC 应用程序链接到，则需要
+        //  将此行从 DllMain 中移除并将其放置在一个
+        //  从此扩展 DLL 导出的单独的函数中。使用此扩展 DLL 的
+        //  规则 DLL 然后应显式
+        //  调用该函数以初始化此扩展 DLL。否则，
+        //  CDynLinkLibrary 对象不会附加到
+        //  规则 DLL 的资源链，并将导致严重的
+        //  问题。
+
+        new CDynLinkLibrary(MyMouseHookDLL);
+        glhInstance = hInstance; //插入保存DLL
+    }
+    else if (dwReason == DLL_PROCESS_DETACH)
+    {
+        TRACE0(&quot;MyMouseHook.DLL 正在终止!\n&quot;);
+
+        // 在调用析构函数之前终止该库
+        AfxTermExtensionModule(MyMouseHookDLL);
+    }
+    return 1;   // 确定
+}
+
+LRESULT CALLBACK MouseProc(
+    int nCode,      // hook code
+    WPARAM wParam,  // message identifier
+    LPARAM lParam   // mouse coordinates
+) //鼠标钩子过程
+{
+    LPMOUSEHOOKSTRUCT pMouseHook = (MOUSEHOOKSTRUCT FAR *)lParam;
+    if (nCode &gt;= 0)
+    {
+        if (WM_LBUTTONDOWN == wParam)
+        {
+
+            //鼠标钩子,lParam是MOUSEHOOKSTRUCT结构指针
+            PMOUSEHOOKSTRUCT lpMsg = (PMOUSEHOOKSTRUCT)lParam;
+            CPoint point = lpMsg-&gt;pt;
+
+            RECT rect;
+            ::GetWindowRect(g_hwnd, &amp;rect);    //得到整个窗口在屏幕上的矩形框位置
+
+            if ((point.x &lt; rect.left || point.x &gt; rect.right) || (point.y &lt; rect.top || point.y &gt; rect.bottom))
+            {
+                ::SendMessage(g_hwnd, WM_SYSCOMMAND, WM_TOTASK, 0);
+            }
+        }
+    }
+    return CallNextHookEx(g_mouseHook, nCode, wParam, lParam);
+}
+
+LRESULT CALLBACK KeyboardProc(
+    int code,       // hook code
+    WPARAM wParam,  // virtual-key code
+    LPARAM lParam   // keystroke-message information
+)//键盘钩子过程
+{
+    if(VK_F2 == wParam)
+    {
+        ::SendMessage(g_hwnd, WM_CLOSE, 0, 0);
+        ::UnhookWindowsHookEx(g_mouseHook);
+        ::UnhookWindowsHookEx(g_keyboardHook);
+    }
+    else
+        return 1;
+}
+
+//安装钩子并设定接收显示窗口句柄
+BOOL CMouseHook::StartHook(HWND hWnd)
+{
+    BOOL bResult = FALSE;
+    g_hwnd = hWnd;
+    g_mouseHook =::SetWindowsHookEx(WH_MOUSE, MouseProc, glhInstance/*::GetModuleHandle(_T(&quot;MyMouseHook.dll&quot;))*/, 0);
+    g_keyboardHook =::SetWindowsHookEx(WH_KEYBOARD, KeyboardProc, ::GetModuleHandle(_T(&quot;MyMouseHook.dll&quot;)), 0);
+    /*=================================================================================
+    HHOOK SetWindowsHookEx( int idHook,HOOKPROC lpfn, INSTANCE hMod,DWORD dwThreadId )
+    　　参数idHook表示钩子类型，它是和钩子函数类型一一对应的。
+    比如，WH_KEYBOARD表示安装的是键盘钩子，WH_MOUSE表示是鼠标钩子等等。
+
+    　　Lpfn是钩子函数的地址。
+
+    　　HMod是钩子函数所在的实例的句柄。对于线程钩子，该参数为NULL；
+    对于系统钩子，该参数为钩子函数所在的DLL句柄。
+
+    　　dwThreadId 指定钩子所监视的线程的线程号。对于全局钩子，该参数为NULL。
+
+    　　SetWindowsHookEx返回所安装的钩子句柄。
+    值得注意的是线程钩子和系统钩子的钩子函数的位置有很大的差别。
+    线程钩子一般在当前线程或者当前线程派生的线程内，
+    而系统钩子必须放在独立的动态链接库中，实现起来要麻烦一些。
+    ==================================================================================*/
+    if(g_mouseHook != NULL)
+        bResult = TRUE;
+
+    if(g_keyboardHook != NULL)
+        bResult = TRUE;
+
+    //设置显示目标窗口标题编辑框的句柄
+    return bResult;
+}
+
+//卸载钩子
+BOOL CMouseHook::StopHook()
+{
+    BOOL bResult = FALSE;
+    if(g_mouseHook)
+    {
+        bResult = UnhookWindowsHookEx(g_mouseHook);
+        if(bResult)
+        {
+            g_mouseHook = NULL;
+        }
+    }
+
+    if(g_keyboardHook)
+    {
+        bResult = UnhookWindowsHookEx(g_keyboardHook);
+        if(bResult)
+        {
+            g_keyboardHook = NULL;
+        }
+    }
+
+    return bResult;
+}
+</code></pre><h1 id="全局钩子-WIN32-DLL"><a href="#全局钩子-WIN32-DLL" class="headerlink" title="全局钩子-WIN32  DLL"></a>全局钩子-WIN32  DLL</h1><pre><code>#pragma data_seg(&quot;MySec&quot;)
+HHOOK g_mouseHook;
+HHOOK g_keyboardHook;
+HWND g_hwnd = NULL;
+#pragma data_seg()
+#pragma comment(linker,&quot;/section:MySec,RWS&quot;)   //设置链接器，使MySec节拥有属性为 RWS (READ WRITE SHARED )
+
+LRESULT CALLBACK MouseProc(
+    int nCode,      // hook code
+    WPARAM wParam,  // message identifier
+    LPARAM lParam   // mouse coordinates
+) //鼠标钩子过程
+{
+    return 1;
+}
+
+LRESULT CALLBACK KeyboardProc(
+    int code,       // hook code
+    WPARAM wParam,  // virtual-key code
+    LPARAM lParam   // keystroke-message information
+)//键盘钩子过程
+{
+    if(VK_F2 == wParam)
+    {
+        ::SendMessage(g_hwnd, WM_CLOSE, 0, 0);
+        ::UnhookWindowsHookEx(g_mouseHook);
+        ::UnhookWindowsHookEx(g_keyboardHook);
+    }
+    else
+        return 1;
+}
+
+void SetHook(HWND hwnd)
+{
+    g_hwnd = hwnd;
+    g_mouseHook =::SetWindowsHookEx(WH_MOUSE, MouseProc, ::GetModuleHandle(_T(&quot;dll_hook.dll&quot;)), 0);
+    g_keyboardHook =::SetWindowsHookEx(WH_KEYBOARD, KeyboardProc, ::GetModuleHandle(_T(&quot;dll_hook.dll&quot;)), 0);
+}
+
+//之后我们添加def文件
+//或者在def(模块定义文件中 )
+
+LIBRARY    &quot;Hook&quot;
+EXPORTS
+SetHook @2
+SECTIONS
+MySec   READ WRITE SHARED
+
+//编译下，编译通过之后可以看到 hook_dll.dll  和  hook_dll.lib文件。
+//接着我们写一个测试程序，新建MFC工程 选择对话框程序.拷贝hook_dll.dll  和  hook_dll.lib到工程目录下，在链接器命令行加上  hook_dll.lib.
+//在OnInitDialog()函数之前 定义DLL函数：
+
+_declspec(dllimport) void SetHook(HWND hwnd);
+//在OnInitDialog()内添加
+
+SetHook(this-&gt;m_hWnd);
+</code></pre><p> </p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">钩子</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/01/15/钩子/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-CShap ShellExcute与Process" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1016,106 +1490,6 @@ namespace GetTest
 
 
   
-    <article id="post-CShap 视频编辑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/01/CShap 视频编辑/">C# 视频编辑</a>
-    </h1>
-  
-
-        
-        <a href="/2016/10/01/CShap 视频编辑/" class="archive-article-date">
-  	<time datetime="2016-10-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="VidCoder"><a href="#VidCoder" class="headerlink" title="VidCoder"></a>VidCoder</h1><p>VidCoder是一个开源免费的DVD/蓝光视频抓取和转码软件.使用HandBrake做为编码引擎.比Handbrake拥有更友好的用户界面.</p>
-<p>可裁剪、剪切、字幕编辑、转码等。</p>
-<p>官网：<br><a href="http://vidcoder.codeplex.com/" target="_blank" rel="noopener">http://vidcoder.codeplex.com/</a></p>
-<h1 id="VLC-media-player"><a href="#VLC-media-player" class="headerlink" title="VLC media player"></a>VLC media player</h1><p>VLC 是一款自由、开源的跨平台多媒体播放器及框架，可播放大多数多媒体文件，以及 DVD、音频 CD、VCD 及各类流媒体协议。</p>
-<p>官网：<a href="http://www.videolan.org/vlc/" target="_blank" rel="noopener">http://www.videolan.org/vlc/</a></p>
-<h1 id="ffmpeg-Mencoder"><a href="#ffmpeg-Mencoder" class="headerlink" title="ffmpeg + Mencoder"></a>ffmpeg + Mencoder</h1><p>ffmpeg下载：<a href="http://ffmpeg.org/download.html" target="_blank" rel="noopener">http://ffmpeg.org/download.html</a></p>
-<p>Mencoder下载：<a href="http://www.mplayerhq.hu/design7/dload.html" target="_blank" rel="noopener">http://www.mplayerhq.hu/design7/dload.html</a></p>
-<p>C#调用ffmpeg的方法，仅供参考：<a href="https://github.com/CAOJINGYOU/VideoEditor" target="_blank" rel="noopener">VideoEditor</a></p>
-<h1 id="SharpFFmpeg"><a href="#SharpFFmpeg" class="headerlink" title="SharpFFmpeg"></a>SharpFFmpeg</h1><p>SharpFFmpeg 是一个 ffmpeg 的 C# 绑定版本，允许 .NET 开发者轻松的创建音频和视频应用。</p>
-<p>个人没用过，感觉不错，一会有机会研究下。</p>
-<p>下载地址：<a href="https://sourceforge.net/projects/sharpffmpeg/" target="_blank" rel="noopener">https://sourceforge.net/projects/sharpffmpeg/</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VidCoder</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VLC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ffmpeg</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/10/01/CShap 视频编辑/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-C++智能指针" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1339,6 +1713,106 @@ private:
 
 
   
+    <article id="post-CShap 视频编辑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/01/CShap 视频编辑/">C# 视频编辑</a>
+    </h1>
+  
+
+        
+        <a href="/2016/10/01/CShap 视频编辑/" class="archive-article-date">
+  	<time datetime="2016-10-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="VidCoder"><a href="#VidCoder" class="headerlink" title="VidCoder"></a>VidCoder</h1><p>VidCoder是一个开源免费的DVD/蓝光视频抓取和转码软件.使用HandBrake做为编码引擎.比Handbrake拥有更友好的用户界面.</p>
+<p>可裁剪、剪切、字幕编辑、转码等。</p>
+<p>官网：<br><a href="http://vidcoder.codeplex.com/" target="_blank" rel="noopener">http://vidcoder.codeplex.com/</a></p>
+<h1 id="VLC-media-player"><a href="#VLC-media-player" class="headerlink" title="VLC media player"></a>VLC media player</h1><p>VLC 是一款自由、开源的跨平台多媒体播放器及框架，可播放大多数多媒体文件，以及 DVD、音频 CD、VCD 及各类流媒体协议。</p>
+<p>官网：<a href="http://www.videolan.org/vlc/" target="_blank" rel="noopener">http://www.videolan.org/vlc/</a></p>
+<h1 id="ffmpeg-Mencoder"><a href="#ffmpeg-Mencoder" class="headerlink" title="ffmpeg + Mencoder"></a>ffmpeg + Mencoder</h1><p>ffmpeg下载：<a href="http://ffmpeg.org/download.html" target="_blank" rel="noopener">http://ffmpeg.org/download.html</a></p>
+<p>Mencoder下载：<a href="http://www.mplayerhq.hu/design7/dload.html" target="_blank" rel="noopener">http://www.mplayerhq.hu/design7/dload.html</a></p>
+<p>C#调用ffmpeg的方法，仅供参考：<a href="https://github.com/CAOJINGYOU/VideoEditor" target="_blank" rel="noopener">VideoEditor</a></p>
+<h1 id="SharpFFmpeg"><a href="#SharpFFmpeg" class="headerlink" title="SharpFFmpeg"></a>SharpFFmpeg</h1><p>SharpFFmpeg 是一个 ffmpeg 的 C# 绑定版本，允许 .NET 开发者轻松的创建音频和视频应用。</p>
+<p>个人没用过，感觉不错，一会有机会研究下。</p>
+<p>下载地址：<a href="https://sourceforge.net/projects/sharpffmpeg/" target="_blank" rel="noopener">https://sourceforge.net/projects/sharpffmpeg/</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VidCoder</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VLC</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ffmpeg</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/10/01/CShap 视频编辑/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Github pages + jekyll 博客快速搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1410,281 +1884,6 @@ private:
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2016/09/15/Github pages + jekyll 博客快速搭建/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Github Pages和Hexo创建静态博客网站" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/01/Github Pages和Hexo创建静态博客网站/">Github Pages和Hexo创建静态博客网站</a>
-    </h1>
-  
-
-        
-        <a href="/2016/09/01/Github Pages和Hexo创建静态博客网站/" class="archive-article-date">
-  	<time datetime="2016-09-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-09-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Github-Pages和Hexo创建静态博客网站"><a href="#Github-Pages和Hexo创建静态博客网站" class="headerlink" title="Github Pages和Hexo创建静态博客网站"></a>Github Pages和Hexo创建静态博客网站</h1><h2 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h2><p>本人是window环境，所以下载window版。</p>
-<p>下载地址：<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">https://nodejs.org/en/download/</a></p>
-<h2 id="下载-msysgit"><a href="#下载-msysgit" class="headerlink" title="下载 msysgit"></a>下载 msysgit</h2><p>下载地址：<a href="https://git-for-windows.github.io/" target="_blank" rel="noopener">https://git-for-windows.github.io/</a></p>
-<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p>点击鼠标右键菜单Git Bash Here</p>
-<pre><code>npm install hexo-cli -g
-npm install hexo --save
-#如果命令无法运行，可以尝试更换taobao的npm源
-npm install -g cnpm --registry=https://registry.npm.taobao.org
-</code></pre><p>创建一个blog目录</p>
-<p>执行命令：</p>
-<pre><code>hexo init
-npm install
-</code></pre><p>安装插件，可跳过此步骤：</p>
-<pre><code>npm install hexo-generator-index --save
-npm install hexo-generator-archive --save
-npm install hexo-generator-category --save
-npm install hexo-generator-tag --save
-npm install hexo-server --save
-npm install hexo-deployer-git --save
-npm install hexo-deployer-heroku --save
-npm install hexo-deployer-rsync --save
-npm install hexo-deployer-openshift --save
-npm install hexo-renderer-marked@0.2 --save
-npm install hexo-renderer-stylus@0.2 --save
-npm install hexo-generator-feed@1 --save
-npm install hexo-generator-sitemap@1 --save
-</code></pre><p>最好执行：</p>
-<pre><code>npm install hexo-generator-feed --save
-npm install hexo-generator-baidu-sitemap --save
-npm install hexo-generator-sitemap --save
-</code></pre><p>分别对应：rss、百度爬虫sitemap、通用搜索引擎sitemap</p>
-<p>运行本地Hexo:</p>
-<pre><code>hexo generate
-hexo server
-</code></pre><p>浏览器查看效果：</p>
-<pre><code>localhost:4000
-</code></pre><h2 id="上传到Github"><a href="#上传到Github" class="headerlink" title="上传到Github"></a>上传到Github</h2><p>找到主项目的https地址：<a href="https://xxx/github.io.git" target="_blank" rel="noopener">https://xxx/github.io.git</a></p>
-<p>打开blog文件夹下_config.yml文件修改：</p>
-<pre><code>deploy:
-  type: git
-  repository: https://xxx/github.io.git
-  branch: master
-</code></pre><p>执行命令：</p>
-<pre><code>hexo g -d
-</code></pre><h2 id="换主题"><a href="#换主题" class="headerlink" title="换主题"></a>换主题</h2><p>Hexo主题：<a href="https://hexo.io/themes/" target="_blank" rel="noopener">https://hexo.io/themes/</a></p>
-<p>执行命令下载主题：</p>
-<p>git clone <a href="https://github.com/xxx.git(主题地址" target="_blank" rel="noopener">https://github.com/xxx.git(主题地址</a>) themes/xxx(主题文件夹)</p>
-<p>修改_config.yml文件：</p>
-<pre><code>theme: xxx（主题名）
-</code></pre><p>执行命令：</p>
-<pre><code>hexo g
-hexo s
-</code></pre><p>打开<a href="http://localhost:4000/即可看到效果。" target="_blank" rel="noopener">http://localhost:4000/即可看到效果。</a></p>
-<h2 id="部署到Github"><a href="#部署到Github" class="headerlink" title="部署到Github"></a>部署到Github</h2><p>执行命令：</p>
-<pre><code>hexo clean   
-hexo g -d
-</code></pre><h2 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h2><pre><code>hexo n &quot;文章标题&quot; #新建md文件
-hexo g -d #生成并部署
-</code></pre><h1 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h1><p>Create a new post</p>
-<pre><code>hexo new &quot;My New Post&quot;
-</code></pre><p>Run server</p>
-<pre><code>hexo server
-</code></pre><p>Generate static files</p>
-<pre><code>hexo generate
-</code></pre><p>Deploy to remote sites</p>
-<pre><code>hexo deploy
-</code></pre><h1 id="错误："><a href="#错误：" class="headerlink" title="错误："></a>错误：</h1><p>hexo d后 ERROR Deployer not found: git</p>
-<pre><code>npm install --save hexo-deployer-git
-</code></pre><h1 id="主题"><a href="#主题" class="headerlink" title="主题"></a>主题</h1><p><a href="https://github.com/litten/hexo-theme-yilia" title="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia</a></p>
-<p><a href="https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5" title="https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5</a></p>
-<p>参考：</p>
-<ul>
-<li><a href="http://blog.csdn.net/ljcitworld/article/details/50901626" target="_blank" rel="noopener">小白独立搭建博客–Github Pages和Hexo简明教程</a></li>
-<li><a href="http://www.jianshu.com/p/73779eacb494" target="_blank" rel="noopener">Hexo 靜態博客使用指南</a></li>
-<li><a href="http://wiki.jikexueyuan.com/project/hexo-document/" target="_blank" rel="noopener">Hexo 中文版</a></li>
-<li><a href="http://www.jianshu.com/p/cc38fc9493d4" target="_blank" rel="noopener">解决hexo d命令提交部署博客发生的TaskCanceledException异常</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Github Pages</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">静态博客</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/09/01/Github Pages和Hexo创建静态博客网站/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-程序打包" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/15/程序打包/">程序打包</a>
-    </h1>
-  
-
-        
-        <a href="/2016/08/15/程序打包/" class="archive-article-date">
-  	<time datetime="2016-08-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-08-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Visual-Studio-Installer"><a href="#Visual-Studio-Installer" class="headerlink" title="Visual Studio Installer"></a>Visual Studio Installer</h1><p><a href="http://www.cnblogs.com/daban/archive/2012/06/27/2565449.html" target="_blank" rel="noopener">VS2010程序打包操作</a></p>
-<h1 id="InstallShield"><a href="#InstallShield" class="headerlink" title="InstallShield"></a>InstallShield</h1><p><a href="http://liucw.blog.51cto.com/6751239/1220134" target="_blank" rel="noopener">InstallShield使用完全教程</a></p>
-<p><a href="http://www.jb51.net/softjc/467.html" target="_blank" rel="noopener">探索InstallShield——制作一个完整的应用程序安装实例</a></p>
-<p><a href="http://blog.csdn.net/duanbeibei/article/details/50333603" target="_blank" rel="noopener">一个完整的Installshield安装程序实例</a> </p>
-<p>从Visual Studio 2012开始，微软就把自家原来的安装与部署工具彻底废掉了，转而让大家去安装使用第三方的打包工具“InstallShield Limited Edition for Visual Studio”，注意这个版本是免费的，只需要邮件注册下，就会有要注册码。</p>
-<p><a href="http://www.cnblogs.com/zhuxiaohui/p/5139740.html" target="_blank" rel="noopener">Visual Studio InstallShield</a></p>
-<p><a href="http://www.cnblogs.com/wuhuacong/p/4438761.html" target="_blank" rel="noopener">Visual Studio InstallShield</a></p>
-<h1 id="Inno"><a href="#Inno" class="headerlink" title="Inno"></a>Inno</h1><p><a href="http://blog.csdn.net/ruifangcui7758/article/details/6662646" target="_blank" rel="noopener">Inno setup 简单打包教程</a> </p>
-<p>官网上下载的不能新建中文项目，所以还是到网上找汉化版的吧。</p>
-<pre><code>&quot;ISCC.exe&quot; &quot;%~dp0..\Inno Setup\PeriodicalEditor.iss&quot;
-</code></pre><h1 id="advanced-installer"><a href="#advanced-installer" class="headerlink" title="advanced installer"></a>advanced installer</h1><p><a href="http://anger6678.blog.163.com/blog/static/3293226201072944119412/" target="_blank" rel="noopener">Advanced Installer汉化版教程</a></p>
-<h1 id="NSIS"><a href="#NSIS" class="headerlink" title="NSIS"></a>NSIS</h1><p><a href="http://blog.csdn.net/csxiaoshui/article/details/45310135" target="_blank" rel="noopener">NSIS简介</a> </p>
-<p><a href="http://www.cnblogs.com/modou/p/3573772.html" target="_blank" rel="noopener">使用NSIS制作安装包</a></p>
-<p><a href="http://www.hanzify.org/teach/index.php?Go=Show::196-1108396800" target="_blank" rel="noopener">NSIS安装制作基础教程[初级篇]</a></p>
-<p><a href="http://hmne.sourceforge.net/" target="_blank" rel="noopener">NIS Edit</a></p>
-<p><a href="https://sourceforge.net/projects/nsis/" target="_blank" rel="noopener">NSIS: Nullsoft Scriptable Install System</a></p>
-<p><a href="http://www.nsisfans.com/" title="NSIS中文论坛" target="_blank" rel="noopener">http://www.nsisfans.com/</a></p>
-<p><a href="http://blog.csdn.net/sdujava2011/article/details/51271567" target="_blank" rel="noopener">NSIS UI 美化类插件分享 </a></p>
-<p><a href="http://www.aceui.cn" target="_blank" rel="noopener">www.aceui.cn-nsSkinEngine</a></p>
-<p><a href="https://github.com/cppfuns/nsSkinEngine_NSIS_demo" target="_blank" rel="noopener">nsSkinEngine_NSIS_demo</a></p>
-<h1 id="牛牛安装包界面美化控件-nsNiuniuSkin"><a href="#牛牛安装包界面美化控件-nsNiuniuSkin" class="headerlink" title="牛牛安装包界面美化控件 [nsNiuniuSkin]"></a>牛牛安装包界面美化控件 [nsNiuniuSkin]</h1><p><a href="http://www.ggniu.cn/download.htm" title="http://www.ggniu.cn/download.htm" target="_blank" rel="noopener">http://www.ggniu.cn/download.htm</a></p>
-<h1 id="WixToolSet"><a href="#WixToolSet" class="headerlink" title="WixToolSet"></a>WixToolSet</h1><p><a href="http://wixtoolset.org/" title="http://wixtoolset.org/" target="_blank" rel="noopener">http://wixtoolset.org/</a></p>
-<p><a href="http://wixtoolset.org/releases/" target="_blank" rel="noopener">http://wixtoolset.org/releases/</a></p>
-<p><a href="https://www.firegiant.com/wix/tutorial/" title="WiX Toolset Tutorial" target="_blank" rel="noopener">https://www.firegiant.com/wix/tutorial/</a></p>
-<p><a href="http://blog.csdn.net/xxdddail/article/details/12652233" target="_blank" rel="noopener">WIX安装图文并茂简易说明</a></p>
-<p><a href="http://www.cnblogs.com/stoneniqiu/category/522235.html" title="http://www.cnblogs.com/stoneniqiu/category/522235.html" target="_blank" rel="noopener">http://www.cnblogs.com/stoneniqiu/category/522235.html</a></p>
-<p><a href="https://www.firegiant.com/wix/tutorial/getting-started/the-files-inside/" title="https://www.firegiant.com/wix/tutorial/getting-started/the-files-inside/" target="_blank" rel="noopener">https://www.firegiant.com/wix/tutorial/getting-started/the-files-inside/</a></p>
-<p><a href="http://wixtoolset.org/documentation/manual/v3/" title="http://wixtoolset.org/documentation/manual/v3/" target="_blank" rel="noopener">http://wixtoolset.org/documentation/manual/v3/</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">打包</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">InstallShield</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Inno</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/08/15/程序打包/">展开全文 >></a>
         </p>
       
 
@@ -2388,6 +2587,30 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">X3框架</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Socket</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">protobuf</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">grpc</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">flatbuffer</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ZeroMQ</a>
               </li>
             
             <div class="clearfix"></div>
