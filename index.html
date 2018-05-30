@@ -160,6 +160,449 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Boost与设计模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/24/Boost与设计模式/">Boost与设计模式</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/24/Boost与设计模式/" class="archive-article-date">
+  	<time datetime="2018-05-24T01:16:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="创建型模式"><a href="#创建型模式" class="headerlink" title="创建型模式"></a>创建型模式</h1><p>面向对象的软件开发的基础是对象。随着系统的不断演化,会出现越来越多的对象,如果单纯使用C++提供的new操作符,将使程序中到处都是硬编码的对象创建代码,很难适应变,化。而创建型模式抽象了类的实例化过程,它封装了对象的创建动作,使对象的创建可以独立.于系统的其他部分。</p>
+<h2 id="抽象工厂-Abstract-Factory"><a href="#抽象工厂-Abstract-Factory" class="headerlink" title="抽象工厂(Abstract Factory)"></a>抽象工厂(Abstract Factory)</h2><p>抽象工厂模式把对象的创建封装在一个类中,这个类唯一的任务就是按需生产各种对象,通过派生子类的方式抽象工厂可以生产不同系列的、整套的对象。工厂类通常是单件,以保证,在系统的任何地方都可以访问,其中的每个方法都是工厂方法。在较小的软件系统中,抽象工,厂有时候会退化成一个没有子类的简单工厂。</p>
+<p>xpressive库有一个抽象工厂regex_compiler,可以生产各种正则表达式解析对象,但它用模板技术而不是继承实例化出了具体的工厂。</p>
+<h2 id="生成器-Builder"><a href="#生成器-Builder" class="headerlink" title="生成器(Builder)"></a>生成器(Builder)</h2><p>生成器模式分解了复杂对象的创建过程,创建过程可以被子类改变,使同样的过程可以生产出不同的对象。生成器与抽象工厂不同,它不是一次性地创建出产品,而是分步骤逐渐地“装配”出对象,因而可以对创建过程进行更精细的控制。</p>
+<p>Boost库没有生成器模式的具体应用,因为生成器模式主要用来构造复杂的对象,对于库来说复杂的创建过程会令库难以使用。</p>
+<p>multi_array对象的创建过程类似生成器模式,它先用模板参数设定基本维数,然后再逐个指定各个维度,最后生成一个多维数组。</p>
+<h2 id="工厂方法-Factory-Method"><a href="#工厂方法-Factory-Method" class="headerlink" title="工厂方法(Factory Method)"></a>工厂方法(Factory Method)</h2><p>工厂方法模式是另一种生产对象的方式,它把对象的创建封装在一个方法中,子类可以改变工厂方法的生产行为生产不同的对象。工厂方法所属的类不一定是工厂类(抽象工厂或者生成器),它可能是一个普通类、一个框架类,或者是一个自由函数。</p>
+<p>Boost 库中的 make_shared () 、make_optional() 、make_tuple ()、regex&lt;&gt;:: complie ()等函数都属于工厂方法模式。而functional/factory组件则实现了对new操作符的完全封装,类似于泛化的make_pair ()、 make_optional()。</p>
+<h2 id="原型-Prototype"><a href="#原型-Prototype" class="headerlink" title="原型(Prototype)"></a>原型(Prototype)</h2><p>原型模式使用类的实例通过拷贝的方式创建对象,具体的拷贝行为可以定制,它最常见的用法是为类实现一个clone()成员函数,这个函数创建,个与原型相同或相似的新对象。</p>
+<p>weak_ptr的enable_shared _rom_this用法类似于一个原型模式,它创建了一个指向自身的shared_ptr, exception库提供了一个enable_current_exception()函数,它被用于线程安全地处理异常,返回一个clone的异常对象。</p>
+<p>指针容器库pointer_container容纳的指针不允许共享,如果要拷贝指针容器,则需要被容纳的元素提供clone()操作,使用原型模式创建一个等价的副本。</p>
+<h2 id="单件-Singleton"><a href="#单件-Singleton" class="headerlink" title="单件(Singleton)"></a>单件(Singleton)</h2><p>单件模式保证类有且仅有一个实例,并且提供一个全局的访问点。通常的全局变量技术虽,然也可以提供类似的功能,但它不能防止用户创建多个实例。单件的基本原理很简单,但有很,多实现的变化。</p>
+<p>Boost库目前没有专门的单件库,但在serialization库提供了一个可用的实现。</p>
+<h1 id="结构型模式"><a href="#结构型模式" class="headerlink" title="结构型模式"></a>结构型模式</h1><p>结构型模式专注于如何组合类或对象,进而形成更大更有用的新对象。</p>
+<p>组合对象有两种方式:第一种是C++语言本身提供的继承机制,但它在编译期就已经确定,了对象的关系,无法在运行时改变,缺乏足够的灵活性。第二种方法是运行时对象组合,不同的对象之间彼此互相独立,仅通过定义良好的接口通信协同工作,它更灵活和易于模块化,但因为组合方式富有变化而较难以理解。</p>
+<h2 id="适配器-Adapter"><a href="#适配器-Adapter" class="headerlink" title="适配器(Adapter)"></a>适配器(Adapter)</h2><p>适配器模式把一个类的接口转换(适配)为另一个接口,从而在不改变原有代码的基础上,复用原代码。它的别名wrapper更清晰地说明了它的实现结构:包装了原有对象,再给出一个新的接口。</p>
+<p>array类是适配器模式的一个很好例子,它把原始数组适配成了符合STL标准的容器,<br>使数组可以与其他标准库组件(算法、迭代器、其他容器)协同工作。同样, multi_ array_ref和const_multi_array_ref把原始数组适配成了Boost的多维数组容器。</p>
+<p>thread库的lockable_adapter是适配器类用法的例子,它工作在编译期,把一个类适配为可以被锁定的类型,用于多线程环境编程。</p>
+<h2 id="桥接-Bridge"><a href="#桥接-Bridge" class="headerlink" title="桥接(Bridge )"></a>桥接(Bridge )</h2><p>桥接模式分离了类的抽象和实现,使它们可以彼此独立地变化而互不影响。桥接模式与适配器模式有些相似,在两个对象之间加入了一个中间层次,提供间接联系增加了系统的灵活性。但两者的意图不同,适配器模式关心的是接口不匹配的问题,不关心接口的实现,只要求对象能,够协同工作。桥接模式的侧重点是接口和实现,通常接口是稳定的,桥接解决实现的变化问题。</p>
+<p>智能指针的pimpl用法是桥接模式的一个应用,它向外界提供接口的同时并没有暴露任,何内部的实现信息,因此实现可以任意地改变而不会影响到使用接口的客户代码。</p>
+<p>桥接模式的另一个例子是随机数库random的硬件随机数发生器。random_device的对外,接口不变,而内部的pimpl指针可以采用不同的硬件设备从而有不同的实现。</p>
+<h2 id="组合-Composite"><a href="#组合-Composite" class="headerlink" title="组合(Composite)"></a>组合(Composite)</h2><p>组合模式将小对象组合成树形结构,使用户操作组合对象如同操作一个单个对象。组合模,式定义了“部分一整体”的层次结构,基本对象可以被组合成更大的对象,而且这种操作是可重复的,不断重复下去就可以得到一个非常大的组合对象,但这些组合对象与基本对象拥有相,同的接口,因而组合是透明的,用法完全一致。</p>
+<p>xpressive库就利用了组合模式,它定义了许多小的正则表达式元素,通过重载操作符把它们逐个组合起来,形成一个大的正则表达式,而这些正则表达式又可以被继续组合下去。</p>
+<p>property_tree更好地诠释了组合模式。属性树的每一个子节点也是属性树,属性树可以有任意复杂的组合,但最终呈现给用户的还是一个basic ptree接口,使用时完全不需要关心它内部的复杂结构,这是一个透明的接口。</p>
+<p>multi_array也是组合模式的一个具体应用,它是递归定义的,每个维度都是一个multi_array。</p>
+<h2 id="装饰-Decorator"><a href="#装饰-Decorator" class="headerlink" title="装饰(Decorator)"></a>装饰(Decorator)</h2><p>装饰模式可以在运行时动态地给对象增加功能。它也是对对象的包装,但与适配器模式不,同的是它并没有改变被包装对象的接口,只是改变了它的能力范围,而且可以递归组合。<br>通过生成子类的方式也可以为对象增加功能,但它是静态的,而且大量的功能组合很容易,产生“子类爆炸”现象。装饰模式可以动态、透明地给对象增加职责,并且在不需要的时候很,容易去除,使用派生子类的方式无法达到这种灵活程度。</p>
+<p>operators库的基类链技术很类似装饰模式,用后一个运算概念装饰前一个运算概念,不断组,合增加了操作符重载的能力,但它是运用泛型编程技术在编译期实现的。</p>
+<h2 id="外观-Facade"><a href="#外观-Facade" class="headerlink" title="外观(Facade)"></a>外观(Facade)</h2><p>外观模式为系统中的大量对象提供一个一致的对外接口,以简化系统的使用。外观是另-种形式的wrapper,它不是包装一个对象,而是包装一组对象,简化了这组对象间的通信关系,给出一个高层次的易用接口。但外观并不屏蔽系统里的对象,如果需要,用户完全可以越过外观的包装使用底层对象以获得更灵活的功能。</p>
+<p>随机数库random的变量发生器就是一个外观模式,它屏蔽了random库内部的大量细,节,给用户提供一个可轻松生成随机数的operator ()。</p>
+<h2 id="享元-Flyweight"><a href="#享元-Flyweight" class="headerlink" title="享元(Flyweight)"></a>享元(Flyweight)</h2><p>享元模式使用共享的方式节约内存的使用,可以支持大量细粒度的对象。它将对象的内部,状态与外部状态分离,配合工厂模式(抽象工厂或工厂方法)生成仅有内部状态的小对象,工厂内部保持小对象的引用计数从而实现共享,外部状态可以通过计算得到。</p>
+<p>xpressive库的regex_compiler不仅是一个抽象工厂模式,它同时也是享元模式,在内部保存了所有正则表达式对象从而实现共享。Boost里还有一个flyweight库直接实现了享元模式。</p>
+<h2 id="代理-Proxy"><a href="#代理-Proxy" class="headerlink" title="代理(Proxy)"></a>代理(Proxy)</h2><p>代理模式与适配器模式、装饰模式很像,也包装对象,但它的意图不是改变接口插入新系统(适配),也不是为对象增加职责(装饰),而是要控制对象。外界不能直接访问对象,必须通过代理才能与被包装的对象通信。</p>
+<p>代理模式的应用非常广泛, smart_ptr库就是代理模式的最佳应用。scoped_ptr.shared_ptr等智能指针包装了原始指针,代理了原始指针的职能,用户只需使用智能指针的代理就可以获得原始指针同样的功能,而且不用担心资源泄漏,因为智能指针控制了原始指针的行为。</p>
+<p>bind. optional, ref和function也属于代理模式,它们都包装了原始的对象或者函数,为它们提供一定程度的控制,在需要时把消息转发给原始的对象或函数完成工作。</p>
+<h1 id="行为模式"><a href="#行为模式" class="headerlink" title="行为模式"></a>行为模式</h1><p>行为模式关注的是程序运行时的对象通信和职责分配,跟踪动态的、复杂的控制流和消息,流,比创建型模式和结构型模式更难于掌握。通常对象一旦创建,它们就立即联系起来,这种联系是动态的,很难甚至不可能从代码中看出来。行为模式以可文档化的形式描述对象通信机,制,可以帮助我们深入了解把握对象之间的关系。</p>
+<p>行为模式大都采用对象组合,封装程序的可变部分。</p>
+<h2 id="职责链-Chain-of-Responsibility"><a href="#职责链-Chain-of-Responsibility" class="headerlink" title="职责链(Chain of Responsibility)"></a>职责链(Chain of Responsibility)</h2><p>职责链模式把对象链成一条链,使链上的每个对象都有机会处理请求。职责链把请求的发,送者和接收者解耦,使两者都互不知情,而且职责链中的对象可以动态地增减,从而增强了处理请求的灵活性。</p>
+<p>assign库的工作原理类似职责链模式,但链上仅有一个对象,它使用重载操作符operator()和operator,,将赋值请求连接成一个链逐个处理,最后完成赋值或初始化工作。</p>
+<p>iostreams库也使用了职责链模式,它定义了source, sink, filter等概念,对象,间可以串联起来,一个的输出作为另一个的输入,完成流处理的功能。</p>
+<h2 id="命令-Command"><a href="#命令-Command" class="headerlink" title="命令(Command)"></a>命令(Command)</h2><p>命令模式把请求封装成一个对象,使请求能够存储更多的信息拥有更多的能力。命令模式,同样能够把请求的发送者和接收者解耦,但它不关心请求将以何种方式被处理。命令模式经常!与职责链模式和组合模式一起使用:职责链模式处理命令模式封装的对象,组合模式可以把简单的命令对象组合成复杂的命令对象。</p>
+<p>exception库是命令模式的一个例子。它把错误信息包装在异常中,使用c++的异常机制传递,直到有一个catch块处理它。</p>
+<h2 id="解释器-Interpreter"><a href="#解释器-Interpreter" class="headerlink" title="解释器( Interpreter)"></a>解释器( Interpreter)</h2><p>解释器模式定义了个类体系,用1实现,个小型语言的解释器。它与组合模式很相似,而且常常利用组合模式来实现语法树的构建。</p>
+<p>regex, xpressive, proto, spirit, wave等库都使用了解释器模式,前两者可以解析正则表达式, proto是一个通用的表达式树构建工具, spirit实现了EBNF语法解析器,<br>vave则是C/C++的预处理解析器。</p>
+<p>program_options也是一个解释器模式应用,它可以解析命令行参数这种简单的语法,结构。</p>
+<h2 id="代器-Iterator"><a href="#代器-Iterator" class="headerlink" title="代器(Iterator)"></a>代器(Iterator)</h2><p>迭代器模式把按某种顺序访问一个集合中的元素的方式封装在一个对象中,从而无须知道,售合的内部表示就可以访问集合。</p>
+<p>迭代器模式可能是面向对象软件开发中应用的最广泛的一个设计模式,在STL中就已经有了大量的迭代器实践,它是泛化的指针,被用于以正序或逆序遍历容器内的元素。boost.iterators和boost.range在STL的基础上进一步深化创新了迭代器的概念。</p>
+<h2 id="中介者-Mediator"><a href="#中介者-Mediator" class="headerlink" title="中介者(Mediator)"></a>中介者(Mediator)</h2><p>中介者模式用一个中介对象封装了一系列对象的交互联系,使它们不需要相互了解就可以协同工作。中介者模式在存在大量需要相互通信对象的系统中特别有用,因为对象数量的增加,会使对象间的联系非常复杂,整个系统变得难以理解难以改动。这时中介者可以把这些对象解,耦,每个对象只需要与中介对象通信,中介对象集中了控制逻辑,降低了系统的通信复杂度。</p>
+<p>中介者模式与观察者模式是相互竞争的模式,通常观察者模式比中介者模式更容易生成可,复用的对象,中介者模式如果使用不当很容易导致中介对象过度复杂,抵消了模式带来的好处。</p>
+<p>Boost库暂没有中介者模式的应用例子。</p>
+<h2 id="备忘录-Memento"><a href="#备忘录-Memento" class="headerlink" title="备忘录(Memento)"></a>备忘录(Memento)</h2><p>备忘录模式可以捕获一个对象的内部状态,并在对象之外保存该状态,在之后可以随时把,|对象恢复到之前保存的状态。</p>
+<p>io_state_savers库的实现类似备忘录模式,它可以保存10流的各种状念,在析构时,自动恢复,防止10流因状态异常而发生错误。</p>
+<h2 id="观察者-Observer"><a href="#观察者-Observer" class="headerlink" title="观察者(Observer)"></a>观察者(Observer)</h2><p>观察者模式定义了对象间一对多的联系,当个对象的状态发生变化时,所有与它有联系的观察者对象都会得到通知。观察者模式将被观察的目1标和观察者解糊,个11标可以有任意多的观察者,观察者也可以观察任意多的1标,构成复杂的联系,而每个观察者都不知道其他,观察者的存在。</p>
+<p>观察者模式是一个非常著名、威力强大的设计模式,很多编程语言都有它不同形式的实现,<br>如Java的Observable/observer和C#的event/delegate.Boost库提供signals2,完全实现了观察者模式。</p>
+<h2 id="状态-State"><a href="#状态-State" class="headerlink" title="状态(State)"></a>状态(State)</h2><p>状态模式允许对象在状态发生变化时行为也同时改变。</p>
+<p>状态转换通常的做法是对象内部有一个值来保存当前的状态,根据状态的不同使用,if-else或者switch来执行不同的功能。这样会使类中存在大量结构类似的分支语句,变得难以维护和理解。状态模式消除了分支语句,把状态处理分散到了各个状态子类,每个子类集中处理一种状态,使状态的转换清晰明确。</p>
+<p>boost.statechat和msm库实现了有限状态自动机,它们是状态模式的泛化。</p>
+<h2 id="策略-Strategy"><a href="#策略-Strategy" class="headerlink" title="策略(Strategy)"></a>策略(Strategy)</h2><p>策略模式封装了不同的“算法”,使它们可以在运行时相互替换。它与结构型模式里的装.饰模式功能接近,策略模式改变类的行为内核,而装饰模式改变类的行为外观。如果类的接口很庞大,那么装饰模式的实现代价就过高,而策略模式仅改变类的内核,可能很小。策略模式,的实现结构很像状态模式,但它不改变对象的状态。</p>
+<p>标准库和Boost库中的大量函数对象就是策略模式的应用。函数对象封装了各种操作,标准算法或者其他类使用传入函数对象来动态改变它的行为。</p>
+<p>Boost库中大部分组件的模板类型参数也可以看作是策略模式,通过配置不同的模板类,型,最后实例化的模板类内部的算法都不相同。</p>
+<h2 id="模板方法-Template-Method"><a href="#模板方法-Template-Method" class="headerlink" title="模板方法(Template Method)"></a>模板方法(Template Method)</h2><p>模板方法模式在父类中定义操作的主要步骤,但并不实现,而是留给子类去实现。注意这个模板与C++中泛型编程用的template没有任何联系,不要引起误解。它常见的用法是“钩,子操作”,父类定义了所有的公开方法,在公开方法中调用保护的钩子方法,子类实现不同的,钩子方法来扩展父类的行为。</p>
+<p>模板方法模式是一个非常基本的设计模式,也可能是最容易使用的,个设计模式,许多框!架都使用模板方法定义基本的操作步骤,用户只需实现少量的具体化代码就可以利用框架的全部功能。</p>
+<p>boost. test定义了单元测试的框架,它使用模板方法模式定义了许多可扩展的方法,用户只需要依据test库的规则编写测试用例,就可以插入到UTF中进行测试。</p>
+<h2 id="访问者-Visitor"><a href="#访问者-Visitor" class="headerlink" title="访问者(Visitor)"></a>访问者(Visitor)</h2><p>访问者模式分离了类的内部元素与访问它们的操作,可以在不改变内部元素的情况下增加,作用于它们的新操作。如果一个类有很多内部数据,因此也就有很多访问操作,这样会使它的接口非常庞大,难以变动难以学习。访问者模式可以做到数据的存储与使用分离,不同的访问,者可以集中不同类别的操作,并且可以随时增加新的访问者或者新方法来增加新的操作。</p>
+<p>boost.variant提供static visitor实现了访问者模式,可以对一个很小的variant对象实施各种操作,如果variant对象发生改变, static visitor也可以很容,易地适应变化。</p>
+<h1 id="其他模式"><a href="#其他模式" class="headerlink" title="其他模式"></a>其他模式</h1><p>推荐书目[11成书于1994年,在那以后软件界开始了广泛的模式运动,在软件开发的各,个领域各个层次都逐步发现了很多新的模式,但最经典最基本的仍然是上面讲到的23个设计模式。本节介绍四个较为常用的其他模式,供读者参考。</p>
+<h2 id="空对象-Null-Object"><a href="#空对象-Null-Object" class="headerlink" title="空对象(Null Object)"></a>空对象(Null Object)</h2><p>空对象模式又称哑对象模式(Dumb object),它是一个行为模式,扩展了空指针的含义,给空指针一个默认的、可接受的行为,通常是空操作,可以说是一个“智能空指针”。使用空对象模式,程序就可以不必用条件语句专门处理空指针或类似的概念,所有的对象都会有一致的、可理解的行为。</p>
+<p>空对象模式可以和许多行为模式配合,充当“哨兵”的角色,完善它们的概念。例如,策略模式有一个空策略对象,它不做任何事情;职责链模式把空对象用在链的末尾,它可以“吞下”所有无法处理的请求;空迭代器对象则适用于叶子节点,表示总完成遍历操作:还可以有空命令、空观察者等等。</p>
+<p>在tuple中的null_type就是个空对象,它表示了一个空的tuple,什么也不做,但它非常重要,没有它就无法完成tuple的部件链。</p>
+<p>空对象模式还可以应用在pointer container库中,使指针容器可以安全地容纳空指,针,用一致的行为处理容器元素。</p>
+<p>空对象模式也不仅用在面向对象的软件构建,操作系统中也有类似的概念,如Linux的,/dev/nul1设备。</p>
+<h2 id="对象池-Object-Pool"><a href="#对象池-Object-Pool" class="headerlink" title="对象池(Object Pool)"></a>对象池(Object Pool)</h2><p>对象池模式属于创建型模式,可以说是一个特殊的工厂模式:它预先创建好若干个可用的.对象,用户向池申请对象,使用完毕归还池而不是直接销毁,所以归还的对象可以被之后的请,求复用。通过这种方式,对象池模式摊平了昂贵的构造成本,消除了对象的销毁成本,可以提,高系统的整体运行效率。</p>
+<p>对象池模式在软件开发中已经得到了广泛的应用,例如耳熟能详的连接池、内存池、线程池等名词。Boost库里的poo1实现了内存池, thread_group则实现了简单的线程池。</p>
+<h2 id="包装外观-Wrapper-Facade"><a href="#包装外观-Wrapper-Facade" class="headerlink" title="包装外观(Wrapper Facade)"></a>包装外观(Wrapper Facade)</h2><p>包装外观模式很类似外观模式,但它包装的目标不是一个面向对象子系统,而是底层的,API。包装外观模式把大量的原始c接口分类整理,给外界一个统一的、面向对象的易用接口,增强了原始底层接口的内聚性,同时又没有效率的损失(可以使用静态成员函数、名字空间和,inline关键字),包装外观模式可以屏蔽系统底层的细节,简化功能调用,有利于外界不受,平台变化的影响,增强可移植性。</p>
+<p>system库是包装外观模式的一个例子,它对UNIX和Windows等操作系统的错误代码,分类包装,对外提供了一个方便使用、易于理解的接口。</p>
+<p>atomic. thread, asio库和interprocess也都在不同的层次上使用了包装外观模,式,提供了可移植的并发处理功能。<br>,</p>
+<h2 id="前摄器模式-Proactor"><a href="#前摄器模式-Proactor" class="headerlink" title="前摄器模式(Proactor)"></a>前摄器模式(Proactor)</h2><p>前摄器模式是应用于异步调用的设计模式,它的核心是前摄器、异步的操作处理器、异步的事件多路分离器和完成事件队列,可以不使用线程实现异步操作。</p>
+<p>前摄器模式的基本流程可以简要描述如下:</p>
+<p>前摄发起器创建一个完成处理器,用于在异步调用完成后的回调,然后发起个异步操作,交给操作处理器异步执行,当是步操作完成时操作处理器将把事件放入宗成事件队列。前摄器调用多路分离器从完成事件队列中获得事件, 分派事件回调完成处理器执行所需的后续操作。</p>
+<p>前摄器模式用于异步调用有很多的好处,它封装了并发机制,将并发机制与线程的执行解耦,简化了功能代码的编写,不需要考虑多线程的同步问题,能够提供高性能的异步操作。但它也有缺点,模式比较复杂,处理流程难以理解和调试。</p>
+<p>asio库基于操作系统的异步调用机制实现了可移植的前摄器模式,解耦了应用程序与操作系统,可以高效地实现异步10操作。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本章结合Boost程序库介绍了附录A推荐书目[1]中的23个经典设计模式和4个常用,的其他设计模式。Boost库应用了以上几乎所有的设计模式,因此学习设计模式有助于更好更快地理解Boost组件的结构和用法。</p>
+<p>设计模式通常分为三类,创建型模式管理面向对象系统中对象的产生,结构型模式管理!面向对象系统中对象的组合,行为模式管理面向对象系统中对象的通信。</p>
+<p>创建型模式是程序的基础,因为面向对象系统就是由许许多多的对象组成的,创建型模式能够使对象的创建独立于系统单独变化。最常用的创建型模式是抽象工厂和单件,而且这两者经常联合使用。</p>
+<p>结构型模式把对象组合起来,以获得功能更强大更灵活的对象。使用结构型模式,我们可以避免继承滥用和“子类爆炸”现象,并在不改变原有类的基础上生成许多新的可用对象。最常用的结构型模式有适配器、组合、装饰、外观和代理。</p>
+<p>行为模式确定了多个对象间通信与合作的最佳方式,它刻画了对象之间的合作机制,这种合,作机制高效且能够适应未来的变化。常用的行为模式有迭代器、观察者、状态、策略和访问者。<br>学习设计模式时理解模式的目的、意图和用途很重要,因为编程语言的语法、语义限制,很多设计模式的实现结构很相似甚至完全相同(例如装饰和代理),但不同的设计出发点(意图)和应用领域导致了模式的用法有很大的区别。</p>
+<p>设计模式也经常与重构联系在一起,重构会导致应用设计模式,而设计模式的目的是为了避免将来的重构。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Boost</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/24/Boost与设计模式/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-C++调试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/23/C++调试/">C++调试</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/23/C++调试/" class="archive-article-date">
+  	<time datetime="2018-05-23T09:35:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="err-hr"><a href="#err-hr" class="headerlink" title="err,hr"></a>err,hr</h1><p>调试代码时，监视窗口里面填入<code>“$err,hr”(@err,hr或err,hr)</code></p>
+<p>它的意义相当于让调试器帮你获取GetLastError的值</p>
+<h1 id="windbg"><a href="#windbg" class="headerlink" title="windbg"></a>windbg</h1><p>使用windbg分析dmp文件定位程序bug</p>
+<p><a href="http://www.windbg.org/" target="_blank" rel="noopener">http://www.windbg.org/</a></p>
+<p><a href="https://debugging.wellisolutions.de/windbg-versions/" target="_blank" rel="noopener">https://debugging.wellisolutions.de/windbg-versions/</a></p>
+<p><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools</a></p>
+<h1 id="Dbgview"><a href="#Dbgview" class="headerlink" title="Dbgview"></a>Dbgview</h1><p>DebugView跟踪调试信息</p>
+<h1 id="dump"><a href="#dump" class="headerlink" title="dump"></a>dump</h1><p>生成dump文件</p>
+<p><a href="http://www.debuginfo.com/articles/effminidumps.html" target="_blank" rel="noopener">http://www.debuginfo.com/articles/effminidumps.html</a></p>
+<p><a href="http://www.cppblog.com/woaidongmao/archive/2011/05/10/146086.html" target="_blank" rel="noopener">http://www.cppblog.com/woaidongmao/archive/2011/05/10/146086.html</a></p>
+<p><a href="http://www.cppblog.com/woaidongmao/archive/2009/10/22/99210.html" target="_blank" rel="noopener">http://www.cppblog.com/woaidongmao/archive/2009/10/22/99210.html</a></p>
+<p><a href="http://www.cppblog.com/woaidongmao/archive/2009/10/21/99135.html" target="_blank" rel="noopener">http://www.cppblog.com/woaidongmao/archive/2009/10/21/99135.html</a></p>
+<h2 id="SetUnhandledExceptionFilter"><a href="#SetUnhandledExceptionFilter" class="headerlink" title="SetUnhandledExceptionFilter"></a>SetUnhandledExceptionFilter</h2><p>如果在异常发生之前调用了SetUnhandledExceptionFilter()函数。</p>
+<h2 id="set-purecall-handler"><a href="#set-purecall-handler" class="headerlink" title="_set_purecall_handler"></a>_set_purecall_handler</h2><p>调用纯虚函数是一个错误 </p>
+<h2 id="set-terminate"><a href="#set-terminate" class="headerlink" title="set_terminate"></a>set_terminate</h2><p>当CRT遇到一个未被处理的C++类型化异常时，它会调用terminate()函数</p>
+<h2 id="set-purecall-handler-1"><a href="#set-purecall-handler-1" class="headerlink" title="_set_purecall_handler"></a>_set_purecall_handler</h2><p>使用_set_purecall_handler()函数来处理纯虚函数调用</p>
+<h2 id="set-new-handler"><a href="#set-new-handler" class="headerlink" title="_set_new_handler"></a>_set_new_handler</h2><p>使用_set_new_handler()函数处理内存分配失败。</p>
+<h2 id="set-invalid-parameter-handler"><a href="#set-invalid-parameter-handler" class="headerlink" title="_set_invalid_parameter_handler"></a>_set_invalid_parameter_handler</h2><p>当系统函数调用检测到非法的参数时，会使用_set_invalid_parameter_handler()函数来处理这种情况</p>
+<h1 id="XCrashReport"><a href="#XCrashReport" class="headerlink" title="XCrashReport"></a>XCrashReport</h1><p><a href="https://www.codeproject.com/Articles/5260/XCrashReport-Exception-Handling-and-Crash-Report" target="_blank" rel="noopener">https://www.codeproject.com/Articles/5260/XCrashReport-Exception-Handling-and-Crash-Report</a></p>
+<p><a href="https://blog.csdn.net/ljmscsq/article/details/4998738" target="_blank" rel="noopener">https://blog.csdn.net/ljmscsq/article/details/4998738</a></p>
+<p><a href="https://www.codeproject.com/Articles/207464/Exception-Handling-in-Visual-Cplusplus" target="_blank" rel="noopener">https://www.codeproject.com/Articles/207464/Exception-Handling-in-Visual-Cplusplus</a>-可成功生成dump</p>
+<p><a href="https://www.cnblogs.com/hdtianfu/archive/2011/12/27/2303113.html" target="_blank" rel="noopener">https://www.cnblogs.com/hdtianfu/archive/2011/12/27/2303113.html</a></p>
+<p><a href="https://www.cnblogs.com/kanego/p/4081287.html" target="_blank" rel="noopener">https://www.cnblogs.com/kanego/p/4081287.html</a></p>
+<h1 id="crashrpt"><a href="#crashrpt" class="headerlink" title="crashrpt"></a>crashrpt</h1><p>可以使用<code>crashrpt</code>直接集成到自己的项目中，程序崩溃是生成错误报告</p>
+<p><a href="http://crashrpt.sourceforge.net/" target="_blank" rel="noopener">http://crashrpt.sourceforge.net/</a></p>
+<p><a href="http://crashrpt.sourceforge.net/docs/html/index.html" target="_blank" rel="noopener">http://crashrpt.sourceforge.net/docs/html/index.html</a></p>
+<p><a href="http://crashrpt.sourceforge.net/docs/html/simple_example.html" target="_blank" rel="noopener">http://crashrpt.sourceforge.net/docs/html/simple_example.html</a></p>
+<p>crashrpt是一个包含能够在程序出现各种类型未处理异常时生成程序错误报告，然后将该报告按照指定的方式(例如HTTP或者SMTP)发送给开发者，最后分析这些信息的工具。crashrpt由3个部分组成，错误报告生成库CrashRpt，我们需要在自己的程序中使用该库捕获我们的程序没有处理的异常，在该库捕获到这些未处理的异常后，CrashRpt会生成MiniDump文件，并将和你使用该库指定的信息(例如日志文件和屏幕截图等)一起打包成错误报告。CrashRpt库支持处理我所知道的所有Windows C/C++程序抛出的各类异常，例如我前面提到过的SEH，它还能捕获C++异常、信号和调用各类CRT库中的函数出现的错误。异常信息发送工具CrashSender，该工具能够按照我们使用CrashRpt设置的方式，将生成的错误报告按照我们指定的方式(HTTP、SMTP或者MAPI)发送给我们。自动异常信息处理工具crprober，该工具能够在后台接收CrashSender发送给我们的错误报告，通过分析错误报告后以文本的形式输出程序的异常信息。</p>
+<p><a href="https://blog.csdn.net/shining100/article/details/7760872" target="_blank" rel="noopener">https://blog.csdn.net/shining100/article/details/7760872</a></p>
+<p><a href="http://crashrpt.sourceforge.net/docs/html/configuring_project.html" target="_blank" rel="noopener">http://crashrpt.sourceforge.net/docs/html/configuring_project.html</a></p>
+<h1 id="crashfix"><a href="#crashfix" class="headerlink" title="crashfix"></a>crashfix</h1><p>crashfix 允许服务器容易地接收、存储、组织及分析事故报告发送的 C + + 应用程序。</p>
+<p><a href="http://crashfix.sourceforge.net/" target="_blank" rel="noopener">http://crashfix.sourceforge.net/</a></p>
+<p><a href="http://crashfix.sourceforge.net/doc/html/index.html" target="_blank" rel="noopener">http://crashfix.sourceforge.net/doc/html/index.html</a></p>
+<h1 id="http-www-debuginfo-com"><a href="#http-www-debuginfo-com" class="headerlink" title="http://www.debuginfo.com"></a><a href="http://www.debuginfo.com" target="_blank" rel="noopener">http://www.debuginfo.com</a></h1><h2 id="MINIDUMPS"><a href="#MINIDUMPS" class="headerlink" title="MINIDUMPS"></a>MINIDUMPS</h2><p><a href="http://www.debuginfo.com/articles/effminidumps.html" target="_blank" rel="noopener">http://www.debuginfo.com/articles/effminidumps.html</a></p>
+<p><a href="http://www.debuginfo.com/examples/effmdmpexamples.html" target="_blank" rel="noopener">http://www.debuginfo.com/examples/effmdmpexamples.html</a></p>
+<p><a href="http://www.debuginfo.com/download/effminidumpexamples.zip" target="_blank" rel="noopener">effminidumpexamples.zip</a></p>
+<h2 id="dbghelp"><a href="#dbghelp" class="headerlink" title="dbghelp"></a>dbghelp</h2><p><a href="http://www.debuginfo.com/examples/dbghelpexamples.html" target="_blank" rel="noopener">http://www.debuginfo.com/examples/dbghelpexamples.html</a></p>
+<p><a href="http://www.debuginfo.com/download/dbghelpexamples.zip" target="_blank" rel="noopener">dbghelpexamples.zip</a></p>
+<h2 id="DEBUGGING-API-EXAMPLES"><a href="#DEBUGGING-API-EXAMPLES" class="headerlink" title="DEBUGGING API EXAMPLES"></a>DEBUGGING API EXAMPLES</h2><p><a href="http://www.debuginfo.com/examples/dbgexamples.html" target="_blank" rel="noopener">http://www.debuginfo.com/examples/dbgexamples.html</a></p>
+<p><a href="http://www.debuginfo.com/download/dbgexamples.zip" target="_blank" rel="noopener">dbgexamples.zip</a></p>
+<h2 id="MINIDUMP-WIZARD"><a href="#MINIDUMP-WIZARD" class="headerlink" title="MINIDUMP WIZARD"></a>MINIDUMP WIZARD</h2><p><a href="http://www.debuginfo.com/tools/minidumpwizard.html" target="_blank" rel="noopener">http://www.debuginfo.com/tools/minidumpwizard.html</a></p>
+<p><a href="http://www.debuginfo.com/download/minidumpwizfull.zip" target="_blank" rel="noopener">minidumpwizfull.zip</a></p>
+<p><a href="http://www.debuginfo.com/download/minidumpwiz.zip" target="_blank" rel="noopener">minidumpwiz.zip</a></p>
+<h2 id="UNEXPECTED-USER-BREAKPOINT-IN-NTDLL-DLL"><a href="#UNEXPECTED-USER-BREAKPOINT-IN-NTDLL-DLL" class="headerlink" title="UNEXPECTED USER BREAKPOINT IN NTDLL.DLL"></a>UNEXPECTED USER BREAKPOINT IN NTDLL.DLL</h2><p>用户在断点意外 NTDLL. DLL</p>
+<p><a href="http://www.debuginfo.com/tips/userbpntdll.html" target="_blank" rel="noopener">http://www.debuginfo.com/tips/userbpntdll.html</a></p>
+<p><a href="https://www.cnblogs.com/lidabo/p/3706725.html" title="使用PageHeap.EXE或GFlags.EXE检查内存越界错误" target="_blank" rel="noopener">https://www.cnblogs.com/lidabo/p/3706725.html</a></p>
+<h1 id="About-DbgHelp"><a href="#About-DbgHelp" class="headerlink" title="About DbgHelp"></a>About DbgHelp</h1><p><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms679267%28v=vs.85%29.aspx?f=255&amp;MSPPError=-2147217396" target="_blank" rel="noopener">MSDN-About DbgHelp</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">调试</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">错误报告</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/23/C++调试/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-内存泄漏及检测" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/23/内存泄漏及检测/">内存泄露检查</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/23/内存泄漏及检测/" class="archive-article-date">
+  	<time datetime="2018-05-23T07:35:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="检测是否存在内存泄漏问题"><a href="#检测是否存在内存泄漏问题" class="headerlink" title="检测是否存在内存泄漏问题"></a>检测是否存在内存泄漏问题</h1><p>Windows平台下面Visual Studio 调试器和 C 运行时 (CRT) 库为我们提供了检测和识别内存泄漏的有效方法，原理大致如下：内存分配要通过CRT在运行时实现，只要在分配内存和释放内存时分别做好记录，程序结束时对比分配内存和释放内存的记录就可以确定是不是有内存泄漏。在vs中启用内存检测的方法如下：</p>
+<ul>
+<li>STEP1，在程序中包括以下语句： （#include 语句必须采用上文所示顺序。 如果更改了顺序，所使用的函数可能无法正常工作。）</li>
+</ul>
+<pre><code>#define _CRTDBG_MAP_ALLOC
+
+#include &lt;stdlib.h&gt;
+
+#include &lt;crtdbg.h&gt;
+</code></pre><p>通过包括 crtdbg.h，将 malloc 和 free 函数映射到它们的调试版本，即 _malloc_dbg 和 _free_dbg，这两个函数将跟踪内存分配和释放。 此映射只在调试版本（在其中定义了_DEBUG）中发生。 发布版本使用普通的 malloc和 free函数。</p>
+<p><code>#define</code> 语句将 CRT 堆函数的基版本映射到对应的“Debug”版本。 并非绝对需要该语句；但如果没有该语句，内存泄漏转储包含的有用信息将较少。</p>
+<ul>
+<li><p>STEP2， 在添加了上述语句之后，可以通过在程序中包括以下语句（通常应恰好放在程序退出位置之前）来转储内存泄漏信息：</p>
+<pre><code>_CrtDumpMemoryLeaks();
+</code></pre></li>
+</ul>
+<p>未定义 _CRTDBG_MAP_ALLOC 时，所显示的会是：</p>
+<pre><code>1. 内存分配编号（在大括号内）。
+2. 块类型（普通、客户端或 CRT）。
+3. 十六进制形式的内存位置。
+4. 以字节为单位的块大小。
+5. 前 16 字节的内容（亦为十六进制）。
+</code></pre><p>块类型分为：</p>
+<pre><code>1. “普通块”是由程序分配的普通内存。
+2. “客户端块”是由 MFC 程序用于需要析构函数的对象的特殊类型内存块。 MFC new 操作根据正在创建的对象的需要创建普通块或客户端块。
+3. “CRT 块”是由 CRT 库为自己使用而分配的内存块。 CRT 库处理这些块的释放，因此您不大可能在内存泄漏报告中看到这些块，除非出现严重错误（例如 CRT 库损坏）。
+</code></pre><p>从不会在内存泄漏信息中看到下面两种块类型：</p>
+<pre><code>1. “可用块”是已释放的内存块。
+2. “忽略块”是您已特别标记的块，因而不出现在内存泄漏报告中。
+</code></pre><p>定义了 _CRTDBG_MAP_ALLOC 时，还会显示在其中分配泄漏的内存的文件。 文件名后括号中的数字（本示例中为 10）是该文件中的行号。</p>
+<p>如果程序总是在同一位置退出，调用 _CrtDumpMemoryLeaks 将非常容易。 如果程序从多个位置退出，则无需在每个可能退出的位置放置对_CrtDumpMemoryLeaks 的调用，而可以在程序开始处包含以下调用：</p>
+<pre><code>_CrtSetDbgFlag ( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
+</code></pre><p>该语句在程序退出时自动调用 _CrtDumpMemoryLeaks。 必须同时设置 _CRTDBG_ALLOC_MEM_DF和 _CRTDBG_LEAK_CHECK_DF两个位域</p>
+<h1 id="定位具体的内存泄漏地方"><a href="#定位具体的内存泄漏地方" class="headerlink" title="定位具体的内存泄漏地方"></a>定位具体的内存泄漏地方</h1><p>定位内存泄漏的另一种技术涉及在关键点对应用程序的内存状态拍快照。 CRT 库提供一种结构类型 _CrtMemState，您可用它存储内存状态的快照：</p>
+<pre><code>_CrtMemState s1, s2, s3;
+</code></pre><p>若要在给定点对内存状态拍快照，请向 _CrtMemCheckpoint 函数传递 _CrtMemState 结构。 该函数用当前内存状态的快照填充此结构：</p>
+<pre><code>_CrtMemCheckpoint( &amp;s1 );
+</code></pre><p>通过向 _CrtMemDumpStatistics 函数传递 _CrtMemState 结构，可以在任意点转储该结构的内容：</p>
+<pre><code>_CrtMemDumpStatistics( &amp;s1 );
+</code></pre><p>若要确定代码中某一部分是否发生了内存泄漏，可以在该部分之前和之后对内存状态拍快照，然后使用 _CrtMemDifference 比较这两个状态：</p>
+<pre><code>_CrtMemCheckpoint( &amp;s1 );
+
+// memory allocations take place here
+
+_CrtMemCheckpoint( &amp;s2 );
+
+
+if ( _CrtMemDifference( &amp;s3, &amp;s1, &amp;s2) )
+
+_CrtMemDumpStatistics( &amp;s3 );
+</code></pre><p>顾名思义，_CrtMemDifference 比较两个内存状态（s1 和 s2），生成这两个状态之间差异的结果（s3）。 在程序的开始和结尾放置 _CrtMemCheckpoint 调用，并使用_CrtMemDifference 比较结果，是检查内存泄漏的另一种方法。 如果检测到泄漏，则可以使用 _CrtMemCheckpoint 调用通过二进制搜索技术来划分程序和定位泄漏。</p>
+<h1 id="内容转载："><a href="#内容转载：" class="headerlink" title="内容转载："></a>内容转载：</h1><p>太有用了，故直接转载以下链接内容</p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzAxNDI5NzEzNg==&amp;mid=401055447&amp;idx=1&amp;sn=a3d1237c10b7352f827d95110c0f4b61#rd" target="_blank" rel="noopener">C/C++内存泄漏及检测</a></p>
+<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="https://en.wikipedia.org/wiki/Mtrace" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Mtrace</a></p>
+<p><a href="http://valgrind.org/docs/manual/manual.html" target="_blank" rel="noopener">http://valgrind.org/docs/manual/manual.html</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">调试</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">内存泄露</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/23/内存泄漏及检测/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-CShap和C++ Socket通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -2734,2321 +3177,6 @@ public class MyClass
 
 
   
-    <article id="post-C++单元测试" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/02/C++单元测试/">C++单元测试</a>
-    </h1>
-  
-
-        
-        <a href="/2018/05/02/C++单元测试/" class="archive-article-date">
-  	<time datetime="2018-05-02T09:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="cppunit"><a href="#cppunit" class="headerlink" title="cppunit"></a>cppunit</h1><p><a href="https://caojingyou.github.io/2018/01/18/cppunit/" title="https://caojingyou.github.io/2018/01/18/cppunit/">https://caojingyou.github.io/2018/01/18/cppunit/</a></p>
-<h1 id="CppUTest"><a href="#CppUTest" class="headerlink" title="CppUTest"></a>CppUTest</h1><p><a href="http://cpputest.github.io/" title="http://cpputest.github.io/" target="_blank" rel="noopener">http://cpputest.github.io/</a></p>
-<p><a href="https://github.com/cpputest/cpputest" title="https://github.com/cpputest/cpputest" target="_blank" rel="noopener">https://github.com/cpputest/cpputest</a></p>
-<h1 id="Google-Test-与-Google-Mock"><a href="#Google-Test-与-Google-Mock" class="headerlink" title="Google Test 与  Google Mock"></a>Google Test 与  Google Mock</h1><p><a href="https://github.com/google/googletest" title="https://github.com/google/googletest" target="_blank" rel="noopener">https://github.com/google/googletest</a></p>
-<p><a href="https://code/google.com/p/googlemock/" target="_blank" rel="noopener">https://code/google.com/p/googlemock/</a></p>
-<h2 id="Google-Test"><a href="#Google-Test" class="headerlink" title="Google Test"></a>Google Test</h2><p><a href="https://www.cnblogs.com/jycboy/p/6057677.html" title="https://www.cnblogs.com/jycboy/p/6057677.html" target="_blank" rel="noopener">https://www.cnblogs.com/jycboy/p/6057677.html</a></p>
-<p><a href="https://segmentfault.com/a/1190000002454946" title="https://segmentfault.com/a/1190000002454946" target="_blank" rel="noopener">https://segmentfault.com/a/1190000002454946</a></p>
-<p><a href="http://developer.51cto.com/art/201108/285290.htm" title="http://developer.51cto.com/art/201108/285290.htm" target="_blank" rel="noopener">http://developer.51cto.com/art/201108/285290.htm</a></p>
-<p><a href="http://www.cnblogs.com/coderzh/archive/2009/03/31/1426758.html" title="http://www.cnblogs.com/coderzh/archive/2009/03/31/1426758.html" target="_blank" rel="noopener">http://www.cnblogs.com/coderzh/archive/2009/03/31/1426758.html</a></p>
-<h3 id="simple代码"><a href="#simple代码" class="headerlink" title="simple代码:"></a>simple代码:</h3><pre><code>#ifndef GTEST_SAMPLES_PRIME_TABLES_H_
-#define GTEST_SAMPLES_PRIME_TABLES_H_
-
-#include &lt;algorithm&gt;
-
-// The prime table interface.
-class PrimeTable {
- public:
-  virtual ~PrimeTable() {}
-
-  // Returns true iff n is a prime number.
-  virtual bool IsPrime(int n) const = 0;
-
-  // Returns the smallest prime number greater than p; or returns -1
-  // if the next prime is beyond the capacity of the table.
-  virtual int GetNextPrime(int p) const = 0;
-};
-
-// Implementation #1 calculates the primes on-the-fly.
-class OnTheFlyPrimeTable : public PrimeTable {
- public:
-  virtual bool IsPrime(int n) const {
-    if (n &lt;= 1) return false;
-
-    for (int i = 2; i*i &lt;= n; i++) {
-      // n is divisible by an integer other than 1 and itself.
-      if ((n % i) == 0) return false;
-    }
-
-    return true;
-  }
-
-  virtual int GetNextPrime(int p) const {
-    for (int n = p + 1; n &gt; 0; n++) {
-      if (IsPrime(n)) return n;
-    }
-
-    return -1;
-  }
-};
-
-// Implementation #2 pre-calculates the primes and stores the result
-// in an array.
-class PreCalculatedPrimeTable : public PrimeTable {
- public:
-  // &apos;max&apos; specifies the maximum number the prime table holds.
-  explicit PreCalculatedPrimeTable(int max)
-      : is_prime_size_(max + 1), is_prime_(new bool[max + 1]) {
-    CalculatePrimesUpTo(max);
-  }
-  virtual ~PreCalculatedPrimeTable() { delete[] is_prime_; }
-
-  virtual bool IsPrime(int n) const {
-    return 0 &lt;= n &amp;&amp; n &lt; is_prime_size_ &amp;&amp; is_prime_[n];
-  }
-
-  virtual int GetNextPrime(int p) const {
-    for (int n = p + 1; n &lt; is_prime_size_; n++) {
-      if (is_prime_[n]) return n;
-    }
-
-    return -1;
-  }
-
- private:
-  void CalculatePrimesUpTo(int max) {
-    ::std::fill(is_prime_, is_prime_ + is_prime_size_, true);
-    is_prime_[0] = is_prime_[1] = false;
-
-    for (int i = 2; i &lt;= max; i++) {
-      if (!is_prime_[i]) continue;
-
-      // Marks all multiples of i (except i itself) as non-prime.
-      for (int j = 2*i; j &lt;= max; j += i) {
-        is_prime_[j] = false;
-      }
-    }
-  }
-
-  const int is_prime_size_;
-  bool* const is_prime_;
-
-  // Disables compiler warning &quot;assignment operator could not be generated.&quot;
-  void operator=(const PreCalculatedPrimeTable&amp; rhs);
-};
-
-#endif  // GTEST_SAMPLES_PRIME_TABLES_H_
-
-
-
-#ifndef GTEST_SAMPLES_SAMPLE1_H_
-#define GTEST_SAMPLES_SAMPLE1_H_
-
-// Returns n! (the factorial of n).  For negative n, n! is defined to be 1.
-int Factorial(int n);
-
-// Returns true iff n is a prime number.
-bool IsPrime(int n);
-
-#endif  // GTEST_SAMPLES_SAMPLE1_H_
-
-
-
-
-#include &quot;sample1.h&quot;
-
-// Returns n! (the factorial of n).  For negative n, n! is defined to be 1.
-int Factorial(int n) {
-  int result = 1;
-  for (int i = 1; i &lt;= n; i++) {
-    result *= i;
-  }
-
-  return result;
-}
-
-// Returns true iff n is a prime number.
-bool IsPrime(int n) {
-  // Trivial case 1: small numbers
-  if (n &lt;= 1) return false;
-
-  // Trivial case 2: even numbers
-  if (n % 2 == 0) return n == 2;
-
-  // Now, we have that n is odd and n &gt;= 3.
-
-  // Try to divide n by every odd number i, starting from 3
-  for (int i = 3; ; i += 2) {
-    // We only have to try i up to the squre root of n
-    if (i &gt; n/i) break;
-
-    // Now, we have i &lt;= n/i &lt; n.
-    // If n is divisible by i, n is not prime.
-    if (n % i == 0) return false;
-  }
-
-  // n has no integer factor in the range (1, n), and thus is prime.
-  return true;
-}
-
-
-
-
-
-// This sample shows how to write a simple unit test for a function,
-// using Google C++ testing framework.
-//
-// Writing a unit test using Google C++ testing framework is easy as 1-2-3:
-
-
-// Step 1. Include necessary header files such that the stuff your
-// test logic needs is declared.
-//
-// Don&apos;t forget gtest.h, which declares the testing framework.
-
-#include &lt;limits.h&gt;
-#include &quot;sample1.h&quot;
-#include &quot;gtest/gtest.h&quot;
-
-
-// Step 2. Use the TEST macro to define your tests.
-//
-// TEST has two parameters: the test case name and the test name.
-// After using the macro, you should define your test logic between a
-// pair of braces.  You can use a bunch of macros to indicate the
-// success or failure of a test.  EXPECT_TRUE and EXPECT_EQ are
-// examples of such macros.  For a complete list, see gtest.h.
-//
-// &lt;TechnicalDetails&gt;
-//
-// In Google Test, tests are grouped into test cases.  This is how we
-// keep test code organized.  You should put logically related tests
-// into the same test case.
-//
-// The test case name and the test name should both be valid C++
-// identifiers.  And you should not use underscore (_) in the names.
-//
-// Google Test guarantees that each test you define is run exactly
-// once, but it makes no guarantee on the order the tests are
-// executed.  Therefore, you should write your tests in such a way
-// that their results don&apos;t depend on their order.
-//
-// &lt;/TechnicalDetails&gt;
-
-
-// Tests Factorial().
-
-// Tests factorial of negative numbers.
-TEST(FactorialTest, Negative) {
-  // This test is named &quot;Negative&quot;, and belongs to the &quot;FactorialTest&quot;
-  // test case.
-  EXPECT_EQ(1, Factorial(-5));
-  EXPECT_EQ(1, Factorial(-1));
-  EXPECT_GT(Factorial(-10), 0);
-
-  // &lt;TechnicalDetails&gt;
-  //
-  // EXPECT_EQ(expected, actual) is the same as
-  //
-  //   EXPECT_TRUE((expected) == (actual))
-  //
-  // except that it will print both the expected value and the actual
-  // value when the assertion fails.  This is very helpful for
-  // debugging.  Therefore in this case EXPECT_EQ is preferred.
-  //
-  // On the other hand, EXPECT_TRUE accepts any Boolean expression,
-  // and is thus more general.
-  //
-  // &lt;/TechnicalDetails&gt;
-}
-
-// Tests factorial of 0.
-TEST(FactorialTest, Zero) {
-  EXPECT_EQ(1, Factorial(0));
-}
-
-// Tests factorial of positive numbers.
-TEST(FactorialTest, Positive) {
-  EXPECT_EQ(1, Factorial(1));
-  EXPECT_EQ(2, Factorial(2));
-  EXPECT_EQ(6, Factorial(3));
-  EXPECT_EQ(40320, Factorial(8));
-}
-
-
-// Tests IsPrime()
-
-// Tests negative input.
-TEST(IsPrimeTest, Negative) {
-  // This test belongs to the IsPrimeTest test case.
-
-  EXPECT_FALSE(IsPrime(-1));
-  EXPECT_FALSE(IsPrime(-2));
-  EXPECT_FALSE(IsPrime(INT_MIN));
-}
-
-// Tests some trivial cases.
-TEST(IsPrimeTest, Trivial) {
-  EXPECT_FALSE(IsPrime(0));
-  EXPECT_FALSE(IsPrime(1));
-  EXPECT_TRUE(IsPrime(2));
-  EXPECT_TRUE(IsPrime(3));
-}
-
-// Tests positive input.
-TEST(IsPrimeTest, Positive) {
-  EXPECT_FALSE(IsPrime(4));
-  EXPECT_TRUE(IsPrime(5));
-  EXPECT_FALSE(IsPrime(6));
-  EXPECT_TRUE(IsPrime(23));
-}
-
-// Step 3. Call RUN_ALL_TESTS() in main().
-//
-// We do this by linking in src/gtest_main.cc file, which consists of
-// a main() function which calls RUN_ALL_TESTS() for us.
-//
-// This runs all the tests you&apos;ve defined, prints the result, and
-// returns 0 if successful, or 1 otherwise.
-//
-// Did you notice that we didn&apos;t register the tests?  The
-// RUN_ALL_TESTS() macro magically knows about all the tests we
-// defined.  Isn&apos;t this convenient?
-
-
-
-#ifndef GTEST_SAMPLES_SAMPLE2_H_
-#define GTEST_SAMPLES_SAMPLE2_H_
-
-#include &lt;string.h&gt;
-
-
-// A simple string class.
-class MyString {
- private:
-  const char* c_string_;
-  const MyString&amp; operator=(const MyString&amp; rhs);
-
- public:
-  // Clones a 0-terminated C string, allocating memory using new.
-  static const char* CloneCString(const char* a_c_string);
-
-  ////////////////////////////////////////////////////////////
-  //
-  // C&apos;tors
-
-  // The default c&apos;tor constructs a NULL string.
-  MyString() : c_string_(NULL) {}
-
-  // Constructs a MyString by cloning a 0-terminated C string.
-  explicit MyString(const char* a_c_string) : c_string_(NULL) {
-    Set(a_c_string);
-  }
-
-  // Copy c&apos;tor
-  MyString(const MyString&amp; string) : c_string_(NULL) {
-    Set(string.c_string_);
-  }
-
-  ////////////////////////////////////////////////////////////
-  //
-  // D&apos;tor.  MyString is intended to be a final class, so the d&apos;tor
-  // doesn&apos;t need to be virtual.
-  ~MyString() { delete[] c_string_; }
-
-  // Gets the 0-terminated C string this MyString object represents.
-  const char* c_string() const { return c_string_; }
-
-  size_t Length() const {
-    return c_string_ == NULL ? 0 : strlen(c_string_);
-  }
-
-  // Sets the 0-terminated C string this MyString object represents.
-  void Set(const char* c_string);
-};
-
-
-#endif  // GTEST_SAMPLES_SAMPLE2_H_
-
-
-
-
-#include &quot;sample2.h&quot;
-
-#include &lt;string.h&gt;
-
-// Clones a 0-terminated C string, allocating memory using new.
-const char* MyString::CloneCString(const char* a_c_string) {
-  if (a_c_string == NULL) return NULL;
-
-  const size_t len = strlen(a_c_string);
-  char* const clone = new char[ len + 1 ];
-  memcpy(clone, a_c_string, len + 1);
-
-  return clone;
-}
-
-// Sets the 0-terminated C string this MyString object
-// represents.
-void MyString::Set(const char* a_c_string) {
-  // Makes sure this works when c_string == c_string_
-  const char* const temp = MyString::CloneCString(a_c_string);
-  delete[] c_string_;
-  c_string_ = temp;
-}
-
-
-
-
-// This sample shows how to write a more complex unit test for a class
-// that has multiple member functions.
-//
-// Usually, it&apos;s a good idea to have one test for each method in your
-// class.  You don&apos;t have to do that exactly, but it helps to keep
-// your tests organized.  You may also throw in additional tests as
-// needed.
-
-#include &quot;sample2.h&quot;
-#include &quot;gtest/gtest.h&quot;
-
-// In this example, we test the MyString class (a simple string).
-
-// Tests the default c&apos;tor.
-TEST(MyString, DefaultConstructor) {
-  const MyString s;
-
-  // Asserts that s.c_string() returns NULL.
-  //
-  // &lt;TechnicalDetails&gt;
-  //
-  // If we write NULL instead of
-  //
-  //   static_cast&lt;const char *&gt;(NULL)
-  //
-  // in this assertion, it will generate a warning on gcc 3.4.  The
-  // reason is that EXPECT_EQ needs to know the types of its
-  // arguments in order to print them when it fails.  Since NULL is
-  // #defined as 0, the compiler will use the formatter function for
-  // int to print it.  However, gcc thinks that NULL should be used as
-  // a pointer, not an int, and therefore complains.
-  //
-  // The root of the problem is C++&apos;s lack of distinction between the
-  // integer number 0 and the null pointer constant.  Unfortunately,
-  // we have to live with this fact.
-  //
-  // &lt;/TechnicalDetails&gt;
-  EXPECT_STREQ(NULL, s.c_string());
-
-  EXPECT_EQ(0u, s.Length());
-}
-
-const char kHelloString[] = &quot;Hello, world!&quot;;
-
-// Tests the c&apos;tor that accepts a C string.
-TEST(MyString, ConstructorFromCString) {
-  const MyString s(kHelloString);
-  EXPECT_EQ(0, strcmp(s.c_string(), kHelloString));
-  EXPECT_EQ(sizeof(kHelloString)/sizeof(kHelloString[0]) - 1,
-            s.Length());
-}
-
-// Tests the copy c&apos;tor.
-TEST(MyString, CopyConstructor) {
-  const MyString s1(kHelloString);
-  const MyString s2 = s1;
-  EXPECT_EQ(0, strcmp(s2.c_string(), kHelloString));
-}
-
-// Tests the Set method.
-TEST(MyString, Set) {
-  MyString s;
-
-  s.Set(kHelloString);
-  EXPECT_EQ(0, strcmp(s.c_string(), kHelloString));
-
-  // Set should work when the input pointer is the same as the one
-  // already in the MyString object.
-  s.Set(s.c_string());
-  EXPECT_EQ(0, strcmp(s.c_string(), kHelloString));
-
-  // Can we set the MyString to NULL?
-  s.Set(NULL);
-  EXPECT_STREQ(NULL, s.c_string());
-}
-
-
-
-
-#ifndef GTEST_SAMPLES_SAMPLE3_INL_H_
-#define GTEST_SAMPLES_SAMPLE3_INL_H_
-
-#include &lt;stddef.h&gt;
-
-
-// Queue is a simple queue implemented as a singled-linked list.
-//
-// The element type must support copy constructor.
-template &lt;typename E&gt;  // E is the element type
-class Queue;
-
-// QueueNode is a node in a Queue, which consists of an element of
-// type E and a pointer to the next node.
-template &lt;typename E&gt;  // E is the element type
-class QueueNode {
-  friend class Queue&lt;E&gt;;
-
- public:
-  // Gets the element in this node.
-  const E&amp; element() const { return element_; }
-
-  // Gets the next node in the queue.
-  QueueNode* next() { return next_; }
-  const QueueNode* next() const { return next_; }
-
- private:
-  // Creates a node with a given element value.  The next pointer is
-  // set to NULL.
-  explicit QueueNode(const E&amp; an_element) : element_(an_element), next_(NULL) {}
-
-  // We disable the default assignment operator and copy c&apos;tor.
-  const QueueNode&amp; operator = (const QueueNode&amp;);
-  QueueNode(const QueueNode&amp;);
-
-  E element_;
-  QueueNode* next_;
-};
-
-template &lt;typename E&gt;  // E is the element type.
-class Queue {
- public:
-  // Creates an empty queue.
-  Queue() : head_(NULL), last_(NULL), size_(0) {}
-
-  // D&apos;tor.  Clears the queue.
-  ~Queue() { Clear(); }
-
-  // Clears the queue.
-  void Clear() {
-    if (size_ &gt; 0) {
-      // 1. Deletes every node.
-      QueueNode&lt;E&gt;* node = head_;
-      QueueNode&lt;E&gt;* next = node-&gt;next();
-      for (; ;) {
-        delete node;
-        node = next;
-        if (node == NULL) break;
-        next = node-&gt;next();
-      }
-
-      // 2. Resets the member variables.
-      head_ = last_ = NULL;
-      size_ = 0;
-    }
-  }
-
-  // Gets the number of elements.
-  size_t Size() const { return size_; }
-
-  // Gets the first element of the queue, or NULL if the queue is empty.
-  QueueNode&lt;E&gt;* Head() { return head_; }
-  const QueueNode&lt;E&gt;* Head() const { return head_; }
-
-  // Gets the last element of the queue, or NULL if the queue is empty.
-  QueueNode&lt;E&gt;* Last() { return last_; }
-  const QueueNode&lt;E&gt;* Last() const { return last_; }
-
-  // Adds an element to the end of the queue.  A copy of the element is
-  // created using the copy constructor, and then stored in the queue.
-  // Changes made to the element in the queue doesn&apos;t affect the source
-  // object, and vice versa.
-  void Enqueue(const E&amp; element) {
-    QueueNode&lt;E&gt;* new_node = new QueueNode&lt;E&gt;(element);
-
-    if (size_ == 0) {
-      head_ = last_ = new_node;
-      size_ = 1;
-    } else {
-      last_-&gt;next_ = new_node;
-      last_ = new_node;
-      size_++;
-    }
-  }
-
-  // Removes the head of the queue and returns it.  Returns NULL if
-  // the queue is empty.
-  E* Dequeue() {
-    if (size_ == 0) {
-      return NULL;
-    }
-
-    const QueueNode&lt;E&gt;* const old_head = head_;
-    head_ = head_-&gt;next_;
-    size_--;
-    if (size_ == 0) {
-      last_ = NULL;
-    }
-
-    E* element = new E(old_head-&gt;element());
-    delete old_head;
-
-    return element;
-  }
-
-  // Applies a function/functor on each element of the queue, and
-  // returns the result in a new queue.  The original queue is not
-  // affected.
-  template &lt;typename F&gt;
-  Queue* Map(F function) const {
-    Queue* new_queue = new Queue();
-    for (const QueueNode&lt;E&gt;* node = head_; node != NULL; node = node-&gt;next_) {
-      new_queue-&gt;Enqueue(function(node-&gt;element()));
-    }
-
-    return new_queue;
-  }
-
- private:
-  QueueNode&lt;E&gt;* head_;  // The first node of the queue.
-  QueueNode&lt;E&gt;* last_;  // The last node of the queue.
-  size_t size_;  // The number of elements in the queue.
-
-  // We disallow copying a queue.
-  Queue(const Queue&amp;);
-  const Queue&amp; operator = (const Queue&amp;);
-};
-
-#endif  // GTEST_SAMPLES_SAMPLE3_INL_H_
-
-
-
-#ifndef GTEST_SAMPLES_SAMPLE3_INL_H_
-#define GTEST_SAMPLES_SAMPLE3_INL_H_
-
-#include &lt;stddef.h&gt;
-
-
-// Queue is a simple queue implemented as a singled-linked list.
-//
-// The element type must support copy constructor.
-template &lt;typename E&gt;  // E is the element type
-class Queue;
-
-// QueueNode is a node in a Queue, which consists of an element of
-// type E and a pointer to the next node.
-template &lt;typename E&gt;  // E is the element type
-class QueueNode {
-  friend class Queue&lt;E&gt;;
-
- public:
-  // Gets the element in this node.
-  const E&amp; element() const { return element_; }
-
-  // Gets the next node in the queue.
-  QueueNode* next() { return next_; }
-  const QueueNode* next() const { return next_; }
-
- private:
-  // Creates a node with a given element value.  The next pointer is
-  // set to NULL.
-  explicit QueueNode(const E&amp; an_element) : element_(an_element), next_(NULL) {}
-
-  // We disable the default assignment operator and copy c&apos;tor.
-  const QueueNode&amp; operator = (const QueueNode&amp;);
-  QueueNode(const QueueNode&amp;);
-
-  E element_;
-  QueueNode* next_;
-};
-
-template &lt;typename E&gt;  // E is the element type.
-class Queue {
- public:
-  // Creates an empty queue.
-  Queue() : head_(NULL), last_(NULL), size_(0) {}
-
-  // D&apos;tor.  Clears the queue.
-  ~Queue() { Clear(); }
-
-  // Clears the queue.
-  void Clear() {
-    if (size_ &gt; 0) {
-      // 1. Deletes every node.
-      QueueNode&lt;E&gt;* node = head_;
-      QueueNode&lt;E&gt;* next = node-&gt;next();
-      for (; ;) {
-        delete node;
-        node = next;
-        if (node == NULL) break;
-        next = node-&gt;next();
-      }
-
-      // 2. Resets the member variables.
-      head_ = last_ = NULL;
-      size_ = 0;
-    }
-  }
-
-  // Gets the number of elements.
-  size_t Size() const { return size_; }
-
-  // Gets the first element of the queue, or NULL if the queue is empty.
-  QueueNode&lt;E&gt;* Head() { return head_; }
-  const QueueNode&lt;E&gt;* Head() const { return head_; }
-
-  // Gets the last element of the queue, or NULL if the queue is empty.
-  QueueNode&lt;E&gt;* Last() { return last_; }
-  const QueueNode&lt;E&gt;* Last() const { return last_; }
-
-  // Adds an element to the end of the queue.  A copy of the element is
-  // created using the copy constructor, and then stored in the queue.
-  // Changes made to the element in the queue doesn&apos;t affect the source
-  // object, and vice versa.
-  void Enqueue(const E&amp; element) {
-    QueueNode&lt;E&gt;* new_node = new QueueNode&lt;E&gt;(element);
-
-    if (size_ == 0) {
-      head_ = last_ = new_node;
-      size_ = 1;
-    } else {
-      last_-&gt;next_ = new_node;
-      last_ = new_node;
-      size_++;
-    }
-  }
-
-  // Removes the head of the queue and returns it.  Returns NULL if
-  // the queue is empty.
-  E* Dequeue() {
-    if (size_ == 0) {
-      return NULL;
-    }
-
-    const QueueNode&lt;E&gt;* const old_head = head_;
-    head_ = head_-&gt;next_;
-    size_--;
-    if (size_ == 0) {
-      last_ = NULL;
-    }
-
-    E* element = new E(old_head-&gt;element());
-    delete old_head;
-
-    return element;
-  }
-
-  // Applies a function/functor on each element of the queue, and
-  // returns the result in a new queue.  The original queue is not
-  // affected.
-  template &lt;typename F&gt;
-  Queue* Map(F function) const {
-    Queue* new_queue = new Queue();
-    for (const QueueNode&lt;E&gt;* node = head_; node != NULL; node = node-&gt;next_) {
-      new_queue-&gt;Enqueue(function(node-&gt;element()));
-    }
-
-    return new_queue;
-  }
-
- private:
-  QueueNode&lt;E&gt;* head_;  // The first node of the queue.
-  QueueNode&lt;E&gt;* last_;  // The last node of the queue.
-  size_t size_;  // The number of elements in the queue.
-
-  // We disallow copying a queue.
-  Queue(const Queue&amp;);
-  const Queue&amp; operator = (const Queue&amp;);
-};
-
-#endif  // GTEST_SAMPLES_SAMPLE3_INL_H_
-
-
-
-#ifndef GTEST_SAMPLES_SAMPLE4_H_
-#define GTEST_SAMPLES_SAMPLE4_H_
-
-// A simple monotonic counter.
-class Counter {
- private:
-  int counter_;
-
- public:
-  // Creates a counter that starts at 0.
-  Counter() : counter_(0) {}
-
-  // Returns the current counter value, and increments it.
-  int Increment();
-
-  // Prints the current counter value to STDOUT.
-  void Print() const;
-};
-
-#endif  // GTEST_SAMPLES_SAMPLE4_H_
-
-
-
-#include &lt;stdio.h&gt;
-
-#include &quot;sample4.h&quot;
-
-// Returns the current counter value, and increments it.
-int Counter::Increment() {
-  return counter_++;
-}
-
-// Prints the current counter value to STDOUT.
-void Counter::Print() const {
-  printf(&quot;%d&quot;, counter_);
-}
-
-
-
-#include &quot;gtest/gtest.h&quot;
-#include &quot;sample4.h&quot;
-
-// Tests the Increment() method.
-TEST(Counter, Increment) {
-  Counter c;
-
-  // EXPECT_EQ() evaluates its arguments exactly once, so they
-  // can have side effects.
-
-  EXPECT_EQ(0, c.Increment());
-  EXPECT_EQ(1, c.Increment());
-  EXPECT_EQ(2, c.Increment());
-}
-
-
-
-// This sample teaches how to reuse a test fixture in multiple test
-// cases by deriving sub-fixtures from it.
-//
-// When you define a test fixture, you specify the name of the test
-// case that will use this fixture.  Therefore, a test fixture can
-// be used by only one test case.
-//
-// Sometimes, more than one test cases may want to use the same or
-// slightly different test fixtures.  For example, you may want to
-// make sure that all tests for a GUI library don&apos;t leak important
-// system resources like fonts and brushes.  In Google Test, you do
-// this by putting the shared logic in a super (as in &quot;super class&quot;)
-// test fixture, and then have each test case use a fixture derived
-// from this super fixture.
-
-#include &lt;limits.h&gt;
-#include &lt;time.h&gt;
-#include &quot;sample3-inl.h&quot;
-#include &quot;gtest/gtest.h&quot;
-#include &quot;sample1.h&quot;
-
-// In this sample, we want to ensure that every test finishes within
-// ~5 seconds.  If a test takes longer to run, we consider it a
-// failure.
-//
-// We put the code for timing a test in a test fixture called
-// &quot;QuickTest&quot;.  QuickTest is intended to be the super fixture that
-// other fixtures derive from, therefore there is no test case with
-// the name &quot;QuickTest&quot;.  This is OK.
-//
-// Later, we will derive multiple test fixtures from QuickTest.
-class QuickTest : public testing::Test {
- protected:
-  // Remember that SetUp() is run immediately before a test starts.
-  // This is a good place to record the start time.
-  virtual void SetUp() {
-    start_time_ = time(NULL);
-  }
-
-  // TearDown() is invoked immediately after a test finishes.  Here we
-  // check if the test was too slow.
-  virtual void TearDown() {
-    // Gets the time when the test finishes
-    const time_t end_time = time(NULL);
-
-    // Asserts that the test took no more than ~5 seconds.  Did you
-    // know that you can use assertions in SetUp() and TearDown() as
-    // well?
-    EXPECT_TRUE(end_time - start_time_ &lt;= 5) &lt;&lt; &quot;The test took too long.&quot;;
-  }
-
-  // The UTC time (in seconds) when the test starts
-  time_t start_time_;
-};
-
-
-// We derive a fixture named IntegerFunctionTest from the QuickTest
-// fixture.  All tests using this fixture will be automatically
-// required to be quick.
-class IntegerFunctionTest : public QuickTest {
-  // We don&apos;t need any more logic than already in the QuickTest fixture.
-  // Therefore the body is empty.
-};
-
-
-// Now we can write tests in the IntegerFunctionTest test case.
-
-// Tests Factorial()
-TEST_F(IntegerFunctionTest, Factorial) {
-  // Tests factorial of negative numbers.
-  EXPECT_EQ(1, Factorial(-5));
-  EXPECT_EQ(1, Factorial(-1));
-  EXPECT_GT(Factorial(-10), 0);
-
-  // Tests factorial of 0.
-  EXPECT_EQ(1, Factorial(0));
-
-  // Tests factorial of positive numbers.
-  EXPECT_EQ(1, Factorial(1));
-  EXPECT_EQ(2, Factorial(2));
-  EXPECT_EQ(6, Factorial(3));
-  EXPECT_EQ(40320, Factorial(8));
-}
-
-
-// Tests IsPrime()
-TEST_F(IntegerFunctionTest, IsPrime) {
-  // Tests negative input.
-  EXPECT_FALSE(IsPrime(-1));
-  EXPECT_FALSE(IsPrime(-2));
-  EXPECT_FALSE(IsPrime(INT_MIN));
-
-  // Tests some trivial cases.
-  EXPECT_FALSE(IsPrime(0));
-  EXPECT_FALSE(IsPrime(1));
-  EXPECT_TRUE(IsPrime(2));
-  EXPECT_TRUE(IsPrime(3));
-
-  // Tests positive input.
-  EXPECT_FALSE(IsPrime(4));
-  EXPECT_TRUE(IsPrime(5));
-  EXPECT_FALSE(IsPrime(6));
-  EXPECT_TRUE(IsPrime(23));
-}
-
-
-// The next test case (named &quot;QueueTest&quot;) also needs to be quick, so
-// we derive another fixture from QuickTest.
-//
-// The QueueTest test fixture has some logic and shared objects in
-// addition to what&apos;s in QuickTest already.  We define the additional
-// stuff inside the body of the test fixture, as usual.
-class QueueTest : public QuickTest {
- protected:
-  virtual void SetUp() {
-    // First, we need to set up the super fixture (QuickTest).
-    QuickTest::SetUp();
-
-    // Second, some additional setup for this fixture.
-    q1_.Enqueue(1);
-    q2_.Enqueue(2);
-    q2_.Enqueue(3);
-  }
-
-  // By default, TearDown() inherits the behavior of
-  // QuickTest::TearDown().  As we have no additional cleaning work
-  // for QueueTest, we omit it here.
-  //
-  // virtual void TearDown() {
-  //   QuickTest::TearDown();
-  // }
-
-  Queue&lt;int&gt; q0_;
-  Queue&lt;int&gt; q1_;
-  Queue&lt;int&gt; q2_;
-};
-
-
-// Now, let&apos;s write tests using the QueueTest fixture.
-
-// Tests the default constructor.
-TEST_F(QueueTest, DefaultConstructor) {
-  EXPECT_EQ(0u, q0_.Size());
-}
-
-// Tests Dequeue().
-TEST_F(QueueTest, Dequeue) {
-  int* n = q0_.Dequeue();
-  EXPECT_TRUE(n == NULL);
-
-  n = q1_.Dequeue();
-  EXPECT_TRUE(n != NULL);
-  EXPECT_EQ(1, *n);
-  EXPECT_EQ(0u, q1_.Size());
-  delete n;
-
-  n = q2_.Dequeue();
-  EXPECT_TRUE(n != NULL);
-  EXPECT_EQ(2, *n);
-  EXPECT_EQ(1u, q2_.Size());
-  delete n;
-}
-
-// If necessary, you can derive further test fixtures from a derived
-// fixture itself.  For example, you can derive another fixture from
-// QueueTest.  Google Test imposes no limit on how deep the hierarchy
-// can be.  In practice, however, you probably don&apos;t want it to be too
-// deep as to be confusing.
-
-// Copyright 2008 Google Inc.
-// All Rights Reserved.
-//
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are
-// met:
-//
-//     * Redistributions of source code must retain the above copyright
-// notice, this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above
-// copyright notice, this list of conditions and the following disclaimer
-// in the documentation and/or other materials provided with the
-// distribution.
-//     * Neither the name of Google Inc. nor the names of its
-// contributors may be used to endorse or promote products derived from
-// this software without specific prior written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-// &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
-// Author: wan@google.com (Zhanyong Wan)
-
-// This sample shows how to test common properties of multiple
-// implementations of the same interface (aka interface tests).
-
-// The interface and its implementations are in this header.
-#include &quot;prime_tables.h&quot;
-
-#include &quot;gtest/gtest.h&quot;
-
-// First, we define some factory functions for creating instances of
-// the implementations.  You may be able to skip this step if all your
-// implementations can be constructed the same way.
-
-template &lt;class T&gt;
-PrimeTable* CreatePrimeTable();
-
-template &lt;&gt;
-PrimeTable* CreatePrimeTable&lt;OnTheFlyPrimeTable&gt;() {
-  return new OnTheFlyPrimeTable;
-}
-
-template &lt;&gt;
-PrimeTable* CreatePrimeTable&lt;PreCalculatedPrimeTable&gt;() {
-  return new PreCalculatedPrimeTable(10000);
-}
-
-// Then we define a test fixture class template.
-template &lt;class T&gt;
-class PrimeTableTest : public testing::Test {
- protected:
-  // The ctor calls the factory function to create a prime table
-  // implemented by T.
-  PrimeTableTest() : table_(CreatePrimeTable&lt;T&gt;()) {}
-
-  virtual ~PrimeTableTest() { delete table_; }
-
-  // Note that we test an implementation via the base interface
-  // instead of the actual implementation class.  This is important
-  // for keeping the tests close to the real world scenario, where the
-  // implementation is invoked via the base interface.  It avoids
-  // got-yas where the implementation class has a method that shadows
-  // a method with the same name (but slightly different argument
-  // types) in the base interface, for example.
-  PrimeTable* const table_;
-};
-
-#if GTEST_HAS_TYPED_TEST
-
-using testing::Types;
-
-// Google Test offers two ways for reusing tests for different types.
-// The first is called &quot;typed tests&quot;.  You should use it if you
-// already know *all* the types you are gonna exercise when you write
-// the tests.
-
-// To write a typed test case, first use
-//
-//   TYPED_TEST_CASE(TestCaseName, TypeList);
-//
-// to declare it and specify the type parameters.  As with TEST_F,
-// TestCaseName must match the test fixture name.
-
-// The list of types we want to test.
-typedef Types&lt;OnTheFlyPrimeTable, PreCalculatedPrimeTable&gt; Implementations;
-
-TYPED_TEST_CASE(PrimeTableTest, Implementations);
-
-// Then use TYPED_TEST(TestCaseName, TestName) to define a typed test,
-// similar to TEST_F.
-TYPED_TEST(PrimeTableTest, ReturnsFalseForNonPrimes) {
-  // Inside the test body, you can refer to the type parameter by
-  // TypeParam, and refer to the fixture class by TestFixture.  We
-  // don&apos;t need them in this example.
-
-  // Since we are in the template world, C++ requires explicitly
-  // writing &apos;this-&gt;&apos; when referring to members of the fixture class.
-  // This is something you have to learn to live with.
-  EXPECT_FALSE(this-&gt;table_-&gt;IsPrime(-5));
-  EXPECT_FALSE(this-&gt;table_-&gt;IsPrime(0));
-  EXPECT_FALSE(this-&gt;table_-&gt;IsPrime(1));
-  EXPECT_FALSE(this-&gt;table_-&gt;IsPrime(4));
-  EXPECT_FALSE(this-&gt;table_-&gt;IsPrime(6));
-  EXPECT_FALSE(this-&gt;table_-&gt;IsPrime(100));
-}
-
-TYPED_TEST(PrimeTableTest, ReturnsTrueForPrimes) {
-  EXPECT_TRUE(this-&gt;table_-&gt;IsPrime(2));
-  EXPECT_TRUE(this-&gt;table_-&gt;IsPrime(3));
-  EXPECT_TRUE(this-&gt;table_-&gt;IsPrime(5));
-  EXPECT_TRUE(this-&gt;table_-&gt;IsPrime(7));
-  EXPECT_TRUE(this-&gt;table_-&gt;IsPrime(11));
-  EXPECT_TRUE(this-&gt;table_-&gt;IsPrime(131));
-}
-
-TYPED_TEST(PrimeTableTest, CanGetNextPrime) {
-  EXPECT_EQ(2, this-&gt;table_-&gt;GetNextPrime(0));
-  EXPECT_EQ(3, this-&gt;table_-&gt;GetNextPrime(2));
-  EXPECT_EQ(5, this-&gt;table_-&gt;GetNextPrime(3));
-  EXPECT_EQ(7, this-&gt;table_-&gt;GetNextPrime(5));
-  EXPECT_EQ(11, this-&gt;table_-&gt;GetNextPrime(7));
-  EXPECT_EQ(131, this-&gt;table_-&gt;GetNextPrime(128));
-}
-
-// That&apos;s it!  Google Test will repeat each TYPED_TEST for each type
-// in the type list specified in TYPED_TEST_CASE.  Sit back and be
-// happy that you don&apos;t have to define them multiple times.
-
-#endif  // GTEST_HAS_TYPED_TEST
-
-#if GTEST_HAS_TYPED_TEST_P
-
-using testing::Types;
-
-// Sometimes, however, you don&apos;t yet know all the types that you want
-// to test when you write the tests.  For example, if you are the
-// author of an interface and expect other people to implement it, you
-// might want to write a set of tests to make sure each implementation
-// conforms to some basic requirements, but you don&apos;t know what
-// implementations will be written in the future.
-//
-// How can you write the tests without committing to the type
-// parameters?  That&apos;s what &quot;type-parameterized tests&quot; can do for you.
-// It is a bit more involved than typed tests, but in return you get a
-// test pattern that can be reused in many contexts, which is a big
-// win.  Here&apos;s how you do it:
-
-// First, define a test fixture class template.  Here we just reuse
-// the PrimeTableTest fixture defined earlier:
-
-template &lt;class T&gt;
-class PrimeTableTest2 : public PrimeTableTest&lt;T&gt; {
-};
-
-// Then, declare the test case.  The argument is the name of the test
-// fixture, and also the name of the test case (as usual).  The _P
-// suffix is for &quot;parameterized&quot; or &quot;pattern&quot;.
-TYPED_TEST_CASE_P(PrimeTableTest2);
-
-// Next, use TYPED_TEST_P(TestCaseName, TestName) to define a test,
-// similar to what you do with TEST_F.
-TYPED_TEST_P(PrimeTableTest2, ReturnsFalseForNonPrimes) {
-  EXPECT_FALSE(this-&gt;table_-&gt;IsPrime(-5));
-  EXPECT_FALSE(this-&gt;table_-&gt;IsPrime(0));
-  EXPECT_FALSE(this-&gt;table_-&gt;IsPrime(1));
-  EXPECT_FALSE(this-&gt;table_-&gt;IsPrime(4));
-  EXPECT_FALSE(this-&gt;table_-&gt;IsPrime(6));
-  EXPECT_FALSE(this-&gt;table_-&gt;IsPrime(100));
-}
-
-TYPED_TEST_P(PrimeTableTest2, ReturnsTrueForPrimes) {
-  EXPECT_TRUE(this-&gt;table_-&gt;IsPrime(2));
-  EXPECT_TRUE(this-&gt;table_-&gt;IsPrime(3));
-  EXPECT_TRUE(this-&gt;table_-&gt;IsPrime(5));
-  EXPECT_TRUE(this-&gt;table_-&gt;IsPrime(7));
-  EXPECT_TRUE(this-&gt;table_-&gt;IsPrime(11));
-  EXPECT_TRUE(this-&gt;table_-&gt;IsPrime(131));
-}
-
-TYPED_TEST_P(PrimeTableTest2, CanGetNextPrime) {
-  EXPECT_EQ(2, this-&gt;table_-&gt;GetNextPrime(0));
-  EXPECT_EQ(3, this-&gt;table_-&gt;GetNextPrime(2));
-  EXPECT_EQ(5, this-&gt;table_-&gt;GetNextPrime(3));
-  EXPECT_EQ(7, this-&gt;table_-&gt;GetNextPrime(5));
-  EXPECT_EQ(11, this-&gt;table_-&gt;GetNextPrime(7));
-  EXPECT_EQ(131, this-&gt;table_-&gt;GetNextPrime(128));
-}
-
-// Type-parameterized tests involve one extra step: you have to
-// enumerate the tests you defined:
-REGISTER_TYPED_TEST_CASE_P(
-    PrimeTableTest2,  // The first argument is the test case name.
-    // The rest of the arguments are the test names.
-    ReturnsFalseForNonPrimes, ReturnsTrueForPrimes, CanGetNextPrime);
-
-// At this point the test pattern is done.  However, you don&apos;t have
-// any real test yet as you haven&apos;t said which types you want to run
-// the tests with.
-
-// To turn the abstract test pattern into real tests, you instantiate
-// it with a list of types.  Usually the test pattern will be defined
-// in a .h file, and anyone can #include and instantiate it.  You can
-// even instantiate it more than once in the same program.  To tell
-// different instances apart, you give each of them a name, which will
-// become part of the test case name and can be used in test filters.
-
-// The list of types we want to test.  Note that it doesn&apos;t have to be
-// defined at the time we write the TYPED_TEST_P()s.
-typedef Types&lt;OnTheFlyPrimeTable, PreCalculatedPrimeTable&gt;
-    PrimeTableImplementations;
-INSTANTIATE_TYPED_TEST_CASE_P(OnTheFlyAndPreCalculated,    // Instance name
-                              PrimeTableTest2,             // Test case name
-                              PrimeTableImplementations);  // Type list
-
-#endif  // GTEST_HAS_TYPED_TEST_P
-
-// Copyright 2008 Google Inc.
-// All Rights Reserved.
-//
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are
-// met:
-//
-//     * Redistributions of source code must retain the above copyright
-// notice, this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above
-// copyright notice, this list of conditions and the following disclaimer
-// in the documentation and/or other materials provided with the
-// distribution.
-//     * Neither the name of Google Inc. nor the names of its
-// contributors may be used to endorse or promote products derived from
-// this software without specific prior written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-// &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
-// Author: vladl@google.com (Vlad Losev)
-
-// This sample shows how to test common properties of multiple
-// implementations of an interface (aka interface tests) using
-// value-parameterized tests. Each test in the test case has
-// a parameter that is an interface pointer to an implementation
-// tested.
-
-// The interface and its implementations are in this header.
-#include &quot;prime_tables.h&quot;
-
-#include &quot;gtest/gtest.h&quot;
-
-#if GTEST_HAS_PARAM_TEST
-
-using ::testing::TestWithParam;
-using ::testing::Values;
-
-// As a general rule, to prevent a test from affecting the tests that come
-// after it, you should create and destroy the tested objects for each test
-// instead of reusing them.  In this sample we will define a simple factory
-// function for PrimeTable objects.  We will instantiate objects in test&apos;s
-// SetUp() method and delete them in TearDown() method.
-typedef PrimeTable* CreatePrimeTableFunc();
-
-PrimeTable* CreateOnTheFlyPrimeTable() {
-  return new OnTheFlyPrimeTable();
-}
-
-template &lt;size_t max_precalculated&gt;
-PrimeTable* CreatePreCalculatedPrimeTable() {
-  return new PreCalculatedPrimeTable(max_precalculated);
-}
-
-// Inside the test body, fixture constructor, SetUp(), and TearDown() you
-// can refer to the test parameter by GetParam().  In this case, the test
-// parameter is a factory function which we call in fixture&apos;s SetUp() to
-// create and store an instance of PrimeTable.
-class PrimeTableTest : public TestWithParam&lt;CreatePrimeTableFunc*&gt; {
- public:
-  virtual ~PrimeTableTest() { delete table_; }
-  virtual void SetUp() { table_ = (*GetParam())(); }
-  virtual void TearDown() {
-    delete table_;
-    table_ = NULL;
-  }
-
- protected:
-  PrimeTable* table_;
-};
-
-TEST_P(PrimeTableTest, ReturnsFalseForNonPrimes) {
-  EXPECT_FALSE(table_-&gt;IsPrime(-5));
-  EXPECT_FALSE(table_-&gt;IsPrime(0));
-  EXPECT_FALSE(table_-&gt;IsPrime(1));
-  EXPECT_FALSE(table_-&gt;IsPrime(4));
-  EXPECT_FALSE(table_-&gt;IsPrime(6));
-  EXPECT_FALSE(table_-&gt;IsPrime(100));
-}
-
-TEST_P(PrimeTableTest, ReturnsTrueForPrimes) {
-  EXPECT_TRUE(table_-&gt;IsPrime(2));
-  EXPECT_TRUE(table_-&gt;IsPrime(3));
-  EXPECT_TRUE(table_-&gt;IsPrime(5));
-  EXPECT_TRUE(table_-&gt;IsPrime(7));
-  EXPECT_TRUE(table_-&gt;IsPrime(11));
-  EXPECT_TRUE(table_-&gt;IsPrime(131));
-}
-
-TEST_P(PrimeTableTest, CanGetNextPrime) {
-  EXPECT_EQ(2, table_-&gt;GetNextPrime(0));
-  EXPECT_EQ(3, table_-&gt;GetNextPrime(2));
-  EXPECT_EQ(5, table_-&gt;GetNextPrime(3));
-  EXPECT_EQ(7, table_-&gt;GetNextPrime(5));
-  EXPECT_EQ(11, table_-&gt;GetNextPrime(7));
-  EXPECT_EQ(131, table_-&gt;GetNextPrime(128));
-}
-
-// In order to run value-parameterized tests, you need to instantiate them,
-// or bind them to a list of values which will be used as test parameters.
-// You can instantiate them in a different translation module, or even
-// instantiate them several times.
-//
-// Here, we instantiate our tests with a list of two PrimeTable object
-// factory functions:
-INSTANTIATE_TEST_CASE_P(
-    OnTheFlyAndPreCalculated,
-    PrimeTableTest,
-    Values(&amp;CreateOnTheFlyPrimeTable, &amp;CreatePreCalculatedPrimeTable&lt;1000&gt;));
-
-#else
-
-// Google Test may not support value-parameterized tests with some
-// compilers. If we use conditional compilation to compile out all
-// code referring to the gtest_main library, MSVC linker will not link
-// that library at all and consequently complain about missing entry
-// point defined in that library (fatal error LNK1561: entry point
-// must be defined). This dummy test keeps gtest_main linked in.
-TEST(DummyTest, ValueParameterizedTestsAreNotSupportedOnThisPlatform) {}
-
-#endif  // GTEST_HAS_PARAM_TEST
-
-// Copyright 2008 Google Inc.
-// All Rights Reserved.
-//
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are
-// met:
-//
-//     * Redistributions of source code must retain the above copyright
-// notice, this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above
-// copyright notice, this list of conditions and the following disclaimer
-// in the documentation and/or other materials provided with the
-// distribution.
-//     * Neither the name of Google Inc. nor the names of its
-// contributors may be used to endorse or promote products derived from
-// this software without specific prior written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-// &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
-// Author: vladl@google.com (Vlad Losev)
-
-// This sample shows how to test code relying on some global flag variables.
-// Combine() helps with generating all possible combinations of such flags,
-// and each test is given one combination as a parameter.
-
-// Use class definitions to test from this header.
-#include &quot;prime_tables.h&quot;
-
-#include &quot;gtest/gtest.h&quot;
-
-#if GTEST_HAS_COMBINE
-
-// Suppose we want to introduce a new, improved implementation of PrimeTable
-// which combines speed of PrecalcPrimeTable and versatility of
-// OnTheFlyPrimeTable (see prime_tables.h). Inside it instantiates both
-// PrecalcPrimeTable and OnTheFlyPrimeTable and uses the one that is more
-// appropriate under the circumstances. But in low memory conditions, it can be
-// told to instantiate without PrecalcPrimeTable instance at all and use only
-// OnTheFlyPrimeTable.
-class HybridPrimeTable : public PrimeTable {
- public:
-  HybridPrimeTable(bool force_on_the_fly, int max_precalculated)
-      : on_the_fly_impl_(new OnTheFlyPrimeTable),
-        precalc_impl_(force_on_the_fly ? NULL :
-                          new PreCalculatedPrimeTable(max_precalculated)),
-        max_precalculated_(max_precalculated) {}
-  virtual ~HybridPrimeTable() {
-    delete on_the_fly_impl_;
-    delete precalc_impl_;
-  }
-
-  virtual bool IsPrime(int n) const {
-    if (precalc_impl_ != NULL &amp;&amp; n &lt; max_precalculated_)
-      return precalc_impl_-&gt;IsPrime(n);
-    else
-      return on_the_fly_impl_-&gt;IsPrime(n);
-  }
-
-  virtual int GetNextPrime(int p) const {
-    int next_prime = -1;
-    if (precalc_impl_ != NULL &amp;&amp; p &lt; max_precalculated_)
-      next_prime = precalc_impl_-&gt;GetNextPrime(p);
-
-    return next_prime != -1 ? next_prime : on_the_fly_impl_-&gt;GetNextPrime(p);
-  }
-
- private:
-  OnTheFlyPrimeTable* on_the_fly_impl_;
-  PreCalculatedPrimeTable* precalc_impl_;
-  int max_precalculated_;
-};
-
-using ::testing::TestWithParam;
-using ::testing::Bool;
-using ::testing::Values;
-using ::testing::Combine;
-
-// To test all code paths for HybridPrimeTable we must test it with numbers
-// both within and outside PreCalculatedPrimeTable&apos;s capacity and also with
-// PreCalculatedPrimeTable disabled. We do this by defining fixture which will
-// accept different combinations of parameters for instantiating a
-// HybridPrimeTable instance.
-class PrimeTableTest : public TestWithParam&lt; ::testing::tuple&lt;bool, int&gt; &gt; {
- protected:
-  virtual void SetUp() {
-    // This can be written as
-    //
-    // bool force_on_the_fly;
-    // int max_precalculated;
-    // tie(force_on_the_fly, max_precalculated) = GetParam();
-    //
-    // once the Google C++ Style Guide allows use of ::std::tr1::tie.
-    //
-    bool force_on_the_fly = ::testing::get&lt;0&gt;(GetParam());
-    int max_precalculated = ::testing::get&lt;1&gt;(GetParam());
-    table_ = new HybridPrimeTable(force_on_the_fly, max_precalculated);
-  }
-  virtual void TearDown() {
-    delete table_;
-    table_ = NULL;
-  }
-  HybridPrimeTable* table_;
-};
-
-TEST_P(PrimeTableTest, ReturnsFalseForNonPrimes) {
-  // Inside the test body, you can refer to the test parameter by GetParam().
-  // In this case, the test parameter is a PrimeTable interface pointer which
-  // we can use directly.
-  // Please note that you can also save it in the fixture&apos;s SetUp() method
-  // or constructor and use saved copy in the tests.
-
-  EXPECT_FALSE(table_-&gt;IsPrime(-5));
-  EXPECT_FALSE(table_-&gt;IsPrime(0));
-  EXPECT_FALSE(table_-&gt;IsPrime(1));
-  EXPECT_FALSE(table_-&gt;IsPrime(4));
-  EXPECT_FALSE(table_-&gt;IsPrime(6));
-  EXPECT_FALSE(table_-&gt;IsPrime(100));
-}
-
-TEST_P(PrimeTableTest, ReturnsTrueForPrimes) {
-  EXPECT_TRUE(table_-&gt;IsPrime(2));
-  EXPECT_TRUE(table_-&gt;IsPrime(3));
-  EXPECT_TRUE(table_-&gt;IsPrime(5));
-  EXPECT_TRUE(table_-&gt;IsPrime(7));
-  EXPECT_TRUE(table_-&gt;IsPrime(11));
-  EXPECT_TRUE(table_-&gt;IsPrime(131));
-}
-
-TEST_P(PrimeTableTest, CanGetNextPrime) {
-  EXPECT_EQ(2, table_-&gt;GetNextPrime(0));
-  EXPECT_EQ(3, table_-&gt;GetNextPrime(2));
-  EXPECT_EQ(5, table_-&gt;GetNextPrime(3));
-  EXPECT_EQ(7, table_-&gt;GetNextPrime(5));
-  EXPECT_EQ(11, table_-&gt;GetNextPrime(7));
-  EXPECT_EQ(131, table_-&gt;GetNextPrime(128));
-}
-
-// In order to run value-parameterized tests, you need to instantiate them,
-// or bind them to a list of values which will be used as test parameters.
-// You can instantiate them in a different translation module, or even
-// instantiate them several times.
-//
-// Here, we instantiate our tests with a list of parameters. We must combine
-// all variations of the boolean flag suppressing PrecalcPrimeTable and some
-// meaningful values for tests. We choose a small value (1), and a value that
-// will put some of the tested numbers beyond the capability of the
-// PrecalcPrimeTable instance and some inside it (10). Combine will produce all
-// possible combinations.
-INSTANTIATE_TEST_CASE_P(MeaningfulTestParameters,
-                        PrimeTableTest,
-                        Combine(Bool(), Values(1, 10)));
-
-#else
-
-// Google Test may not support Combine() with some compilers. If we
-// use conditional compilation to compile out all code referring to
-// the gtest_main library, MSVC linker will not link that library at
-// all and consequently complain about missing entry point defined in
-// that library (fatal error LNK1561: entry point must be
-// defined). This dummy test keeps gtest_main linked in.
-TEST(DummyTest, CombineIsNotSupportedOnThisPlatform) {}
-
-#endif  // GTEST_HAS_COMBINE
-
-// Copyright 2009 Google Inc. All Rights Reserved.
-//
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are
-// met:
-//
-//     * Redistributions of source code must retain the above copyright
-// notice, this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above
-// copyright notice, this list of conditions and the following disclaimer
-// in the documentation and/or other materials provided with the
-// distribution.
-//     * Neither the name of Google Inc. nor the names of its
-// contributors may be used to endorse or promote products derived from
-// this software without specific prior written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-// &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
-// Author: vladl@google.com (Vlad Losev)
-
-// This sample shows how to use Google Test listener API to implement
-// an alternative console output and how to use the UnitTest reflection API
-// to enumerate test cases and tests and to inspect their results.
-
-#include &lt;stdio.h&gt;
-
-#include &quot;gtest/gtest.h&quot;
-
-using ::testing::EmptyTestEventListener;
-using ::testing::InitGoogleTest;
-using ::testing::Test;
-using ::testing::TestCase;
-using ::testing::TestEventListeners;
-using ::testing::TestInfo;
-using ::testing::TestPartResult;
-using ::testing::UnitTest;
-
-namespace {
-
-// Provides alternative output mode which produces minimal amount of
-// information about tests.
-class TersePrinter : public EmptyTestEventListener {
- private:
-  // Called before any test activity starts.
-  virtual void OnTestProgramStart(const UnitTest&amp; /* unit_test */) {}
-
-  // Called after all test activities have ended.
-  virtual void OnTestProgramEnd(const UnitTest&amp; unit_test) {
-    fprintf(stdout, &quot;TEST %s\n&quot;, unit_test.Passed() ? &quot;PASSED&quot; : &quot;FAILED&quot;);
-    fflush(stdout);
-  }
-
-  // Called before a test starts.
-  virtual void OnTestStart(const TestInfo&amp; test_info) {
-    fprintf(stdout,
-            &quot;*** Test %s.%s starting.\n&quot;,
-            test_info.test_case_name(),
-            test_info.name());
-    fflush(stdout);
-  }
-
-  // Called after a failed assertion or a SUCCEED() invocation.
-  virtual void OnTestPartResult(const TestPartResult&amp; test_part_result) {
-    fprintf(stdout,
-            &quot;%s in %s:%d\n%s\n&quot;,
-            test_part_result.failed() ? &quot;*** Failure&quot; : &quot;Success&quot;,
-            test_part_result.file_name(),
-            test_part_result.line_number(),
-            test_part_result.summary());
-    fflush(stdout);
-  }
-
-  // Called after a test ends.
-  virtual void OnTestEnd(const TestInfo&amp; test_info) {
-    fprintf(stdout,
-            &quot;*** Test %s.%s ending.\n&quot;,
-            test_info.test_case_name(),
-            test_info.name());
-    fflush(stdout);
-  }
-};  // class TersePrinter
-
-TEST(CustomOutputTest, PrintsMessage) {
-  printf(&quot;Printing something from the test body...\n&quot;);
-}
-
-TEST(CustomOutputTest, Succeeds) {
-  SUCCEED() &lt;&lt; &quot;SUCCEED() has been invoked from here&quot;;
-}
-
-TEST(CustomOutputTest, Fails) {
-  EXPECT_EQ(1, 2)
-      &lt;&lt; &quot;This test fails in order to demonstrate alternative failure messages&quot;;
-}
-
-}  // namespace
-
-int main(int argc, char **argv) {
-  InitGoogleTest(&amp;argc, argv);
-
-  bool terse_output = false;
-  if (argc &gt; 1 &amp;&amp; strcmp(argv[1], &quot;--terse_output&quot;) == 0 )
-    terse_output = true;
-  else
-    printf(&quot;%s\n&quot;, &quot;Run this program with --terse_output to change the way &quot;
-           &quot;it prints its output.&quot;);
-
-  UnitTest&amp; unit_test = *UnitTest::GetInstance();
-
-  // If we are given the --terse_output command line flag, suppresses the
-  // standard output and attaches own result printer.
-  if (terse_output) {
-    TestEventListeners&amp; listeners = unit_test.listeners();
-
-    // Removes the default console output listener from the list so it will
-    // not receive events from Google Test and won&apos;t print any output. Since
-    // this operation transfers ownership of the listener to the caller we
-    // have to delete it as well.
-    delete listeners.Release(listeners.default_result_printer());
-
-    // Adds the custom output listener to the list. It will now receive
-    // events from Google Test and print the alternative output. We don&apos;t
-    // have to worry about deleting it since Google Test assumes ownership
-    // over it after adding it to the list.
-    listeners.Append(new TersePrinter);
-  }
-  int ret_val = RUN_ALL_TESTS();
-
-  // This is an example of using the UnitTest reflection API to inspect test
-  // results. Here we discount failures from the tests we expected to fail.
-  int unexpectedly_failed_tests = 0;
-  for (int i = 0; i &lt; unit_test.total_test_case_count(); ++i) {
-    const TestCase&amp; test_case = *unit_test.GetTestCase(i);
-    for (int j = 0; j &lt; test_case.total_test_count(); ++j) {
-      const TestInfo&amp; test_info = *test_case.GetTestInfo(j);
-      // Counts failed tests that were not meant to fail (those without
-      // &apos;Fails&apos; in the name).
-      if (test_info.result()-&gt;Failed() &amp;&amp;
-          strcmp(test_info.name(), &quot;Fails&quot;) != 0) {
-        unexpectedly_failed_tests++;
-      }
-    }
-  }
-
-  // Test that were meant to fail should not affect the test program outcome.
-  if (unexpectedly_failed_tests == 0)
-    ret_val = 0;
-
-  return ret_val;
-}
-
-// Copyright 2009 Google Inc. All Rights Reserved.
-//
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are
-// met:
-//
-//     * Redistributions of source code must retain the above copyright
-// notice, this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above
-// copyright notice, this list of conditions and the following disclaimer
-// in the documentation and/or other materials provided with the
-// distribution.
-//     * Neither the name of Google Inc. nor the names of its
-// contributors may be used to endorse or promote products derived from
-// this software without specific prior written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-// &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//
-// Author: vladl@google.com (Vlad Losev)
-
-// This sample shows how to use Google Test listener API to implement
-// a primitive leak checker.
-
-#include &lt;stdio.h&gt;
-#include &lt;stdlib.h&gt;
-
-#include &quot;gtest/gtest.h&quot;
-
-using ::testing::EmptyTestEventListener;
-using ::testing::InitGoogleTest;
-using ::testing::Test;
-using ::testing::TestCase;
-using ::testing::TestEventListeners;
-using ::testing::TestInfo;
-using ::testing::TestPartResult;
-using ::testing::UnitTest;
-
-namespace {
-
-// We will track memory used by this class.
-class Water {
- public:
-  // Normal Water declarations go here.
-
-  // operator new and operator delete help us control water allocation.
-  void* operator new(size_t allocation_size) {
-    allocated_++;
-    return malloc(allocation_size);
-  }
-
-  void operator delete(void* block, size_t /* allocation_size */) {
-    allocated_--;
-    free(block);
-  }
-
-  static int allocated() { return allocated_; }
-
- private:
-  static int allocated_;
-};
-
-int Water::allocated_ = 0;
-
-// This event listener monitors how many Water objects are created and
-// destroyed by each test, and reports a failure if a test leaks some Water
-// objects. It does this by comparing the number of live Water objects at
-// the beginning of a test and at the end of a test.
-class LeakChecker : public EmptyTestEventListener {
- private:
-  // Called before a test starts.
-  virtual void OnTestStart(const TestInfo&amp; /* test_info */) {
-    initially_allocated_ = Water::allocated();
-  }
-
-  // Called after a test ends.
-  virtual void OnTestEnd(const TestInfo&amp; /* test_info */) {
-    int difference = Water::allocated() - initially_allocated_;
-
-    // You can generate a failure in any event handler except
-    // OnTestPartResult. Just use an appropriate Google Test assertion to do
-    // it.
-    EXPECT_LE(difference, 0) &lt;&lt; &quot;Leaked &quot; &lt;&lt; difference &lt;&lt; &quot; unit(s) of Water!&quot;;
-  }
-
-  int initially_allocated_;
-};
-
-TEST(ListenersTest, DoesNotLeak) {
-  Water* water = new Water;
-  delete water;
-}
-
-// This should fail when the --check_for_leaks command line flag is
-// specified.
-TEST(ListenersTest, LeaksWater) {
-  Water* water = new Water;
-  EXPECT_TRUE(water != NULL);
-}
-
-}  // namespace
-
-int main(int argc, char **argv) {
-  InitGoogleTest(&amp;argc, argv);
-
-  bool check_for_leaks = false;
-  if (argc &gt; 1 &amp;&amp; strcmp(argv[1], &quot;--check_for_leaks&quot;) == 0 )
-    check_for_leaks = true;
-  else
-    printf(&quot;%s\n&quot;, &quot;Run this program with --check_for_leaks to enable &quot;
-           &quot;custom leak checking in the tests.&quot;);
-
-  // If we are given the --check_for_leaks command line flag, installs the
-  // leak checker.
-  if (check_for_leaks) {
-    TestEventListeners&amp; listeners = UnitTest::GetInstance()-&gt;listeners();
-
-    // Adds the leak checker to the end of the test event listener list,
-    // after the default text output printer and the default XML report
-    // generator.
-    //
-    // The order is important - it ensures that failures generated in the
-    // leak checker&apos;s OnTestEnd() method are processed by the text and XML
-    // printers *before* their OnTestEnd() methods are called, such that
-    // they are attributed to the right test. Remember that a listener
-    // receives an OnXyzStart event *after* listeners preceding it in the
-    // list received that event, and receives an OnXyzEnd event *before*
-    // listeners preceding it.
-    //
-    // We don&apos;t need to worry about deleting the new listener later, as
-    // Google Test will do it.
-    listeners.Append(new LeakChecker);
-  }
-  return RUN_ALL_TESTS();
-}
-</code></pre><h2 id="Google-Mock"><a href="#Google-Mock" class="headerlink" title="Google Mock"></a>Google Mock</h2><p><a href="https://www.cnblogs.com/jycboy/p/gmock_summary.html" title="https://www.cnblogs.com/jycboy/p/gmock_summary.html" target="_blank" rel="noopener">https://www.cnblogs.com/jycboy/p/gmock_summary.html</a></p>
-<p><a href="https://blog.csdn.net/noahzuo/article/details/60136467" title="https://blog.csdn.net/noahzuo/article/details/60136467" target="_blank" rel="noopener">https://blog.csdn.net/noahzuo/article/details/60136467</a></p>
-<p><a href="https://github.com/google/googletest/blob/master/googlemock/docs/CheatSheet.md" title="https://github.com/google/googletest/blob/master/googlemock/docs/CheatSheet.md" target="_blank" rel="noopener">https://github.com/google/googletest/blob/master/googlemock/docs/CheatSheet.md</a></p>
-<p><a href="https://github.com/google/googletest/blob/master/googlemock/docs/CookBook.md" title="https://github.com/google/googletest/blob/master/googlemock/docs/CookBook.md" target="_blank" rel="noopener">https://github.com/google/googletest/blob/master/googlemock/docs/CookBook.md</a></p>
-<p><a href="http://www.cnblogs.com/jycboy/p/gmock_cheatsheet.html" title="http://www.cnblogs.com/jycboy/p/gmock_cheatsheet.html" target="_blank" rel="noopener">http://www.cnblogs.com/jycboy/p/gmock_cheatsheet.html</a></p>
-<h3 id="CookBook"><a href="#CookBook" class="headerlink" title="CookBook"></a>CookBook</h3><h4 id="Mocking-Private-or-Protected-Methods"><a href="#Mocking-Private-or-Protected-Methods" class="headerlink" title="Mocking Private or Protected Methods"></a>Mocking Private or Protected Methods</h4><pre><code>class Foo {
- public:
-  ...
-  virtual bool Transform(Gadget* g) = 0;
-
- protected:
-  virtual void Resume();
-
- private:
-  virtual int GetTimeOut();
-};
-
-class MockFoo : public Foo {
- public:
-  ...
-  MOCK_METHOD1(Transform, bool(Gadget* g));
-
-  // The following must be in the public section, even though the
-  // methods are protected or private in the base class.
-  MOCK_METHOD0(Resume, void());
-  MOCK_METHOD0(GetTimeOut, int());
-};
-</code></pre><h4 id="Mocking-Overloaded-Methods"><a href="#Mocking-Overloaded-Methods" class="headerlink" title="Mocking Overloaded Methods"></a>Mocking Overloaded Methods</h4><pre><code>class Foo {
-  ...
-
-  // Must be virtual as we&apos;ll inherit from Foo.
-  virtual ~Foo();
-
-  // Overloaded on the types and/or numbers of arguments.
-  virtual int Add(Element x);
-  virtual int Add(int times, Element x);
-
-  // Overloaded on the const-ness of this object.
-  virtual Bar&amp; GetBar();
-  virtual const Bar&amp; GetBar() const;
-};
-
-class MockFoo : public Foo {
-  ...
-  MOCK_METHOD1(Add, int(Element x));
-  MOCK_METHOD2(Add, int(int times, Element x);
-
-  MOCK_METHOD0(GetBar, Bar&amp;());
-  MOCK_CONST_METHOD0(GetBar, const Bar&amp;());
-};
-</code></pre><h4 id="Mocking-Class-Templates"><a href="#Mocking-Class-Templates" class="headerlink" title="Mocking Class Templates"></a>Mocking Class Templates</h4><pre><code>template &lt;typename Elem&gt;
-class StackInterface {
-  ...
-  // Must be virtual as we&apos;ll inherit from StackInterface.
-  virtual ~StackInterface();
-
-  virtual int GetSize() const = 0;
-  virtual void Push(const Elem&amp; x) = 0;
-};
-
-template &lt;typename Elem&gt;
-class MockStack : public StackInterface&lt;Elem&gt; {
-  ...
-  MOCK_CONST_METHOD0_T(GetSize, int());
-  MOCK_METHOD1_T(Push, void(const Elem&amp; x));
-};
-</code></pre><h4 id="Mocking-Nonvirtual-Methods"><a href="#Mocking-Nonvirtual-Methods" class="headerlink" title="Mocking Nonvirtual Methods"></a>Mocking Nonvirtual Methods</h4><pre><code>// A simple packet stream class.  None of its members is virtual.
-class ConcretePacketStream {
- public:
-  void AppendPacket(Packet* new_packet);
-  const Packet* GetPacket(size_t packet_number) const;
-  size_t NumberOfPackets() const;
-  ...
-};
-
-// A mock packet stream class.  It inherits from no other, but defines
-// GetPacket() and NumberOfPackets().
-class MockPacketStream {
- public:
-  MOCK_CONST_METHOD1(GetPacket, const Packet*(size_t packet_number));
-  MOCK_CONST_METHOD0(NumberOfPackets, size_t());
-  ...
-};
-</code></pre><h1 id="Boost-Test"><a href="#Boost-Test" class="headerlink" title="Boost.Test"></a>Boost.Test</h1><p><a href="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/index.html" title="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/index.html" target="_blank" rel="noopener">https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/index.html</a></p>
-<p><a href="https://www.cnblogs.com/moon1992/p/7482033.html" title="https://www.cnblogs.com/moon1992/p/7482033.html" target="_blank" rel="noopener">https://www.cnblogs.com/moon1992/p/7482033.html</a></p>
-<p><a href="https://ask.helplib.com/c++/post_1311306" title="https://ask.helplib.com/c++/post_1311306" target="_blank" rel="noopener">https://ask.helplib.com/c++/post_1311306</a></p>
-<p><a href="https://blogs.msdn.microsoft.com/c/2018/01/12/boost-test%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%9A%E5%8A%A8%E6%80%81%E5%BA%93%E6%94%AF%E6%8C%81%E5%92%8C%E6%96%B0%E9%A1%B9%E7%9B%AE%E6%A8%A1%E6%9D%BF/" title="https://blogs.msdn.microsoft.com/c/2018/01/12/boost-test%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%9A%E5%8A%A8%E6%80%81%E5%BA%93%E6%94%AF%E6%8C%81%E5%92%8C%E6%96%B0%E9%A1%B9%E7%9B%AE%E6%A8%A1%E6%9D%BF/" target="_blank" rel="noopener">Boost.Test单元测试：动态库支持和新项目模板</a></p>
-<h1 id="UnitTest-CppUnitTestFramework"><a href="#UnitTest-CppUnitTestFramework" class="headerlink" title="UnitTest CppUnitTestFramework"></a>UnitTest CppUnitTestFramework</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/hh419385.aspx" title="https://msdn.microsoft.com/zh-cn/library/hh419385.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/hh419385.aspx</a></p>
-<p><a href="https://msdn.microsoft.com/zh-cn/library/hh694604.aspx?f=255&amp;MSPPError=-2147217396" title="https://msdn.microsoft.com/zh-cn/library/hh694604.aspx?f=255&amp;MSPPError=-2147217396" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/hh694604.aspx?f=255&amp;MSPPError=-2147217396</a></p>
-<ul>
-<li>Assert.Inconclusive()//表示一个未验证的测试；</li>
-<li>Assert.AreEqual() //测试指定的值是否相等，如果相等，则测试通过；</li>
-<li>AreSame() //用于验证指定的两个对象变量是指向相同的对象，否则认为是错误</li>
-<li>AreNotSame() //用于验证指定的两个对象变量是指向不同的对象，否则认为是错误</li>
-<li>Assert.IsTrue() //测试指定的条件是否为True，如果为True，则测试通过；</li>
-<li>Assert.IsFalse() //测试指定的条件是否为False，如果为False，则测试通过；</li>
-<li>Assert.IsNull() //测试指定的对象是否为空引用，如果为空，则测试通过；</li>
-<li>Assert.IsNotNull() //测试指定的对象是否为非空，如果不为空，则测试通过；</li>
-</ul>
-<h2 id="simple"><a href="#simple" class="headerlink" title="simple:"></a>simple:</h2><pre><code>#include &quot;stdafx.h&quot;
-#include &quot;CppUnitTest.h&quot;
-
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-
-namespace MyUnitTest
-{        
-    TEST_CLASS(UnitTest1)
-    {
-    public:
-
-        TEST_METHOD(TestMethod1)
-        {
-            // TODO: 在此输入测试代码
-        }
-
-    };
-}
-
-namespace MyTest
-{
-    TEST_CLASS(MyTests)
-    {
-    public:
-        TEST_METHOD(MyTestMethod)
-        {
-            Assert::AreEqual(6, 6);
-        }
-    };
-}
-
-#include &quot;stdafx.h&quot;
-#include &quot;CppUnitTest.h&quot; 
-
-using namespace Microsoft::VisualStudio::CppUnitTestFramework;
-
-BEGIN_TEST_MODULE_ATTRIBUTE()
-TEST_MODULE_ATTRIBUTE(L&quot;Date&quot;, L&quot;2010/6/12&quot;)
-END_TEST_MODULE_ATTRIBUTE()
-
-TEST_MODULE_INITIALIZE(ModuleInitialize)
-{
-    Logger::WriteMessage(&quot;In Module Initialize&quot;);
-}
-
-TEST_MODULE_CLEANUP(ModuleCleanup)
-{
-    Logger::WriteMessage(&quot;In Module Cleanup&quot;);
-}
-
-TEST_CLASS(Class1)
-{
-
-public:
-
-    Class1()
-    {
-        Logger::WriteMessage(&quot;In Class1&quot;);
-    }
-
-    ~Class1()
-    {
-        Logger::WriteMessage(&quot;In ~Class1&quot;);
-    }
-
-    TEST_CLASS_INITIALIZE(ClassInitialize)
-    {
-        Logger::WriteMessage(&quot;In Class Initialize&quot;);
-    }
-
-    TEST_CLASS_CLEANUP(ClassCleanup)
-    {
-        Logger::WriteMessage(&quot;In Class Cleanup&quot;);
-    }
-
-    BEGIN_TEST_METHOD_ATTRIBUTE(Method1)
-        TEST_OWNER(L&quot;OwnerName&quot;)
-        TEST_PRIORITY(1)
-        END_TEST_METHOD_ATTRIBUTE()
-
-        TEST_METHOD(Method1)
-    {
-        Logger::WriteMessage(&quot;In Method1&quot;);
-        Assert::AreEqual(0, 0);
-    }
-
-    TEST_METHOD(Method2)
-    {
-        Assert::Fail(L&quot;Fail&quot;);
-    }
-};
-</code></pre><h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p><a href="https://docs.microsoft.com/en-us/visualstudio/test/writing-unit-tests-for-c-cpp" title="https://docs.microsoft.com/en-us/visualstudio/test/writing-unit-tests-for-c-cpp" target="_blank" rel="noopener">编写 单元测试 用于 C / C + + 在 Visual Studio</a></p>
-<p><a href="https://en.wikipedia.org/wiki/List_of_unit_testing_frameworks" title="https://en.wikipedia.org/wiki/List_of_unit_testing_frameworks" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/List_of_unit_testing_frameworks</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">CppUnit</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">单元测试</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CppUTest</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Google Test</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Google Mock</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Boost.Test</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">MicrosoftCppUnitTest</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/02/C++单元测试/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-目录监控" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/27/目录监控/">目录监控</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/27/目录监控/" class="archive-article-date">
-  	<time datetime="2018-04-27T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="FileSystemWatcher"><a href="#FileSystemWatcher" class="headerlink" title="FileSystemWatcher"></a>FileSystemWatcher</h1><pre><code>// &lt;https://msdn.microsoft.com/zh-cn/library/chzww271.aspx&gt;
-// monitor_fs.cpp
-// compile with: /clr
-#using &lt;system.dll&gt;
-
-using namespace System;
-using namespace System::IO;
-
-ref class FSEventHandler
-{
-public:
-    void OnChanged (Object ^source, FileSystemEventArgs ^e)
-    {
-        Console::WriteLine(&quot;File: {0} {1}&quot;,
-                           e-&gt;FullPath, e-&gt;ChangeType);
-    }
-    void OnRenamed(Object ^source, RenamedEventArgs ^e)
-    {
-        Console::WriteLine(&quot;File: {0} renamed to {1}&quot;,
-                           e-&gt;OldFullPath, e-&gt;FullPath);
-    }
-};
-
-int main()
-{
-    array&lt;String ^&gt; ^args = Environment::GetCommandLineArgs();
-
-    if(args-&gt;Length &lt; 2)
-    {
-        Console::WriteLine(&quot;Usage: Watcher.exe &lt;directory&gt;&quot;);
-        return -1;
-    }
-
-    FileSystemWatcher ^fsWatcher = gcnew FileSystemWatcher( );
-    fsWatcher-&gt;Path = args[1];
-    fsWatcher-&gt;NotifyFilter = static_cast&lt;NotifyFilters&gt;
-                              (NotifyFilters::FileName |
-                               NotifyFilters::Attributes |
-                               NotifyFilters::LastAccess |
-                               NotifyFilters::LastWrite |
-                               NotifyFilters::Security |
-                               NotifyFilters::Size );
-
-    FSEventHandler ^handler = gcnew FSEventHandler();
-    fsWatcher-&gt;Changed += gcnew FileSystemEventHandler(
-                              handler, &amp;FSEventHandler::OnChanged);
-    fsWatcher-&gt;Created += gcnew FileSystemEventHandler(
-                              handler, &amp;FSEventHandler::OnChanged);
-    fsWatcher-&gt;Deleted += gcnew FileSystemEventHandler(
-                              handler, &amp;FSEventHandler::OnChanged);
-    fsWatcher-&gt;Renamed += gcnew RenamedEventHandler(
-                              handler, &amp;FSEventHandler::OnRenamed);
-
-    fsWatcher-&gt;EnableRaisingEvents = true;
-
-    Console::WriteLine(&quot;Press Enter to quit the sample.&quot;);
-    Console::ReadLine( );
-}
-</code></pre><h1 id="目录监视器-Directory-Monitor"><a href="#目录监视器-Directory-Monitor" class="headerlink" title="目录监视器(Directory Monitor)"></a>目录监视器(Directory Monitor)</h1><p>使用Boost.Asio扩展<br><a href="http://www.highscore.de/boost/dir_monitor.zip" title="http://www.highscore.de/boost/dir_monitor.zip" target="_blank" rel="noopener">http://www.highscore.de/boost/dir_monitor.zip</a></p>
-<h1 id="SHChangeNotifyRegister"><a href="#SHChangeNotifyRegister" class="headerlink" title="SHChangeNotifyRegister"></a>SHChangeNotifyRegister</h1><p>Win SDK Samples 下 ChangeNotifyWatcher 项目，使用<code>SHChangeNotifyRegister</code></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">boost</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">目录监控</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/27/目录监控/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Cryptlib" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/18/Cryptlib/">Cryptlib</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/18/Cryptlib/" class="archive-article-date">
-  	<time datetime="2018-04-18T09:28:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="https://www.cs.auckland.ac.nz/~pgut001/cryptlib/" title="https://www.cs.auckland.ac.nz/~pgut001/cryptlib/" target="_blank" rel="noopener">https://www.cs.auckland.ac.nz/~pgut001/cryptlib/</a></p>
-<p><a href="http://www.cypherpunks.to/~peter/cl344.zip" title="http://www.cypherpunks.to/~peter/cl344.zip" target="_blank" rel="noopener">http://www.cypherpunks.to/~peter/cl344.zip</a></p>
-<p><a href="http://www.cypherpunks.to/~peter/manual.pdf" title="http://www.cypherpunks.to/~peter/manual.pdf" target="_blank" rel="noopener">http://www.cypherpunks.to/~peter/manual.pdf</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">密码</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Cryptlib</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/18/Cryptlib/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -5747,6 +3875,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ZeroMQ</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">调试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">错误报告</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">内存泄露</a>
               </li>
             
             <div class="clearfix"></div>

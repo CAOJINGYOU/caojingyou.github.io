@@ -4,6 +4,75 @@
 
     
   <url>
+    <loc>https://caojingyou.github.io/2018/05/23/C++%E8%B0%83%E8%AF%95/</loc>
+    <lastmod>2018-05-30T06:02:34.628Z</lastmod>
+    <data>
+        <display>
+        <title>C++调试</title>
+        <pubTime>2018-05-23T09:35:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C/C++</tag>
+         
+        <tag>调试</tag>
+         
+        <tag>错误报告</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/05/24/Boost%E4%B8%8E%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2018-05-30T01:03:36.356Z</lastmod>
+    <data>
+        <display>
+        <title>Boost与设计模式</title>
+        <pubTime>2018-05-24T01:16:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C/C++</tag>
+         
+        <tag>Boost</tag>
+         
+        <tag>设计模式</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/05/23/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E5%8F%8A%E6%A3%80%E6%B5%8B/</loc>
+    <lastmod>2018-05-28T09:25:39.983Z</lastmod>
+    <data>
+        <display>
+        <title>内存泄露检查</title>
+        <pubTime>2018-05-23T07:35:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C/C++</tag>
+         
+        <tag>调试</tag>
+         
+        <tag>内存泄露</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://caojingyou.github.io/2017/05/02/ZeroMQ/</loc>
     <lastmod>2018-05-21T09:19:54.026Z</lastmod>
     <data>
