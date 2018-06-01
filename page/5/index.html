@@ -160,6 +160,99 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-程序只能启动一次" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/01/程序只能启动一次/">程序只能启动一次</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/01/程序只能启动一次/" class="archive-article-date">
+  	<time datetime="2017-12-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="程序只能启动一次"><a href="#程序只能启动一次" class="headerlink" title="程序只能启动一次"></a>程序只能启动一次</h1><pre><code>BOOL CIMServerApp::InitInstance()
+{
+    HANDLE hMutex=::CreateMutex(NULL,TRUE,&quot;NAME&quot;);//NAME随便写个
+    if (hMutex!=NULL)
+    {
+        if (GetLastError()==ERROR_ALREADY_EXISTS)
+        {
+            AfxMessageBox(&quot;已经有一个程序运行.&quot;);
+            return FALSE;
+        }
+    }
+}
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/01/程序只能启动一次/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-libssh2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -2378,142 +2471,9 @@ esac
 
 
   
-    <article id="post-获取所有本机IP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/15/获取所有本机IP/">获取所有本机IP</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/15/获取所有本机IP/" class="archive-article-date">
-  	<time datetime="2017-08-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <pre><code>#include &lt;WinSock2.h&gt;
-#include &lt;Iphlpapi.h&gt;
-#pragma comment(lib,&quot;iphlpapi.lib&quot;)
-
-// 获得本机的IP地址
-void CIOCPModel::GetLocalIP(CStringArray &amp;arrIp)
-{
-    //PIP_ADAPTER_INFO结构体指针存储本机网卡信息
-    PIP_ADAPTER_INFO pIpAdapterInfo = new IP_ADAPTER_INFO();
-    //得到结构体大小,用于GetAdaptersInfo参数
-    unsigned long stSize = sizeof(IP_ADAPTER_INFO);
-    //调用GetAdaptersInfo函数,填充pIpAdapterInfo指针变量;其中stSize参数既是一个输入量也是一个输出量
-    int nRel = GetAdaptersInfo(pIpAdapterInfo, &amp;stSize);
-    if (ERROR_BUFFER_OVERFLOW == nRel)
-    {
-        //如果函数返回的是ERROR_BUFFER_OVERFLOW
-        //则说明GetAdaptersInfo参数传递的内存空间不够,同时其传出stSize,表示需要的空间大小
-        //这也是说明为什么stSize既是一个输入量也是一个输出量
-        //释放原来的内存空间
-        delete pIpAdapterInfo;
-        //重新申请内存空间用来存储所有网卡信息
-        pIpAdapterInfo = (PIP_ADAPTER_INFO)new BYTE[stSize];
-        //再次调用GetAdaptersInfo函数,填充pIpAdapterInfo指针变量
-        nRel = GetAdaptersInfo(pIpAdapterInfo, &amp;stSize);
-    }
-    if (ERROR_SUCCESS == nRel)
-    {
-        //输出网卡信息
-        while (pIpAdapterInfo)
-        {
-            IP_ADDR_STRING *pIpAddrString = &amp;(pIpAdapterInfo-&gt;IpAddressList);
-            do
-            {
-                CString strTemp = pIpAddrString-&gt;IpAddress.String;
-
-                arrIp.Add(strTemp);
-                pIpAddrString = pIpAddrString-&gt;Next;
-            }
-            while (pIpAddrString);
-            pIpAdapterInfo = pIpAdapterInfo-&gt;Next;
-        }
-    }
-    //释放内存空间
-    if (pIpAdapterInfo)
-    {
-        delete pIpAdapterInfo;
-    }
-}
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IP</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/15/获取所有本机IP/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
     </nav>
   
 
@@ -3221,6 +3181,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">内存泄露</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">COM</a>
               </li>
             
             <div class="clearfix"></div>
