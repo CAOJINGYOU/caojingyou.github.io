@@ -160,6 +160,977 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-正则表达式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/03/正则表达式/">正则表达式</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/03/正则表达式/" class="archive-article-date">
+  	<time datetime="2018-04-03T01:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="c-regex"><a href="#c-regex" class="headerlink" title="c regex"></a>c regex</h1><ol>
+<li>编译正则表达式 <code>regcomp()</code></li>
+<li>匹配正则表达式 <code>regexec()</code></li>
+<li>释放正则表达式 <code>regfree()</code></li>
+<li>错误处理 <code>regerror()</code></li>
+</ol>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;regex.h&gt;  //标准c不支持，Linux常带有此文件
+
+int main(){
+    regex_t reg;    //定义一个正则实例
+    const char* pattern = &quot;^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*.\\w+([-.]\\w+)*$&quot;; //定义模式串
+    regcomp(&amp;reg, pattern, REG_EXTENDED);    //编译正则模式串
+
+    char* buf = &quot;david19842003@gmail.com&quot;;   //定义待匹配串
+    const size_t nmatch = 1;    //定义匹配结果最大允许数
+    regmatch_t pmatch[1];   //定义匹配结果在待匹配串中的下标范围
+    int status = regexec(&amp;reg, buf, nmatch, pmatch, 0); //匹配他
+
+    if (status == REG_NOMATCH){ //如果没匹配上
+        printf(&quot;No Match\n&quot;);
+    }
+    else if (status == 0){  //如果匹配上了
+        printf(&quot;Match\n&quot;);
+        for (int i = pmatch[0].rm_so; i &lt; pmatch[0].rm_eo; i++){    //遍历输出匹配范围的字符串
+            printf(&quot;%c&quot;, buf[i]);
+        }
+        printf(&quot;\n&quot;);
+    }
+    regfree(&amp;reg);  //释放正则表达式
+    return 0;
+}
+</code></pre><p>1.<code>int regcomp (regex_t *compiled, const char *pattern, int cflags)</code></p>
+<ul>
+<li><code>regex_t</code> 是一个结构体数据类型，用来存放编译后的正则表达式<ul>
+<li><code>regex_t</code> 的成员<code>re_nsub</code> 用来存储正则表达式中的子正则表达式的个数，子正则表达式就是用圆括号包起来的部分表达式</li>
+</ul>
+</li>
+<li><code>pattern</code> 是指向我们写好的正则表达式的指针</li>
+<li><code>cflags</code> 有如下4个值或者是它们或运算(|)后的值：<ul>
+<li>REG_EXTENDED 以功能更加强大的扩展正则表达式的方式进行匹配。</li>
+<li>REG_ICASE 匹配字母时忽略大小写。</li>
+<li>REG_NOSUB 不用存储匹配后的结果。</li>
+<li>REG_NEWLINE 识别换行符，这样’$’就可以从行尾开始匹配，’^’就可以从行的开头开始匹配</li>
+</ul>
+</li>
+</ul>
+<p>2.<code>int regexec (regex_t *compiled, char *string, size_t nmatch, regmatch_t matchptr [], int eflags)</code></p>
+<ul>
+<li>如果在编译正则表达式的时候没有指定cflags的参数为REG_NEWLINE，则默认情况下是忽略换行符的，也就是把整个文本串当作一个字符串处理。执行成功返回0<ul>
+<li><code>regmatch_t</code> 是一个结构体数据类型，在regex.h中定义：<code>typedef struct{regoff_t rm_so;regoff_t rm_eo;} regmatch_t;</code></li>
+<li>成员<code>rm_so</code> 存放匹配文本串在目标串中的开始位置，<code>rm_eo</code>存放结束位置</li>
+<li>通常我们以数组的形式定义一组这样的结构。因为往往我们的正则表达式中还包含子正则表达式。数组0单元存放主正则表达式位置，后边的单元依次存放子正则表达式位置</li>
+</ul>
+</li>
+<li><code>compiled</code> 是已经用<code>regcomp</code>函数编译好的正则表达式</li>
+<li><code>string</code> 是目标文本串</li>
+<li><code>nmatch</code> 是<code>regmatch_t</code>结构体数组的长度</li>
+<li><code>matchptr regmatch_t</code>类型的结构体数组，存放匹配文本串的位置信息</li>
+<li><code>eflags</code> 有两个值<ul>
+<li><code>REG_NOTBOL</code> 按我的理解是如果指定了这个值，那么’^’就不会从我们的目标串开始匹配。总之我到现在还不是很明白这个参数的意义</li>
+<li><code>REG_NOTEOL</code> 和上边那个作用差不多，不过这个指定结束<code>end of line</code></li>
+</ul>
+</li>
+</ul>
+<p>3.<code>void regfree (regex_t *compiled)</code></p>
+<ul>
+<li>清空compiled指向的regex_t结构体的内容</li>
+<li>如果是重新编译的话，一定要先清空regex_t结构体c</li>
+</ul>
+<p>4.<code>size_t regerror (int errcode, regex_t *compiled, char *buffer, size_t length)</code></p>
+<ul>
+<li><code>当执行regcomp</code> 或者<code>regexec</code> 产生错误的时候，就可以调用这个函数而返回一个包含错误信息的字符串</li>
+<li><code>errcode</code> <code>是由regcomp</code> 和 <code>regexec</code> 函数返回的错误代号</li>
+<li><code>compiled</code> 是已经用<code>regcomp</code>函数编译好的正则表达式，这个值可以为<code>NULL</code></li>
+<li><code>buffer</code> 指向用来存放错误信息的字符串的内存空间</li>
+<li><code>length</code> 指明<code>buffer</code>的长度，如果这个错误信息的长度大于这个值，则<code>regerror</code> 函数会自动截断超出的字符串，但他仍然会返回完整的字符串的长度。所以我们可以用如下的方法先得到错误字符串的长度。</li>
+</ul>
+<pre><code>`size_t length = regerror (errcode, compiled, NULL, 0);`
+</code></pre><p>转载：<br><a href="http://www.yingzinanfei.com/2017/02/06/c-regex-yongfa/" target="_blank" rel="noopener">c regex 用法</a></p>
+<h1 id="C-regex"><a href="#C-regex" class="headerlink" title="C++ regex"></a>C++ regex</h1><p><a href="https://msdn.microsoft.com/en-us/library/bb982382.aspx" target="_blank" rel="noopener">regex头文件</a></p>
+<p><a href="https://msdn.microsoft.com/en-us/library/bb982727.aspx" target="_blank" rel="noopener">Regular Expressions (C++)</a></p>
+<p><a href="https://msdn.microsoft.com/zh-cn/ch/library/bb982727.aspx" target="_blank" rel="noopener">正则表达式 (C++)</a></p>
+<p><a href="https://docs.microsoft.com/zh-cn/cpp/standard-library/regular-expressions-cpp" target="_blank" rel="noopener">正则表达式 (C++)</a></p>
+<p><a href="https://docs.microsoft.com/zh-cn/cpp/standard-library/regex" target="_blank" rel="noopener">微软regex</a></p>
+<p><a href="https://docs.microsoft.com/zh-cn/cpp/standard-library/regex-typedefs" target="_blank" rel="noopener">regex typedefs</a></p>
+<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><ul>
+<li><code>basic_regex</code>    包装正则表达式。</li>
+<li><code>match_results</code>    包含一系列子匹配项。</li>
+<li><code>regex_constants</code>    包含各种类型的常量。</li>
+<li><code>regex_error</code>    报告错误的正则表达式。</li>
+<li><code>regex_iterator</code>    循环访问匹配结果。</li>
+<li><code>regex_traits</code>    描述用于匹配的元素的特征。</li>
+<li><code>regex_traits&lt;char&gt;</code>    描述用于匹配的 <code>char</code> 的特征。</li>
+<li><code>regex_traits&lt;wchar_t&gt;</code>    描述用于匹配的 <code>wchar_t</code> 的特征。</li>
+<li><code>regex_token_iterator</code>    循环访问子匹配项。</li>
+<li><code>sub_match</code>    介绍子匹配项。</li>
+</ul>
+<h2 id="类型定义"><a href="#类型定义" class="headerlink" title="类型定义"></a>类型定义</h2><ul>
+<li><code>cmatch</code>    <code>char match_results</code> 的类型定义。</li>
+<li><code>cregex_iterator</code>    <code>char regex_iterator</code> 的类型定义。</li>
+<li><code>cregex_token_iterator</code>    <code>char regex_token_iterator</code> 的类型定义。</li>
+<li><code>csub_match</code>    <code>char sub_match</code> 的类型定义。</li>
+<li><code>regex</code>    <code>char basic_regex</code> 的类型定义。</li>
+<li><code>smatch</code>    <code>string match_results</code> 的类型定义。</li>
+<li><code>sregex_iterator</code>    <code>string regex_iterator</code> 的类型定义。</li>
+<li><code>sregex_token_iterator</code>    <code>string regex_token_iterator</code> 的类型定义。</li>
+<li><code>ssub_match</code>    <code>string sub_match</code> 的类型定义。</li>
+<li><code>wcmatch</code>    <code>wchar_t match_results</code> 的类型定义。</li>
+<li><code>wcregex_iterator</code>    <code>wchar_t regex_iterator</code> 的类型定义。</li>
+<li><code>wcregex_token_iterator</code>    <code>wchar_t regex_token_iterator</code> 的类型定义。</li>
+<li><code>wcsub_match</code>    <code>wchar_t sub_match</code> 的类型定义。</li>
+<li><code>wregex</code>    <code>wchar_t basic_regex</code> 的类型定义。</li>
+<li><code>wsmatch</code>    <code>wstring match_results</code> 的类型定义。</li>
+<li><code>wsregex_iterator</code>    <code>wstring regex_iterator</code> 的类型定义。</li>
+<li><code>wsregex_token_iterator</code>    <code>wstring regex_token_iterator</code> 的类型定义。</li>
+<li><code>wssub_match</code>    <code>wstring sub_match</code> 的类型定义。</li>
+</ul>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ul>
+<li><code>regex_match</code>    与正则表达式完全匹配。</li>
+<li><code>regex_replace</code>    替换匹配正则表达式。</li>
+<li><code>regex_search</code>    搜索正则表达式匹配项。</li>
+<li><code>swap</code>    交换 <code>basic_regex</code> 或 <code>match_results</code> 对象。</li>
+</ul>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><ul>
+<li><code>operator==</code>    比较各种对象，相等。</li>
+<li><code>operator!=</code>    比较各种对象，不相等。</li>
+<li><code>operator&lt;</code>    比较各种对象，小于。</li>
+<li><code>operator&lt;=</code>    比较各种对象，小于或等于。</li>
+<li><code>operator&gt;</code>    比较各种对象，大于。</li>
+<li><code>operator&gt;=</code>    比较各种对象，大于或等于。</li>
+<li><code>operator&lt;&lt;</code>    将 sub_match 插入流中。</li>
+</ul>
+<h2 id="regex-match"><a href="#regex-match" class="headerlink" title="regex_match"></a><code>regex_match</code></h2><pre><code>#include &quot;stdafx.h&quot;  
+#include &lt;regex&gt;   
+#include &lt;iostream&gt;   
+
+using namespace std;  
+
+int _tmain(int argc, _TCHAR* argv[])  
+{  
+
+    // (1) with char*  
+    // Note how const char* requires cmatch and regex  
+    const char *first = &quot;abc&quot;;  
+    const char *last = first + strlen(first);  
+    cmatch narrowMatch;  
+    regex rx(&quot;a(b)c&quot;);  
+
+    bool found = regex_match(first, last, narrowMatch, rx);  
+
+    // (1) with std::wstring  
+    // Note how wstring requires wsmatch and wregex.  
+    // Note use of const iterators cbegin() and cend().  
+    wstring target(L&quot;Hello&quot;);  
+    wsmatch wideMatch;  
+    wregex wrx(L&quot;He(l+)o&quot;);  
+
+    if (regex_match(target.cbegin(), target.cend(), wideMatch, wrx))  
+        wcout &lt;&lt; L&quot;The matching text is:&quot; &lt;&lt; wideMatch.str() &lt;&lt; endl;   
+
+    // (2) with std::string  
+    string target2(&quot;Drizzle&quot;);  
+    regex rx2(R&quot;(D\w+e)&quot;); // no double backslashes with raw string literal  
+    found = regex_match(target2.cbegin(), target2.cend(), rx2);  
+
+    // (3) with wchar_t*  
+    const wchar_t* target3 = L&quot;2014-04-02&quot;;  
+    wcmatch wideMatch2;  
+
+    // LR&quot;(...)&quot; is a  raw wide-string literal. Open and close parens  
+    // are delimiters, not string elements.  
+    wregex wrx2(LR&quot;(\d{4}(-|/)\d{2}(-|/)\d{2})&quot;);   
+    if (regex_match(target3, wideMatch2, wrx2))  
+    {  
+        wcout &lt;&lt; L&quot;Matching text: &quot; &lt;&lt; wideMatch2.str() &lt;&lt; endl;  
+    }  
+
+     return 0;  
+}
+</code></pre><h2 id="regex-replace"><a href="#regex-replace" class="headerlink" title="regex_replace"></a><code>regex_replace</code></h2><pre><code>// std__regex__regex_replace.cpp   
+// compile with: /EHsc   
+#include &lt;regex&gt;   
+#include &lt;iostream&gt;   
+
+int main()   
+    {   
+    char buf[20];   
+    const char *first = &quot;axayaz&quot;;   
+    const char *last = first + strlen(first);   
+    std::regex rx(&quot;a&quot;);   
+    std::string fmt(&quot;A&quot;);   
+    std::regex_constants::match_flag_type fonly =   
+        std::regex_constants::format_first_only;   
+
+ *std::regex_replace(&amp;buf[0], first, last, rx, fmt) = &apos;\0&apos;;   
+    std::cout &lt;&lt; &quot;replacement == &quot; &lt;&lt; &amp;buf[0] &lt;&lt; std::endl;   
+
+ *std::regex_replace(&amp;buf[0], first, last, rx, fmt, fonly) = &apos;\0&apos;;   
+    std::cout &lt;&lt; &quot;replacement == &quot; &lt;&lt; &amp;buf[0] &lt;&lt; std::endl;   
+
+    std::string str(&quot;adaeaf&quot;);   
+    std::cout &lt;&lt; &quot;replacement == &quot;   
+        &lt;&lt; std::regex_replace(str, rx, fmt) &lt;&lt; std::endl;   
+
+    std::cout &lt;&lt; &quot;replacement == &quot;   
+        &lt;&lt; std::regex_replace(str, rx, fmt, fonly) &lt;&lt; std::endl;   
+
+    return (0);   
+    }
+</code></pre><p>结果：</p>
+<pre><code>replacement == AxAyAz  
+replacement == Axayaz  
+replacement == AdAeAf  
+replacement == Adaeaf 
+</code></pre><h2 id="regex-search"><a href="#regex-search" class="headerlink" title="regex_search"></a><code>regex_search</code></h2><pre><code>// std__regex__regex_search.cpp   
+// compile with: /EHsc   
+#include &lt;regex&gt;   
+#include &lt;iostream&gt;   
+
+int main()   
+    {   
+    const char *first = &quot;abcd&quot;;   
+    const char *last = first + strlen(first);   
+    std::cmatch mr;   
+    std::regex rx(&quot;abc&quot;);   
+    std::regex_constants::match_flag_type fl =   
+        std::regex_constants::match_default;   
+
+    std::cout &lt;&lt; &quot;search(f, f+1, \&quot;abc\&quot;) == &quot; &lt;&lt; std::boolalpha   
+        &lt;&lt; regex_search(first, first + 1, rx, fl) &lt;&lt; std::endl;   
+
+    std::cout &lt;&lt; &quot;search(f, l, \&quot;abc\&quot;) == &quot; &lt;&lt; std::boolalpha   
+        &lt;&lt; regex_search(first, last, mr, rx) &lt;&lt; std::endl;   
+    std::cout &lt;&lt; &quot;  matched: \&quot;&quot; &lt;&lt; mr.str() &lt;&lt; &quot;\&quot;&quot; &lt;&lt; std::endl;   
+
+    std::cout &lt;&lt; &quot;search(\&quot;a\&quot;, \&quot;abc\&quot;) == &quot; &lt;&lt; std::boolalpha   
+        &lt;&lt; regex_search(&quot;a&quot;, rx) &lt;&lt; std::endl;   
+
+    std::cout &lt;&lt; &quot;search(\&quot;xabcd\&quot;, \&quot;abc\&quot;) == &quot; &lt;&lt; std::boolalpha   
+        &lt;&lt; regex_search(&quot;xabcd&quot;, mr, rx) &lt;&lt; std::endl;   
+    std::cout &lt;&lt; &quot;  matched: \&quot;&quot; &lt;&lt; mr.str() &lt;&lt; &quot;\&quot;&quot; &lt;&lt; std::endl;   
+
+    std::cout &lt;&lt; &quot;search(string, \&quot;abc\&quot;) == &quot; &lt;&lt; std::boolalpha   
+        &lt;&lt; regex_search(std::string(&quot;a&quot;), rx) &lt;&lt; std::endl;   
+
+    std::string str(&quot;abcabc&quot;);   
+    std::match_results&lt;std::string::const_iterator&gt; mr2;   
+    std::cout &lt;&lt; &quot;search(string, \&quot;abc\&quot;) == &quot; &lt;&lt; std::boolalpha   
+        &lt;&lt; regex_search(str, mr2, rx) &lt;&lt; std::endl;   
+    std::cout &lt;&lt; &quot;  matched: \&quot;&quot; &lt;&lt; mr2.str() &lt;&lt; &quot;\&quot;&quot; &lt;&lt; std::endl;   
+
+    return (0);   
+}
+</code></pre><h2 id="match-results"><a href="#match-results" class="headerlink" title="match_results"></a><code>match_results</code></h2><pre><code>// std__regex__match_results_begin.cpp   
+// compile with: /EHsc   
+#include &lt;regex&gt;   
+#include &lt;iostream&gt;   
+
+int main()   
+    {   
+    std::regex rx(&quot;c(a*)|(b)&quot;);   
+    std::cmatch mr;   
+
+    std::regex_search(&quot;xcaaay&quot;, mr, rx);   
+
+    std::cout &lt;&lt; &quot;prefix: matched == &quot; &lt;&lt; std::boolalpha   
+        &lt;&lt; mr.prefix().matched   
+        &lt;&lt; &quot;, value == &quot; &lt;&lt; mr.prefix() &lt;&lt; std::endl;   
+    std::cout &lt;&lt; &quot;whole match: &quot; &lt;&lt; mr.length() &lt;&lt; &quot; chars, value == &quot;   
+        &lt;&lt; mr.str() &lt;&lt; std::endl;   
+    std::cout &lt;&lt; &quot;suffix: matched == &quot; &lt;&lt; std::boolalpha   
+        &lt;&lt; mr.suffix().matched   
+        &lt;&lt; &quot;, value == &quot; &lt;&lt; mr.suffix() &lt;&lt; std::endl;   
+    std::cout &lt;&lt; std::endl;   
+
+    std::string fmt(&quot;\&quot;c(a*)|(b)\&quot; matched \&quot;$0\&quot;\n&quot;   
+        &quot;\&quot;(a*)\&quot; matched \&quot;$1\&quot;\n&quot;   
+        &quot;\&quot;(b)\&quot; matched \&quot;$2\&quot;\n&quot;);   
+    std::cout &lt;&lt; mr.format(fmt) &lt;&lt; std::endl;   
+    std::cout &lt;&lt; std::endl;   
+
+// index through submatches   
+    for (size_t n = 0; n &lt; mr.size(); ++n)   
+        {   
+        std::cout &lt;&lt; &quot;submatch[&quot; &lt;&lt; n &lt;&lt; &quot;]: matched == &quot; &lt;&lt; std::boolalpha   
+            &lt;&lt; mr[n].matched &lt;&lt;   
+            &quot; at position &quot; &lt;&lt; mr.position(n) &lt;&lt; std::endl;   
+        std::cout &lt;&lt; &quot;  &quot; &lt;&lt; mr.length(n)   
+            &lt;&lt; &quot; chars, value == &quot; &lt;&lt; mr[n] &lt;&lt; std::endl;   
+        }   
+    std::cout &lt;&lt; std::endl;   
+
+// iterate through submatches   
+    for (std::cmatch::iterator it = mr.begin(); it != mr.end(); ++it)   
+        {   
+        std::cout &lt;&lt; &quot;next submatch: matched == &quot; &lt;&lt; std::boolalpha   
+            &lt;&lt; it-&gt;matched &lt;&lt; std::endl;   
+        std::cout &lt;&lt; &quot;  &quot; &lt;&lt; it-&gt;length()   
+            &lt;&lt; &quot; chars, value == &quot; &lt;&lt; *it &lt;&lt; std::endl;   
+        }   
+    std::cout &lt;&lt; std::endl;   
+
+// other members   
+    std::cmatch mr1(mr);   
+    mr = mr1;   
+    mr.swap(mr1);   
+
+    char buf[10];   
+ *mr.format(&amp;buf[0], &quot;&lt;$0&gt;&quot;) = &apos;\0&apos;;   
+    std::cout &lt;&lt; &amp;buf[0] &lt;&lt; std::endl;   
+    std::cout &lt;&lt; &quot;empty == &quot; &lt;&lt; std::boolalpha &lt;&lt; mr.empty() &lt;&lt; std::endl;   
+
+    std::cmatch::allocator_type al = mr.get_allocator();   
+    std::cmatch::string_type str = std::string(&quot;x&quot;);   
+    std::cmatch::size_type maxsiz = mr.max_size();   
+    std::cmatch::char_type ch = &apos;x&apos;;   
+    std::cmatch::difference_type dif = mr.begin() - mr.end();   
+    std::cmatch::const_iterator cit = mr.begin();   
+    std::cmatch::value_type val = *cit;   
+    std::cmatch::const_reference cref = val;   
+    std::cmatch::reference ref = val;   
+
+    maxsiz = maxsiz;  // to quiet &quot;unused&quot; warnings   
+    if (ref == cref)   
+        ch = ch;   
+    dif = dif;   
+
+    return (0);   
+    }
+</code></pre><h2 id="sub-match"><a href="#sub-match" class="headerlink" title="sub_match"></a><code>sub_match</code></h2><pre><code>// std__regex__sub_match_compare.cpp   
+// compile with: /EHsc   
+#include &lt;regex&gt;   
+#include &lt;iostream&gt;   
+
+int main()   
+    {   
+    std::regex rx(&quot;c(a*)|(b)&quot;);   
+    std::cmatch mr;   
+
+    std::regex_search(&quot;xcaaay&quot;, mr, rx);   
+
+    std::csub_match sub = mr[1];   
+    std::cout &lt;&lt; &quot;matched == &quot; &lt;&lt; std::boolalpha   
+        &lt;&lt; sub.matched &lt;&lt; std::endl;   
+    std::cout &lt;&lt; &quot;length == &quot; &lt;&lt; sub.length() &lt;&lt; std::endl;   
+
+    std::csub_match::difference_type dif = std::distance(sub.first, sub.second);   
+    std::cout &lt;&lt; &quot;difference == &quot; &lt;&lt; dif &lt;&lt; std::endl;   
+
+    std::csub_match::iterator first = sub.first;   
+    std::csub_match::iterator last = sub.second;   
+    std::cout &lt;&lt; &quot;range == &quot; &lt;&lt; std::string(first, last)   
+        &lt;&lt; std::endl;   
+    std::cout &lt;&lt; &quot;string == &quot; &lt;&lt; sub &lt;&lt; std::endl;   
+
+    std::csub_match::value_type *ptr = &quot;aab&quot;;   
+    std::cout &lt;&lt; &quot;compare(\&quot;aab\&quot;) == &quot;   
+        &lt;&lt; sub.compare(ptr) &lt;&lt; std::endl;   
+    std::cout &lt;&lt; &quot;compare(string) == &quot;   
+        &lt;&lt; sub.compare(std::string(&quot;AAA&quot;)) &lt;&lt; std::endl;   
+    std::cout &lt;&lt; &quot;compare(sub) == &quot;   
+        &lt;&lt; sub.compare(sub) &lt;&lt; std::endl;   
+
+    return (0);   
+    }
+</code></pre><h2 id="regex-error"><a href="#regex-error" class="headerlink" title="regex_error"></a><code>regex_error</code></h2><pre><code>// std__regex__regex_error_code.cpp   
+// compile with: /EHsc   
+#include &lt;regex&gt;   
+#include &lt;iostream&gt;   
+
+int main()   
+    {   
+    std::regex_error paren(std::regex_constants::error_paren);   
+
+    try   
+        {   
+        std::regex rx(&quot;(a&quot;);   
+        }   
+    catch (const std::regex_error&amp; rerr)   
+        {   
+        std::cout &lt;&lt; &quot;regex error: &quot;   
+            &lt;&lt; (rerr.code() == paren.code()   
+                 &quot;unbalanced parentheses&quot; : &quot;&quot;)   
+            &lt;&lt; std::endl;   
+        }   
+    catch (...)   
+        {   
+        std::cout &lt;&lt; &quot;unknown exception&quot; &lt;&lt; std::endl;   
+        }   
+
+    return (0);   
+    }
+</code></pre><h2 id="regex-iterator"><a href="#regex-iterator" class="headerlink" title="regex_iterator"></a><code>regex_iterator</code></h2><pre><code>// std__regex__regex_iterator_difference_type.cpp   
+// compile with: /EHsc   
+#include &lt;regex&gt;   
+#include &lt;iostream&gt;   
+
+typedef std::regex_iterator&lt;const char *&gt; Myiter;   
+int main()   
+    {   
+    const char *pat = &quot;axayaz&quot;;   
+    Myiter::regex_type rx(&quot;a&quot;);   
+    Myiter next(pat, pat + strlen(pat), rx);   
+    Myiter end;   
+
+    for (; next != end; ++next)   
+        std::cout &lt;&lt; &quot;match == &quot; &lt;&lt; next-&gt;str() &lt;&lt; std::endl;   
+
+// other members   
+    Myiter it1(pat, pat + strlen(pat), rx);   
+    Myiter it2(it1);   
+    next = it1;   
+
+    Myiter::iterator_category cat = std::forward_iterator_tag();   
+    Myiter::difference_type dif = -3;   
+    Myiter::value_type mr = *it1;   
+    Myiter::reference ref = mr;   
+    Myiter::pointer ptr = &amp;ref;   
+
+    dif = dif; // to quiet &quot;unused&quot; warnings   
+    ptr = ptr;   
+
+    return (0);   
+    }
+</code></pre><h2 id="regex-token-iterator"><a href="#regex-token-iterator" class="headerlink" title="regex_token_iterator"></a><code>regex_token_iterator</code></h2><pre><code>#include &lt;regex&gt;   
+#include &lt;iostream&gt;   
+
+typedef std::regex_token_iterator&lt;const char *&gt; Myiter;   
+int main()   
+    {   
+    const char *pat = &quot;aaxaayaaz&quot;;   
+    Myiter::regex_type rx(&quot;(a)a&quot;);   
+    Myiter next(pat, pat + strlen(pat), rx);   
+    Myiter end;   
+
+// show whole match   
+    for (; next != end; ++next)   
+        std::cout &lt;&lt; &quot;match == &quot; &lt;&lt; next-&gt;str() &lt;&lt; std::endl;   
+    std::cout &lt;&lt; std::endl;   
+
+// show prefix before match   
+    next = Myiter(pat, pat + strlen(pat), rx, -1);   
+    for (; next != end; ++next)   
+        std::cout &lt;&lt; &quot;match == &quot; &lt;&lt; next-&gt;str() &lt;&lt; std::endl;   
+    std::cout &lt;&lt; std::endl;   
+
+// show (a) submatch only   
+    next = Myiter(pat, pat + strlen(pat), rx, 1);   
+    for (; next != end; ++next)   
+        std::cout &lt;&lt; &quot;match == &quot; &lt;&lt; next-&gt;str() &lt;&lt; std::endl;   
+    std::cout &lt;&lt; std::endl;   
+
+// show prefixes and submatches   
+    std::vector&lt;int&gt; vec;   
+    vec.push_back(-1);   
+    vec.push_back(1);   
+    next = Myiter(pat, pat + strlen(pat), rx, vec);   
+    for (; next != end; ++next)   
+        std::cout &lt;&lt; &quot;match == &quot; &lt;&lt; next-&gt;str() &lt;&lt; std::endl;   
+    std::cout &lt;&lt; std::endl;   
+
+// show prefixes and whole matches   
+    int arr[] = {-1, 0};   
+    next = Myiter(pat, pat + strlen(pat), rx, arr);   
+    for (; next != end; ++next)   
+        std::cout &lt;&lt; &quot;match == &quot; &lt;&lt; next-&gt;str() &lt;&lt; std::endl;   
+    std::cout &lt;&lt; std::endl;   
+
+// other members   
+    Myiter it1(pat, pat + strlen(pat), rx);   
+    Myiter it2(it1);   
+    next = it1;   
+
+    Myiter::iterator_category cat = std::forward_iterator_tag();   
+    Myiter::difference_type dif = -3;   
+    Myiter::value_type mr = *it1;   
+    Myiter::reference ref = mr;   
+    Myiter::pointer ptr = &amp;ref;   
+
+    dif = dif; // to quiet &quot;unused&quot; warnings   
+    ptr = ptr;   
+
+    return (0);   
+    }
+</code></pre><h2 id="regex-traits"><a href="#regex-traits" class="headerlink" title="regex_traits"></a><code>regex_traits</code></h2><pre><code>// std__regex__regex_traits_char_class_type.cpp   
+// compile with: /EHsc   
+#include &lt;regex&gt;   
+#include &lt;iostream&gt;   
+
+typedef std::regex_traits&lt;char&gt; Mytr;   
+int main()   
+    {   
+    Mytr tr;   
+
+    Mytr::char_type ch = tr.translate(&apos;a&apos;);   
+    std::cout &lt;&lt; &quot;translate(&apos;a&apos;) == &apos;a&apos; == &quot; &lt;&lt; std::boolalpha   
+        &lt;&lt; (ch == &apos;a&apos;) &lt;&lt; std::endl;   
+
+    std::cout &lt;&lt; &quot;nocase &apos;a&apos; == &apos;A&apos; == &quot; &lt;&lt; std::boolalpha   
+        &lt;&lt; (tr.translate_nocase(&apos;a&apos;) == tr.translate_nocase(&apos;A&apos;))   
+        &lt;&lt; std::endl;   
+
+    const char *lbegin = &quot;abc&quot;;   
+    const char *lend = lbegin + strlen(lbegin);   
+    Mytr::size_type size = tr.length(lbegin);   
+    std::cout &lt;&lt; &quot;length(\&quot;abc\&quot;) == &quot; &lt;&lt; size &lt;&lt;std::endl;   
+
+    Mytr::string_type str = tr.transform(lbegin, lend);   
+    std::cout &lt;&lt; &quot;transform(\&quot;abc\&quot;) &lt; \&quot;abc\&quot; == &quot; &lt;&lt; std::boolalpha   
+        &lt;&lt; (str &lt; &quot;abc&quot;) &lt;&lt; std::endl;   
+
+    const char *ubegin = &quot;ABC&quot;;   
+    const char *uend = ubegin + strlen(ubegin);   
+    std::cout &lt;&lt; &quot;primary \&quot;ABC\&quot; &lt; \&quot;abc\&quot; == &quot; &lt;&lt; std::boolalpha   
+        &lt;&lt; (tr.transform_primary(ubegin, uend) &lt;   
+            tr.transform_primary(lbegin, lend))   
+        &lt;&lt; std::endl;   
+
+    const char *dig = &quot;digit&quot;;   
+    Mytr::char_class_type cl = tr.lookup_classname(dig, dig + 5);   
+    std::cout &lt;&lt; &quot;class digit == d == &quot; &lt;&lt; std::boolalpha   
+        &lt;&lt; (cl == tr.lookup_classname(dig, dig + 1))   
+        &lt;&lt; std::endl;   
+
+    std::cout &lt;&lt; &quot;&apos;3&apos; is digit == &quot; &lt;&lt;std::boolalpha   
+        &lt;&lt; tr.isctype(&apos;3&apos;, tr.lookup_classname(dig, dig + 5))   
+        &lt;&lt; std::endl;   
+
+    std::cout &lt;&lt; &quot;hex C == &quot; &lt;&lt; tr.value(&apos;C&apos;, 16) &lt;&lt; std::endl;   
+
+// other members   
+    str = tr.lookup_collatename(dig, dig + 5);   
+
+    Mytr::locale_type loc = tr.getloc();   
+    tr.imbue(loc);   
+
+    return (0);   
+    }
+</code></pre><h2 id="C-正则表达式库"><a href="#C-正则表达式库" class="headerlink" title="C++正则表达式库"></a>C++正则表达式库</h2><p><a href="http://zh.cppreference.com/w/cpp/regex" target="_blank" rel="noopener">C++正则表达式库</a></p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;iterator&gt;
+#include &lt;string&gt;
+#include &lt;regex&gt;
+
+int main()
+{
+    std::string s = &quot;Some people, when confronted with a problem, think &quot;
+        &quot;\&quot;I know, I&apos;ll use regular expressions.\&quot; &quot;
+        &quot;Now they have two problems.&quot;;
+
+    std::regex self_regex(&quot;REGULAR EXPRESSIONS&quot;,
+            std::regex_constants::ECMAScript | std::regex_constants::icase);
+    if (std::regex_search(s, self_regex)) {
+        std::cout &lt;&lt; &quot;Text contains the phrase &apos;regular expressions&apos;\n&quot;;
+    }
+
+    std::regex word_regex(&quot;(\\S+)&quot;);
+    auto words_begin = 
+        std::sregex_iterator(s.begin(), s.end(), word_regex);
+    auto words_end = std::sregex_iterator();
+
+    std::cout &lt;&lt; &quot;Found &quot;
+              &lt;&lt; std::distance(words_begin, words_end)
+              &lt;&lt; &quot; words\n&quot;;
+
+    const int N = 6;
+    std::cout &lt;&lt; &quot;Words longer than &quot; &lt;&lt; N &lt;&lt; &quot; characters:\n&quot;;
+    for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
+        std::smatch match = *i;
+        std::string match_str = match.str();
+        if (match_str.size() &gt; N) {
+            std::cout &lt;&lt; &quot;  &quot; &lt;&lt; match_str &lt;&lt; &apos;\n&apos;;
+        }
+    }
+
+    std::regex long_word_regex(&quot;(\\w{7,})&quot;);
+    std::string new_s = std::regex_replace(s, long_word_regex, &quot;[$&amp;]&quot;);
+    std::cout &lt;&lt; new_s &lt;&lt; &apos;\n&apos;;
+}
+</code></pre><h2 id="ECMA与POSIX区别"><a href="#ECMA与POSIX区别" class="headerlink" title="ECMA与POSIX区别"></a>ECMA与POSIX区别</h2><pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;regex&gt;
+
+int main()
+{
+    std::string str = &quot;zzxayyzz&quot;;
+    std::regex re1(&quot;.*(a|xayy)&quot;); // ECMA
+    std::regex re2(&quot;.*(a|xayy)&quot;, std::regex::extended); // POSIX
+
+    std::cout &lt;&lt; &quot;Searching for .*(a|xayy) in zzxayyzz:\n&quot;;
+    std::smatch m;
+    std::regex_search(str, m, re1);
+    std::cout &lt;&lt; &quot; ECMA (depth first search) match: &quot; &lt;&lt; m[0] &lt;&lt; &apos;\n&apos;;
+    std::regex_search(str, m, re2);
+    std::cout &lt;&lt; &quot; POSIX (leftmost longest)  match: &quot; &lt;&lt; m[0] &lt;&lt; &apos;\n&apos;;
+}
+</code></pre><h1 id="boost-regex"><a href="#boost-regex" class="headerlink" title="boost regex"></a>boost regex</h1><p>1 boost::regex_match</p>
+<p>正则表达式匹配</p>
+<p>2 boost::regex_replace</p>
+<p>正则表达式替换</p>
+<p>3 boost::regex_search</p>
+<p>正则表达式检索</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;boost/regex.hpp&gt;
+
+void main()
+{
+    std::string str = &quot;chinaen 8Glish&quot;;
+
+    boost::regex expr(&quot;(\\w+)\\s(\\w+)&quot;);
+
+    //+ 用来表示重复一或多次
+    //d-digit 任何0-9之间的数字
+    //s-space 任何空格字符
+    //u-upper A-Z之间的大写字母。如果设置了地域的话，可能包含其他字符
+    //w-word 任何单词字符-字母数字下划线
+
+    std::cout &lt;&lt; boost::regex_match(str, expr) &lt;&lt; std::endl;//匹配1，不匹配0
+
+    boost::smatch what;
+
+    if (boost::regex_search(str, what, expr))//正则表达式检索
+    {
+        std::cout &lt;&lt; what[0] &lt;&lt; std::endl;
+        std::cout &lt;&lt; what[1] &lt;&lt; std::endl;
+        std::cout &lt;&lt; what[2] &lt;&lt; std::endl;
+        std::cout &lt;&lt; what[3] &lt;&lt; std::endl;
+    }
+    else
+    {
+        std::cout &lt;&lt; &quot;检索失败&quot; &lt;&lt; std::endl;
+    }
+}
+</code></pre><p>boost::regex_replace</p>
+<p>正则表达式替换</p>
+<p>//s-space 任何空格字符</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;boost/regex.hpp&gt;
+
+void main()
+{
+    std::string str = &quot;chinaen 8Glish&quot;;
+
+    boost::regex expr(&quot;\\s&quot;);//s-space 任何空格字符
+
+    std::string tihuan = &quot;____&quot;;
+
+    std::cout &lt;&lt; boost::regex_replace(str, expr, tihuan) &lt;&lt; std::endl;//把expr替换
+}
+</code></pre><p>以上内容转载：<a href="https://www.cnblogs.com/denggelin/p/5769624.html" target="_blank" rel="noopener">https://www.cnblogs.com/denggelin/p/5769624.html</a></p>
+<p><a href="https://yq.aliyun.com/articles/75580" target="_blank" rel="noopener">Boost学习之正则表达式–regex</a></p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;boost/regex.hpp&gt;
+
+using namespace std;
+int main(int argc, char* argv[])
+{    
+    //( 1 )   ((  3  )  2 )((  5 )4)(    6    )   
+    //(\w+)://((\w+\.)*\w+)((/\w*)*)(/\w+\.\w+)?
+    //^协议://网址(x.x...x)/路径(n个\字串)/网页文件(xxx.xxx)
+    const char *szReg = &quot;(\\w+)://((\\w+\\.)*\\w+)((/\\w*)*)(/\\w+\\.\\w+)?&quot;;
+    const char *szStr = &quot;http://www.cppprog.com/2009/0112/48.html&quot;;
+
+    {    //字符串匹配
+        boost::regex reg( szReg );
+        bool r=boost::regex_match( szStr , reg);
+        assert(r);
+    }
+
+    {    //提取子串
+        boost::cmatch mat;
+        boost::regex reg( szReg );
+        bool r=boost::regex_match( szStr, mat, reg);
+        if(r) //如果匹配成功
+        {
+            //显示所有子串
+            for(boost::cmatch::iterator itr=mat.begin(); itr!=mat.end(); ++itr)
+            {
+                //       指向子串对应首位置        指向子串对应尾位置          子串内容
+                cout &lt;&lt; itr-&gt;first-szStr &lt;&lt; &apos; &apos; &lt;&lt; itr-&gt;second-szStr &lt;&lt; &apos; &apos; &lt;&lt; *itr &lt;&lt; endl;
+            }
+        }
+        //也可直接取指定位置信息
+        if(mat[4].matched) cout &lt;&lt; &quot;Path is&quot; &lt;&lt; mat[4] &lt;&lt; endl;
+    }
+
+    { //查找
+        boost::cmatch mat;
+        boost::regex reg( &quot;\\d+&quot; );    //查找字符串里的数字
+        if(boost::regex_search(szStr, mat, reg))
+        {
+            cout &lt;&lt; &quot;searched:&quot; &lt;&lt; mat[0] &lt;&lt; endl;
+        }
+    }
+
+    { //替换
+        boost::regex reg( szReg );
+        string s = boost::regex_replace( string(szStr), reg, &quot;ftp://$2$5&quot;);
+        cout &lt;&lt; &quot;ftp site:&quot;&lt;&lt; s &lt;&lt; endl;
+    }
+    { //替换2，把&lt;&gt;&amp;转换成网页字符
+        string s1 = &quot;(&lt;)|(&gt;)|(&amp;)&quot;;
+        string s2 = &quot;(?1&lt;)(?2&gt;)(?3&amp;)&quot;;
+        boost::regex reg( s1 );
+        string s = boost::regex_replace( string(&quot;cout &lt;&lt; a&amp;b &lt;&lt; endl;&quot;), reg, s2, boost::match_default | boost::format_all);
+        cout &lt;&lt; &quot;HTML:&quot;&lt;&lt; s &lt;&lt; endl;
+    }
+
+    { //使用迭代器找出所有数字
+        boost::regex reg( &quot;\\d+&quot; );    //查找字符串里的数字
+        boost::cregex_iterator itrBegin = make_regex_iterator(szStr,reg); //(szStr, szStr+strlen(szStr), reg);
+        boost::cregex_iterator itrEnd;
+        for(boost::cregex_iterator itr=itrBegin; itr!=itrEnd; ++itr)
+        {
+            //       指向子串对应首位置        指向子串对应尾位置          子串内容
+            cout &lt;&lt; (*itr)[0].first-szStr &lt;&lt; &apos; &apos; &lt;&lt; (*itr)[0].second-szStr &lt;&lt; &apos; &apos; &lt;&lt; *itr &lt;&lt; endl;
+        }
+    }
+
+    { //使用迭代器拆分字符串
+        boost::regex reg(&quot;/&quot;);  //按/符拆分字符串
+        boost::cregex_token_iterator itrBegin = make_regex_token_iterator(szStr,reg,-1); //使用-1参数时拆分，使用其它数字时表示取第几个子串，可使用数组取多个串
+        boost::cregex_token_iterator itrEnd;
+        for(boost::cregex_token_iterator itr=itrBegin; itr!=itrEnd; ++itr)
+        {
+            cout &lt;&lt; *itr &lt;&lt; endl;
+        }
+    }
+
+    { //使用迭代器拆分字符串2
+        boost::regex reg(&quot;(.)/(.)&quot;);  //取/的前一字符和后一字符（这个字符串形象貌似有点邪恶-_-）
+        int subs[] = {1,2};        // 第一子串和第二子串
+        boost::cregex_token_iterator itrBegin = make_regex_token_iterator(szStr,reg,subs); //使用-1参数时拆分，使用其它数字时表示取第几个子串，可使用数组取多个串
+        boost::cregex_token_iterator itrEnd;
+        for(boost::cregex_token_iterator itr=itrBegin; itr!=itrEnd; ++itr)
+        {
+            cout &lt;&lt; *itr &lt;&lt; endl;
+        }
+    }
+
+    cin.get();
+    return 0;
+}
+</code></pre><p><a href="https://blog.csdn.net/leonardwang/article/details/6035171?spm=a2c4e.11153940.blogcont75580.15.3a02b5f4uSDlxO" target="_blank" rel="noopener">正则表达式 boost Regex</a></p>
+<h1 id="NET-正则表达式"><a href="#NET-正则表达式" class="headerlink" title=".NET 正则表达式"></a>.NET 正则表达式</h1><p><a href="https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expressions" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expressions</a></p>
+<p><a href="http://download.microsoft.com/download/D/2/4/D240EBF6-A9BA-4E4F-A63F-AEB6DA0B921C/Regular%20expressions%20quick%20reference.docx" target="_blank" rel="noopener">http://download.microsoft.com/download/D/2/4/D240EBF6-A9BA-4E4F-A63F-AEB6DA0B921C/Regular%20expressions%20quick%20reference.docx</a></p>
+<p><a href="https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expression-language-quick-reference" target="_blank" rel="noopener">正则表达式语言 - 快速参考</a></p>
+<p><a href="https://msdn.microsoft.com/zh-cn/library/system.text.regularexpressions.regex.aspx" target="_blank" rel="noopener">Regex 类</a></p>
+<h1 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h1><p><a href="http://www.zjmainstay.cn/regexp-lookaround" target="_blank" rel="noopener">深入理解正则表达式环视的概念与用法</a></p>
+<p><a href="http://tool.oschina.net/uploads/apidocs/jquery/regexp.html" target="_blank" rel="noopener">表达式全集</a></p>
+<p><a href="http://www.jb51.net/tools/zhengze.html" target="_blank" rel="noopener">正则表达式30分钟入门教程</a></p>
+<p><a href="http://www.regexlab.com/zh/regref.htm" target="_blank" rel="noopener">揭开正则表达式的神秘面纱</a></p>
+<p><a href="http://blog.jobbole.com/96708/" target="_blank" rel="noopener">正则表达式 30 分钟入门教程</a></p>
+<p><a href="http://blog.jobbole.com/75188/" target="_blank" rel="noopener">Python正则表达式指南</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">正则表达式</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">regex</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Boost</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/03/正则表达式/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-zlib" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/01/zlib/">zlib</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/01/zlib/" class="archive-article-date">
+  	<time datetime="2018-04-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="zlib"><a href="#zlib" class="headerlink" title="zlib"></a>zlib</h1><h2 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h2><p><a href="http://www.zlib.net/" title="http://www.zlib.net/" target="_blank" rel="noopener">http://www.zlib.net/</a></p>
+<p><a href="https://github.com/madler/zlib" title="https://github.com/madler/zlib" target="_blank" rel="noopener">https://github.com/madler/zlib</a></p>
+<p><a href="http://www.zlib.net/fossils/" title="http://www.zlib.net/fossils/" target="_blank" rel="noopener">http://www.zlib.net/fossils/</a></p>
+<p><a href="https://github.com/madler/zlib/archive/v1.2.11.zip" title="https://github.com/madler/zlib/archive/v1.2.11.zip" target="_blank" rel="noopener">zlib1.2.11.zip</a></p>
+<h2 id="编译："><a href="#编译：" class="headerlink" title="编译："></a>编译：</h2><p>可从此处直接下载：</p>
+<p><a href="http://www.winimage.com/zLibDll" title="http://www.winimage.com/zLibDll" target="_blank" rel="noopener">http://www.winimage.com/zLibDll</a></p>
+<p>解压后，进入到zlib-1.2.11/contrib/masmx86目录，执行bld_ml32.bat。（同理，64位的电脑进入masmx64目录，执行bld_ml64.bat）。这一步运行bld_ml32批处理文件，里面调用ml命令编译inffas32.asm和match686.asm，生成inffas32.obj和match686.obj（生成在本目录下）。这两个文件在zlibvc中用到。</p>
+<p>实际已提供了在vc下编译的工程，目录为：zlib-1.2.11\contrib\vstudio.此项目的生成事件中已经执行了bld_ml32.bat</p>
+<p>  其中的zlibstat是编译为静态库，zlibvc是编译为动态库。</p>
+<p>如果报错：</p>
+<p>fatal error LNK1281: 无法生成 SAFESEH 映像。</p>
+<p>修改配置-连接器-高级-映像具有安全异常处理程序，改成“否(/SAFESEH:NO)”</p>
+<h2 id="使用："><a href="#使用：" class="headerlink" title="使用："></a>使用：</h2><h3 id="使用zlib静态库：zlibstat-lib"><a href="#使用zlib静态库：zlibstat-lib" class="headerlink" title="使用zlib静态库：zlibstat.lib"></a>使用zlib静态库：zlibstat.lib</h3><ol>
+<li><p>包含头文件</p>
+<p> 属性–C/C++–常规–附加包含目录（添加包含.h文件的目录）</p>
+</li>
+<li><p>定义宏</p>
+<p> 属性–C/C++–预处理器–预处理器定义：添加 ZLIB_WINAPI ASMV ASMINF</p>
+</li>
+<li><p>项目包含.lib文件所在的目录：</p>
+<p> 属性–链接器–常规–附加库目录</p>
+</li>
+<li><p>项目包含.lib文件</p>
+<p> 属性–链接器–输入–附加依赖项（libstat.lib）</p>
+</li>
+<li><p>项目代码中 #include “zlib.h”</p>
+</li>
+</ol>
+<p>编译生成.exe即可使用。</p>
+<h3 id="使用动态库-zlibwapi-lib"><a href="#使用动态库-zlibwapi-lib" class="headerlink" title="使用动态库 zlibwapi.lib"></a>使用动态库 zlibwapi.lib</h3><ol>
+<li><p>包含头文件</p>
+<p> 属性–C/C++–常规–附加包含目录（添加包含.h的目录）</p>
+</li>
+<li><p>定义宏</p>
+<p> 属性–C/C++–预处理器–预处理器定义：添加 ZLIB_WINAPI</p>
+</li>
+<li><p>项目包含.lib文件所在的目录：</p>
+<p> 属性–链接器–常规–附加库目录</p>
+</li>
+<li><p>项目包含.lib文件</p>
+<p> 属性–链接器–输入–附加依赖项（zlibwapi.lib）</p>
+</li>
+<li><p>项目代码中 #include “zlib.h”</p>
+</li>
+</ol>
+<p>编译生成.exe文件需要.dll文件支持（动态加载）</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">zlib</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">解压缩</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/01/zlib/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-tesseract-ocr" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1007,317 +1978,6 @@ wldap32.lib
 
 
   
-    <article id="post-SVN版本号" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/08/SVN版本号/">SVN版本号</a>
-    </h1>
-  
-
-        
-        <a href="/2018/02/08/SVN版本号/" class="archive-article-date">
-  	<time datetime="2018-02-08T07:24:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="SVN获取版本号"><a href="#SVN获取版本号" class="headerlink" title="SVN获取版本号"></a>SVN获取版本号</h1><h2 id="version-template-h"><a href="#version-template-h" class="headerlink" title="version_template.h"></a>version_template.h</h2><pre><code>#ifndef _VERSION_H_
-#define _VERSION_H_
-#define VER_MAJOR 1
-#define VER_MINOR 0
-#define VER_REVISION $WCREV$
-
-#define SVN_REVISION&quot;$WCMIXED?$WCRANGE$:$WCREV$$&quot;
-
-#define SVN_RANGE   $WCRANGE$
-#define SVN_REV $WCREV$
-#define SVN_REVISION&quot;$WCMIXED?SVN_RANGE:SVN_REV$&quot;
-#endif //!_VERSION_H_
-
-// Test file for SubWCRev
-
-char *Revision  = &quot;$WCREV$&quot;;
-char *Revision16= &quot;$WCREV&amp;0xFF$&quot;;
-char *Revisionp100  = &quot;$WCREV+100$&quot;;
-char *Revisionm100  = &quot;$WCREV-100$&quot;;
-char *Modified  = &quot;$WCMODS?Modified:Not modified$&quot;;
-char *Unversioned   = &quot;$WCUNVER?Unversioned items found:no unversioned items$&quot;;
-char *Date  = &quot;$WCDATE$&quot;;
-char *CustDate  = &quot;$WCDATE=%a, %d %B %Y$&quot;;
-char *DateUTC   = &quot;$WCDATEUTC$&quot;;
-char *CustDateUTC   = &quot;$WCDATEUTC=%a, %d %B %Y$&quot;;
-char *TimeNow   = &quot;$WCNOW$&quot;;
-char *TimeNowUTC= &quot;$WCNOWUTC$&quot;;
-char *RevRange  = &quot;$WCRANGE$&quot;;
-char *Mixed = &quot;$WCMIXED?Mixed revision WC:Not mixed$&quot;;
-char *ExtAllFixed   = &quot;$WCEXTALLFIXED?All externals fixed:Not all externals fixed$&quot;;
-char *IsTagged  = &quot;$WCISTAGGED?Tagged:Not tagged$&quot;;
-char *URL   = &quot;$WCURL$&quot;;
-char *isInSVN   = &quot;$WCINSVN?versioned:not versioned$&quot;;
-char *needslck  = &quot;$WCNEEDSLOCK?TRUE:FALSE$&quot;;
-char *islocked  = &quot;$WCISLOCKED?locked:not locked$&quot;;
-char *lockdateutc   = &quot;$WCLOCKDATEUTC$&quot;;
-char *lockdate  = &quot;$WCLOCKDATE$&quot;;
-char *lockcustutc   = &quot;$WCLOCKDATEUTC=%a, %d %B %Y$&quot;;
-char *lockcust  = &quot;$WCLOCKDATE=%a, %d %B %Y$&quot;;
-char *lockown   = &quot;$WCLOCKOWNER$&quot;;
-char *lockcmt   = &quot;$WCLOCKCOMMENT$&quot;;
-
-#if $WCMODS?1:0$
-#error Source is modified
-#endif
-
-// End of file
-</code></pre><h2 id="运行bat"><a href="#运行bat" class="headerlink" title="运行bat"></a>运行bat</h2><pre><code>setlocal
-
-::设置svn客户端安装目录
-set SVN_PATH=D:\Program Files\TortoiseSVN\bin 
-
-::设置工作目录，即工程目录
-set WORK_DIR=E:\code\C++\Demo
-
-::设置版本模版文件，对应第一步中新建的模板文件
-set VERSION_TEMPLATE=E:\code\C++\Demo\version_template.h
-
-::设置版本号生成文件，生成的文件就是我们需要使用的版本文件
-set VERSION_RELEASE=E:\code\C++\Demo\version.h
-
-::进入svn客户端安装目录
-cd %SVN_PATH%
-::执行更新版本号操作
-&quot;%SVN_PATH%\SubWCRev.exe&quot; &quot;%WORK_DIR%&quot; &quot;%VERSION_TEMPLATE%&quot; &quot;%VERSION_RELEASE%&quot;
-
-endlocal
-</code></pre><h2 id="生成version-h"><a href="#生成version-h" class="headerlink" title="生成version.h"></a>生成version.h</h2><pre><code>#ifndef _VERSION_H_
-#define _VERSION_H_
-#define VER_MAJOR 1
-#define VER_MINOR 0
-#define VER_REVISION 6185
-
-#define SVN_REVISION&quot;4620&quot;
-
-#define SVN_RANGE   4620:6185
-#define SVN_REV 6185
-#define SVN_REVISION&quot;SVN_RANGE&quot;
-#endif //!_VERSION_H_
-
-// Test file for SubWCRev
-
-char *Revision  = &quot;6185&quot;;
-char *Revision16= &quot;41&quot;;
-char *Revisionp100  = &quot;6285&quot;;
-char *Revisionm100  = &quot;6085&quot;;
-char *Modified  = &quot;Modified&quot;;
-char *Unversioned   = &quot;Unversioned items found&quot;;
-char *Date  = &quot;2018/02/07 10:00:58&quot;;
-char *CustDate  = &quot;Wed, 07 February 2018&quot;;
-char *DateUTC   = &quot;2018/02/07 02:00:58&quot;;
-char *CustDateUTC   = &quot;Wed, 07 February 2018&quot;;
-char *TimeNow   = &quot;2018/02/08 14:56:08&quot;;
-char *TimeNowUTC= &quot;2018/02/08 06:56:08&quot;;
-char *RevRange  = &quot;4620:6185&quot;;
-char *Mixed = &quot;Mixed revision WC&quot;;
-char *ExtAllFixed   = &quot;All externals fixed&quot;;
-char *IsTagged  = &quot;Not tagged&quot;;
-char *URL   = &quot;http://xxx&quot;;
-char *isInSVN   = &quot;versioned&quot;;
-char *needslck  = &quot;FALSE&quot;;
-char *islocked  = &quot;not locked&quot;;
-char *lockdateutc   = &quot;1970/01/01 00:00:00&quot;;
-char *lockdate  = &quot;1970/01/01 08:00:00&quot;;
-char *lockcustutc   = &quot;Thu, 01 January 1970&quot;;
-char *lockcust  = &quot;Thu, 01 January 1970&quot;;
-char *lockown   = &quot;&quot;;
-char *lockcmt   = &quot;&quot;;
-
-#if 1
-#error Source is modified
-#endif
-
-// End of file
-</code></pre><h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p>在VS2005的项目属性页-&gt;预生成事件-&gt;命令行中添加一句：</p>
-<pre><code>$(SolutionDir)\subwcrev.exe $(SolutionDir) $(SolutionDir)\src\qmlv\version_template.h $(SolutionDir)\src\qmlv\version.h
-</code></pre><p>SubWCRev 调用语法:</p>
-<pre><code>SubWCRev WorkingCopyPath [SrcVersionFile DstVersionFile]
-</code></pre><h1 id="svn版本日志"><a href="#svn版本日志" class="headerlink" title="svn版本日志"></a>svn版本日志</h1><p>Apache-Subversion-1.9.7：</p>
-<pre><code>&quot;svn.exe&quot; log --incremental -r4620
-&quot;svn.exe&quot; log --incremental -r4522
-</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html" title="https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html" target="_blank" rel="noopener">https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html</a></p>
-<p><a href="http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html" title="http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html</a></p>
-<p><a href="https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html" title="https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html</a></p>
-<p><a href="http://blog.csdn.net/yangxiao2shi/article/details/50719286/" title="http://blog.csdn.net/yangxiao2shi/article/details/50719286/" target="_blank" rel="noopener">http://blog.csdn.net/yangxiao2shi/article/details/50719286/</a></p>
-<p><a href="https://www.visualsvn.com/support/svnbook/ref/svn/" title="https://www.visualsvn.com/support/svnbook/ref/svn/" target="_blank" rel="noopener">https://www.visualsvn.com/support/svnbook/ref/svn/</a></p>
-<p><a href="https://www.visualsvn.com/support/svnbook/ref/svn/c/log/" title="https://www.visualsvn.com/support/svnbook/ref/svn/c/log/" target="_blank" rel="noopener">https://www.visualsvn.com/support/svnbook/ref/svn/c/log/</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">svn</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">版本号</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/08/SVN版本号/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-OpenSSL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/02/OpenSSL/">OpenSSL</a>
-    </h1>
-  
-
-        
-        <a href="/2018/02/02/OpenSSL/" class="archive-article-date">
-  	<time datetime="2018-02-02T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="OpenSSL"><a href="#OpenSSL" class="headerlink" title="OpenSSL"></a>OpenSSL</h1><p><a href="https://www.openssl.org/" title="https://www.openssl.org/" target="_blank" rel="noopener">https://www.openssl.org/</a></p>
-<p><a href="https://github.com/openssl/openssl" title="https://github.com/openssl/openssl" target="_blank" rel="noopener">https://github.com/openssl/openssl</a></p>
-<h1 id="编译："><a href="#编译：" class="headerlink" title="编译："></a>编译：</h1><p>安装<code>ActiveState Perl</code> </p>
-<p><a href="https://www.perl.org/" title="https://www.perl.org/" target="_blank" rel="noopener">https://www.perl.org/</a></p>
-<p><a href="https://www.activestate.com/activeperl/downloads/thank-you?dl=http://downloads.activestate.com/ActivePerl/releases/5.24.1.2402/ActivePerl-5.24.1.2402-MSWin32-x86-64int-401627.exe" title="https://www.activestate.com/activeperl/downloads/thank-you?dl=http://downloads.activestate.com/ActivePerl/releases/5.24.1.2402/ActivePerl-5.24.1.2402-MSWin32-x86-64int-401627.exe" target="_blank" rel="noopener">ActivePerl-5.24.1.2402-MSWin32-x86-64int-401627.exe</a></p>
-<p>Perl 在 Window 平台上有 ActiveStatePerl 和 Strawberry Perl 编译器。</p>
-<p>ActiveState Perl和 Strawberry Perl最大的区别是 Strawberry Perl 里面有多包含一些 CPAN 里的模块， 所以Strawberry Perl 下载的安装文件有 80多M, 而ActiveState Perl 只有20M 左右。</p>
-<p>使用libcur中的<code>build-openssl.bat</code>编译</p>
-<p><a href="http://files.cnblogs.com/files/yhcao/build-openssl.rar" title="http://files.cnblogs.com/files/yhcao/build-openssl.rar" target="_blank" rel="noopener">build-openssl.rar</a></p>
-<h2 id="需要文件："><a href="#需要文件：" class="headerlink" title="需要文件："></a>需要文件：</h2><pre><code>$ copy /b inc32\openssl\*       c:\openssl\include\openssl
-$ copy /b out32dll\ssleay32.lib c:\openssl\lib
-$ copy /b out32dll\libeay32.lib c:\openssl\lib
-$ copy /b out32dll\ssleay32.dll c:\openssl\bin
-$ copy /b out32dll\libeay32.dll c:\openssl\bin
-$ copy /b out32dll\openssl.exe  c:\openssl\bin
-</code></pre><p><a href="http://slproweb.com/products/Win32OpenSSL.html" target="_blank" rel="noopener">http://slproweb.com/products/Win32OpenSSL.html</a></p>
-<h1 id="安装程序："><a href="#安装程序：" class="headerlink" title="安装程序："></a>安装程序：</h1><p>或到此处下载：</p>
-<p><a href="http://slproweb.com/products/Win32OpenSSL.html" title="http://slproweb.com/products/Win32OpenSSL.html" target="_blank" rel="noopener">http://slproweb.com/products/Win32OpenSSL.html</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">OpenSSL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">加密</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/02/OpenSSL/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -2032,6 +2692,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">COM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">IO模型</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">curl</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">libcurl</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">LibIconv</a>
               </li>
             
             <div class="clearfix"></div>

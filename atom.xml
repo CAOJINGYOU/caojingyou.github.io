@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://caojingyou.github.io/"/>
-  <updated>2018-05-30T06:03:52.526Z</updated>
+  <updated>2018-06-06T05:59:00.908Z</updated>
   <id>https://caojingyou.github.io/</id>
   
   <author>
@@ -15,6 +15,67 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>curl</title>
+    <link href="https://caojingyou.github.io/2018/06/01/curl/"/>
+    <id>https://caojingyou.github.io/2018/06/01/curl/</id>
+    <published>2018-06-01T08:36:00.000Z</published>
+    <updated>2018-06-06T05:59:00.908Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p><a href="https://curl.haxx.se/" title="https://curl.haxx.se/" target="_blank" rel="noopener">curl</a></p><p><a href="https://github.com/curl/curl" target="_blank" rel="noopener">https://github.com/curl/curl</a></p><p><a href="https://curl.haxx.se/libcurl/" target="_blank" rel="noopener">libcurl/</a></p><p><a href="https://curl.haxx.se/download.html" target="_blank" rel="noopener">https://curl.haxx.se/download.html</a></p><p><a href="https://curl.haxx.se/libcurl/c/example.html" target="_blank" rel="noopener">https://curl.haxx.se/libcurl/c/example.html</a></p><p>libcurl作为是一个多协议的便于客户端使用的URL传输库，基于C语言，提供C语言的API接口，支持DICT, FILE, FTP, FTPS, Gopher, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, POP3, POP3S, RTMP, RTSP, SCP, SFTP, SMTP, SMTPS, Telnet and TFTP这些协议，同时支持使用SSL证书的安全文件传输：HTTP POST, HTTP PUT, FTP 上传, 基于HTTP形式的上传、代理、Cookies、用户加密码的认证等多种应用场景。另外，libcurl是一个高移植性的库，能在绝大多数系统上运行，包括Solaris, NetBSD, FreeBSD, OpenBSD, Darwin, HPUX, IRIX, AIX, Tru64, Linux, UnixWare, HURD, Windows, Amiga, OS/2, BeOs, Mac OS X, Ultrix, QNX, OpenVMS, RISC OS, Novell NetWare, DOS等。</p><h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><p><a href="https://curl.haxx.se/download/curl-7.60.0.tar.gz" target="_blank" rel="noopener">https://curl.haxx.se/download/curl-7.60.0.tar.gz</a></p><p><a href="https://www.gitbook.com/download/pdf/book/bagder/everything-curl" target="_blank" rel="noopener">https://www.gitbook.com/download/pdf/book/bagder/everything-curl</a></p><h1 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h1><p>项目支持<code>Visual C++ v6.0 to v15.0</code></p><p>项目sln文件在<code>curl-7.60.0\projects</code>目录</p><p>依赖第三方库：<code>OpenSSL, wolfSSL and SSH2</code> 需要另外下载编译</p><h2 id="OpenSSL"><a href="#OpenSSL" class="headerlink" title="OpenSSL"></a>OpenSSL</h2><p>OpenSSL需要ActivePerl</p><p>build-openssl.bat支持openssl-1.0.2</p><pre><code>build-openssl.bat vc10 x86 release</code></pre><h1 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h1><p><img src="https://i.imgur.com/kkVt7zq.jpg" alt=""></p><h1 id="主要函数"><a href="#主要函数" class="headerlink" title="主要函数"></a>主要函数</h1><p><a href="https://curl.haxx.se/libcurl/c/" target="_blank" rel="noopener">https://curl.haxx.se/libcurl/c/</a></p><h2 id="curl-global-init-初始化libcrl"><a href="#curl-global-init-初始化libcrl" class="headerlink" title="curl_global_init 初始化libcrl"></a>curl_global_init 初始化libcrl</h2><pre><code>CURLcode curl_global_init(long flags);</code></pre><p>flags参数取值范围</p><pre><code>CURL_GLOBAL_ALL    初始化所有可能的调用CURL_GLOBAL_SSL    初始化支持安全套接字层的调用CURL_GLOBAL_WIN32    初始化WIN32套接字库CURL_GLOBAL_NOTHING    没有额外的初始化要求</code></pre><p>虽然<code>libcurl</code>是线程安全的，但<code>curl_global_init</code>是不能保证线程安全的，所以不要在每个线程中都调用<code>curl_global_init</code>，应该将该函数的调用放在主线程中。</p><h2 id="curl-easy-init-获取CURL操作符"><a href="#curl-easy-init-获取CURL操作符" class="headerlink" title="curl_easy_init() 获取CURL操作符"></a>curl_easy_init() 获取CURL操作符</h2><pre><code>CURL *curl_easy_init( );</code></pre><p>初始化一个<code>CURL</code>的指针(有些像返回<code>FILE</code>类型的指针一样). 相应的在调用结束时要用<code>curl_easy_cleanup</code>函数清理.</p><h2 id="curl-easy-setopt-设置传输选项"><a href="#curl-easy-setopt-设置传输选项" class="headerlink" title="curl_easy_setopt() 设置传输选项"></a>curl_easy_setopt() 设置传输选项</h2><pre><code>CURLcode curl_easy_setopt(CURL *handle, CURLoption option, parameter);</code></pre><p>可指定<code>libcurl</code>的工作方式或程序运行中改变其工作方式，实现回调函数以完成用户特定任务。</p><h3 id="参数CURLoption"><a href="#参数CURLoption" class="headerlink" title="参数CURLoption"></a>参数CURLoption</h3><h4 id="CURLOPT-URL"><a href="#CURLOPT-URL" class="headerlink" title="CURLOPT_URL"></a>CURLOPT_URL</h4><p>设置访问URL</p><h4 id="CURLOPT-WRITEFUNCTION，CURLOPT-WRITEDATA"><a href="#CURLOPT-WRITEFUNCTION，CURLOPT-WRITEDATA" class="headerlink" title="CURLOPT_WRITEFUNCTION，CURLOPT_WRITEDATA"></a>CURLOPT_WRITEFUNCTION，CURLOPT_WRITEDATA</h4><p>回调函数原型为：<code>size_t function( void *ptr, size_t size, size_t nmemb, void *stream);</code> 函数将在<code>libcurl</code>接收到数据后被调用，因此函数多做数据保存的功能，如处理下载文件。<code>CURLOPT_WRITEDATA</code> 用于表明<code>CURLOPT_WRITEFUNCTION</code>函数中的<code>stream</code>指针的来源。</p><p>如果你没有通过<code>CURLOPT_WRITEFUNCTION</code>属性给<code>easy handle设</code>置回调函数，<code>libcurl</code>会提供一个默认的回调函数，它只是简单的将接收到的数据打印到标准输出。你也可以通过 <code>CURLOPT_WRITEDATA</code>属性给默认回调函数传递一个已经打开的文件指针，用于将数据输出到文件里。</p><h4 id="CURLOPT-HEADERFUNCTION，CURLOPT-HEADERDATA"><a href="#CURLOPT-HEADERFUNCTION，CURLOPT-HEADERDATA" class="headerlink" title="CURLOPT_HEADERFUNCTION，CURLOPT_HEADERDATA"></a>CURLOPT_HEADERFUNCTION，CURLOPT_HEADERDATA</h4><p>回调函数原型为 <code>size_t function( void *ptr, size_t size,size_t nmemb, void *stream);</code> <code>libcurl</code>一旦接收到http 头部数据后将调用该函数。<code>CURLOPT_WRITEDATA</code> 传递指针给<code>libcurl</code>，该指针表明<code>CURLOPT_HEADERFUNCTION</code> 函数的<code>stream</code>指针的来源。</p><h4 id="CURLOPT-READFUNCTION-CURLOPT-READDATA"><a href="#CURLOPT-READFUNCTION-CURLOPT-READDATA" class="headerlink" title="CURLOPT_READFUNCTION CURLOPT_READDATA"></a>CURLOPT_READFUNCTION CURLOPT_READDATA</h4><p><code>libCurl</code>需要读取数据传递给远程主机时将调用<code>CURLOPT_READFUNCTION</code>指定的函数，函数原型是：<code>size_t function(void *ptr, size_t size, size_t nmemb,void *stream)</code>. <code>CURLOPT_READDATA</code> 表明<code>CURLOPT_READFUNCTION</code>函数原型中的<code>stream</code>指针来源。</p><h4 id="CURLOPT-NOPROGRESS，CURLOPT-PROGRESSFUNCTION，CURLOPT-PROGRESSDATA"><a href="#CURLOPT-NOPROGRESS，CURLOPT-PROGRESSFUNCTION，CURLOPT-PROGRESSDATA" class="headerlink" title="CURLOPT_NOPROGRESS，CURLOPT_PROGRESSFUNCTION，CURLOPT_PROGRESSDATA"></a>CURLOPT_NOPROGRESS，CURLOPT_PROGRESSFUNCTION，CURLOPT_PROGRESSDATA</h4><p>跟数据传输进度相关的参数。<code>CURLOPT_PROGRESSFUNCTION</code> 指定的函数正常情况下每秒被<code>libcurl</code>调用一次，为了使<code>CURLOPT_PROGRESSFUNCTION</code>被调用，<code>CURLOPT_NOPROGRESS</code>必须被设置为false，<code>CURLOPT_PROGRESSDATA</code>指定的参数将作为CURLOPT_PROGRESSFUNCTION指定函数的第一个参数</p><h4 id="CURLOPT-TIMEOUT，CURLOPT-CONNECTIONTIMEOUT"><a href="#CURLOPT-TIMEOUT，CURLOPT-CONNECTIONTIMEOUT" class="headerlink" title="CURLOPT_TIMEOUT，CURLOPT_CONNECTIONTIMEOUT"></a>CURLOPT_TIMEOUT，CURLOPT_CONNECTIONTIMEOUT</h4><p><code>CURLOPT_TIMEOUT</code> 由于设置传输时间，<code>CURLOPT_CONNECTIONTIMEOUT</code> 设置连接等待时间</p><h4 id="CURLOPT-FOLLOWLOCATION"><a href="#CURLOPT-FOLLOWLOCATION" class="headerlink" title="CURLOPT_FOLLOWLOCATION"></a>CURLOPT_FOLLOWLOCATION</h4><p>设置重定位URL</p><h4 id="CURLOPT-RANGE-CURLOPT-RESUME-FROM"><a href="#CURLOPT-RANGE-CURLOPT-RESUME-FROM" class="headerlink" title="CURLOPT_RANGE: CURLOPT_RESUME_FROM"></a>CURLOPT_RANGE: CURLOPT_RESUME_FROM</h4><p>断点续传相关设置。<code>CURLOPT_RANGE</code> 指定char *参数传递给libcurl，用于指明http域的RANGE头域，例如：</p><pre><code>表示头500个字节：bytes=0-499表示第二个500字节：bytes=500-999表示最后500个字节：bytes=-500表示500字节以后的范围：bytes=500-第一个和最后一个字节：bytes=0-0,-1同时指定几个范围：bytes=500-600,601-999</code></pre><p><code>CURLOPT_RESUME_FROM</code> 传递一个long参数给libcurl，指定你希望开始传递的 偏移量。</p><h3 id="参数parameter"><a href="#参数parameter" class="headerlink" title="参数parameter"></a>参数parameter</h3><p><code>parameter</code> 这个参数 既可以是个函数的指针,也可以是某个对象的指针,也可以是个long型的变量.它用什么这取决于第二个参数.</p><h2 id="curl-easy-perform-实现传输任务"><a href="#curl-easy-perform-实现传输任务" class="headerlink" title="curl_easy_perform() 实现传输任务"></a>curl_easy_perform() 实现传输任务</h2><pre><code>CURLcode curl_easy_perform(CURL * easy_handle );</code></pre><p>返回0意味一切ok，非0代表错误发生。主要错误码说明：</p><pre><code>CURLE_OK    任务完成一切都好CURLE_UNSUPPORTED_PROTOCOL    不支持的协议，由URL的头部指定CURLE_COULDNT_CONNECT    不能连接到remote 主机或者代理CURLE_REMOTE_ACCESS_DENIED    访问被拒绝CURLE_HTTP_RETURNED_ERROR    Http返回错误CURLE_READ_ERROR    读本地文件错误</code></pre><p>要获取详细的错误描述字符串，可以通过<code>const char *curl_easy_strerror(CURLcode errornum )</code> 这个函数取得.</p><p><a href="https://curl.haxx.se/libcurl/c/libcurl-errors.html" target="_blank" rel="noopener">https://curl.haxx.se/libcurl/c/libcurl-errors.html</a></p><h2 id="curl-easy-cleanup-释放内存"><a href="#curl-easy-cleanup-释放内存" class="headerlink" title="curl_easy_cleanup() 释放内存"></a>curl_easy_cleanup() 释放内存</h2><pre><code>curl_easy_cleanup() </code></pre><h2 id="char-curl-version"><a href="#char-curl-version" class="headerlink" title="char *curl_version( )"></a>char *curl_version( )</h2><pre><code>char *curl_version( );</code></pre><p>打印当前libcurl库的版本。</p><h2 id="curl-slist-append与curl-slist-free-all"><a href="#curl-slist-append与curl-slist-free-all" class="headerlink" title="curl_slist_append与curl_slist_free_all"></a>curl_slist_append与curl_slist_free_all</h2><p>设置消息头</p><pre><code>CURL *handle;struct curl_slist *slist=NULL;slist = curl_slist_append(slist, &quot;pragma:&quot;);if (slist == NULL)  return -1;curl_easy_setopt(handle, CURLOPT_HTTPHEADER, slist);curl_easy_perform(handle);curl_slist_free_all(slist); /* free the list again */</code></pre><h2 id="curl-easy-getinfo"><a href="#curl-easy-getinfo" class="headerlink" title="curl_easy_getinfo"></a>curl_easy_getinfo</h2><p>获取的是应答头中特定的信息，这个函数还能获取curl的一些内部信息，如请求时间、连接时间等等。</p><pre><code>CURLcode curl_easy_getinfo(CURL *curl, CURLINFO info, ... );</code></pre><h1 id="中文乱码"><a href="#中文乱码" class="headerlink" title="中文乱码"></a>中文乱码</h1><p>获取的网页内容如果是UTF_8编码，需要转换为GBK编码</p><pre><code>std::string UTF8ToGBK(const std::string&amp; strUTF8)    {        int len = MultiByteToWideChar(CP_UTF8, 0, strUTF8.c_str(), -1, NULL, 0);        WCHAR* wszGBK = new WCHAR[len+1];      memset(wszGBK, 0, len * 2 + 2);        MultiByteToWideChar(CP_UTF8, 0, (LPCSTR)(LPCTSTR)strUTF8.c_str(), -1, wszGBK, len);        len = WideCharToMultiByte(CP_ACP, 0, wszGBK, -1, NULL, 0, NULL, NULL);        char *szGBK = new char[len + 1];        memset(szGBK, 0, len + 1);        WideCharToMultiByte(CP_ACP,0, wszGBK, -1, szGBK, len, NULL, NULL);         std::string strTemp(szGBK);        delete[]szGBK;        delete[]wszGBK;        return strTemp;    } std::string GBKToUTF8(const std::string&amp; strGBK)  {      std::string strOutUTF8 = &quot;&quot;;      WCHAR * str1;      int n = MultiByteToWideChar(CP_ACP, 0, strGBK.c_str(), -1, NULL, 0);      str1 = new WCHAR[n];      MultiByteToWideChar(CP_ACP, 0, strGBK.c_str(), -1, str1, n);      n = WideCharToMultiByte(CP_UTF8, 0, str1, -1, NULL, 0, NULL, NULL);      char * str2 = new char[n];      WideCharToMultiByte(CP_UTF8, 0, str1, -1, str2, n, NULL, NULL);      strOutUTF8 = str2;      delete[]str1;      str1 = NULL;      delete[]str2;      str2 = NULL;      return strOutUTF8;  }</code></pre><h1 id="使用LibIconv"><a href="#使用LibIconv" class="headerlink" title="使用LibIconv"></a>使用LibIconv</h1><h2 id="所需文件"><a href="#所需文件" class="headerlink" title="所需文件"></a>所需文件</h2><pre><code>iconv.exelibcharset1.dlllibiconv2.dlllibintl3.dll</code></pre><h2 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行</h2><pre><code>curl https://www.baidu.com | iconv.exe -f utf-8 -t gbk</code></pre><h2 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h2><pre><code>int covert(char *desc, char *src, char *input, size_t ilen, char *output, size_t olen){    char **pin = &amp;input;    char **pout = &amp;output;    iconv_t cd = iconv_open(desc, src);    if (cd == (iconv_t)-1)    {        return -1;    }    memset(output, 0, olen);    if (iconv(cd, (const char **)pin, &amp;ilen, pout, &amp;olen)) return -1;    iconv_close(cd);    return 0;}char *input = &quot;中国&quot;;size_t len = strlen(input);char *output = (char *)malloc(OUTLEN);covert(&quot;UTF-8&quot;, &quot;GBK&quot;, input, len, output, OUTLEN);printf(&quot;%s\n&quot;, output);</code></pre><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://blog.csdn.net/u010487568/article/details/52958367" target="_blank" rel="noopener">libcurl库（C++）快速使用</a></p><p><a href="https://www.cnblogs.com/moodlxs/archive/2012/10/15/2724318.html" target="_blank" rel="noopener">C++ 用libcurl库进行http通讯网络编程</a></p><p><a href="https://blog.csdn.net/tianzhaixing2013/article/details/74726040" target="_blank" rel="noopener">https://blog.csdn.net/tianzhaixing2013/article/details/74726040</a></p><p><a href="http://my.huhoo.net/archives/2008/02/libiconv.html" target="_blank" rel="noopener">http://my.huhoo.net/archives/2008/02/libiconv.html</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;简介&quot;&gt;&lt;a href=&quot;#简介&quot; class=&quot;headerlink&quot; title=&quot;简介&quot;&gt;&lt;/a&gt;简介&lt;/h1&gt;&lt;p&gt;&lt;a href=&quot;https://curl.haxx.se/&quot; title=&quot;https://curl.haxx.se/&quot; target=&quot;
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="C/C++" scheme="https://caojingyou.github.io/tags/C-C/"/>
+    
+      <category term="curl" scheme="https://caojingyou.github.io/tags/curl/"/>
+    
+      <category term="libcurl" scheme="https://caojingyou.github.io/tags/libcurl/"/>
+    
+      <category term="LibIconv" scheme="https://caojingyou.github.io/tags/LibIconv/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>IO模型</title>
+    <link href="https://caojingyou.github.io/2018/05/30/IO%E6%A8%A1%E5%9E%8B/"/>
+    <id>https://caojingyou.github.io/2018/05/30/IO模型/</id>
+    <published>2018-05-30T06:20:00.000Z</published>
+    <updated>2018-05-30T07:02:23.528Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h1><ul><li>阻塞（blocking）模型</li><li>选择（select）模型</li><li>WSAAsyncSelect模型</li><li>WSAEventSelect 模型</li></ul><p>函数:WSAEventSelect 、WSAWaitForMultipleEvents、WSAEnumNetworkEvents </p><ul><li>重叠（overlapped）模型</li></ul><p>overlapped I/O是Win32的一项技术</p><p>函数：WSAGetOverlappedResult </p><ul><li>完成端口（completion port）模型</li></ul><p>函数：CreateIoCompletionPort、GetQueuedCompletionStatus</p><ul><li><p>内核对象</p><p>  Windows提供了几种内核对象可以处于已通知状态和未通知状态：进程、线程、作业、文件、控制台输入/输出/错误流、事件、等待定时器、信号量、互斥对象。</p></li></ul><p>函数：WaitForSingleObject与WaitForMultipleObjects</p><ul><li>线程池 + 完成端口</li></ul><p>函数：CreateThreadpoolIo，StartThreadpoolIo，CloseThreadpoolIo</p><h1 id="IO多路复用"><a href="#IO多路复用" class="headerlink" title="IO多路复用"></a>IO多路复用</h1><p>select、kqueue、poll/epoll、overlapped I/O等</p><h1 id="库"><a href="#库" class="headerlink" title="库"></a>库</h1><p>ASIO:</p><p>“C++的I/O框架，逐渐成为Boost库的一部分。it’s like ACE updated for the STL era。”</p><p>支持select、epoll、IOCP等IO模型；</p><p>libevent:</p><p>由Niels Provos用C编写的一个轻量级的I/O框架。它支持kqueue和select、poll和epoll。</p><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="https://www.jianshu.com/p/5cf67fab6d61" target="_blank" rel="noopener">https://www.jianshu.com/p/5cf67fab6d61</a></p><p><a href="https://blog.csdn.net/HQ354974212/article/details/76423050?locationNum=2&amp;fps=1" target="_blank" rel="noopener">https://blog.csdn.net/HQ354974212/article/details/76423050?locationNum=2&amp;fps=1</a></p><p><a href="https://blog.csdn.net/zj510/article/details/44652923" target="_blank" rel="noopener">https://blog.csdn.net/zj510/article/details/44652923</a></p><p><a href="https://blog.csdn.net/u010807583/article/details/52433159" target="_blank" rel="noopener">https://blog.csdn.net/u010807583/article/details/52433159</a></p><p><a href="https://blog.csdn.net/zhangzeyuaaa/article/details/42609723" target="_blank" rel="noopener">https://blog.csdn.net/zhangzeyuaaa/article/details/42609723</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;windows&quot;&gt;&lt;a href=&quot;#windows&quot; class=&quot;headerlink&quot; title=&quot;windows&quot;&gt;&lt;/a&gt;windows&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;阻塞（blocking）模型&lt;/li&gt;
+&lt;li&gt;选择（select）模型&lt;/li&gt;
+&lt;l
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="C/C++" scheme="https://caojingyou.github.io/tags/C-C/"/>
+    
+      <category term="IO模型" scheme="https://caojingyou.github.io/tags/IO%E6%A8%A1%E5%9E%8B/"/>
+    
+  </entry>
   
   <entry>
     <title>COM</title>
@@ -316,18 +377,17 @@
     <link href="https://caojingyou.github.io/2018/05/02/linux%E4%B8%8BC%E5%BC%80%E5%8F%91/"/>
     <id>https://caojingyou.github.io/2018/05/02/linux下C开发/</id>
     <published>2018-05-02T10:09:00.000Z</published>
-    <updated>2018-05-02T10:13:56.655Z</updated>
+    <updated>2018-06-06T04:43:45.073Z</updated>
     
-    <content type="html"><![CDATA[<p>CodeBlocks跨平台</p><p>make是用来完成自动编译的工具</p><p>gcc/g++/gcc port/g++ port</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>CodeBlocks跨平台</p><p>make是用来完成自动编译的工具</p><p>gcc/g++/gcc port/g++ port</p><p>在Linux系统中开发C、C++语言程序，可选择的集成开发环境有Eclipse和Kdevelop,分别运行在GNOME和KDE桌面环境。</p><h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><p>fork</p><h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><p>POSIX标准线程库，Pthread线程对应的函数库为libpthread.</p><h1 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h1><h2 id="OSI参考模型"><a href="#OSI参考模型" class="headerlink" title="OSI参考模型"></a>OSI参考模型</h2><h2 id="TCP-IP模型"><a href="#TCP-IP模型" class="headerlink" title="TCP/IP模型"></a>TCP/IP模型</h2><h2 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h2><p><img src="https://i.imgur.com/0AuPUYT.jpg" alt=""></p><h2 id="网络库"><a href="#网络库" class="headerlink" title="网络库"></a>网络库</h2><ul><li>libcurl    url</li><li>libESMTP    SMTP</li><li>libspopc    POP</li><li>mailutils    IMAP</li><li>libpurple或Telepathy    即时通讯</li></ul><h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><p>Berkley与PostgreSQL</p><p>SQLite</p><p>MySQL</p><p>Oracle    库：OCI，Libsqlora8</p><p>通用数据库接口数据库：SQL Relay</p><p>数据库连接池：unixODBC</p><h1 id="界面"><a href="#界面" class="headerlink" title="界面"></a>界面</h1><h2 id="桌面环境"><a href="#桌面环境" class="headerlink" title="桌面环境"></a>桌面环境</h2><h3 id="GNOME"><a href="#GNOME" class="headerlink" title="GNOME"></a>GNOME</h3><p>工作站</p><p>开发界面函数库：GTK+、X11、Cairo</p><p>Glib库是GTK+和GNOME工程的基础低层核心程序库。</p><h3 id="KDE"><a href="#KDE" class="headerlink" title="KDE"></a>KDE</h3><p>服务器</p><p>KDE桌面核心为Qt程序库。</p><h3 id="Xfce"><a href="#Xfce" class="headerlink" title="Xfce"></a>Xfce</h3><h3 id="HILDON"><a href="#HILDON" class="headerlink" title="HILDON"></a>HILDON</h3><p>移动设备</p><p>HILDON是GNOME的裁切版</p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;p&gt;CodeBlocks跨平台&lt;/p&gt;
+        &lt;h1 id=&quot;环境&quot;&gt;&lt;a href=&quot;#环境&quot; class=&quot;headerlink&quot; title=&quot;环境&quot;&gt;&lt;/a&gt;环境&lt;/h1&gt;&lt;p&gt;CodeBlocks跨平台&lt;/p&gt;
 &lt;p&gt;make是用来完成自动编译的工具&lt;/p&gt;
-&lt;p&gt;gcc/g++/gcc port/g++ port&lt;/p&gt;
-
+&lt;p&gt;gcc/g++/gcc port/g++ port
       
     
     </summary>
@@ -1245,9 +1305,9 @@
     <link href="https://caojingyou.github.io/2017/11/24/libssh2/"/>
     <id>https://caojingyou.github.io/2017/11/24/libssh2/</id>
     <published>2017-11-24T08:03:00.000Z</published>
-    <updated>2018-04-12T06:26:52.577Z</updated>
+    <updated>2018-06-05T03:18:29.359Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="libssh2"><a href="#libssh2" class="headerlink" title="libssh2"></a>libssh2</h1><h2 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h2><p><a href="https://www.libssh2.org/" title="https://www.libssh2.org/" target="_blank" rel="noopener">https://www.libssh2.org/</a></p><p><a href="https://github.com/libssh2/libssh2" title="https://github.com/libssh2/libssh2" target="_blank" rel="noopener">https://github.com/libssh2/libssh2</a></p><h2 id="编译："><a href="#编译：" class="headerlink" title="编译："></a>编译：</h2><p>需要<a href="https://www.openssl.org/" target="_blank" rel="noopener">openssl</a>以及<a href="http://www.zlib.net/" target="_blank" rel="noopener">zlib</a></p><p>修改libssh下的win32目录下config.mk,修改openssl与zlib路径</p><p>在source根目录下nmake /f NMakefile</p>]]></content>
+    <content type="html"><![CDATA[<h1 id="libssh2"><a href="#libssh2" class="headerlink" title="libssh2"></a>libssh2</h1><h2 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h2><p><a href="https://www.libssh2.org/" title="https://www.libssh2.org/" target="_blank" rel="noopener">https://www.libssh2.org/</a></p><p><a href="https://github.com/libssh2/libssh2" title="https://github.com/libssh2/libssh2" target="_blank" rel="noopener">https://github.com/libssh2/libssh2</a></p><h2 id="编译："><a href="#编译：" class="headerlink" title="编译："></a>编译：</h2><p>需要<a href="https://www.openssl.org/" target="_blank" rel="noopener">openssl</a>以及<a href="http://www.zlib.net/" target="_blank" rel="noopener">zlib</a></p><p>修改libssh下的win32目录下config.mk,修改openssl与zlib路径</p><p>在source根目录下nmake /f NMakefile</p><p>或vs2010打开win32\libssh2.dsp，在项目属性中配置openssl与zlib路径</p>]]></content>
     
     <summary type="html">
     
@@ -1865,33 +1925,6 @@ void CIOCPMod
   </entry>
   
   <entry>
-    <title>C# 系统托盘图标</title>
-    <link href="https://caojingyou.github.io/2017/02/01/CShap%20%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98%E5%9B%BE%E6%A0%87/"/>
-    <id>https://caojingyou.github.io/2017/02/01/CShap 系统托盘图标/</id>
-    <published>2017-02-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.077Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p><p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p><p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p><p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p><h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p><h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml<window>添加</window></p><pre><code>xmlns:tb=&quot;http://www.hardcodet.net/taskbar&quot;</code></pre><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p><pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;    &lt;ContextMenu&gt;      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;    &lt;/ContextMenu&gt;  &lt;/tb:TaskbarIcon.ContextMenu&gt;&lt;/tb:TaskbarIcon&gt;</code></pre>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;C-系统托盘图标&quot;&gt;&lt;a href=&quot;#C-系统托盘图标&quot; class=&quot;headerlink&quot; title=&quot;C# 系统托盘图标&quot;&gt;&lt;/a&gt;C# 系统托盘图标&lt;/h1&gt;&lt;h2 id=&quot;WPF-NotifyIcon-资料&quot;&gt;&lt;a href=&quot;#WPF-Notify
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
-    
-      <category term="系统托盘" scheme="https://caojingyou.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98/"/>
-    
-  </entry>
-  
-  <entry>
     <title>C#与C++相互发送消息</title>
     <link href="https://caojingyou.github.io/2017/02/01/CShap%E4%B8%8EC++%E9%80%9A%E4%BF%A1/"/>
     <id>https://caojingyou.github.io/2017/02/01/CShap与C++通信/</id>
@@ -1917,6 +1950,33 @@ void CIOCPMod
       <category term="通信" scheme="https://caojingyou.github.io/tags/%E9%80%9A%E4%BF%A1/"/>
     
       <category term="C++" scheme="https://caojingyou.github.io/tags/C/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>C# 系统托盘图标</title>
+    <link href="https://caojingyou.github.io/2017/02/01/CShap%20%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98%E5%9B%BE%E6%A0%87/"/>
+    <id>https://caojingyou.github.io/2017/02/01/CShap 系统托盘图标/</id>
+    <published>2017-02-01T08:03:00.000Z</published>
+    <updated>2018-01-05T08:47:19.077Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p><p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p><p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p><p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p><h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p><h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml<window>添加</window></p><pre><code>xmlns:tb=&quot;http://www.hardcodet.net/taskbar&quot;</code></pre><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p><pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;    &lt;ContextMenu&gt;      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;    &lt;/ContextMenu&gt;  &lt;/tb:TaskbarIcon.ContextMenu&gt;&lt;/tb:TaskbarIcon&gt;</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;C-系统托盘图标&quot;&gt;&lt;a href=&quot;#C-系统托盘图标&quot; class=&quot;headerlink&quot; title=&quot;C# 系统托盘图标&quot;&gt;&lt;/a&gt;C# 系统托盘图标&lt;/h1&gt;&lt;h2 id=&quot;WPF-NotifyIcon-资料&quot;&gt;&lt;a href=&quot;#WPF-Notify
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="C#" scheme="https://caojingyou.github.io/tags/C/"/>
+    
+      <category term="系统托盘" scheme="https://caojingyou.github.io/tags/%E7%B3%BB%E7%BB%9F%E6%89%98%E7%9B%98/"/>
     
   </entry>
   
@@ -2372,6 +2432,33 @@ HWND g
   </entry>
   
   <entry>
+    <title>EChart</title>
+    <link href="https://caojingyou.github.io/2016/05/01/EChart/"/>
+    <id>https://caojingyou.github.io/2016/05/01/EChart/</id>
+    <published>2016-05-01T08:03:00.000Z</published>
+    <updated>2018-01-05T08:47:19.050Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="EChart"><a href="#EChart" class="headerlink" title="EChart"></a>EChart</h1><p>ECharts，一个纯 Javascript 的图表库，可以流畅的运行在 PC 和移动设备上，兼容当前绝大部分浏览器（IE8/9/10/11，Chrome，Firefox，Safari等），底层依赖轻量级的 Canvas 类库 ZRender，提供直观，生动，可交互，可高度个性化定制的数据可视化图表。</p><h1 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h1><ol><li><a href="http://echarts.baidu.com/" title="http://echarts.baidu.com/" target="_blank" rel="noopener">http://echarts.baidu.com/</a></li><li><a href="https://github.com/ecomfe/echarts" title="https://github.com/ecomfe/echarts" target="_blank" rel="noopener">https://github.com/ecomfe/echarts</a></li><li><a href="http://echarts.baidu.com/echarts2/index.html" title="http://echarts.baidu.com/echarts2/index.html" target="_blank" rel="noopener">http://echarts.baidu.com/echarts2/index.html</a></li><li><a href="http://echarts.baidu.com/download.html" title="http://echarts.baidu.com/download.html" target="_blank" rel="noopener">http://echarts.baidu.com/download.html</a></li></ol><h2 id="丰富的图表类型"><a href="#丰富的图表类型" class="headerlink" title="丰富的图表类型"></a>丰富的图表类型</h2><p>ECharts 提供了常规的折线图，柱状图，散点图，饼图，K线图，用于统计的盒形图，用于地理数据可视化的地图，热力图，线图，用于关系数据可视化的关系图，treemap，多维数据可视化的平行坐标，还有用于 BI 的漏斗图，仪表盘，并且支持图与图之间的混搭。</p><h2 id="引入-ECharts"><a href="#引入-ECharts" class="headerlink" title="引入 ECharts"></a>引入 ECharts</h2><p>ECharts 3 开始不再强制使用 AMD 的方式按需引入，代码里也不再内置 AMD 加载器。因此引入方式简单了很多，只需要像普通的 JavaScript 库一样用 script 标签引入。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;header&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;!-- 引入 ECharts 文件 --&gt;</span><br><span class="line">&lt;script src=&quot;echarts.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/header&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure><h2 id="绘制一个简单的图表"><a href="#绘制一个简单的图表" class="headerlink" title="绘制一个简单的图表"></a>绘制一个简单的图表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!-- 为 ECharts 准备一个具备大小（宽高）的Dom --&gt;</span><br><span class="line">    &lt;div id=&quot;main&quot; style=&quot;width: 600px;height:400px;&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure><p>然后就可以通过 echarts.init 方法初始化一个 echarts 实例并通过 setOption 方法生成一个简单的柱状图，下面是完整代码。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;ECharts&lt;/title&gt;</span><br><span class="line">    &lt;!-- 引入 echarts.js --&gt;</span><br><span class="line">    &lt;script src=&quot;echarts.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!-- 为ECharts准备一个具备大小（宽高）的Dom --&gt;</span><br><span class="line">    &lt;div id=&quot;main&quot; style=&quot;width: 600px;height:400px;&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">        // 基于准备好的dom，初始化echarts实例</span><br><span class="line">        var myChart = echarts.init(document.getElementById(&apos;main&apos;));</span><br><span class="line"></span><br><span class="line">        // 指定图表的配置项和数据</span><br><span class="line">        var option = &#123;</span><br><span class="line">            title: &#123;</span><br><span class="line">                text: &apos;ECharts 入门示例&apos;</span><br><span class="line">            &#125;,</span><br><span class="line">            tooltip: &#123;&#125;,</span><br><span class="line">            legend: &#123;</span><br><span class="line">                data:[&apos;销量&apos;]</span><br><span class="line">            &#125;,</span><br><span class="line">            xAxis: &#123;</span><br><span class="line">                data: [&quot;衬衫&quot;,&quot;羊毛衫&quot;,&quot;雪纺衫&quot;,&quot;裤子&quot;,&quot;高跟鞋&quot;,&quot;袜子&quot;]</span><br><span class="line">            &#125;,</span><br><span class="line">            yAxis: &#123;&#125;,</span><br><span class="line">            series: [&#123;</span><br><span class="line">                name: &apos;销量&apos;,</span><br><span class="line">                type: &apos;bar&apos;,</span><br><span class="line">                data: [5, 20, 36, 10, 10, 20]</span><br><span class="line">            &#125;]</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        // 使用刚指定的配置项和数据显示图表。</span><br><span class="line">        myChart.setOption(option);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;EChart&quot;&gt;&lt;a href=&quot;#EChart&quot; class=&quot;headerlink&quot; title=&quot;EChart&quot;&gt;&lt;/a&gt;EChart&lt;/h1&gt;&lt;p&gt;ECharts，一个纯 Javascript 的图表库，可以流畅的运行在 PC 和移动设备上，兼容当前绝大部
+      
+    
+    </summary>
+    
+    
+      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+      <category term="EChart" scheme="https://caojingyou.github.io/tags/EChart/"/>
+    
+      <category term="图表" scheme="https://caojingyou.github.io/tags/%E5%9B%BE%E8%A1%A8/"/>
+    
+  </entry>
+  
+  <entry>
     <title>agsxmpp</title>
     <link href="https://caojingyou.github.io/2016/05/01/agsxmpp/"/>
     <id>https://caojingyou.github.io/2016/05/01/agsxmpp/</id>
@@ -2397,33 +2484,6 @@ HWND g
       <category term="agsXMP" scheme="https://caojingyou.github.io/tags/agsXMP/"/>
     
       <category term="即时通讯" scheme="https://caojingyou.github.io/tags/%E5%8D%B3%E6%97%B6%E9%80%9A%E8%AE%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>EChart</title>
-    <link href="https://caojingyou.github.io/2016/05/01/EChart/"/>
-    <id>https://caojingyou.github.io/2016/05/01/EChart/</id>
-    <published>2016-05-01T08:03:00.000Z</published>
-    <updated>2018-01-05T08:47:19.050Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="EChart"><a href="#EChart" class="headerlink" title="EChart"></a>EChart</h1><p>ECharts，一个纯 Javascript 的图表库，可以流畅的运行在 PC 和移动设备上，兼容当前绝大部分浏览器（IE8/9/10/11，Chrome，Firefox，Safari等），底层依赖轻量级的 Canvas 类库 ZRender，提供直观，生动，可交互，可高度个性化定制的数据可视化图表。</p><h1 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h1><ol><li><a href="http://echarts.baidu.com/" title="http://echarts.baidu.com/" target="_blank" rel="noopener">http://echarts.baidu.com/</a></li><li><a href="https://github.com/ecomfe/echarts" title="https://github.com/ecomfe/echarts" target="_blank" rel="noopener">https://github.com/ecomfe/echarts</a></li><li><a href="http://echarts.baidu.com/echarts2/index.html" title="http://echarts.baidu.com/echarts2/index.html" target="_blank" rel="noopener">http://echarts.baidu.com/echarts2/index.html</a></li><li><a href="http://echarts.baidu.com/download.html" title="http://echarts.baidu.com/download.html" target="_blank" rel="noopener">http://echarts.baidu.com/download.html</a></li></ol><h2 id="丰富的图表类型"><a href="#丰富的图表类型" class="headerlink" title="丰富的图表类型"></a>丰富的图表类型</h2><p>ECharts 提供了常规的折线图，柱状图，散点图，饼图，K线图，用于统计的盒形图，用于地理数据可视化的地图，热力图，线图，用于关系数据可视化的关系图，treemap，多维数据可视化的平行坐标，还有用于 BI 的漏斗图，仪表盘，并且支持图与图之间的混搭。</p><h2 id="引入-ECharts"><a href="#引入-ECharts" class="headerlink" title="引入 ECharts"></a>引入 ECharts</h2><p>ECharts 3 开始不再强制使用 AMD 的方式按需引入，代码里也不再内置 AMD 加载器。因此引入方式简单了很多，只需要像普通的 JavaScript 库一样用 script 标签引入。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;header&gt;</span><br><span class="line">&lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;!-- 引入 ECharts 文件 --&gt;</span><br><span class="line">&lt;script src=&quot;echarts.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/header&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure><h2 id="绘制一个简单的图表"><a href="#绘制一个简单的图表" class="headerlink" title="绘制一个简单的图表"></a>绘制一个简单的图表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!-- 为 ECharts 准备一个具备大小（宽高）的Dom --&gt;</span><br><span class="line">    &lt;div id=&quot;main&quot; style=&quot;width: 600px;height:400px;&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure><p>然后就可以通过 echarts.init 方法初始化一个 echarts 实例并通过 setOption 方法生成一个简单的柱状图，下面是完整代码。</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">    &lt;title&gt;ECharts&lt;/title&gt;</span><br><span class="line">    &lt;!-- 引入 echarts.js --&gt;</span><br><span class="line">    &lt;script src=&quot;echarts.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;!-- 为ECharts准备一个具备大小（宽高）的Dom --&gt;</span><br><span class="line">    &lt;div id=&quot;main&quot; style=&quot;width: 600px;height:400px;&quot;&gt;&lt;/div&gt;</span><br><span class="line">    &lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">        // 基于准备好的dom，初始化echarts实例</span><br><span class="line">        var myChart = echarts.init(document.getElementById(&apos;main&apos;));</span><br><span class="line"></span><br><span class="line">        // 指定图表的配置项和数据</span><br><span class="line">        var option = &#123;</span><br><span class="line">            title: &#123;</span><br><span class="line">                text: &apos;ECharts 入门示例&apos;</span><br><span class="line">            &#125;,</span><br><span class="line">            tooltip: &#123;&#125;,</span><br><span class="line">            legend: &#123;</span><br><span class="line">                data:[&apos;销量&apos;]</span><br><span class="line">            &#125;,</span><br><span class="line">            xAxis: &#123;</span><br><span class="line">                data: [&quot;衬衫&quot;,&quot;羊毛衫&quot;,&quot;雪纺衫&quot;,&quot;裤子&quot;,&quot;高跟鞋&quot;,&quot;袜子&quot;]</span><br><span class="line">            &#125;,</span><br><span class="line">            yAxis: &#123;&#125;,</span><br><span class="line">            series: [&#123;</span><br><span class="line">                name: &apos;销量&apos;,</span><br><span class="line">                type: &apos;bar&apos;,</span><br><span class="line">                data: [5, 20, 36, 10, 10, 20]</span><br><span class="line">            &#125;]</span><br><span class="line">        &#125;;</span><br><span class="line"></span><br><span class="line">        // 使用刚指定的配置项和数据显示图表。</span><br><span class="line">        myChart.setOption(option);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;EChart&quot;&gt;&lt;a href=&quot;#EChart&quot; class=&quot;headerlink&quot; title=&quot;EChart&quot;&gt;&lt;/a&gt;EChart&lt;/h1&gt;&lt;p&gt;ECharts，一个纯 Javascript 的图表库，可以流畅的运行在 PC 和移动设备上，兼容当前绝大部
-      
-    
-    </summary>
-    
-    
-      <category term="随笔" scheme="https://caojingyou.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
-    
-      <category term="EChart" scheme="https://caojingyou.github.io/tags/EChart/"/>
-    
-      <category term="图表" scheme="https://caojingyou.github.io/tags/%E5%9B%BE%E8%A1%A8/"/>
     
   </entry>
   
