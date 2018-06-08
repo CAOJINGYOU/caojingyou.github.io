@@ -160,6 +160,140 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-多媒体开发" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/07/多媒体开发/">多媒体开发</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/07/多媒体开发/" class="archive-article-date">
+  	<time datetime="2018-07-07T06:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>视频开发：DShow、OpenCV、FFmpeg</p>
+<h1 id="FFmpeg"><a href="#FFmpeg" class="headerlink" title="FFmpeg"></a>FFmpeg</h1><h2 id="FFmpeg官网："><a href="#FFmpeg官网：" class="headerlink" title="FFmpeg官网："></a>FFmpeg官网：</h2><p><a href="http://ffmpeg.org/" target="_blank" rel="noopener">http://ffmpeg.org/</a></p>
+<h2 id="下载-Download-FFmpeg-for-Windows"><a href="#下载-Download-FFmpeg-for-Windows" class="headerlink" title="下载 Download FFmpeg for Windows:"></a>下载 Download FFmpeg for Windows:</h2><p><a href="https://ffmpeg.zeranoe.com/builds/" target="_blank" rel="noopener">https://ffmpeg.zeranoe.com/builds/</a></p>
+<h2 id="雷霄骅-leixiaohua1020-的专栏"><a href="#雷霄骅-leixiaohua1020-的专栏" class="headerlink" title="雷霄骅(leixiaohua1020)的专栏:"></a>雷霄骅(leixiaohua1020)的专栏:</h2><p><a href="http://blog.csdn.net/leixiaohua1020" target="_blank" rel="noopener">http://blog.csdn.net/leixiaohua1020</a></p>
+<h2 id="百度网盘资料："><a href="#百度网盘资料：" class="headerlink" title="百度网盘资料："></a>百度网盘资料：</h2><p>链接：<a href="http://pan.baidu.com/s/1o80QYoy" target="_blank" rel="noopener">http://pan.baidu.com/s/1o80QYoy</a> 密码：i5mb</p>
+<h2 id="FFmpeg介绍："><a href="#FFmpeg介绍：" class="headerlink" title="FFmpeg介绍："></a>FFmpeg介绍：</h2><p>FFmpeg是一个集合的库和工具来处理多媒体内容诸如音频、视频、字幕和相关元数据。<br>图书馆查询系统</p>
+<pre><code>libavcodec提供了执行更广泛的范围,用于各种类型声音/图像编解码;
+libavformat实现流媒体协议容器格式和基本I/O访问,用于各种音视频封装格式的生成和解析，包括获取解码所需信息以生成解码上下文结构和读取音视频帧等功能；
+libavutil包括hashers、压缩器和杂项功能效用,包含一些公共的工具函数；
+libavfilter提供了一种通过改变视频和音频解码的滤波器链。
+libavdevice提供一个抽象访问捕获和回放设备。
+libswresample实现音频混合和重采样例程。
+libswscale执行缩放和色彩转换例程。
+</code></pre><p>工具：</p>
+<p>FFmpeg是一种命令行工具操纵、转换和流多媒体内容。<br>    ffplay是一个简约的多媒体播放器。<br>    ffprobe是一个简单的分析工具来检查多媒体内容。<br>    ffserver为多媒体流传输服务器用于实况广播,一个 HTTP 多媒体即时广播串流服务器。<br>    附加等小工具aviocat，ismindex and qt-faststart</p>
+<h1 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h1><h2 id="jrtplib"><a href="#jrtplib" class="headerlink" title="jrtplib"></a>jrtplib</h2><p><a href="http://blog.csdn.net/fhxpp_27/article/details/9234069" target="_blank" rel="noopener">jrtplib使用笔记 </a></p>
+<p>RTP 是目前解决流媒体实时传输问题的最好办法，而JRTPLIB 是一个用C++语言实现的RTP库，包括UDP通讯.</p>
+<p>实时传送协议（Real-time Transport Protocol或简写RTP，也可以写成RTTP）是一个网络传输协议，RTP协议详细说明了在互联网上传递音频和视频的标准数据包格式。它一开始被设计为一个多播协议，但后来被用在很多单播应用中。RTP协议常用于流媒体系统（配合RTCP协议或者RTSP协议）。因为RTP自身具有Time stamp所以在ffmpeg 中被用做一种formate。</p>
+<p>RTP协议的详细介绍，请参考这篇文章<a href="http://www.360doc.com/content/11/1009/15/496343_154624612.shtml" target="_blank" rel="noopener">http://www.360doc.com/content/11/1009/15/496343_154624612.shtml</a></p>
+<p>jrtplib需要使用jthread</p>
+<ul>
+<li><a href="http://research.edm.uhasselt.be/jori/page/Main/HomePage.html" title="JRTPLIB官网" target="_blank" rel="noopener">http://research.edm.uhasselt.be/jori/page/Main/HomePage.html</a></li>
+<li><a href="http://research.edm.uhasselt.be/jori/page/CS/Jrtplib.html" title="Jrtplib" target="_blank" rel="noopener">http://research.edm.uhasselt.be/jori/page/CS/Jrtplib.html</a></li>
+<li><a href="http://jrtplib.readthedocs.io/en/stable/" target="_blank" rel="noopener">JRTPLIB  3.11.1 文档</a></li>
+<li><a href="http://research.edm.uhasselt.be/jori/jrtplib/jrtplib-3.11.1.zip" title="jrtplib-3.11.1.zip" target="_blank" rel="noopener">jrtplib-3.11.1.zip</a></li>
+<li><a href="https://github.com/j0r1/JRTPLIB" title="JRTPLIB github" target="_blank" rel="noopener">https://github.com/j0r1/JRTPLIB</a></li>
+<li><a href="https://blog.csdn.net/jinyuchuan/article/details/5977375" target="_blank" rel="noopener">jrtplib-3.7.1在windows下的编译步骤</a></li>
+</ul>
+<h2 id="jthread"><a href="#jthread" class="headerlink" title="jthread"></a>jthread</h2><p>所述包包含jthread和jmutex，（显然）表示一个线程和一个互斥锁。对于类Unix平台上，实现使用的pthread库。在MS-Windows平台，本机Win32线程使用。</p>
+<ul>
+<li><a href="http://research.edm.uhasselt.be/jori/page/CS/Jthread.html" title="jthread官网" target="_blank" rel="noopener">http://research.edm.uhasselt.be/jori/page/CS/Jthread.html</a></li>
+<li><a href="https://github.com/j0r1/JThread" title="jthread github" target="_blank" rel="noopener">https://github.com/j0r1/JThread</a></li>
+</ul>
+<h2 id="emiplib"><a href="#emiplib" class="headerlink" title="emiplib"></a>emiplib</h2><p>这个库的目的就是要完成一个多媒体的网络传输库，方便多种媒体在网络上进行传输。</p>
+<ul>
+<li><a href="http://research.edm.uhasselt.be/jori/page/CS/Emiplib.html" title="emiplib" target="_blank" rel="noopener">http://research.edm.uhasselt.be/jori/page/CS/Emiplib.html</a></li>
+<li><a href="http://research.edm.uhasselt.be/~emiplib/" title="emiplib主页" target="_blank" rel="noopener">http://research.edm.uhasselt.be/~emiplib/</a></li>
+<li><a href="https://github.com/j0r1/EMIPLIB" title="emiplib github" target="_blank" rel="noopener">https://github.com/j0r1/EMIPLIB</a></li>
+</ul>
+<h2 id="rtmp"><a href="#rtmp" class="headerlink" title="rtmp"></a>rtmp</h2><p>RTMP是Real Time Messaging Protocol（实时消息传输协议）的首字母缩写。该协议基于TCP，是一个协议族，包括RTMP基本协议及RTMPT/RTMPS/RTMPE等多种变种。RTMP是一种设计用来进行实时数据通信的网络协议，主要用来在Flash/AIR平台和支持RTMP协议的流媒体/交互服务器之间进行音视频和数据通信。支持该协议的软件包括Adobe Media Server/Ultrant Media Server/red5等。</p>
+<h2 id="MainConcept"><a href="#MainConcept" class="headerlink" title="MainConcept"></a>MainConcept</h2><p>对视频进行编解码，安装文件在“第三方安装程序”目录</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">DShow</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">FFmpeg</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">视频</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/07/多媒体开发/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-curl" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -357,6 +491,205 @@ printf(&quot;%s\n&quot;, output);
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/06/01/curl/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-进程、线程、同步、并发" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/30/进程、线程、同步、并发/">进程、线程、同步、并发</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/30/进程、线程、同步、并发/" class="archive-article-date">
+  	<time datetime="2018-05-30T08:02:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Boost-Thread"><a href="#Boost-Thread" class="headerlink" title="Boost.Thread"></a>Boost.Thread</h1><h1 id="Win32-API"><a href="#Win32-API" class="headerlink" title="Win32 API"></a>Win32 API</h1><h1 id="pthread"><a href="#pthread" class="headerlink" title="pthread"></a>pthread</h1><h1 id="线程同步："><a href="#线程同步：" class="headerlink" title="线程同步："></a>线程同步：</h1><p>线程可分为UI线程，工作者线程</p>
+<ul>
+<li>临界区(Critical Section)</li>
+<li>互斥量(Mutex)、互斥对象</li>
+<li>信号量(Semaphore)</li>
+<li>事件(Event)</li>
+<li>读写锁shared_mutex、shared_lock、unique_lock</li>
+<li>可等待定时器</li>
+<li>原子锁</li>
+<li>条件变量</li>
+<li>线程池threadpool</li>
+<li>生产者-消费者</li>
+<li>期货future</li>
+</ul>
+<h1 id="进程间的同步"><a href="#进程间的同步" class="headerlink" title="进程间的同步"></a>进程间的同步</h1><p>windows和linux共有的进程间通信方式：1. 消息（linux中叫做信号） 2. 共享内存  3. 邮槽  4. 管道   5.socket</p>
+<h2 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h2><ul>
+<li>文件映射</li>
+<li>共享内存（是文件映射的一种特殊情况）</li>
+<li>邮件槽（mailslot）（点对点消息队列）CreateMailSlot</li>
+<li>命名管道 createNamePipe   connectNamePipe</li>
+<li>匿名管道</li>
+<li>剪贴板</li>
+<li>动态数据交换DDE</li>
+<li>对象链接与嵌入OLE</li>
+<li>远程过程调用RPC</li>
+<li>动态链接库DLL</li>
+<li>Socket</li>
+<li>WM_COPYDATA 消息</li>
+</ul>
+<h2 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h2><ul>
+<li>无名管道Pipe</li>
+<li>信号量semaphore</li>
+<li>共享内存</li>
+<li>消息队列、报文队列</li>
+<li>套接字</li>
+<li>信号Signal</li>
+<li>D-Bus主要概念是总线</li>
+</ul>
+<p><a href="https://www.cnblogs.com/findumars/p/6329593.html" target="_blank" rel="noopener">https://www.cnblogs.com/findumars/p/6329593.html</a></p>
+<p><a href="http://blog.163.com/laylau_ll/blog/static/178625909201173131345423/" target="_blank" rel="noopener">http://blog.163.com/laylau_ll/blog/static/178625909201173131345423/</a></p>
+<h1 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h1><p>协程，又称微线程，纤程。</p>
+<p>Boost.Coroutine</p>
+<h1 id="原子操作"><a href="#原子操作" class="headerlink" title="原子操作"></a>原子操作</h1><p>原子库为细粒度的原子操作提供组件，允许无锁并发编程。</p>
+<p><a href="http://zh.cppreference.com/w/cpp/atomic" target="_blank" rel="noopener">http://zh.cppreference.com/w/cpp/atomic</a></p>
+<h1 id="C-11线程"><a href="#C-11线程" class="headerlink" title="C++11线程"></a>C++11线程</h1><p><a href="http://zh.cppreference.com/w/cpp/thread" target="_blank" rel="noopener">http://zh.cppreference.com/w/cpp/thread</a></p>
+<h1 id="Win32多线程程序设计中关键函数"><a href="#Win32多线程程序设计中关键函数" class="headerlink" title="Win32多线程程序设计中关键函数"></a>Win32多线程程序设计中关键函数</h1><ul>
+<li>_beginthread</li>
+<li>_beginthreadex</li>
+<li>_endthread</li>
+<li>_endthreadex</li>
+<li>AfxBeginThread</li>
+<li>CloseHandle</li>
+<li>CoInitializeEx</li>
+<li>CreateEvent</li>
+<li>CreateFile</li>
+<li>CreateFileMapping</li>
+<li>CreateIoCompletionPort</li>
+<li>CreateMutex</li>
+<li>CreateSemaphore</li>
+<li>CreateThread</li>
+<li>DeleteCriticalSection</li>
+<li>DisableThreadLibraryCalls</li>
+<li>EnterCriticalSection</li>
+<li>ExitThread</li>
+<li>FileIOCompletionRoutine</li>
+<li>GetExitCodeThread</li>
+<li>GetQueuedCompletionStatus</li>
+<li>GetStdHandle</li>
+<li>GetThreadPriority</li>
+<li>InitializeCriticalSection</li>
+<li>InterlockedDecrement</li>
+<li>InterlockedExchange</li>
+<li>InterlockedIncrement</li>
+<li>LeaveCriticalSection</li>
+<li>MapViewOfFile</li>
+<li>MsgWaitForMultipleObjects</li>
+<li>MsgWaitForMultipleObjectsEx</li>
+<li>MsgWaitForMultipleObjects</li>
+<li>OpenFileMapping</li>
+<li>PostThreadMessage</li>
+<li>ReadFile</li>
+<li>ReadFileEx</li>
+<li>ReleaseMutex</li>
+<li>ReleaseSemaphore</li>
+<li>ReplyMessage</li>
+<li>ResumeThread</li>
+<li>SetThreadPriority</li>
+<li>SleepEx</li>
+<li>SuspendThread</li>
+<li>TerminateThread</li>
+<li>TlsAlloc</li>
+<li>TlsFree</li>
+<li>TlsGetValue</li>
+<li>TlsSetValue</li>
+<li>UnmapViewOfFile</li>
+<li>GetOverlappedResult</li>
+<li>WaitForMultipleObjects</li>
+<li>WaitForMultipleObjectsEx</li>
+<li>WaitForSingleObject</li>
+<li>WaitForSingleObjectEx</li>
+<li>WriteFile</li>
+<li>WriteFileEx</li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://segmentfault.com/a/1190000006232497" target="_blank" rel="noopener">https://segmentfault.com/a/1190000006232497</a></p>
+<p><a href="http://www.bogotobogo.com/cplusplus/multithreaded4_cplusplus11.php" target="_blank" rel="noopener">http://www.bogotobogo.com/cplusplus/multithreaded4_cplusplus11.php</a></p>
+<h1 id="书籍"><a href="#书籍" class="headerlink" title="书籍"></a>书籍</h1><ul>
+<li>Win32多线程程序设计</li>
+<li>Windows核心编程</li>
+<li>C++并发编程</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">并发</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">多线程</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">同步</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/30/进程、线程、同步、并发/">展开全文 >></a>
         </p>
       
 
@@ -2479,319 +2812,6 @@ Cx_Ptr MyFunc1()
 
 
   
-    <article id="post-NLog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/17/NLog/">NLog</a>
-    </h1>
-  
-
-        
-        <a href="/2018/05/17/NLog/" class="archive-article-date">
-  	<time datetime="2018-05-17T01:37:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="NLog"><a href="#NLog" class="headerlink" title="NLog"></a>NLog</h1><p><a href="http://nlog-project.org/" target="_blank" rel="noopener">Nlog</a></p>
-<p><a href="https://github.com/NLog/NLog" title="https://github.com/NLog/NLog" target="_blank" rel="noopener">https://github.com/NLog/NLog</a></p>
-<p>Nlog是.net平台下的开源日志组件，相当于log4net用法配置更简单。</p>
-<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><pre><code>Install-Package NLog.Config -Version 4.5.4
-</code></pre><h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>获取一个Logger实例，取名为NLogConsoleExample（名字可任意），也可采用 LogManager.GetCurrentClassLogger()来获取一个以当前类名为名称的Logger实例；然后我们在main方法中添加几行简单调用NLog输出不同级别的日志信息的代码</p>
-<p>下面的代码将会创建一个和class有着相同名字的Logger。</p>
-<pre><code>namespace MyNamespace
-{
-  public class MyClass
-  {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-  }
-}
-</code></pre><p>管理Logger的名字也是可以的：</p>
-<pre><code>using NLog;
-
-Logger logger = LogManager.GetLogger(&quot;MyClassName&quot;);
-</code></pre><h1 id="日志级别"><a href="#日志级别" class="headerlink" title="日志级别"></a>日志级别</h1><p>每一个日志消息都用一个日志级别来修饰，它们用来识别消息的重要性和具体细节。NLog可以以Logger对象的名称和日志级别为主，路由日志消息。</p>
-<p>NLog支持下面的日志级别：</p>
-<ul>
-<li>Trace 特别细节的日志，可能包含大量的信息，比如说协议的负载。这个日志级别通常只会在开发期间被启用。</li>
-<li>Debug Debug信息，比Trace的信息量要少一些，通常不会在生产环境下使用。</li>
-<li>Info 信息消息，这个是在生产环境下经常使用到的。</li>
-<li>Warn 警告消息，通常用来指示非关键性的问题，这些问题可以被恢复或者只是临时错误。</li>
-<li>Error 错误消息 大多数时候，他们都是Exception（异常）。</li>
-<li>Fatal 特别严重的错误！</li>
-</ul>
-<h1 id="书写日志消息"><a href="#书写日志消息" class="headerlink" title="书写日志消息"></a>书写日志消息</h1><pre><code>using NLog;
-
-public class MyClass
-{
-  private static Logger logger = LogManager.GetCurrentClassLogger();
-
-  public void MyMethod1()
-  {
-    logger.Trace(&quot;Sample trace message&quot;);
-    logger.Debug(&quot;Sample debug message&quot;);
-    logger.Info(&quot;Sample informational message&quot;);
-    logger.Warn(&quot;Sample warning message&quot;);
-    logger.Error(&quot;Sample error message&quot;);
-    logger.Fatal(&quot;Sample fatal error message&quot;);
-
-    // alternatively you can call the Log() method 
-    // and pass log level as the parameter.
-    logger.Log(LogLevel.Info, &quot;Sample informational message&quot;);
-  }
-}
-</code></pre><p>日志消息也可以被参数化 - 你可以使用字符串格式，就像你在Console.WriteLine()和String.Format()中一样：</p>
-<pre><code>using NLog;
-
-public class MyClass
-{
-  private static Logger logger = LogManager.GetCurrentClassLogger();
-
-  public void MyMethod1()
-  {
-    int k = 42;
-    int l = 100;
-
-    logger.Trace(&quot;Sample trace message, k={0}, l={1}&quot;, k, l);
-    logger.Debug(&quot;Sample debug message, k={0}, l={1}&quot;, k, l);
-    logger.Info(&quot;Sample informational message, k={0}, l={1}&quot;, k, l);
-    logger.Warn(&quot;Sample warning message, k={0}, l={1}&quot;, k, l);
-    logger.Error(&quot;Sample error message, k={0}, l={1}&quot;, k, l);
-    logger.Fatal(&quot;Sample fatal error message, k={0}, l={1}&quot;, k, l);
-    logger.Log(LogLevel.Info, &quot;Sample informational message, k={0}, l={1}&quot;, k, l);
-  }
-}
-</code></pre><h1 id="NLog配置文件支持两种方式"><a href="#NLog配置文件支持两种方式" class="headerlink" title="NLog配置文件支持两种方式"></a>NLog配置文件支持两种方式</h1><ul>
-<li>是将配置写到应用程序的配置文件（通常是applicationName.exe.config）或者Web.config文件中；</li>
-<li><p>独配置到一个文件，通常是NLog.config</p>
-<p>  &lt;?xml version=”1.0” encoding=”utf-8” ?&gt;</p>
-  <nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><br><br>      <targets><br>          <target name="logfile" xsi:type="File" filename="file.txt"><br>      </target></targets><br><br>      <rules><br>          <logger name="*" minlevel="Info" writeto="logfile"><br>      </logger></rules><br>  </nlog>
-
-</li>
-</ul>
-<p>多个目标</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
-&lt;nlog xmlns=&quot;http://www.nlog-project.org/schemas/NLog.xsd&quot;
-      xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
-
-    &lt;targets&gt;
-        &lt;target name=&quot;logfile&quot; xsi:type=&quot;File&quot; fileName=&quot;file.txt&quot; /&gt;
-        &lt;target name=&quot;console&quot; xsi:type=&quot;Console&quot; /&gt;
-    &lt;/targets&gt;
-
-    &lt;rules&gt;
-        &lt;logger name=&quot;*&quot; minlevel=&quot;Trace&quot; writeTo=&quot;logfile&quot; /&gt;
-        &lt;logger name=&quot;*&quot; minlevel=&quot;Info&quot; writeTo=&quot;console&quot; /&gt;
-    &lt;/rules&gt;
-&lt;/nlog&gt;
-</code></pre><p>还有一个比较常见的应用场景则是，需要为当前正在开发的组件提供更多细节的日志，而其他的组件将会减少输出。我们就可以用这样的配置文件：</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
-&lt;nlog xmlns=&quot;http://www.nlog-project.org/schemas/NLog.xsd&quot;
-      xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
-
-    &lt;targets&gt;
-        &lt;target name=&quot;logfile&quot; xsi:type=&quot;File&quot; fileName=&quot;file.txt&quot; /&gt;
-    &lt;/targets&gt;
-
-    &lt;rules&gt;
-        &lt;logger name=&quot;SomeNamespace.Component.*&quot; minlevel=&quot;Trace&quot; writeTo=&quot;logfile&quot; final=&quot;true&quot; /&gt;
-        &lt;logger name=&quot;*&quot; minlevel=&quot;Info&quot; writeTo=&quot;logfile&quot; /&gt;
-    &lt;/rules&gt;
-&lt;/nlog&gt;
-</code></pre><p>第一个规则将会将以SomeNamespace.Component开头的Logger对象的Trace级别及以上级别的日志发送到日志文件。属性final=true将会使得在写入操作之后停止进一步处理。<br>第二个规则将会将剩下的日志发送到同一个日志文件，但是这些日志有一个约束，那就是级别需要是Info或更高。</p>
-<h1 id="层级"><a href="#层级" class="headerlink" title="层级"></a>层级</h1><p>层级提供了一个当日志被写入文件时，指定日志内容格式的方法。主要有两种层级：</p>
-<pre><code>简单层级 - 使用层级渲染器撰写。
-结构层级 - 可以输出XML、CSV、以及其他复杂的格式。
-</code></pre><p>简单层级就是一个字符串，在${和}中嵌入一些特殊的标记。比如下面的声明将会使得每一条日志消息都是用一个格式为yyyMMddHHmmss:的日期前缀：</p>
-<pre><code>&lt;target name=&quot;logfile&quot; xsi:type=&quot;File&quot; fileName=&quot;file.txt&quot; layout=&quot;${date:format=yyyyMMddHHmmss} ${message}&quot; /&gt;
-</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="https://blog.csdn.net/Toshiya14/article/details/52098088" title="NLog简易入门" target="_blank" rel="noopener">https://blog.csdn.net/Toshiya14/article/details/52098088</a></p>
-<p><a href="https://github.com/NLog/NLog/wiki/Configuration-file" title="https://github.com/NLog/NLog/wiki/Configuration-file" target="_blank" rel="noopener">https://github.com/NLog/NLog/wiki/Configuration-file</a></p>
-<p><a href="https://github.com/NLog/NLog/wiki/Configuration-API" title="https://github.com/NLog/NLog/wiki/Configuration-API" target="_blank" rel="noopener">https://github.com/NLog/NLog/wiki/Configuration-API</a></p>
-<p><a href="https://blog.csdn.net/dsnq2011/article/details/51920265" target="_blank" rel="noopener">NLog的配置和使用</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">NLog</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/17/NLog/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-设计模式之禅" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/15/设计模式之禅/">设计模式之禅-笔记</a>
-    </h1>
-  
-
-        
-        <a href="/2018/05/15/设计模式之禅/" class="archive-article-date">
-  	<time datetime="2018-05-15T01:32:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="设计模式之禅"><a href="#设计模式之禅" class="headerlink" title="设计模式之禅"></a>设计模式之禅</h1><h2 id="秦小波"><a href="#秦小波" class="headerlink" title="秦小波"></a>秦小波</h2><h3 id="Citation-APA-秦小波-2010-设计模式之禅-Kindle-Android-version-Retrieved-from-Amazon-com"><a href="#Citation-APA-秦小波-2010-设计模式之禅-Kindle-Android-version-Retrieved-from-Amazon-com" class="headerlink" title="Citation (APA): 秦小波. (2010). 设计模式之禅 [Kindle Android version]. Retrieved from Amazon.com"></a>Citation (APA): 秦小波. (2010). 设计模式之禅 [Kindle Android version]. Retrieved from Amazon.com</h3><p>单例模式和原型模式非常容易理解，单例模式是要保持在内存中只有一个对象，原型模式是要求通过复制的方式产生一个新的对象，这两个不容易混淆。</p>
-<p>工厂方法模式注重的是整体对象的创建方法，而建造者模式注重的是部件构建的过程，旨在通过一步一步的精确构造创建出一个复杂的对象。</p>
-<p>一般来说，工厂方法模式的对象粒度比较粗，建造者模式的产品对象粒度比较细。</p>
-<p>如果需要详细关注一个产品部件的生产、安装步骤，则选择建造者，否则选择工厂方法模式。</p>
-<p>抽象工厂模式实现对产品家族的创建，一个产品家族是这样的一系列产品：具有不同分类维度的产品组合，采用抽象工厂模式则是不需要关心构建过程，只关心什么产品由什么工厂生产即可。</p>
-<p>为什么叫结构类模式呢？因为它们都是通过组合类或对象产生更大结构以适应更高层次的逻辑需求。</p>
-<p>装饰模式就是代理模式的一个特殊应用，两者的共同点是都具有相同的接口，不同点则是代理模式着重对代理过程的控制，而装饰模式则是对类的功能进行加强或减弱，它着重类的功能变化，</p>
-<p>代理模式和装饰模式有非常相似的地方，甚至代码实现都非常相似，特别是装饰模式中省略抽象装饰角色后，两者代码基本上相同，但是还是有细微的差别。代理模式是把当前的行为或功能委托给其他对象执行，代理类负责接口限定：是否可以调用真实角色，以及是否对发送到真实角色的消息进行变形处理，它不对被主题角色（也就是被代理类）的功能做任何处理，保证原汁原味的调用。代理模式使用到极致开发就是AOP，这是各位采用Spring架构开发必然要使用到的技术，它就是使用了代理和反射的技术。装饰模式是在要保证接口不变的情况下加强类的功能，它保证的是被修饰的对象功能比原始对象丰富（当然，也可以减弱），但不做准入条件判断和准入参数过滤，如是否可以执行类的功能，过滤输入参数是否合规等，这不是装饰模式关心的。</p>
-<p>装饰模式和适配器模式在通用类图上没有太多的相似点，差别比较大，但是它们的功能有相似的地方：都是包装作用，都是通过委托方式实现其功能。不同点是：装饰模式包装的是自己的兄弟类，隶属于同一个家族（相同接口或父类），适配器模式则修饰非血缘关系类，把一个非本家族的对象伪装成本家族的对象，注意是伪装，因此它的本质还是非相同接口的对象。</p>
-<p>装饰模式很容易扩展！今天不用这个修饰，好，去掉；明天想再使用，好，加上。这都没有问题。而且装饰类可以继续扩展下去；但是适配器模式就不同了，它在两个不同对象之间架起了一座沟通的桥梁，建立容易，去掉就比较困难了，需要从系统整体考虑是否能够撤销。</p>
-<p>行为类模式包括责任链模式、命令模式、解释器模式、迭代器模式、中介者模式、备忘录模式、观察者模式、状态模式、策略模式、模板方法模式、访问者模式。</p>
-<p>命令模式和策略模式的类图确实很相似，只是命令模式多了一个接收者（Receiver）角色。它们虽然同为行为类模式，但是两者的区别还是很明显的。策略模式的意图是封装算法，它认为“算法”已经是一个完整的、不可拆分的原子业务（注意这里是原子业务，而不是原子对象），即其意图是让这些算法独立，并且可以相互替换，让行为的变化独立于拥有行为的客户；而命令模式则是对动作的解耦，把一个动作的执行分为执行对象（接收者角色）、执行行为（命令角色），让两者相互独立而不相互影响。</p>
-<p>策略模式和命令模式相似，特别是命令模式退化时，比如无接收者（接收者非常简单或者接收者是一个Java的基础操作，无需专门编写一个接收者），在这种情况下，命令模式和策略模式的类图完全一样，代码实现也比较类似，但是两者还是有区别的。</p>
-<p>策略模式关注的是算法替换的问题，一个新的算法投产，旧算法退休，或者提供多种算法由调用者自己选择使用，算法的自由更替是它实现的要点。换句话说，策略模式关注的是算法的完整性、封装性，只有具备了这两个条件才能保证其可以自由切换。命令模式则关注的是解耦问题，如何让请求者和执行者解耦是它需要首先解决的，解耦的要求就是把请求的内容封装为一个一个的命令，由接收者执行。由于封装成了命令，就同时可以对命令进行多种处理，例如撤销、记录等。</p>
-<p>策略模式中的抽象算法和具体算法与命令模式的接收者非常相似，但是它们的职责不同。策略模式中的具体算法是负责一个完整算法逻辑，它是不可再拆分的原子业务单元，一旦变更就是对算法整体的变更。</p>
-<p>策略模式适用于算法要求变换的场景，而命令模式适用于解耦两个有紧耦合关系的对象场合或者多命令多撤销的场景。</p>
-<p>策略模式封装的是不同的算法，算法之间没有交互，以达到算法可以自由切换的目的；而状态模式封装的是不同的状态，以达到状态切换行为随之发生改变的目的。这两种模式虽然都有变换的行为，但是两者的目标却是不同的。</p>
-<p>策略模式的环境角色只是一个委托作用，负责算法的替换；而状态模式的环境角色不仅仅是委托行为，它还具有登记状态变化的功能，与具体的状态类协作，共同完成状态切换行为随之切换的任务。</p>
-<p>策略模式只是确保算法可以自由切换，但是什么时候用什么算法它决定不了；而状态模式对外暴露的是行为，状态的变化一般是由环境角色和具体状态共同完成的，也就是说状态模式封装了状态的变化而暴露了不同的行为或行为结果。</p>
-<p>在责任链模式中，上下节点没有关系，都是接收同样的对象，所有传递的对象都是从链首传递过来，上一节点是什么没有关系，只要按照自己的逻辑处理就成。而触发链模式就不同了，它的上下级关系很亲密，下级对上级顶礼膜拜，上级对下级绝对信任，链中的任意两个相邻节点都是一个牢固的独立团体。</p>
-<p>在责任链模式中，一个消息从链首传递进来后，就开始沿着链条向链尾运动，方向是单一的、固定的；而触发链模式则不同，由于它采用的是观察者模式，所以有非常大的灵活性，一个消息传递到链首后，具体怎么传递是不固定的，可以以广播方式传递，也可以以跳跃方式传递，这取决于处理消息的逻辑。</p>
-<p>创建类模式描述如何创建对象，行为类模式关注如何管理对象的行为，结构类模式则着重于如何建立一个软件结构，虽然三种模式的着重点不同，</p>
-<p>策略模式实现两种算法的自由切换，它提供了这样的保证：封装邮件的两种行为是可选择的，至于选择哪个算法是由上层模块决定的。策略模式要完成的任务就是提供两种可以替换的算法。</p>
-<p>桥梁模式关注的是抽象和实现的分离，它是结构型模式，</p>
-<p>简单来说，策略模式是使用继承和多态建立一套可以自由切换算法的模式，桥梁模式是在不破坏封装的前提下解决抽象和实现都可以独立扩展的模式。桥梁模式必然有两个“桥墩”——抽象化角色和实现化角色，只要桥墩搭建好，桥就有了，而策略模式只有一个抽象角色，可以没有实现，也可以有很多实现。</p>
-<p>门面模式为复杂的子系统提供一个统一的访问界面，它定义的是一个高层接口，该接口使得子系统更加容易使用，避免外部模块深入到子系统内部而产生与子系统内部细节耦合的问题。中介者模式使用一个中介对象来封装一系列同事对象的交互行为，它使各对象之间不再显式地引用，从而使其耦合松散，建立一个可扩展的应用架构。</p>
-<p>门面模式和中介者模式之间的区别还是比较明显的，门面模式是以封装和隔离为主要任务，而中介者模式则是以调和同事类之间的关系为主，因为要调和，所以具有了部分的业务逻辑控制。</p>
-<p>门面模式只是增加了一个门面，它对子系统来说没有增加任何的功能，子系统若脱离门面模式是完全可以独立运行的。而中介者模式则增加了业务功能，它把各个同事类中的原有耦合关系移植到了中介者，同事类不可能脱离中介者而独立存在，除非是想增加系统的复杂性和降低扩展性。</p>
-<p>门面模式是一种简单的封装，所有的请求处理都委托给子系统完成，而中介者模式则需要有一个中心，由中心协调同事类完成，并且中心本身也完成部分业务，它属于更进一步的业务功能封装。</p>
-<p>包装模式包括：装饰模式、适配器模式、门面模式、代理模式、桥梁模式。</p>
-<p>5个包装模式是大家在系统设计中经常会用到的模式，它们具有相似的特征：都是通过委托的方式对一个对象或一系列对象（例如门面模式）施行包装，有了包装，设计的系统才更加灵活、稳定，并且极具扩展性。从实现的角度来看，它们都是代理的一种具体表现形式，</p>
-<p>装饰模式是一种特殊的代理模式，它倡导的是在不改变接口的前提下为对象增强功能，或者动态添加额外职责。就扩展性而言，它比子类更加灵活，例如在一个已经运行的项目中，可以很轻松地通过增加装饰类来扩展系统的功能。适配器模式的主要意图是接口转换，把一个对象的接口转换成系统希望的另外一个接口，这里的系统指的不仅仅是一个应用，也可能是某个环境，比如通过接口转换可以屏蔽外界接口，以免外界接口深入系统内部，从而提高系统的稳定性和可靠性。桥梁模式是在抽象层产生耦合，解决的是自行扩展的问题，它可以使两个有耦合关系的对象互不影响地扩展，比如对于使用笔画图这样的需求，可以采用桥梁模式设计成用什么笔（铅笔、毛笔）画什么图（圆形、方形）的方案，至于以后需求的变更，如增加笔的类型，增加图形等，对该设计来说是小菜一碟。门面模式是一个粗粒度的封装，它提供一个方便访问子系统的接口，不具有任何的业务逻辑，仅仅是一个访问复杂系统的快速通道，没有它，子系统照样运行，有了它，只是更方便访问而已。</p>
-<h1 id="23种设计模式彩图"><a href="#23种设计模式彩图" class="headerlink" title="23种设计模式彩图"></a>23种设计模式彩图</h1><p><img src="https://i.imgur.com/WT9XrQv.png" alt=""></p>
-<p><img src="https://i.imgur.com/oOq0ZC4.png" alt=""></p>
-<p><img src="https://i.imgur.com/ujyOLJH.png" alt=""></p>
-<p><img src="https://i.imgur.com/fAc8qmZ.png" alt=""></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/15/设计模式之禅/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -3522,6 +3542,34 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LibIconv</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">DShow</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">OpenCV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">FFmpeg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">视频</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">并发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">同步</a>
               </li>
             
             <div class="clearfix"></div>

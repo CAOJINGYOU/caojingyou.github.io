@@ -160,6 +160,826 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-VC程序获取管理员权限" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/10/01/VC程序获取管理员权限/">VC程序获取管理员权限</a>
+    </h1>
+  
+
+        
+        <a href="/2017/10/01/VC程序获取管理员权限/" class="archive-article-date">
+  	<time datetime="2017-10-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="一："><a href="#一：" class="headerlink" title="一："></a>一：</h1><p>编译程序的时候设置一下<br>在项目属性–连接器–清单文件–UAC执行级别改为requireAdministrator</p>
+<h1 id="二："><a href="#二：" class="headerlink" title="二："></a>二：</h1><pre><code>void GainAdminPrivileges(CString strApp, UINT idd)
+{
+    CString         strCmd;
+    strCmd.Format (_T(&quot;/adminoption %d&quot;), idd);
+
+    SHELLEXECUTEINFO execinfo;
+    memset(&amp;execinfo, 0, sizeof(execinfo));
+    execinfo.lpFile         = strApp;
+    execinfo.cbSize         = sizeof(execinfo);
+    execinfo.lpVerb         = _T(&quot;runas&quot;);
+    execinfo.fMask          = SEE_MASK_NO_CONSOLE;
+    execinfo.nShow          = SW_SHOWDEFAULT;
+    execinfo.lpParameters   = strCmd;
+
+    ShellExecuteEx(&amp;execinfo);
+}  
+</code></pre><p>strApp是应用程序的路径idd我传的是1，但好像传几都没问题</p>
+<pre><code>BOOL ElevateCurrentProcess(CString sCmdLine)
+{
+    TCHAR szPath[MAX_PATH] = {0};
+
+    if (::GetModuleFileName(NULL, szPath, MAX_PATH))
+    {
+        // Launch itself as administrator.
+        SHELLEXECUTEINFO sei = { sizeof(SHELLEXECUTEINFO) };
+        sei.lpVerb = _T(&quot;runas&quot;);
+        sei.lpFile = szPath;
+        sei.lpParameters = (LPCTSTR)sCmdLine;
+        //     sei.hwnd = hWnd;
+        sei.nShow = SW_SHOWNORMAL;
+
+        if (!ShellExecuteEx(&amp;sei))
+        {
+            DWORD dwStatus = GetLastError();
+            if (dwStatus == ERROR_CANCELLED)
+            {
+                // The user refused to allow privileges elevation.
+                return FALSE;
+            }
+            else if (dwStatus == ERROR_FILE_NOT_FOUND)
+            {
+                // The file defined by lpFile was not found and
+                // an error message popped up.
+                return FALSE;
+            }
+            return FALSE;
+        }
+        return TRUE;
+    }
+    return FALSE;
+}
+</code></pre><h1 id="如何获取正确的文件路径"><a href="#如何获取正确的文件路径" class="headerlink" title="如何获取正确的文件路径"></a>如何获取正确的文件路径</h1><p>当我们那些在Windows 7之前设计的应用程序遇到UAC Virtualization问题的时候，我们需要从新设计我们的代码，将文件写入到合适的位置。在改善既有代码，使之可以与Windows 7兼容的时候，我们应该确保以下几点：</p>
+<p>　　——在运行的时候，应用程序只会将数据保存到每个用户预先定义的位置或者是%alluserprofile% 中定义的普通用户拥有访问权限的位置。</p>
+<p>　　——确定你要写入数据的“已知文件夹”(Knownfolders)。通常，所有用户共用的公共数据文件应该写入到一个全局的公共的位置，这样所有用户都可以访问到。而其它数据则应该写入每个用户自己的文件夹。</p>
+<p>　　1 公共数据文件包括日志文件，配置文件(通常是INI或者XML文件)，应用程序状态文件，比如保存的游戏进程等等。</p>
+<p>　　2 而属于每个用户的文档，则应该保持在文档目录下，或者是用户自己指定的目录。</p>
+<p>　　——当你确定合适的文件保存位置后，不要在代码中明文写出(Hard-code)你选择的路径。为了更好地保持兼容性，我们应该采用下面这些API来获得操作系统“已知文件夹(Knownfolders)”的正确路径。</p>
+<p>　　1 C/C++非托管代码: 使用SHGetKnownFolderPath函数，通过指定“已知文件夹”的KNOWNFOLDERID作为参数来获得正确的文件夹路径。</p>
+<pre><code>　　FOLDERID_ProgramData –所有用户都可以访问的应用程序数据适合放置在这个目录下。
+　　FOLDERID_LocalAppData – 每个用户单独访问的应用程序数据适合放置在这个目录下。
+　　FOLDERID_RoamingAppData – 每个用户单独访问的应用程序数据适合放置在这个目录下。 与上面一个目录不同的是，放置在这个目录下的文件会随着用户迁移，当一个用户在同一个域中的其他计算机登录的时候，这些文件会被复制到当前登录的机器上，就像用户随身携带的公文包一样。
+</code></pre><p>下面这段代码演示了在非托管代码中如何调用shell函数，SHGetKnownFolderPath函数获得正确的文件保存路径(SHGetFolderLocation, SHGetFolderPath, SHGetSpecialFolderLocation, SHGetSpecialFolderPath)：</p>
+<pre><code>#include &quot;shlobj.h&quot;
+#include &quot;shlwapi.h&quot;
+//…
+
+#define AppFolderName _T(&quot;YourApp&quot;)
+#define DataFileName _T(&quot;SomeFile.txt&quot;)
+
+// 构造一个数据文件路径
+// dataFilePath指向一个长度为MAX_PATH，类型为TCHAR的字符串数值
+// hwndDlg是消息对话框的父窗口句柄
+// 当有错误发生的时候用于显示错误提示
+// includeFileName用于表示是否在路径后面扩展文件名
+BOOL MakeDataFilePath(TCHAR *dataFilePath, 
+                      HWND hwndDlg, BOOL includeFileName)
+{
+    // 初始化工作
+    memset(dataFilePath, 0, MAX_PATH * sizeof(TCHAR));
+    PWSTR pszPath = NULL;
+
+    // SHGetKnownFolderPath函数可以返回一个已知文件见的路径，
+    // 例如我的文档(My Documents)，桌面(Desktop)，
+       // 应用程序文件夹(Program Files)等等。 
+    // 对于数据文件来说，FOLDERID_ProgramFiles并不是一个合适的位置
+    // 使用FOLDERID_ProgramFiles保存所有用户共享的数据文件
+    // 使用FOLDERID_LocalAppData保存属于每个用户自己的文件(non-roaming).
+    // 使用FOLDERID_RoamingAppData保存属于每个用户自己的文件(roaming).
+// 对于“随身文件”(Roaming files)，
+// 当一个用户在一个域中的其他计算机登陆的时候，
+    // 这些文件会被复制到当前登录的机器上，就像用户随身携带的公文包一样    
+
+    // 获取文件夹路径
+    if (FAILED(SHGetKnownFolderPath(FOLDERID_ProgramData,
+               0, NULL, &amp;pszPath)))
+    // 错误的做法： if (FAILED(SHGetKnownFolderPath(FOLDERID_ProgramFiles,
+       // 0, NULL, &amp;pszPath)))
+    {
+        // 提示错误
+        MessageBox(hwndDlg, _T(&quot;SHGetKnownFolderPath无法获取文件路径&quot;),
+            _T(&quot;Error&quot;), MB_OK | MB_ICONERROR);
+        return FALSE;
+    }
+
+    // 复制路径到目标变量
+    _tcscpy_s(dataFilePath, MAX_PATH, pszPath);
+    ::CoTaskMemFree(pszPath);
+
+    //错误的做法: _tcscpy_s(dataFilePath, MAX_PATH, _T(&quot;C:\\&quot;));
+
+    // 在路径后面扩展应用程序所在文件夹
+    if (!::PathAppend(dataFilePath, AppFolderName))
+    {
+        // 提示错误
+        MessageBox(hwndDlg, _T(&quot;PathAppend无法扩展路径&quot;),
+            _T(&quot;Error&quot;), MB_OK | MB_ICONERROR);
+        return FALSE;
+    }
+
+    // 是否添加文件名
+    if (includeFileName)
+    {
+        // 在路径后扩展文件名
+        if (!::PathAppend(dataFilePath, DataFileName))
+        {
+            // 提示错误
+            MessageBox(hwndDlg, _T(&quot;PathAppend无法扩展文件名&quot;),
+                _T(&quot;Error&quot;), MB_OK | MB_ICONERROR);
+            return FALSE;
+        }
+    }
+
+    return TRUE;
+}
+</code></pre><p>2 托管代码: 使用System.Environment.GetFolderPath函数，通过指定我们想要获取的“已知文件夹”为参数，从而获取相应的文件夹的正确路径。</p>
+<pre><code>　　Environment.SpecialFolder.CommonApplicationData – 所有用户都可以访问的应用程序数据适合放置在这个目录下。
+　　Environment.SpecialFolder.LocalApplicationData – 每个用户单独访问的应用程序数据适合放置在这个目录下。
+　　Environment.SpecialFolder.ApplicationData – 每个用户单独访问的应用程序数据适合放置在这个目录下。这是“随身文件夹”。
+</code></pre><p>下面这段代码展示了如何在托管代码中获取正确的文件路径：</p>
+<pre><code>internal class FileIO
+    {
+        private const string AppFolderName = &quot;YourApp&quot;;
+        private const string DataFileName = &quot;SomeFile.txt&quot;;
+        private static string _dataFilePath;
+
+        /// &lt;summary&gt;
+        /// 构建路径
+        /// &lt;/summary&gt;
+        static FileIO()
+        {
+            // Environment.GetFolderPath返回一个“已知文件夹”的路径
+            // Path.Combine可以合并两个路径成一个合法的路径
+
+            // …
+
+            _dataFilePath = Path.Combine(Environment.GetFolderPath(
+                  Environment.SpecialFolder.ProgramFiles), AppFolderName);
+            //错误的做法：
+            //_dataFilePath = Path.Combine(Environment.GetFolderPath(
+             Environment.SpecialFolder.CommonApplicationData), AppFolderName);
+
+            // 扩展文件名
+            _dataFilePath = Path.Combine(_dataFilePath, DataFileName);
+        }
+
+         public static void Save(string text)
+        {
+            // 检查要保存的字符串是否为空
+            if (String.IsNullOrEmpty(text))
+            {
+                MessageBox.Show(&quot;字符串为空，无法保持.&quot;, &quot;空字符串&quot;,
+                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                // 获取文件保存的路径
+                string dirPath = Path.GetDirectoryName(_dataFilePath);
+                // 检查文件夹是否存在
+                if (!Directory.Exists(dirPath))
+                    Directory.CreateDirectory(dirPath); // 创建文件夹
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, &quot;文件夹创建失败&quot;,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            try
+            {
+                // 保存字符串到文件
+                StreamWriter sw = new StreamWriter(_dataFilePath);
+                try
+                {
+                    sw.Write(text);
+                }
+                finally
+                {
+                    // 关闭文件
+                    sw.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, &quot;文件写入失败&quot;,
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        // …
+   }
+}
+</code></pre><p>如果上面的方法都不适合你，你还可以使用环境变量，使用getenv()或GetEnvironmentVariable()获取相应的文件夹路径：</p>
+<pre><code>　　%ALLUSERSPROFILE% – 所有用户都可以访问的应用程序数据适合放置在这个目录下。
+　　%LOCALAPPDATA% – 每个用户单独访问的应用程序数据适合放置在这个目录下。 - (Windows Vista 或者Windows 7)
+　　%APPDATA% – 每个用户单独访问的应用程序数据适合放置在这个目录下。这是“随身文件夹”。- (Windows Vista 或者Windows 7)
+</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<li><a href="http://blog.csdn.net/zhangyulin54321/article/details/8802023" target="_blank" rel="noopener">vc++MCF/C++/C中怎样让应用程序获得或以管理员权限运行 ，ShellExecuteEX编程 — 获取管理员权限</a> </li>
+<li><a href="http://blog.csdn.net/suixiangzhe/article/details/50503047" target="_blank" rel="noopener">VS2010与Win7共舞：UAC与数据重定向 </a></li>
+<li><a href="https://msdn.microsoft.com/zh-cn/library/windows/desktop/bb762494(v=vs.85" target="_blank" rel="noopener">CSIDL</a>.aspx)</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">VC</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">管理员权限</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/10/01/VC程序获取管理员权限/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Crypto++" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/15/Crypto++/">Crypto++</a>
+    </h1>
+  
+
+        
+        <a href="/2017/09/15/Crypto++/" class="archive-article-date">
+  	<time datetime="2017-09-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Crypto-学习"><a href="#Crypto-学习" class="headerlink" title="Crypto++学习"></a>Crypto++学习</h1><pre><code>// MyTest.cpp : 定义控制台应用程序的入口点。
+//
+
+#include &quot;stdafx.h&quot;
+
+#include &lt;iomanip&gt;//setw与setfill头文件
+
+#define CRYPTOPP_ENABLE_NAMESPACE_WEAK 1
+
+#include &quot;cryptlib.h&quot;
+#include &quot;md5.h&quot;
+
+#include &quot;filters.h&quot;
+
+#include &quot;hex.h&quot;
+
+#include &quot;base64.h&quot;
+
+#include &quot;files.h&quot;
+
+#include &quot;sha.h&quot;
+
+#include &quot;crc.h&quot;
+
+#include &quot;ripemd.h&quot;
+
+USING_NAMESPACE(CryptoPP)
+USING_NAMESPACE(std)
+
+int _tmain(int argc, _TCHAR *argv[])
+{
+    /************************************************************************/
+    /* 散列算法                                                                     */
+    /************************************************************************/
+    /************************************************************************/
+    /* MD5                                                                     */
+    /************************************************************************/
+    printf(&quot;MD5开始\n&quot;);
+
+    byte message[] = &quot;HelloWorld!&quot;;
+    int mesLen = strlen((char *)message - 1);
+    byte mres[16];//MD5 128 bits=16bytes
+
+    Weak::MD5 md5;
+    md5.Update(message, mesLen);
+    md5.Final(mres);
+
+    /************************************************************************/
+    /* md5转换到string                                                                     */
+    /************************************************************************/
+    string digest3;
+    StringSource ss3(mres, sizeof(mres), true,
+        new HexEncoder(new StringSink(digest3))
+        );
+    cout &lt;&lt; digest3 &lt;&lt; endl;
+    printf(&quot;\n&quot;);
+    system(&quot;pause&quot;);
+
+    /************************************************************************/
+    /* md5转换到byte数组                                                                     */
+    /************************************************************************/
+    for(int i = 0; i &lt; 16; i++)
+        printf(&quot;%02x&quot;, mres[i]);
+
+    printf(&quot;\n&quot;);
+    system(&quot;pause&quot;);
+
+    /************************************************************************/
+    /* 使用SecByteBlock                                                                     */
+    /************************************************************************/
+    char *inputCh = &quot;abcdefghijklmnopqrstuvwxyz&quot;;
+    const byte *input = (byte *)inputCh;
+
+    SecByteBlock digest(md5.DigestSize());
+
+    //md5.CalculateDigest(digest ,input, strlen(inputCh));  //此一句等于下面两句
+    md5.Update(input, strlen(inputCh));
+    md5.Final(digest);
+
+    for(int i = 0; i &lt; md5.DigestSize(); i++)
+        printf(&quot;%02x&quot;, digest[i]);
+
+    printf(&quot;\n&quot;);
+    system(&quot;pause&quot;);
+
+    for (unsigned j = 0; j &lt; md5.DigestSize(); j++)
+        cout &lt;&lt; setw(2) &lt;&lt; setfill(&apos;0&apos;) &lt;&lt; hex &lt;&lt; (int)digest[j];
+    printf(&quot;\n&quot;);
+    system(&quot;pause&quot;);
+
+    string src = &quot;123&quot;;
+    string digest1;
+
+    /************************************************************************/
+    /* 另一种方法转换md5                                                                     */
+    /************************************************************************/
+    Weak::MD5 md51;
+
+    StringSource(src, true,
+        new HashFilter(md51,
+        new HexEncoder(new StringSink(digest1))
+        )
+        );
+    cout &lt;&lt; digest1 &lt;&lt; endl;
+    printf(&quot;\n&quot;);
+    system(&quot;pause&quot;);
+
+    /************************************************************************/
+    /* MD5对文件产生签名                                                                     */
+    /************************************************************************/
+    {
+        std::locale loc1 = std::locale::global(std::locale(&quot;.936&quot;)); //解决中文文件名问题
+
+        Weak::MD5 md5;
+
+        string filePath = &quot;e:\\test.txt&quot;;
+        string digest4;
+        FileSource f(filePath.c_str(), true,
+            new HashFilter(
+            md5, new HexEncoder(new StringSink(digest4))
+            )
+            );
+
+        std::locale::global(std::locale(loc1));
+        cout &lt;&lt; &quot;file:    &quot; &lt;&lt; digest4 &lt;&lt; endl;
+    }
+
+
+    printf(&quot;\n&quot;);
+    system(&quot;pause&quot;);
+
+    printf(&quot;MD5结束\n&quot;);
+
+    /************************************************************************/
+    /* 二进制数组编码                                                                     */
+    /************************************************************************/
+
+    /************************************************************************/
+    /* 将一个byte数组按16进制编码后输出                                                                     */
+    /************************************************************************/
+    string encoded;
+    byte m[] = &quot;HelloWorld!&quot;;
+    StringSource ss(m, sizeof(m), true,
+        new HexEncoder(new StringSink(encoded))
+        );
+    cout &lt;&lt; encoded &lt;&lt; endl;
+
+    system(&quot;pause&quot;);
+
+    /************************************************************************/
+    /* 将一个string按16进制编码后输出                                                                     */
+    /************************************************************************/
+
+    string encoded1;
+    string ms = &quot;HelloWorld!&quot;;
+    StringSource ss1(ms, true,
+        new HexEncoder(new StringSink(encoded1))
+        );
+    cout &lt;&lt; encoded1 &lt;&lt; endl;
+    system(&quot;pause&quot;);
+
+    /************************************************************************/
+    /* 将一个byte数组按base64编码后输出                                                                     */
+    /************************************************************************/
+
+    string encoded2;
+    StringSource s(m, sizeof(m), true,
+        new Base64Encoder(new StringSink(encoded2))
+        );
+    cout &lt;&lt; encoded2 &lt;&lt; endl;
+    system(&quot;pause&quot;);
+
+    /************************************************************************/
+    /* SHA-1对字符串签名                                                                     */
+    /************************************************************************/
+    {
+        SHA1 sha1;
+        string digest5;
+        string src = &quot;HelloWorld!&quot;;
+        StringSource(src, true,
+            new HashFilter(sha1,
+            new HexEncoder(new StringSink(digest5))
+            )
+            );
+        cout &lt;&lt; &quot;SHA-1:    &quot; &lt;&lt; digest5 &lt;&lt; endl;
+        system(&quot;pause&quot;);
+
+        string filePath = &quot;e:\\test.txt&quot;;
+        string digest4;
+        FileSource f(filePath.c_str(), true,
+            new HashFilter(
+            sha1, new HexEncoder(new StringSink(digest4))
+            )
+            );
+
+        cout &lt;&lt; &quot;file:    &quot; &lt;&lt; digest4 &lt;&lt; endl;
+        system(&quot;pause&quot;);
+    }
+
+    {
+
+        SHA256 sha256;
+        string digest246;
+        string src = &quot;HelloWorld!&quot;;
+        StringSource(src, true,
+            new HashFilter(sha256,
+            new HexEncoder(new StringSink(digest246))
+            )
+            );
+        cout &lt;&lt; &quot;SHA-256:    &quot; &lt;&lt; digest246 &lt;&lt; endl;
+        system(&quot;pause&quot;);
+
+        string filePath = &quot;e:\\test.txt&quot;;
+        string digest4;
+        FileSource f(filePath.c_str(), true,
+            new HashFilter(
+            sha256, new HexEncoder(new StringSink(digest4))
+            )
+            );
+
+        cout &lt;&lt; &quot;file:    &quot; &lt;&lt; digest4 &lt;&lt; endl;
+        system(&quot;pause&quot;);
+    }
+
+    {
+
+        SHA384 sha384;
+        string digest384;
+        string src = &quot;HelloWorld!&quot;;
+        StringSource(src, true,
+            new HashFilter(sha384,
+            new HexEncoder(new StringSink(digest384))
+            )
+            );
+        cout &lt;&lt; &quot;SHA-384:    &quot; &lt;&lt; digest384 &lt;&lt; endl;
+        system(&quot;pause&quot;);
+
+        string filePath = &quot;e:\\test.txt&quot;;
+        string digest4;
+        FileSource f(filePath.c_str(), true,
+            new HashFilter(
+            sha384, new HexEncoder(new StringSink(digest4))
+            )
+            );
+
+        cout &lt;&lt; &quot;file:    &quot; &lt;&lt; digest4 &lt;&lt; endl;
+        system(&quot;pause&quot;);
+    }
+
+    {
+
+        SHA512 sha512;
+        string digest512;
+        string src = &quot;HelloWorld!&quot;;
+        StringSource(src, true,
+            new HashFilter(sha512,
+            new HexEncoder(new StringSink(digest512))
+            )
+            );
+        cout &lt;&lt; &quot;SHA-512:    &quot; &lt;&lt; digest512 &lt;&lt; endl;
+        system(&quot;pause&quot;);
+
+        string filePath = &quot;e:\\test.txt&quot;;
+        string digest4;
+        FileSource f(filePath.c_str(), true,
+            new HashFilter(
+            sha512, new HexEncoder(new StringSink(digest4))
+            )
+            );
+
+        cout &lt;&lt; &quot;file:    &quot; &lt;&lt; digest4 &lt;&lt; endl;
+        system(&quot;pause&quot;);
+    }
+
+    /************************************************************************/
+    /* CRC32跟MD5类似                                                                     */
+    /************************************************************************/
+    {
+        CRC32 crc;
+        string src = &quot;HelloWorld!&quot;;
+        string digestcrc;
+
+        char *inputCh = &quot;HelloWorld!&quot;;
+        const byte *input = (byte *)inputCh;
+
+        SecByteBlock digest(crc.DigestSize());
+
+        //md5.CalculateDigest(digest ,input, strlen(inputCh));  //此一句等于下面两句
+        crc.Update(input, strlen(inputCh));
+        crc.Final(digest);
+        cout &lt;&lt; &quot;CRC-32:    &quot;;
+        for(int i = 0; i &lt; crc.DigestSize(); i++)
+            printf(&quot;%02x&quot;, digest[i]);
+        printf(&quot;\n&quot;);
+
+        StringSource(src, true,
+            new HashFilter(crc,
+            new HexEncoder(new StringSink(digestcrc))
+            )
+            );
+        cout &lt;&lt; &quot;CRC-32:    &quot; &lt;&lt; digestcrc &lt;&lt; endl;
+        printf(&quot;\n&quot;);
+        system(&quot;pause&quot;);
+
+        string filePath = &quot;e:\\test.txt&quot;;
+        string digest4;
+        FileSource f(filePath.c_str(), true,
+            new HashFilter(
+            crc, new HexEncoder(new StringSink(digest4))
+            )
+            );
+
+        cout &lt;&lt; &quot;file:    &quot; &lt;&lt; digest4 &lt;&lt; endl;
+        system(&quot;pause&quot;);
+    }
+    /************************************************************************/
+    /* RIPEMD160                                                                   */
+    /************************************************************************/
+    {
+        RIPEMD160 md160;
+        string src = &quot;HelloWorld!&quot;;
+        string digestcrc;
+
+        char *inputCh = &quot;HelloWorld!&quot;;
+        const byte *input = (byte *)inputCh;
+
+        SecByteBlock digest(md160.DigestSize());
+
+        //md5.CalculateDigest(digest ,input, strlen(inputCh));  //此一句等于下面两句
+        md160.Update(input, strlen(inputCh));
+        md160.Final(digest);
+        cout &lt;&lt; &quot;RIPEMD-160:    &quot;;
+        for(int i = 0; i &lt; md160.DigestSize(); i++)
+            printf(&quot;%02x&quot;, digest[i]);
+        printf(&quot;\n&quot;);
+
+        StringSource(src, true,
+            new HashFilter(md160,
+            new HexEncoder(new StringSink(digestcrc))
+            )
+            );
+        cout &lt;&lt; &quot;RIPEMD-160:    &quot; &lt;&lt; digestcrc &lt;&lt; endl;
+        printf(&quot;\n&quot;);
+        system(&quot;pause&quot;);
+
+        string filePath = &quot;e:\\test.txt&quot;;
+        string digest4;
+        FileSource f(filePath.c_str(), true,
+            new HashFilter(
+            md160, new HexEncoder(new StringSink(digest4))
+            )
+            );
+
+        cout &lt;&lt; &quot;file:    &quot; &lt;&lt; digest4 &lt;&lt; endl;
+        system(&quot;pause&quot;);
+    }
+
+    /************************************************************************/
+    /* 对称加密算法 DES AES                                                                     */
+    /************************************************************************/
+    /************************************************************************/
+    /* DES    ValidateDES();                                                                     */
+    /************************************************************************/
+    /************************************************************************/
+    /* AES ValidateRijndael();                                                                     */
+    /************************************************************************/
+
+    /************************************************************************/
+    /* 非对称加密算法                                                                     */
+    /************************************************************************/
+    /************************************************************************/
+    /* RSA GenerateRSAKey、RSAEncryptString、RSADecryptString、RSASignFile、RSAVerifyFile                                                                     */
+    /************************************************************************/
+
+    system(&quot;pause&quot;);
+    //http://www.cppblog.com/ArthasLee/archive/2010/12/01/135186.html
+    return 0;
+}
+</code></pre><p>ChannelSwitch</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+#include &lt;cryptopp/channels.h&gt; 
+#include &lt;cryptopp/filters.h&gt; 
+#include &lt;cryptopp/sha.h&gt; 
+#include &lt;cryptopp/hex.h&gt;
+
+int main(int argc, char *argv[]) {
+std::string message = &quot;Now is the time for all good men to come to the aide of their country&quot;;
+
+// Allow user to override default message from command line arg.
+if(argc == 2 &amp;&amp; argv[1] != NULL) 
+    message = std::string(argv[1]);
+
+// Set hash variables
+std::string s1, s2, s3, s4;
+CryptoPP::SHA1 sha1; CryptoPP::SHA224 sha224; CryptoPP::SHA256 sha256; CryptoPP::SHA512 sha512;
+
+// Run hash functions
+CryptoPP::HashFilter f1(sha1, new CryptoPP::HexEncoder(new CryptoPP::StringSink(s1)));
+CryptoPP::HashFilter f2(sha224, new CryptoPP::HexEncoder(new CryptoPP::StringSink(s2)));
+CryptoPP::HashFilter f3(sha256, new CryptoPP::HexEncoder(new CryptoPP::StringSink(s3)));
+CryptoPP::HashFilter f4(sha512, new CryptoPP::HexEncoder(new CryptoPP::StringSink(s4)));
+
+// Set route to default
+CryptoPP::ChannelSwitch cs;
+cs.AddDefaultRoute(f1);
+cs.AddDefaultRoute(f2);
+cs.AddDefaultRoute(f3);
+cs.AddDefaultRoute(f4);
+
+CryptoPP::StringSource ss(message, true /*pumpAll*/, new CryptoPP::Redirector(cs));
+
+std::cout &lt;&lt; &quot;Message: &quot; &lt;&lt; message &lt;&lt; std::endl;
+std::cout &lt;&lt; &quot;SHA-1: &quot; &lt;&lt; s1 &lt;&lt; std::endl;
+std::cout &lt;&lt; &quot;SHA-224: &quot; &lt;&lt; s2 &lt;&lt; std::endl;
+std::cout &lt;&lt; &quot;SHA-256: &quot; &lt;&lt; s3 &lt;&lt; std::endl;
+std::cout &lt;&lt; &quot;SHA-512: &quot; &lt;&lt; s4 &lt;&lt; std::endl;
+}
+</code></pre><p>文档：</p>
+<ul>
+<li><a href="https://www.cryptopp.com/docs/ref/index.html" title="https://www.cryptopp.com/docs/ref/index.html" target="_blank" rel="noopener">https://www.cryptopp.com/docs/ref/index.html</a></li>
+<li><a href="https://www.cryptopp.com/wiki/Main_Page" title="https://www.cryptopp.com/wiki/Main_Page" target="_blank" rel="noopener">https://www.cryptopp.com/wiki/Main_Page</a></li>
+<li><a href="https://www.cryptopp.com/wiki/Special:AllPages" title="https://www.cryptopp.com/wiki/Special:AllPages" target="_blank" rel="noopener">https://www.cryptopp.com/wiki/Special:AllPages</a></li>
+<li><a href="https://www.cryptopp.com/wiki/Category:Class" title="https://www.cryptopp.com/wiki/Category:Class" target="_blank" rel="noopener">https://www.cryptopp.com/wiki/Category:Class</a><br>-<a href="https://www.cryptopp.com/wiki/Category:Sample" title="https://www.cryptopp.com/wiki/Category:Sample" target="_blank" rel="noopener">https://www.cryptopp.com/wiki/Category:Sample</a></li>
+<li><a href="https://www.cryptopp.com/wiki/ChannelSwitch" title="https://www.cryptopp.com/wiki/ChannelSwitch" target="_blank" rel="noopener">https://www.cryptopp.com/wiki/ChannelSwitch</a></li>
+<li><a href="https://www.cryptopp.com/wiki/Recommended_Books" title="https://www.cryptopp.com/wiki/Recommended_Books" target="_blank" rel="noopener">https://www.cryptopp.com/wiki/Recommended_Books</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Crypto++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">密码</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/09/15/Crypto++/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Shell脚本编程30分钟入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -6899,202 +7719,6 @@ int main()
 
 
   
-    <article id="post-GUID" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/15/GUID/">GUID</a>
-    </h1>
-  
-
-        
-        <a href="/2017/05/15/GUID/" class="archive-article-date">
-  	<time datetime="2017-05-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="GUID"><a href="#GUID" class="headerlink" title="GUID"></a>GUID</h1><pre><code>CString CreateNewUid()
-{
-    CoInitialize(NULL);
-
-    AUTH_TRACE_STACK();
-
-    GUID guid;
-    HRESULT hr = CoCreateGuid(&amp;guid);
-    if (FAILED(hr))
-    {
-        AUTH_LOGMESSAGE1(_T(&quot;Create Guid Failed!&quot;));
-    }
-
-#ifdef _UNICODE
-    unsigned short* buf = NULL;
-#else
-    unsigned char* buf = NULL;
-#endif
-
-    UuidToString((UUID*)&amp;guid, &amp;buf);    
-    CString strUID((LPCTSTR)buf);
-    RpcStringFree(&amp;buf);
-
-    CoUninitialize();
-
-    return strUID;    
-}
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">GUID</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/15/GUID/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ZeroMQ" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/05/02/ZeroMQ/">ZeroMQ</a>
-    </h1>
-  
-
-        
-        <a href="/2017/05/02/ZeroMQ/" class="archive-article-date">
-  	<time datetime="2017-05-02T10:09:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="http://zeromq.org/" target="_blank" rel="noopener">http://zeromq.org/</a></p>
-<p><a href="https://github.com/zeromq" title="https://github.com/zeromq" target="_blank" rel="noopener">https://github.com/zeromq</a></p>
-<p><a href="http://zeromq.org/distro:microsoft-windows" title="http://zeromq.org/distro:microsoft-windows" target="_blank" rel="noopener">http://zeromq.org/distro:microsoft-windows</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">即时通讯</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ZeroMQ</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/05/02/ZeroMQ/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
@@ -7825,6 +8449,34 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LibIconv</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">DShow</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">OpenCV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">FFmpeg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">视频</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">并发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">同步</a>
               </li>
             
             <div class="clearfix"></div>

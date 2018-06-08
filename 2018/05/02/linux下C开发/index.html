@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="环境CodeBlocks跨平台 make是用来完成自动编译的工具 gcc/g++/gcc port/g++ port 在Linux系统中开发C、C++语言程序，可选择的集成开发环境有Eclipse和Kdevelop,分别运行在GNOME和KDE桌面环境。 进程fork 线程POSIX标准线程库，Pthread线程对应的函数库为libpthread. 网络OSI参考模型TCP/IP模型Socket">
 <meta property="og:image" content="https://i.imgur.com/0AuPUYT.jpg">
-<meta property="og:updated_time" content="2018-06-06T04:43:45.073Z">
+<meta property="og:updated_time" content="2018-06-08T05:30:35.446Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux下C开发">
 <meta name="twitter:description" content="环境CodeBlocks跨平台 make是用来完成自动编译的工具 gcc/g++/gcc port/g++ port 在Linux系统中开发C、C++语言程序，可选择的集成开发环境有Eclipse和Kdevelop,分别运行在GNOME和KDE桌面环境。 进程fork 线程POSIX标准线程库，Pthread线程对应的函数库为libpthread. 网络OSI参考模型TCP/IP模型Socket">
@@ -207,10 +207,78 @@
 <h1 id="界面"><a href="#界面" class="headerlink" title="界面"></a>界面</h1><h2 id="桌面环境"><a href="#桌面环境" class="headerlink" title="桌面环境"></a>桌面环境</h2><h3 id="GNOME"><a href="#GNOME" class="headerlink" title="GNOME"></a>GNOME</h3><p>工作站</p>
 <p>开发界面函数库：GTK+、X11、Cairo</p>
 <p>Glib库是GTK+和GNOME工程的基础低层核心程序库。</p>
+<p>GLib为C语言提供面向对象的GObject对象系统。</p>
 <h3 id="KDE"><a href="#KDE" class="headerlink" title="KDE"></a>KDE</h3><p>服务器</p>
 <p>KDE桌面核心为Qt程序库。</p>
 <h3 id="Xfce"><a href="#Xfce" class="headerlink" title="Xfce"></a>Xfce</h3><h3 id="HILDON"><a href="#HILDON" class="headerlink" title="HILDON"></a>HILDON</h3><p>移动设备</p>
 <p>HILDON是GNOME的裁切版</p>
+<h2 id="2D图形引擎Cairo"><a href="#2D图形引擎Cairo" class="headerlink" title="2D图形引擎Cairo"></a>2D图形引擎Cairo</h2><p>支持PDF格式</p>
+<h2 id="GStreamer"><a href="#GStreamer" class="headerlink" title="GStreamer"></a>GStreamer</h2><p>可处理MP3、RM、WMA、MPEG、MPEG2、AVI和Quicktime等多种格式的多媒体数据。</p>
+<h2 id="搭建GTK-开发环境"><a href="#搭建GTK-开发环境" class="headerlink" title="搭建GTK+开发环境"></a>搭建GTK+开发环境</h2><p>DEB:</p>
+<pre><code>apt-get install gnome-core-devel
+//安装libgtk2.0-dev libglib2.0-dev等开发相关的函数库文件
+apt-get install devhelp//安装开发帮助文档查看程序
+apt-get install libglib2.0-doc libgtk2.0-doc
+//安装GTK/GLIB的API参考手册及其他帮助文档
+apt-get install libgtk2.0*//安装GTK+2所需的所有文件
+</code></pre><p>YUM:</p>
+<pre><code>yum install devhelp
+yum install gtk2-devel//安装GTK+2所需的开发文件
+</code></pre><p>需要：</p>
+<ul>
+<li>pkg-config</li>
+<li>GLib</li>
+<li>libpng</li>
+<li>JPEG</li>
+<li>libtiff</li>
+<li>ATK</li>
+<li>Cairo</li>
+<li>Pango</li>
+<li>GTK+</li>
+</ul>
+<p>所见即所得工具Glade</p>
+<h1 id="界面构件开发"><a href="#界面构件开发" class="headerlink" title="界面构件开发"></a>界面构件开发</h1><p>GtkWidget</p>
+<ul>
+<li>基本构件<ul>
+<li>GtkButton</li>
+<li>调整对象，由GtkObject派生。</li>
+<li>范围构件，包括滚动条与比例构件</li>
+<li>标签构件</li>
+<li>箭头构件，上下左右箭头</li>
+<li>工具提示对象</li>
+<li>进度条</li>
+<li>对话框</li>
+<li>标尺</li>
+<li>状态栏</li>
+<li>文本输入构件</li>
+<li>微调按钮</li>
+<li>组合输入框</li>
+<li>日历</li>
+<li>颜色选择</li>
+<li>文件选择</li>
+</ul>
+</li>
+<li>复合构件<ul>
+<li>快捷标签</li>
+<li>绘图区</li>
+<li>字体选择对话框</li>
+<li>消息对话框</li>
+<li>图像构件</li>
+<li>文本视区</li>
+</ul>
+</li>
+<li>菜单构件<ul>
+<li>菜单栏</li>
+<li>菜单构件</li>
+<li>菜单项</li>
+<li>图形菜单项</li>
+<li>复合菜单项</li>
+<li>单菜单项</li>
+<li>分隔菜单项</li>
+</ul>
+</li>
+</ul>
+<p>RC文件，是用来定义界面构件的字体、颜色和背景图等样式风格的配置文件。</p>
 
       
 
@@ -1103,6 +1171,34 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LibIconv</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">DShow</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">OpenCV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">FFmpeg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">视频</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">并发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">同步</a>
               </li>
             
             <div class="clearfix"></div>

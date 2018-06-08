@@ -160,6 +160,317 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-CShap ShellExcute与Process" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/01/CShap ShellExcute与Process/">C#运行外部程序的两种方法</a>
+    </h1>
+  
+
+        
+        <a href="/2017/01/01/CShap ShellExcute与Process/" class="archive-article-date">
+  	<time datetime="2017-01-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="C-运行外部程序的两种方法"><a href="#C-运行外部程序的两种方法" class="headerlink" title="C#运行外部程序的两种方法"></a>C#运行外部程序的两种方法</h1><h2 id="ShellExecute"><a href="#ShellExecute" class="headerlink" title="ShellExecute"></a>ShellExecute</h2><pre><code>using System.Runtime.InteropServices;
+
+public enum ShowWindowCommands : int
+{
+
+    SW_HIDE = 0,
+    SW_SHOWNORMAL = 1,    //用最近的大小和位置显示，激活
+    SW_NORMAL = 1,
+    SW_SHOWMINIMIZED = 2,
+    SW_SHOWMAXIMIZED = 3,
+    SW_MAXIMIZE = 3,
+    SW_SHOWNOACTIVATE = 4,
+    SW_SHOW = 5,
+    SW_MINIMIZE = 6,
+    SW_SHOWMINNOACTIVE = 7,
+    SW_SHOWNA = 8,
+    SW_RESTORE = 9,
+    SW_SHOWDEFAULT = 10,
+    SW_MAX = 10
+}
+[DllImport(&quot;shell32.dll&quot;)]
+public static extern IntPtr ShellExecute(
+    IntPtr hwnd,
+    string lpszOp,
+    string lpszFile,
+    string lpszParams,
+    string lpszDir,
+    ShowWindowCommands FsShowCmd
+);
+</code></pre><h3 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h3><pre><code>ShellExecute(IntPtr.Zero, &quot;open&quot;, UrlOrPath, null, null, ShowWindowCommands.SW_SHOWNORMAL);
+</code></pre><p>UrlOrPath可为exe路径或者网页url(使用默认浏览器打开网页url)</p>
+<p>使用ie打开网页url</p>
+<pre><code>ShellExecute(NULL, &quot;open&quot;, &quot;IEXPLORE&quot;, &quot;http://www.csdn.net&quot;, NULL, SW_SHOWMAXIMIZED);
+</code></pre><h2 id="Process"><a href="#Process" class="headerlink" title="Process"></a>Process</h2><pre><code>using System.Diagnostics;
+
+private static string Execute(string exePath, string parameters)
+{
+    string result = String.Empty;
+
+    using (Process p = new Process())
+    {
+        p.StartInfo.UseShellExecute = false;
+        p.StartInfo.CreateNoWindow = true;
+        p.StartInfo.RedirectStandardOutput = true;
+        p.StartInfo.FileName = exePath;
+        p.StartInfo.Arguments = parameters;
+        p.Start();
+        p.WaitForExit();
+
+        result = p.StandardOutput.ReadToEnd();
+    }
+
+    return result;
+}
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">运行外部程序</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/01/01/CShap ShellExcute与Process/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-制作CAB包" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/15/制作CAB包/">制作CAB包</a>
+    </h1>
+  
+
+        
+        <a href="/2016/12/15/制作CAB包/" class="archive-article-date">
+  	<time datetime="2016-12-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="制作CAB包"><a href="#制作CAB包" class="headerlink" title="制作CAB包"></a>制作CAB包</h1><h2 id="inf文件"><a href="#inf文件" class="headerlink" title="inf文件"></a>inf文件</h2><p>INF是Device INFormation File的英文缩写，是Microsoft公司为硬件设备制造商发布其驱动程序推出的一种文件格式，INF文件中包含硬件设备的信息或脚本以控制硬件操作。在INF文件中指明了硬件驱动该如何安装到系统中，源文件在哪里、安装到哪一个文件夹中、怎样在注册表中加入自身相关信息等等。</p>
+<h3 id="给硬盘（U盘）DIY一个可爱的图标"><a href="#给硬盘（U盘）DIY一个可爱的图标" class="headerlink" title="给硬盘（U盘）DIY一个可爱的图标"></a>给硬盘（U盘）DIY一个可爱的图标</h3><p>接着打开记事本程序，录入以下内容：</p>
+<pre><code>[autorun]
+ICON=******.ICO
+</code></pre><p>其中“<strong>**</strong>”是图标文件的路径及图标文件名，请自行修改为具体的图标文件的路径及图标文件名。录入完毕，另存为“Autorun.inf”,并将其剪切到某一个你欲扮酷的分区的根目录下。</p>
+<h3 id="在命令行下安装INF文件"><a href="#在命令行下安装INF文件" class="headerlink" title="在命令行下安装INF文件"></a>在命令行下安装INF文件</h3><p>通常情况下，我们都是在Windows环境下安装INF文件的，但是假如有一天，你需要在命令行运行INF文件该怎么办呢？</p>
+<p>在命令行提示符后输入“ rundll32 syssetup,SetupInfObjectInstallAction DefaultInstall 128 INF文件所在的路径及文件名.inf ”，回车后即可安装相应的INF文件。</p>
+<p>[pre]再提供两个方法：</p>
+<p>　　方法1. 运行RunDll32 advpack.dll,LaunchINFSection YOUINF.inf,DefaultInstall</p>
+<p>　　方法2.修复右键安装</p>
+<p>　　操作步骤如下：</p>
+<p>　　打开我的电脑，“工具”菜单中的“文件夹选项”。切换至“文件类型”选项卡，在其中找到inf文件，点高级按钮，双击“安装”(如没有“安装”就添加一个)，按如下内容修改</p>
+<p>　　用于执行操作的应用程序:</p>
+<p>　　C:\WINDOWS\System32\rundll32.exe setupapi,InstallHinfSection DefaultInstall 132 %1</p>
+<p>　　点选使用DDE(U)</p>
+<p>　　应用程序(C):</p>
+<p>　　setupapi</p>
+<p>　　主题(T):</p>
+<p>　　System</p>
+<p>　　确认！</p>
+<p>　　然后再次右键点选inf文件安装。</p>
+<h3 id="编写inf文件"><a href="#编写inf文件" class="headerlink" title="编写inf文件"></a>编写inf文件</h3><pre><code>; Sample INF file for IMES.DLL
+
+;分号后为注释
+
+[version] 
+; version signature (same for both NT and Win95) do not remove
+
+;在该节中如果出现“signature=&quot;$CHICAGO$&quot;”这样的条目则表示该INF文件适用于Windows 98之后的所有操作系统，如果包含“signature=&quot;$Windows NT$&quot;”这样的条目则表示该INF文件适用于Windows 2000/XP/2003操作系统，而且两者必具其一
+
+signature=&quot;$CHICAGO$&quot;
+AdvancedINF=2.0  
+
+[Add.Code]
+Editor.ocx = Editor.ocx
+
+; needed DLL
+
+[Editor.ocx]
+file=thiscab
+clsid={8BB4EE5B-5919-11D1-A01A-0060971932BC}
+RegisterServer=yes
+FileVersion=5,0,1,7
+
+; end of INF file
+</code></pre><h2 id="将ActiveX控件进行打包并加数据鉴名的工具集："><a href="#将ActiveX控件进行打包并加数据鉴名的工具集：" class="headerlink" title="将ActiveX控件进行打包并加数据鉴名的工具集："></a>将ActiveX控件进行打包并加数据鉴名的工具集：</h2><ul>
+<li>Cabarc.exe 将ocx打包成cab</li>
+<li>Cert2spc.exe 将cer格式证书转换成spc格式证书， 即PKCS#7证书</li>
+<li>Certmgr.exe 是管理证书用的</li>
+<li>Chktrust.exe 检查签署证书后的ocx是否正确</li>
+<li>Makecat.exe</li>
+<li>Makecert.exe 制作cer格式的证书， 即X.509证书， 同时可以创建私钥和公钥</li>
+<li>Makectl.exe</li>
+<li>Signcode.exe 将证书签署到ocx上</li>
+</ul>
+<p>工具集下载：<a href="http://files.cnblogs.com/files/yhcao/makeCAB.rar" target="_blank" rel="noopener">makeCAB.rar</a></p>
+<h2 id="制作CAB文件"><a href="#制作CAB文件" class="headerlink" title="制作CAB文件"></a>制作CAB文件</h2><ul>
+<li>CMD 输入 iexpress，将启动Iexpress向导</li>
+<li>选中”Create new Self Extraction Directive file”</li>
+<li>选择”Create compressed files only(ActiveX Installs)”</li>
+<li>添加INF文件中所列所有文件（DLL及DEF等）</li>
+<li>单击”下一步(N)”，单击Browse按钮选择RemtCard.CAB文件，同时选中 “Store files using long Name inside Package”checkbx</li>
+<li>选择”Don’t save”</li>
+<li>单击完成按钮将同时生成RemtCard.CAB文件</li>
+</ul>
+<p>或</p>
+<p>执行<br>    CABARC -s 6144 n RemtCard.cab ocx文件.ocx inf文件.INF</p>
+<p>生成RemtCard.CAB文件</p>
+<h2 id="自制数字证书"><a href="#自制数字证书" class="headerlink" title="自制数字证书"></a>自制数字证书</h2><p>用CMD进入到控件所在的目录;</p>
+<p>创建PVK文件(私人密匙文件)，CMD输入makecert  -$ “individual” -r -sk RemtCard RemtCard.pvk -n CN=XXXXXXX</p>
+<p>创建CER文件(公司证书)，CMD输入“makecert -sk RemtCard.pvk RemtCard.cer”，然后回车,在相对目录下会出现一个安全证书</p>
+<p>创建SPC测试软件出版商证明书，CMD输入“cert2spc RemtCard.cer RemtCard.spc”</p>
+<p>或</p>
+<p>执行</p>
+<pre><code>makecert -cy both -d RemtCard -n CN=xxxx有限公司 -sv RemtCard.pvk RemtCard.cer
+Cert2SPC RemtCard.cer RemtCard.spc
+</code></pre><h2 id="文件数字签名"><a href="#文件数字签名" class="headerlink" title="文件数字签名"></a>文件数字签名</h2><p>在CMD中运行signcode</p>
+<p>选择RemtCard.CAB</p>
+<p>选择好RemtCard.CAB文件后单击”下一步（N）”按钮，在选择想要的签名类型里选择”自定义（C）”按钮</p>
+<p>单击”从文件选择（F）”按钮，选择刚制作的RemtCard.cer</p>
+<p>选择”CSP中的私钥（K）”</p>
+<p>容器密匙选择RemtCard.pvk</p>
+<p>在散列算法中选择”md5”</p>
+<p>“证书路径中的证书”中选择”证书路径中的所有证书，包括根证书（C）”，在”其它证书（可选）”中选择“包括在以下PKCS #7 证书（.p7b）文件中的证书（P）：””，并单击”浏览（R）…”按钮选择RemtCard.spc文件</p>
+<p>“数据描述”窗口中输入公司的名称及网址并单击”</p>
+<p>或</p>
+<p>执行</p>
+<pre><code>signcode.exe -spc RemtCard.spc -v RemtCard.pvk -n RemtCard1.0.0.1 -i www.xxx.com.cn  RemtCard.cab
+</code></pre><h2 id="activeX插件安装升级"><a href="#activeX插件安装升级" class="headerlink" title="activeX插件安装升级"></a>activeX插件安装升级</h2><pre><code>&lt;object codebase=&quot;http://localhost/RemtCard.cab#version=1,1&quot;CLASSID=&quot;CLSID:8BB4EE5B-5919-11D1-A01A-0060971932BC&quot;…/&gt;    
+</code></pre><p>参考：</p>
+<ul>
+<li><a href="http://baike.baidu.com/link?url=cCp8mTjGGqdPPJzIfyBi5NIW13Y0jnETjPfegu2BI0K5SCryoFRf4dnk7BdpkMyimDKw8iTuSKAGVSFItXJcIm72x-sU_FrV_41BJS3F09m" target="_blank" rel="noopener">inf文件</a></li>
+<li><a href="http://www.cnblogs.com/sbdx/archive/2006/12/14/whatisinffile.html?login=1" target="_blank" rel="noopener">如何编写 INF 文件</a></li>
+<li><a href="https://msdn.microsoft.com/zh-cn/library/bfsktky3(VS.80" target="_blank" rel="noopener">证书创建工具 (Makecert.exe)</a>.aspx)</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">制作CAB包</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">打包</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/12/15/制作CAB包/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-CShap http" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -709,106 +1020,6 @@ namespace GetTest
 
 
   
-    <article id="post-CShap 视频编辑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/01/CShap 视频编辑/">C# 视频编辑</a>
-    </h1>
-  
-
-        
-        <a href="/2016/10/01/CShap 视频编辑/" class="archive-article-date">
-  	<time datetime="2016-10-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="VidCoder"><a href="#VidCoder" class="headerlink" title="VidCoder"></a>VidCoder</h1><p>VidCoder是一个开源免费的DVD/蓝光视频抓取和转码软件.使用HandBrake做为编码引擎.比Handbrake拥有更友好的用户界面.</p>
-<p>可裁剪、剪切、字幕编辑、转码等。</p>
-<p>官网：<br><a href="http://vidcoder.codeplex.com/" target="_blank" rel="noopener">http://vidcoder.codeplex.com/</a></p>
-<h1 id="VLC-media-player"><a href="#VLC-media-player" class="headerlink" title="VLC media player"></a>VLC media player</h1><p>VLC 是一款自由、开源的跨平台多媒体播放器及框架，可播放大多数多媒体文件，以及 DVD、音频 CD、VCD 及各类流媒体协议。</p>
-<p>官网：<a href="http://www.videolan.org/vlc/" target="_blank" rel="noopener">http://www.videolan.org/vlc/</a></p>
-<h1 id="ffmpeg-Mencoder"><a href="#ffmpeg-Mencoder" class="headerlink" title="ffmpeg + Mencoder"></a>ffmpeg + Mencoder</h1><p>ffmpeg下载：<a href="http://ffmpeg.org/download.html" target="_blank" rel="noopener">http://ffmpeg.org/download.html</a></p>
-<p>Mencoder下载：<a href="http://www.mplayerhq.hu/design7/dload.html" target="_blank" rel="noopener">http://www.mplayerhq.hu/design7/dload.html</a></p>
-<p>C#调用ffmpeg的方法，仅供参考：<a href="https://github.com/CAOJINGYOU/VideoEditor" target="_blank" rel="noopener">VideoEditor</a></p>
-<h1 id="SharpFFmpeg"><a href="#SharpFFmpeg" class="headerlink" title="SharpFFmpeg"></a>SharpFFmpeg</h1><p>SharpFFmpeg 是一个 ffmpeg 的 C# 绑定版本，允许 .NET 开发者轻松的创建音频和视频应用。</p>
-<p>个人没用过，感觉不错，一会有机会研究下。</p>
-<p>下载地址：<a href="https://sourceforge.net/projects/sharpffmpeg/" target="_blank" rel="noopener">https://sourceforge.net/projects/sharpffmpeg/</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VidCoder</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VLC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ffmpeg</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/10/01/CShap 视频编辑/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-C++智能指针" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1003,6 +1214,106 @@ private:
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2016/10/01/C++智能指针/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-CShap 视频编辑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/01/CShap 视频编辑/">C# 视频编辑</a>
+    </h1>
+  
+
+        
+        <a href="/2016/10/01/CShap 视频编辑/" class="archive-article-date">
+  	<time datetime="2016-10-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="VidCoder"><a href="#VidCoder" class="headerlink" title="VidCoder"></a>VidCoder</h1><p>VidCoder是一个开源免费的DVD/蓝光视频抓取和转码软件.使用HandBrake做为编码引擎.比Handbrake拥有更友好的用户界面.</p>
+<p>可裁剪、剪切、字幕编辑、转码等。</p>
+<p>官网：<br><a href="http://vidcoder.codeplex.com/" target="_blank" rel="noopener">http://vidcoder.codeplex.com/</a></p>
+<h1 id="VLC-media-player"><a href="#VLC-media-player" class="headerlink" title="VLC media player"></a>VLC media player</h1><p>VLC 是一款自由、开源的跨平台多媒体播放器及框架，可播放大多数多媒体文件，以及 DVD、音频 CD、VCD 及各类流媒体协议。</p>
+<p>官网：<a href="http://www.videolan.org/vlc/" target="_blank" rel="noopener">http://www.videolan.org/vlc/</a></p>
+<h1 id="ffmpeg-Mencoder"><a href="#ffmpeg-Mencoder" class="headerlink" title="ffmpeg + Mencoder"></a>ffmpeg + Mencoder</h1><p>ffmpeg下载：<a href="http://ffmpeg.org/download.html" target="_blank" rel="noopener">http://ffmpeg.org/download.html</a></p>
+<p>Mencoder下载：<a href="http://www.mplayerhq.hu/design7/dload.html" target="_blank" rel="noopener">http://www.mplayerhq.hu/design7/dload.html</a></p>
+<p>C#调用ffmpeg的方法，仅供参考：<a href="https://github.com/CAOJINGYOU/VideoEditor" target="_blank" rel="noopener">VideoEditor</a></p>
+<h1 id="SharpFFmpeg"><a href="#SharpFFmpeg" class="headerlink" title="SharpFFmpeg"></a>SharpFFmpeg</h1><p>SharpFFmpeg 是一个 ffmpeg 的 C# 绑定版本，允许 .NET 开发者轻松的创建音频和视频应用。</p>
+<p>个人没用过，感觉不错，一会有机会研究下。</p>
+<p>下载地址：<a href="https://sourceforge.net/projects/sharpffmpeg/" target="_blank" rel="noopener">https://sourceforge.net/projects/sharpffmpeg/</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VidCoder</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VLC</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ffmpeg</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/10/01/CShap 视频编辑/">展开全文 >></a>
         </p>
       
 
@@ -1378,232 +1689,6 @@ hexo g -d #生成并部署
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2016/08/15/程序打包/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-我喜欢的Notepad++插件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/01/我喜欢的Notepad++插件/">我喜欢的Notepad++插件</a>
-    </h1>
-  
-
-        
-        <a href="/2016/08/01/我喜欢的Notepad++插件/" class="archive-article-date">
-  	<time datetime="2016-08-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-08-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Notepad-插件"><a href="#Notepad-插件" class="headerlink" title="Notepad++插件"></a>Notepad++插件</h1><h2 id="HEX-Editor"><a href="#HEX-Editor" class="headerlink" title="HEX-Editor"></a>HEX-Editor</h2><p>文本转16进制，查看编辑。</p>
-<h2 id="NppExport"><a href="#NppExport" class="headerlink" title="NppExport"></a>NppExport</h2><p>导出已着色代码为其他格式的文件。<br>将彩色代码，导出为word文档（RFT）或网页（HTML）文件，或者将彩色代码（RTF格式或HTMl格式）拷贝到剪贴板，粘贴到别的（word文档，HTML网页）中去。</p>
-<h2 id="CoolFormatNppPlugin"><a href="#CoolFormatNppPlugin" class="headerlink" title="CoolFormatNppPlugin"></a>CoolFormatNppPlugin</h2><p>代码格式化</p>
-<h2 id="NppAStyle"><a href="#NppAStyle" class="headerlink" title="NppAStyle"></a>NppAStyle</h2><p>代码格式化</p>
-<h2 id="XML-Tools"><a href="#XML-Tools" class="headerlink" title="XML Tools"></a>XML Tools</h2><p>XML语法规则检查</p>
-<h2 id="Compare-Plugin"><a href="#Compare-Plugin" class="headerlink" title="Compare Plugin"></a>Compare Plugin</h2><p>比较文件</p>
-<h2 id="PyNpp"><a href="#PyNpp" class="headerlink" title="PyNpp"></a>PyNpp</h2><p>直接在Notepad中编写运行Python</p>
-<h2 id="JSON-Viewer"><a href="#JSON-Viewer" class="headerlink" title="JSON Viewer"></a>JSON Viewer</h2><p>Json查看格式</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Notepad++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/08/01/我喜欢的Notepad++插件/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Json" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/15/Json/">Json</a>
-    </h1>
-  
-
-        
-        <a href="/2016/07/15/Json/" class="archive-article-date">
-  	<time datetime="2016-07-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="JsonCpp"><a href="#JsonCpp" class="headerlink" title="JsonCpp"></a>JsonCpp</h1><h2 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h2><p><a href="https://github.com/open-source-parsers/jsoncpp" title="https://github.com/open-source-parsers/jsoncpp" target="_blank" rel="noopener">https://github.com/open-source-parsers/jsoncpp</a></p>
-<p><a href="https://sourceforge.net/projects/jsoncpp/" title="https://sourceforge.net/projects/jsoncpp/" target="_blank" rel="noopener">https://sourceforge.net/projects/jsoncpp/</a></p>
-<p><a href="https://github.com/open-source-parsers/jsoncpp/archive/1.7.4.zip" title="JsonCpp1.7.4" target="_blank" rel="noopener">https://github.com/open-source-parsers/jsoncpp/archive/1.7.4.zip</a></p>
-<h2 id="使用："><a href="#使用：" class="headerlink" title="使用："></a>使用：</h2><h3 id="配置："><a href="#配置：" class="headerlink" title="配置："></a>配置：</h3><p>本人使用的是JsonCpp1.7.4，解压后直接把include与src复制到自己的项目下。</p>
-<p>在项目中附加包含目录：<code>../include;../src/lib_json;</code></p>
-<p>把两个目录中的文件添加到项目中</p>
-<p>json_reader.cpp、json_value.cpp和json_writer.cpp三个文件的预编译头改成“不使用预编译头”</p>
-<h3 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h3><pre><code>Json::Value root;   // will contains the root value after parsing.
-Json::Reader reader;
-bool parsingSuccessful = reader.parse( config_doc, root );
-if ( !parsingSuccessful )
-{
-// report to the user the failure and their locations in the document.
-std::cout  &lt;&lt; &quot;Failed to parse configuration\n&quot;
-   &lt;&lt; reader.getFormattedErrorMessages();
-return;
-}
-
-// Get the value of the member of root named &apos;encoding&apos;, return &apos;UTF-8&apos; if there is no
-// such member.
-std::string encoding = root.get(&quot;encoding&quot;, &quot;UTF-8&quot; ).asString();
-// Get the value of the member of root named &apos;encoding&apos;, return a &apos;null&apos; value if
-// there is no such member.
-const Json::Value plugins = root[&quot;plug-ins&quot;];
-for ( int index = 0; index &lt; plugins.size(); ++index )  // Iterates over the sequence elements.
-loadPlugIn( plugins[index].asString() );
-
-setIndentLength( root[&quot;indent&quot;].get(&quot;length&quot;, 3).asInt() );
-setIndentUseSpace( root[&quot;indent&quot;].get(&quot;use_space&quot;, true).asBool() );
-
-// ...
-// At application shutdown to make the new configuration document:
-// Since Json::Value has implicit constructor for all value types, it is not
-// necessary to explicitly construct the Json::Value object:
-root[&quot;encoding&quot;] = getCurrentEncoding();
-root[&quot;indent&quot;][&quot;length&quot;] = getCurrentIndentLength();
-root[&quot;indent&quot;][&quot;use_space&quot;] = getCurrentIndentUseSpace();
-
-Json::StyledWriter writer;
-// Make a new JSON document for the configuration. Preserve original comments.
-std::string outputConfig = writer.write( root );
-
-// You can also use streams.  This will put the contents of any JSON
-// stream at a particular sub-value, if you&apos;d like.
-std::cin &gt;&gt; root[&quot;subtree&quot;];
-
-// And you can write to a stream, using the StyledWriter automatically.
-std::cout &lt;&lt; root;
-</code></pre><h1 id="ggicci–json"><a href="#ggicci–json" class="headerlink" title="ggicci–json"></a>ggicci–json</h1><p>发现JsonCpp竟然有内存泄露！！！可能我用法不对，放弃了。另外找了一个ggicci–json。</p>
-<h2 id="下载地址："><a href="#下载地址：" class="headerlink" title="下载地址："></a>下载地址：</h2><p><a href="https://github.com/ggicci/ggicci--json" title="https://github.com/ggicci/ggicci--json" target="_blank" rel="noopener">https://github.com/ggicci/ggicci–json</a></p>
-<h1 id="rapidjson"><a href="#rapidjson" class="headerlink" title="rapidjson"></a>rapidjson</h1><p>rapidjson更快,最终使用了rapidjson</p>
-<h2 id="下载地址：-1"><a href="#下载地址：-1" class="headerlink" title="下载地址："></a>下载地址：</h2><p><a href="https://github.com/miloyip/rapidjson/" title="https://github.com/miloyip/rapidjson/" target="_blank" rel="noopener">https://github.com/miloyip/rapidjson/</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Json</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">JsonCpp</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ggicci--json</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/07/15/Json/">展开全文 >></a>
         </p>
       
 
@@ -2363,6 +2448,34 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">LibIconv</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">DShow</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">OpenCV</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">FFmpeg</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">视频</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">并发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多线程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">同步</a>
               </li>
             
             <div class="clearfix"></div>
