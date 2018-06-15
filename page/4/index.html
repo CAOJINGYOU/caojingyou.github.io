@@ -160,6 +160,285 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Jenkins" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/02/Jenkins/">Jenkins</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/02/Jenkins/" class="archive-article-date">
+  	<time datetime="2018-03-02T01:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="https://jenkins.io/" target="_blank" rel="noopener">https://jenkins.io/</a></p>
+<p><a href="https://jenkins.io/" target="_blank" rel="noopener">https://jenkins.io/solutions/c/</a></p>
+<p><a href="https://www.cnblogs.com/huangenai/p/7416322.html" target="_blank" rel="noopener">记密码解决方法</a></p>
+<h1 id="安装-MSBuild-plugin"><a href="#安装-MSBuild-plugin" class="headerlink" title="安装 MSBuild plugin"></a>安装 MSBuild plugin</h1><p>在 Jenkins 管理页面中，点击[插件管理]进入插件管理页面，切换到[可选插件]页签，在右上角搜索框中输入 MSBuild 找到 MSBuild Plugin，点击[直接安装]按钮开始安装</p>
+<p>安装好之后，就会在[已安装]页签找到 MSBuild Plugin。<br>回到 Jenkins 管理页面中，点击[Global Tool Configuration]，进入全局工具设置页面。</p>
+<p>找到[MSBuild]栏目，点击[新增MSBuild]按钮，[Name]随意填写，使用MSBuild 14.0。[Path to MSBuild]填写MSBuild.exe所在的实际路径。</p>
+<p>.\build\src\AppName.sln</p>
+<p>/t:rebuild /p:configuration=”Release”</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Jenkins</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">自动构建</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/02/Jenkins/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-WPF读写config配置文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/01/WPF读写config配置文件/">WPF读写config配置文件</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/01/WPF读写config配置文件/" class="archive-article-date">
+  	<time datetime="2018-03-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="设置："><a href="#设置：" class="headerlink" title="设置："></a>设置：</h1><p>在引用里添加</p>
+<pre><code>System.Configuration
+</code></pre><p>如果你想给程序配置一些参数，就在app.config文件<configuration>标签中添加<appsettings>.例如下面：</appsettings></configuration></p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;  
+&lt;configuration&gt;  
+  &lt;appSettings&gt;  
+    &lt;add key=&quot;Path&quot; value=&quot;D:\&quot;/&gt;  
+    &lt;add key=&quot;NAME&quot; value=&quot;123&quot;/&gt;  
+  &lt;/appSettings&gt;  
+&lt;/configuration&gt;
+</code></pre><p>读操作：</p>
+<pre><code>string strPath = ConfigurationManager.AppSettings[&quot;Path&quot;]; 
+</code></pre><p>写操作：</p>
+<pre><code>Configuration cfa = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None); 
+cfa.AppSettings.Settings[&quot;NAME&quot;].Value = &quot;WANGLICHAO&quot;; 
+cfa.Save(); 
+</code></pre><p>是配置立刻起作用：</p>
+<pre><code>Save()
+</code></pre><p>后加</p>
+<pre><code>ConfigurationManager.RefreshSection(&quot;appSettings&quot;);
+</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="http://www.cnblogs.com/fei12/p/3331100.html" target="_blank" rel="noopener">WPF读写config配置文件</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">WPF</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">配置文件</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/01/WPF读写config配置文件/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-VA Snippet 与 代码片段管理器" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/21/VA Snippet 与 代码片段管理器/">VA Snippet 与 代码片段管理器</a>
+    </h1>
+  
+
+        
+        <a href="/2018/02/21/VA Snippet 与 代码片段管理器/" class="archive-article-date">
+  	<time datetime="2018-02-21T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="VA-Snippet"><a href="#VA-Snippet" class="headerlink" title="VA Snippet"></a>VA Snippet</h1><p><a href="http://docs.wholetomato.com/default.asp?W171" target="_blank" rel="noopener">Introduction to VA Snippets</a></p>
+<h2 id="备份VA-Snippet-tpl文件"><a href="#备份VA-Snippet-tpl文件" class="headerlink" title="备份VA Snippet.tpl文件"></a>备份VA Snippet.tpl文件</h2><p>Backup your current VA Snippets, for the programming languages of interest. You can find your VA Snippets in .tpl files in:</p>
+<pre><code>%APPDATA%\VisualAssist\Autotext\
+</code></pre><h1 id="代码片段管理器"><a href="#代码片段管理器" class="headerlink" title="代码片段管理器"></a>代码片段管理器</h1>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">VS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">代码片段</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/02/21/VA Snippet 与 代码片段管理器/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-CShap用到过的库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1218,398 +1497,6 @@ pause
 
 
   
-    <article id="post-cppunit" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/18/cppunit/">CppUnit</a>
-    </h1>
-  
-
-        
-        <a href="/2018/01/18/cppunit/" class="archive-article-date">
-  	<time datetime="2018-01-18T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="CppUnit"><a href="#CppUnit" class="headerlink" title="CppUnit"></a>CppUnit</h1><p><a href="https://sourceforge.net/projects/cppunit/?source=directory" target="_blank" rel="noopener">CppUnit - C++ port of JUnit</a></p>
-<p><a href="https://www.freedesktop.org/wiki/Software/cppunit/" target="_blank" rel="noopener">cppunit-freedesktop.org</a></p>
-<p><a href="http://cppunit.sourceforge.net/doc/lastest/index.html" target="_blank" rel="noopener">CppUnit Documentation</a></p>
-<p><a href="https://baike.baidu.com/item/CppUnit/2218302?fr=aladdin" target="_blank" rel="noopener">CppUnit百度百科</a></p>
-<p><a href="https://www.ibm.com/developerworks/cn/linux/l-cppunit/" target="_blank" rel="noopener">便利的开发工具 CppUnit 快速使用指南</a></p>
-<p><a href="https://wenku.baidu.com/view/b7fcad4bcf84b9d528ea7ae1.html" target="_blank" rel="noopener">CppUnit源码解读</a></p>
-<p><a href="http://morningspace.51.net/resource/cppunit/cppunit_anno.html" target="_blank" rel="noopener">晨光（Morning）CppUnit源码解读</a></p>
-<p><a href="http://blog.csdn.net/eplanet/article/details/1844456" target="_blank" rel="noopener">C++——测试工具CppUnit的安装和配置</a></p>
-<p><a href="http://blog.csdn.net/x_iya/article/details/8433716" target="_blank" rel="noopener">CppUnit在VS2010上的正确使用</a></p>
-<p><a href="https://wenku.baidu.com/view/0997c8a30b1c59eef9c7b47f.html" target="_blank" rel="noopener">[vs2010 配置与实例] CppUnit快速入门</a></p>
-<h1 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h1><p><a href="http://dev-www.libreoffice.org/src/cppunit-1.14.0.tar.gz" target="_blank" rel="noopener">cppunit-1.14.0.tar.gz</a></p>
-<p><a href="https://sourceforge.net/projects/cppunit/files/cppunit/1.12.1/cppunit-1.12.1.tar.gz/download" target="_blank" rel="noopener">cppunit-1.12.1.tar.gz</a></p>
-<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><p>在CppUnit的源代码中，包含了几个测试工程的例子。</p>
-<ul>
-<li>CppUnitTestMain：一个实际的测试包（test suite）用来测试CppUnit。使用了TextTestRunner（文本方式的单元测试环境），利用CompilterOutputter进行post-build testing（即在编译结束之后紧跟着进行测试）。在配置中设定连接了cppunit的静态库和动态库。</li>
-</ul>
-<ul>
-<li>CppUnitTestApp：包含了与CppUnitTestMain相同的测试包，但使用了MFC TestRunner（GUI方式的单元测试环境）</li>
-</ul>
-<ul>
-<li>Hierarchy：一个演示如何子类化测试的例子（你也许更愿意使用HelperMacros.h以及宏CPPUNIT_TEST_SUB_SUITE，这种方式更为简洁清晰。本示例已经很久没有更新了）。</li>
-</ul>
-<ul>
-<li>HostApp ：一个用MFC TestRunner演示各种失败测试的例子。也演示了MFC Unicode TestRunner。</li>
-</ul>
-<ul>
-<li>TestPlugIn：一个演示如何为TestPlugInRunner编写TestPlugIn的例子（实验性的）。</li>
-</ul>
-<h1 id="判断宏"><a href="#判断宏" class="headerlink" title="判断宏"></a>判断宏</h1><p><code>CPPUNIT_ASSERT</code>是一个宏，判断后面的参数是否正确，CPPUNIT还有很多宏，如</p>
-<pre><code>CPPUNIT_ASSERT(condition)                      // 确信condition为真
-CPPUNIT_ASSERT_MESSAGE(message, condition)     // 当condition为假时失败, 并打印message
-CPPUNIT_FAIL(message)                          // 当前测试失败, 并打印message
-CPPUNIT_ASSERT_EQUAL(expected, actual)         // 确信两者相等
-CPPUNIT_ASSERT_EQUAL_MESSAGE(message, expected, actual) // 失败的同时打印message
-CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, actual, delta)   // 当expected和actual之间差大于delta时失败
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">CppUnit</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">单元测试</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/18/cppunit/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Hexo yilia主题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/10/Hexo yilia主题/">Hexo yilia主题</a>
-    </h1>
-  
-
-        
-        <a href="/2018/01/10/Hexo yilia主题/" class="archive-article-date">
-  	<time datetime="2018-01-10T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h1><ul>
-<li><a href="https://github.com/litten/hexo-theme-yilia" title="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia</a></li>
-<li><a href="http://litten.me/" title="http://litten.me/" target="_blank" rel="noopener">http://litten.me/</a></li>
-<li><a href="https://github.com/litten/hexo-theme-yilia" title="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia</a></li>
-<li><a href="https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5" title="https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5</a></li>
-</ul>
-<h1 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h1><p>关于SEO与RSS，需要在博客根目录（注意不是yilia根目录）安装这三个node_modules:</p>
-<pre><code>npm install hexo-generator-feed --save
-npm install hexo-generator-baidu-sitemap --save
-npm install hexo-generator-sitemap --save
-</code></pre><p>分别对应：rss、百度爬虫sitemap、通用搜索引擎sitemap</p>
-<h1 id="不显示标签："><a href="#不显示标签：" class="headerlink" title="不显示标签："></a>不显示标签：</h1><p>缺失模块。<br>1、在博客根目录（注意不是yilia根目录）执行以下命令：</p>
-<p>npm i hexo-generator-json-content –save</p>
-<p>2、在根目录_config.yml里添加配置：</p>
-<pre><code>jsonContent:
-  meta: false
-  pages: false
-  posts:
-    title: true
-    date: true
-    path: true
-    text: true
-    raw: false
-    content: false
-    slug: false
-    updated: false
-    comments: false
-    link: false
-    permalink: false
-    excerpt: false
-    categories: false
-    tags: true
-</code></pre><h1 id="【Hexo】Hexo-Github构建个人博客-（五）：错误集"><a href="#【Hexo】Hexo-Github构建个人博客-（五）：错误集" class="headerlink" title="【Hexo】Hexo+Github构建个人博客 （五）：错误集"></a>【Hexo】Hexo+Github构建个人博客 （五）：错误集</h1><ul>
-<li><a href="http://www.cnblogs.com/arvin0/p/6664239.html" title="http://www.cnblogs.com/arvin0/p/6664239.html" target="_blank" rel="noopener">http://www.cnblogs.com/arvin0/p/6664239.html</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">yilia主题</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">博客</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/10/Hexo yilia主题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-SQLite NET" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/09/SQLite NET/">SQLite NET</a>
-    </h1>
-  
-
-        
-        <a href="/2018/01/09/SQLite NET/" class="archive-article-date">
-  	<time datetime="2018-01-09T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-09</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-程序中使用-SQLite-数据库"><a href="#C-程序中使用-SQLite-数据库" class="headerlink" title="C# 程序中使用 SQLite 数据库"></a>C# 程序中使用 SQLite 数据库</h1><pre><code>using System;
-using System.Data;
-using System.Data.SQLite;
-
-//C# 使用 SQLite 数据测试程序
-public class Program
-{
-    public static void Main(string[] args)
-    {
-        using (SQLiteConnection con = new SQLiteConnection(&quot;Data Source=c:\\test.db3;Pooling=true;FailIfMissing=false&quot;))
-        {
-            //打开数据库文件 c:\\test.db3，不存在则创建
-            con.Open();
-
-            using (SQLiteCommand cmd = new SQLiteCommand())
-            {
-                cmd.Connection = con;
-
-                //检查是否存在表 test，不存在则创建
-                Boolean testTableExists = false;
-                cmd.CommandText = &quot;SELECT * FROM sqlite_master WHERE type=&apos;table&apos; and name=&apos;test&apos;&quot;;
-                using(SQLiteDataReader dr = cmd.ExecuteReader())
-                {
-                    if (dr.Read())
-                    {
-                        testTableExists = true;
-                    }
-                }
-                if (!testTableExists)
-                {
-                    cmd.CommandText = &quot;CREATE TABLE [test] (id int, name nvarchar(20))&quot;;
-                    cmd.ExecuteNonQuery();
-                }
-
-                //清空 test 表
-                cmd.CommandText = &quot;DELETE FROM [test]&quot;;
-                cmd.ExecuteNonQuery();
-
-                //插入测试数据
-                for (int i = 1; i &lt;= 5; i++)
-                {
-                    cmd.CommandText = string.Format(&quot;INSERT INTO [test] VALUES ({0}, &apos;中文测试&apos;)&quot;, i);
-                    cmd.ExecuteNonQuery();
-                }
-
-                //读取数据
-                cmd.CommandText = &quot;SELECT * FROM [test]&quot;;
-                using (SQLiteDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
-                {
-                    while (dr.Read())
-                    {
-                        Console.WriteLine(&quot;第{0} 条：{1}&quot;, dr.GetValue(0), dr.GetString(1));
-                    }
-                }
-            }
-        }
-
-        Console.WriteLine(&quot;Press any key to continue...&quot;);
-        Console.ReadKey();
-    }
-}
-</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="http://unmi.cc/csharp-use-sqlite-db/" title="http://unmi.cc/csharp-use-sqlite-db/" target="_blank" rel="noopener">http://unmi.cc/csharp-use-sqlite-db/</a></li>
-<li><a href="http://blog.163.com/baiyunping333@126/blog/static/2439447220093162323933/" title="http://blog.163.com/baiyunping333@126/blog/static/2439447220093162323933/" target="_blank" rel="noopener">http://blog.163.com/baiyunping333@126/blog/static/2439447220093162323933/</a></li>
-<li><a href="http://www.sqlite.org/lang_keywords.html" title="http://www.sqlite.org/lang_keywords.html" target="_blank" rel="noopener">http://www.sqlite.org/lang_keywords.html</a></li>
-<li><a href="http://www.sqlite.org/lang_corefunc.html" title="http://www.sqlite.org/lang_corefunc.html" target="_blank" rel="noopener">http://www.sqlite.org/lang_corefunc.html</a></li>
-<li><a href="http://www.infoq.com/cn/news/2008/01/sqlite-in-three-minutes" title="http://www.infoq.com/cn/news/2008/01/sqlite-in-three-minutes" target="_blank" rel="noopener">http://www.infoq.com/cn/news/2008/01/sqlite-in-three-minutes</a></li>
-<li><a href="http://www.sqlite.org/cvstrac/wiki?p=ManagementTools" title="http://www.sqlite.org/cvstrac/wiki?p=ManagementTools" target="_blank" rel="noopener">http://www.sqlite.org/cvstrac/wiki?p=ManagementTools</a></li>
-<li><a href="http://www.cnblogs.com/spymaster/archive/2008/09/10/1288419.html" title="http://www.cnblogs.com/spymaster/archive/2008/09/10/1288419.html" target="_blank" rel="noopener">http://www.cnblogs.com/spymaster/archive/2008/09/10/1288419.html</a></li>
-<li><a href="http://www.jb51.net/article/26381.htm" title="http://www.jb51.net/article/26381.htm" target="_blank" rel="noopener">http://www.jb51.net/article/26381.htm</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SQLite NET</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/09/SQLite NET/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -2372,6 +2259,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">持续集成</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">C++11</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">代码覆盖率</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">分词</a>
               </li>
             
             <div class="clearfix"></div>

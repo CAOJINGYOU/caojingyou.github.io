@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="https://caojingyou.github.io">
   <title>linux下C开发 | 曹景游</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="环境eclipse CDT #apt-get install eclipse-cdt CodeBlocks、CodeLite、Qt跨平台 make是用来完成自动编译的工具 gcc/g++/gcc port/g++ port 在Linux系统中开发C、C++语言程序，可选择的集成开发环境有Eclipse和Kdevelop,分别运行在GNOME和KDE桌面环境。 进程fork 线程POSIX标准线程库">
+  <meta name="description" content="环境刚装好的系统中已经有GCC了，但是这个GCC几乎什么文件都不能编译，因为缺少一些必须的头文件，所以要安装build-essential这个软件包输入下面命令： sudo apt-get install build-essential C Cpp IDE eclipse CDT #apt-get install eclipse-cdt CodeBlocks、CodeLite、Qt跨平台 kdev">
 <meta name="keywords" content="随笔,C&#x2F;C++,linux">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux下C开发">
 <meta property="og:url" content="https://caojingyou.github.io/2018/05/02/linux下C开发/index.html">
 <meta property="og:site_name" content="曹景游">
-<meta property="og:description" content="环境eclipse CDT #apt-get install eclipse-cdt CodeBlocks、CodeLite、Qt跨平台 make是用来完成自动编译的工具 gcc/g++/gcc port/g++ port 在Linux系统中开发C、C++语言程序，可选择的集成开发环境有Eclipse和Kdevelop,分别运行在GNOME和KDE桌面环境。 进程fork 线程POSIX标准线程库">
+<meta property="og:description" content="环境刚装好的系统中已经有GCC了，但是这个GCC几乎什么文件都不能编译，因为缺少一些必须的头文件，所以要安装build-essential这个软件包输入下面命令： sudo apt-get install build-essential C Cpp IDE eclipse CDT #apt-get install eclipse-cdt CodeBlocks、CodeLite、Qt跨平台 kdev">
 <meta property="og:image" content="https://i.imgur.com/0AuPUYT.jpg">
-<meta property="og:updated_time" content="2018-06-11T06:54:45.216Z">
+<meta property="og:updated_time" content="2018-06-15T07:14:34.131Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux下C开发">
-<meta name="twitter:description" content="环境eclipse CDT #apt-get install eclipse-cdt CodeBlocks、CodeLite、Qt跨平台 make是用来完成自动编译的工具 gcc/g++/gcc port/g++ port 在Linux系统中开发C、C++语言程序，可选择的集成开发环境有Eclipse和Kdevelop,分别运行在GNOME和KDE桌面环境。 进程fork 线程POSIX标准线程库">
+<meta name="twitter:description" content="环境刚装好的系统中已经有GCC了，但是这个GCC几乎什么文件都不能编译，因为缺少一些必须的头文件，所以要安装build-essential这个软件包输入下面命令： sudo apt-get install build-essential C Cpp IDE eclipse CDT #apt-get install eclipse-cdt CodeBlocks、CodeLite、Qt跨平台 kdev">
 <meta name="twitter:image" content="https://i.imgur.com/0AuPUYT.jpg">
   
     <link rel="alternative" href="/atom.xml" title="曹景游" type="application/atom+xml">
@@ -184,10 +184,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>eclipse CDT</p>
+        <h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>刚装好的系统中已经有GCC了，但是这个GCC几乎什么文件都不能编译，因为缺少一些必须的头文件，所以要安装build-essential这个软件包输入下面命令：</p>
+<pre><code>sudo apt-get install build-essential
+</code></pre><p><a href="http://wiki.ubuntu.org.cn/C_Cpp_IDE" target="_blank" rel="noopener">C Cpp IDE</a></p>
+<p>eclipse CDT</p>
 <pre><code>#apt-get install eclipse-cdt
 </code></pre><p>CodeBlocks、CodeLite、Qt跨平台</p>
-<p>make是用来完成自动编译的工具</p>
+<p>kdevelop</p>
+<pre><code>sudo apt-get install kdevelop
+</code></pre><p>make是用来完成自动编译的工具</p>
 <p>gcc/g++/gcc port/g++ port</p>
 <p>在Linux系统中开发C、C++语言程序，可选择的集成开发环境有Eclipse和Kdevelop,分别运行在GNOME和KDE桌面环境。</p>
 <h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><p>fork</p>
@@ -281,6 +286,54 @@ yum install gtk2-devel//安装GTK+2所需的开发文件
 </li>
 </ul>
 <p>RC文件，是用来定义界面构件的字体、颜色和背景图等样式风格的配置文件。</p>
+<h1 id="界面布局"><a href="#界面布局" class="headerlink" title="界面布局"></a>界面布局</h1><ul>
+<li>窗体构件-GtkWindow</li>
+<li>组装盒构件-GtkVBox与GtkHBox</li>
+<li>表构件-GtkTabel</li>
+<li>容器构件-GtkContainer<ul>
+<li>事件盒-GtkEventBox</li>
+<li>对齐构件-GtkAlignment</li>
+<li>固定容器-GtkFixed</li>
+<li>布局容器-GtkLayout</li>
+<li>框架构件-GtkFrame</li>
+<li>比例框架-GtkAspectFrame</li>
+<li>分栏窗体构件-GtkPaned</li>
+<li>视角构件-GtkViewport</li>
+<li>滚动条窗体-GtkScrolledWindow</li>
+<li>按钮盒-GtkButtonBox</li>
+<li>工具栏构件-GtkToolbar<ul>
+<li>工具项构件-GtkToolItem<ul>
+<li>GtkToolButton</li>
+<li>GtkSeparatorToolItem</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>笔记本构件(选项卡)-GtkNotebook</li>
+</ul>
+</li>
+</ul>
+<h1 id="信号与事件"><a href="#信号与事件" class="headerlink" title="信号与事件"></a>信号与事件</h1><pre><code>g_signal_connect()
+g_signal_handler_disconnect()
+g_signal_connect_after()
+g_signal_connect_swapped()
+g_signal_handler_disconnect_by_func()
+</code></pre><h1 id="Glade"><a href="#Glade" class="headerlink" title="Glade"></a>Glade</h1><p>Glade所设计的界面以XML格式保存。</p>
+<p>安装：</p>
+<pre><code>apt-get install glade
+</code></pre><h1 id="学习："><a href="#学习：" class="headerlink" title="学习："></a>学习：</h1><ul>
+<li><a href="https://i.linuxtoy.org/docs/guide/index.html" title="开源世界旅行手册" target="_blank" rel="noopener">开源世界旅行手册</a></li>
+<li><a href="https://tobegit3hub1.gitbooks.io/understanding-linux-processes/content/" target="_blank" rel="noopener">理解Linux进程</a></li>
+<li><a href="http://docs.linuxtone.org/ebooks/C&amp;CPP/c/" title="Linux C编程一站式学习" target="_blank" rel="noopener">Linux C编程一站式学习</a></li>
+<li><a href="https://github.com/hellogcc/100-gcc-tips/blob/master/src/index.md" title="100-gcc-tips" target="_blank" rel="noopener">100-gcc-tips</a></li>
+<li><a href="http://wiki.ubuntu.org.cn/%E9%A6%96%E9%A1%B5" target="_blank" rel="noopener">Ubuntu 中文 Wiki</a></li>
+<li><a href="http://wiki.ubuntu.org.cn/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80" target="_blank" rel="noopener">Ubuntu 中文 Wiki-编程语言</a></li>
+<li><a href="http://wiki.ubuntu.org.cn/Gcchowto#.E7.AE.80.E5.8D.95.E7.9A.84_Makefile_.E6.96.87.E4.BB.B6" target="_blank" rel="noopener">gcc</a></li>
+<li><a href="http://wiki.ubuntu.org.cn/%E7%94%A8GDB%E8%B0%83%E8%AF%95%E7%A8%8B%E5%BA%8F" target="_blank" rel="noopener">用GDB调试程序</a></li>
+<li><a href="http://wiki.ubuntu.org.cn/Gtk%E4%B8%8EQt%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE" target="_blank" rel="noopener">Gtk与Qt编译环境安装与配置</a></li>
+<li><a href="http://wiki.ubuntu.org.cn/%E8%B7%9F%E6%88%91%E4%B8%80%E8%B5%B7%E5%86%99Makefile" target="_blank" rel="noopener">跟我一起写Makefile</a></li>
+<li><a href="http://wiki.ubuntu.org.cn/%E7%BC%96%E8%AF%91%E6%89%93%E5%8C%85" target="_blank" rel="noopener">编译打包</a></li>
+</ul>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://blog.csdn.net/wuweifeng_2017/article/details/78322249" target="_blank" rel="noopener">Ubuntu下安装Qt5.8</a></p>
 
       
@@ -1206,6 +1259,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">持续集成</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">C++11</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">代码覆盖率</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">分词</a>
               </li>
             
             <div class="clearfix"></div>

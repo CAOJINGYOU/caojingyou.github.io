@@ -160,6 +160,398 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-cppunit" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/18/cppunit/">CppUnit</a>
+    </h1>
+  
+
+        
+        <a href="/2018/01/18/cppunit/" class="archive-article-date">
+  	<time datetime="2018-01-18T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="CppUnit"><a href="#CppUnit" class="headerlink" title="CppUnit"></a>CppUnit</h1><p><a href="https://sourceforge.net/projects/cppunit/?source=directory" target="_blank" rel="noopener">CppUnit - C++ port of JUnit</a></p>
+<p><a href="https://www.freedesktop.org/wiki/Software/cppunit/" target="_blank" rel="noopener">cppunit-freedesktop.org</a></p>
+<p><a href="http://cppunit.sourceforge.net/doc/lastest/index.html" target="_blank" rel="noopener">CppUnit Documentation</a></p>
+<p><a href="https://baike.baidu.com/item/CppUnit/2218302?fr=aladdin" target="_blank" rel="noopener">CppUnit百度百科</a></p>
+<p><a href="https://www.ibm.com/developerworks/cn/linux/l-cppunit/" target="_blank" rel="noopener">便利的开发工具 CppUnit 快速使用指南</a></p>
+<p><a href="https://wenku.baidu.com/view/b7fcad4bcf84b9d528ea7ae1.html" target="_blank" rel="noopener">CppUnit源码解读</a></p>
+<p><a href="http://morningspace.51.net/resource/cppunit/cppunit_anno.html" target="_blank" rel="noopener">晨光（Morning）CppUnit源码解读</a></p>
+<p><a href="http://blog.csdn.net/eplanet/article/details/1844456" target="_blank" rel="noopener">C++——测试工具CppUnit的安装和配置</a></p>
+<p><a href="http://blog.csdn.net/x_iya/article/details/8433716" target="_blank" rel="noopener">CppUnit在VS2010上的正确使用</a></p>
+<p><a href="https://wenku.baidu.com/view/0997c8a30b1c59eef9c7b47f.html" target="_blank" rel="noopener">[vs2010 配置与实例] CppUnit快速入门</a></p>
+<h1 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h1><p><a href="http://dev-www.libreoffice.org/src/cppunit-1.14.0.tar.gz" target="_blank" rel="noopener">cppunit-1.14.0.tar.gz</a></p>
+<p><a href="https://sourceforge.net/projects/cppunit/files/cppunit/1.12.1/cppunit-1.12.1.tar.gz/download" target="_blank" rel="noopener">cppunit-1.12.1.tar.gz</a></p>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><p>在CppUnit的源代码中，包含了几个测试工程的例子。</p>
+<ul>
+<li>CppUnitTestMain：一个实际的测试包（test suite）用来测试CppUnit。使用了TextTestRunner（文本方式的单元测试环境），利用CompilterOutputter进行post-build testing（即在编译结束之后紧跟着进行测试）。在配置中设定连接了cppunit的静态库和动态库。</li>
+</ul>
+<ul>
+<li>CppUnitTestApp：包含了与CppUnitTestMain相同的测试包，但使用了MFC TestRunner（GUI方式的单元测试环境）</li>
+</ul>
+<ul>
+<li>Hierarchy：一个演示如何子类化测试的例子（你也许更愿意使用HelperMacros.h以及宏CPPUNIT_TEST_SUB_SUITE，这种方式更为简洁清晰。本示例已经很久没有更新了）。</li>
+</ul>
+<ul>
+<li>HostApp ：一个用MFC TestRunner演示各种失败测试的例子。也演示了MFC Unicode TestRunner。</li>
+</ul>
+<ul>
+<li>TestPlugIn：一个演示如何为TestPlugInRunner编写TestPlugIn的例子（实验性的）。</li>
+</ul>
+<h1 id="判断宏"><a href="#判断宏" class="headerlink" title="判断宏"></a>判断宏</h1><p><code>CPPUNIT_ASSERT</code>是一个宏，判断后面的参数是否正确，CPPUNIT还有很多宏，如</p>
+<pre><code>CPPUNIT_ASSERT(condition)                      // 确信condition为真
+CPPUNIT_ASSERT_MESSAGE(message, condition)     // 当condition为假时失败, 并打印message
+CPPUNIT_FAIL(message)                          // 当前测试失败, 并打印message
+CPPUNIT_ASSERT_EQUAL(expected, actual)         // 确信两者相等
+CPPUNIT_ASSERT_EQUAL_MESSAGE(message, expected, actual) // 失败的同时打印message
+CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, actual, delta)   // 当expected和actual之间差大于delta时失败
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">CppUnit</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">单元测试</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/18/cppunit/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Hexo yilia主题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/10/Hexo yilia主题/">Hexo yilia主题</a>
+    </h1>
+  
+
+        
+        <a href="/2018/01/10/Hexo yilia主题/" class="archive-article-date">
+  	<time datetime="2018-01-10T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h1><ul>
+<li><a href="https://github.com/litten/hexo-theme-yilia" title="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia</a></li>
+<li><a href="http://litten.me/" title="http://litten.me/" target="_blank" rel="noopener">http://litten.me/</a></li>
+<li><a href="https://github.com/litten/hexo-theme-yilia" title="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia</a></li>
+<li><a href="https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5" title="https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5" target="_blank" rel="noopener">https://github.com/litten/hexo-theme-yilia/wiki/Yilia%E6%BA%90%E7%A0%81%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84%E5%8F%8A%E6%9E%84%E5%BB%BA%E9%A1%BB%E7%9F%A5</a></li>
+</ul>
+<h1 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h1><p>关于SEO与RSS，需要在博客根目录（注意不是yilia根目录）安装这三个node_modules:</p>
+<pre><code>npm install hexo-generator-feed --save
+npm install hexo-generator-baidu-sitemap --save
+npm install hexo-generator-sitemap --save
+</code></pre><p>分别对应：rss、百度爬虫sitemap、通用搜索引擎sitemap</p>
+<h1 id="不显示标签："><a href="#不显示标签：" class="headerlink" title="不显示标签："></a>不显示标签：</h1><p>缺失模块。<br>1、在博客根目录（注意不是yilia根目录）执行以下命令：</p>
+<p>npm i hexo-generator-json-content –save</p>
+<p>2、在根目录_config.yml里添加配置：</p>
+<pre><code>jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: true
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: false
+    tags: true
+</code></pre><h1 id="【Hexo】Hexo-Github构建个人博客-（五）：错误集"><a href="#【Hexo】Hexo-Github构建个人博客-（五）：错误集" class="headerlink" title="【Hexo】Hexo+Github构建个人博客 （五）：错误集"></a>【Hexo】Hexo+Github构建个人博客 （五）：错误集</h1><ul>
+<li><a href="http://www.cnblogs.com/arvin0/p/6664239.html" title="http://www.cnblogs.com/arvin0/p/6664239.html" target="_blank" rel="noopener">http://www.cnblogs.com/arvin0/p/6664239.html</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Hexo</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">yilia主题</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">博客</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/10/Hexo yilia主题/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-SQLite NET" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/09/SQLite NET/">SQLite NET</a>
+    </h1>
+  
+
+        
+        <a href="/2018/01/09/SQLite NET/" class="archive-article-date">
+  	<time datetime="2018-01-09T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="C-程序中使用-SQLite-数据库"><a href="#C-程序中使用-SQLite-数据库" class="headerlink" title="C# 程序中使用 SQLite 数据库"></a>C# 程序中使用 SQLite 数据库</h1><pre><code>using System;
+using System.Data;
+using System.Data.SQLite;
+
+//C# 使用 SQLite 数据测试程序
+public class Program
+{
+    public static void Main(string[] args)
+    {
+        using (SQLiteConnection con = new SQLiteConnection(&quot;Data Source=c:\\test.db3;Pooling=true;FailIfMissing=false&quot;))
+        {
+            //打开数据库文件 c:\\test.db3，不存在则创建
+            con.Open();
+
+            using (SQLiteCommand cmd = new SQLiteCommand())
+            {
+                cmd.Connection = con;
+
+                //检查是否存在表 test，不存在则创建
+                Boolean testTableExists = false;
+                cmd.CommandText = &quot;SELECT * FROM sqlite_master WHERE type=&apos;table&apos; and name=&apos;test&apos;&quot;;
+                using(SQLiteDataReader dr = cmd.ExecuteReader())
+                {
+                    if (dr.Read())
+                    {
+                        testTableExists = true;
+                    }
+                }
+                if (!testTableExists)
+                {
+                    cmd.CommandText = &quot;CREATE TABLE [test] (id int, name nvarchar(20))&quot;;
+                    cmd.ExecuteNonQuery();
+                }
+
+                //清空 test 表
+                cmd.CommandText = &quot;DELETE FROM [test]&quot;;
+                cmd.ExecuteNonQuery();
+
+                //插入测试数据
+                for (int i = 1; i &lt;= 5; i++)
+                {
+                    cmd.CommandText = string.Format(&quot;INSERT INTO [test] VALUES ({0}, &apos;中文测试&apos;)&quot;, i);
+                    cmd.ExecuteNonQuery();
+                }
+
+                //读取数据
+                cmd.CommandText = &quot;SELECT * FROM [test]&quot;;
+                using (SQLiteDataReader dr = cmd.ExecuteReader(CommandBehavior.CloseConnection))
+                {
+                    while (dr.Read())
+                    {
+                        Console.WriteLine(&quot;第{0} 条：{1}&quot;, dr.GetValue(0), dr.GetString(1));
+                    }
+                }
+            }
+        }
+
+        Console.WriteLine(&quot;Press any key to continue...&quot;);
+        Console.ReadKey();
+    }
+}
+</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<li><a href="http://unmi.cc/csharp-use-sqlite-db/" title="http://unmi.cc/csharp-use-sqlite-db/" target="_blank" rel="noopener">http://unmi.cc/csharp-use-sqlite-db/</a></li>
+<li><a href="http://blog.163.com/baiyunping333@126/blog/static/2439447220093162323933/" title="http://blog.163.com/baiyunping333@126/blog/static/2439447220093162323933/" target="_blank" rel="noopener">http://blog.163.com/baiyunping333@126/blog/static/2439447220093162323933/</a></li>
+<li><a href="http://www.sqlite.org/lang_keywords.html" title="http://www.sqlite.org/lang_keywords.html" target="_blank" rel="noopener">http://www.sqlite.org/lang_keywords.html</a></li>
+<li><a href="http://www.sqlite.org/lang_corefunc.html" title="http://www.sqlite.org/lang_corefunc.html" target="_blank" rel="noopener">http://www.sqlite.org/lang_corefunc.html</a></li>
+<li><a href="http://www.infoq.com/cn/news/2008/01/sqlite-in-three-minutes" title="http://www.infoq.com/cn/news/2008/01/sqlite-in-three-minutes" target="_blank" rel="noopener">http://www.infoq.com/cn/news/2008/01/sqlite-in-three-minutes</a></li>
+<li><a href="http://www.sqlite.org/cvstrac/wiki?p=ManagementTools" title="http://www.sqlite.org/cvstrac/wiki?p=ManagementTools" target="_blank" rel="noopener">http://www.sqlite.org/cvstrac/wiki?p=ManagementTools</a></li>
+<li><a href="http://www.cnblogs.com/spymaster/archive/2008/09/10/1288419.html" title="http://www.cnblogs.com/spymaster/archive/2008/09/10/1288419.html" target="_blank" rel="noopener">http://www.cnblogs.com/spymaster/archive/2008/09/10/1288419.html</a></li>
+<li><a href="http://www.jb51.net/article/26381.htm" title="http://www.jb51.net/article/26381.htm" target="_blank" rel="noopener">http://www.jb51.net/article/26381.htm</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">SQLite NET</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/09/SQLite NET/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-wolfSSL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1387,760 +1779,6 @@ log4net使用继承体系，也就是说假如存在两个Logger，名字分别�
 
 
   
-    <article id="post-gitbook" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/05/gitbook/">gitbook</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/05/gitbook/" class="archive-article-date">
-  	<time datetime="2017-11-05T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="gitbook"><a href="#gitbook" class="headerlink" title="gitbook"></a>gitbook</h1><p><a href="https://github.com/GitbookIO/gitbook" title="https://github.com/GitbookIO/gitbook" target="_blank" rel="noopener">https://github.com/GitbookIO/gitbook</a></p>
-<p><a href="https://toolchain.gitbook.com/ebook.html" title="https://toolchain.gitbook.com/ebook.html" target="_blank" rel="noopener">https://toolchain.gitbook.com/ebook.html</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">gitbook</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/05/gitbook/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-wxWidgets" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/01/wxWidgets/">wxWidgets</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/01/wxWidgets/" class="archive-article-date">
-  	<time datetime="2017-11-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="wxWidgets"><a href="#wxWidgets" class="headerlink" title="wxWidgets"></a>wxWidgets</h1><h2 id="Code-Blocks环境"><a href="#Code-Blocks环境" class="headerlink" title="Code::Blocks环境"></a>Code::Blocks环境</h2><h3 id="Code-Blocks下载："><a href="#Code-Blocks下载：" class="headerlink" title="Code::Blocks下载："></a>Code::Blocks下载：</h3><p>Code::Blocks使用：</p>
-<p><a href="https://sourceforge.net/projects/codeblocks/files/Binaries/16.01/Windows/codeblocks-16.01mingw-setup.exe/download" target="_blank" rel="noopener">codeblocks-16.01mingw-setup.exe</a></p>
-<p>它的gcc版本为4.9.2，也可在设置中对其进行更改</p>
-<h3 id="wxMSW-3-1-0-gcc492下载："><a href="#wxMSW-3-1-0-gcc492下载：" class="headerlink" title="## wxMSW-3.1.0_gcc492下载： ##"></a>## wxMSW-3.1.0_gcc492下载： ##</h3><ul>
-<li><a href="https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.0/wxMSW-3.1.0_gcc492TDM_Dev.7z" target="_blank" rel="noopener">wxMSW-3.1.0\_gcc492TDM\_Dev.7z</a></li>
-<li><a href="https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.0/wxMSW-3.1.0\\_gcc492TDM\\_ReleaseDLL.7z" target="_blank" rel="noopener">wxMSW-3.1.0\_gcc492TDM\_ReleaseDLL.7z</a></li>
-<li><a href="https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.0/wxWidgets-3.1.0-headers.7z" target="_blank" rel="noopener">wxWidgets-3.1.0-headers.7z</a></li>
-</ul>
-<h3 id="Code-Blocks配置："><a href="#Code-Blocks配置：" class="headerlink" title="Code::Blocks配置："></a>Code::Blocks配置：</h3><p>解压wxMSW-3.1.0_gcc492TDM_Dev.7z与wxWidgets-3.1.0-headers.7z到同一目录：X:\wxMSW-3.1.0_gcc492TDM</p>
-<p>在环境变量里添加一个wxWidgets根目录环境变量，新增的用户变量命名为wxwin，值为X:\wxMSW-3.1.0_gcc492TDM</p>
-<p>打开Code::Blocks，选择菜单Settings-&gt;Global Variables…，在设置default下新建立一个wx变量，在Build-in fields:下，base中填入“${wxwin}”（wxwin是刚才设置好的一个变量），include中填入“${wxwin}\include”，lib中填入“${wxwin}\lib”</p>
-<h3 id="新建项目："><a href="#新建项目：" class="headerlink" title="新建项目："></a>新建项目：</h3><h4 id="建立项目"><a href="#建立项目" class="headerlink" title="建立项目"></a>建立项目</h4><h4 id="建立项目的过程"><a href="#建立项目的过程" class="headerlink" title="建立项目的过程"></a>建立项目的过程</h4><p>通过菜单“File”-&gt;“New”-&gt;“Project…”，选择“Empty project”建一个项目。</p>
-<p>点击菜单File-&gt;New-&gt;File…为项目新建一个源程序文件,main.cpp:</p>
-<pre><code>#include &lt;wx/wx.h&gt;
-class Simple : public wxFrame
-{
-    public:
-    Simple(const wxString &amp; title);
-};
-
-Simple::Simple(const wxString &amp; title)
-: wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(250, 150))
-{
-    Centre();
-}
-
-class MyApp : public wxApp
-{
-    public:
-    virtual bool OnInit();
-};
-
-IMPLEMENT_APP(MyApp)
-
-bool MyApp::OnInit()
-{
-    Simple * simple = new Simple(wxT(&quot;Simple&quot;));
-    simple-&gt;Show(true);
-    return true;
-}
-</code></pre><p>选菜单Project-&gt;Build options…，在选项卡Search directories中，设置Compiler。通过“Add”增加目录X:\wxMSW-3.1.0_gcc492TDM\include和X:\wxMSW-3.1.0_gcc492TDM\lib\gcc_dll\mswud，最好include在上mswud在下。(debug版用mswud，release版用mswu)</p>
-<p>选菜单Project-&gt;Build options…，在选项卡Linker settings中，需要加入要连接的“目标文件”。如图所示，通过Add按钮加入X:\wxMSW-3.1.0_gcc492TDM\lib\gcc_dll文件夹中的所有.a文件</p>
-<p>此时编译即可通过。</p>
-<h4 id="利用Code-Blocks的向导建立"><a href="#利用Code-Blocks的向导建立" class="headerlink" title="利用Code::Blocks的向导建立"></a>利用Code::Blocks的向导建立</h4><p>使用向导建一个“wxWidgets project”项目。</p>
-<ul>
-<li><p>GUI设计工具和程序类型，用wxSmith和Dialog based。如果设置了“Code::Blocks配置”，wxWidgets’location直接填入“$(#wx)”就可以了,否则设置为X:\wxMSW-3.1.0_gcc492TDM目录。</p>
-</li>
-<li><p>wxWidgets Library Settings选择Enable unicode</p>
-</li>
-<li><p>选择Configure Advanced Options</p>
-</li>
-<li><p>选择Use _WXDEBUG_ and Debug wxWidgets lib</p>
-</li>
-<li><p>选择GUI Mode Application</p>
-</li>
-</ul>
-<p>生成的程序源码：</p>
-<p><a href="http://files.cnblogs.com/files/yhcao/wxTest3.1.0.rar" target="_blank" rel="noopener">wxTest3.1.0.rar</a></p>
-<h3 id="程序运行："><a href="#程序运行：" class="headerlink" title="程序运行："></a>程序运行：</h3><p>程序运行时需要一些dll,到wxMSW-3.1.0_gcc492TDM_ReleaseDLL.7z中寻找，放到程序目录即可启动。</p>
-<h2 id="VS2010环境"><a href="#VS2010环境" class="headerlink" title="VS2010环境"></a>VS2010环境</h2><h3 id="wxMSW-3-1-0-vc100下载："><a href="#wxMSW-3-1-0-vc100下载：" class="headerlink" title="wxMSW-3.1.0_vc100下载："></a>wxMSW-3.1.0_vc100下载：</h3><ul>
-<li><a href="https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.0/wxMSW-3.1.0_vc100_Dev.7z" target="_blank" rel="noopener">wxMSW-3.1.0_vc100\_Dev.7z</a></li>
-<li><a href="https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.0/wxMSW-3.1.0_vc100_ReleaseDLL.7z" target="_blank" rel="noopener">wxMSW-3.1.0\_vc100\_ReleaseDLL.7z</a></li>
-<li><a href="https://github.com/wxWidgets/wxWidgets/releases/download/v3.1.0/wxWidgets-3.1.0-headers.7z" target="_blank" rel="noopener">wxWidgets-3.1.0-headers.7z</a></li>
-</ul>
-<h3 id="项目"><a href="#项目" class="headerlink" title="项目"></a>项目</h3><p>把wxMSW-3.1.0_vc100_Dev.7z与wxWidgets-3.1.0-headers.7z解压到 X:\wxMSW-3.1.0_vc100_Dev</p>
-<p>新建win32项目 windows应用程序 空项目</p>
-<p>附加包含目录</p>
-<ul>
-<li>X:\wxMSW-3.1.0_vc100_Dev\include</li>
-<li>X:\wxMSW-3.1.0_vc100_Dev\lib\vc_lib\mswud(debug)</li>
-<li>X:\wxMSW-3.1.0_vc100_Dev\lib\vc_lib\mswu(release)</li>
-</ul>
-<p>添加附加依赖项：</p>
-<pre><code>wxbase31ud_net.lib
-wxmsw31ud_html.lib
-wxbase31ud_xml.lib
-wxmsw31ud_adv.lib
-wxmsw31ud_aui.lib
-wxmsw31ud_gl.lib
-wxmsw31ud_media.lib
-wxmsw31ud_propgrid.lib
-wxmsw31ud_qa.lib
-wxmsw31ud_ribbon.lib
-wxmsw31ud_richtext.lib
-wxmsw31ud_stc.lib
-wxmsw31ud_xrc.lib
-wxscintillad.lib
-wxmsw31ud_core.lib
-wxbase31ud.lib
-wxtiffd.lib
-wxjpegd.lib
-wxpngd.lib
-wxzlibd.lib
-wxexpatd.lib
-winmm.lib
-comctl32.lib
-rpcrt4.lib
-wsock32.lib
-odbc32.lib
-</code></pre><p>头文件：</p>
-<pre><code>#include &lt;wx/wx.h&gt;
-class wxMyApp:public wxApp
-{
-public:
-    virtual bool OnInit();
-};
-class wxMyFrame:public wxFrame
-{
-public:
-    wxMyFrame(const wxString&amp; title);
-};
-</code></pre><p>源文件：</p>
-<pre><code>#include &quot;头文件.h&quot;
-bool wxMyApp::OnInit()
-{
-    wxMyFrame *pMyFrame=new wxMyFrame(_(&quot;myframe&quot;));
-    pMyFrame-&gt;Show(TRUE);
-    return TRUE;
-}
-wxMyFrame::wxMyFrame(const wxString&amp; title):wxFrame(NULL,NULL,title)
-{
-
-}
-DECLARE_APP(wxMyApp);
-IMPLEMENT_APP(wxMyApp);
-</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="http://docs.wxwidgets.org/3.1/" target="_blank" rel="noopener">wxwidgets文档</a></li>
-<li><a href="http://zetcode.com/gui/wxwidgets/" target="_blank" rel="noopener">wxWidgets教程</a></li>
-<li><a href="http://wiki.codeblocks.org/index.php/User_documentation" target="_blank" rel="noopener">wxWidgets wiki</a></li>
-<li><a href="http://wiki.codeblocks.org/index.php/WxSmith_tutorials" target="_blank" rel="noopener">WxSmith tutorials</a></li>
-<li>C<a href="http://www.wxwidgets.org/docs/book/" target="_blank" rel="noopener">ross-Platform GUI Programming with wxWidgets</a></li>
-<li><a href="http://blog.csdn.net/sxhelijian/article/details/26164181" target="_blank" rel="noopener">wxWidgets应用程序初体验</a></li>
-<li><a href="http://blog.csdn.net/sxhelijian/article/details/26165237" target="_blank" rel="noopener">用wxSmith进行可视化设计 </a></li>
-<li><a href="http://shiningray.cn/windows-shang-pei-zhi-codeblocks-wxwidgets.html" target="_blank" rel="noopener">Windows上配置Code::Blocks + wxWidgets</a></li>
-<li><a href="http://blog.csdn.net/hitwhzhongqiu/article/details/44682359" target="_blank" rel="noopener">VS2010下新建wxWidgets空白工程</a> </li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">wxWidgets</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Code::Blocks</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/01/wxWidgets/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Doxygen" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/15/Doxygen/">Doxygen</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/15/Doxygen/" class="archive-article-date">
-  	<time datetime="2017-10-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="安装工具"><a href="#安装工具" class="headerlink" title="安装工具"></a>安装工具</h1><h2 id="doxygen"><a href="#doxygen" class="headerlink" title="doxygen"></a>doxygen</h2><p>doxygen-1.8.13-setup.exe</p>
-<h2 id="graphviz"><a href="#graphviz" class="headerlink" title="graphviz"></a>graphviz</h2><p>graphviz-2.38.msi</p>
-<p>Graphviz软件是开源的图形可视化。可视化是图表的结构信息作为表示方式的抽象网络的示图和曲线图。有重要的应用在网络、生物信息学、软件工程、数据库、网页设计、机器学习、视觉界面中的其它技术领域。</p>
-<h2 id="htmlhelp"><a href="#htmlhelp" class="headerlink" title="htmlhelp"></a>htmlhelp</h2><p>htmlhelp1.3.exe</p>
-<h1 id="Doxygen配置方法"><a href="#Doxygen配置方法" class="headerlink" title="Doxygen配置方法"></a>Doxygen配置方法</h1><p>打开doxywizard.exe</p>
-<p><img src="http://files.cnblogs.com/files/yhcao/Doxygen1.gif" alt=""></p>
-<p><img src="http://files.cnblogs.com/files/yhcao/Doxygen2.gif" alt=""></p>
-<p><img src="http://files.cnblogs.com/files/yhcao/Doxygen3.gif" alt=""></p>
-<p><img src="http://files.cnblogs.com/files/yhcao/Doxygen4.gif" alt=""></p>
-<p><img src="http://files.cnblogs.com/files/yhcao/Doxygen5.gif" alt=""></p>
-<p><img src="http://files.cnblogs.com/files/yhcao/Doxygen6.gif" alt=""></p>
-<p><img src="http://files.cnblogs.com/files/yhcao/Doxygen7.gif" alt=""></p>
-<p><img src="http://files.cnblogs.com/files/yhcao/Doxygen8.gif" alt=""></p>
-<p><img src="http://files.cnblogs.com/files/yhcao/Doxygen9.gif" alt=""></p>
-<p><img src="http://files.cnblogs.com/files/yhcao/Doxygen10.gif" alt=""></p>
-<p>项目文件：</p>
-<p><a href="http://files.cnblogs.com/files/yhcao/Doxyfile.rar" target="_blank" rel="noopener">Doxyfile.rar</a></p>
-<h1 id="doxygen-的注释规范"><a href="#doxygen-的注释规范" class="headerlink" title="doxygen 的注释规范"></a>doxygen 的注释规范</h1><h2 id="标记的块的详细描述"><a href="#标记的块的详细描述" class="headerlink" title="标记的块的详细描述"></a>标记的块的详细描述</h2><h3 id="JavaDoc-style-C-style"><a href="#JavaDoc-style-C-style" class="headerlink" title="JavaDoc style,C-style"></a>JavaDoc style,C-style</h3><pre><code>/**
- * ... text ...
- */
-</code></pre><h3 id="Qt-style"><a href="#Qt-style" class="headerlink" title="Qt style"></a>Qt style</h3><pre><code>/*!
- * ... text ...
- */
-</code></pre><p>中间*可以省略</p>
-<pre><code>/*!
- ... text ...
-*/
-</code></pre><h3 id="至少两个C-注释行，每一行都有一个附加斜线或感叹号"><a href="#至少两个C-注释行，每一行都有一个附加斜线或感叹号" class="headerlink" title="至少两个C++注释行，每一行都有一个附加斜线或感叹号"></a>至少两个C++注释行，每一行都有一个附加斜线或感叹号</h3><pre><code>///
-/// ... text ...
-///
-</code></pre><p>或</p>
-<pre><code>//!
-//!... text ...
-//!
-</code></pre><p>注意这种情况下需要一个单独的空行来结束注释。</p>
-<h3 id="多行块注释"><a href="#多行块注释" class="headerlink" title="多行块注释"></a>多行块注释</h3><pre><code>/********************************************//**
- *  ... text
- ***********************************************/
-</code></pre><p>(note the 2 slashes to end the normal comment block and start a special comment block).</p>
-<pre><code>/////////////////////////////////////////////////
-/// ... text ...
-/////////////////////////////////////////////////
-</code></pre><h2 id="简要描述"><a href="#简要描述" class="headerlink" title="简要描述"></a>简要描述</h2><h3 id="使用-brief"><a href="#使用-brief" class="headerlink" title="使用\brief"></a>使用<code>\brief</code></h3><pre><code>/*! \brief Brief description.
- *         Brief description continued.
- *
- *  Detailed description starts here.
- */
-</code></pre><h3 id="JAVADOC-AUTOBRIEF设置为YES-Javadoc风格"><a href="#JAVADOC-AUTOBRIEF设置为YES-Javadoc风格" class="headerlink" title="JAVADOC_AUTOBRIEF设置为YES,Javadoc风格"></a>JAVADOC_AUTOBRIEF设置为YES,Javadoc风格</h3><pre><code>/** Brief description which ends at this dot. Details follow
- *  here.
- */
-</code></pre><p>C++ comments:</p>
-<pre><code>/// Brief description which ends at this dot. Details follow
-/// here.
-</code></pre><h3 id="用特殊的C-风格的注释"><a href="#用特殊的C-风格的注释" class="headerlink" title="用特殊的C++风格的注释"></a>用特殊的C++风格的注释</h3><pre><code>/// Brief description.
-/** Detailed description. */
-</code></pre><p>或<br>    //! Brief description.</p>
-<pre><code>//! Detailed description 
-//! starts here.
-</code></pre><h3 id="多个详细的描述"><a href="#多个详细的描述" class="headerlink" title="多个详细的描述"></a>多个详细的描述</h3><pre><code>//! Brief description, which is
-//! really a detailed description since it spans multiple lines.
-/*! Another detailed description!
- */
-</code></pre><h3 id="If-you-want-to-document-the-members-of-a-file-struct-union-class-or-enum-it-is-sometimes-desired-to-place-the-documentation-block-after-the-member-instead-of-before-For-this-purpose-you-have-to-put-an-additional-lt-marker-in-the-comment-block-Note-that-this-also-works-for-the-parameters-of-a-function"><a href="#If-you-want-to-document-the-members-of-a-file-struct-union-class-or-enum-it-is-sometimes-desired-to-place-the-documentation-block-after-the-member-instead-of-before-For-this-purpose-you-have-to-put-an-additional-lt-marker-in-the-comment-block-Note-that-this-also-works-for-the-parameters-of-a-function" class="headerlink" title="If you want to document the members of a file, struct, union, class, or enum, it is sometimes desired to place the documentation block after the member instead of before. For this purpose you have to put an additional &lt; marker in the comment block. Note that this also works for the parameters of a function"></a>If you want to document the members of a file, struct, union, class, or enum, it is sometimes desired to place the documentation block after the member instead of before. For this purpose you have to put an additional &lt; marker in the comment block. Note that this also works for the parameters of a function</h3><p>Qt style</p>
-<pre><code>int var; /**&lt; Detailed description after the member */
-</code></pre><p>或</p>
-<pre><code>int var; /*!&lt; Detailed description after the member */
-</code></pre><p>或</p>
-<pre><code>int var; //!&lt; Detailed description after the member
-         //!&lt; 
-</code></pre><p>或</p>
-<pre><code>int var; ///&lt; Detailed description after the member
-         ///&lt; 
-</code></pre><h3 id="Most-often-one-only-wants-to-put-a-brief-description-after-a-member"><a href="#Most-often-one-only-wants-to-put-a-brief-description-after-a-member" class="headerlink" title="Most often one only wants to put a brief description after a member"></a>Most often one only wants to put a brief description after a member</h3><pre><code>int var; //!&lt; Brief description after the member
-</code></pre><p>或</p>
-<pre><code>int var; ///&lt; Brief description after the member
-</code></pre><h3 id="For-functions-one-can-use-the-param-command-to-document-the-parameters-and-then-use-in-out-in-out-to-document-the-direction-For-inline-documentation-this-is-also-possible-by-starting-with-the-direction-attribute-e-g"><a href="#For-functions-one-can-use-the-param-command-to-document-the-parameters-and-then-use-in-out-in-out-to-document-the-direction-For-inline-documentation-this-is-also-possible-by-starting-with-the-direction-attribute-e-g" class="headerlink" title="For functions one can use the @param command to document the parameters and then use [in], [out], [in,out] to document the direction. For inline documentation this is also possible by starting with the direction attribute, e.g."></a>For functions one can use the @param command to document the parameters and then use [in], [out], [in,out] to document the direction. For inline documentation this is also possible by starting with the direction attribute, e.g.</h3><pre><code>void foo(int v /**&lt; [in] docs for input parameter v. */);
-</code></pre><h3 id="Here-is-an-example-of-the-use-of-these-comment-blocks"><a href="#Here-is-an-example-of-the-use-of-these-comment-blocks" class="headerlink" title="Here is an example of the use of these comment blocks:"></a>Here is an example of the use of these comment blocks:</h3><pre><code>*! A test class */
-class Afterdoc_Test
-{
-  public:
-    /** An enum type. 
-     *  The documentation block cannot be put after the enum! 
-     */
-    enum EnumType
-    {
-      int EVal1,     /**&lt; enum value 1 */
-      int EVal2      /**&lt; enum value 2 */
-    };
-    void member();   //!&lt; a member function.
-
-  protected:
-    int value;       /*!&lt; an integer value */
-};
-</code></pre><h2 id="例子："><a href="#例子：" class="headerlink" title="例子："></a>例子：</h2><h3 id="Qt-style-1"><a href="#Qt-style-1" class="headerlink" title="Qt style"></a>Qt style</h3><pre><code>//!  A test class. 
-/*!
-  A more elaborate class description.
-*/
-class QTstyle_Test
-{
-  public:
-    //! An enum.
-    /*! More detailed enum description. */
-    enum TEnum { 
-                 TVal1, /*!&lt; Enum value TVal1. */  
-                 TVal2, /*!&lt; Enum value TVal2. */  
-                 TVal3  /*!&lt; Enum value TVal3. */  
-               } 
-         //! Enum pointer.
-         /*! Details. */
-         *enumPtr, 
-         //! Enum variable.
-         /*! Details. */
-         enumVar;  
-
-    //! A constructor.
-    /*!
-      A more elaborate description of the constructor.
-    */
-    QTstyle_Test();
-    //! A destructor.
-    /*!
-      A more elaborate description of the destructor.
-    */
-   ~QTstyle_Test();
-
-    //! A normal member taking two arguments and returning an integer value.
-    /*!
-      \param a an integer argument.
-      \param s a constant character pointer.
-      \return The test results
-      \sa QTstyle_Test(), ~QTstyle_Test(), testMeToo() and publicVar()
-    */
-    int testMe(int a,const char *s);
-
-    //! A pure virtual member.
-    /*!
-      \sa testMe()
-      \param c1 the first argument.
-      \param c2 the second argument.
-    */
-    virtual void testMeToo(char c1,char c2) = 0;
-
-    //! A public variable.
-    /*!
-      Details.
-    */
-    int publicVar;
-
-    //! A function variable.
-    /*!
-      Details.
-    */
-    int (*handler)(int a,int b);
-};
-</code></pre><h3 id="JavaDoc-style"><a href="#JavaDoc-style" class="headerlink" title="JavaDoc style"></a>JavaDoc style</h3><pre><code>/**
- *  A test class. A more elaborate class description.
- */
-class Javadoc_Test
-{
-  public:
-    /** 
-     * An enum.
-     * More detailed enum description.
-     */
-    enum TEnum { 
-          TVal1, /**&lt; enum value TVal1. */  
-          TVal2, /**&lt; enum value TVal2. */  
-          TVal3  /**&lt; enum value TVal3. */  
-         } 
-       *enumPtr, /**&lt; enum pointer. Details. */
-       enumVar;  /**&lt; enum variable. Details. */
-
-      /**
-       * A constructor.
-       * A more elaborate description of the constructor.
-       */
-      Javadoc_Test();
-      /**
-       * A destructor.
-       * A more elaborate description of the destructor.
-       */
-     ~Javadoc_Test();
-
-      /**
-       * a normal member taking two arguments and returning an integer value.
-       * @param a an integer argument.
-       * @param s a constant character pointer.
-       * @see Javadoc_Test()
-       * @see ~Javadoc_Test()
-       * @see testMeToo()
-       * @see publicVar()
-       * @return The test results
-       */
-       int testMe(int a,const char *s);
-
-      /**
-       * A pure virtual member.
-       * @see testMe()
-       * @param c1 the first argument.
-       * @param c2 the second argument.
-       */
-       virtual void testMeToo(char c1,char c2) = 0;
-
-      /** 
-       * a public variable.
-       * Details.
-       */
-       int publicVar;
-
-      /**
-       * a function variable.
-       * Details.
-       */
-       int (*handler)(int a,int b);
-};
-</code></pre><h2 id="使用指令时需要在前面加上“-”或者“-”（JavaDoc风格）符号"><a href="#使用指令时需要在前面加上“-”或者“-”（JavaDoc风格）符号" class="headerlink" title="使用指令时需要在前面加上“\”或者“@”（JavaDoc风格）符号"></a>使用指令时需要在前面加上“\”或者“@”（JavaDoc风格）符号</h2><p><a href="http://www.stack.nl/~dimitri/doxygen/manual/commands.html" target="_blank" rel="noopener">特殊命令</a></p>
-<ul>
-<li>\class is used to indicate that the comment block contains documentation for the class</li>
-<li>\struct to document a C-struct.</li>
-<li>\union to document a union.</li>
-<li>\enum to document an enumeration type.</li>
-<li>\fn to document a function.</li>
-<li>\var to document a variable or typedef or enum value.</li>
-<li>\def to document a #define.</li>
-<li>\typedef to document a type definition.</li>
-<li>\file to document a file.</li>
-<li>\namespace to document a namespace.</li>
-<li>\package to document a Java package.</li>
-<li>\interface to document an IDL interface.</li>
-</ul>
-<h2 id="Here-is-an-example-of-a-C-header-named-structcmd-h-that-is-documented-using-structural-commands"><a href="#Here-is-an-example-of-a-C-header-named-structcmd-h-that-is-documented-using-structural-commands" class="headerlink" title="Here is an example of a C header named structcmd.h that is documented using structural commands:"></a>Here is an example of a C header named structcmd.h that is documented using structural commands:</h2><pre><code>/*! \file structcmd.h
-    \brief A Documented file.
-
-    Details.
-*/
-/*! \def MAX(a,b)
-    \brief A macro that returns the maximum of \a a and \a b.
-
-    Details.
-*/
-/*! \var typedef unsigned int UINT32
-    \brief A type definition for a .
-
-    Details.
-*/
-/*! \var int errno
-    \brief Contains the last error code.
-    \warning Not thread safe!
-*/
-/*! \fn int open(const char *pathname,int flags)
-    \brief Opens a file descriptor.
-    \param pathname The name of the descriptor.
-    \param flags Opening flags.
-*/
-/*! \fn int close(int fd)
-    \brief Closes the file descriptor \a fd.
-    \param fd The descriptor to close.
-*/
-/*! \fn size_t write(int fd,const char *buf, size_t count)
-    \brief Writes \a count bytes from \a buf to the filedescriptor \a fd.
-    \param fd The descriptor to write to.
-    \param buf The data buffer to write.
-    \param count The number of bytes to write.
-*/
-/*! \fn int read(int fd,char *buf,size_t count)
-    \brief Read bytes from a file descriptor.
-    \param fd The descriptor to read from.
-    \param buf The buffer to read into.
-    \param count The number of bytes to read.
-*/
-#define MAX(a,b) (((a)&gt;(b))?(a):(b))
-typedef unsigned int UINT32;
-int errno;
-int open(const char *,int);
-int close(int);
-size_t write(int,const char *, size_t);
-int read(int,char *,size_t);
-</code></pre><h2 id="文件注释"><a href="#文件注释" class="headerlink" title="文件注释"></a>文件注释</h2><pre><code>/**
-
-* @file       filename
-
-* @brief      This is a brief description.
-
-* @details This is the detail description.
-
-* @author     author
-
-* @date       date
-
-* @version A001
-
-* @par Copyright (c):
-
-*      XXX公司
-
-* @par History:        
-
-*   version: author, date, desc\n
-
-*/
-</code></pre><h2 id="函数注释"><a href="#函数注释" class="headerlink" title="函数注释"></a>函数注释</h2><pre><code>/** 下面是一个含有两个参数的函数的注释说明（简述） 
-
- * 
-
- *     这里写该函数的详述信息 
-
- *     @param a 被测试的变量（param描述参数） 
-
- *     @param s 指向描述测试信息的字符串 
-
- *     @return    测试结果 （return描述返回值） 
-
- *     @see    Test()    （本函数参考其它的相关的函数，这里作一个链接） 
-
- *     @note    (note描述需要注意的问题) 
-
- */
-int testMe(int a,const char *s);
-</code></pre><h2 id="数据结构注释"><a href="#数据结构注释" class="headerlink" title="数据结构注释"></a>数据结构注释</h2><pre><code>/**
-
- * The brief description.
-
- * The detail description.
-
- */
-
-typedef struct
-
-{
-
-    int var1;///&lt;Description of the member variable
-
-}XXXX;
-
-或者
-
-typedef struct box {
-
-    成员变量注释（enum的各个值也如此注释）：
-
-    double length; ///&lt; The length of the box
-
-    double width; ///&lt; The width of the box
-
-    double height; ///&lt; The height of the box
-
-};
-</code></pre><h2 id="宏定义注释"><a href="#宏定义注释" class="headerlink" title="宏定义注释"></a>宏定义注释</h2><pre><code>/** Description of the macro */
-
-#define XXXX_XXX_XX      ox7fffffff
-
-或者
-
-#define XXXX_XXX_XX      0 ///&lt; Description of the macro.
-</code></pre><h2 id="全局和静态变量注释"><a href="#全局和静态变量注释" class="headerlink" title="全局和静态变量注释"></a>全局和静态变量注释</h2><pre><code>/**  Description of global variable  */
-int g_xxx = 0;
-static int s_xxx = 0; ///&lt;  Description of static variable
-</code></pre><h1 id="扩展："><a href="#扩展：" class="headerlink" title="扩展："></a>扩展：</h1><p><a href="http://www.doxygen.nl/helpers.html" title="http://www.doxygen.nl/helpers.html" target="_blank" rel="noopener">http://www.doxygen.nl/helpers.html</a></p>
-<p><a href="https://www.codeproject.com/Articles/2704/Useful-enhancements-for-Visual-Studio-NET" title="https://www.codeproject.com/Articles/2704/Useful-enhancements-for-Visual-Studio-NET" target="_blank" rel="noopener">https://www.codeproject.com/Articles/2704/Useful-enhancements-for-Visual-Studio-NET</a></p>
-<p><a href="https://www.atomineerutils.com/products.php" title="https://www.atomineerutils.com/products.php" target="_blank" rel="noopener">https://www.atomineerutils.com/products.php</a></p>
-<p><a href="http://doxycomment.sourceforge.net/" title="http://doxycomment.sourceforge.net/" target="_blank" rel="noopener">http://doxycomment.sourceforge.net/</a></p>
-<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="http://www.stack.nl/~dimitri/doxygen/download.html" title="http://www.stack.nl/~dimitri/doxygen/download.html" target="_blank" rel="noopener">http://www.stack.nl/~dimitri/doxygen/download.html</a></li>
-<li><a href="http://www.stack.nl/~dimitri/doxygen/helpers.html" title="http://www.stack.nl/~dimitri/doxygen/helpers.html" target="_blank" rel="noopener">http://www.stack.nl/~dimitri/doxygen/helpers.html</a></li>
-<li><a href="http://www.graphviz.org/" title="http://www.graphviz.org/" target="_blank" rel="noopener">http://www.graphviz.org/</a></li>
-<li><a href="http://www.graphviz.org/Download..php" title="http://www.graphviz.org/Download..php" target="_blank" rel="noopener">http://www.graphviz.org/Download..php</a></li>
-<li><a href="http://www.cnblogs.com/chenyang920/p/5732643.html" title="http://www.cnblogs.com/chenyang920/p/5732643.html" target="_blank" rel="noopener">http://www.cnblogs.com/chenyang920/p/5732643.html</a></li>
-<li><a href="http://blog.csdn.net/fly542/article/details/7164633" title="http://blog.csdn.net/fly542/article/details/7164633" target="_blank" rel="noopener">http://blog.csdn.net/fly542/article/details/7164633</a></li>
-<li><a href="http://blog.csdn.net/bigpudding24/article/details/45247357" title="http://blog.csdn.net/bigpudding24/article/details/45247357" target="_blank" rel="noopener">http://blog.csdn.net/bigpudding24/article/details/45247357</a></li>
-<li><a href="http://blog.csdn.net/hujian2008/article/details/16343489" title="http://blog.csdn.net/hujian2008/article/details/16343489" target="_blank" rel="noopener">http://blog.csdn.net/hujian2008/article/details/16343489</a></li>
-<li><a href="http://blog.csdn.net/wenrenhua08/article/details/39591239" title="http://blog.csdn.net/wenrenhua08/article/details/39591239" target="_blank" rel="noopener">http://blog.csdn.net/wenrenhua08/article/details/39591239</a></li>
-<li><a href="http://blog.csdn.net/augusdi/article/details/6749845" title="http://blog.csdn.net/augusdi/article/details/6749845" target="_blank" rel="noopener">http://blog.csdn.net/augusdi/article/details/6749845</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Doxygen</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/15/Doxygen/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
@@ -2903,6 +2541,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">持续集成</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">C++11</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">代码覆盖率</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">分词</a>
               </li>
             
             <div class="clearfix"></div>

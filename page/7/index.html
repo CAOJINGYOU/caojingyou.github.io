@@ -160,6 +160,985 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-MahApps.Metro使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/01/MahApps.Metro使用/">MahApps.Metro使用</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/01/MahApps.Metro使用/" class="archive-article-date">
+  	<time datetime="2017-07-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="MahApps-Metro使用"><a href="#MahApps-Metro使用" class="headerlink" title="MahApps.Metro使用"></a>MahApps.Metro使用</h1><h2 id="下载MahApps-Metro"><a href="#下载MahApps-Metro" class="headerlink" title="下载MahApps.Metro"></a>下载MahApps.Metro</h2><pre><code>PM&gt; Install-Package MahApps.Metro
+</code></pre><h2 id="MainWindow-xaml中添加"><a href="#MainWindow-xaml中添加" class="headerlink" title="MainWindow.xaml中添加"></a>MainWindow.xaml中添加</h2><pre><code>xmlns:Controls=&quot;clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro&quot;
+</code></pre><h2 id="然后将Window标签替换为如下标签"><a href="#然后将Window标签替换为如下标签" class="headerlink" title="然后将Window标签替换为如下标签"></a>然后将Window标签替换为如下标签</h2><pre><code>&lt;Controls:MetroWindow x:Class=&quot;WpfApplication.MainWindow&quot;
+                  xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+                  xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+                  xmlns:Controls=&quot;clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro&quot;
+                  Title=&quot;MainWindow&quot;
+                  Height=&quot;600&quot;
+                  Width=&quot;800&quot;&gt;
+
+&lt;/Controls:MetroWindow&gt;
+</code></pre><h2 id="MainWindow-xaml-cs添加"><a href="#MainWindow-xaml-cs添加" class="headerlink" title="MainWindow.xaml.cs添加"></a>MainWindow.xaml.cs添加</h2><pre><code>using MahApps.Metro.Controls;
+
+namespace WpfApplication
+{
+  public partial class MainWindow : MetroWindow
+  {
+    public MainWindow()
+    {
+      InitializeComponent();
+    }
+  }
+}
+</code></pre><h2 id="使用内置的样式App-xaml"><a href="#使用内置的样式App-xaml" class="headerlink" title="使用内置的样式App.xaml"></a>使用内置的样式App.xaml</h2><pre><code>&lt;Application x:Class=&quot;WpfApplication.App&quot;
+             xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+             xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+             StartupUri=&quot;MainWindow.xaml&quot;&gt;
+  &lt;Application.Resources&gt;
+    &lt;ResourceDictionary&gt;
+      &lt;ResourceDictionary.MergedDictionaries&gt;
+        &lt;!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! --&gt;
+        &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml&quot; /&gt;
+        &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml&quot; /&gt;
+        &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml&quot; /&gt;
+        &lt;!-- Accent and AppTheme setting --&gt;
+        &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml&quot; /&gt;
+        &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml&quot; /&gt;
+      &lt;/ResourceDictionary.MergedDictionaries&gt;
+    &lt;/ResourceDictionary&gt;
+  &lt;/Application.Resources&gt;
+&lt;/Application&gt;
+</code></pre><h2 id="显示标题栏、图标、最大化最小化按钮的显示"><a href="#显示标题栏、图标、最大化最小化按钮的显示" class="headerlink" title="显示标题栏、图标、最大化最小化按钮的显示"></a>显示标题栏、图标、最大化最小化按钮的显示</h2><pre><code>&lt;Controls:MetroWindow x:Class=&quot;WpfApplication.MainWindow&quot;
+                      xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+                      xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+                      xmlns:Controls=&quot;clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro&quot;
+                      Title=&quot;MainWindow&quot;
+                      Height=&quot;600&quot;
+                      Width=&quot;800&quot;
+                      Icon=&quot;mahapps.metro.logo2.ico&quot;
+                      ShowIconOnTitleBar=&quot;True&quot;
+                      ShowTitleBar=&quot;True&quot;&gt;
+
+    &lt;/Controls:MetroWindow&gt;
+</code></pre><p>WindowButtonCommands are the minimize, maximize/restore, and close buttons. You can hide the buttons with <code>ShowMinButton=&quot;True|False&quot;</code>, <code>ShowMaxRestoreButton=&quot;True|False&quot;</code> and <code>ShowCloseButton=&quot;True|False&quot;</code>.</p>
+<p>The visibility of the minimize and maximize/restore buttons are also effected by the <code>ResizeMode</code>. If <code>ResizeMode=&quot;NoResize&quot;</code> the buttons are collapsed. If <code>ResizeMode=&quot;CanMinimize&quot;</code> the maximize/restore button is collapsed.</p>
+<h2 id="记住窗口位置"><a href="#记住窗口位置" class="headerlink" title="记住窗口位置"></a>记住窗口位置</h2><p>aveWindowPosition=”True|False”(默认False选项）。将此属性设置为True将意味着在下一次发射，将被自动定位和尺寸对它的出口。这种设计为提高ux和速度发展为一个“管道”，UI是定期进行的。</p>
+<h2 id="修改标题栏"><a href="#修改标题栏" class="headerlink" title="修改标题栏"></a>修改标题栏</h2><p>可以添加自己的控制 LeftWindowsCommands 或 RightWindowsCommands</p>
+<pre><code>&lt;MetroWindow&gt; ... &lt;/MetroWindow&gt;
+</code></pre><p>MainWindow.xaml.cs内添加：</p>
+<pre><code>&lt;Controls:MetroWindow.RightWindowCommands&gt;
+  &lt;Controls:WindowCommands&gt;
+    &lt;Button Content=&quot;settings&quot; /&gt;
+    &lt;Button&gt;
+      &lt;StackPanel Orientation=&quot;Horizontal&quot;&gt;
+        &lt;Rectangle Width=&quot;20&quot;
+                   Height=&quot;20&quot;
+                   Fill=&quot;{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}&quot;&gt;
+          &lt;Rectangle.OpacityMask&gt;
+            &lt;VisualBrush Stretch=&quot;Fill&quot; Visual=&quot;{StaticResource appbar_cupcake}&quot; /&gt;
+          &lt;/Rectangle.OpacityMask&gt;
+        &lt;/Rectangle&gt;
+        &lt;TextBlock Margin=&quot;4 0 0 0&quot;
+                   VerticalAlignment=&quot;Center&quot;
+                   Text=&quot;deploy cupcakes&quot; /&gt;
+      &lt;/StackPanel&gt;
+    &lt;/Button&gt;
+  &lt;/Controls:WindowCommands&gt;
+&lt;/Controls:MetroWindow.RightWindowCommands&gt;
+</code></pre><p>显示图标需要加载MahApps.Metro.Resources资源</p>
+<h1 id="MahApps-Metro-Resources使用"><a href="#MahApps-Metro-Resources使用" class="headerlink" title="MahApps.Metro.Resources使用"></a>MahApps.Metro.Resources使用</h1><h2 id="下载MahApps-Metro-Resources"><a href="#下载MahApps-Metro-Resources" class="headerlink" title="下载MahApps.Metro.Resources"></a>下载MahApps.Metro.Resources</h2><pre><code>PM&gt; Install-Package MahApps.Metro.Resources
+</code></pre><h2 id="MainWindow-xaml文件中添加"><a href="#MainWindow-xaml文件中添加" class="headerlink" title="MainWindow.xaml文件中添加"></a>MainWindow.xaml文件中添加</h2><pre><code>&lt;Window.Resources&gt;
+        &lt;ResourceDictionary&gt;
+            &lt;ResourceDictionary.MergedDictionaries&gt;
+                &lt;ResourceDictionary Source=&quot;/Resources/Icons.xaml&quot; /&gt;
+            &lt;/ResourceDictionary.MergedDictionaries&gt;
+        &lt;/ResourceDictionary&gt;
+    &lt;/Window.Resources&gt;
+</code></pre><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><pre><code>&lt;Rectangle&gt;
+        &lt;Rectangle.Fill&gt;
+            &lt;VisualBrush Visual=&quot;{StaticResource appbar_add}&quot; /&gt;
+        &lt;/Rectangle.Fill&gt;
+    &lt;/Rectangle&gt;
+</code></pre><p>或者</p>
+<pre><code>&lt;Rectangle Fill=&quot;Black&quot;&gt;
+    &lt;Rectangle.OpacityMask&gt;
+        &lt;VisualBrush Visual=&quot;{StaticResource appbar_add}&quot; Stretch=&quot;Fill&quot; /&gt;
+    &lt;/Rectangle.OpacityMask&gt;
+&lt;/Rectangle&gt;
+</code></pre><h1 id="如何改变目前的主题-Styles"><a href="#如何改变目前的主题-Styles" class="headerlink" title="如何改变目前的主题 Styles"></a>如何改变目前的主题 Styles</h1><p>You can choose between these available accents:</p>
+<pre><code>“Red”, “Green”, “Blue”, “Purple”, “Orange”, “Lime”, “Emerald”, “Teal”, “Cyan”, “Cobalt”, “Indigo”, “Violet”, “Pink”, “Magenta”, “Crimson”, “Amber”, “Yellow”, “Brown”, “Olive”, “Steel”, “Mauve”, “Taupe”, “Sienna”
+</code></pre><p>and these themes:</p>
+<pre><code>“BaseLight”, “BaseDark”
+</code></pre><h2 id="通过App-xaml，直接修改其中对应的部分"><a href="#通过App-xaml，直接修改其中对应的部分" class="headerlink" title="通过App.xaml，直接修改其中对应的部分"></a>通过App.xaml，直接修改其中对应的部分</h2><pre><code>&lt;Application x:Class=&quot;MahAppsMetroThemesSample.App&quot;
+         xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+         xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+         StartupUri=&quot;MainWindow.xaml&quot;&gt;
+    &lt;Application.Resources&gt;
+        &lt;ResourceDictionary&gt;
+            &lt;ResourceDictionary.MergedDictionaries&gt;
+                &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml&quot; /&gt;
+                &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml&quot; /&gt;
+                &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml&quot; /&gt;
+
+                &lt;!-- accent resource --&gt;
+                &lt;!-- change &quot;Cobalt&quot; to the accent color you want --&gt;
+
+                &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Accents/Cobalt.xaml&quot; /&gt;
+
+                &lt;!-- theme resource --&gt;
+                &lt;!-- change &quot;BaseLight&quot; to the theme you want --&gt;
+                &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml&quot; /&gt;
+            &lt;/ResourceDictionary.MergedDictionaries&gt;
+        &lt;/ResourceDictionary&gt;
+    &lt;/Application.Resources&gt;
+&lt;/Application&gt;
+</code></pre><h2 id="通过ThemeManager"><a href="#通过ThemeManager" class="headerlink" title="通过ThemeManager"></a>通过ThemeManager</h2><pre><code>public partial class App : Application
+{
+    protected override void OnStartup(StartupEventArgs e)
+    {
+        // get the current app style (theme and accent) from the application
+        // you can then use the current theme and custom accent instead set a new theme
+        Tuple&lt;AppTheme, Accent&gt; appStyle = ThemeManager.DetectAppStyle(Application.Current);
+
+        // now set the Green accent and dark theme
+        ThemeManager.ChangeAppStyle(Application.Current,
+                                    ThemeManager.GetAccent(&quot;Green&quot;),
+                                    ThemeManager.GetAppTheme(&quot;BaseDark&quot;)); // or appStyle.Item1
+
+        base.OnStartup(e);
+    }
+}
+</code></pre><h2 id="在主窗口中修改"><a href="#在主窗口中修改" class="headerlink" title="在主窗口中修改"></a>在主窗口中修改</h2><h3 id="MainWindow-xaml文件"><a href="#MainWindow-xaml文件" class="headerlink" title="MainWindow.xaml文件"></a>MainWindow.xaml文件</h3><pre><code>&lt;Controls:MetroWindow.Resources&gt;
+    &lt;ResourceDictionary&gt;
+       &lt;ResourceDictionary.MergedDictionaries&gt;
+            &lt;!-- this window should be blue --&gt;
+            &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml&quot; /&gt;
+            &lt;!-- and should use the light theme --&gt;
+            &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml&quot; /&gt;
+        &lt;/ResourceDictionary.MergedDictionaries&gt;
+    &lt;/ResourceDictionary&gt;
+&lt;/Controls:MetroWindow.Resources&gt;
+</code></pre><h3 id="主类MetroWindow中"><a href="#主类MetroWindow中" class="headerlink" title="主类MetroWindow中"></a>主类MetroWindow中</h3><pre><code>public partial class AccentStyleWindow : MetroWindow
+{
+    public void ChangeAppStyle()
+    {
+        // set the Red accent and dark theme only to the current window
+        ThemeManager.ChangeAppStyle(this,
+                                    ThemeManager.GetAccent(&quot;Red&quot;),
+                                    ThemeManager.GetAppTheme(&quot;BaseDark&quot;));
+    }
+}
+</code></pre><p>还可以自定义主题</p>
+<h2 id="Controls控件"><a href="#Controls控件" class="headerlink" title="Controls控件"></a>Controls控件</h2><h3 id="MetroWindow"><a href="#MetroWindow" class="headerlink" title="MetroWindow"></a>MetroWindow</h3><p>窗口有边框：</p>
+<pre><code>&lt;Controls:MetroWindow x:Class=&quot;MahApps.Metro.Simple.Demo.MainWindow&quot;
+                      xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+                      xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+                      xmlns:Controls=&quot;http://metro.mahapps.com/winfx/xaml/controls&quot;
+                      Title=&quot;MainWindow&quot;
+                      Height=&quot;200&quot;
+                      Width=&quot;600&quot;
+
+                      BorderBrush=&quot;{DynamicResource AccentColorBrush}&quot;
+                      BorderThickness=&quot;1&quot;
+
+                      WindowStartupLocation=&quot;CenterScreen&quot;&gt;
+
+&lt;/Controls:MetroWindow&gt;
+</code></pre><p>发光的边框：</p>
+<pre><code>&lt;Controls:MetroWindow x:Class=&quot;MahApps.Metro.Simple.Demo.MainWindow&quot;
+                      xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+                      xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+                      xmlns:Controls=&quot;http://metro.mahapps.com/winfx/xaml/controls&quot;
+                      Title=&quot;MainWindow&quot;
+                      Height=&quot;200&quot;
+                      Width=&quot;600&quot;
+
+                      GlowBrush=&quot;{DynamicResource AccentColorBrush}&quot;
+
+                      WindowStartupLocation=&quot;CenterScreen&quot;&gt;
+
+&lt;/Controls:MetroWindow&gt;
+</code></pre><p>有阴影的边框：</p>
+<pre><code>&lt;Controls:MetroWindow x:Class=&quot;MahApps.Metro.Simple.Demo.MainWindow&quot;
+                      xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+                      xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+                      xmlns:Controls=&quot;http://metro.mahapps.com/winfx/xaml/controls&quot;
+                      Title=&quot;MainWindow&quot;
+                      Height=&quot;200&quot;
+                      Width=&quot;600&quot;
+
+                      BorderThickness=&quot;0&quot; 
+                      GlowBrush=&quot;Black&quot;
+                      ResizeMode=&quot;CanResizeWithGrip&quot;
+
+                      WindowTransitionsEnabled=&quot;False&quot;
+                      WindowStartupLocation=&quot;CenterScreen&quot;&gt;
+
+&lt;/Controls:MetroWindow&gt;
+</code></pre><h3 id="Buttons"><a href="#Buttons" class="headerlink" title="Buttons"></a>Buttons</h3><h4 id="Default-look"><a href="#Default-look" class="headerlink" title="Default look"></a>Default look</h4><p><img src="http://mahapps.com/images/08_RegularButton.png" alt=""></p>
+<h4 id="MetroCircleButton"><a href="#MetroCircleButton" class="headerlink" title="MetroCircleButton"></a>MetroCircleButton</h4><pre><code>&lt;Button Style=&quot;{DynamicResource MetroCircleButtonStyle}&quot; Content=&quot;Button&quot;/&gt;
+</code></pre><p><img src="http://mahapps.com/images/07_CircleButtons.png" alt=""></p>
+<h4 id="SquareButton"><a href="#SquareButton" class="headerlink" title="SquareButton"></a>SquareButton</h4><pre><code>&lt;Button Style=&quot;{DynamicResource SquareButtonStyle}&quot; Content=&quot;Button&quot;/&gt;
+</code></pre><p><img src="http://mahapps.com/images/square-button.png" alt=""></p>
+<h4 id="AccentedSquareButton"><a href="#AccentedSquareButton" class="headerlink" title="AccentedSquareButton"></a>AccentedSquareButton</h4><pre><code>&lt;Button Style=&quot;{StaticResource AccentedSquareButtonStyle}&quot; Content=&quot;Button&quot;/&gt;
+</code></pre><p><img src="http://mahapps.com/images/accent-square-button.png" alt=""></p>
+<h4 id="FlatButton"><a href="#FlatButton" class="headerlink" title="FlatButton"></a>FlatButton</h4><pre><code>&lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml&quot; /&gt;
+</code></pre><p><img src="http://mahapps.com/images/flatbutton.png" alt=""></p>
+<h3 id="ContextMenu"><a href="#ContextMenu" class="headerlink" title="ContextMenu"></a>ContextMenu</h3><p>您可以使用您熟悉的快捷菜单</p>
+<pre><code>&lt;ContextMenu&gt;
+  &lt;MenuItem Command=&quot;ApplicationCommands.New&quot; /&gt;
+  &lt;MenuItem Command=&quot;ApplicationCommands.Delete&quot; /&gt;
+  &lt;MenuItem Command=&quot;ApplicationCommands.Print&quot; /&gt;
+&lt;/ContextMenu&gt;
+</code></pre><p>如果你想使用快捷菜单的一部分被声明为资源和共享使用 <code>CompositeCollection</code></p>
+<pre><code>&lt;CompositeCollection x:Key=&quot;ContextMenuBase&quot;
+ x:Shared=&quot;False&quot;&gt;
+  &lt;MenuItem Command=&quot;ApplicationCommands.New&quot; /&gt;
+  &lt;MenuItem Command=&quot;ApplicationCommands.Delete&quot; /&gt;
+  &lt;Separator /&gt;
+  &lt;StaticResource ResourceKey=&quot;ContextMenuItemRefresh&quot; /&gt;
+  &lt;Separator /&gt;
+&lt;/CompositeCollection&gt;
+
+
+&lt;ContextMenu&gt;
+  &lt;ContextMenu.ItemsSource&gt;
+&lt;CompositeCollection&gt;
+  &lt;CollectionContainer Collection=&quot;{StaticResource ContextMenuBase}&quot;&gt;&lt;/CollectionContainer&gt;
+  &lt;MenuItem Command=&quot;ApplicationCommands.Print&quot; /&gt;
+&lt;/CompositeCollection&gt;
+  &lt;/ContextMenu.ItemsSource&gt;
+&lt;/ContextMenu&gt;
+</code></pre><p>当你运行应用程序的绑定错误:</p>
+<p>System.Windows.Data Error: 4 : Cannot find source for binding with reference ‘RelativeSource FindAncestor, AncestorType=’System.Windows.Controls.ItemsControl’, AncestorLevel=’1’’. BindingExpression:Path=VerticalContentAlignment; DataItem=null; target element is ‘MenuItem’ (Name=’’); target property is ‘VerticalContentAlignment’ (type ‘VerticalAlignment’)</p>
+<p>这是一个已知的问题在WPF和解决方法是创建一个自定义 <code>MenuItem</code> 风格: </p>
+<pre><code>&lt;Style TargetType=&quot;{x:Type MenuItem}&quot;
+   BasedOn=&quot;{StaticResource MetroMenuItem}&quot;&gt;
+  &lt;Setter Property=&quot;HorizontalContentAlignment&quot;
+  Value=&quot;Left&quot; /&gt;
+  &lt;Setter Property=&quot;VerticalContentAlignment&quot;
+  Value=&quot;Center&quot; /&gt;
+  &lt;/Style&gt;
+</code></pre><h2 id="Data-Grid"><a href="#Data-Grid" class="headerlink" title="Data Grid"></a>Data Grid</h2><p>In order for the style to be applied, you will have to include references to the <code>Styles/Controls</code> resource dictionary in your App.xaml and the namespace <code>xmlns:controls=&quot;clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro&quot;</code> in the window you are using.</p>
+<p><img src="http://mahapps.com/images/default_datagrid_style.png" alt=""></p>
+<h3 id="Alternative-Style"><a href="#Alternative-Style" class="headerlink" title="Alternative Style"></a>Alternative Style</h3><p>MahApps.Metro also provides an alternative style, <code>AzureDataGrid</code> that attempts to mimic the DataGrid found on Microsoft Azure. To use it instead of the default style, simple set the DataGrid’s <code>Style</code> property to <code>{StaticResource AzureDataGrid</code>. As usual, make sure that you have your references defined.</p>
+<pre><code>&lt;DataGrid ItemsSource=&quot;{Binding People}&quot; Margin=&quot;10,20,10,0&quot;
+  AutoGenerateColumns=&quot;True&quot;
+  Style=&quot;{StaticResource AzureDataGrid}&quot;&gt;
+
+&lt;/DataGrid&gt; 
+</code></pre><p><img src="http://mahapps.com/images/azure_datagrid_style.png" alt=""></p>
+<h3 id="DataGrid-Numeric-Updown-Control"><a href="#DataGrid-Numeric-Updown-Control" class="headerlink" title="DataGrid Numeric Updown Control"></a>DataGrid Numeric Updown Control</h3><p>In addition to styling the DataGrid, MahApps.Metro also provides a control that allows users to add a <code>NumericUpDown</code> as one of their <code>DataGrid</code>’s columns. To add the custom column to your <code>DataGrid</code>, add <code>DataGridNumericUpDownColumn</code> under the MahApps namespace to your <code>DataGrid.Columns</code> properties. Be sure to set <code>AutoGenerateColumns</code> to <code>False</code> if you have not already done so.</p>
+<pre><code>&lt;DataGrid ItemsSource=&quot;{Binding Path=Albums}&quot;
+  Grid.Row=&quot;0&quot;
+  AutoGenerateColumns=&quot;False&quot;&gt;
+&lt;DataGrid.Columns&gt;
+&lt;DataGridTextColumn Header=&quot;Genre&quot;
+Binding=&quot;{Binding Genre.Name}&quot; /&gt;
+&lt;controls:DataGridNumericUpDownColumn Header=&quot;Price&quot;
+  Binding=&quot;{Binding Price}&quot;
+  StringFormat=&quot;C&quot;
+  Minimum=&quot;0&quot; /&gt;
+&lt;/DataGrid.Columns&gt;
+&lt;/DataGrid&gt;
+</code></pre><p><img src="http://mahapps.com/images/datagrid_numeric_up_down.png" alt=""></p>
+<h3 id="DataGrid-Checkbox"><a href="#DataGrid-Checkbox" class="headerlink" title="DataGrid Checkbox"></a>DataGrid Checkbox</h3><p>Lastly, MahApps.Metro provides an <code>ElementStyle</code> for the <code>DataGridCheckBoxColumn</code>. In order to apply the style, you will have to set the <code>ElementStyle</code> property of the <code>DataGridCheckBoxColumn</code> to <code>{DynamicResource MetroDataGridCheckBox}</code> as shown in the code sample below.</p>
+<pre><code>&lt;DataGrid ItemsSource=&quot;{Binding Path=Albums}&quot;
+  Grid.Row=&quot;0&quot;
+  AutoGenerateColumns=&quot;False&quot;&gt;
+&lt;DataGrid.Columns&gt;
+&lt;DataGridCheckBoxColumn ElementStyle=&quot;{DynamicResource MetroDataGridCheckBox}&quot;
+EditingElementStyle=&quot;{DynamicResource MetroDataGridCheckBox}&quot;
+Header=&quot;IsSelected&quot;
+Binding=&quot;{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Path=IsSelected, Mode=OneWay}&quot;
+/&gt;
+&lt;/DataGrid.Columns&gt;
+&lt;/DataGrid&gt;
+</code></pre><p><img src="http://mahapps.com/images/datagrid_checkbox.png" alt=""></p>
+<h2 id="Dialogs"><a href="#Dialogs" class="headerlink" title="Dialogs"></a>Dialogs</h2><h3 id="Message-dialog"><a href="#Message-dialog" class="headerlink" title="Message dialog"></a>Message dialog</h3><p>对话框还可以显示简单消息的<code>ShowMessageAsync</code>方法。扩展方法MetroWindow因此，呼叫从它的窗口类。</p>
+<pre><code>await this.ShowMessageAsync(&quot;This is the title&quot;, &quot;Some message&quot;);
+</code></pre><p>有可选的额外参数的简单的按钮，例如 Ok Cancel 并设置主题颜色和动画选项。</p>
+<h3 id="Progress-dialog"><a href="#Progress-dialog" class="headerlink" title="Progress dialog"></a>Progress dialog</h3><pre><code>var controller = await this.ShowProgressAsync(&quot;Please wait...&quot;, &quot;Progress message&quot;);
+</code></pre><p>This method returns a ProgressDialogController object that exposes the SetProgress method, use it to set the current progress.</p>
+<p><img src="http://mahapps.com/images/progressdialog.png" alt=""></p>
+<h2 id="FlipView"><a href="#FlipView" class="headerlink" title="FlipView"></a>FlipView</h2><p><img src="http://i.msdn.microsoft.com/dynimg/IC571410.png" alt=""></p>
+<pre><code>&lt;Controls:FlipView Height=&quot;200&quot; 
+   IsBannerEnabled=&quot;True&quot; 
+   SelectionChanged=&quot;FlipView_SelectionChanged&quot;
+   Margin=&quot;0, 0, 10, 0&quot;&gt;
+&lt;Controls:FlipView.Items&gt;
+&lt;Grid Background=&quot;#2E8DEF&quot;&gt;
+&lt;Rectangle Margin=&quot;0, 0, 10, 0&quot; Width=&quot;50&quot; Height=&quot;50&quot;&gt;
+&lt;Rectangle.Fill&gt;
+&lt;VisualBrush Visual=&quot;{StaticResource appbar_cupcake}&quot; /&gt;
+&lt;/Rectangle.Fill&gt;
+&lt;/Rectangle&gt;
+&lt;/Grid&gt;
+&lt;Grid Background=&quot;#00A600&quot;&gt;
+&lt;Rectangle Margin=&quot;0, 0, 10, 0&quot; Width=&quot;50&quot; Height=&quot;50&quot;&gt;
+&lt;Rectangle.Fill&gt;
+&lt;VisualBrush Visual=&quot;{StaticResource appbar_xbox}&quot; /&gt;
+&lt;/Rectangle.Fill&gt;
+&lt;/Rectangle&gt;
+&lt;/Grid&gt;
+&lt;Grid Background=&quot;#BF1E4B&quot;&gt;
+&lt;Rectangle Margin=&quot;0, 0, 10, 0&quot; Width=&quot;50&quot; Height=&quot;50&quot;&gt;
+&lt;Rectangle.Fill&gt;
+&lt;VisualBrush Visual=&quot;{StaticResource appbar_chess_horse}&quot; /&gt;
+&lt;/Rectangle.Fill&gt;
+&lt;/Rectangle&gt;
+&lt;/Grid&gt;
+&lt;/Controls:FlipView.Items&gt;
+&lt;/Controls:FlipView&gt;
+</code></pre><h3 id="The-Banner"><a href="#The-Banner" class="headerlink" title="The Banner"></a>The Banner</h3><pre><code>private void FlipView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+{
+var flipview = ((FlipView)sender);
+switch (flipview.SelectedIndex)
+{
+case 0:
+flipview.BannerText = &quot;Cupcakes!&quot;;
+break;
+case 1:
+flipview.BannerText = &quot;Xbox!&quot;;
+break;
+case 2:
+flipview.BannerText = &quot;Chess!&quot;;
+break;
+}
+}
+</code></pre><h3 id="The-Control-Buttons"><a href="#The-Control-Buttons" class="headerlink" title="The Control Buttons"></a>The Control Buttons</h3><p>The control buttons (the next and previous buttons) allow the user to flip through the items using their mouse. The buttons can be disabled by calling <code>HideControlButtons</code> and renabled by calling <code>ShowControlButtons</code>.</p>
+<p>The user can also flip through the items using the arrows on their keyboard.</p>
+<h3 id="Automated-scrolling-batteries-not-included"><a href="#Automated-scrolling-batteries-not-included" class="headerlink" title="Automated scrolling (batteries not included)"></a>Automated scrolling (batteries not included)</h3><p>Disabling the control buttons is useful when you want to provide an automated scrolling experience. This can be implemented by using a timer and by incrementing SelectedIndex by 1 until the index is equal to Items.Length - 1. At that point, you would reset SelectedIndex to 0.</p>
+<h2 id="Flyouts"><a href="#Flyouts" class="headerlink" title="Flyouts"></a>Flyouts</h2><p>Add the following code to your MetroWindow:</p>
+<pre><code>&lt;Controls:MetroWindow.Flyouts&gt;
+&lt;Controls:FlyoutsControl&gt;
+
+&lt;/Controls:FlyoutsControl&gt;
+&lt;/Controls:MetroWindow.Flyouts&gt;
+</code></pre><p>This is the container for the flyouts. Inside this container add the following:</p>
+<pre><code>&lt;Controls:Flyout Header=&quot;Flyout&quot; Position=&quot;Right&quot; Width=&quot;200&quot;&gt;
+&lt;!-- Your custom content here --&gt;
+&lt;/Controls:Flyout&gt;
+</code></pre><h3 id="Themed-flyouts"><a href="#Themed-flyouts" class="headerlink" title="Themed flyouts"></a>Themed flyouts</h3><p>As of version 0.12, flyouts can have various themes, assignable through the Theme property, those are:</p>
+<pre><code>Adapt,
+Inverse,
+Dark,
+Light,
+Accent
+</code></pre><ul>
+<li>Adapt adapts the flyout theme to the host window’s theme.</li>
+<li>Inverse has the inverse theme of the host window’s theme.</li>
+<li>Dark will always be the dark theme, this is also the default value.</li>
+<li>Light will always be the light theme.</li>
+<li>Accent adapts the flyout theme to the host window’s theme, it looks like this for the blue theme</li>
+</ul>
+<h3 id="WindowCommandsOverlayBehaviorn"><a href="#WindowCommandsOverlayBehaviorn" class="headerlink" title="WindowCommandsOverlayBehaviorn"></a>WindowCommandsOverlayBehaviorn</h3><p>MetroWindow has overlay properties for LeftWindowCommands, RightWindowCommands, WindowButtonCommands and the Icon to handle the topmost status, even if a flyout is shown.</p>
+<pre><code>public WindowCommandsOverlayBehavior LeftWindowCommandsOverlayBehavior
+public WindowCommandsOverlayBehavior RightWindowCommandsOverlayBehavior
+public WindowCommandsOverlayBehavior WindowButtonCommandsOverlayBehavior
+public WindowCommandsOverlayBehavior IconOverlayBehavior
+</code></pre><p>These are the values for WindowCommandsOverlayBehavior</p>
+<pre><code>Never // Doesn&apos;t overlay flyouts nor a hidden TitleBar.
+Flyouts // Overlays opened Flyout controls.
+HiddenTitleBar // // Overlays a hidden TitleBar.
+Always
+</code></pre><p>WindowCommandsOverlayBehavior.Always</p>
+<p><img src="http://mahapps.com/images/WindowCommandsOverlayBehavior_Always.png" alt=""></p>
+<p>WindowCommandsOverlayBehavior.Never</p>
+<p><img src="http://mahapps.com/images/WindowCommandsOverlayBehavior_Never.png" alt=""></p>
+<h2 id="NumericUpDown"><a href="#NumericUpDown" class="headerlink" title="NumericUpDown"></a>NumericUpDown</h2><p>NumericUpDown控件将用来增大或减小数值。</p>
+<p><img src="http://mahapps.com/images/numeric_up_down.png" alt=""></p>
+<h2 id="ProgressBar"><a href="#ProgressBar" class="headerlink" title="ProgressBar"></a>ProgressBar</h2><p><img src="http://mahapps.com/images/progressbar.png" alt=""></p>
+<h3 id="MetroProgressBar"><a href="#MetroProgressBar" class="headerlink" title="MetroProgressBar"></a>MetroProgressBar</h3><p>MetroProgressBar is an alternative and simpler style. Instead of creating a normal ProgressBar use:</p>
+<pre><code>&lt;Controls:MetroProgressBar /&gt;
+</code></pre><p>Its indeterminate state looks like a ProgressRing but not circular.</p>
+<h2 id="ProgressRing"><a href="#ProgressRing" class="headerlink" title="ProgressRing"></a>ProgressRing</h2><p>The Progress Ring control is styled after a similar control in Windows 8 to indicate activity rather than a percentage of progress completed.</p>
+<pre><code>&lt;Controls:ProgressRing IsActive=&quot;True&quot; /&gt;
+</code></pre><p><code>IsActive</code> can easily be bound to a viewmodel property.</p>
+<pre><code>&lt;Controls:ProgressRing IsActive=&quot;{Binding IsActive}&quot; /&gt;
+</code></pre><p>Override Foreground if you wish to change the colour.</p>
+<pre><code>&lt;Controls:ProgressRing Foreground=&quot;{DynamicResource AccentColorBrush}&quot;/&gt;
+</code></pre><h2 id="RangeSlider"><a href="#RangeSlider" class="headerlink" title="RangeSlider"></a>RangeSlider</h2><p><img src="http://mahapps.com/images/range_slider.PNG" alt=""></p>
+<p>Small Example</p>
+<pre><code>&lt;Сontrols:RangeSlider Style=&quot;{StaticResource RangeSliderCameraCommonStyle}&quot; 
+Minimum=&quot;{Binding Path=MinValue, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}&quot;
+Maximum=&quot;{Binding Path=MaxValue, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}&quot;
+LowerValue=&quot;{Binding Path=CurrentMinValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}&quot;
+UpperValue=&quot;{Binding Path=CurrentMaxValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}&quot;
+LowerValueChanged=&quot;OnLowerValueChanged&quot; UpperValueChanged=&quot;OnUpperValueChanged&quot;
+LowerThumbDragStarted=&quot;OnLowerDragStarted&quot;
+LowerThumbDragCompleted=&quot;OnLowerDragCompleted&quot;
+UpperThumbDragStarted=&quot;OnUpperDragStarted&quot; 
+UpperThumbDragCompleted=&quot;OnUpperDragCompleted&quot; 
+AutoToolTipPlacement=&quot;TopLeft&quot; AutoToolTipPrecision=&quot;2&quot; MoveWholeRange=&quot;True&quot;
+IsSnapToTickEnabled=&quot;True&quot; IsMoveToPointEnabled=&quot;True&quot; ExtendedMode=&quot;True&quot;&gt;&lt;/Сontrols:RangeSlider&gt;
+</code></pre><h2 id="Slider"><a href="#Slider" class="headerlink" title="Slider"></a>Slider</h2><p><img src="http://mahapps.com/images/slider_standard.png" alt=""></p>
+<p>If you want to base your custom style on that style, you need to add <code>BasedOn=&quot;{StaticResource MetroSlider}&quot;</code></p>
+<h2 id="FlatSlider-style"><a href="#FlatSlider-style" class="headerlink" title="FlatSlider style"></a>FlatSlider style</h2><p><img src="http://mahapps.com/images/slider_cube.png" alt=""></p>
+<p>To use that style you need to load resource dictionary <code>&lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/FlatSlider.xaml&quot; /&gt;</code> and explicitly set the style of the Slider to <code>Style=&quot;{DynamicResource FlatSlider}&quot;</code></p>
+<p>This style could be dynamically changed to:</p>
+<p><img src="http://mahapps.com/images/slider_tick.png" alt=""></p>
+<h2 id="SplitButton-and-DropDownButton"><a href="#SplitButton-and-DropDownButton" class="headerlink" title="SplitButton and DropDownButton"></a>SplitButton and DropDownButton</h2><p><img src="http://mahapps.com/images/splitButton_1.png" alt=""></p>
+<h3 id="SelectedItem-and-SelectedIndex"><a href="#SelectedItem-and-SelectedIndex" class="headerlink" title="SelectedItem and SelectedIndex"></a>SelectedItem and SelectedIndex</h3><p>This properties usage is just like in Listbox or ComboBox. When one of this properties changed, Content of the button will also changed.</p>
+<h3 id="Binding-to-ObservableCollection-or-Dictionary"><a href="#Binding-to-ObservableCollection-or-Dictionary" class="headerlink" title="Binding to ObservableCollection or Dictionary"></a>Binding to ObservableCollection or Dictionary</h3><p>To correctly bind an <code>ObservableCollection</code> or a <code>Dictionary</code> to <code>SplitButton</code>, you need to use <code>ItemsSource</code> and <code>DisplayMemberPath</code> For ex, <code>ItemsSource=&quot;{Binding Albums}&quot; DisplayMemberPath=&quot;Title&quot;</code>In case you bind simple types like an enum or integer, you dont need to use DisplayMemberPath property, only ItemsSource`.</p>
+<h3 id="Orientation"><a href="#Orientation" class="headerlink" title="Orientation"></a>Orientation</h3><p>SplitButton supports orientation changing as you can see on the screenshot.</p>
+<h3 id="Button-commands"><a href="#Button-commands" class="headerlink" title="Button commands"></a>Button commands</h3><p>You can use button commands for SplitButton</p>
+<h3 id="Icon-property"><a href="#Icon-property" class="headerlink" title="Icon property"></a>Icon property</h3><p>You can add separate icon to SplitButton to display it independently from its content. It could be bitmap image or vector icon. <code>Icon=&quot;{DynamicResource appbar_alert}&quot;</code></p>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><pre><code>&lt;Controls:SplitButton 
+Icon=&quot;{DynamicResource appbar_alert}&quot;
+HorizontalContentAlignment=&quot;Left&quot;
+HorizontalAlignment=&quot;Center&quot;
+VerticalContentAlignment=&quot;Center&quot;
+Width=&quot;120&quot;
+SelectedIndex=&quot;2&quot;
+ItemsSource=&quot;{Binding Albums}&quot;
+DisplayMemberPath=&quot;Title&quot;
+VerticalAlignment=&quot;Center&quot; /&gt;
+</code></pre><p><img src="http://mahapps.com/images/splitButton_2.png" alt=""></p>
+<h3 id="DropDownButton"><a href="#DropDownButton" class="headerlink" title="DropDownButton"></a>DropDownButton</h3><p><img src="http://mahapps.com/images/dropDownButton_1.png" alt=""></p>
+<h3 id="Example-1"><a href="#Example-1" class="headerlink" title="Example"></a>Example</h3><pre><code>Controls:DropDownButton 
+VerticalContentAlignment=&quot;Center&quot;
+Width=&quot;120&quot;
+Content=&quot;Test&quot;
+DisplayMemberPath=&quot;Title&quot;
+Icon=&quot;{DynamicResource appbar_music}&quot;
+ItemsSource=&quot;{Binding Albums}&quot;&gt;
+&lt;/Controls:DropDownButton&gt;
+</code></pre><p><img src="http://mahapps.com/images/dropDownButton_2.png" alt=""></p>
+<h2 id="TabControl"><a href="#TabControl" class="headerlink" title="TabControl"></a>TabControl</h2><p>There are three included tab styles - <code>AnimatedTabControl</code>, <code>SingleRowAnimatedTabControl</code> and the default <code>TabControl</code>. The default TabControl style is included in Controls.xaml, but the other two require specific referencing (make sure to do this after a reference to <code>Controls.xaml</code>)</p>
+<h3 id="Default-look-1"><a href="#Default-look-1" class="headerlink" title="Default look"></a>Default look</h3><p><img src="http://mahapps.com/images/default_tab_control.png" alt=""></p>
+<p>This shows the three states - selected/active tab, hover and inactive.</p>
+<h3 id="AnimatedTabControl"><a href="#AnimatedTabControl" class="headerlink" title="AnimatedTabControl"></a>AnimatedTabControl</h3><pre><code>&lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml&quot; /&gt;
+</code></pre><p>Functioning just like the regular TabControl, except it animates every tab change by wrapping everything in a MetroContentControl.</p>
+<p><img src="http://mahapps.com/images/animatedtabcontrol.gif" alt=""></p>
+<h3 id="AnimatedSingleRowTabControl"><a href="#AnimatedSingleRowTabControl" class="headerlink" title="AnimatedSingleRowTabControl"></a>AnimatedSingleRowTabControl</h3><pre><code>&lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedSingleRowTabControl.xaml&quot; /&gt;
+</code></pre><p>AnimatedSingleRowTabControl functions exactly the same as the AnimatedTabControl except the tabs will only appear on a single line rather than wrapping. Instead of wrapping, arrows (left/right) are presented.</p>
+<p><img src="http://mahapps.com/images/singlerow_tab_control.png" alt=""></p>
+<h2 id="TextBox-MahApps-Metro"><a href="#TextBox-MahApps-Metro" class="headerlink" title="TextBox - MahApps.Metro"></a>TextBox - MahApps.Metro</h2><h3 id="Watermark"><a href="#Watermark" class="headerlink" title="Watermark"></a>Watermark</h3><pre><code>&lt;TextBox Controls:TextBoxHelper.Watermark=&quot;This is a textbox&quot; /&gt;
+</code></pre><p><img src="http://mahapps.com/images/10_textboxstates.png" alt=""></p>
+<h3 id="Clear-button"><a href="#Clear-button" class="headerlink" title="Clear button"></a>Clear button</h3><p>Like the watermark, a simple attached property adds in the functionality</p>
+<pre><code>&lt;TextBox Controls:TextBoxHelper.ClearTextButton=&quot;True&quot; /&gt;
+</code></pre><p><img src="http://mahapps.com/images/11_textboxclearstates.png" alt=""></p>
+<h2 id="Tile"><a href="#Tile" class="headerlink" title="Tile"></a>Tile</h2><pre><code>&lt;controls:Tile Title=&quot;Hello!&quot; 
+TiltFactor=&quot;2&quot;
+Width=&quot;100&quot; Height=&quot;100&quot; 
+Count=&quot;1&quot;&gt;
+&lt;/controls:Tile&gt;
+</code></pre><p><img src="https://github-camo.global.ssl.fastly.net/4793fa88b9041fb4a1bba21aa2140ee7d0f32b3c/687474703a2f2f7777772e6e63756265642e6e65742f7a2f706963732f6d6168617070732f54696c65436f6e74656e74436f6c6f72732e706e67" alt=""></p>
+<h2 id="ToggleButton"><a href="#ToggleButton" class="headerlink" title="ToggleButton"></a>ToggleButton</h2><p>The default style, available just by placing a ToggleButton control in XAML looks like the default MahApps.Metro button.</p>
+<p><img src="http://mahapps.com/images/toggle-button-normal.png" alt=""></p>
+<pre><code>&lt;Grid&gt;
+&lt;ToggleButton/&gt;
+&lt;/Grid&gt;
+</code></pre><p>Another style, MetroCircleToggleButtonStyle is available by setting the ToggleButton’s style to MetroCircleToggleButtonStyle. This style changes the button’s background to AccentColorBrush when it is checked. To modify this behaviour, you will have to edit a copy of the control template using Blend.</p>
+<pre><code>&lt;ToggleButton Width=&quot;50&quot;
+              Height=&quot;50&quot;
+              Margin=&quot;0, 10, 0, 0&quot;
+              Style=&quot;{DynamicResource MetroCircleToggleButtonStyle}&quot;&gt;
+&lt;/ToggleButton&gt;
+</code></pre><p><img src="http://mahapps.com/images/toggle-button-circle.png" alt=""></p>
+<h3 id="Using-Glyphs-Within-a-Circle-Toggle-Button"><a href="#Using-Glyphs-Within-a-Circle-Toggle-Button" class="headerlink" title="Using Glyphs Within a Circle Toggle Button"></a>Using Glyphs Within a Circle Toggle Button</h3><p>In order to use glyphs, you will have to add a reference to Icons.xaml.</p>
+<pre><code>`&lt;UserControl.Resources&gt;
+    &lt;ResourceDictionary&gt;
+        &lt;ResourceDictionary.MergedDictionaries&gt;
+            &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro.Resources;component/Icons.xaml&quot; /&gt;
+        &lt;/ResourceDictionary.MergedDictionaries&gt;
+    &lt;/ResourceDictionary&gt;
+&lt;/UserControl.Resources&gt;`
+</code></pre><ol>
+<li>Nest a Rectangle within the ToggleButton</li>
+<li>Set it’s fill to the color you want the icon to have</li>
+<li>Set Rectangle.OpacityMask to contain a VisualBrush with a Visual using the icon’s value as a reference.</li>
+</ol>
+<h3 id="For-example"><a href="#For-example" class="headerlink" title="For example:"></a>For example:</h3><pre><code>&lt;ToggleButton Width=&quot;50&quot;
+              Height=&quot;50&quot;
+              Margin=&quot;0, 10, 0, 0&quot;
+              Style=&quot;{DynamicResource MetroCircleToggleButtonStyle}&quot;&gt;
+    &lt;Rectangle Width=&quot;20&quot;
+               Height=&quot;20&quot;
+               Fill=&quot;{DynamicResource BlackBrush}&quot;&gt;
+        &lt;Rectangle.OpacityMask&gt;
+            &lt;VisualBrush Stretch=&quot;Fill&quot;
+                         Visual=&quot;{DynamicResource appbar_city}&quot;/&gt;
+        &lt;/Rectangle.OpacityMask&gt;
+    &lt;/Rectangle&gt;
+&lt;/ToggleButton&gt;
+</code></pre><h3 id="Syncing-Checked-State-of-ToggleButton-with-Foreground"><a href="#Syncing-Checked-State-of-ToggleButton-with-Foreground" class="headerlink" title="Syncing Checked State of ToggleButton with Foreground"></a>Syncing Checked State of ToggleButton with Foreground</h3><p>By default, any icon you set will retain the same color you set it to even if the ToggleButton is checked. To alter this, you can bind your content’s color to the ToggleButton’s Foreground property which changes to white by default when it is checked.</p>
+<p>An example of how to do the binding can be found below:</p>
+<pre><code>&lt;ToggleButton Width=&quot;50&quot;
+              Height=&quot;50&quot;
+              Margin=&quot;0, 10, 0, 0&quot;
+              Style=&quot;{DynamicResource MetroCircleToggleButtonStyle}&quot;&gt;
+    &lt;Rectangle Width=&quot;20&quot;
+               Height=&quot;20&quot;
+               Fill=&quot;{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ToggleButton}}}&quot;&gt;
+        &lt;Rectangle.OpacityMask&gt;
+            &lt;VisualBrush Stretch=&quot;Fill&quot;
+                         Visual=&quot;{DynamicResource appbar_city}&quot;/&gt;
+        &lt;/Rectangle.OpacityMask&gt;
+    &lt;/Rectangle&gt;
+&lt;/ToggleButton&gt;
+</code></pre><h2 id="ToggleSwitch"><a href="#ToggleSwitch" class="headerlink" title="ToggleSwitch"></a>ToggleSwitch</h2><p>The function is very similar to that of a checkbox, but easier to differentiate and easier to use with touch interfaces. Basically though, it can be thought of as a pretty CheckBox:</p>
+<pre><code>&lt;Controls:ToggleSwitch Header=&quot;WiFi rest state&quot; /&gt;
+</code></pre><p><img src="http://mahapps.com/images/09_toggleswitch.png" alt=""></p>
+<p>You can bind to/set IsChecked to switch between the two states. You can change the on and off labels by setting</p>
+<pre><code>&lt;Controls:ToggleSwitch OnLabel=&quot;Yes&quot; OffLabel=&quot;No&quot; /&gt;
+</code></pre><h2 id="TransitioningContentControl"><a href="#TransitioningContentControl" class="headerlink" title="TransitioningContentControl"></a>TransitioningContentControl</h2><p>Taken from Silverlight (specifically this port), TransitioningContentControl is great for switching content smoothly around. At it’s core, TransitioningContentControl is a ContentControl, so only one child element can be displayed at a time. When you change the content, an animation is played switching the two.</p>
+<pre><code>&lt;Controls:TransitioningContentControl x:Name=&quot;transitioning&quot; Width=&quot;150&quot; Height=&quot;50&quot; Transition=&quot;DownTransition&quot; /&gt;
+</code></pre><p>Built in there are several transitions:</p>
+<ul>
+<li>Default</li>
+<li>Down</li>
+<li>Up</li>
+<li>Right</li>
+<li>Left</li>
+<li>RightReplace</li>
+<li>LeftReplace</li>
+<li>Custom</li>
+</ul>
+<h2 id="StatusBar"><a href="#StatusBar" class="headerlink" title="StatusBar"></a>StatusBar</h2><pre><code>&lt;StatusBar Grid.Row=&quot;2&quot;&gt;
+            &lt;StatusBarItem&gt;MahApps.Metro DEMO Application&lt;/StatusBarItem&gt;
+            &lt;Separator Style=&quot;{StaticResource MetroStatusBarSeparator}&quot; /&gt;
+            &lt;StatusBarItem&gt;Selected Tab:&lt;/StatusBarItem&gt;
+            &lt;StatusBarItem Content=&quot;{Binding ElementName=MainTabControl, Path=SelectedItem.Header, Mode=OneWay}&quot; /&gt;
+        &lt;/StatusBar&gt;
+</code></pre><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li><a href="https://github.com/MahApps/MahApps.Metro.IconPacks" target="_blank" rel="noopener">MahApps.Metro.IconPacks</a></li>
+<li><a href="http://mahapps.com/guides/icons-and-resources.html" target="_blank" rel="noopener">MahApps.Metro.Resources</a> </li>
+<li>NHotkey</li>
+<li>NHotkey.Wpf</li>
+</ul>
+<p>参考：</p>
+<ul>
+<li><a href="http://rehansaeed.com/wpf-metro-part1-modern-ui-for-wpf/" target="_blank" rel="noopener">http://rehansaeed.com/wpf-metro-part1-modern-ui-for-wpf/</a></li>
+<li><a href="https://github.com/MahApps/MahApps.Metro" target="_blank" rel="noopener">https://github.com/MahApps/MahApps.Metro</a></li>
+<li><a href="http://mahapps.com/guides/quick-start.html" target="_blank" rel="noopener">http://mahapps.com/guides/quick-start.html</a></li>
+<li><a href="http://www.wxzzz.com/1202.html" target="_blank" rel="noopener">http://www.wxzzz.com/1202.html</a></li>
+<li><a href="http://mahapps.com/guides/icons-and-resources.html" target="_blank" rel="noopener">http://mahapps.com/guides/icons-and-resources.html</a></li>
+<li><a href="http://mahapps.com/guides/styles.html" target="_blank" rel="noopener">http://mahapps.com/guides/styles.html</a></li>
+<li><a href="http://mahapps.com/controls/" target="_blank" rel="noopener">http://mahapps.com/controls/</a></li>
+<li><a href="https://github.com/MahApps/MahApps.Metro.IconPacks" target="_blank" rel="noopener">https://github.com/MahApps/MahApps.Metro.IconPacks</a></li>
+<li><a href="http://fontawesome.io/icons/" target="_blank" rel="noopener">http://fontawesome.io/icons/</a></li>
+<li><a href="https://materialdesignicons.com/" target="_blank" rel="noopener">https://materialdesignicons.com/</a></li>
+<li><a href="http://www.wxzzz.com/tag/mahapps" title="http://www.wxzzz.com/tag/mahapps" target="_blank" rel="noopener">http://www.wxzzz.com/tag/mahapps</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">MahApps.Metro</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/01/MahApps.Metro使用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-获得GetLastError()内容" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/15/获得GetLastError()内容/">获得GetLastError()内容</a>
+    </h1>
+  
+
+        
+        <a href="/2017/06/15/获得GetLastError()内容/" class="archive-article-date">
+  	<time datetime="2017-06-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>GetStrError(CString&amp; strError, const DWORD&amp; dwErr)
+{
+    LPVOID lpMsgBuf;
+    //DWORD dw = GetLastError();
+    FormatMessage (
+        FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
+        NULL,
+        dwErr,
+        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+        (LPTSTR) &amp;lpMsgBuf,
+        0, NULL );
+    strError = (char *)lpMsgBuf;
+    LocalFree(lpMsgBuf);
+}
+</code></pre><p>个人写的：</p>
+<pre><code>GetStrError(CString &amp;strError, const DWORD &amp;dwErr)
+{
+    LPVOID lpMsgBuf;
+    //DWORD dw = GetLastError();
+    FormatMessage (
+        FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
+        NULL,
+        dwErr,
+        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+        (LPTSTR) &amp;lpMsgBuf,
+        0, NULL );
+    strError = (char *)lpMsgBuf;
+    LocalFree(lpMsgBuf);
+}
+
+MyAfxMessageBox(CString strError)
+{
+    CString str;
+    DWORD dwErr = GetLastError();
+    GetStrError(str, dwErr);
+    CString strTemp;
+    strTemp.Format(_T(&quot;程序运行错误!%s\r\n错误码:%lu\r\n错误内容:%s&quot;), strError, dwErr, str);
+    AfxMessageBox(strTemp);
+}
+
+try
+{
+    AfxMessageBox(strMsg, MB_ICONINFORMATION);
+}
+catch (CMemoryException *e)
+{
+    MyAfxMessageBox(_T(&quot;CMemoryException&quot;));
+}
+catch (CFileException *e)
+{
+    MyAfxMessageBox(_T(&quot;CFileException&quot;));
+}
+catch (CException *e)
+{
+    MyAfxMessageBox(_T(&quot;CException&quot;));
+}
+catch(...)
+{
+    MyAfxMessageBox(_T(&quot;其他&quot;));
+}
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">GetLastError</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/06/15/获得GetLastError()内容/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-C++字符分割" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/01/C++字符分割/">C++字符串分割</a>
+    </h1>
+  
+
+        
+        <a href="/2017/06/01/C++字符分割/" class="archive-article-date">
+  	<time datetime="2017-06-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="AfxExtractSubString"><a href="#AfxExtractSubString" class="headerlink" title="AfxExtractSubString"></a>AfxExtractSubString</h1><p>表头: <afxwin.h></afxwin.h></p>
+<p>BOOL AFXAPI AfxExtractSubString ( CString&amp; rString, LPCTSTR lpszFullString, int iSubString, TCHAR chSep = ‘\n’);</p>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>rString 对CString将得到一个单独的子字符串的对象。</p>
+<p>lpszFullString 字符串包含字符串的全文提取自。</p>
+<p>iSubString 提取的子字符串的从零开始的索引从lpszFullString。</p>
+<p>chSep 使用的分隔符分隔子字符串，默认的是’\n’。</p>
+<h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><p>TRUE ，如果函数成功提取了该子字符串中提供的索引;否则， FALSE。</p>
+<h2 id="例："><a href="#例：" class="headerlink" title="例："></a>例：</h2><pre><code>// 使用AfxExtractSubString分割字符串
+void CSplitString::SplitString1()
+{
+    std::vector&lt;long&gt; arrPic;
+
+    CString strContent = _T(&quot;1,2,3,4,5&quot;);
+    CString strTemp;
+    int iPos = 0;
+
+    while (AfxExtractSubString(strTemp, strContent, iPos, &apos;,&apos;))
+    {
+        iPos++;
+        arrPic.push_back(_wtol(strTemp));
+    }
+}
+</code></pre><h1 id="STL-find-first-of"><a href="#STL-find-first-of" class="headerlink" title="STL find_first_of"></a>STL find_first_of</h1><pre><code>// 利用STL自己实现字符串分割
+void CSplitString::SplitString2()
+{
+    const std::string s(&quot;1,2,3,4,5;6;7;8;9&quot;);
+    std::vector&lt;std::string&gt; v;
+    const std::string c(&quot;,;&quot;);//多个分隔符
+
+    std::string::size_type pos1, pos2;
+    pos2 = s.find_first_of(c);
+    pos1 = 0;
+    while (std::string::npos != pos2)
+    {
+        v.push_back(s.substr(pos1, pos2 - pos1));
+
+        pos1 = pos2 + 1;
+        pos2 = s.find_first_of(c, pos1);
+    }
+    if (pos1 != s.length())
+        v.push_back(s.substr(pos1));
+}
+</code></pre><h1 id="tcstok-s"><a href="#tcstok-s" class="headerlink" title="_tcstok_s"></a>_tcstok_s</h1><pre><code>// 使用C的_tcstok分割字符串
+void CSplitString::SplitString3()
+{
+    CString str = _T(&quot;a,b*c,d&quot;);
+    TCHAR seps[] = _T(&quot;,*&quot;);//可按多个字符来分割
+    TCHAR *next_token1 = NULL;
+    TCHAR* token = _tcstok_s((LPTSTR)(LPCTSTR)str, seps,&amp;next_token1);
+    while (token != NULL)
+    {
+        TRACE(&quot;\r\nstr=%s  token=%s\r\n&quot;, str, token);
+        token = _tcstok_s(NULL, seps, &amp;next_token1);
+    }
+}
+</code></pre><p><a href="http://www.qiezichaodan.com/mfc_cstring_split/" target="_blank" rel="noopener">http://www.qiezichaodan.com/mfc_cstring_split/</a></p>
+<p><a href="http://blog.csdn.net/xjw532881071/article/details/49154911" target="_blank" rel="noopener">http://blog.csdn.net/xjw532881071/article/details/49154911</a></p>
+<p><a href="http://www.cnblogs.com/happykoukou/p/5427268.html" target="_blank" rel="noopener">http://www.cnblogs.com/happykoukou/p/5427268.html</a></p>
+<h1 id="词汇分割器库-Boost-Tokenizer"><a href="#词汇分割器库-Boost-Tokenizer" class="headerlink" title="词汇分割器库 Boost.Tokenizer"></a>词汇分割器库 Boost.Tokenizer</h1><pre><code>#include &lt;boost/tokenizer.hpp&gt; 
+#include &lt;string&gt; 
+#include &lt;iostream&gt; 
+
+int main() 
+{ 
+  typedef boost::tokenizer&lt;boost::char_separator&lt;char&gt; &gt; tokenizer; 
+  std::string s = &quot;Boost C++ libraries&quot;; 
+  boost::char_separator&lt;char&gt; sep(&quot; &quot;, &quot;+&quot;, boost::keep_empty_tokens); 
+  tokenizer tok(s, sep); 
+  for (tokenizer::iterator it = tok.begin(); it != tok.end(); ++it) 
+    std::cout &lt;&lt; *it &lt;&lt; std::endl; 
+} 
+</code></pre><h1 id="分词Boost-regex"><a href="#分词Boost-regex" class="headerlink" title="分词Boost.regex"></a>分词Boost.regex</h1><pre><code>void TestToken()
+{
+    using namespace std;
+    using namespace boost;
+    string str(&quot;tengxun@qq.com, aa@tt.com, bb@qq.com&quot;);
+    regex reg(&quot;\\w+&quot;);
+    sregex_token_iterator pos(str.begin(), str.end(), reg);
+    while (pos != sregex_token_iterator())
+    {
+        cout &lt;&lt; &quot;[&quot; &lt;&lt; *pos &lt;&lt; &quot;]&quot;;
+        ++pos;
+    }
+
+    cout &lt;&lt; endl;
+    //如果最后一个参数args为-1，则把匹配到的字符串视为分隔符
+    regex split_reg(&quot;,&quot;);
+    pos = sregex_token_iterator(str.begin(), str.end(), split_reg, -1);
+    while (pos != sregex_token_iterator())
+    {
+        cout &lt;&lt; &quot;[&quot; &lt;&lt; *pos &lt;&lt; &quot;]&quot;;
+        ++pos;
+    }
+    cout &lt;&lt; endl;
+    //如果最后一个参数args为正数，则返回匹配结果的第args个子串
+    regex split_sub_reg(&quot;(\\w*)@(\\w*).(\\w*)&quot;);
+    pos = sregex_token_iterator(str.begin(), str.end(), split_sub_reg, 1);
+    while (pos != sregex_token_iterator())
+    {
+        cout &lt;&lt; &quot;[&quot; &lt;&lt; *pos &lt;&lt; &quot;]&quot;;
+        ++pos;
+    }
+    cout &lt;&lt; endl;
+    //匹配并指定输出顺序
+    //从下面字符串中提取日期，并转换成 年月日 的顺序输出
+    std::string input(&quot;01/02/2003 blahblah 04/23/1999 blahblah 11/13/1981&quot;);
+    regex re(&quot;(\\d{2})/(\\d{2})/(\\d{4})&quot;); // find a date
+    int const sub_matches[] = { 3, 1, 2 }; // year，month， day
+    sregex_token_iterator begin(input.begin(), input.end(), re, sub_matches), end;
+    // write all the words to std::cout
+    std::ostream_iterator&lt; std::string &gt; out_iter(std::cout, &quot;\n&quot;);
+    std::copy(begin, end, out_iter);
+}
+</code></pre><p>参考：</p>
+<ul>
+<li><a href="http://www.cplusplus.com/faq/sequences/strings/split/" target="_blank" rel="noopener">http://www.cplusplus.com/faq/sequences/strings/split/</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">字符串</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/06/01/C++字符分割/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-GUID" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1589,754 +2568,6 @@ int GetFilePath(std::string &amp;strFilePath)
 
 
   
-    <article id="post-CShap 系统托盘图标" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/01/CShap 系统托盘图标/">C# 系统托盘图标</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/01/CShap 系统托盘图标/" class="archive-article-date">
-  	<time datetime="2017-02-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p>
-<p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p>
-<p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p>
-<p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p>
-<h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf
-</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p>
-<h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml<window>添加</window></p>
-<pre><code>xmlns:tb=&quot;http://www.hardcodet.net/taskbar&quot;
-</code></pre><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p>
-<pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;
-  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;
-  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;
-  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;
-    &lt;ContextMenu&gt;
-      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;
-      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;
-    &lt;/ContextMenu&gt;
-  &lt;/tb:TaskbarIcon.ContextMenu&gt;
-&lt;/tb:TaskbarIcon&gt;
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/01/CShap 系统托盘图标/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-CShap与C++通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/01/CShap与C++通信/">C#与C++相互发送消息</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/01/CShap与C++通信/" class="archive-article-date">
-  	<time datetime="2017-02-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-与C-相互发送消息"><a href="#C-与C-相互发送消息" class="headerlink" title="C#与C++相互发送消息"></a>C#与C++相互发送消息</h1><h2 id="C-端："><a href="#C-端：" class="headerlink" title="C#端："></a>C#端：</h2><pre><code>namespace CshapMessage
-{
-    /// &lt;summary&gt;
-    /// MainWindow.xaml 的交互逻辑
-    /// &lt;/summary&gt;
-    public partial class MainWindow : Window
-    {
-        IntPtr hwnd;
-
-        const int WM_COPYDATA = 0x004A;
-
-        public struct COPYDATASTRUCT
-        {
-            public IntPtr dwData;
-            public int cData;
-            [MarshalAs(UnmanagedType.LPStr)]
-            public string lpData;
-        }
-
-        [DllImport(&quot;User32.dll&quot;)]
-        public static extern int SendMessage(int hwnd, int msg, int wParam, ref COPYDATASTRUCT IParam);
-        [DllImport(&quot;User32.dll&quot;)]
-        public static extern int FindWindow(string lpClassName, string lpWindowName);
-
-        public MainWindow()
-        {
-            InitializeComponent();
-            this.Title = &quot;CshapMessage&quot;;
-            this.Loaded += MainWindow_Loaded;
-            this.Closed += MainWindow_Closed;
-        }
-
-        private void MainWindow_Closed(object sender, EventArgs e)
-        {
-            try
-            {
-                HwndSource.FromHwnd(hwnd).RemoveHook(WndProc);
-            }
-            catch (Exception) { }
-        }
-
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            hwnd = new WindowInteropHelper(this).Handle;
-            HwndSource.FromHwnd(hwnd).AddHook(new HwndSourceHook(WndProc));
-        }
-
-        /// &lt;summary&gt;
-        /// 向C++程序 CshapMessage发送消息
-        /// &lt;/summary&gt;
-        /// &lt;param name=&quot;nMessgeId&quot;&gt;&lt;/param&gt;
-        /// &lt;param name=&quot;strSend&quot;&gt;&lt;/param&gt;
-        /// &lt;returns&gt;&lt;/returns&gt;
-        private bool CshapSendMessage(int nMessgeId, String strSend)
-        {
-            int WINDOW_HANDLE = FindWindow(null, &quot;VcMessage&quot;);//VcMessage为向C++程序发送的窗口名称
-            if (WINDOW_HANDLE != 0)
-            {
-                COPYDATASTRUCT cdata;
-                cdata.dwData = (IntPtr)100;//这里可以传入一些自定义的数据，但只能是4字节整数 
-                cdata.lpData = strSend;//消息字符串
-                cdata.cData = System.Text.Encoding.Default.GetBytes(strSend).Length+1;//注意，这里的长度是按字节来算的
-
-                SendMessage(WINDOW_HANDLE, WM_COPYDATA, 0, ref cdata);
-            }
-            else
-            {
-                return false;
-            }
-            return true;
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            String strSend = &quot;C#发送的信息&quot;;
-            int nMessageId = 100;
-
-            if (CshapSendMessage(nMessageId,strSend))
-            {
-                MessageBox.Show(&quot;发送消息成功&quot;);
-            }
-            else
-            {
-                MessageBox.Show(&quot;消息发送失败，请打开VcMessage程序&quot;);
-            }
-        }
-
-        //接收消息。
-        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-        {
-            if (msg == WM_COPYDATA)
-            {
-                COPYDATASTRUCT cdata = new COPYDATASTRUCT();
-                Type mytype = cdata.GetType();
-                cdata = (COPYDATASTRUCT)Marshal.PtrToStructure(lParam, mytype);
-                switch (cdata.dwData.ToInt32())
-                {
-                    case 1:
-                        {
-                            string strRecv = cdata.lpData;
-                            break;
-                        }
-                    default:
-                        break;
-                }
-            }
-
-            return IntPtr.Zero;
-        }
-    }
-}
-</code></pre><h2 id="C-端：-1"><a href="#C-端：-1" class="headerlink" title="C++端："></a>C++端：</h2><pre><code>BOOL CVcMessageDlg::OnCopyData(CWnd* pWnd, COPYDATASTRUCT* pCopyDataStruct)
-{
-    // TODO: 在此添加消息处理程序代码和/或调用默认值
-
-    //接收C#发送来的数据
-    switch (pCopyDataStruct-&gt;dwData)
-    {
-    case 100:
-    {
-        CStringA strRecv = (char*)pCopyDataStruct-&gt;lpData;
-        break;
-    }
-
-    default:
-    {
-        break;
-    }
-    }
-
-    return CDialogEx::OnCopyData(pWnd, pCopyDataStruct);
-}
-
-void CVcMessageDlg::OnBnClickedButton1()
-{
-    // TODO: 在此添加控件通知处理程序代码
-
-    CStringA strSend = &quot;VC发送的数据&quot;;
-
-    if (VCSendMessage(1,strSend))
-    {
-        AfxMessageBox(_T(&quot;消息发送成功&quot;));
-    } 
-    else
-    {
-        AfxMessageBox(_T(&quot;消息发送失败&quot;));
-    }
-}
-
-//************************************
-// Method:    VCSendMessage
-// FullName:  CVcMessageDlg::VCSendMessage
-// Access:    public 
-// Returns:   BOOL
-// Qualifier: 向C#程序 CshapMessage发送消息
-// Parameter: int nMessgeId
-// Parameter: CStringA strSend
-//************************************
-BOOL CVcMessageDlg::VCSendMessage(int nMessgeId,CStringA strSend)
-{
-    HWND hSendWindow = this-&gt;m_hWnd;
-    if (hSendWindow == NULL)
-    {
-        return FALSE;
-    }
-
-    CWnd *phwnd = FindWindow(NULL, _T(&quot;CshapMessage&quot;));
-    HWND hRecvWindow = NULL;
-    if (phwnd == NULL)
-    {
-        return FALSE;
-    }
-
-    hRecvWindow = phwnd-&gt;GetSafeHwnd();
-
-    if (hRecvWindow == NULL)
-    {
-        return FALSE;
-    }
-
-    COPYDATASTRUCT CopyData;
-    CopyData.dwData = nMessgeId;
-    CopyData.cbData = strSend.GetLength()+1;
-    CopyData.lpData = (PVOID)strSend.GetBuffer(CopyData.cbData);
-
-    ::SendMessage(hRecvWindow, WM_COPYDATA, (WPARAM)hSendWindow, (LPARAM)&amp;CopyData);
-
-    return TRUE;
-}
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">通信</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/01/CShap与C++通信/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-钩子" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/15/钩子/">钩子</a>
-    </h1>
-  
-
-        
-        <a href="/2017/01/15/钩子/" class="archive-article-date">
-  	<time datetime="2017-01-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="进程内钩子"><a href="#进程内钩子" class="headerlink" title="进程内钩子"></a>进程内钩子</h1><pre><code>//进程内钩子
-
-//鼠标钩子过程函数
-HHOOK g_hHookDm = NULL;
-HWND g_DestWndH = NULL;
-
-LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
-{
-    //此区间内的消息都是鼠标消息
-    if (WM_MOUSEMOVE &lt;= wParam &amp;&amp; wParam &lt;= WM_MOUSEWHEEL)
-    {
-        if (g_DestWndH != NULL)
-        {
-            ::SendMessage(g_DestWndH, wParam, wParam, lParam);
-            //鼠标钩子,lParam是MOUSEHOOKSTRUCT结构指针
-            PMOUSEHOOKSTRUCT lpMsg = (PMOUSEHOOKSTRUCT)lParam;
-            lpMsg-&gt;hwnd = NULL;
-            lpMsg-&gt;dwExtraInfo = 0L;
-            lpMsg-&gt;pt = CPoint(0, 0);
-            lpMsg-&gt;wHitTestCode = 0L;
-        }
-        return 1;//如果不想让此消息再往下传，返回非0
-    }
-    else
-    {
-        return ::CallNextHookEx(g_hHookDm, nCode, wParam, lParam);
-    }
-}
-
-//创建钩子过程
-if (g_hHookDm == NULL)
-{
-    //如果dwThreadid指定的线程是由当前进程创建，并且钩子过程在当时进程中，那么hMod必须设置为NULL.
-    g_hHookDm = ::SetWindowsHookEx(WH_MOUSE, MouseProc, NULL, GetCurrentThreadId());
-    if (g_hHookDm != NULL)
-    {
-        g_DestWndH = m_hWnd;//保存目的窗口句柄
-    }
-}
-
-//消毁进程内钩子
-if (g_hHookDm != NULL)
-{
-    UnhookWindowsHookEx(g_hHookDm);
-    g_DestWndH = NULL;
-}
-
-全局钩子-MFC扩展DLL
-
-/新建一个CMouseHook的导出类
-#pragma once
-
-// CMouseHook 命令目标
-//.h
-class AFX_EXT_CLASS CMouseHook : public CObject    //AFX_EXT_CLASS宏声明类为导出类
-{
-public:
-    CMouseHook();
-    virtual ~CMouseHook();
-
-public:
-    BOOL StartHook(HWND hWnd); //安装钩子函数
-
-    BOOL StopHook();//卸载钩子函数
-};
-
-//.cpp
-#include &lt;afxwin.h&gt;
-#include &lt;afxdllx.h&gt;
-
-#ifdef _DEBUG
-#define new DEBUG_NEW
-#endif
-
-#define  WM_TOTASK (WM_USER + 2)
-
-#pragma data_seg(&quot;SharedDataName&quot;)
-
-HHOOK g_mouseHook;
-HHOOK g_keyboardHook;
-
-HWND g_hwnd = NULL;
-
-HINSTANCE glhInstance = NULL; //DLL实例句柄
-
-#pragma data_seg()
-
-#pragma comment(linker,&quot;/section:.SharedDataName,rws&quot;)
-
-static AFX_EXTENSION_MODULE MyMouseHookDLL = { NULL, NULL };
-
-extern &quot;C&quot; int APIENTRY
-DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
-{
-    // 如果使用 lpReserved，请将此移除
-    UNREFERENCED_PARAMETER(lpReserved);
-
-    if (dwReason == DLL_PROCESS_ATTACH)
-    {
-        TRACE0(&quot;MyMouseHook.DLL 正在初始化!\n&quot;);
-
-        // 扩展 DLL 一次性初始化
-        if (!AfxInitExtensionModule(MyMouseHookDLL, hInstance))
-            return 0;
-
-        // 将此 DLL 插入到资源链中
-        // 注意: 如果此扩展 DLL 由
-        //  MFC 规则 DLL (如 ActiveX 控件)隐式链接到，
-        //  而不是由 MFC 应用程序链接到，则需要
-        //  将此行从 DllMain 中移除并将其放置在一个
-        //  从此扩展 DLL 导出的单独的函数中。使用此扩展 DLL 的
-        //  规则 DLL 然后应显式
-        //  调用该函数以初始化此扩展 DLL。否则，
-        //  CDynLinkLibrary 对象不会附加到
-        //  规则 DLL 的资源链，并将导致严重的
-        //  问题。
-
-        new CDynLinkLibrary(MyMouseHookDLL);
-        glhInstance = hInstance; //插入保存DLL
-    }
-    else if (dwReason == DLL_PROCESS_DETACH)
-    {
-        TRACE0(&quot;MyMouseHook.DLL 正在终止!\n&quot;);
-
-        // 在调用析构函数之前终止该库
-        AfxTermExtensionModule(MyMouseHookDLL);
-    }
-    return 1;   // 确定
-}
-
-LRESULT CALLBACK MouseProc(
-    int nCode,      // hook code
-    WPARAM wParam,  // message identifier
-    LPARAM lParam   // mouse coordinates
-) //鼠标钩子过程
-{
-    LPMOUSEHOOKSTRUCT pMouseHook = (MOUSEHOOKSTRUCT FAR *)lParam;
-    if (nCode &gt;= 0)
-    {
-        if (WM_LBUTTONDOWN == wParam)
-        {
-
-            //鼠标钩子,lParam是MOUSEHOOKSTRUCT结构指针
-            PMOUSEHOOKSTRUCT lpMsg = (PMOUSEHOOKSTRUCT)lParam;
-            CPoint point = lpMsg-&gt;pt;
-
-            RECT rect;
-            ::GetWindowRect(g_hwnd, &amp;rect);    //得到整个窗口在屏幕上的矩形框位置
-
-            if ((point.x &lt; rect.left || point.x &gt; rect.right) || (point.y &lt; rect.top || point.y &gt; rect.bottom))
-            {
-                ::SendMessage(g_hwnd, WM_SYSCOMMAND, WM_TOTASK, 0);
-            }
-        }
-    }
-    return CallNextHookEx(g_mouseHook, nCode, wParam, lParam);
-}
-
-LRESULT CALLBACK KeyboardProc(
-    int code,       // hook code
-    WPARAM wParam,  // virtual-key code
-    LPARAM lParam   // keystroke-message information
-)//键盘钩子过程
-{
-    if(VK_F2 == wParam)
-    {
-        ::SendMessage(g_hwnd, WM_CLOSE, 0, 0);
-        ::UnhookWindowsHookEx(g_mouseHook);
-        ::UnhookWindowsHookEx(g_keyboardHook);
-    }
-    else
-        return 1;
-}
-
-//安装钩子并设定接收显示窗口句柄
-BOOL CMouseHook::StartHook(HWND hWnd)
-{
-    BOOL bResult = FALSE;
-    g_hwnd = hWnd;
-    g_mouseHook =::SetWindowsHookEx(WH_MOUSE, MouseProc, glhInstance/*::GetModuleHandle(_T(&quot;MyMouseHook.dll&quot;))*/, 0);
-    g_keyboardHook =::SetWindowsHookEx(WH_KEYBOARD, KeyboardProc, ::GetModuleHandle(_T(&quot;MyMouseHook.dll&quot;)), 0);
-    /*=================================================================================
-    HHOOK SetWindowsHookEx( int idHook,HOOKPROC lpfn, INSTANCE hMod,DWORD dwThreadId )
-    　　参数idHook表示钩子类型，它是和钩子函数类型一一对应的。
-    比如，WH_KEYBOARD表示安装的是键盘钩子，WH_MOUSE表示是鼠标钩子等等。
-
-    　　Lpfn是钩子函数的地址。
-
-    　　HMod是钩子函数所在的实例的句柄。对于线程钩子，该参数为NULL；
-    对于系统钩子，该参数为钩子函数所在的DLL句柄。
-
-    　　dwThreadId 指定钩子所监视的线程的线程号。对于全局钩子，该参数为NULL。
-
-    　　SetWindowsHookEx返回所安装的钩子句柄。
-    值得注意的是线程钩子和系统钩子的钩子函数的位置有很大的差别。
-    线程钩子一般在当前线程或者当前线程派生的线程内，
-    而系统钩子必须放在独立的动态链接库中，实现起来要麻烦一些。
-    ==================================================================================*/
-    if(g_mouseHook != NULL)
-        bResult = TRUE;
-
-    if(g_keyboardHook != NULL)
-        bResult = TRUE;
-
-    //设置显示目标窗口标题编辑框的句柄
-    return bResult;
-}
-
-//卸载钩子
-BOOL CMouseHook::StopHook()
-{
-    BOOL bResult = FALSE;
-    if(g_mouseHook)
-    {
-        bResult = UnhookWindowsHookEx(g_mouseHook);
-        if(bResult)
-        {
-            g_mouseHook = NULL;
-        }
-    }
-
-    if(g_keyboardHook)
-    {
-        bResult = UnhookWindowsHookEx(g_keyboardHook);
-        if(bResult)
-        {
-            g_keyboardHook = NULL;
-        }
-    }
-
-    return bResult;
-}
-</code></pre><h1 id="全局钩子-WIN32-DLL"><a href="#全局钩子-WIN32-DLL" class="headerlink" title="全局钩子-WIN32  DLL"></a>全局钩子-WIN32  DLL</h1><pre><code>#pragma data_seg(&quot;MySec&quot;)
-HHOOK g_mouseHook;
-HHOOK g_keyboardHook;
-HWND g_hwnd = NULL;
-#pragma data_seg()
-#pragma comment(linker,&quot;/section:MySec,RWS&quot;)   //设置链接器，使MySec节拥有属性为 RWS (READ WRITE SHARED )
-
-LRESULT CALLBACK MouseProc(
-    int nCode,      // hook code
-    WPARAM wParam,  // message identifier
-    LPARAM lParam   // mouse coordinates
-) //鼠标钩子过程
-{
-    return 1;
-}
-
-LRESULT CALLBACK KeyboardProc(
-    int code,       // hook code
-    WPARAM wParam,  // virtual-key code
-    LPARAM lParam   // keystroke-message information
-)//键盘钩子过程
-{
-    if(VK_F2 == wParam)
-    {
-        ::SendMessage(g_hwnd, WM_CLOSE, 0, 0);
-        ::UnhookWindowsHookEx(g_mouseHook);
-        ::UnhookWindowsHookEx(g_keyboardHook);
-    }
-    else
-        return 1;
-}
-
-void SetHook(HWND hwnd)
-{
-    g_hwnd = hwnd;
-    g_mouseHook =::SetWindowsHookEx(WH_MOUSE, MouseProc, ::GetModuleHandle(_T(&quot;dll_hook.dll&quot;)), 0);
-    g_keyboardHook =::SetWindowsHookEx(WH_KEYBOARD, KeyboardProc, ::GetModuleHandle(_T(&quot;dll_hook.dll&quot;)), 0);
-}
-
-//之后我们添加def文件
-//或者在def(模块定义文件中 )
-
-LIBRARY    &quot;Hook&quot;
-EXPORTS
-SetHook @2
-SECTIONS
-MySec   READ WRITE SHARED
-
-//编译下，编译通过之后可以看到 hook_dll.dll  和  hook_dll.lib文件。
-//接着我们写一个测试程序，新建MFC工程 选择对话框程序.拷贝hook_dll.dll  和  hook_dll.lib到工程目录下，在链接器命令行加上  hook_dll.lib.
-//在OnInitDialog()函数之前 定义DLL函数：
-
-_declspec(dllimport) void SetHook(HWND hwnd);
-//在OnInitDialog()内添加
-
-SetHook(this-&gt;m_hWnd);
-</code></pre><p> </p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">钩子</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/01/15/钩子/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
@@ -3099,6 +3330,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">持续集成</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">C++11</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">代码覆盖率</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">分词</a>
               </li>
             
             <div class="clearfix"></div>

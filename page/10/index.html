@@ -160,6 +160,380 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-xmpp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/15/xmpp/">xmpp</a>
+    </h1>
+  
+
+        
+        <a href="/2016/04/15/xmpp/" class="archive-article-date">
+  	<time datetime="2016-04-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-04-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="xmpp学习"><a href="#xmpp学习" class="headerlink" title="xmpp学习"></a>xmpp学习</h1><hr>
+<h2 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h2><p><a href="http://www.igniterealtime.org/downloads/index.jsp" target="_blank" rel="noopener">Openfire</a></p>
+<p>服务器：Openfire 4.0.2</p>
+<p>客户端：Spark 2.7.7</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="Openfire安装："><a href="#Openfire安装：" class="headerlink" title="Openfire安装："></a>Openfire安装：</h3><p>根据提示一直下一步，服务器域名设置为：localhost(ps:如果使用gloox，还是直接用机器名，因为gloox不识别ip)；数据库使用内嵌数据库或别的标准数据库。</p>
+<p>使用mysql的时候需要注意要用管理员权限打开Openfire,否则会出现如下错误：</p>
+<pre><code>HTTP ERROR 500
+Problem accessing /setup/setup-profile-settings.jsp. Reason: 
+
+    Server Error
+
+Caused by:
+</code></pre><p>安装完成后浏览器登录：<a href="http://127.0.0.1:9090" target="_blank" rel="noopener">http://127.0.0.1:9090</a></p>
+<h3 id="Spark"><a href="#Spark" class="headerlink" title="Spark"></a>Spark</h3><p>分别在两台电脑上安装Spark，创建各自用户，互添加好友，然后就可以通信了。</p>
+<h2 id="自己实现客户端"><a href="#自己实现客户端" class="headerlink" title="自己实现客户端"></a>自己实现客户端</h2><h3 id="使用agsXMPP"><a href="#使用agsXMPP" class="headerlink" title="使用agsXMPP"></a>使用agsXMPP</h3><p>很好用，直接到官网下载即可，有详细例子，但是程序运行时调试输出信息中会有</p>
+<pre><code>在 System.Net.Sockets.SocketException 中第一次偶然出现的“System.dll”类型的异常
+</code></pre><p>的提示</p>
+<p>网上说可能是服务器的问题，暂时没找。</p>
+<h3 id="使用gloox"><a href="#使用gloox" class="headerlink" title="使用gloox"></a>使用gloox</h3><h4 id="下载gloox"><a href="#下载gloox" class="headerlink" title="下载gloox"></a>下载gloox</h4><p>下载地址：<a href="https://camaya.net/gloox/download/" title="https://camaya.net/gloox/download/" target="_blank" rel="noopener">https://camaya.net/gloox/download/</a></p>
+<p>gloox 0.9.9.12：<a href="http://camaya.net/download/gloox-0.9.9.12.tar.bz2" title="http://camaya.net/download/gloox-0.9.9.12.tar.bz2" target="_blank" rel="noopener">http://camaya.net/download/gloox-0.9.9.12.tar.bz2</a></p>
+<p>直接用vs打开gloox.vcxproj即可运行</p>
+<p>gloox 1.0.15：<a href="http://camaya.net/download/gloox-1.0.15.tar.bz2" title="http://camaya.net/download/gloox-1.0.15.tar.bz2" target="_blank" rel="noopener">http://camaya.net/download/gloox-1.0.15.tar.bz2</a></p>
+<p>直接用vs打开gloox.vcxproj运行会有问题，需要修改一下文件。<br>以下提供一个可在vs2013中直接运行的gloox</p>
+<p><a href="http://files.cnblogs.com/files/yhcao/gloox_lib_with_vs2013.rar" target="_blank" rel="noopener">gloox_lib_with_vs2013.rar</a></p>
+<p>svn地址：<br>gloox-1.0：svn co svn://svn.camaya.net/gloox/branches/1.0</p>
+<h4 id="调试例子"><a href="#调试例子" class="headerlink" title="调试例子"></a>调试例子</h4><ol>
+<li>新建一个win32控制台空项目,字符集为多字节</li>
+<li>新建筛选器gloox</li>
+<li>把gloox中src文件夹与config.h.win文件复制到新项目中</li>
+<li>修改src文件夹为gloox,并把其中文件(不包括子目录)添加到筛选器gloox中</li>
+<li>加载gloox文件夹下的examples中例子进行调试</li>
+</ol>
+<p>例如：MyGloox2015下MyGloox项目</p>
+<p><a href="http://files.cnblogs.com/files/yhcao/MyGloox.rar" title="MyGloox.rar" target="_blank" rel="noopener">MyGloox.rar</a></p>
+<h4 id="gloox内存泄露"><a href="#gloox内存泄露" class="headerlink" title="gloox内存泄露"></a>gloox内存泄露</h4><p>本人发现不管是直接使用gloox还是自己封装gloox，都会有内存泄露，找了几个版本以及别人写的程序，发现都有内存泄露的问题。</p>
+<h3 id="使用libstrophe"><a href="#使用libstrophe" class="headerlink" title="使用libstrophe"></a>使用libstrophe</h3><h4 id="libstrophe编译"><a href="#libstrophe编译" class="headerlink" title="libstrophe编译"></a>libstrophe编译</h4><ol>
+<li><p>下载libstrophe-master.zip</p>
+</li>
+<li><p>解压，看看各目录，expat是空的，再下载expat，解压，不需要编译，把.h和.c放到expat\lib下面。</p>
+</li>
+<li><p>然后先编译expat，顺利编译出 lib文件、</p>
+</li>
+<li><p>再编译libstrophe工程，会提示没有parser.c。看说明文档，libstrophe缺省用的是expat,可选用libxml2，进入src下，看到有parser_libxml2.c和parser_expat.c，很明显，把parser_expat.c改名成parser.c就可以了。编译通过。</p>
+</li>
+<li><p>再编译其他例子工程，提示没有va_copy。vc2008时好象没有兼容它，不过也没关系，这问题肯定很多人碰到过，果然随便一google，就有答案了， #define一下就行了。</p>
+<pre><code>#ifndef va_copy
+# ifdef __va_copy
+# define va_copy(DEST,SRC) __va_copy((DEST),(SRC))
+# else
+# define va_copy(DEST, SRC) memcpy((&amp;DEST), (&amp;SRC), sizeof(va_list))
+# endif
+#endif 
+</code></pre></li>
+</ol>
+<p>或者</p>
+<pre><code>#ifndef va_copy
+#define va_copy(d,s) ((d) = (s))
+#endif
+</code></pre><ol>
+<li>全部编译通过，测试登录和发消息，api简洁明了，是目前见过最好用的xmpp库。当然gloox和qxmpp也都很好用，还有libjingle功能更强，各取所需。</li>
+</ol>
+<p>个人又遇到一个错误：</p>
+<pre><code>1&gt;libstrophe.lib(sasl.obj) : error LNK2019: 无法解析的外部符号 _SCRAM_SHA1_ClientSignature，该符号在函数 _sasl_scram_sha1 中被引用
+1&gt;libstrophe.lib(sasl.obj) : error LNK2019: 无法解析的外部符号 _SCRAM_SHA1_ClientKey，该符号在函数 _sasl_scram_sha1 中被引用
+1&gt;E:\code\C\Local\xmpp\libstrophe-0.8.8\libstrophe-0.8.8\vs2008\Debug\roster example.exe : fatal error LNK1120: 2 个无法解析的外部命令
+</code></pre><p>此问题需要把sasl.c与auth.c文件</p>
+<p>如果还不行请用这个：</p>
+<p><a href="http://files.cnblogs.com/files/yhcao/libstrophe%28%E5%8F%AF%E7%94%A8%29.rar" title="http://files.cnblogs.com/files/yhcao/libstrophe%28%E5%8F%AF%E7%94%A8%29.rar" target="_blank" rel="noopener">libstrophe(可用).rar</a></p>
+<p>可用vs2008与vs2012直接打开</p>
+<h4 id="libstrophe文档"><a href="#libstrophe文档" class="headerlink" title="libstrophe文档"></a>libstrophe文档</h4><p><a href="http://strophe.im/libstrophe/doc/0.8-snapshot/" title="http://strophe.im/libstrophe/doc/0.8-snapshot/" target="_blank" rel="noopener">http://strophe.im/libstrophe/doc/0.8-snapshot/</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">即时通讯</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">xmpp</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Openfire</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">agsXMPP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">gloox</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">libstrophe</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/04/15/xmpp/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Qt安装配置-冲突-赤龙绕月" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/01/Qt安装配置-冲突-赤龙绕月/">Qt安装配置</a>
+    </h1>
+  
+
+        
+        <a href="/2016/04/01/Qt安装配置-冲突-赤龙绕月/" class="archive-article-date">
+  	<time datetime="2016-04-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-04-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Qt-Creator"><a href="#Qt-Creator" class="headerlink" title="Qt Creator:"></a>Qt Creator:</h1><h2 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h2><p><a href="http://download.qt.io/official_releases/qt/5.5/5.5.0/qt-opensource-windows-x86-mingw492-5.5.0.exe" target="_blank" rel="noopener">Qt 5.5.1 for Windows 32-bit(MinGW 4.9.2, 1.0 GB)</a>:</p>
+<p><a href="http://download.qt.io/official_releases/qt/5.5/5.5.0/qt-opensource-windows-x86-mingw492-5.5.0.exe" target="_blank" rel="noopener">http://download.qt.io/official_releases/qt/5.5/5.5.0/qt-opensource-windows-x86-mingw492-5.5.0.exe</a></p>
+<p><a href="http://download.qt.io/archive/qt/" target="_blank" rel="noopener">http://download.qt.io/archive/qt/</a></p>
+<p><a href="http://download.qt.io/official_releases/" target="_blank" rel="noopener">http://download.qt.io/official_releases/</a></p>
+<p>安装：</p>
+<p>一直“下一步”安装下去。</p>
+<h2 id="Qt-Creator运行："><a href="#Qt-Creator运行：" class="headerlink" title="Qt Creator运行："></a>Qt Creator运行：</h2><p>用Qt Creator创建项目：<br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135230436-2035070806.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135300327-642081944.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135329124-11023139.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135348983-981255417.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135405702-1719283850.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135425343-750603627.png" alt=""></p>
+<hr>
+<h1 id="Visual-Studio"><a href="#Visual-Studio" class="headerlink" title="Visual Studio:"></a>Visual Studio:</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载:"></a>下载:</h2><p><a href="http://download.qt-project.org/official_releases/vsaddin/qt-vs-addin-1.2.4-opensource.exe" target="_blank" rel="noopener">Visual Studio Add-in 1.2.4 for Qt5(156 MB)</a>:<a href="http://download.qt-project.org/official_releases/vsaddin/qt-vs-addin-1.2.4-opensource.exe" target="_blank" rel="noopener">http://download.qt-project.org/official_releases/vsaddin/qt-vs-addin-1.2.4-opensource.exe</a></p>
+<p><a href="http://download.qt.io/official_releases/qt/5.5/5.5.1/qt-opensource-windows-x86-msvc2013_64-5.5.1.exe" target="_blank" rel="noopener">Qt 5.5.1 for Windows 64-bit (VS 2013, 823 MB)</a>或<a href="http://download.qt.io/official_releases/qt/5.5/5.5.1/qt-opensource-windows-x86-msvc2013-5.5.1.exe" target="_blank" rel="noopener">Qt 5.5.1 for Windows 32-bit (VS 2013, 804 MB)</a></p>
+<h2 id="vs2013进行QT配置："><a href="#vs2013进行QT配置：" class="headerlink" title="vs2013进行QT配置："></a>vs2013进行QT配置：</h2><p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135450046-76850689.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135504546-1612990196.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135519155-1738395535.png" alt=""></p>
+<h2 id="创建项目："><a href="#创建项目：" class="headerlink" title="创建项目："></a>创建项目：</h2><p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135534624-413319152.png" alt=""></p>
+<p>一直下一步。</p>
+<h1 id="ubuntu下Qt"><a href="#ubuntu下Qt" class="headerlink" title="ubuntu下Qt"></a>ubuntu下Qt</h1><p><a href="http://wiki.ubuntu.org.cn/Qt" target="_blank" rel="noopener">http://wiki.ubuntu.org.cn/Qt</a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre><code>sudo apt-get install qtcreator
+</code></pre><p>中文界面：</p>
+<pre><code>sudo apt-get install language-pack-kde-zh language-pack-kde-zh-base
+</code></pre><h1 id="常见问题："><a href="#常见问题：" class="headerlink" title="常见问题："></a>常见问题：</h1><p>可以成功安装到V2013上，但是却出现了下面的问题： Qt5Widgetsd.lib(Qt5Widgetsd.dll) : fatal error LNK1112: 模块计算机类型“x64”与目标计算机类型“X86”冲突</p>
+<p><a href="http://jingyan.baidu.com/article/a948d65159d8890a2dcd2e84.html" target="_blank" rel="noopener">百度百科解决方法</a>：<a href="http://jingyan.baidu.com/article/a948d65159d8890a2dcd2e84.html" target="_blank" rel="noopener">http://jingyan.baidu.com/article/a948d65159d8890a2dcd2e84.html</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Qt</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/04/01/Qt安装配置-冲突-赤龙绕月/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-Qt安装配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/04/01/Qt安装配置/">Qt安装配置</a>
+    </h1>
+  
+
+        
+        <a href="/2016/04/01/Qt安装配置/" class="archive-article-date">
+  	<time datetime="2016-04-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-04-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Qt-Creator"><a href="#Qt-Creator" class="headerlink" title="Qt Creator:"></a>Qt Creator:</h1><h2 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h2><p><a href="http://download.qt.io/official_releases/qt/5.5/5.5.0/qt-opensource-windows-x86-mingw492-5.5.0.exe" target="_blank" rel="noopener">Qt 5.5.1 for Windows 32-bit(MinGW 4.9.2, 1.0 GB)</a>:</p>
+<p><a href="http://download.qt.io/official_releases/qt/5.5/5.5.0/qt-opensource-windows-x86-mingw492-5.5.0.exe" target="_blank" rel="noopener">http://download.qt.io/official_releases/qt/5.5/5.5.0/qt-opensource-windows-x86-mingw492-5.5.0.exe</a></p>
+<p><a href="http://download.qt.io/archive/qt/" target="_blank" rel="noopener">http://download.qt.io/archive/qt/</a></p>
+<p><a href="http://download.qt.io/official_releases/" target="_blank" rel="noopener">http://download.qt.io/official_releases/</a></p>
+<p>安装：</p>
+<p>一直“下一步”安装下去。</p>
+<h2 id="Qt-Creator运行："><a href="#Qt-Creator运行：" class="headerlink" title="Qt Creator运行："></a>Qt Creator运行：</h2><p>用Qt Creator创建项目：<br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135230436-2035070806.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135300327-642081944.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135329124-11023139.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135348983-981255417.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135405702-1719283850.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135425343-750603627.png" alt=""></p>
+<hr>
+<h1 id="Visual-Studio"><a href="#Visual-Studio" class="headerlink" title="Visual Studio:"></a>Visual Studio:</h1><h2 id="下载"><a href="#下载" class="headerlink" title="下载:"></a>下载:</h2><p><a href="http://download.qt-project.org/official_releases/vsaddin/qt-vs-addin-1.2.4-opensource.exe" target="_blank" rel="noopener">Visual Studio Add-in 1.2.4 for Qt5(156 MB)</a>:<a href="http://download.qt-project.org/official_releases/vsaddin/qt-vs-addin-1.2.4-opensource.exe" target="_blank" rel="noopener">http://download.qt-project.org/official_releases/vsaddin/qt-vs-addin-1.2.4-opensource.exe</a></p>
+<p><a href="http://download.qt.io/official_releases/qt/5.5/5.5.1/qt-opensource-windows-x86-msvc2013_64-5.5.1.exe" target="_blank" rel="noopener">Qt 5.5.1 for Windows 64-bit (VS 2013, 823 MB)</a>或<a href="http://download.qt.io/official_releases/qt/5.5/5.5.1/qt-opensource-windows-x86-msvc2013-5.5.1.exe" target="_blank" rel="noopener">Qt 5.5.1 for Windows 32-bit (VS 2013, 804 MB)</a></p>
+<h2 id="vs2013进行QT配置："><a href="#vs2013进行QT配置：" class="headerlink" title="vs2013进行QT配置："></a>vs2013进行QT配置：</h2><p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135450046-76850689.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135504546-1612990196.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135519155-1738395535.png" alt=""></p>
+<h2 id="创建项目："><a href="#创建项目：" class="headerlink" title="创建项目："></a>创建项目：</h2><p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135534624-413319152.png" alt=""></p>
+<p>一直下一步。</p>
+<h1 id="ubuntu下Qt"><a href="#ubuntu下Qt" class="headerlink" title="ubuntu下Qt"></a>ubuntu下Qt</h1><p><a href="http://wiki.ubuntu.org.cn/Qt" target="_blank" rel="noopener">http://wiki.ubuntu.org.cn/Qt</a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>刚装好的系统中已经有GCC了，但是这个GCC几乎什么文件都不能编译，因为缺少一些必须的头文件，所以要安装build-essential这个软件包输入下面命令：</p>
+<pre><code>sudo apt-get install build-essential
+</code></pre><p>安装qtcreator</p>
+<pre><code>sudo apt-get install qtcreator
+</code></pre><p>如果安装的qtcreator是显示英文菜单，需要安装KDE的中文包才能显示中文菜单：</p>
+<pre><code>sudo apt-get install language-pack-kde-zh language-pack-kde-zh-base
+</code></pre><p>kdevelop IDE</p>
+<pre><code>sudo apt-get install kdevelop
+</code></pre><p><a href="http://wiki.ubuntu.org.cn/C_Cpp_IDE" target="_blank" rel="noopener">C Cpp IDE</a></p>
+<p><a href="http://wiki.ubuntu.org.cn/Gtk%E4%B8%8EQt%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE" target="_blank" rel="noopener">Gtk与Qt编译环境安装与配置</a></p>
+<h1 id="常见问题："><a href="#常见问题：" class="headerlink" title="常见问题："></a>常见问题：</h1><p>可以成功安装到V2013上，但是却出现了下面的问题： Qt5Widgetsd.lib(Qt5Widgetsd.dll) : fatal error LNK1112: 模块计算机类型“x64”与目标计算机类型“X86”冲突</p>
+<p><a href="http://jingyan.baidu.com/article/a948d65159d8890a2dcd2e84.html" target="_blank" rel="noopener">百度百科解决方法</a>：<a href="http://jingyan.baidu.com/article/a948d65159d8890a2dcd2e84.html" target="_blank" rel="noopener">http://jingyan.baidu.com/article/a948d65159d8890a2dcd2e84.html</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Qt</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/04/01/Qt安装配置/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Maven环境配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1720,6 +2094,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">持续集成</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">C++11</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">代码覆盖率</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">工具</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">分词</a>
               </li>
             
             <div class="clearfix"></div>
