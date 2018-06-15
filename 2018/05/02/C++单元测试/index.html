@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="https://caojingyou.github.io">
   <title>C++单元测试 | 曹景游</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="cppunithttps://caojingyou.github.io/2018/01/18/cppunit/ CppUTesthttp://cpputest.github.io/ https://github.com/cpputest/cpputest Google Test 与  Google Mockhttps://github.com/google/googletest https://c">
+  <meta name="description" content="cppunithttps://caojingyou.github.io/2018/01/18/cppunit/ CppUTesthttp://cpputest.github.io/ https://github.com/cpputest/cpputest http://cpputest.github.io/manual.html Quick introduction (some code!)To">
 <meta name="keywords" content="随笔,C&#x2F;C++,CppUnit,单元测试,CppUTest,Google Test,Google Mock,Boost.Test,MicrosoftCppUnitTest">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++单元测试">
 <meta property="og:url" content="https://caojingyou.github.io/2018/05/02/C++单元测试/index.html">
 <meta property="og:site_name" content="曹景游">
-<meta property="og:description" content="cppunithttps://caojingyou.github.io/2018/01/18/cppunit/ CppUTesthttp://cpputest.github.io/ https://github.com/cpputest/cpputest Google Test 与  Google Mockhttps://github.com/google/googletest https://c">
-<meta property="og:updated_time" content="2018-05-09T07:26:59.404Z">
+<meta property="og:description" content="cppunithttps://caojingyou.github.io/2018/01/18/cppunit/ CppUTesthttp://cpputest.github.io/ https://github.com/cpputest/cpputest http://cpputest.github.io/manual.html Quick introduction (some code!)To">
+<meta property="og:updated_time" content="2018-06-15T02:32:35.075Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++单元测试">
-<meta name="twitter:description" content="cppunithttps://caojingyou.github.io/2018/01/18/cppunit/ CppUTesthttp://cpputest.github.io/ https://github.com/cpputest/cpputest Google Test 与  Google Mockhttps://github.com/google/googletest https://c">
+<meta name="twitter:description" content="cppunithttps://caojingyou.github.io/2018/01/18/cppunit/ CppUTesthttp://cpputest.github.io/ https://github.com/cpputest/cpputest http://cpputest.github.io/manual.html Quick introduction (some code!)To">
   
     <link rel="alternative" href="/atom.xml" title="曹景游" type="application/atom+xml">
   
@@ -185,13 +185,289 @@
         <h1 id="cppunit"><a href="#cppunit" class="headerlink" title="cppunit"></a>cppunit</h1><p><a href="https://caojingyou.github.io/2018/01/18/cppunit/" title="https://caojingyou.github.io/2018/01/18/cppunit/">https://caojingyou.github.io/2018/01/18/cppunit/</a></p>
 <h1 id="CppUTest"><a href="#CppUTest" class="headerlink" title="CppUTest"></a>CppUTest</h1><p><a href="http://cpputest.github.io/" title="http://cpputest.github.io/" target="_blank" rel="noopener">http://cpputest.github.io/</a></p>
 <p><a href="https://github.com/cpputest/cpputest" title="https://github.com/cpputest/cpputest" target="_blank" rel="noopener">https://github.com/cpputest/cpputest</a></p>
+<p><a href="http://cpputest.github.io/manual.html" target="_blank" rel="noopener">http://cpputest.github.io/manual.html</a></p>
+<h2 id="Quick-introduction-some-code"><a href="#Quick-introduction-some-code" class="headerlink" title="Quick introduction (some code!)"></a>Quick introduction (some code!)</h2><p>To write your first test, all you need is a new cpp file with a TEST_GROUP and a TEST, like:</p>
+<pre><code>TEST_GROUP(FirstTestGroup)
+{
+};
+
+TEST(FirstTestGroup, FirstTest)
+{
+   FAIL(&quot;Fail me!&quot;);
+}
+</code></pre><p>This test will fail.</p>
+<p>You can add new tests to the test group by just writing more tests in the file, like this:</p>
+<pre><code>TEST(FirstTestGroup, SecondTest)
+{
+   STRCMP_EQUAL(&quot;hello&quot;, &quot;world&quot;);
+   LONGS_EQUAL(1, 2);
+   CHECK(false);
+}
+</code></pre><p>You do need to create a main where you run all the unit tests. Such a main will look like this:</p>
+<pre><code>int main(int ac, char** av)
+{
+   return CommandLineTestRunner::RunAllTests(ac, av);
+}
+</code></pre><h2 id="Most-commonly-used-Test-Macros"><a href="#Most-commonly-used-Test-Macros" class="headerlink" title="Most commonly used Test Macros"></a>Most commonly used Test Macros</h2><pre><code>TEST(group, name) - define a test
+IGNORE_TEST(group, name) - turn off the execution of a test
+TEST_GROUP(group) - Declare a test group to which certain tests belong. This will also create the link needed from another library.
+TEST_GROUP_BASE(group, base) - Same as TEST_GROUP, just use a different base class than Utest
+IMPORT_TEST_GROUP(group) - Export the name of a test group so it can be linked in from a library (also see Advanced Stuff)
+</code></pre><h2 id="Set-up-and-tear-down-support"><a href="#Set-up-and-tear-down-support" class="headerlink" title="Set up and tear down support"></a>Set up and tear down support</h2><pre><code>Each TEST_GROUP may contain setup or teardown methods
+Setup is called prior to each TEST body and Teardown is called after the test body
+</code></pre><p>Every test group can have a setup and a teardown method. The setup method is called before each test and the teardown method is called after each test.</p>
+<p>You can define setup and teardown like this:</p>
+<pre><code>TEST_GROUP(FooTestGroup)
+{
+   void setup()
+   {
+      // Init stuff
+   }
+
+   void teardown()
+   {
+      // Uninit stuff
+   }
+};
+
+TEST(FooTestGroup, Foo)
+{
+   // Test FOO
+}
+
+TEST(FooTestGroup, MoreFoo)
+{
+   // Test more FOO
+}
+
+TEST_GROUP(BarTestGroup)
+{
+   void setup()
+   {
+      // Init Bar
+   }
+};
+
+TEST(BarTestGroup, Bar)
+{
+   // Test Bar
+}
+</code></pre><h2 id="Assertions"><a href="#Assertions" class="headerlink" title="Assertions"></a>Assertions</h2><p>The failure of one of these macros causes the current test to immediately exit:</p>
+<pre><code>CHECK(boolean condition) - checks any boolean result.
+CHECK_TEXT(boolean condition, text) - checks any boolean result and prints text on failure.
+CHECK_FALSE(condition) - checks any boolean result
+CHECK_EQUAL(expected, actual) - checks for equality between entities using ==. So if you have a class that supports operator==() you can use this macro to compare two instances. You will also need to add a StringFrom() function like those found in SimpleString. This is for printing the objects when the check failed.
+CHECK_COMPARE(first, relop, second) - checks thats a relational operator holds between two entities. On failure, prints what both operands evaluate to.
+CHECK_THROWS(expected_exception, expression) - checks if expression throws expected_exception (e.g. std::exception). CHECK_THROWS is only available if CppUTest is built with the Standard C++ Library (default).
+STRCMP_EQUAL(expected, actual) - checks const char* strings for equality using strcmp().
+STRNCMP_EQUAL(expected, actual, length) - checks const char* strings for equality using strncmp().
+STRCMP_NOCASE_EQUAL(expected, actual) - checks const char* strings for equality, not considering case.
+STRCMP_CONTAINS(expected, actual) - checks whether const char* actual contains const char* expected.
+LONGS_EQUAL(expected, actual) - compares two numbers.
+UNSIGNED_LONGS_EQUAL(expected, actual) - compares two positive numbers.
+BYTES_EQUAL(expected, actual) - compares two numbers, eight bits wide.
+POINTERS_EQUAL(expected, actual) - compares two pointers.
+DOUBLES_EQUAL(expected, actual, tolerance) - compares two floating point numbers within some tolerance
+FUNCTIONPOINTERS_EQUAL(expected, actual) - compares two void (*)() function pointers
+MEMCMP_EQUAL(expected, actual, size) - compares two areas of memory
+BITS_EQUAL(expected, actual, mask) - compares expected to actual bit by bit, applying mask
+FAIL(text) - always fails
+</code></pre><p>NOTE Most macros have _TEXT() equivalents like CHECK_TEXT(), which are not explicitly listed here.</p>
+<p>CHECK_EQUAL Warning:</p>
+<p>CHECK_EQUAL(expected, actual) can produce misleading error reports as it will evaluate expected and actual more than once. This especially leads to confusions when used with mocks. This happens if the mock function expects to be called exactly once, since the macro needs to evaluate the actual expression more than once. The problem does not occur with type specific checks (e.g. LONGS_EQUAL()), so it is recommended to use them if possible. Instead of:</p>
+<pre><code>CHECK_EQUAL(10, mock_returning_11())
+</code></pre><p>which reports: Mock Failure: Unexpected additional call, rather use</p>
+<pre><code>LONGS_EQUAL(10, mock_returning_11()) // reports actual different from expected
+</code></pre><p>This issue could only be avoided with advanced language features like C++ templates, which would violate the CppUTest design goal portability to old environments.</p>
+<h2 id="C-程序设计实践与技巧：测试驱动开发"><a href="#C-程序设计实践与技巧：测试驱动开发" class="headerlink" title="C++程序设计实践与技巧：测试驱动开发"></a>C++程序设计实践与技巧：测试驱动开发</h2><p>CppUTest内建的模拟框架可以使处理<br>遗留代码的测试更容易些。可根据自己的喜好继续使用Google Test/Google Mock，只需要针对单<br>元测试代码做些相对简单的改动即可。</p>
+<p>CppUTest提供了对TDD单元测试工具来说非常重要的绝大多数特性，同时也支持通过命令行<br>切换的方式运行测试的一个子集，和Google Test的过滤器非常类似，但没有那么稳定。<br>CppUTest还具有一个非常重要的特性——支持内存泄漏监测，这个特性可以和其他单元测试<br>工具结合起来使用。</p>
 <h1 id="Google-Test-与-Google-Mock"><a href="#Google-Test-与-Google-Mock" class="headerlink" title="Google Test 与  Google Mock"></a>Google Test 与  Google Mock</h1><p><a href="https://github.com/google/googletest" title="https://github.com/google/googletest" target="_blank" rel="noopener">https://github.com/google/googletest</a></p>
 <p><a href="https://code/google.com/p/googlemock/" target="_blank" rel="noopener">https://code/google.com/p/googlemock/</a></p>
-<h2 id="Google-Test"><a href="#Google-Test" class="headerlink" title="Google Test"></a>Google Test</h2><p><a href="https://www.cnblogs.com/jycboy/p/6057677.html" title="https://www.cnblogs.com/jycboy/p/6057677.html" target="_blank" rel="noopener">https://www.cnblogs.com/jycboy/p/6057677.html</a></p>
+<h2 id="C-程序设计实践与技巧：测试驱动开发-1"><a href="#C-程序设计实践与技巧：测试驱动开发-1" class="headerlink" title="C++程序设计实践与技巧：测试驱动开发"></a>C++程序设计实践与技巧：测试驱动开发</h2><h3 id="自定义断言"><a href="#自定义断言" class="headerlink" title="自定义断言"></a>自定义断言</h3><p>Google Mock还提供MATCHER_P2，MATCHER_P3，…，MATCHER_P10以来支持多参数的匹配器</p>
+<pre><code>class ARetweetCollection: public Test {
+public:
+   RetweetCollection collection;
+};
+
+MATCHER_P(HasSize, expected, &quot;&quot;) { 
+   return 
+      arg.size() == expected &amp;&amp; 
+      arg.isEmpty() == (0 == expected); 
+}
+
+TEST_F(ARetweetCollection, DecreasesSizeAfterRemovingTweet) {
+   collection.add(Tweet());
+
+   collection.remove(Tweet());
+
+   ASSERT_THAT(collection, HasSize(0u));
+}
+</code></pre><h3 id="禁用测试"><a href="#禁用测试" class="headerlink" title="禁用测试"></a>禁用测试</h3><p>在Google Mock中，你可以给测试名称加上 DISABLED_ 前缀来禁用测试。</p>
+<pre><code>TEST(ATweet, DISABLED_RequiresUserNameToStartWithAnAtSign)
+</code></pre><p>当运行测试集时，Google Mock会在末尾打印出提示，这样就可以知道哪些测试被禁用了。</p>
+<h3 id="测试结构"><a href="#测试结构" class="headerlink" title="测试结构"></a>测试结构</h3><p>文件组织、fixture、setup、teardown、过滤器、断言和基于异常的断言</p>
+<h4 id="文件组织"><a href="#文件组织" class="headerlink" title="文件组织"></a>文件组织</h4><p>在测试驱动开发相关行为时，我们会将相关的测试定义在同一个测试文件中。例如，为了测<br>试 驱 动 开 发 一 个 RetweetCollection 类 （ 在 RetweetCollection.cpp/.h 中 实 现 ）， 从<br>RetweetCollectionTest.cpp开始。不要立刻给测试创建一个头文件，这是吃力不讨好的。</p>
+<p>基于所包含的测试来给文件命名。概括相关的行为，并据此给测试命名。选定一个命名体系，<br>诸如BehaviorDescriptionTest.cpp、BehaviorDescriptionTests.cpp或者TestBehavriorDescription.cpp。<br>只要你的代码一致地遵守此标准即可。一致的命名约定可以让开发人员更容易地找到需要的<br>测试。</p>
+<h4 id="fixture"><a href="#fixture" class="headerlink" title="fixture"></a>fixture</h4><p>在Google Mock中，你可以使用Google<br>所谓的测试用例名称来将相关测试分组。</p>
+<p>定义一个派生自::testing::Test的fixture。</p>
+<p>使用 TEST_F</p>
+<h4 id="运行测试的一个子集"><a href="#运行测试的一个子集" class="headerlink" title="运行测试的一个子集"></a>运行测试的一个子集</h4><p>Google Mock可以通过指定一个测试过滤器轻松地做到只运行一个测试子集。你可以把测试<br>过滤器作为执行测试的命令行参数。过滤器的语法是：测试用例名.测试名称。例如，如果想要<br>运行一个特定的测试，可以使用下面的命令：</p>
+<pre><code>./test --gtest_filter=ATweet.CanBeCopyConstructed # weak
+</code></pre><p>但是不要养成每次只运行一个测试的习惯。可以使用通配符（ * ）运行多个测试。让我们运<br>行一下ATweet测试用例中所有的测试。</p>
+<pre><code>./test --gtest_filter=ATweet.* # slightly less weak
+</code></pre><p>如果你在开发和tweet相关的类，那么最好找到一个方法来运行所有和tweet相关的测试。使<br>用多个通配符吧！</p>
+<pre><code>./test --gtest_filter=*weet*.*
+</code></pre><p>这个过滤器包含了RetweetCollection中所有的测试。（我省略写 T ，因为它不能和Retweet-<br>Collection中的小写 t 匹配。）<br>如果你想在不运行Tweet类的任何构造测试的情况下运行和tweet相关的所有测试，该怎么做<br>呢？这时，Google Mock允许你创建复杂的过滤器。</p>
+<pre><code>./test --gtest_filter=*Retweet*.*:ATweet.*:-ATweet*.*Construct*
+</code></pre><p>可以使用冒号（ : ）来分隔不同的过滤器。如果Google Mock遇到一个负号（-），那么其后的<br>所有过滤器匹配的测试都将被忽略。在上面的例子中， -ATweet<em>.</em>Construct* 告诉Google Mock<br>忽略名称中含 Construct 的所有ATweet测试。</p>
+<h4 id="测试分类：快、慢"><a href="#测试分类：快、慢" class="headerlink" title="测试分类：快、慢"></a>测试分类：快、慢</h4><p>使运行时间超过给定值的测试失败（通过一个名为<br>slow_test_threshold 的命令行选项）。</p>
+<h4 id="断言"><a href="#断言" class="headerlink" title="断言"></a>断言</h4><p>Google Mock，提供了另一种断言机制，它允许测试在遇到断言失败的情况<br>下继续运行。这些断言又称作非致命性断言，与致命性断言相对，后者会中止测试。</p>
+<pre><code>ASSERT_TRUE (表达式) 表达式返回假（或0）时，测试失败    ASSERT_TRUE(4&lt;7)
+ASSERT_EQ( 期待值，实际值) 期待值和实际值不等时，测试失败    ASSERT_EQ(4, 20/5)
+</code></pre><p>ASSERT_FALSE、 ASSERT_GT、 ASSERT_LT、SSERT<em>STREQ 、 ASSERT</em><br>STRNE 、 ASSERT_STRCASEEQ 和 ASSERT_STRCASENE</p>
+<h4 id="Hamcrest-断言"><a href="#Hamcrest-断言" class="headerlink" title="Hamcrest 断言"></a>Hamcrest 断言</h4><p>几年前引入Hamcrest断言就是为了提升测试的表达力、创建复杂断言的灵活性，以及测试错<br>误所提供的信息。Hamcrest使用匹配器（matcher，Hamcrest是Matchers的衍生词）比较实际结果。<br>匹配器可以组合成复杂但易懂的比较表达式。你也可以自定义匹配器。<br>几个简单的示例胜过千言万语，至少可以省去不少篇幅。</p>
+<pre><code>string actual = string(&quot;al&quot;) + &quot;pha&quot;;
+ASSERT_THAT(actual, Eq(&quot;alpha&quot;));
+</code></pre><p>这个断言从左至右读作：断定实际值等于 “alpha” 。对于一个简单的相等比较而言，区区几<br>个额外的字符就能够提升可阅读性。<br>起初，Hamcrest断言貌似过于炫技。但是匹配器的价值在于它能极大地提升测试的表达力。<br>许多匹配器既能减少所需的代码量，同时也能提升测试的抽象层次。</p>
+<pre><code>ASSERT_THAT(actual, StartsWith(&quot;alx&quot;));
+</code></pre><p>Google Mock的文档列出了一些内置的匹配器<br>① 。<br>使用它们时需要在测试文件中加入 using 声明。</p>
+<pre><code>using namespace ::testing;
+</code></pre><p>否则本意用来提升表达力的断言读起来会有些啰嗦卡顿。如下：</p>
+<pre><code>ASSERT_THAT(actual, ::testing::StartsWith(&quot;al&quot;));
+</code></pre><p>Hamcrest断言在提升失败信息的可读性方面意义更大。</p>
+<pre><code>Expected: starts with &quot;alx&quot;
+Actual: &quot;alpha&quot; (of type std::string)
+</code></pre><p>匹配器的组合能力使你用一行断言就能表达本来需要多行断言才能做到的事情。</p>
+<pre><code>ASSERT_THAT(actual,
+AllOf(StartsWith(&quot;al&quot;), EndsWith(&quot;ha&quot;), Ne(&quot;aloha&quot;)));
+</code></pre><p>上述例子中的 AllOf 表明只有当所有匹配器都成功时，整个断言才算通过。因而 actual 必须<br>以 “al” 开头，以 “ha” 结尾，且不等于 “aloha” 。<br>对于布尔值的断言而言，大部分开发者都会避开Hamcrest断言而使用经典的断言形式。</p>
+<pre><code>ASSERT_TRUE(someBooleanExpression);
+ASSERT_FALSE(someBooleanExpression);
+</code></pre><h4 id="参数化测试"><a href="#参数化测试" class="headerlink" title="参数化测试"></a>参数化测试</h4><pre><code>#include &quot;gmock/gmock.h&quot;
+
+using namespace ::testing;
+
+struct SumCase {
+   int a, b, expected;
+   SumCase(int anA, int aB, int anExpected) 
+      : a(anA), b(aB), expected(anExpected) {}
+};
+
+//先定义一个衍生自TestWithParam&lt;T&gt;的fixture，这里的 T 是参数类型。
+class AnAdder: public TestWithParam&lt;SumCase&gt; {//这里的参数类型为SumCase，用来描述两个输入值和一个期望的和。
+};
+
+class Adder {
+public:
+   static int sum(int a, int b) {
+      return a + b;
+   }
+};
+
+TEST(AnAdder, GeneratesASumFromTwoNumbers) {
+   ASSERT_THAT(Adder::sum(1, 1), Eq(2));
+}
+// TEST_P 宏来声明测试，其中 P 表示参数化。
+TEST_P(AnAdder, GeneratesLotsOfSumsFromTwoNumbers) {
+   SumCase input = GetParam();
+   ASSERT_THAT(Adder::sum(input.a, input.b), Eq(input.expected));
+}
+SumCase sums[] = { 
+   SumCase(1, 1, 2), 
+   SumCase(1, 2, 3),
+   SumCase(2, 2, 4) 
+};
+INSTANTIATE_TEST_CASE_P(BulkTest, AnAdder, ValuesIn(sums));
+</code></pre><p>最后一行代码使用事先准备好的参数运行测试。 INSTANTIATE_TEST_CASE_P 的第二个参数<br>是fixture的名称，第三个参数是准备好的测试值。（第一个参数 BulkTest 是Google Mock加在测试<br>名称前的前缀。） ValuesIn() 函数指示在每次运行测试时，其输入的测试值是来自名为 sums 的数<br>组（GeneratesLotsOfSumsFromTwoNumbers）。测试中的第一行调用了 GetParam() 函数，它返回<br>输入的测试值（一个 SumCase 对象）。</p>
+<h3 id="选择测试用例"><a href="#选择测试用例" class="headerlink" title="选择测试用例"></a>选择测试用例</h3><p><a href="https://blog.csdn.net/dreamstone_xiaoqw/article/details/77019158" target="_blank" rel="noopener">https://blog.csdn.net/dreamstone_xiaoqw/article/details/77019158</a></p>
+<p>列出所有的测试用例，但并不执行。代码中的用例TEST(Foo, Bar) 显示出的结果是 “Foo.Bar”.</p>
+<pre><code>--gtest_list_tests
+</code></pre><p>只运行名字与正模式匹配的测试用例，但不运行与负模式名字相同的用例。</p>
+<pre><code>--gtest_filter=POSTIVE_PATTERNS[-NEGATIVE_PATTERNS]
+</code></pre><p>PS：–gtest_filter=执行用例名[-不执行的用例名]，用例名可使用部分能配符。</p>
+<pre><code>&apos;?&apos; 匹配任意单字符；
+&apos;*&apos; 匹配任意字符串；
+&apos;:&apos; 来分隔不同的过滤器.
+</code></pre><p> 运行所有用例，包括禁用的用例。</p>
+<pre><code>--gtest_also_run_disabled_tests
+</code></pre><h2 id="Google-Test"><a href="#Google-Test" class="headerlink" title="Google Test"></a>Google Test</h2><p><a href="https://www.cnblogs.com/jycboy/p/6057677.html" title="https://www.cnblogs.com/jycboy/p/6057677.html" target="_blank" rel="noopener">https://www.cnblogs.com/jycboy/p/6057677.html</a></p>
 <p><a href="https://segmentfault.com/a/1190000002454946" title="https://segmentfault.com/a/1190000002454946" target="_blank" rel="noopener">https://segmentfault.com/a/1190000002454946</a></p>
 <p><a href="http://developer.51cto.com/art/201108/285290.htm" title="http://developer.51cto.com/art/201108/285290.htm" target="_blank" rel="noopener">http://developer.51cto.com/art/201108/285290.htm</a></p>
 <p><a href="http://www.cnblogs.com/coderzh/archive/2009/03/31/1426758.html" title="http://www.cnblogs.com/coderzh/archive/2009/03/31/1426758.html" target="_blank" rel="noopener">http://www.cnblogs.com/coderzh/archive/2009/03/31/1426758.html</a></p>
-<h3 id="simple代码"><a href="#simple代码" class="headerlink" title="simple代码:"></a>simple代码:</h3><pre><code>#ifndef GTEST_SAMPLES_PRIME_TABLES_H_
+<h3 id="常用例子："><a href="#常用例子：" class="headerlink" title="常用例子："></a>常用例子：</h3><pre><code>#include &quot;gmock/gmock.h&quot;
+
+int main(int argc, char** argv) {
+    testing::InitGoogleMock(&amp;argc, argv);
+
+    int nRet = RUN_ALL_TESTS();
+    system(&quot;pause&quot;);
+    return nRet;
+}
+
+#include &quot;gmock/gmock.h&quot;
+#include &quot;gtest/gtest.h&quot;
+
+TEST(xxxTest, xxx)
+{
+
+}
+
+class QuickTest : public testing::Test {
+ protected:
+  // Remember that SetUp() is run immediately before a test starts.
+  // This is a good place to record the start time.
+  virtual void SetUp() {
+    start_time_ = time(NULL);
+  }
+
+  // TearDown() is invoked immediately after a test finishes.  Here we
+  // check if the test was too slow.
+  virtual void TearDown() {
+    // Gets the time when the test finishes
+    const time_t end_time = time(NULL);
+
+    // Asserts that the test took no more than ~5 seconds.  Did you
+    // know that you can use assertions in SetUp() and TearDown() as
+    // well?
+    EXPECT_TRUE(end_time - start_time_ &lt;= 5) &lt;&lt; &quot;The test took too long.&quot;;
+  }
+
+  // The UTC time (in seconds) when the test starts
+  time_t start_time_;
+};
+
+class QueueTest : public QuickTest
+{
+protected:
+    virtual void SetUp()
+    {
+        // First, we need to set up the super fixture (QuickTest).
+        QuickTest::SetUp();
+
+        // Second, some additional setup for this fixture.
+        q1_.Enqueue(1);
+        q2_.Enqueue(2);
+        q2_.Enqueue(3);
+    }
+
+    // By default, TearDown() inherits the behavior of
+    // QuickTest::TearDown().  As we have no additional cleaning work
+    // for QueueTest, we omit it here.
+    //
+    // virtual void TearDown() {
+    //   QuickTest::TearDown();
+    // }
+
+    Queue&lt;int&gt; q0_;
+    Queue&lt;int&gt; q1_;
+    Queue&lt;int&gt; q2_;
+};
+
+TEST_F(QueueTest, DefaultConstructor)
+{
+    EXPECT_EQ(0u, q0_.Size());
+}
+</code></pre><h3 id="simple代码"><a href="#simple代码" class="headerlink" title="simple代码:"></a>simple代码:</h3><pre><code>#ifndef GTEST_SAMPLES_PRIME_TABLES_H_
 #define GTEST_SAMPLES_PRIME_TABLES_H_
 
 #include &lt;algorithm&gt;
@@ -2046,7 +2322,18 @@ class MockPacketStream {
   MOCK_CONST_METHOD0(NumberOfPackets, size_t());
   ...
 };
-</code></pre><h1 id="Boost-Test"><a href="#Boost-Test" class="headerlink" title="Boost.Test"></a>Boost.Test</h1><p><a href="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/index.html" title="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/index.html" target="_blank" rel="noopener">https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/index.html</a></p>
+</code></pre><p>EXPECT_CALL 宏支持许多修饰符。它的语法是：</p>
+<pre><code>EXPECT_CALL(mock_object, method(matchers))
+.With(multi_argument_matcher) ?
+.Times(cardinality) ?
+.InSequence(sequences) *
+.After(expectations) *
+.WillOnce(action) *
+.WillRepeatedly(action) ?
+.RetiresOnSaturation(); ?
+</code></pre><p>（ ? 和 <em> 代表每个修饰符的基数： ? 表示可以选用修饰符一次； </em> 表示可以多次使用修饰符。）</p>
+<p>最有用的修饰符是 Times() ，它可以让你指定一个方法被调用的次数。即使你知道一个方法<br>会被调用多次，但不知道具体多少次，那么你也可以使用 WillRepeatedly() 。</p>
+<h1 id="Boost-Test"><a href="#Boost-Test" class="headerlink" title="Boost.Test"></a>Boost.Test</h1><p><a href="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/index.html" title="https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/index.html" target="_blank" rel="noopener">https://www.boost.org/doc/libs/1_67_0/libs/test/doc/html/index.html</a></p>
 <p><a href="https://www.cnblogs.com/moon1992/p/7482033.html" title="https://www.cnblogs.com/moon1992/p/7482033.html" target="_blank" rel="noopener">https://www.cnblogs.com/moon1992/p/7482033.html</a></p>
 <p><a href="https://ask.helplib.com/c++/post_1311306" title="https://ask.helplib.com/c++/post_1311306" target="_blank" rel="noopener">https://ask.helplib.com/c++/post_1311306</a></p>
 <p><a href="https://blogs.msdn.microsoft.com/c/2018/01/12/boost-test%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%9A%E5%8A%A8%E6%80%81%E5%BA%93%E6%94%AF%E6%8C%81%E5%92%8C%E6%96%B0%E9%A1%B9%E7%9B%AE%E6%A8%A1%E6%9D%BF/" title="https://blogs.msdn.microsoft.com/c/2018/01/12/boost-test%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%9A%E5%8A%A8%E6%80%81%E5%BA%93%E6%94%AF%E6%8C%81%E5%92%8C%E6%96%B0%E9%A1%B9%E7%9B%AE%E6%A8%A1%E6%9D%BF/" target="_blank" rel="noopener">Boost.Test单元测试：动态库支持和新项目模板</a></p>
@@ -2155,6 +2442,13 @@ public:
 };
 </code></pre><h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p><a href="https://docs.microsoft.com/en-us/visualstudio/test/writing-unit-tests-for-c-cpp" title="https://docs.microsoft.com/en-us/visualstudio/test/writing-unit-tests-for-c-cpp" target="_blank" rel="noopener">编写 单元测试 用于 C / C + + 在 Visual Studio</a></p>
 <p><a href="https://en.wikipedia.org/wiki/List_of_unit_testing_frameworks" title="https://en.wikipedia.org/wiki/List_of_unit_testing_frameworks" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/List_of_unit_testing_frameworks</a></p>
+<h1 id="其他单元测试框架"><a href="#其他单元测试框架" class="headerlink" title="其他单元测试框架"></a>其他单元测试框架</h1><pre><code>Boost.Test http://www.boost.org/doc/libs/1_53_0/libs/test/doc/html/index.html
+CppUnit http://cppunit.sourceforge.net/doc/1.11.6/cppunit_cookbook.html
+CppUnitLite http://c2.com/cgi/wiki?CppUnitLite
+CUTE http://cute-test.com/
+CxxTest http://cxxtest.com/
+Unit++ http://unitpp.sourceforge.net/
+</code></pre><h1 id="BOOK"><a href="#BOOK" class="headerlink" title="BOOK"></a>BOOK</h1><p>C++程序设计实践与技巧：测试驱动开发</p>
 
       
 
@@ -3099,6 +3393,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">同步</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">持续集成</a>
               </li>
             
             <div class="clearfix"></div>

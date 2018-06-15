@@ -160,6 +160,108 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Maven环境配置" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/03/15/Maven环境配置/">Maven环境配置</a>
+    </h1>
+  
+
+        
+        <a href="/2016/03/15/Maven环境配置/" class="archive-article-date">
+  	<time datetime="2016-03-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-03-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-下载Maven"><a href="#1-下载Maven" class="headerlink" title="1.下载Maven:"></a>1.下载Maven:</h1><p>下载地址：<a href="http://maven.apache.org/" target="_blank" rel="noopener">http://maven.apache.org/</a></p>
+<h1 id="2-安装-Maven"><a href="#2-安装-Maven" class="headerlink" title="2.安装 Maven"></a>2.安装 Maven</h1><p>如果需要使用到 Maven ，必须首先安装 Maven ， Maven 的下载地址在 Apache Maven 中有，您也可以点击这里下载 zip ,tar.gz。</p>
+<p>下载好 Maven 后，需要简单安装下。将下载的  zip  或者  tar.gz  包解压到需要安装到的目录。 接下简单配置下环境变量：</p>
+<ol>
+<li>新建环境变量  M2_HOME  ,输入值为 Maven 的安装目录。</li>
+<li>新建环境变量  M2  ，输入值为:  %M2_HOME%\bin  。</li>
+<li>将 M2 环境变量加入  Path  的最后，如：  ;%M2%  ;。</li>
+<li><p>环境变量就这么简单配置下就可以了。打开命令行窗口输入  mvn -version  。可以看到如下输出：</p>
+<p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151103151936539-1813106675.png" alt=""></p>
+</li>
+</ol>
+<p>看到以上输出，您的 Maven 环境就已经搭建好了。</p>
+<p>来源： <a href="http://maven.oschina.net/help.html" target="_blank" rel="noopener">http://maven.oschina.net/help.html</a></p>
+<h1 id="3-配置eclipse"><a href="#3-配置eclipse" class="headerlink" title="3.配置eclipse:"></a>3.配置eclipse:</h1><p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151103152011211-772620241.png" alt=""></p>
+<p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151103152029711-1972974655.png" alt=""></p>
+<h1 id="4-设置JRE"><a href="#4-设置JRE" class="headerlink" title="4.设置JRE:"></a>4.设置JRE:</h1><p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151103152055383-1622076243.png" alt=""></p>
+<pre><code>-Dmaven.multiModuleProjectDirectory=$M2_HOME
+</code></pre><p>网址：<a href="http://www.cnblogs.com/yhcao/p/4901815.html" target="_blank" rel="noopener">http://www.cnblogs.com/yhcao/p/4901815.html</a></p>
+<h1 id="5-为项目安装Maven"><a href="#5-为项目安装Maven" class="headerlink" title="5.为项目安装Maven:"></a>5.为项目安装Maven:</h1><p>选中选项右键</p>
+<p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151103152154649-802120497.png" alt=""></p>
+<p>如果出现错误，请检查网络。（公司网络不能访问外网，出错了，最后让网管开通外网才成功）</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Maven</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">eclipse</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/03/15/Maven环境配置/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-CentOS下安装hadoop" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1614,6 +1716,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">同步</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">持续集成</a>
               </li>
             
             <div class="clearfix"></div>

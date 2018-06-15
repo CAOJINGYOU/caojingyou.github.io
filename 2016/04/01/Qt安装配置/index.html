@@ -25,7 +25,7 @@
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135504546-1612990196.png">
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135519155-1738395535.png">
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135534624-413319152.png">
-<meta property="og:updated_time" content="2018-06-11T06:57:40.727Z">
+<meta property="og:updated_time" content="2018-06-15T07:08:32.443Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Qt安装配置">
 <meta name="twitter:description" content="Qt Creator:下载：Qt 5.5.1 for Windows 32-bit(MinGW 4.9.2, 1.0 GB): http://download.qt.io/official_releases/qt/5.5/5.5.0/qt-opensource-windows-x86-mingw492-5.5.0.exe http://download.qt.io/archive/qt/ http">
@@ -206,6 +206,17 @@
 <h2 id="vs2013进行QT配置："><a href="#vs2013进行QT配置：" class="headerlink" title="vs2013进行QT配置："></a>vs2013进行QT配置：</h2><p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135450046-76850689.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135504546-1612990196.png" alt=""><br><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135519155-1738395535.png" alt=""></p>
 <h2 id="创建项目："><a href="#创建项目：" class="headerlink" title="创建项目："></a>创建项目：</h2><p><img src="http://images2015.cnblogs.com/blog/792271/201511/792271-20151116135534624-413319152.png" alt=""></p>
 <p>一直下一步。</p>
+<h1 id="ubuntu下Qt"><a href="#ubuntu下Qt" class="headerlink" title="ubuntu下Qt"></a>ubuntu下Qt</h1><p><a href="http://wiki.ubuntu.org.cn/Qt" target="_blank" rel="noopener">http://wiki.ubuntu.org.cn/Qt</a></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>刚装好的系统中已经有GCC了，但是这个GCC几乎什么文件都不能编译，因为缺少一些必须的头文件，所以要安装build-essential这个软件包输入下面命令：</p>
+<pre><code>sudo apt-get install build-essential
+</code></pre><p>安装qtcreator</p>
+<pre><code>sudo apt-get install qtcreator
+</code></pre><p>如果安装的qtcreator是显示英文菜单，需要安装KDE的中文包才能显示中文菜单：</p>
+<pre><code>sudo apt-get install language-pack-kde-zh language-pack-kde-zh-base
+</code></pre><p>kdevelop IDE</p>
+<pre><code>sudo apt-get install kdevelop
+</code></pre><p><a href="http://wiki.ubuntu.org.cn/C_Cpp_IDE" target="_blank" rel="noopener">C Cpp IDE</a></p>
+<p><a href="http://wiki.ubuntu.org.cn/Gtk%E4%B8%8EQt%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE" target="_blank" rel="noopener">Gtk与Qt编译环境安装与配置</a></p>
 <h1 id="常见问题："><a href="#常见问题：" class="headerlink" title="常见问题："></a>常见问题：</h1><p>可以成功安装到V2013上，但是却出现了下面的问题： Qt5Widgetsd.lib(Qt5Widgetsd.dll) : fatal error LNK1112: 模块计算机类型“x64”与目标计算机类型“X86”冲突</p>
 <p><a href="http://jingyan.baidu.com/article/a948d65159d8890a2dcd2e84.html" target="_blank" rel="noopener">百度百科解决方法</a>：<a href="http://jingyan.baidu.com/article/a948d65159d8890a2dcd2e84.html" target="_blank" rel="noopener">http://jingyan.baidu.com/article/a948d65159d8890a2dcd2e84.html</a></p>
 
@@ -340,8 +351,8 @@
     </a>
   
   
-    <a href="/2016/03/15/Maven环境配置/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Maven环境配置</div>
+    <a href="/2016/04/01/Qt安装配置-冲突-赤龙绕月/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Qt安装配置</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -1128,6 +1139,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">同步</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">持续集成</a>
               </li>
             
             <div class="clearfix"></div>
