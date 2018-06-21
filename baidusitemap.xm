@@ -4,11 +4,11 @@
 
     
   <url>
-    <loc>https://caojingyou.github.io/2018/05/02/linux%E4%B8%8BC%E5%BC%80%E5%8F%91/</loc>
-    <lastmod>2018-06-20T04:36:42.515Z</lastmod>
+    <loc>https://caojingyou.github.io/2018/05/02/linux%E7%8E%AF%E5%A2%83%E4%B8%8BC%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2018-06-21T02:04:12.464Z</lastmod>
     <data>
         <display>
-        <title>linux下C开发</title>
+        <title>linux环境下C程序设计-读书笔记</title>
         <pubTime>2018-05-02T10:09:00.000Z</pubTime>
         
         <tag>随笔</tag>
@@ -16,6 +16,31 @@
         <tag>C/C++</tag>
          
         <tag>linux</tag>
+         
+        <tag>读书笔记</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/06/19/C++%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E6%8C%87%E5%8D%97-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2018-06-21T02:02:01.810Z</lastmod>
+    <data>
+        <display>
+        <title>C++性能优化指南-读书笔记</title>
+        <pubTime>2018-06-19T02:38:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C/C++</tag>
+         
+        <tag>读书笔记</tag>
+         
+        <tag>性能优化</tag>
          
          
            
@@ -1547,27 +1572,6 @@
         <tag>C++</tag>
          
         <tag>智能指针</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2017/03/01/C++%20%E6%9C%80%E5%B0%8F%E5%8C%96%E5%88%B0%E6%89%98%E7%9B%98(YHCAO--yhcao--2017-04-10-09,18,14)/</loc>
-    <lastmod>2018-01-05T08:47:19.084Z</lastmod>
-    <data>
-        <display>
-        <title>C#与C++相互发送消息</title>
-        <pubTime>2017-03-01T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>系统托盘</tag>
-         
-        <tag>C++</tag>
          
          
            

@@ -160,6 +160,124 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-MFC背景透明" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/01/MFC背景透明/">MFC背景透明</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/01/MFC背景透明/" class="archive-article-date">
+  	<time datetime="2017-08-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="一："><a href="#一：" class="headerlink" title="一："></a>一：</h1><pre><code>typedef BOOL (WINAPI *lpfnSetLayeredWindowAttributes)(HWND hWnd, COLORREF crKey, BYTE bAlpha, DWORD dwFlags);
+lpfnSetLayeredWindowAttributes SetLayeredWindowAttributes;   //设置成边缘透明
+COLORREF maskColor = RGB(240, 240, 240);
+HMODULE hUser32 = GetModuleHandle(_T(&quot;user32.dll&quot;)); //加载动态链接库
+SetLayeredWindowAttributes = (lpfnSetLayeredWindowAttributes)GetProcAddress(hUser32, &quot;SetLayeredWindowAttributes&quot;);            //取得SetLayeredWindowAttributes函数指针            //为窗口加入WS_EX_LAYERED扩展属性
+SetWindowLong(this-&gt;GetSafeHwnd(), GWL_EXSTYLE, GetWindowLong(GetSafeHwnd(), GWL_EXSTYLE)^WS_EX_LAYERED);             //调用SetLayeredWinowAttributes函数
+/*SetLayeredWindowAttributes(this-&gt;GetSafeHwnd(), maskColor, 192, LWA_COLORKEY);  */
+SetLayeredWindowAttributes(this-&gt;GetSafeHwnd(), maskColor, 255, LWA_ALPHA | LWA_COLORKEY);
+FreeLibrary(hUser32);   //释放动态链
+//LWA_ALPHA时：crKey参数无效，bAlpha参数有效；
+//LWA_COLORKEY：窗体中的所有颜色为crKey的地方将变为透明，bAlpha参数无效。
+//LWA_ALPHA | LWA_COLORKEY：crKey的地方将变为全透明，而其它地方根据bAlpha参数确定透明度。
+</code></pre><h1 id="二："><a href="#二：" class="headerlink" title="二："></a>二：</h1><pre><code>COLORREF m_bgcolor = RGB(0, 0, 0);
+BOOL m_bTransparent = ToggleTransparent(m_bgcolor, 100, LWA_ALPHA);
+BOOL ToggleTransparent(COLORREF crKey, BYTE bAlpha, DWORD dwFlags)
+{
+    BOOL bResult;
+    LONG dwExStyle;
+    dwExStyle = GetWindowLong(this-&gt;GetSafeHwnd(), GWL_EXSTYLE);
+    if (dwExStyle &amp; WS_EX_LAYERED)
+    {
+        dwExStyle &amp;= ~(WS_EX_LAYERED);
+        bResult = FALSE;
+    }
+    else
+    {
+        dwExStyle |= (WS_EX_LAYERED);
+        bResult = TRUE;
+    }
+    SetWindowLong(this-&gt;GetSafeHwnd(), GWL_EXSTYLE, dwExStyle);
+    SetLayeredWindowAttributes( crKey, bAlpha, dwFlags);
+    return bResult;
+}
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">MFC</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">背景透明</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/01/MFC背景透明/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-boost" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -7242,210 +7360,6 @@ int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 
   
-    <article id="post-C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/">C#与C++相互发送消息</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/" class="archive-article-date">
-  	<time datetime="2017-03-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-最小化到托盘"><a href="#C-最小化到托盘" class="headerlink" title="C++ 最小化到托盘"></a>C++ 最小化到托盘</h1><pre><code>#define  WM_SHOWTASK (WM_USER + 1)
-void CTestDlg::OnSysCommand(UINT nID, LPARAM lParam)
-{
-    if ((nID &amp; 0xFFF0) == IDM_ABOUTBOX)
-    {
-        CAboutDlg dlgAbout;
-        dlgAbout.DoModal();
-    }
-    else
-    {
-        //增加关闭时最小化到托盘的函数
-        if (nID == SC_CLOSE) //SC_MINIMIZE
-        {
-            ToTray();
-            return;
-        }
-        CDialog::OnSysCommand(nID, lParam);
-    }
-}
-BEGIN_MESSAGE_MAP(CTestDlg, CDialog)
-    ON_MESSAGE(WM_SHOWTASK, OnShowTask)
-    //}}AFX_MSG_MAP
-END_MESSAGE_MAP()
-//在托盘区添加图标 最小化到托盘函数
-void ToTray(void);
-void CTestDlg::ToTray(void)
-{
-    NOTIFYICONDATA nid;
-    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-    nid.hWnd = this-&gt;m_hWnd;
-    nid.uID = IDR_MAINFRAME;
-    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
-    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
-    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条
-    Shell_NotifyIcon(NIM_ADD, &amp;nid);//在托盘区添加图标
-    ShowWindow(SW_HIDE);//隐藏主窗口
-}
-//恢复界面函数
-afx_msg LRESULT OnShowTask(WPARAM wParam, LPARAM lParam);
-//托盘事件
-LRESULT CTestDlg::OnShowTask(WPARAM wParam, LPARAM lParam)
-{
-    if (wParam != IDR_MAINFRAME)
-    {
-        return 1;
-    }
-    switch(lParam)
-    {
-    case WM_RBUTTONUP://右键起来时弹出快捷菜单，这里只有一个关闭
-    {
-        LPPOINT lpoint = new tagPOINT;
-        ::GetCursorPos(lpoint);//得到鼠标位置
-        CMenu menu;
-        menu.CreatePopupMenu();//声明一个弹出式菜单
-        //增加菜单项“关闭”，点击则发送消息WM_DESTROY给主窗口（已
-        //隐藏），将程序结束。
-        menu.AppendMenu(MF_STRING, WM_DESTROY, _T(&quot;退出&quot;));
-        //确定弹出式菜单的位置
-        menu.TrackPopupMenu(TPM_LEFTALIGN, lpoint-&gt;x, lpoint-&gt;y, this);
-        //资源回收
-        HMENU hmenu = menu.Detach();
-        menu.DestroyMenu();
-        delete lpoint;
-    }
-    break;
-    case WM_LBUTTONDBLCLK://双击左键的处理
-    {
-        this-&gt;ShowWindow(SW_SHOW);//简单的显示主窗口
-        this-&gt;ShowWindow(SW_RESTORE);
-        DeleteTray();
-    }
-    break;
-    default:
-        break;
-    }
-    return 0;
-}
-//删除托盘中图标
-void DeleteTray();
-void CTestlDlg::DeleteTray()
-{
-    NOTIFYICONDATA nid;
-    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-    nid.hWnd = this-&gt;m_hWnd;
-    nid.uID = IDR_MAINFRAME;
-    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
-    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
-    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
-    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
-}
-//退出程序需时需要DeleteTray();
-void CTestDlg::OnDestroy()
-{
-    CDialog::OnDestroy();
-    // TODO: 在此处添加消息处理程序代码
-    DeleteTray();
-}
-//修改风格使得他不在任务栏显示
-int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
-{
-    if (CDialog::OnCreate(lpCreateStruct) == -1)
-        return -1;
-    // TODO:  在此添加您专用的创建代码
-    //修改风格使得他不在任务栏显示
-    ModifyStyleEx(WS_EX_APPWINDOW, WS_EX_TOOLWINDOW);
-    return 0;
-}
-</code></pre><p>DeleteTray改为：</p>
-<pre><code>void CTestDlg::DeleteTray()
-{
-    NOTIFYICONDATA nid;
-    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-    nid.hWnd = this-&gt;m_hWnd;
-    nid.uID = IDR_MAINFRAME;
-    nid.uFlags = NIF_ICON /*| NIF_MESSAGE | NIF_TIP*/;
-    //nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
-    //nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-    //wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
-    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
-}
-</code></pre><p>否则会出现程序退出后，托盘图标还在的情况，鼠标移动到图标上后，图标一闪然后消失的问题。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/01/C++ 最小化到托盘(YHCAO--yhcao--2017-04-10-09,18,14)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
@@ -8228,6 +8142,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
               </li>
             
             <div class="clearfix"></div>

@@ -1970,19 +1970,19 @@ namespace GetTest
 
 
   
-    <article id="post-C++智能指针" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-CShap 视频编辑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/01/C++智能指针/">C++ 引用计数技术及智能指针的简单实现</a>
+      <a class="article-title" href="/2016/10/01/CShap 视频编辑/">C# 视频编辑</a>
     </h1>
   
 
         
-        <a href="/2016/10/01/C++智能指针/" class="archive-article-date">
+        <a href="/2016/10/01/CShap 视频编辑/" class="archive-article-date">
   	<time datetime="2016-10-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-01</time>
 </a>
         
@@ -1990,148 +1990,17 @@ namespace GetTest
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="引用计数技术及智能指针的简单实现"><a href="#引用计数技术及智能指针的简单实现" class="headerlink" title="引用计数技术及智能指针的简单实现"></a>引用计数技术及智能指针的简单实现</h1><h2 id="基础对象类"><a href="#基础对象类" class="headerlink" title="基础对象类"></a>基础对象类</h2><pre><code>class Point
-
-{
-
-public:
-
-    Point(int xVal = 0, int yVal = 0) : x(xVal), y(yVal) { }
-
-    int getX() const
-    {
-        return x;
-    }
-
-    int getY() const
-    {
-        return y;
-    }
-
-    void setX(int xVal)
-    {
-        x = xVal;
-    }
-
-    void setY(int yVal)
-    {
-        y = yVal;
-    }    
-
-private:
-
-    int x, y;
-};
-</code></pre><h2 id="辅助类"><a href="#辅助类" class="headerlink" title="辅助类"></a>辅助类</h2><pre><code>//模板类作为友元时要先有声明
-
-template &lt;typename T&gt;
-
-class SmartPtr;
-
-template &lt;typename T&gt;
-
-class U_Ptr     //辅助类
-{
-private:
-
-    //该类成员访问权限全部为private，因为不想让用户直接使用该类
-
-    friend class SmartPtr&lt;T&gt;;      //定义智能指针类为友元，因为智能指针类需要直接操纵辅助类
-
-    //构造函数的参数为基础对象的指针
-
-    U_Ptr(T *ptr) : p(ptr), count(1) { }
-
-    //析构函数
-    ~U_Ptr()
-    {
-        delete p;
-    }
-
-    //引用计数
-    int count;
-
-    //基础对象指针
-    T *p;
-
-};
-</code></pre><h2 id="智能指针类"><a href="#智能指针类" class="headerlink" title="智能指针类"></a>智能指针类</h2><pre><code>template &lt;typename T&gt;
-
-class SmartPtr   //智能指针类
-{
-public:
-
-    SmartPtr(T *ptr) : rp(new U_Ptr&lt;T&gt;(ptr)) { }     //构造函数
-
-    SmartPtr(const SmartPtr&lt;T&gt; &amp;sp) : rp(sp.rp)
-    {
-        ++rp-&gt;count;    //复制构造函数
-    }
-
-    SmartPtr &amp;operator=(const SmartPtr&lt;T&gt; &amp;rhs)      //重载赋值操作符
-    {
-        ++rhs.rp-&gt;count;     //首先将右操作数引用计数加1，
-
-        if (--rp-&gt;count == 0)     //然后将引用计数减1，可以应对自赋值
-
-            delete rp;
-
-        rp = rhs.rp;
-
-        return *this;
-    }
-
-    T &amp;operator *()         //重载*操作符
-    {
-        return *(rp-&gt;p);
-    }
-
-    T *operator -&gt;()       //重载-&gt;操作符
-    {
-        return rp-&gt;p;
-    }
-
-    ~SmartPtr()          //析构函数
-    {
-        if (--rp-&gt;count == 0)    //当引用计数减为0时，删除辅助类对象指针，从而删除基础对象
-
-            delete rp;
-        else
-            cout &lt;&lt; &quot;还有&quot; &lt;&lt; rp-&gt;count &lt;&lt; &quot;个指针指向基础对象&quot; &lt;&lt; endl;
-    }
-
-private:
-    U_Ptr&lt;T&gt; *rp;  //辅助类对象指针
-
-};
-</code></pre><p>使用测试</p>
-<pre><code>int main()
-{
-    int *i = new int(2);
-    {
-        SmartPtr&lt;int&gt; ptr1(i);
-        {
-            SmartPtr&lt;int&gt; ptr2(ptr1);
-            {
-                SmartPtr&lt;int&gt; ptr3 = ptr2;
-
-                cout &lt;&lt; *ptr1 &lt;&lt; endl;
-
-                *ptr1 = 20;
-
-                cout &lt;&lt; *ptr2 &lt;&lt; endl;
-            }
-        }
-    }
-
-    system(&quot;pause&quot;);
-
-    return 0;
-}
-</code></pre><p>参考：</p>
-<ul>
-<li><a href="http://mp.weixin.qq.com/s?__biz=MzAxNDI5NzEzNg==&amp;mid=2651156666&amp;idx=1&amp;sn=4109903d526468f5913922d2f06e5a1a&amp;scene=0#wechat_redirect" target="_blank" rel="noopener">C++ 引用计数技术及智能指针的简单实现</a>(文章写的太好了，转过了以后用)</li>
-</ul>
+        <h1 id="VidCoder"><a href="#VidCoder" class="headerlink" title="VidCoder"></a>VidCoder</h1><p>VidCoder是一个开源免费的DVD/蓝光视频抓取和转码软件.使用HandBrake做为编码引擎.比Handbrake拥有更友好的用户界面.</p>
+<p>可裁剪、剪切、字幕编辑、转码等。</p>
+<p>官网：<br><a href="http://vidcoder.codeplex.com/" target="_blank" rel="noopener">http://vidcoder.codeplex.com/</a></p>
+<h1 id="VLC-media-player"><a href="#VLC-media-player" class="headerlink" title="VLC media player"></a>VLC media player</h1><p>VLC 是一款自由、开源的跨平台多媒体播放器及框架，可播放大多数多媒体文件，以及 DVD、音频 CD、VCD 及各类流媒体协议。</p>
+<p>官网：<a href="http://www.videolan.org/vlc/" target="_blank" rel="noopener">http://www.videolan.org/vlc/</a></p>
+<h1 id="ffmpeg-Mencoder"><a href="#ffmpeg-Mencoder" class="headerlink" title="ffmpeg + Mencoder"></a>ffmpeg + Mencoder</h1><p>ffmpeg下载：<a href="http://ffmpeg.org/download.html" target="_blank" rel="noopener">http://ffmpeg.org/download.html</a></p>
+<p>Mencoder下载：<a href="http://www.mplayerhq.hu/design7/dload.html" target="_blank" rel="noopener">http://www.mplayerhq.hu/design7/dload.html</a></p>
+<p>C#调用ffmpeg的方法，仅供参考：<a href="https://github.com/CAOJINGYOU/VideoEditor" target="_blank" rel="noopener">VideoEditor</a></p>
+<h1 id="SharpFFmpeg"><a href="#SharpFFmpeg" class="headerlink" title="SharpFFmpeg"></a>SharpFFmpeg</h1><p>SharpFFmpeg 是一个 ffmpeg 的 C# 绑定版本，允许 .NET 开发者轻松的创建音频和视频应用。</p>
+<p>个人没用过，感觉不错，一会有机会研究下。</p>
+<p>下载地址：<a href="https://sourceforge.net/projects/sharpffmpeg/" target="_blank" rel="noopener">https://sourceforge.net/projects/sharpffmpeg/</a></p>
 
       
 
@@ -2149,11 +2018,19 @@ private:
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">智能指针</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VidCoder</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VLC</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ffmpeg</a>
         		</li>
       		
 		</ul>
@@ -2163,7 +2040,7 @@ private:
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2016/10/01/C++智能指针/">展开全文 >></a>
+          <a class="article-more-a" href="/2016/10/01/CShap 视频编辑/">展开全文 >></a>
         </p>
       
 
@@ -2975,6 +2852,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">读书笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
               </li>
             
             <div class="clearfix"></div>
