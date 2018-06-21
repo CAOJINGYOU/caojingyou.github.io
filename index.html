@@ -160,140 +160,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-多媒体开发" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/07/多媒体开发/">多媒体开发</a>
-    </h1>
-  
-
-        
-        <a href="/2018/07/07/多媒体开发/" class="archive-article-date">
-  	<time datetime="2018-07-07T06:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>视频开发：DShow、OpenCV、FFmpeg</p>
-<h1 id="FFmpeg"><a href="#FFmpeg" class="headerlink" title="FFmpeg"></a>FFmpeg</h1><h2 id="FFmpeg官网："><a href="#FFmpeg官网：" class="headerlink" title="FFmpeg官网："></a>FFmpeg官网：</h2><p><a href="http://ffmpeg.org/" target="_blank" rel="noopener">http://ffmpeg.org/</a></p>
-<h2 id="下载-Download-FFmpeg-for-Windows"><a href="#下载-Download-FFmpeg-for-Windows" class="headerlink" title="下载 Download FFmpeg for Windows:"></a>下载 Download FFmpeg for Windows:</h2><p><a href="https://ffmpeg.zeranoe.com/builds/" target="_blank" rel="noopener">https://ffmpeg.zeranoe.com/builds/</a></p>
-<h2 id="雷霄骅-leixiaohua1020-的专栏"><a href="#雷霄骅-leixiaohua1020-的专栏" class="headerlink" title="雷霄骅(leixiaohua1020)的专栏:"></a>雷霄骅(leixiaohua1020)的专栏:</h2><p><a href="http://blog.csdn.net/leixiaohua1020" target="_blank" rel="noopener">http://blog.csdn.net/leixiaohua1020</a></p>
-<h2 id="百度网盘资料："><a href="#百度网盘资料：" class="headerlink" title="百度网盘资料："></a>百度网盘资料：</h2><p>链接：<a href="http://pan.baidu.com/s/1o80QYoy" target="_blank" rel="noopener">http://pan.baidu.com/s/1o80QYoy</a> 密码：i5mb</p>
-<h2 id="FFmpeg介绍："><a href="#FFmpeg介绍：" class="headerlink" title="FFmpeg介绍："></a>FFmpeg介绍：</h2><p>FFmpeg是一个集合的库和工具来处理多媒体内容诸如音频、视频、字幕和相关元数据。<br>图书馆查询系统</p>
-<pre><code>libavcodec提供了执行更广泛的范围,用于各种类型声音/图像编解码;
-libavformat实现流媒体协议容器格式和基本I/O访问,用于各种音视频封装格式的生成和解析，包括获取解码所需信息以生成解码上下文结构和读取音视频帧等功能；
-libavutil包括hashers、压缩器和杂项功能效用,包含一些公共的工具函数；
-libavfilter提供了一种通过改变视频和音频解码的滤波器链。
-libavdevice提供一个抽象访问捕获和回放设备。
-libswresample实现音频混合和重采样例程。
-libswscale执行缩放和色彩转换例程。
-</code></pre><p>工具：</p>
-<p>FFmpeg是一种命令行工具操纵、转换和流多媒体内容。<br>    ffplay是一个简约的多媒体播放器。<br>    ffprobe是一个简单的分析工具来检查多媒体内容。<br>    ffserver为多媒体流传输服务器用于实况广播,一个 HTTP 多媒体即时广播串流服务器。<br>    附加等小工具aviocat，ismindex and qt-faststart</p>
-<h1 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h1><h2 id="jrtplib"><a href="#jrtplib" class="headerlink" title="jrtplib"></a>jrtplib</h2><p><a href="http://blog.csdn.net/fhxpp_27/article/details/9234069" target="_blank" rel="noopener">jrtplib使用笔记 </a></p>
-<p>RTP 是目前解决流媒体实时传输问题的最好办法，而JRTPLIB 是一个用C++语言实现的RTP库，包括UDP通讯.</p>
-<p>实时传送协议（Real-time Transport Protocol或简写RTP，也可以写成RTTP）是一个网络传输协议，RTP协议详细说明了在互联网上传递音频和视频的标准数据包格式。它一开始被设计为一个多播协议，但后来被用在很多单播应用中。RTP协议常用于流媒体系统（配合RTCP协议或者RTSP协议）。因为RTP自身具有Time stamp所以在ffmpeg 中被用做一种formate。</p>
-<p>RTP协议的详细介绍，请参考这篇文章<a href="http://www.360doc.com/content/11/1009/15/496343_154624612.shtml" target="_blank" rel="noopener">http://www.360doc.com/content/11/1009/15/496343_154624612.shtml</a></p>
-<p>jrtplib需要使用jthread</p>
-<ul>
-<li><a href="http://research.edm.uhasselt.be/jori/page/Main/HomePage.html" title="JRTPLIB官网" target="_blank" rel="noopener">http://research.edm.uhasselt.be/jori/page/Main/HomePage.html</a></li>
-<li><a href="http://research.edm.uhasselt.be/jori/page/CS/Jrtplib.html" title="Jrtplib" target="_blank" rel="noopener">http://research.edm.uhasselt.be/jori/page/CS/Jrtplib.html</a></li>
-<li><a href="http://jrtplib.readthedocs.io/en/stable/" target="_blank" rel="noopener">JRTPLIB  3.11.1 文档</a></li>
-<li><a href="http://research.edm.uhasselt.be/jori/jrtplib/jrtplib-3.11.1.zip" title="jrtplib-3.11.1.zip" target="_blank" rel="noopener">jrtplib-3.11.1.zip</a></li>
-<li><a href="https://github.com/j0r1/JRTPLIB" title="JRTPLIB github" target="_blank" rel="noopener">https://github.com/j0r1/JRTPLIB</a></li>
-<li><a href="https://blog.csdn.net/jinyuchuan/article/details/5977375" target="_blank" rel="noopener">jrtplib-3.7.1在windows下的编译步骤</a></li>
-</ul>
-<h2 id="jthread"><a href="#jthread" class="headerlink" title="jthread"></a>jthread</h2><p>所述包包含jthread和jmutex，（显然）表示一个线程和一个互斥锁。对于类Unix平台上，实现使用的pthread库。在MS-Windows平台，本机Win32线程使用。</p>
-<ul>
-<li><a href="http://research.edm.uhasselt.be/jori/page/CS/Jthread.html" title="jthread官网" target="_blank" rel="noopener">http://research.edm.uhasselt.be/jori/page/CS/Jthread.html</a></li>
-<li><a href="https://github.com/j0r1/JThread" title="jthread github" target="_blank" rel="noopener">https://github.com/j0r1/JThread</a></li>
-</ul>
-<h2 id="emiplib"><a href="#emiplib" class="headerlink" title="emiplib"></a>emiplib</h2><p>这个库的目的就是要完成一个多媒体的网络传输库，方便多种媒体在网络上进行传输。</p>
-<ul>
-<li><a href="http://research.edm.uhasselt.be/jori/page/CS/Emiplib.html" title="emiplib" target="_blank" rel="noopener">http://research.edm.uhasselt.be/jori/page/CS/Emiplib.html</a></li>
-<li><a href="http://research.edm.uhasselt.be/~emiplib/" title="emiplib主页" target="_blank" rel="noopener">http://research.edm.uhasselt.be/~emiplib/</a></li>
-<li><a href="https://github.com/j0r1/EMIPLIB" title="emiplib github" target="_blank" rel="noopener">https://github.com/j0r1/EMIPLIB</a></li>
-</ul>
-<h2 id="rtmp"><a href="#rtmp" class="headerlink" title="rtmp"></a>rtmp</h2><p>RTMP是Real Time Messaging Protocol（实时消息传输协议）的首字母缩写。该协议基于TCP，是一个协议族，包括RTMP基本协议及RTMPT/RTMPS/RTMPE等多种变种。RTMP是一种设计用来进行实时数据通信的网络协议，主要用来在Flash/AIR平台和支持RTMP协议的流媒体/交互服务器之间进行音视频和数据通信。支持该协议的软件包括Adobe Media Server/Ultrant Media Server/red5等。</p>
-<h2 id="MainConcept"><a href="#MainConcept" class="headerlink" title="MainConcept"></a>MainConcept</h2><p>对视频进行编解码，安装文件在“第三方安装程序”目录</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">DShow</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">FFmpeg</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">视频</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/07/07/多媒体开发/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-Linux与Qt程序设计-读书笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -2674,6 +2540,140 @@ TEST(BoostThread, BoostFuture)
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/06/12/Boost C++11 多线程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-多媒体开发" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/07/多媒体开发/">多媒体开发</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/07/多媒体开发/" class="archive-article-date">
+  	<time datetime="2018-06-07T06:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>视频开发：DShow、OpenCV、FFmpeg</p>
+<h1 id="FFmpeg"><a href="#FFmpeg" class="headerlink" title="FFmpeg"></a>FFmpeg</h1><h2 id="FFmpeg官网："><a href="#FFmpeg官网：" class="headerlink" title="FFmpeg官网："></a>FFmpeg官网：</h2><p><a href="http://ffmpeg.org/" target="_blank" rel="noopener">http://ffmpeg.org/</a></p>
+<h2 id="下载-Download-FFmpeg-for-Windows"><a href="#下载-Download-FFmpeg-for-Windows" class="headerlink" title="下载 Download FFmpeg for Windows:"></a>下载 Download FFmpeg for Windows:</h2><p><a href="https://ffmpeg.zeranoe.com/builds/" target="_blank" rel="noopener">https://ffmpeg.zeranoe.com/builds/</a></p>
+<h2 id="雷霄骅-leixiaohua1020-的专栏"><a href="#雷霄骅-leixiaohua1020-的专栏" class="headerlink" title="雷霄骅(leixiaohua1020)的专栏:"></a>雷霄骅(leixiaohua1020)的专栏:</h2><p><a href="http://blog.csdn.net/leixiaohua1020" target="_blank" rel="noopener">http://blog.csdn.net/leixiaohua1020</a></p>
+<h2 id="百度网盘资料："><a href="#百度网盘资料：" class="headerlink" title="百度网盘资料："></a>百度网盘资料：</h2><p>链接：<a href="http://pan.baidu.com/s/1o80QYoy" target="_blank" rel="noopener">http://pan.baidu.com/s/1o80QYoy</a> 密码：i5mb</p>
+<h2 id="FFmpeg介绍："><a href="#FFmpeg介绍：" class="headerlink" title="FFmpeg介绍："></a>FFmpeg介绍：</h2><p>FFmpeg是一个集合的库和工具来处理多媒体内容诸如音频、视频、字幕和相关元数据。<br>图书馆查询系统</p>
+<pre><code>libavcodec提供了执行更广泛的范围,用于各种类型声音/图像编解码;
+libavformat实现流媒体协议容器格式和基本I/O访问,用于各种音视频封装格式的生成和解析，包括获取解码所需信息以生成解码上下文结构和读取音视频帧等功能；
+libavutil包括hashers、压缩器和杂项功能效用,包含一些公共的工具函数；
+libavfilter提供了一种通过改变视频和音频解码的滤波器链。
+libavdevice提供一个抽象访问捕获和回放设备。
+libswresample实现音频混合和重采样例程。
+libswscale执行缩放和色彩转换例程。
+</code></pre><p>工具：</p>
+<p>FFmpeg是一种命令行工具操纵、转换和流多媒体内容。<br>    ffplay是一个简约的多媒体播放器。<br>    ffprobe是一个简单的分析工具来检查多媒体内容。<br>    ffserver为多媒体流传输服务器用于实况广播,一个 HTTP 多媒体即时广播串流服务器。<br>    附加等小工具aviocat，ismindex and qt-faststart</p>
+<h1 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h1><h2 id="jrtplib"><a href="#jrtplib" class="headerlink" title="jrtplib"></a>jrtplib</h2><p><a href="http://blog.csdn.net/fhxpp_27/article/details/9234069" target="_blank" rel="noopener">jrtplib使用笔记 </a></p>
+<p>RTP 是目前解决流媒体实时传输问题的最好办法，而JRTPLIB 是一个用C++语言实现的RTP库，包括UDP通讯.</p>
+<p>实时传送协议（Real-time Transport Protocol或简写RTP，也可以写成RTTP）是一个网络传输协议，RTP协议详细说明了在互联网上传递音频和视频的标准数据包格式。它一开始被设计为一个多播协议，但后来被用在很多单播应用中。RTP协议常用于流媒体系统（配合RTCP协议或者RTSP协议）。因为RTP自身具有Time stamp所以在ffmpeg 中被用做一种formate。</p>
+<p>RTP协议的详细介绍，请参考这篇文章<a href="http://www.360doc.com/content/11/1009/15/496343_154624612.shtml" target="_blank" rel="noopener">http://www.360doc.com/content/11/1009/15/496343_154624612.shtml</a></p>
+<p>jrtplib需要使用jthread</p>
+<ul>
+<li><a href="http://research.edm.uhasselt.be/jori/page/Main/HomePage.html" title="JRTPLIB官网" target="_blank" rel="noopener">http://research.edm.uhasselt.be/jori/page/Main/HomePage.html</a></li>
+<li><a href="http://research.edm.uhasselt.be/jori/page/CS/Jrtplib.html" title="Jrtplib" target="_blank" rel="noopener">http://research.edm.uhasselt.be/jori/page/CS/Jrtplib.html</a></li>
+<li><a href="http://jrtplib.readthedocs.io/en/stable/" target="_blank" rel="noopener">JRTPLIB  3.11.1 文档</a></li>
+<li><a href="http://research.edm.uhasselt.be/jori/jrtplib/jrtplib-3.11.1.zip" title="jrtplib-3.11.1.zip" target="_blank" rel="noopener">jrtplib-3.11.1.zip</a></li>
+<li><a href="https://github.com/j0r1/JRTPLIB" title="JRTPLIB github" target="_blank" rel="noopener">https://github.com/j0r1/JRTPLIB</a></li>
+<li><a href="https://blog.csdn.net/jinyuchuan/article/details/5977375" target="_blank" rel="noopener">jrtplib-3.7.1在windows下的编译步骤</a></li>
+</ul>
+<h2 id="jthread"><a href="#jthread" class="headerlink" title="jthread"></a>jthread</h2><p>所述包包含jthread和jmutex，（显然）表示一个线程和一个互斥锁。对于类Unix平台上，实现使用的pthread库。在MS-Windows平台，本机Win32线程使用。</p>
+<ul>
+<li><a href="http://research.edm.uhasselt.be/jori/page/CS/Jthread.html" title="jthread官网" target="_blank" rel="noopener">http://research.edm.uhasselt.be/jori/page/CS/Jthread.html</a></li>
+<li><a href="https://github.com/j0r1/JThread" title="jthread github" target="_blank" rel="noopener">https://github.com/j0r1/JThread</a></li>
+</ul>
+<h2 id="emiplib"><a href="#emiplib" class="headerlink" title="emiplib"></a>emiplib</h2><p>这个库的目的就是要完成一个多媒体的网络传输库，方便多种媒体在网络上进行传输。</p>
+<ul>
+<li><a href="http://research.edm.uhasselt.be/jori/page/CS/Emiplib.html" title="emiplib" target="_blank" rel="noopener">http://research.edm.uhasselt.be/jori/page/CS/Emiplib.html</a></li>
+<li><a href="http://research.edm.uhasselt.be/~emiplib/" title="emiplib主页" target="_blank" rel="noopener">http://research.edm.uhasselt.be/~emiplib/</a></li>
+<li><a href="https://github.com/j0r1/EMIPLIB" title="emiplib github" target="_blank" rel="noopener">https://github.com/j0r1/EMIPLIB</a></li>
+</ul>
+<h2 id="rtmp"><a href="#rtmp" class="headerlink" title="rtmp"></a>rtmp</h2><p>RTMP是Real Time Messaging Protocol（实时消息传输协议）的首字母缩写。该协议基于TCP，是一个协议族，包括RTMP基本协议及RTMPT/RTMPS/RTMPE等多种变种。RTMP是一种设计用来进行实时数据通信的网络协议，主要用来在Flash/AIR平台和支持RTMP协议的流媒体/交互服务器之间进行音视频和数据通信。支持该协议的软件包括Adobe Media Server/Ultrant Media Server/red5等。</p>
+<h2 id="MainConcept"><a href="#MainConcept" class="headerlink" title="MainConcept"></a>MainConcept</h2><p>对视频进行编解码，安装文件在“第三方安装程序”目录</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">DShow</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">OpenCV</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">FFmpeg</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">视频</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/07/多媒体开发/">展开全文 >></a>
         </p>
       
 

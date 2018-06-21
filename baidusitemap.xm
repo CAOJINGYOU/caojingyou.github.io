@@ -4,6 +4,33 @@
 
     
   <url>
+    <loc>https://caojingyou.github.io/2018/06/07/%E5%A4%9A%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2018-06-21T10:12:00.371Z</lastmod>
+    <data>
+        <display>
+        <title>多媒体开发</title>
+        <pubTime>2018-06-07T06:00:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C/C++</tag>
+         
+        <tag>DShow</tag>
+         
+        <tag>OpenCV</tag>
+         
+        <tag>FFmpeg</tag>
+         
+        <tag>视频</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://caojingyou.github.io/2018/06/20/Linux%E4%B8%8EQt%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1-%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2018-06-21T08:11:37.836Z</lastmod>
     <data>
@@ -336,33 +363,6 @@
         <tag>ATL</tag>
          
         <tag>duilib</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2018/07/07/%E5%A4%9A%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/</loc>
-    <lastmod>2018-06-07T06:03:24.325Z</lastmod>
-    <data>
-        <display>
-        <title>多媒体开发</title>
-        <pubTime>2018-07-07T06:00:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>C/C++</tag>
-         
-        <tag>DShow</tag>
-         
-        <tag>OpenCV</tag>
-         
-        <tag>FFmpeg</tag>
-         
-        <tag>视频</tag>
          
          
            
