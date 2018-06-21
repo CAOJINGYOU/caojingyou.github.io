@@ -160,6 +160,348 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-CShap 进程间通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/01/CShap 进程间通信/">C# 进程间通信</a>
+    </h1>
+  
+
+        
+        <a href="/2016/11/01/CShap 进程间通信/" class="archive-article-date">
+  	<time datetime="2016-11-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-11-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="使用SendMessage向另一进程发送WM-COPYDATA消息"><a href="#使用SendMessage向另一进程发送WM-COPYDATA消息" class="headerlink" title="使用SendMessage向另一进程发送WM_COPYDATA消息"></a>使用SendMessage向另一进程发送WM_COPYDATA消息</h1><h2 id="Send端："><a href="#Send端：" class="headerlink" title="Send端："></a>Send端：</h2><pre><code>using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.Runtime.InteropServices;
+
+namespace SentTest
+{
+    /// &lt;summary&gt;
+    /// MainWindow.xaml 的交互逻辑
+    /// &lt;/summary&gt;
+    public partial class MainWindow : Window
+    {
+        public MainWindow()
+        {
+            InitializeComponent();
+            this.Title = &quot;发送窗口&quot;;
+        }
+
+        const int WM_COPYDATA = 0x004A;
+
+        public struct COPYDATASTRUCT
+        {
+            public IntPtr dwData;
+            public int cData;
+            [MarshalAs(UnmanagedType.LPStr)]
+            public string lpData;
+        }
+
+        [DllImport(&quot;User32.dll&quot;)]
+        public static extern int SendMessage(int hwnd, int msg, int wParam, ref COPYDATASTRUCT IParam);
+        [DllImport(&quot;User32.dll&quot;)]
+        public static extern int FindWindow(string lpClassName, string lpWindowName);
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            String strSent = &quot;需要发送的信息&quot;;
+
+            int WINDOW_HANDLE = FindWindow(null, &quot;接收窗口&quot;);
+            if (WINDOW_HANDLE != 0)
+            {
+                byte[] arr = System.Text.Encoding.Default.GetBytes(strSent);
+                int len = arr.Length;
+                COPYDATASTRUCT cdata;
+                cdata.dwData = (IntPtr)100;
+                cdata.lpData = strSent;
+                cdata.cData = len + 1;
+                SendMessage(WINDOW_HANDLE, WM_COPYDATA, 0, ref cdata);
+            }
+        }
+    }
+}
+</code></pre><h2 id="Get端："><a href="#Get端：" class="headerlink" title="Get端："></a>Get端：</h2><pre><code>using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.Runtime.InteropServices;
+using System.Windows.Interop;
+
+namespace GetTest
+{
+    /// &lt;summary&gt;
+    /// MainWindow.xaml 的交互逻辑
+    /// &lt;/summary&gt;
+    public partial class MainWindow : Window
+    {
+        IntPtr hwnd;
+        public MainWindow()
+        {
+            InitializeComponent();
+            this.Title = &quot;接受窗口&quot;;
+
+            this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
+            this.Closed += new EventHandler(MainWindow_Closed);
+        }
+
+        void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            //窗口加载完毕才可用，否则会报错。
+            hwnd = new WindowInteropHelper(this).Handle;
+            HwndSource source = HwndSource.FromHwnd(hwnd);
+            if (source != null) source.AddHook(WndProc);
+        }
+
+        void MainWindow_Closed(object sender, EventArgs e)
+        {
+            try
+            {
+                HwndSource.FromHwnd(hwnd).RemoveHook(WndProc);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        const int WM_COPYDATA = 0x004A;//WM_COPYDATA消息的主要目的是允许在进程间传递只读数据。
+        //Windows在通过WM_COPYDATA消息传递期间，不提供继承同步方式。
+        //其中,WM_COPYDATA对应的十六进制数为0x004A
+        public struct COPYDATASTRUCT
+        {
+            public IntPtr dwData;
+            public int cData;
+            [MarshalAs(UnmanagedType.LPStr)]
+            public string lpData;
+        }
+
+        //wpf用此方法
+        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            if (msg == WM_COPYDATA)
+            {
+                COPYDATASTRUCT cdata = new COPYDATASTRUCT();
+                Type mytype = cdata.GetType();
+                cdata = (COPYDATASTRUCT)Marshal.PtrToStructure(lParam, mytype);
+                this.textBox1.Text = cdata.lpData;
+            }
+            return IntPtr.Zero;
+        }
+
+        //WinFrom用此方法
+        /* protected override void DefWndProc(ref Message m)
+        {
+            switch (m.Msg)
+            {
+            case WM_COPYDATA:
+                COPYDATASTRUCT cdata = new COPYDATASTRUCT();
+                Type mytype = cdata.GetType();
+                cdata = (COPYDATASTRUCT)m.GetLParam(mytype);
+                this.textBox1.Text = cdata.lpData;
+                break;
+            default:
+                base.DefWndProc(ref m);
+                break;
+            }
+        } */
+    }
+}
+</code></pre><h1 id="参考文档："><a href="#参考文档：" class="headerlink" title="参考文档："></a>参考文档：</h1><p><a href="http://blog.csdn.net/feiren127/article/details/5459827" target="_blank" rel="noopener">c# 进程间同步实现 进程之间通讯的几种方法 </a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VLC</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">通信</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/11/01/CShap 进程间通信/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-CShap 视频编辑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/01/CShap 视频编辑/">C# 视频编辑</a>
+    </h1>
+  
+
+        
+        <a href="/2016/10/01/CShap 视频编辑/" class="archive-article-date">
+  	<time datetime="2016-10-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="VidCoder"><a href="#VidCoder" class="headerlink" title="VidCoder"></a>VidCoder</h1><p>VidCoder是一个开源免费的DVD/蓝光视频抓取和转码软件.使用HandBrake做为编码引擎.比Handbrake拥有更友好的用户界面.</p>
+<p>可裁剪、剪切、字幕编辑、转码等。</p>
+<p>官网：<br><a href="http://vidcoder.codeplex.com/" target="_blank" rel="noopener">http://vidcoder.codeplex.com/</a></p>
+<h1 id="VLC-media-player"><a href="#VLC-media-player" class="headerlink" title="VLC media player"></a>VLC media player</h1><p>VLC 是一款自由、开源的跨平台多媒体播放器及框架，可播放大多数多媒体文件，以及 DVD、音频 CD、VCD 及各类流媒体协议。</p>
+<p>官网：<a href="http://www.videolan.org/vlc/" target="_blank" rel="noopener">http://www.videolan.org/vlc/</a></p>
+<h1 id="ffmpeg-Mencoder"><a href="#ffmpeg-Mencoder" class="headerlink" title="ffmpeg + Mencoder"></a>ffmpeg + Mencoder</h1><p>ffmpeg下载：<a href="http://ffmpeg.org/download.html" target="_blank" rel="noopener">http://ffmpeg.org/download.html</a></p>
+<p>Mencoder下载：<a href="http://www.mplayerhq.hu/design7/dload.html" target="_blank" rel="noopener">http://www.mplayerhq.hu/design7/dload.html</a></p>
+<p>C#调用ffmpeg的方法，仅供参考：<a href="https://github.com/CAOJINGYOU/VideoEditor" target="_blank" rel="noopener">VideoEditor</a></p>
+<h1 id="SharpFFmpeg"><a href="#SharpFFmpeg" class="headerlink" title="SharpFFmpeg"></a>SharpFFmpeg</h1><p>SharpFFmpeg 是一个 ffmpeg 的 C# 绑定版本，允许 .NET 开发者轻松的创建音频和视频应用。</p>
+<p>个人没用过，感觉不错，一会有机会研究下。</p>
+<p>下载地址：<a href="https://sourceforge.net/projects/sharpffmpeg/" target="_blank" rel="noopener">https://sourceforge.net/projects/sharpffmpeg/</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VidCoder</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VLC</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ffmpeg</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/10/01/CShap 视频编辑/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-C++智能指针" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1205,264 +1547,9 @@ _bstr_t bstrOutPutSentense(printer.CStr());
 
 
   
-    <article id="post-electron之Windows下使用 html js css 开发桌面应用程序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/01/electron之Windows下使用 html js css 开发桌面应用程序/">electron之Windows下使用 html js css 开发桌面应用程序</a>
-    </h1>
-  
-
-        
-        <a href="/2016/06/01/electron之Windows下使用 html js css 开发桌面应用程序/" class="archive-article-date">
-  	<time datetime="2016-06-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="1-atom-electron"><a href="#1-atom-electron" class="headerlink" title="1.atom/electron"></a>1.atom/electron</h1><h2 id="github"><a href="#github" class="headerlink" title="github:"></a>github:</h2><p><a href="https://github.com/atom/electron" target="_blank" rel="noopener">https://github.com/atom/electron</a></p>
-<h2 id="中文文档："><a href="#中文文档：" class="headerlink" title="中文文档："></a>中文文档：</h2><p><a href="https://github.com/atom/electron/tree/master/docs-translations/zh-CN" target="_blank" rel="noopener">https://github.com/atom/electron/tree/master/docs-translations/zh-CN</a></p>
-<h1 id="2-下载-electron-v0-36-5-win32-x64"><a href="#2-下载-electron-v0-36-5-win32-x64" class="headerlink" title="2.下载 electron-v0.36.5-win32-x64"></a>2.下载 electron-v0.36.5-win32-x64</h1><p><a href="https://github.com/atom/electron/releases/download/v0.36.5/electron-v0.36.5-win32-x64.zip" target="_blank" rel="noopener">https://github.com/atom/electron/releases/download/v0.36.5/electron-v0.36.5-win32-x64.zip</a></p>
-<h1 id="3-新建一个项目-快速入门："><a href="#3-新建一个项目-快速入门：" class="headerlink" title="3.新建一个项目-快速入门："></a>3.新建一个项目-快速入门：</h1><p><a href="https://github.com/atom/electron/blob/master/docs-translations/zh-CN/tutorial/quick-start.md" target="_blank" rel="noopener">https://github.com/atom/electron/blob/master/docs-translations/zh-CN/tutorial/quick-start.md</a></p>
-<p>大体上，一个 Electron 应用的目录结构如下：</p>
-<pre><code>your-app/
-├── package.json
-├── main.js
-└── index.html
-</code></pre><h2 id="you-app"><a href="#you-app" class="headerlink" title="you-app:"></a>you-app:</h2><p><a href="http://files.cnblogs.com/files/yhcao/electron%E4%B9%8BWindows%E4%B8%8B%E4%BD%BF%E7%94%A8html%2Cjs%2Ccss%2C%E5%BC%80%E5%8F%91%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F_you-app.rar" target="_blank" rel="noopener">electron之Windows下使用html,js,css,开发桌面应用程序_you-app.rar</a></p>
-<h3 id="package-json："><a href="#package-json：" class="headerlink" title="package.json："></a>package.json：</h3><pre><code>{
-  &quot;name&quot;: &quot;your-app&quot;,
-  &quot;version&quot; : &quot;0.1.0&quot;,
-  &quot;main&quot;: &quot;main.js&quot;
-}
-</code></pre><h3 id="main-js："><a href="#main-js：" class="headerlink" title="main.js："></a>main.js：</h3><pre><code>var app = require(&apos;app&apos;);  // 控制应用生命周期的模块。
-var BrowserWindow = require(&apos;browser-window&apos;);  // 创建原生浏览器窗口的模块
-// 保持一个对于 window 对象的全局引用，不然，当 JavaScript 被 GC，
-// window 会被自动地关闭
-var mainWindow = null;
-// 当所有窗口被关闭了，退出。
-app.on(&apos;window-all-closed&apos;, function() {
-  // 在 OS X 上，通常用户在明确地按下 Cmd + Q 之前
-  // 应用会保持活动状态
-  if (process.platform != &apos;darwin&apos;) {
-app.quit();
-  }
-});
-// 当 Electron 完成了初始化并且准备创建浏览器窗口的时候
-// 这个方法就被调用
-app.on(&apos;ready&apos;, function() {
-  // 创建浏览器窗口。
-  mainWindow = new BrowserWindow({width: 800, height: 600});
-  // 加载应用的 index.html
-  mainWindow.loadURL(&apos;file://&apos; + __dirname + &apos;/index.html&apos;);
-  // 打开开发工具
-  mainWindow.openDevTools();
-  // 当 window 被关闭，这个事件会被发出
-  mainWindow.on(&apos;closed&apos;, function() {
-// 取消引用 window 对象，如果你的应用支持多窗口的话，
-// 通常会把多个 window 对象存放在一个数组里面，
-// 但这次不是。
-mainWindow = null;
-  });
-});
-</code></pre><h3 id="index-html："><a href="#index-html：" class="headerlink" title="index.html："></a>index.html：</h3><pre><code>&lt;!DOCTYPE html&gt;
-&lt;html&gt;
-  &lt;head&gt;
-&lt;title&gt;Hello World!&lt;/title&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-&lt;h1&gt;Hello World!&lt;/h1&gt;
-We are using io.js &lt;script&gt;document.write(process.version)&lt;/script&gt;
-and Electron &lt;script&gt;document.write(process.versions[&apos;electron&apos;])&lt;/script&gt;.
-  &lt;/body&gt;
-&lt;/html&gt;
-</code></pre><h1 id="4-应用部署"><a href="#4-应用部署" class="headerlink" title="4.应用部署:"></a>4.应用部署:</h1><p><a href="https://github.com/atom/electron/blob/master/docs-translations/zh-CN/tutorial/application-distribution.md" target="_blank" rel="noopener">https://github.com/atom/electron/blob/master/docs-translations/zh-CN/tutorial/application-distribution.md</a></p>
-<p>为了使用Electron部署你的应用程序，你存放应用程序的文件夹需要叫做 app 并且需要放在 Electron 的资源文件夹下（在 OS X 中是指 Electron.app/Contents/Resources/，在 Linux 和 Windows 中是指 resources/） 就像这样：</p>
-<p>在 Windows 和 Linux 中:</p>
-<pre><code>electron/resources/app
-├── package.json
-├── main.js
-└── index.html
-</code></pre><h2 id="Windows环境下的NodeJS-NPM-Bower安装配置"><a href="#Windows环境下的NodeJS-NPM-Bower安装配置" class="headerlink" title="Windows环境下的NodeJS+NPM+Bower安装配置"></a>Windows环境下的NodeJS+NPM+Bower安装配置</h2><p><a href="http://jingyan.baidu.com/article/2d5afd69e243cc85a2e28efa.html" target="_blank" rel="noopener">http://jingyan.baidu.com/article/2d5afd69e243cc85a2e28efa.html</a></p>
-<h2 id="下载并安装node-v5-5-0-x64-msi"><a href="#下载并安装node-v5-5-0-x64-msi" class="headerlink" title="下载并安装node-v5.5.0-x64.msi"></a>下载并安装node-v5.5.0-x64.msi</h2><p><a href="https://nodejs.org/dist/v5.5.0/node-v5.5.0-x64.msi" target="_blank" rel="noopener">https://nodejs.org/dist/v5.5.0/node-v5.5.0-x64.msi</a></p>
-<h3 id="检验是否安装成功："><a href="#检验是否安装成功：" class="headerlink" title="检验是否安装成功："></a>检验是否安装成功：</h3><pre><code>C:\Users\yhcao&gt;node -v
-v5.5.0
-
-C:\Users\yhcao&gt;npm -v
-3.3.12
-</code></pre><h3 id="用nmp打包成asar"><a href="#用nmp打包成asar" class="headerlink" title="用nmp打包成asar:"></a>用nmp打包成asar:</h3><p>第一步：安装asar</p>
-<pre><code>npm install -g asar
-</code></pre><p>第二步：打包</p>
-<pre><code>asar pack your-app app.asar
-</code></pre><p>例如：asar pack F:\atom_project\myatom_1 F:\atom_project\app.asar<br>这样就会把myatom_1打包成app.asar</p>
-<p><a href="http://files.cnblogs.com/files/yhcao/electron%E4%B9%8BWindows%E4%B8%8B%E4%BD%BF%E7%94%A8html%2Cjs%2Ccss%2C%E5%BC%80%E5%8F%91%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F_app.rar" target="_blank" rel="noopener">electron之Windows下使用html,js,css,开发桌面应用程序_app.rar</a></p>
-<h1 id="5-更改Electron名称"><a href="#5-更改Electron名称" class="headerlink" title="5.更改Electron名称"></a>5.更改Electron名称</h1><p>你可以将 electron.exe 改成任意你喜欢的名字，然后可以使用像 <a href="https://github.com/atom/rcedit" target="_blank" rel="noopener">rcedit</a> 或者<a href="http://www.resedit.net/" target="_blank" rel="noopener">ResEdit</a> 编辑它的icon和其他信息。</p>
-<h2 id="ResEdit"><a href="#ResEdit" class="headerlink" title="ResEdit:"></a>ResEdit:</h2><p><a href="http://www.cr173.com/soft/12721.html" target="_blank" rel="noopener">http://www.cr173.com/soft/12721.html</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">electron</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">桌面应用程序</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/06/01/electron之Windows下使用 html js css 开发桌面应用程序/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-agsxmpp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/01/agsxmpp/">agsxmpp</a>
-    </h1>
-  
-
-        
-        <a href="/2016/05/01/agsxmpp/" class="archive-article-date">
-  	<time datetime="2016-05-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="agsXMPP使用"><a href="#agsXMPP使用" class="headerlink" title="agsXMPP使用"></a>agsXMPP使用</h1><p>agsXMPP中的例子已经有注册、登录、添加好友、接收好友添加请求、发送消息、接收消息等功能。</p>
-<h2 id="修改用户密码"><a href="#修改用户密码" class="headerlink" title="修改用户密码"></a>修改用户密码</h2><p>登录后可用以下方法修改密码</p>
-<pre><code>IQ iq = new IQ(IqType.set);
-Register riq = new Register();
-riq.Username = &quot;Username&quot;;
-riq.Password = &quot;Password&quot;;
-iq.Query = riq;
-XmppClientConnection.Send(iq);
-</code></pre><p>此代码生成的xml为：</p>
-<pre><code>&lt;query xmlns=&quot;jabber:iq:register&quot;&gt;&lt;username&gt;yhcao&lt;/username&gt;&lt;password&gt;yhcao1&lt;/password&gt;&lt;/query&gt;
-</code></pre><h2 id="程序例子"><a href="#程序例子" class="headerlink" title="程序例子"></a>程序例子</h2><p><a href="http://files.cnblogs.com/files/yhcao/IM.rar" title="http://files.cnblogs.com/files/yhcao/IM.rar" target="_blank" rel="noopener">http://files.cnblogs.com/files/yhcao/IM.rar</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">agsXMP</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">即时通讯</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/05/01/agsxmpp/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/8/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/10/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/8/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/10/">Next &raquo;</a>
     </nav>
   
 
@@ -2250,6 +2337,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
             
             <div class="clearfix"></div>

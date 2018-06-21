@@ -160,6 +160,271 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-zlib" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/01/zlib/">zlib</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/01/zlib/" class="archive-article-date">
+  	<time datetime="2018-04-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="zlib"><a href="#zlib" class="headerlink" title="zlib"></a>zlib</h1><h2 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h2><p><a href="http://www.zlib.net/" title="http://www.zlib.net/" target="_blank" rel="noopener">http://www.zlib.net/</a></p>
+<p><a href="https://github.com/madler/zlib" title="https://github.com/madler/zlib" target="_blank" rel="noopener">https://github.com/madler/zlib</a></p>
+<p><a href="http://www.zlib.net/fossils/" title="http://www.zlib.net/fossils/" target="_blank" rel="noopener">http://www.zlib.net/fossils/</a></p>
+<p><a href="https://github.com/madler/zlib/archive/v1.2.11.zip" title="https://github.com/madler/zlib/archive/v1.2.11.zip" target="_blank" rel="noopener">zlib1.2.11.zip</a></p>
+<h2 id="编译："><a href="#编译：" class="headerlink" title="编译："></a>编译：</h2><p>可从此处直接下载：</p>
+<p><a href="http://www.winimage.com/zLibDll" title="http://www.winimage.com/zLibDll" target="_blank" rel="noopener">http://www.winimage.com/zLibDll</a></p>
+<p>解压后，进入到zlib-1.2.11/contrib/masmx86目录，执行bld_ml32.bat。（同理，64位的电脑进入masmx64目录，执行bld_ml64.bat）。这一步运行bld_ml32批处理文件，里面调用ml命令编译inffas32.asm和match686.asm，生成inffas32.obj和match686.obj（生成在本目录下）。这两个文件在zlibvc中用到。</p>
+<p>实际已提供了在vc下编译的工程，目录为：zlib-1.2.11\contrib\vstudio.此项目的生成事件中已经执行了bld_ml32.bat</p>
+<p>  其中的zlibstat是编译为静态库，zlibvc是编译为动态库。</p>
+<p>如果报错：</p>
+<p>fatal error LNK1281: 无法生成 SAFESEH 映像。</p>
+<p>修改配置-连接器-高级-映像具有安全异常处理程序，改成“否(/SAFESEH:NO)”</p>
+<h2 id="使用："><a href="#使用：" class="headerlink" title="使用："></a>使用：</h2><h3 id="使用zlib静态库：zlibstat-lib"><a href="#使用zlib静态库：zlibstat-lib" class="headerlink" title="使用zlib静态库：zlibstat.lib"></a>使用zlib静态库：zlibstat.lib</h3><ol>
+<li><p>包含头文件</p>
+<p> 属性–C/C++–常规–附加包含目录（添加包含.h文件的目录）</p>
+</li>
+<li><p>定义宏</p>
+<p> 属性–C/C++–预处理器–预处理器定义：添加 ZLIB_WINAPI ASMV ASMINF</p>
+</li>
+<li><p>项目包含.lib文件所在的目录：</p>
+<p> 属性–链接器–常规–附加库目录</p>
+</li>
+<li><p>项目包含.lib文件</p>
+<p> 属性–链接器–输入–附加依赖项（libstat.lib）</p>
+</li>
+<li><p>项目代码中 #include “zlib.h”</p>
+</li>
+</ol>
+<p>编译生成.exe即可使用。</p>
+<h3 id="使用动态库-zlibwapi-lib"><a href="#使用动态库-zlibwapi-lib" class="headerlink" title="使用动态库 zlibwapi.lib"></a>使用动态库 zlibwapi.lib</h3><ol>
+<li><p>包含头文件</p>
+<p> 属性–C/C++–常规–附加包含目录（添加包含.h的目录）</p>
+</li>
+<li><p>定义宏</p>
+<p> 属性–C/C++–预处理器–预处理器定义：添加 ZLIB_WINAPI</p>
+</li>
+<li><p>项目包含.lib文件所在的目录：</p>
+<p> 属性–链接器–常规–附加库目录</p>
+</li>
+<li><p>项目包含.lib文件</p>
+<p> 属性–链接器–输入–附加依赖项（zlibwapi.lib）</p>
+</li>
+<li><p>项目代码中 #include “zlib.h”</p>
+</li>
+</ol>
+<p>编译生成.exe文件需要.dll文件支持（动态加载）</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">zlib</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">解压缩</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/01/zlib/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-tesseract-ocr" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/26/tesseract-ocr/">tesseract-ocr</a>
+    </h1>
+  
+
+        
+        <a href="/2018/03/26/tesseract-ocr/" class="archive-article-date">
+  	<time datetime="2018-03-26T09:01:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-26</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Python-中文OCR"><a href="#Python-中文OCR" class="headerlink" title="Python 中文OCR"></a>Python 中文OCR</h1><p><a href="https://github.com/tesseract-ocr/tesseract" target="_blank" rel="noopener">https://github.com/tesseract-ocr/tesseract</a></p>
+<p><a href="https://digi.bib.uni-mannheim.de/tesseract/doc/" target="_blank" rel="noopener">https://digi.bib.uni-mannheim.de/tesseract/doc/</a></p>
+<p><a href="https://blog.csdn.net/wwj_748/article/details/78109680?utm_source=tuicool&amp;utm_medium=referral" target="_blank" rel="noopener">Python 中文OCR</a></p>
+<p>Tesseract的OCR引擎目前已作为开源项目发布在Google Project，其项目主页在这里查看<a href="https://github.com/tesseract-ocr" target="_blank" rel="noopener">https://github.com/tesseract-ocr</a>，<br>它支持中文OCR，并提供了一个命令行工具。python中对应的包是pytesseract. 通过这个工具我们可以识别图片上的文字。</p>
+<h1 id="tesseract安装"><a href="#tesseract安装" class="headerlink" title="tesseract安装"></a>tesseract安装</h1><p><a href="https://github.com/tesseract-ocr/tesseract/wiki" target="_blank" rel="noopener">https://github.com/tesseract-ocr/tesseract/wiki</a></p>
+<p><a href="https://github.com/UB-Mannheim/tesseract/wiki" target="_blank" rel="noopener">https://github.com/UB-Mannheim/tesseract/wiki</a></p>
+<p><a href="https://jingyan.baidu.com/article/219f4bf788addfde442d38fe.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/219f4bf788addfde442d38fe.html</a></p>
+<p>需要把安装路径设置到环境变量中</p>
+<h1 id="运行-Tesseract"><a href="#运行-Tesseract" class="headerlink" title="运行 Tesseract"></a>运行 Tesseract</h1><p>Tesseract 是 命令行 程序 ， 那么 第一 终端 或者 打开 一个 命令 提示 。 在 命令 使用 过程 是 这样 的 ：</p>
+<pre><code>tesseract imagename outputbase [-l lang] [-psm pagesegmode] [configfile...]
+</code></pre><p>结果 保存 到  out.txt </p>
+<pre><code>tesseract myscan.png out
+</code></pre><p> 用于 多个 语言</p>
+<pre><code>tesseract myscan.png out -l eng+deu
+</code></pre><p><a href="https://github.com/tesseract-ocr/tesseract/blob/master/doc/tesseract.1.asc" target="_blank" rel="noopener">其他各种选项</a></p>
+<p>1.jpg是当前目录中的1.jpg图片</p>
+<p>1.txt是指定结果输出到文本文件</p>
+<p>-l是指定使用的包</p>
+<p>chi_sim是中文识别包，equ是数学公式包，eng是英文包</p>
+<pre><code>tesseract 1.jpg 1.txt -l chi_sim+equ+eng
+</code></pre><h1 id="其他-语言"><a href="#其他-语言" class="headerlink" title="其他 语言"></a>其他 语言</h1><p><a href="https://github.com/tesseract-ocr/tessdata" target="_blank" rel="noopener">语言 tessdata 储存库 </a></p>
+<h1 id="训练语言"><a href="#训练语言" class="headerlink" title="训练语言"></a>训练语言</h1><p><a href="https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract" target="_blank" rel="noopener">https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract</a></p>
+<p><a href="https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00" target="_blank" rel="noopener">https://github.com/tesseract-ocr/tesseract/wiki/TrainingTesseract-4.00</a></p>
+<p><a href="https://sourceforge.net/projects/vietocr/files/jTessBoxEditor/" title="jTessBoxEditor" target="_blank" rel="noopener">jTessBoxEditor</a></p>
+<p><a href="https://blog.csdn.net/cn_wk/article/details/52280567" target="_blank" rel="noopener">https://blog.csdn.net/cn_wk/article/details/52280567</a></p>
+<p><a href="http://www.bkjia.com/Pythonjc/1131343.html" target="_blank" rel="noopener">http://www.bkjia.com/Pythonjc/1131343.html</a></p>
+<p><a href="https://github.com/tesseract-ocr/tesseract/wiki/AddOns" target="_blank" rel="noopener">https://github.com/tesseract-ocr/tesseract/wiki/AddOns</a></p>
+<p><a href="http://zdenop.github.io/qt-box-editor/" target="_blank" rel="noopener">http://zdenop.github.io/qt-box-editor/</a></p>
+<p><a href="https://www.cnblogs.com/cnlian/p/5765871.html" target="_blank" rel="noopener">https://www.cnblogs.com/cnlian/p/5765871.html</a></p>
+<p>大体流程为：安装jTessBoxEditor -&gt; 获取样本文件 -&gt; Merge样本文件 –&gt; 生成BOX文件 -&gt; 定义字符配置文件 -&gt; 字符矫正 -&gt; 执行批处理文件 -&gt; 将生成的traineddata放入tessdata中</p>
+<p><a href="https://jingyan.baidu.com/article/cdddd41c90544f53cb00e1c3.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/cdddd41c90544f53cb00e1c3.html</a></p>
+<p><a href="https://blog.csdn.net/woaipangruimao/article/details/78741022" target="_blank" rel="noopener">https://blog.csdn.net/woaipangruimao/article/details/78741022</a></p>
+<h1 id="python-pytesseract"><a href="#python-pytesseract" class="headerlink" title="python pytesseract"></a>python pytesseract</h1><p><a href="https://www.liaoxuefeng.com/wiki/0014316089557264a6b348958f449949df42a6d3a2e542c000/0014320027235877860c87af5544f25a8deeb55141d60c5000" target="_blank" rel="noopener">Pillow</a></p>
+<p><a href="https://pillow.readthedocs.org/" target="_blank" rel="noopener">https://pillow.readthedocs.org/</a></p>
+<p><a href="https://pypi.python.org/pypi/pytesseract" target="_blank" rel="noopener">https://pypi.python.org/pypi/pytesseract</a></p>
+<pre><code>pip install pytesseract
+pip install pillow
+</code></pre><p>code:</p>
+<pre><code>#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import pytesseract
+from PIL import Image
+
+pytesseract.pytesseract.tesseract_cmd = r&apos;C:\Program Files (x86)\Tesseract-OCR\tesseract.exe&apos;
+# open image
+image = Image.open(&apos;test.png&apos;)
+code = pytesseract.image_to_string(image, lang=&apos;chi_sim&apos;)
+print(code)
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">tesseract</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ocr</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/03/26/tesseract-ocr/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-CShap调用C++" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1085,342 +1350,9 @@ char *lockcmt   = &quot;&quot;;
 
 
   
-    <article id="post-OpenSSL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/02/OpenSSL/">OpenSSL</a>
-    </h1>
-  
-
-        
-        <a href="/2018/02/02/OpenSSL/" class="archive-article-date">
-  	<time datetime="2018-02-02T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="OpenSSL"><a href="#OpenSSL" class="headerlink" title="OpenSSL"></a>OpenSSL</h1><p><a href="https://www.openssl.org/" title="https://www.openssl.org/" target="_blank" rel="noopener">https://www.openssl.org/</a></p>
-<p><a href="https://github.com/openssl/openssl" title="https://github.com/openssl/openssl" target="_blank" rel="noopener">https://github.com/openssl/openssl</a></p>
-<h1 id="编译："><a href="#编译：" class="headerlink" title="编译："></a>编译：</h1><p>安装<code>ActiveState Perl</code> </p>
-<p><a href="https://www.perl.org/" title="https://www.perl.org/" target="_blank" rel="noopener">https://www.perl.org/</a></p>
-<p><a href="https://www.activestate.com/activeperl/downloads/thank-you?dl=http://downloads.activestate.com/ActivePerl/releases/5.24.1.2402/ActivePerl-5.24.1.2402-MSWin32-x86-64int-401627.exe" title="https://www.activestate.com/activeperl/downloads/thank-you?dl=http://downloads.activestate.com/ActivePerl/releases/5.24.1.2402/ActivePerl-5.24.1.2402-MSWin32-x86-64int-401627.exe" target="_blank" rel="noopener">ActivePerl-5.24.1.2402-MSWin32-x86-64int-401627.exe</a></p>
-<p>Perl 在 Window 平台上有 ActiveStatePerl 和 Strawberry Perl 编译器。</p>
-<p>ActiveState Perl和 Strawberry Perl最大的区别是 Strawberry Perl 里面有多包含一些 CPAN 里的模块， 所以Strawberry Perl 下载的安装文件有 80多M, 而ActiveState Perl 只有20M 左右。</p>
-<p>使用libcur中的<code>build-openssl.bat</code>编译</p>
-<p><a href="http://files.cnblogs.com/files/yhcao/build-openssl.rar" title="http://files.cnblogs.com/files/yhcao/build-openssl.rar" target="_blank" rel="noopener">build-openssl.rar</a></p>
-<h2 id="需要文件："><a href="#需要文件：" class="headerlink" title="需要文件："></a>需要文件：</h2><pre><code>$ copy /b inc32\openssl\*       c:\openssl\include\openssl
-$ copy /b out32dll\ssleay32.lib c:\openssl\lib
-$ copy /b out32dll\libeay32.lib c:\openssl\lib
-$ copy /b out32dll\ssleay32.dll c:\openssl\bin
-$ copy /b out32dll\libeay32.dll c:\openssl\bin
-$ copy /b out32dll\openssl.exe  c:\openssl\bin
-</code></pre><p><a href="http://slproweb.com/products/Win32OpenSSL.html" target="_blank" rel="noopener">http://slproweb.com/products/Win32OpenSSL.html</a></p>
-<h1 id="安装程序："><a href="#安装程序：" class="headerlink" title="安装程序："></a>安装程序：</h1><p>或到此处下载：</p>
-<p><a href="http://slproweb.com/products/Win32OpenSSL.html" title="http://slproweb.com/products/Win32OpenSSL.html" target="_blank" rel="noopener">http://slproweb.com/products/Win32OpenSSL.html</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">OpenSSL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">加密</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/02/OpenSSL/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-C++获取外部exe程序的返回值，判断图片颜色模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-获取外部exe程序的返回值"><a href="#C-获取外部exe程序的返回值" class="headerlink" title="C++获取外部exe程序的返回值"></a>C++获取外部exe程序的返回值</h1><pre><code>#include &quot;stdafx.h&quot;
-#include &lt;Windows.h&gt;
-#include &lt;iostream&gt;
-using namespace std;
-
-int _tmain(int argc, _TCHAR *argv[])
-{
-    STARTUPINFOA si;
-    PROCESS_INFORMATION pi;
-
-    ZeroMemory(&amp;pi,   sizeof(pi));
-    ZeroMemory(&amp;si,   sizeof(si));
-    si.cb = sizeof(STARTUPINFOA);
-
-    TCHAR cmd[256] = _T(&quot;D:\\7za.exe a D:\\nv1.zip D:\\test\\*.*&quot;);
-    BOOL working = ::CreateProcess(NULL, cmd, NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS , NULL, NULL, &amp;si, &amp;pi);
-
-    if (working == 0)
-    {
-        DWORD error = GetLastError();
-        cout &lt;&lt; &quot;CreateProcess Error : &quot; &lt;&lt; error &lt;&lt; endl;
-        getchar();
-        return 0;
-    }
-
-    WaitForSingleObject(pi.hProcess, INFINITE);
-
-    unsigned long Result;
-    GetExitCodeProcess(pi.hProcess, &amp;Result);
-
-    cout &lt;&lt; &quot;Exit Code : &quot; &lt;&lt; Result &lt;&lt; endl;
-    getchar();
-
-    return 0;
-}
-</code></pre><h1 id="调用命令行程序并获取返回信息"><a href="#调用命令行程序并获取返回信息" class="headerlink" title="调用命令行程序并获取返回信息"></a>调用命令行程序并获取返回信息</h1><pre><code>CString ExeCmd(CString pszCmd)
-{
-    //创建匿名管道
-    SECURITY_ATTRIBUTES sa = {sizeof(SECURITY_ATTRIBUTES), NULL, TRUE};
-    HANDLE hRead, hWrite;
-    if (!CreatePipe(&amp;hRead, &amp;hWrite, &amp;sa, 0))
-    {
-        return _T(&quot;&quot;);
-    }
-
-    //设置命令行进程启动信息(以隐藏方式启动命令并定位其输出到hWrite)
-    STARTUPINFO si = {sizeof(STARTUPINFO)};
-    GetStartupInfo(&amp;si);
-    si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
-    si.wShowWindow = SW_HIDE;
-    si.hStdError = hWrite;
-    si.hStdOutput = hWrite;
-
-    //启动命令行
-    PROCESS_INFORMATION pi;
-    if (!CreateProcess(NULL, (LPWSTR)(LPCWSTR)pszCmd, NULL, NULL, TRUE, NULL, NULL, NULL, &amp;si, &amp;pi))
-    {
-        return _T(&quot;&quot;);
-    }
-
-    //立即关闭hWrite
-    CloseHandle(hWrite);
-
-    //读取命令行返回值
-    char buff[1024] = {0};
-    DWORD dwRead = 0;
-    while (ReadFile(hRead, buff, 1024, &amp;dwRead, NULL))
-    {
-    }
-    CString strRet(buff);
-    CloseHandle(hRead);
-
-    return strRet;
-}
-</code></pre><p>使用：</p>
-<pre><code>ExeCmd(_T(&quot;ping baidu.com&quot;));
-ExeCmd(_T(&quot;identify -format &quot;%[colorspace]&quot; E:\\P70306-163226.jpg&quot;));
-</code></pre><h1 id="其他参考："><a href="#其他参考：" class="headerlink" title="其他参考："></a>其他参考：</h1><pre><code>BOOL    Start(LPCTSTR lpszTaskInfo)
-{
-    if (!lpszTaskInfo)
-    {
-        return FALSE;
-    }
-    if (m_hRenderProcess)
-    {
-        if (Wait(0))
-        {
-            m_nProgress = 0;
-            SAFE_CLOSE_HANDLE(m_hRenderProcess);
-            m_dwRenderThreadId = 0;
-        }
-        else
-        {
-            return FALSE;
-        }
-    }
-
-    BOOL bRet = FALSE;
-    HANDLE hDebugInfo = NULL;
-    do
-    {
-        TCHAR szDebugLog[MAX_PATH];
-        _tcscpy(szDebugLog, m_szFastRenderExPath);
-        _tcscat(szDebugLog, _T(&quot;.debug&quot;));
-        SECURITY_ATTRIBUTES sa;
-        sa.nLength = sizeof(sa);
-        sa.lpSecurityDescriptor = NULL;
-        sa.bInheritHandle = TRUE;
-        hDebugInfo = CreateFile(szDebugLog, FILE_WRITE_DATA, FILE_SHARE_READ, &amp;sa, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-
-        STARTUPINFO si;
-        PROCESS_INFORMATION pi;
-        ZeroMemory( &amp;si, sizeof(si) );
-        si.cb = sizeof(si);
-        ZeroMemory( &amp;pi, sizeof(pi) );
-        si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
-        si.hStdInput = NULL;
-        si.hStdOutput = hDebugInfo;
-        si.hStdError = hDebugInfo;
-        si.wShowWindow = SW_HIDE;
-
-        TCHAR szCmdline[MAX_PATH * 2];
-        _sntprintf(szCmdline, ARRAYSIZE(szCmdline), _T(&quot; -i \&quot;%s\&quot;&quot;), lpszTaskInfo); // 第一个空格非常重要
-        // Start the child process.
-        if( !CreateProcess( m_szFastRenderExPath,   // Module name
-                            szCmdline,      // Command line
-                            NULL,           // Process handle not inheritable
-                            NULL,           // Thread handle not inheritable
-                            TRUE,          // Set handle inheritance to FALSE
-                            0,              // No creation flags
-                            NULL,           // Use parent&apos;s environment block
-                            NULL,           // Use parent&apos;s starting directory
-                            &amp;si,            // Pointer to STARTUPINFO structure
-                            &amp;pi )           // Pointer to PROCESS_INFORMATION structure
-          )
-        {
-            break;
-        }
-        // Close process and thread handles.
-        m_hRenderProcess = pi.hProcess;
-        CloseHandle( pi.hThread );
-        m_dwRenderThreadId = pi.dwThreadId;
-
-        // Start the message receive thread
-        if (!m_dwReceiveThreadId)
-        {
-            HANDLE hThread = (HANDLE) _beginthreadex(NULL,    0, ThreadFn, this, 0, &amp;m_dwReceiveThreadId);
-            if (hThread == NULL)
-            {
-                break;
-            }
-            CloseHandle(hThread);
-        }
-
-        if (!m_hMsgEvent)
-        {
-            m_hMsgEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
-        }
-        else
-        {
-            ResetEvent(m_hMsgEvent);
-        }
-
-        bRet = TRUE;
-    }
-    while (FALSE);
-
-    SAFE_CLOSE_HANDLE(hDebugInfo);
-
-    if (!bRet)
-    {
-        if (m_hRenderProcess)
-        {
-            TerminateProcess(m_hRenderProcess, -1);
-            SAFE_CLOSE_HANDLE(m_hRenderProcess);
-        }
-        m_dwRenderThreadId = 0;
-        SAFE_CLOSE_HANDLE(m_hMsgEvent);
-    }
-
-    return bRet;
-}
-</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="http://blog.csdn.net/lgh1700/article/details/7713500" title="http://blog.csdn.net/lgh1700/article/details/7713500" target="_blank" rel="noopener">C++获取外部exe程序的返回值 </a></li>
-<li><a href="http://www.cnblogs.com/acloud/archive/2012/08/30/2663395.html" target="_blank" rel="noopener">调用命令行程序并获取返回信息</a></li>
-<li><a href="http://dahua2.blog.163.com/blog/static/1748435142015317633489/" target="_blank" rel="noopener">ImageMagick–identify详解</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/02/C++获取外部exe程序的返回值，判断图片颜色模式/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
     </nav>
   
 
@@ -2208,6 +2140,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
             
             <div class="clearfix"></div>

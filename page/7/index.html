@@ -160,6 +160,222 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Python" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/21/Python/">Python</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/21/Python/" class="archive-article-date">
+  	<time datetime="2017-08-21T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><a href="https://www.python.org/" title="https://www.python.org/" target="_blank" rel="noopener">https://www.python.org/</a></p>
+<h2 id="第三方包安装方法"><a href="#第三方包安装方法" class="headerlink" title="第三方包安装方法"></a>第三方包安装方法</h2><h3 id="第一种方法（不使用pip或者easy-install-："><a href="#第一种方法（不使用pip或者easy-install-：" class="headerlink" title="第一种方法（不使用pip或者easy_install)："></a>第一种方法（不使用pip或者easy_install)：</h3><p>Step1:在网上找到的需要的包，下载下来。<code>eg. rsa-3.1.4.tar.gz</code></p>
+<p>Step2:解压缩该文件。</p>
+<p>Step3:命令行工具cd切换到所要安装的包的目录，找到<code>setup.py</code>文件，然后输入<code>python setup.py install</code></p>
+<h3 id="第二种方法（使用pip或者easy-install）："><a href="#第二种方法（使用pip或者easy-install）：" class="headerlink" title="第二种方法（使用pip或者easy_install）："></a>第二种方法（使用pip或者easy_install）：</h3><p>直接打开cmd，敲<code>pip install rsa</code>。</p>
+<h2 id="VS-Code"><a href="#VS-Code" class="headerlink" title="VS Code"></a>VS Code</h2><h3 id="安装python插件"><a href="#安装python插件" class="headerlink" title="安装python插件"></a>安装python插件</h3><p>打开VScode，Ctrl+p<br>输入 “ext install python”</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/21/Python/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-获取所有本机IP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/15/获取所有本机IP/">获取所有本机IP</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/15/获取所有本机IP/" class="archive-article-date">
+  	<time datetime="2017-08-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>#include &lt;WinSock2.h&gt;
+#include &lt;Iphlpapi.h&gt;
+#pragma comment(lib,&quot;iphlpapi.lib&quot;)
+
+// 获得本机的IP地址
+void CIOCPModel::GetLocalIP(CStringArray &amp;arrIp)
+{
+    //PIP_ADAPTER_INFO结构体指针存储本机网卡信息
+    PIP_ADAPTER_INFO pIpAdapterInfo = new IP_ADAPTER_INFO();
+    //得到结构体大小,用于GetAdaptersInfo参数
+    unsigned long stSize = sizeof(IP_ADAPTER_INFO);
+    //调用GetAdaptersInfo函数,填充pIpAdapterInfo指针变量;其中stSize参数既是一个输入量也是一个输出量
+    int nRel = GetAdaptersInfo(pIpAdapterInfo, &amp;stSize);
+    if (ERROR_BUFFER_OVERFLOW == nRel)
+    {
+        //如果函数返回的是ERROR_BUFFER_OVERFLOW
+        //则说明GetAdaptersInfo参数传递的内存空间不够,同时其传出stSize,表示需要的空间大小
+        //这也是说明为什么stSize既是一个输入量也是一个输出量
+        //释放原来的内存空间
+        delete pIpAdapterInfo;
+        //重新申请内存空间用来存储所有网卡信息
+        pIpAdapterInfo = (PIP_ADAPTER_INFO)new BYTE[stSize];
+        //再次调用GetAdaptersInfo函数,填充pIpAdapterInfo指针变量
+        nRel = GetAdaptersInfo(pIpAdapterInfo, &amp;stSize);
+    }
+    if (ERROR_SUCCESS == nRel)
+    {
+        //输出网卡信息
+        while (pIpAdapterInfo)
+        {
+            IP_ADDR_STRING *pIpAddrString = &amp;(pIpAdapterInfo-&gt;IpAddressList);
+            do
+            {
+                CString strTemp = pIpAddrString-&gt;IpAddress.String;
+
+                arrIp.Add(strTemp);
+                pIpAddrString = pIpAddrString-&gt;Next;
+            }
+            while (pIpAddrString);
+            pIpAdapterInfo = pIpAdapterInfo-&gt;Next;
+        }
+    }
+    //释放内存空间
+    if (pIpAdapterInfo)
+    {
+        delete pIpAdapterInfo;
+    }
+}
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">IP</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/15/获取所有本机IP/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-MFC背景透明" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -6835,534 +7051,9 @@ int main(int argc, char* argv[])
 
 
   
-    <article id="post-C++进程间通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/01/C++进程间通信/">C++进程间通信</a>
-    </h1>
-  
-
-        
-        <a href="/2017/04/01/C++进程间通信/" class="archive-article-date">
-  	<time datetime="2017-04-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-进程间通信"><a href="#C-进程间通信" class="headerlink" title="C++进程间通信"></a>C++进程间通信</h1><p>进程间通讯的四种方式：剪贴板、匿名管道、命名管道和邮槽</p>
-<h2 id="剪切板"><a href="#剪切板" class="headerlink" title="剪切板"></a>剪切板</h2><pre><code>//设置剪切板内容
-
-CString str;
-this-&gt;GetDlgItemText(IDC_EDIT1, str);
-
-OpenClipboard();//打开剪贴板查看,并防止其他应用程序修改剪贴板的内容.
-EmptyClipboard();//EmptyClipboard Function该函数清空剪切板并释放剪切板内数据的句柄。函数在之后会将剪切板的所有权指派给当前打开剪切板的窗口。
-HANDLE hclip = GlobalAlloc(GMEM_MOVEABLE, str.GetLength() + 1);
-char *pBuf = (char *)GlobalLock(hclip);
-
-//WideCharToMultiByte()//字形转换
-strcpy(pBuf, str.GetBuffer());
-//memcpy(pBuf, str.GetBuffer(), GetLength()+2);
-GlobalLock(hclip);
-
-SetClipboardData(CF_TEXT, hclip);//SetClipboardData是把指定数据按照指定格式放入剪切板中
-CloseClipboard();//关闭剪贴板,这使其他窗口或程序能访问剪贴板。
-
-//获得剪切板内容
-
-OpenClipboard();
-if (IsClipboardFormatAvailable(CF_TEXT))//是以NULL结尾的ASCII字符的文本格式,则该函数返回值为true,否则为false。
-{
-    HANDLE hclip;
-    hclip = GetClipboardData(CF_TEXT);//用来打开剪贴板并获取剪贴板内容。
-    char *pBuf =  (char *)GlobalLock(hclip);
-    GlobalUnlock(hclip);
-    CString STR;
-    SetDlgItemText(IDC_EDIT1, pBuf);
-}
-CloseClipboard();
-
-//参考：
-//http://bbs.kechuang.org/t/72605
-//http://www.cnblogs.com/BoyXiao/archive/2010/12/25/1916677.html
-</code></pre><h2 id="匿名管道"><a href="#匿名管道" class="headerlink" title="匿名管道"></a>匿名管道</h2><pre><code>//父进程实现
-
-//创建匿名管道
-SECURITY_ATTRIBUTES sa;
-sa.bInheritHandle = TRUE;
-sa.lpSecurityDescriptor = NULL;
-sa.nLength = sizeof(SECURITY_ATTRIBUTES);
-
-if (!CreatePipe(&amp;m_hRead, &amp;m_hWrite, &amp;sa, 0))
-{
-    AfxMessageBox(_T(&quot;create pipe error&quot;));
-}
-
-//子进程的创建
-STARTUPINFO sui;
-PROCESS_INFORMATION pi;
-sui.cb = sizeof(STARTUPINFO);
-ZeroMemory(&amp;sui, sizeof(STARTUPINFO));
-
-sui.dwFlags = STARTF_USESTDHANDLES;
-sui.hStdInput = m_hRead;
-sui.hStdOutput = m_hWrite;
-sui.hStdError = GetStdHandle(STD_ERROR_HANDLE);
-
-if (!CreateProcess(_T(&quot;../debug/child.exe&quot;), NULL , NULL, NULL, TRUE, 0, NULL, NULL, &amp;sui, &amp;pi ))
-
-{
-    AfxMessageBox(_T(&quot;创建子进程错误&quot;));
-}
-
-
-//关闭进程 线程计数器
-if (pi.hThread)
-{
-    CloseHandle(pi.hThread);
-}
-if (pi.hProcess)
-{
-    CloseHandle(pi.hProcess);
-}
-
-//发送数据
-
-char buf[] = &quot;this is pipe server&quot;;
-DWORD dwWrite = 0;
-if (!WriteFile(m_hWrite, buf, strlen(buf) + 1, &amp;dwWrite, NULL))
-{
-    AfxMessageBox(_T(&quot;write error parent&quot;));
-}
-
-//接收数据
-
-char buf[128] = {0};
-DWORD dwRead = 0;
-ReadFile(m_hRead, buf, sizeof(buf), &amp;dwRead, NULL );
-
-//子进程实现
-
-//获取继承自父进程的匿名管道读写句柄
-m_hRead = GetStdHandle(STD_INPUT_HANDLE);
-m_hWrite = GetStdHandle(STD_OUTPUT_HANDLE);
-
-//写入数据
-
-char buf[] = &quot;this is pipe child&quot;;
-DWORD dwWrite = 0;
-if (!WriteFile(m_hWrite, buf, strlen(buf) + 1, &amp;dwWrite, NULL))
-{
-    AfxMessageBox(_T(&quot;write error child&quot;));
-}
-
-//读取数据
-
-char buf[128] = {0};
-DWORD dwRead = 0;
-ReadFile(m_hRead, buf, sizeof(buf), &amp;dwRead, NULL );
-
-//参考
-http://www.cnblogs.com/BoyXiao/archive/2011/01/01/1923828.html
-</code></pre><h2 id="命名管道"><a href="#命名管道" class="headerlink" title="命名管道"></a>命名管道</h2><pre><code>//服务端
-
-//创建命名管
-
-m_hPipe = CreateNamedPipe(_T(&quot;\\\\.\\pipe\\mypipe&quot;), PIPE_ACCESS_DUPLEX | FILE_FLAG_OVERLAPPED, /*OVERLAPPED是为了满足异步实现非阻塞的工能，当连接上用事件通知*/
-                          0, 1, 1024, 1024, 0, NULL);
-
-if (m_hPipe == INVALID_HANDLE_VALUE)
-{
-    return;
-}
-
-//创建事件
-HANDLE hEvent;
-hEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
-if (!hEvent)
-{
-    MessageBox(_T(&quot;创建事件对象失败！&quot;));
-    CloseHandle(m_hPipe);
-    m_hPipe = NULL;
-    return;
-}
-
-OVERLAPPED ovlap;
-ZeroMemory(&amp;ovlap, sizeof(OVERLAPPED));
-ovlap.hEvent = hEvent;
-
-if (!ConnectNamedPipe(m_hPipe, &amp;ovlap))
-{
-    if (ERROR_IO_PENDING != GetLastError())
-    {
-        MessageBox(_T(&quot;等待客户连接失败！&quot;));
-        CloseHandle(m_hPipe);
-        CloseHandle(hEvent);
-        m_hPipe = NULL;
-        return;
-    }
-}
-
-//重叠操作
-if (WAIT_FAILED == WaitForSingleObject(hEvent, INFINITE))
-{
-    MessageBox(_T(&quot;等待对象失败！&quot;));
-    CloseHandle(m_hPipe);
-    CloseHandle(hEvent);
-    m_hPipe = NULL;
-    return;
-}
-CloseHandle(hEvent);
-
-//写数据
-
-char buf[] = &quot;this is named pipe server&quot;;
-DWORD dwWrite = 0;
-WriteFile(m_hPipe, buf, strlen(buf) + 1, &amp;dwWrite, NULL);
-
-//读数据
-
-char buf[128] = {0};
-DWORD dwRead = 0;
-ReadFile(m_hPipe, buf, 128, &amp;dwRead, NULL);
-
-//客户端
-
-//连接命名管道
-if (!WaitNamedPipe(_T(&quot;\\\\.\\pipe\\mypipe&quot;), NMPWAIT_WAIT_FOREVER))
-{
-    return;
-}
-
-m_hPipe = CreateFile(_T(&quot;\\\\.\\pipe\\mypipe&quot;), GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-
-//写入数据
-
-char buf[] = &quot;this is named pipe client&quot;;
-DWORD dwWrite = 0;
-WriteFile(m_hPipe, buf, strlen(buf) + 1, &amp;dwWrite, NULL);
-
-//读取数据
-
-char buf[128] = {0};
-DWORD dwRead = 0;
-ReadFile(m_hPipe, buf, 128, &amp;dwRead, NULL);
-
-
-//参考
-//http://www.cnblogs.com/BoyXiao/archive/2011/01/02/1924188.html
-</code></pre><h2 id="邮槽"><a href="#邮槽" class="headerlink" title="邮槽"></a>邮槽</h2><pre><code>//服务端
-
-HANDLE hMail = CreateMailslot(_T(&quot;\\\\.\\mailslot\\myslot&quot;), 424, MAILSLOT_WAIT_FOREVER, NULL);
-if (hMail == INVALID_HANDLE_VALUE)
-{
-    int nRes = GetLastError();
-    CString str;
-    str.Format(_T(&quot;%s&quot;), nRes);
-    AfxMessageBox(str);
-    return;
-}
-char buf[424] = {0};
-DWORD dwSize = 0;
-ReadFile(hMail, buf, 424, &amp;dwSize, NULL);
-CString str;
-str = buf;
-MessageBox(str);
-
-//客户端
-HANDLE hMailslot;
-hMailslot = CreateFile(_T(&quot;\\\\.\\mailslot\\myslot&quot;), GENERIC_WRITE,
-                       FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-if (INVALID_HANDLE_VALUE == hMailslot)
-{
-    MessageBox(_T(&quot;打开邮槽失败！&quot;));
-    return;
-}
-
-char buf[] = &quot;this is mail slot client&quot;;
-DWORD dwSize = 0;
-if (!WriteFile(hMailslot, buf, strlen(buf) + 1, &amp;dwSize, NULL))
-{
-    MessageBox(_T(&quot;写入邮槽失败！&quot;));
-}
-
-//http://blog.csdn.net/kylin_p/article/details/5146797
-//http://www.cnblogs.com/BoyXiao/archive/2010/12/31/1923462.html
-//http://www.cnblogs.com/jzincnblogs/p/5192654.html
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">通信</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/04/01/C++进程间通信/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-C++ 最小化到托盘" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/01/C++ 最小化到托盘/"> C++ 最小化到托盘</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/01/C++ 最小化到托盘/" class="archive-article-date">
-  	<time datetime="2017-03-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-最小化到托盘"><a href="#C-最小化到托盘" class="headerlink" title="C++ 最小化到托盘"></a>C++ 最小化到托盘</h1><pre><code>#define  WM_SHOWTASK (WM_USER + 1)
-void CTestDlg::OnSysCommand(UINT nID, LPARAM lParam)
-{
-    if ((nID &amp; 0xFFF0) == IDM_ABOUTBOX)
-    {
-        CAboutDlg dlgAbout;
-        dlgAbout.DoModal();
-    }
-    else
-    {
-        //增加关闭时最小化到托盘的函数
-        if (nID == SC_CLOSE) //SC_MINIMIZE
-        {
-            ToTray();
-            return;
-        }
-        CDialog::OnSysCommand(nID, lParam);
-    }
-}
-BEGIN_MESSAGE_MAP(CTestDlg, CDialog)
-    ON_MESSAGE(WM_SHOWTASK, OnShowTask)
-    //}}AFX_MSG_MAP
-END_MESSAGE_MAP()
-//在托盘区添加图标 最小化到托盘函数
-void ToTray(void);
-void CTestDlg::ToTray(void)
-{
-    NOTIFYICONDATA nid;
-    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-    nid.hWnd = this-&gt;m_hWnd;
-    nid.uID = IDR_MAINFRAME;
-    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
-    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
-    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条
-    Shell_NotifyIcon(NIM_ADD, &amp;nid);//在托盘区添加图标
-    ShowWindow(SW_HIDE);//隐藏主窗口
-}
-//恢复界面函数
-afx_msg LRESULT OnShowTask(WPARAM wParam, LPARAM lParam);
-//托盘事件
-LRESULT CTestDlg::OnShowTask(WPARAM wParam, LPARAM lParam)
-{
-    if (wParam != IDR_MAINFRAME)
-    {
-        return 1;
-    }
-    switch(lParam)
-    {
-    case WM_RBUTTONUP://右键起来时弹出快捷菜单，这里只有一个关闭
-    {
-        LPPOINT lpoint = new tagPOINT;
-        ::GetCursorPos(lpoint);//得到鼠标位置
-        CMenu menu;
-        menu.CreatePopupMenu();//声明一个弹出式菜单
-        //增加菜单项“关闭”，点击则发送消息WM_DESTROY给主窗口（已
-        //隐藏），将程序结束。
-        menu.AppendMenu(MF_STRING, WM_DESTROY, _T(&quot;退出&quot;));
-        //确定弹出式菜单的位置
-        menu.TrackPopupMenu(TPM_LEFTALIGN, lpoint-&gt;x, lpoint-&gt;y, this);
-        //资源回收
-        HMENU hmenu = menu.Detach();
-        menu.DestroyMenu();
-        delete lpoint;
-    }
-    break;
-    case WM_LBUTTONDBLCLK://双击左键的处理
-    {
-        this-&gt;ShowWindow(SW_SHOW);//简单的显示主窗口
-        this-&gt;ShowWindow(SW_RESTORE);
-        DeleteTray();
-    }
-    break;
-    default:
-        break;
-    }
-    return 0;
-}
-//删除托盘中图标
-void DeleteTray();
-void CTestlDlg::DeleteTray()
-{
-    NOTIFYICONDATA nid;
-    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-    nid.hWnd = this-&gt;m_hWnd;
-    nid.uID = IDR_MAINFRAME;
-    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
-    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
-    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
-    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
-}
-//退出程序需时需要DeleteTray();
-void CTestDlg::OnDestroy()
-{
-    CDialog::OnDestroy();
-    // TODO: 在此处添加消息处理程序代码
-    DeleteTray();
-}
-//修改风格使得他不在任务栏显示
-int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
-{
-    if (CDialog::OnCreate(lpCreateStruct) == -1)
-        return -1;
-    // TODO:  在此添加您专用的创建代码
-    //修改风格使得他不在任务栏显示
-    ModifyStyleEx(WS_EX_APPWINDOW, WS_EX_TOOLWINDOW);
-    return 0;
-}
-</code></pre><p>DeleteTray改为：</p>
-<pre><code>void CTestDlg::DeleteTray()
-{
-    NOTIFYICONDATA nid;
-    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
-    nid.hWnd = this-&gt;m_hWnd;
-    nid.uID = IDR_MAINFRAME;
-    nid.uFlags = NIF_ICON /*| NIF_MESSAGE | NIF_TIP*/;
-    //nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
-    //nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
-    //wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
-    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
-}
-</code></pre><p>否则会出现程序退出后，托盘图标还在的情况，鼠标移动到图标上后，图标一闪然后消失的问题。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/01/C++ 最小化到托盘/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/6/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/8/">Next &raquo;</a>
     </nav>
   
 
@@ -8150,6 +7841,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
             
             <div class="clearfix"></div>

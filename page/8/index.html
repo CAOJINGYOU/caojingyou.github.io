@@ -160,6 +160,531 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-C++进程间通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/01/C++进程间通信/">C++进程间通信</a>
+    </h1>
+  
+
+        
+        <a href="/2017/04/01/C++进程间通信/" class="archive-article-date">
+  	<time datetime="2017-04-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="C-进程间通信"><a href="#C-进程间通信" class="headerlink" title="C++进程间通信"></a>C++进程间通信</h1><p>进程间通讯的四种方式：剪贴板、匿名管道、命名管道和邮槽</p>
+<h2 id="剪切板"><a href="#剪切板" class="headerlink" title="剪切板"></a>剪切板</h2><pre><code>//设置剪切板内容
+
+CString str;
+this-&gt;GetDlgItemText(IDC_EDIT1, str);
+
+OpenClipboard();//打开剪贴板查看,并防止其他应用程序修改剪贴板的内容.
+EmptyClipboard();//EmptyClipboard Function该函数清空剪切板并释放剪切板内数据的句柄。函数在之后会将剪切板的所有权指派给当前打开剪切板的窗口。
+HANDLE hclip = GlobalAlloc(GMEM_MOVEABLE, str.GetLength() + 1);
+char *pBuf = (char *)GlobalLock(hclip);
+
+//WideCharToMultiByte()//字形转换
+strcpy(pBuf, str.GetBuffer());
+//memcpy(pBuf, str.GetBuffer(), GetLength()+2);
+GlobalLock(hclip);
+
+SetClipboardData(CF_TEXT, hclip);//SetClipboardData是把指定数据按照指定格式放入剪切板中
+CloseClipboard();//关闭剪贴板,这使其他窗口或程序能访问剪贴板。
+
+//获得剪切板内容
+
+OpenClipboard();
+if (IsClipboardFormatAvailable(CF_TEXT))//是以NULL结尾的ASCII字符的文本格式,则该函数返回值为true,否则为false。
+{
+    HANDLE hclip;
+    hclip = GetClipboardData(CF_TEXT);//用来打开剪贴板并获取剪贴板内容。
+    char *pBuf =  (char *)GlobalLock(hclip);
+    GlobalUnlock(hclip);
+    CString STR;
+    SetDlgItemText(IDC_EDIT1, pBuf);
+}
+CloseClipboard();
+
+//参考：
+//http://bbs.kechuang.org/t/72605
+//http://www.cnblogs.com/BoyXiao/archive/2010/12/25/1916677.html
+</code></pre><h2 id="匿名管道"><a href="#匿名管道" class="headerlink" title="匿名管道"></a>匿名管道</h2><pre><code>//父进程实现
+
+//创建匿名管道
+SECURITY_ATTRIBUTES sa;
+sa.bInheritHandle = TRUE;
+sa.lpSecurityDescriptor = NULL;
+sa.nLength = sizeof(SECURITY_ATTRIBUTES);
+
+if (!CreatePipe(&amp;m_hRead, &amp;m_hWrite, &amp;sa, 0))
+{
+    AfxMessageBox(_T(&quot;create pipe error&quot;));
+}
+
+//子进程的创建
+STARTUPINFO sui;
+PROCESS_INFORMATION pi;
+sui.cb = sizeof(STARTUPINFO);
+ZeroMemory(&amp;sui, sizeof(STARTUPINFO));
+
+sui.dwFlags = STARTF_USESTDHANDLES;
+sui.hStdInput = m_hRead;
+sui.hStdOutput = m_hWrite;
+sui.hStdError = GetStdHandle(STD_ERROR_HANDLE);
+
+if (!CreateProcess(_T(&quot;../debug/child.exe&quot;), NULL , NULL, NULL, TRUE, 0, NULL, NULL, &amp;sui, &amp;pi ))
+
+{
+    AfxMessageBox(_T(&quot;创建子进程错误&quot;));
+}
+
+
+//关闭进程 线程计数器
+if (pi.hThread)
+{
+    CloseHandle(pi.hThread);
+}
+if (pi.hProcess)
+{
+    CloseHandle(pi.hProcess);
+}
+
+//发送数据
+
+char buf[] = &quot;this is pipe server&quot;;
+DWORD dwWrite = 0;
+if (!WriteFile(m_hWrite, buf, strlen(buf) + 1, &amp;dwWrite, NULL))
+{
+    AfxMessageBox(_T(&quot;write error parent&quot;));
+}
+
+//接收数据
+
+char buf[128] = {0};
+DWORD dwRead = 0;
+ReadFile(m_hRead, buf, sizeof(buf), &amp;dwRead, NULL );
+
+//子进程实现
+
+//获取继承自父进程的匿名管道读写句柄
+m_hRead = GetStdHandle(STD_INPUT_HANDLE);
+m_hWrite = GetStdHandle(STD_OUTPUT_HANDLE);
+
+//写入数据
+
+char buf[] = &quot;this is pipe child&quot;;
+DWORD dwWrite = 0;
+if (!WriteFile(m_hWrite, buf, strlen(buf) + 1, &amp;dwWrite, NULL))
+{
+    AfxMessageBox(_T(&quot;write error child&quot;));
+}
+
+//读取数据
+
+char buf[128] = {0};
+DWORD dwRead = 0;
+ReadFile(m_hRead, buf, sizeof(buf), &amp;dwRead, NULL );
+
+//参考
+http://www.cnblogs.com/BoyXiao/archive/2011/01/01/1923828.html
+</code></pre><h2 id="命名管道"><a href="#命名管道" class="headerlink" title="命名管道"></a>命名管道</h2><pre><code>//服务端
+
+//创建命名管
+
+m_hPipe = CreateNamedPipe(_T(&quot;\\\\.\\pipe\\mypipe&quot;), PIPE_ACCESS_DUPLEX | FILE_FLAG_OVERLAPPED, /*OVERLAPPED是为了满足异步实现非阻塞的工能，当连接上用事件通知*/
+                          0, 1, 1024, 1024, 0, NULL);
+
+if (m_hPipe == INVALID_HANDLE_VALUE)
+{
+    return;
+}
+
+//创建事件
+HANDLE hEvent;
+hEvent = CreateEvent(NULL, TRUE, FALSE, NULL);
+if (!hEvent)
+{
+    MessageBox(_T(&quot;创建事件对象失败！&quot;));
+    CloseHandle(m_hPipe);
+    m_hPipe = NULL;
+    return;
+}
+
+OVERLAPPED ovlap;
+ZeroMemory(&amp;ovlap, sizeof(OVERLAPPED));
+ovlap.hEvent = hEvent;
+
+if (!ConnectNamedPipe(m_hPipe, &amp;ovlap))
+{
+    if (ERROR_IO_PENDING != GetLastError())
+    {
+        MessageBox(_T(&quot;等待客户连接失败！&quot;));
+        CloseHandle(m_hPipe);
+        CloseHandle(hEvent);
+        m_hPipe = NULL;
+        return;
+    }
+}
+
+//重叠操作
+if (WAIT_FAILED == WaitForSingleObject(hEvent, INFINITE))
+{
+    MessageBox(_T(&quot;等待对象失败！&quot;));
+    CloseHandle(m_hPipe);
+    CloseHandle(hEvent);
+    m_hPipe = NULL;
+    return;
+}
+CloseHandle(hEvent);
+
+//写数据
+
+char buf[] = &quot;this is named pipe server&quot;;
+DWORD dwWrite = 0;
+WriteFile(m_hPipe, buf, strlen(buf) + 1, &amp;dwWrite, NULL);
+
+//读数据
+
+char buf[128] = {0};
+DWORD dwRead = 0;
+ReadFile(m_hPipe, buf, 128, &amp;dwRead, NULL);
+
+//客户端
+
+//连接命名管道
+if (!WaitNamedPipe(_T(&quot;\\\\.\\pipe\\mypipe&quot;), NMPWAIT_WAIT_FOREVER))
+{
+    return;
+}
+
+m_hPipe = CreateFile(_T(&quot;\\\\.\\pipe\\mypipe&quot;), GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ | FILE_SHARE_WRITE, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+
+//写入数据
+
+char buf[] = &quot;this is named pipe client&quot;;
+DWORD dwWrite = 0;
+WriteFile(m_hPipe, buf, strlen(buf) + 1, &amp;dwWrite, NULL);
+
+//读取数据
+
+char buf[128] = {0};
+DWORD dwRead = 0;
+ReadFile(m_hPipe, buf, 128, &amp;dwRead, NULL);
+
+
+//参考
+//http://www.cnblogs.com/BoyXiao/archive/2011/01/02/1924188.html
+</code></pre><h2 id="邮槽"><a href="#邮槽" class="headerlink" title="邮槽"></a>邮槽</h2><pre><code>//服务端
+
+HANDLE hMail = CreateMailslot(_T(&quot;\\\\.\\mailslot\\myslot&quot;), 424, MAILSLOT_WAIT_FOREVER, NULL);
+if (hMail == INVALID_HANDLE_VALUE)
+{
+    int nRes = GetLastError();
+    CString str;
+    str.Format(_T(&quot;%s&quot;), nRes);
+    AfxMessageBox(str);
+    return;
+}
+char buf[424] = {0};
+DWORD dwSize = 0;
+ReadFile(hMail, buf, 424, &amp;dwSize, NULL);
+CString str;
+str = buf;
+MessageBox(str);
+
+//客户端
+HANDLE hMailslot;
+hMailslot = CreateFile(_T(&quot;\\\\.\\mailslot\\myslot&quot;), GENERIC_WRITE,
+                       FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+if (INVALID_HANDLE_VALUE == hMailslot)
+{
+    MessageBox(_T(&quot;打开邮槽失败！&quot;));
+    return;
+}
+
+char buf[] = &quot;this is mail slot client&quot;;
+DWORD dwSize = 0;
+if (!WriteFile(hMailslot, buf, strlen(buf) + 1, &amp;dwSize, NULL))
+{
+    MessageBox(_T(&quot;写入邮槽失败！&quot;));
+}
+
+//http://blog.csdn.net/kylin_p/article/details/5146797
+//http://www.cnblogs.com/BoyXiao/archive/2010/12/31/1923462.html
+//http://www.cnblogs.com/jzincnblogs/p/5192654.html
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">通信</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/04/01/C++进程间通信/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-C++ 最小化到托盘" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/01/C++ 最小化到托盘/"> C++ 最小化到托盘</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/01/C++ 最小化到托盘/" class="archive-article-date">
+  	<time datetime="2017-03-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="C-最小化到托盘"><a href="#C-最小化到托盘" class="headerlink" title="C++ 最小化到托盘"></a>C++ 最小化到托盘</h1><pre><code>#define  WM_SHOWTASK (WM_USER + 1)
+void CTestDlg::OnSysCommand(UINT nID, LPARAM lParam)
+{
+    if ((nID &amp; 0xFFF0) == IDM_ABOUTBOX)
+    {
+        CAboutDlg dlgAbout;
+        dlgAbout.DoModal();
+    }
+    else
+    {
+        //增加关闭时最小化到托盘的函数
+        if (nID == SC_CLOSE) //SC_MINIMIZE
+        {
+            ToTray();
+            return;
+        }
+        CDialog::OnSysCommand(nID, lParam);
+    }
+}
+BEGIN_MESSAGE_MAP(CTestDlg, CDialog)
+    ON_MESSAGE(WM_SHOWTASK, OnShowTask)
+    //}}AFX_MSG_MAP
+END_MESSAGE_MAP()
+//在托盘区添加图标 最小化到托盘函数
+void ToTray(void);
+void CTestDlg::ToTray(void)
+{
+    NOTIFYICONDATA nid;
+    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
+    nid.hWnd = this-&gt;m_hWnd;
+    nid.uID = IDR_MAINFRAME;
+    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
+    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
+    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
+    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条
+    Shell_NotifyIcon(NIM_ADD, &amp;nid);//在托盘区添加图标
+    ShowWindow(SW_HIDE);//隐藏主窗口
+}
+//恢复界面函数
+afx_msg LRESULT OnShowTask(WPARAM wParam, LPARAM lParam);
+//托盘事件
+LRESULT CTestDlg::OnShowTask(WPARAM wParam, LPARAM lParam)
+{
+    if (wParam != IDR_MAINFRAME)
+    {
+        return 1;
+    }
+    switch(lParam)
+    {
+    case WM_RBUTTONUP://右键起来时弹出快捷菜单，这里只有一个关闭
+    {
+        LPPOINT lpoint = new tagPOINT;
+        ::GetCursorPos(lpoint);//得到鼠标位置
+        CMenu menu;
+        menu.CreatePopupMenu();//声明一个弹出式菜单
+        //增加菜单项“关闭”，点击则发送消息WM_DESTROY给主窗口（已
+        //隐藏），将程序结束。
+        menu.AppendMenu(MF_STRING, WM_DESTROY, _T(&quot;退出&quot;));
+        //确定弹出式菜单的位置
+        menu.TrackPopupMenu(TPM_LEFTALIGN, lpoint-&gt;x, lpoint-&gt;y, this);
+        //资源回收
+        HMENU hmenu = menu.Detach();
+        menu.DestroyMenu();
+        delete lpoint;
+    }
+    break;
+    case WM_LBUTTONDBLCLK://双击左键的处理
+    {
+        this-&gt;ShowWindow(SW_SHOW);//简单的显示主窗口
+        this-&gt;ShowWindow(SW_RESTORE);
+        DeleteTray();
+    }
+    break;
+    default:
+        break;
+    }
+    return 0;
+}
+//删除托盘中图标
+void DeleteTray();
+void CTestlDlg::DeleteTray()
+{
+    NOTIFYICONDATA nid;
+    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
+    nid.hWnd = this-&gt;m_hWnd;
+    nid.uID = IDR_MAINFRAME;
+    nid.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
+    nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
+    nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
+    wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
+    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
+}
+//退出程序需时需要DeleteTray();
+void CTestDlg::OnDestroy()
+{
+    CDialog::OnDestroy();
+    // TODO: 在此处添加消息处理程序代码
+    DeleteTray();
+}
+//修改风格使得他不在任务栏显示
+int CTestDlg::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+    if (CDialog::OnCreate(lpCreateStruct) == -1)
+        return -1;
+    // TODO:  在此添加您专用的创建代码
+    //修改风格使得他不在任务栏显示
+    ModifyStyleEx(WS_EX_APPWINDOW, WS_EX_TOOLWINDOW);
+    return 0;
+}
+</code></pre><p>DeleteTray改为：</p>
+<pre><code>void CTestDlg::DeleteTray()
+{
+    NOTIFYICONDATA nid;
+    nid.cbSize = (DWORD)sizeof(NOTIFYICONDATA);
+    nid.hWnd = this-&gt;m_hWnd;
+    nid.uID = IDR_MAINFRAME;
+    nid.uFlags = NIF_ICON /*| NIF_MESSAGE | NIF_TIP*/;
+    //nid.uCallbackMessage = WM_SHOWTASK;//自定义的消息名称
+    //nid.hIcon = LoadIcon(AfxGetInstanceHandle(), MAKEINTRESOURCE(IDR_MAINFRAME));
+    //wcscpy_s(nid.szTip, _T(&quot;***程序&quot;));//信息提示条为“按计划任务提醒”
+    Shell_NotifyIcon(NIM_DELETE, &amp;nid);//在托盘中删除图标
+}
+</code></pre><p>否则会出现程序退出后，托盘图标还在的情况，鼠标移动到图标上后，图标一闪然后消失的问题。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/01/C++ 最小化到托盘/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-C++中判断某一文件或目录是否存在" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1728,351 +2253,9 @@ nmake.exe：用makefile进行构建、编译的工具
 
 
   
-    <article id="post-CShap 进程间通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/01/CShap 进程间通信/">C# 进程间通信</a>
-    </h1>
-  
-
-        
-        <a href="/2016/11/01/CShap 进程间通信/" class="archive-article-date">
-  	<time datetime="2016-11-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-11-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="使用SendMessage向另一进程发送WM-COPYDATA消息"><a href="#使用SendMessage向另一进程发送WM-COPYDATA消息" class="headerlink" title="使用SendMessage向另一进程发送WM_COPYDATA消息"></a>使用SendMessage向另一进程发送WM_COPYDATA消息</h1><h2 id="Send端："><a href="#Send端：" class="headerlink" title="Send端："></a>Send端：</h2><pre><code>using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Runtime.InteropServices;
-
-namespace SentTest
-{
-    /// &lt;summary&gt;
-    /// MainWindow.xaml 的交互逻辑
-    /// &lt;/summary&gt;
-    public partial class MainWindow : Window
-    {
-        public MainWindow()
-        {
-            InitializeComponent();
-            this.Title = &quot;发送窗口&quot;;
-        }
-
-        const int WM_COPYDATA = 0x004A;
-
-        public struct COPYDATASTRUCT
-        {
-            public IntPtr dwData;
-            public int cData;
-            [MarshalAs(UnmanagedType.LPStr)]
-            public string lpData;
-        }
-
-        [DllImport(&quot;User32.dll&quot;)]
-        public static extern int SendMessage(int hwnd, int msg, int wParam, ref COPYDATASTRUCT IParam);
-        [DllImport(&quot;User32.dll&quot;)]
-        public static extern int FindWindow(string lpClassName, string lpWindowName);
-
-        private void button1_Click(object sender, RoutedEventArgs e)
-        {
-            String strSent = &quot;需要发送的信息&quot;;
-
-            int WINDOW_HANDLE = FindWindow(null, &quot;接收窗口&quot;);
-            if (WINDOW_HANDLE != 0)
-            {
-                byte[] arr = System.Text.Encoding.Default.GetBytes(strSent);
-                int len = arr.Length;
-                COPYDATASTRUCT cdata;
-                cdata.dwData = (IntPtr)100;
-                cdata.lpData = strSent;
-                cdata.cData = len + 1;
-                SendMessage(WINDOW_HANDLE, WM_COPYDATA, 0, ref cdata);
-            }
-        }
-    }
-}
-</code></pre><h2 id="Get端："><a href="#Get端：" class="headerlink" title="Get端："></a>Get端：</h2><pre><code>using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Runtime.InteropServices;
-using System.Windows.Interop;
-
-namespace GetTest
-{
-    /// &lt;summary&gt;
-    /// MainWindow.xaml 的交互逻辑
-    /// &lt;/summary&gt;
-    public partial class MainWindow : Window
-    {
-        IntPtr hwnd;
-        public MainWindow()
-        {
-            InitializeComponent();
-            this.Title = &quot;接受窗口&quot;;
-
-            this.Loaded += new RoutedEventHandler(MainWindow_Loaded);
-            this.Closed += new EventHandler(MainWindow_Closed);
-        }
-
-        void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            //窗口加载完毕才可用，否则会报错。
-            hwnd = new WindowInteropHelper(this).Handle;
-            HwndSource source = HwndSource.FromHwnd(hwnd);
-            if (source != null) source.AddHook(WndProc);
-        }
-
-        void MainWindow_Closed(object sender, EventArgs e)
-        {
-            try
-            {
-                HwndSource.FromHwnd(hwnd).RemoveHook(WndProc);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        const int WM_COPYDATA = 0x004A;//WM_COPYDATA消息的主要目的是允许在进程间传递只读数据。
-        //Windows在通过WM_COPYDATA消息传递期间，不提供继承同步方式。
-        //其中,WM_COPYDATA对应的十六进制数为0x004A
-        public struct COPYDATASTRUCT
-        {
-            public IntPtr dwData;
-            public int cData;
-            [MarshalAs(UnmanagedType.LPStr)]
-            public string lpData;
-        }
-
-        //wpf用此方法
-        private IntPtr WndProc(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
-        {
-            if (msg == WM_COPYDATA)
-            {
-                COPYDATASTRUCT cdata = new COPYDATASTRUCT();
-                Type mytype = cdata.GetType();
-                cdata = (COPYDATASTRUCT)Marshal.PtrToStructure(lParam, mytype);
-                this.textBox1.Text = cdata.lpData;
-            }
-            return IntPtr.Zero;
-        }
-
-        //WinFrom用此方法
-        /* protected override void DefWndProc(ref Message m)
-        {
-            switch (m.Msg)
-            {
-            case WM_COPYDATA:
-                COPYDATASTRUCT cdata = new COPYDATASTRUCT();
-                Type mytype = cdata.GetType();
-                cdata = (COPYDATASTRUCT)m.GetLParam(mytype);
-                this.textBox1.Text = cdata.lpData;
-                break;
-            default:
-                base.DefWndProc(ref m);
-                break;
-            }
-        } */
-    }
-}
-</code></pre><h1 id="参考文档："><a href="#参考文档：" class="headerlink" title="参考文档："></a>参考文档：</h1><p><a href="http://blog.csdn.net/feiren127/article/details/5459827" target="_blank" rel="noopener">c# 进程间同步实现 进程之间通讯的几种方法 </a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VLC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">通信</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/11/01/CShap 进程间通信/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-CShap 视频编辑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/01/CShap 视频编辑/">C# 视频编辑</a>
-    </h1>
-  
-
-        
-        <a href="/2016/10/01/CShap 视频编辑/" class="archive-article-date">
-  	<time datetime="2016-10-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="VidCoder"><a href="#VidCoder" class="headerlink" title="VidCoder"></a>VidCoder</h1><p>VidCoder是一个开源免费的DVD/蓝光视频抓取和转码软件.使用HandBrake做为编码引擎.比Handbrake拥有更友好的用户界面.</p>
-<p>可裁剪、剪切、字幕编辑、转码等。</p>
-<p>官网：<br><a href="http://vidcoder.codeplex.com/" target="_blank" rel="noopener">http://vidcoder.codeplex.com/</a></p>
-<h1 id="VLC-media-player"><a href="#VLC-media-player" class="headerlink" title="VLC media player"></a>VLC media player</h1><p>VLC 是一款自由、开源的跨平台多媒体播放器及框架，可播放大多数多媒体文件，以及 DVD、音频 CD、VCD 及各类流媒体协议。</p>
-<p>官网：<a href="http://www.videolan.org/vlc/" target="_blank" rel="noopener">http://www.videolan.org/vlc/</a></p>
-<h1 id="ffmpeg-Mencoder"><a href="#ffmpeg-Mencoder" class="headerlink" title="ffmpeg + Mencoder"></a>ffmpeg + Mencoder</h1><p>ffmpeg下载：<a href="http://ffmpeg.org/download.html" target="_blank" rel="noopener">http://ffmpeg.org/download.html</a></p>
-<p>Mencoder下载：<a href="http://www.mplayerhq.hu/design7/dload.html" target="_blank" rel="noopener">http://www.mplayerhq.hu/design7/dload.html</a></p>
-<p>C#调用ffmpeg的方法，仅供参考：<a href="https://github.com/CAOJINGYOU/VideoEditor" target="_blank" rel="noopener">VideoEditor</a></p>
-<h1 id="SharpFFmpeg"><a href="#SharpFFmpeg" class="headerlink" title="SharpFFmpeg"></a>SharpFFmpeg</h1><p>SharpFFmpeg 是一个 ffmpeg 的 C# 绑定版本，允许 .NET 开发者轻松的创建音频和视频应用。</p>
-<p>个人没用过，感觉不错，一会有机会研究下。</p>
-<p>下载地址：<a href="https://sourceforge.net/projects/sharpffmpeg/" target="_blank" rel="noopener">https://sourceforge.net/projects/sharpffmpeg/</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VidCoder</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VLC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ffmpeg</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/10/01/CShap 视频编辑/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
     </nav>
   
 
@@ -2860,6 +3043,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
             
             <div class="clearfix"></div>

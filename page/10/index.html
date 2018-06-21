@@ -160,6 +160,165 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-electron之Windows下使用 html js css 开发桌面应用程序" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/01/electron之Windows下使用 html js css 开发桌面应用程序/">electron之Windows下使用 html js css 开发桌面应用程序</a>
+    </h1>
+  
+
+        
+        <a href="/2016/06/01/electron之Windows下使用 html js css 开发桌面应用程序/" class="archive-article-date">
+  	<time datetime="2016-06-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-atom-electron"><a href="#1-atom-electron" class="headerlink" title="1.atom/electron"></a>1.atom/electron</h1><h2 id="github"><a href="#github" class="headerlink" title="github:"></a>github:</h2><p><a href="https://github.com/atom/electron" target="_blank" rel="noopener">https://github.com/atom/electron</a></p>
+<h2 id="中文文档："><a href="#中文文档：" class="headerlink" title="中文文档："></a>中文文档：</h2><p><a href="https://github.com/atom/electron/tree/master/docs-translations/zh-CN" target="_blank" rel="noopener">https://github.com/atom/electron/tree/master/docs-translations/zh-CN</a></p>
+<h1 id="2-下载-electron-v0-36-5-win32-x64"><a href="#2-下载-electron-v0-36-5-win32-x64" class="headerlink" title="2.下载 electron-v0.36.5-win32-x64"></a>2.下载 electron-v0.36.5-win32-x64</h1><p><a href="https://github.com/atom/electron/releases/download/v0.36.5/electron-v0.36.5-win32-x64.zip" target="_blank" rel="noopener">https://github.com/atom/electron/releases/download/v0.36.5/electron-v0.36.5-win32-x64.zip</a></p>
+<h1 id="3-新建一个项目-快速入门："><a href="#3-新建一个项目-快速入门：" class="headerlink" title="3.新建一个项目-快速入门："></a>3.新建一个项目-快速入门：</h1><p><a href="https://github.com/atom/electron/blob/master/docs-translations/zh-CN/tutorial/quick-start.md" target="_blank" rel="noopener">https://github.com/atom/electron/blob/master/docs-translations/zh-CN/tutorial/quick-start.md</a></p>
+<p>大体上，一个 Electron 应用的目录结构如下：</p>
+<pre><code>your-app/
+├── package.json
+├── main.js
+└── index.html
+</code></pre><h2 id="you-app"><a href="#you-app" class="headerlink" title="you-app:"></a>you-app:</h2><p><a href="http://files.cnblogs.com/files/yhcao/electron%E4%B9%8BWindows%E4%B8%8B%E4%BD%BF%E7%94%A8html%2Cjs%2Ccss%2C%E5%BC%80%E5%8F%91%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F_you-app.rar" target="_blank" rel="noopener">electron之Windows下使用html,js,css,开发桌面应用程序_you-app.rar</a></p>
+<h3 id="package-json："><a href="#package-json：" class="headerlink" title="package.json："></a>package.json：</h3><pre><code>{
+  &quot;name&quot;: &quot;your-app&quot;,
+  &quot;version&quot; : &quot;0.1.0&quot;,
+  &quot;main&quot;: &quot;main.js&quot;
+}
+</code></pre><h3 id="main-js："><a href="#main-js：" class="headerlink" title="main.js："></a>main.js：</h3><pre><code>var app = require(&apos;app&apos;);  // 控制应用生命周期的模块。
+var BrowserWindow = require(&apos;browser-window&apos;);  // 创建原生浏览器窗口的模块
+// 保持一个对于 window 对象的全局引用，不然，当 JavaScript 被 GC，
+// window 会被自动地关闭
+var mainWindow = null;
+// 当所有窗口被关闭了，退出。
+app.on(&apos;window-all-closed&apos;, function() {
+  // 在 OS X 上，通常用户在明确地按下 Cmd + Q 之前
+  // 应用会保持活动状态
+  if (process.platform != &apos;darwin&apos;) {
+app.quit();
+  }
+});
+// 当 Electron 完成了初始化并且准备创建浏览器窗口的时候
+// 这个方法就被调用
+app.on(&apos;ready&apos;, function() {
+  // 创建浏览器窗口。
+  mainWindow = new BrowserWindow({width: 800, height: 600});
+  // 加载应用的 index.html
+  mainWindow.loadURL(&apos;file://&apos; + __dirname + &apos;/index.html&apos;);
+  // 打开开发工具
+  mainWindow.openDevTools();
+  // 当 window 被关闭，这个事件会被发出
+  mainWindow.on(&apos;closed&apos;, function() {
+// 取消引用 window 对象，如果你的应用支持多窗口的话，
+// 通常会把多个 window 对象存放在一个数组里面，
+// 但这次不是。
+mainWindow = null;
+  });
+});
+</code></pre><h3 id="index-html："><a href="#index-html：" class="headerlink" title="index.html："></a>index.html：</h3><pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+&lt;title&gt;Hello World!&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+&lt;h1&gt;Hello World!&lt;/h1&gt;
+We are using io.js &lt;script&gt;document.write(process.version)&lt;/script&gt;
+and Electron &lt;script&gt;document.write(process.versions[&apos;electron&apos;])&lt;/script&gt;.
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h1 id="4-应用部署"><a href="#4-应用部署" class="headerlink" title="4.应用部署:"></a>4.应用部署:</h1><p><a href="https://github.com/atom/electron/blob/master/docs-translations/zh-CN/tutorial/application-distribution.md" target="_blank" rel="noopener">https://github.com/atom/electron/blob/master/docs-translations/zh-CN/tutorial/application-distribution.md</a></p>
+<p>为了使用Electron部署你的应用程序，你存放应用程序的文件夹需要叫做 app 并且需要放在 Electron 的资源文件夹下（在 OS X 中是指 Electron.app/Contents/Resources/，在 Linux 和 Windows 中是指 resources/） 就像这样：</p>
+<p>在 Windows 和 Linux 中:</p>
+<pre><code>electron/resources/app
+├── package.json
+├── main.js
+└── index.html
+</code></pre><h2 id="Windows环境下的NodeJS-NPM-Bower安装配置"><a href="#Windows环境下的NodeJS-NPM-Bower安装配置" class="headerlink" title="Windows环境下的NodeJS+NPM+Bower安装配置"></a>Windows环境下的NodeJS+NPM+Bower安装配置</h2><p><a href="http://jingyan.baidu.com/article/2d5afd69e243cc85a2e28efa.html" target="_blank" rel="noopener">http://jingyan.baidu.com/article/2d5afd69e243cc85a2e28efa.html</a></p>
+<h2 id="下载并安装node-v5-5-0-x64-msi"><a href="#下载并安装node-v5-5-0-x64-msi" class="headerlink" title="下载并安装node-v5.5.0-x64.msi"></a>下载并安装node-v5.5.0-x64.msi</h2><p><a href="https://nodejs.org/dist/v5.5.0/node-v5.5.0-x64.msi" target="_blank" rel="noopener">https://nodejs.org/dist/v5.5.0/node-v5.5.0-x64.msi</a></p>
+<h3 id="检验是否安装成功："><a href="#检验是否安装成功：" class="headerlink" title="检验是否安装成功："></a>检验是否安装成功：</h3><pre><code>C:\Users\yhcao&gt;node -v
+v5.5.0
+
+C:\Users\yhcao&gt;npm -v
+3.3.12
+</code></pre><h3 id="用nmp打包成asar"><a href="#用nmp打包成asar" class="headerlink" title="用nmp打包成asar:"></a>用nmp打包成asar:</h3><p>第一步：安装asar</p>
+<pre><code>npm install -g asar
+</code></pre><p>第二步：打包</p>
+<pre><code>asar pack your-app app.asar
+</code></pre><p>例如：asar pack F:\atom_project\myatom_1 F:\atom_project\app.asar<br>这样就会把myatom_1打包成app.asar</p>
+<p><a href="http://files.cnblogs.com/files/yhcao/electron%E4%B9%8BWindows%E4%B8%8B%E4%BD%BF%E7%94%A8html%2Cjs%2Ccss%2C%E5%BC%80%E5%8F%91%E6%A1%8C%E9%9D%A2%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F_app.rar" target="_blank" rel="noopener">electron之Windows下使用html,js,css,开发桌面应用程序_app.rar</a></p>
+<h1 id="5-更改Electron名称"><a href="#5-更改Electron名称" class="headerlink" title="5.更改Electron名称"></a>5.更改Electron名称</h1><p>你可以将 electron.exe 改成任意你喜欢的名字，然后可以使用像 <a href="https://github.com/atom/rcedit" target="_blank" rel="noopener">rcedit</a> 或者<a href="http://www.resedit.net/" target="_blank" rel="noopener">ResEdit</a> 编辑它的icon和其他信息。</p>
+<h2 id="ResEdit"><a href="#ResEdit" class="headerlink" title="ResEdit:"></a>ResEdit:</h2><p><a href="http://www.cr173.com/soft/12721.html" target="_blank" rel="noopener">http://www.cr173.com/soft/12721.html</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">electron</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">桌面应用程序</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/06/01/electron之Windows下使用 html js css 开发桌面应用程序/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-EChart" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -225,6 +384,102 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2016/05/01/EChart/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-agsxmpp" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/05/01/agsxmpp/">agsxmpp</a>
+    </h1>
+  
+
+        
+        <a href="/2016/05/01/agsxmpp/" class="archive-article-date">
+  	<time datetime="2016-05-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="agsXMPP使用"><a href="#agsXMPP使用" class="headerlink" title="agsXMPP使用"></a>agsXMPP使用</h1><p>agsXMPP中的例子已经有注册、登录、添加好友、接收好友添加请求、发送消息、接收消息等功能。</p>
+<h2 id="修改用户密码"><a href="#修改用户密码" class="headerlink" title="修改用户密码"></a>修改用户密码</h2><p>登录后可用以下方法修改密码</p>
+<pre><code>IQ iq = new IQ(IqType.set);
+Register riq = new Register();
+riq.Username = &quot;Username&quot;;
+riq.Password = &quot;Password&quot;;
+iq.Query = riq;
+XmppClientConnection.Send(iq);
+</code></pre><p>此代码生成的xml为：</p>
+<pre><code>&lt;query xmlns=&quot;jabber:iq:register&quot;&gt;&lt;username&gt;yhcao&lt;/username&gt;&lt;password&gt;yhcao1&lt;/password&gt;&lt;/query&gt;
+</code></pre><h2 id="程序例子"><a href="#程序例子" class="headerlink" title="程序例子"></a>程序例子</h2><p><a href="http://files.cnblogs.com/files/yhcao/IM.rar" title="http://files.cnblogs.com/files/yhcao/IM.rar" target="_blank" rel="noopener">http://files.cnblogs.com/files/yhcao/IM.rar</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">agsXMP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">即时通讯</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/05/01/agsxmpp/">展开全文 >></a>
         </p>
       
 
@@ -1243,92 +1498,9 @@ $(&quot;#duoshuo-div&quot;).prepend(duoshuoHtml);
 
 
   
-    <article id="post-ABOUT ME" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/01/ABOUT ME/">ABOUT ME</a>
-    </h1>
-  
-
-        
-        <a href="/2016/01/01/ABOUT ME/" class="archive-article-date">
-  	<time datetime="2016-01-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-01-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>You can also find me here.</p>
-<p><a href="http://caojingyou.github.io/" target="_blank" rel="noopener">caojingyou.github.io</a></p>
-<p><a href="https://github.com/CAOJINGYOU" target="_blank" rel="noopener">caojingyou@github</a></p>
-<p><a href="http://weibo.com/chihun" target="_blank" rel="noopener">caojingyou@weibo</a></p>
-<p><a href="http://blog.csdn.net/chihun_love" target="_blank" rel="noopener">caojingyou@csdn</a></p>
-<p><a href="https://www.gitbook.com/@caojingyou" target="_blank" rel="noopener">caojingyou@GitBook</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ABOUT ME</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/01/01/ABOUT ME/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/9/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span>
+      <a class="extend prev" rel="prev" href="/page/9/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/11/">Next &raquo;</a>
     </nav>
   
 
@@ -2116,6 +2288,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">性能优化</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
             
             <div class="clearfix"></div>
