@@ -160,45 +160,143 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-CShap 系统托盘图标" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-C++中判断某一文件或目录是否存在" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/01/CShap 系统托盘图标/">C# 系统托盘图标</a>
+      <a class="article-title" href="/2017/02/15/C++中判断某一文件或目录是否存在/">C++中判断某一文件或目录是否存在</a>
     </h1>
   
 
         
-        <a href="/2017/02/01/CShap 系统托盘图标/" class="archive-article-date">
-  	<time datetime="2017-02-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-01</time>
+        <a href="/2017/02/15/C++中判断某一文件或目录是否存在/" class="archive-article-date">
+  	<time datetime="2017-02-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-15</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p>
-<p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p>
-<p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p>
-<p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p>
-<h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf
-</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p>
-<h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml<window>添加</window></p>
-<pre><code>xmlns:tb=&quot;http://www.hardcodet.net/taskbar&quot;
-</code></pre><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p>
-<pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;
-  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;
-  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;
-  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;
-    &lt;ContextMenu&gt;
-      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;
-      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;
-    &lt;/ContextMenu&gt;
-  &lt;/tb:TaskbarIcon.ContextMenu&gt;
-&lt;/tb:TaskbarIcon&gt;
+        <h1 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h1><h2 id="ifstream"><a href="#ifstream" class="headerlink" title="ifstream"></a>ifstream</h2><p>在C++中，可以利用ifstream文件输入流，当我们直接使用ifstream来创建文件输入流的时候，如果文件不存在则流创建失败。</p>
+<pre><code>ifstream fin(&quot;hello.txt&quot;);
+if (!fin)
+{
+   std::cout &lt;&lt; &quot;can not open this file&quot; &lt;&lt; endl;
+}
+</code></pre><h2 id="fstream"><a href="#fstream" class="headerlink" title="fstream"></a>fstream</h2><pre><code>fstream _file;
+_file.open(FILENAME,ios::in);
+if(!_file)
+{
+ cout&lt;&lt;FILENAME&lt;&lt;&quot;没有被创建&quot;;
+}
+else
+{
+  cout&lt;&lt;FILENAME&lt;&lt;&quot;已经存在&quot;;
+}
+</code></pre><h2 id="taccess"><a href="#taccess" class="headerlink" title="_taccess"></a>_taccess</h2><p>Generic-Text Routine Mappings:</p>
+<pre><code>| TCHAR.H Routine    | _UNICODE &amp; _MBCS Not Defined    | _UNICODE Defined    | _UNICODE Defined    |
+| _taccess            | _access                        | _access            |_waccess            |
+</code></pre><p>返回值</p>
+<pre><code>mode Value     Checks File For
+00     Existence only
+02     Write permission
+04     Read permission
+06     Read and write permission
+</code></pre><p>Example:</p>
+<pre><code>#include  &lt;io.h&gt;
+#include  &lt;stdio.h&gt;
+#include  &lt;stdlib.h&gt;
+
+int main( void )
+{
+    // Check for existence.
+    if( (_access( &quot;crt_ACCESS.C&quot;, 0 )) != -1 )
+    {
+        printf_s( &quot;File crt_ACCESS.C exists.\n&quot; );
+
+        // Check for write permission.
+        // Assume file is read-only.
+        if( (_access( &quot;crt_ACCESS.C&quot;, 2 )) == -1 )
+            printf_s( &quot;File crt_ACCESS.C does not have write permission.\n&quot; );
+    }
+}
+</code></pre><p><a href="https://msdn.microsoft.com/query/dev10.query?appId=Dev10IDEF1&amp;l=ZH-CN&amp;k=k(%22TCHAR%2f_TACCESS%22" target="_blank" rel="noopener">https://msdn.microsoft.com/query/dev10.query?appId=Dev10IDEF1&amp;l=ZH-CN&amp;k=k(%22TCHAR%2f_TACCESS%22);k(_TACCESS);k(DevLang-%22C%2B%2B%22);k(TargetOS-WINDOWS)&amp;rd=true</a>;k(_TACCESS);k(DevLang-%22C%2B%2B%22);k(TargetOS-WINDOWS)&amp;rd=true)</p>
+<h2 id="FindFirstFile"><a href="#FindFirstFile" class="headerlink" title="FindFirstFile"></a>FindFirstFile</h2><pre><code>WIN32_FIND_DATA FindFileData;
+HANDLE hFind;
+
+printf (&quot;Target file is %s. &quot;, argv[1]);
+
+hFind = FindFirstFile(strPath.c_str(), &amp;FindFileData);
+
+if (hFind == INVALID_HANDLE_VALUE)
+{
+    printf (&quot;Invalid File Handle. Get Last Error reports %d &quot;, GetLastError ());
+}
+else
+{
+    printf (&quot;The first file found is %s &quot;, FindFileData.cFileName);
+    FindClose(hFind);
+}
+</code></pre><h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><h2 id="FindFirstFile-1"><a href="#FindFirstFile-1" class="headerlink" title="FindFirstFile"></a>FindFirstFile</h2><pre><code>WIN32_FIND_DATA wfd;
+bool rValue = false;
+HANDLE hFind = FindFirstFile(strPath.c_str(), &amp;wfd);
+if ((hFind != INVALID_HANDLE_VALUE) &amp;&amp; (wfd.dwFileAttributes &amp;FILE_ATTRIBUTE_DIRECTORY))
+{
+    std::cout &lt;&lt; &quot;this file exists&quot; &lt;&lt; endl;
+}
+FindClose(hFind);
+</code></pre><h2 id="Tstat"><a href="#Tstat" class="headerlink" title="_Tstat"></a>_Tstat</h2><p>在windows中可以使用_stat() 函数。</p>
+<p>声明：int _stat(const char<em> path, struct _stat</em> buffer);</p>
+<p>这个函数使用起来非常方便，如下：</p>
+<pre><code>struct _stat fileStat;
+if ((_stat(dir.c_str(), &amp;fileStat) == 0) &amp;&amp; (fileStat.st_mode &amp; _S_IFDIR))
+{
+    isExist = true;
+}
+</code></pre><p>_S_IFDIR 是一个标志位，如果是目录的话，该位就会被系统设置。</p>
+<p>在linux底下也有相对应的函数stat();</p>
+<p>使用方法基本相同：</p>
+<pre><code>struct stat fileStat;
+if ((stat(dir.c_str(), &amp;fileStat) == 0) &amp;&amp; S_ISDIR(fileStat.st_mode))
+{
+    isExist = true;
+}
+</code></pre><p>唯一不同的地方我使用了一个macro， S_ISDIR来判断文件是否存在，原理实际都一样的。</p>
+<p><a href="https://msdn.microsoft.com/query/dev10.query?appId=Dev10IDEF1&amp;l=ZH-CN&amp;k=k(%22WCHAR%2f_STAT%22" target="_blank" rel="noopener">https://msdn.microsoft.com/query/dev10.query?appId=Dev10IDEF1&amp;l=ZH-CN&amp;k=k(%22WCHAR%2f_STAT%22);k(_STAT);k(DevLang-%22C%2B%2B%22);k(TargetOS-WINDOWS)&amp;rd=true</a>;k(_STAT);k(DevLang-%22C%2B%2B%22);k(TargetOS-WINDOWS)&amp;rd=true)</p>
+<h2 id="boost的filesystem类库的exists函数"><a href="#boost的filesystem类库的exists函数" class="headerlink" title="boost的filesystem类库的exists函数"></a>boost的filesystem类库的exists函数</h2><pre><code>#include &lt;boost/filesystem/operations.hpp&gt;
+#include &lt;boost/filesystem/path.hpp&gt;
+#include &lt;boost/filesystem/convenience.hpp&gt;
+
+int GetFilePath(std::string &amp;strFilePath)
+{
+    string strPath;
+    int nRes = 0;
+
+    //指定路径
+    strPath = &quot;D:/myTest/Test1/Test2&quot;;
+    namespace fs = boost::filesystem;
+
+    //路径的可移植
+    fs::path full_path( fs::initial_path() );
+    full_path = fs::system_complete( fs::path(strPath, fs::native ) );
+    //判断各级子目录是否存在，不存在则需要创建
+    if ( !fs::exists( full_path ) )
+    {
+        // 创建多层子目录
+        bool bRet = fs::create_directories(full_path);
+        if (false == bRet)
+        {
+            return -1;
+        }
+
+    }
+    strFilePath = full_path.native_directory_string();
+
+    return 0;
+}
 </code></pre>
       
 
@@ -216,11 +314,15 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文件</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
         		</li>
       		
 		</ul>
@@ -230,7 +332,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/01/CShap 系统托盘图标/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/02/15/C++中判断某一文件或目录是否存在/">展开全文 >></a>
         </p>
       
 
@@ -505,6 +607,106 @@ BOOL CVcMessageDlg::VCSendMessage(int nMessgeId,CStringA strSend)
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/02/01/CShap与C++通信/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-CShap 系统托盘图标" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/01/CShap 系统托盘图标/">C# 系统托盘图标</a>
+    </h1>
+  
+
+        
+        <a href="/2017/02/01/CShap 系统托盘图标/" class="archive-article-date">
+  	<time datetime="2017-02-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p>
+<p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p>
+<p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p>
+<p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p>
+<h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf
+</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p>
+<h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml<window>添加</window></p>
+<pre><code>xmlns:tb=&quot;http://www.hardcodet.net/taskbar&quot;
+</code></pre><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p>
+<pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;
+  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;
+  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;
+  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;
+    &lt;ContextMenu&gt;
+      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;
+      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;
+    &lt;/ContextMenu&gt;
+  &lt;/tb:TaskbarIcon.ContextMenu&gt;
+&lt;/tb:TaskbarIcon&gt;
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/02/01/CShap 系统托盘图标/">展开全文 >></a>
         </p>
       
 
@@ -1991,106 +2193,6 @@ private:
 
 
   
-    <article id="post-CShap 视频编辑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/01/CShap 视频编辑/">C# 视频编辑</a>
-    </h1>
-  
-
-        
-        <a href="/2016/10/01/CShap 视频编辑/" class="archive-article-date">
-  	<time datetime="2016-10-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="VidCoder"><a href="#VidCoder" class="headerlink" title="VidCoder"></a>VidCoder</h1><p>VidCoder是一个开源免费的DVD/蓝光视频抓取和转码软件.使用HandBrake做为编码引擎.比Handbrake拥有更友好的用户界面.</p>
-<p>可裁剪、剪切、字幕编辑、转码等。</p>
-<p>官网：<br><a href="http://vidcoder.codeplex.com/" target="_blank" rel="noopener">http://vidcoder.codeplex.com/</a></p>
-<h1 id="VLC-media-player"><a href="#VLC-media-player" class="headerlink" title="VLC media player"></a>VLC media player</h1><p>VLC 是一款自由、开源的跨平台多媒体播放器及框架，可播放大多数多媒体文件，以及 DVD、音频 CD、VCD 及各类流媒体协议。</p>
-<p>官网：<a href="http://www.videolan.org/vlc/" target="_blank" rel="noopener">http://www.videolan.org/vlc/</a></p>
-<h1 id="ffmpeg-Mencoder"><a href="#ffmpeg-Mencoder" class="headerlink" title="ffmpeg + Mencoder"></a>ffmpeg + Mencoder</h1><p>ffmpeg下载：<a href="http://ffmpeg.org/download.html" target="_blank" rel="noopener">http://ffmpeg.org/download.html</a></p>
-<p>Mencoder下载：<a href="http://www.mplayerhq.hu/design7/dload.html" target="_blank" rel="noopener">http://www.mplayerhq.hu/design7/dload.html</a></p>
-<p>C#调用ffmpeg的方法，仅供参考：<a href="https://github.com/CAOJINGYOU/VideoEditor" target="_blank" rel="noopener">VideoEditor</a></p>
-<h1 id="SharpFFmpeg"><a href="#SharpFFmpeg" class="headerlink" title="SharpFFmpeg"></a>SharpFFmpeg</h1><p>SharpFFmpeg 是一个 ffmpeg 的 C# 绑定版本，允许 .NET 开发者轻松的创建音频和视频应用。</p>
-<p>个人没用过，感觉不错，一会有机会研究下。</p>
-<p>下载地址：<a href="https://sourceforge.net/projects/sharpffmpeg/" target="_blank" rel="noopener">https://sourceforge.net/projects/sharpffmpeg/</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VidCoder</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VLC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ffmpeg</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/10/01/CShap 视频编辑/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/7/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/9/">Next &raquo;</a>
@@ -2869,6 +2971,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">分词</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
             
             <div class="clearfix"></div>

@@ -160,6 +160,114 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-bypy" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/25/bypy/">bypy</a>
+    </h1>
+  
+
+        
+        <a href="/2018/01/25/bypy/" class="archive-article-date">
+  	<time datetime="2018-01-25T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="bypy"><a href="#bypy" class="headerlink" title="bypy"></a>bypy</h1><p><a href="https://github.com/houtianze/bypy" title="https://github.com/houtianze/bypy" target="_blank" rel="noopener">https://github.com/houtianze/bypy</a></p>
+<p>TL;DR: <code>pip install bypy</code>. <code>Run bypy</code></p>
+<p>安装配置完毕后可用命令行直接上传文件</p>
+<pre><code>@echo off
+
+bypy -v upload E:\图片\Aatrox_Splash_0.jpg test/2.jpg
+
+pause
+</code></pre><h2 id="可能出现的问题"><a href="#可能出现的问题" class="headerlink" title="可能出现的问题"></a>可能出现的问题</h2><ol>
+<li>第一次运行要授权，打开命令行中的提示网站，复制授权码到命令行中</li>
+</ol>
+<ol>
+<li><p>可能会由于百度权限问题，使用百度云备份需要差不多一个月跟新一次授权，否则报错</p>
+<p> OpenShift server failed, authorizing/refreshing with the Heroku server …</p>
+</li>
+</ol>
+<p>或者不小心删除了</p>
+<p><code>Hash Cache File &#39;/home/pipi/.bypy/bypy.hashcache.json&#39; not found, no caching</code><br><code>Note: Skip saving Hash Cache since it has not been updated.</code></p>
+<p>这个应该不是错误，而是没有再次更新授权的提示吧。</p>
+<p>更新(重新)授权办法如下：</p>
+<p>运行</p>
+<p><code>bypy.py -c</code></p>
+<p>删除令牌文件，然后重新授权一次。如果还不行，去百度应用授权里删除bypy再重新授权。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">bypy</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">百度云盘</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/25/bypy/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-cppunit" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1650,135 +1758,6 @@ log4net使用继承体系，也就是说假如存在两个Logger，名字分别�
 
 
   
-    <article id="post-C++与浏览器交互" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/15/C++与浏览器交互/">C++与浏览器交互</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/15/C++与浏览器交互/" class="archive-article-date">
-  	<time datetime="2017-11-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="WebBrowser"><a href="#WebBrowser" class="headerlink" title="WebBrowser"></a>WebBrowser</h1><ul>
-<li><a href="http://blog.csdn.net/charlessimonyi/article/details/18447471" target="_blank" rel="noopener">http://blog.csdn.net/charlessimonyi/article/details/18447471</a></li>
-<li><a href="http://blog.csdn.net/charlessimonyi/article/details/18450783" target="_blank" rel="noopener">http://blog.csdn.net/charlessimonyi/article/details/18450783</a></li>
-<li><a href="http://blog.csdn.net/charlessimonyi/article/details/50984903" target="_blank" rel="noopener">http://blog.csdn.net/charlessimonyi/article/details/50984903</a></li>
-<li><a href="https://www.codeproject.com/articles/2352/javascript-call-from-c" target="_blank" rel="noopener">https://www.codeproject.com/articles/2352/javascript-call-from-c</a></li>
-</ul>
-<h1 id="CEF"><a href="#CEF" class="headerlink" title="CEF"></a>CEF</h1><ul>
-<li><a href="https://www.codeproject.com/Articles/1105945/Embedding-a-Chromium-browser-in-an-MFC-application" target="_blank" rel="noopener">https://www.codeproject.com/Articles/1105945/Embedding-a-Chromium-browser-in-an-MFC-application</a></li>
-<li><a href="http://blog.csdn.net/daoxwj/article/details/8783629/" target="_blank" rel="noopener">http://blog.csdn.net/daoxwj/article/details/8783629/</a></li>
-<li><a href="http://blog.csdn.net/daoxwj/article/details/8786911" target="_blank" rel="noopener">http://blog.csdn.net/daoxwj/article/details/8786911</a></li>
-<li><a href="http://mariusbancila.ro/blog/2016/05/05/building-the-64-bit-version-of-chromium-embedded-framework-on-windows/" target="_blank" rel="noopener">http://mariusbancila.ro/blog/2016/05/05/building-the-64-bit-version-of-chromium-embedded-framework-on-windows/</a></li>
-<li><a href="https://www.codeproject.com/Tips/785840/A-Simple-Windows-Example-Using-the-Chromium-Embedd" target="_blank" rel="noopener">https://www.codeproject.com/Tips/785840/A-Simple-Windows-Example-Using-the-Chromium-Embedd</a></li>
-<li><a href="https://bitbucket.org/chromiumembedded/cef" target="_blank" rel="noopener">https://bitbucket.org/chromiumembedded/cef</a></li>
-<li><a href="http://blog.csdn.net/mfcing/article/details/43953433" target="_blank" rel="noopener">http://blog.csdn.net/mfcing/article/details/43953433</a></li>
-<li><a href="http://blog.csdn.net/mfcing/article/details/52066579" target="_blank" rel="noopener">http://blog.csdn.net/mfcing/article/details/52066579</a></li>
-</ul>
-<ol>
-<li>CefClient：回调管理类，包含5个接口用于创建其它的回调类的对象</li>
-<li>CefLifeSpanHandler: 回调类，用于控制popup对话框的创建和关闭等操作</li>
-<li>CefLoadHandler: 回调类，可以用来监听frame的加载开始，完成，错误等信息</li>
-<li>CefRequestHandler: 回调类，用于监听资源加载，重定向等信息</li>
-<li>CefDisplayHandler: 回调类，用于监听页面加载状态，地址变化，标题等得信息</li>
-<li>CefGeolocationHandler: 回调类，用于CEF3向嵌入者申请geolocation的权限</li>
-<li>CefApp: 与进程，命令行参数，代理，资源管理相关的回调类，用于让CEF3的调用者们定制自己的逻辑</li>
-<li>CefBrowser: renderer进程中执行浏览相关的类，例如前进，后退等</li>
-<li>CefBrowserHost: browser进程中的执行浏览相关的类，其会把请求发送给CefBrowser</li>
-<li>CefFrame: 表示的是页面中的一个Frame，可以加载特定url，在该运行环境下执行JavaScript代码等得。</li>
-<li>V8：CEF3提供支持V8extension的接口，但是这有两个限制，第一，v8 extension仅在Renderer进程使用；第二，仅在沙箱模型关闭时使用</li>
-</ol>
-<p>需要安装cmake</p>
-<ul>
-<li><a href="https://cmake.org/" target="_blank" rel="noopener">https://cmake.org/</a></li>
-<li><a href="https://cmake.org/download/" target="_blank" rel="noopener">https://cmake.org/download/</a></li>
-<li></li>
-</ul>
-<h1 id="V8"><a href="#V8" class="headerlink" title="V8"></a>V8</h1><ul>
-<li><a href="https://github.com/v8/v8/wiki" target="_blank" rel="noopener">https://github.com/v8/v8/wiki</a></li>
-</ul>
-<h1 id="SWIG"><a href="#SWIG" class="headerlink" title="SWIG"></a>SWIG</h1><p>SWIG 是一个非常优秀的开源工具，支持您将 C/C++ 代码与任何主流脚本语言相集成。此外，它向更广泛的受众公开了基本代码，改善了可测试性，让您的 Ruby 代码库某部分能快速写出高性能的 C/C++ 模块。</p>
-<ul>
-<li><a href="https://www.ibm.com/developerworks/cn/aix/library/au-swig/" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/aix/library/au-swig/</a></li>
-<li><a href="https://github.com/swig/swig" target="_blank" rel="noopener">https://github.com/swig/swig</a></li>
-<li><a href="http://www.swig.org/download.html?cm_mc_uid=85410804137714897351221&amp;cm_mc_sid_50200000=1489735122" target="_blank" rel="noopener">http://www.swig.org/download.html?cm_mc_uid=85410804137714897351221&amp;cm_mc_sid_50200000=1489735122</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">浏览器</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CEF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/15/C++与浏览器交互/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
@@ -2557,6 +2536,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">分词</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
             
             <div class="clearfix"></div>

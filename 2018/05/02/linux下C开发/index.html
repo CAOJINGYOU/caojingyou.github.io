@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="环境刚装好的系统中已经有GCC了，但是这个GCC几乎什么文件都不能编译，因为缺少一些必须的头文件，所以要安装build-essential这个软件包输入下面命令： sudo apt-get install build-essential C Cpp IDE eclipse CDT #apt-get install eclipse-cdt CodeBlocks、CodeLite、Qt跨平台 kdev">
 <meta property="og:image" content="https://i.imgur.com/0AuPUYT.jpg">
-<meta property="og:updated_time" content="2018-06-15T07:14:34.131Z">
+<meta property="og:updated_time" content="2018-06-20T04:36:42.515Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux下C开发">
 <meta name="twitter:description" content="环境刚装好的系统中已经有GCC了，但是这个GCC几乎什么文件都不能编译，因为缺少一些必须的头文件，所以要安装build-essential这个软件包输入下面命令： sudo apt-get install build-essential C Cpp IDE eclipse CDT #apt-get install eclipse-cdt CodeBlocks、CodeLite、Qt跨平台 kdev">
@@ -321,6 +321,116 @@ g_signal_handler_disconnect_by_func()
 </code></pre><h1 id="Glade"><a href="#Glade" class="headerlink" title="Glade"></a>Glade</h1><p>Glade所设计的界面以XML格式保存。</p>
 <p>安装：</p>
 <pre><code>apt-get install glade
+</code></pre><p>Glade项目文件是一个单独的.glade文件，可通过GTK+库将该文件添加到C语言源代码种。</p>
+<pre><code>#include &lt;qtk/gtk.h&gt;
+#include &lt;qlib-2.0/glib.h&gt;
+#include &lt;libglade-2.0/glade/glade.h&gt;    //包含libglade函数库
+int main (int argc, char *argv[])
+{
+    gtk_init(&amp;argc, &amp;argv);    //初始化GTK+库
+    GtkBuilder *ui;    //声明GtkBuilder类型变量
+    GtkWidget *window;    //声明GtkWidget类型变量
+    ui = gtk_builder_new();    //初始化GTKBuilder环境
+    gtk_builder_add_from_file(ui, &quot;ui.glade&quot;, NULL);    //读取qlade文件
+    GtkWidget *window;    //声明GtkWidget类型变量
+    window = GTK_WIDGET (gtk_builder_get_object (gtkBuilder, &quot;MainWindow&quot;));    //从GtkBuilder对象获得GtkWidget界面构件
+
+    GtkWidget *label;
+    label = GTK_WIDGET (gtk_builder_get_object (gtkBuilder, &quot;label&quot;));
+    gtk_label_set_label (GTK_LABEL (label), &quot;Hello World!&quot;);    //修改界面构件的属性
+
+    gtk_widget_show_all (window);    //显示window内的所有构件,
+    gtk_builder_connect_signals (ui, NULL); //连接GtkBuilder对象所有己定义信号
+
+    gtk_main ();    //开始GTK+主循环
+    return 0;
+}
+</code></pre><p>在编译参数中加入编译参数<code>pkg-config --cflags --llibs gtk+-3.0</code>-export -dynamic,编译该程序。</p>
+<h1 id="国际化与本地化"><a href="#国际化与本地化" class="headerlink" title="国际化与本地化"></a>国际化与本地化</h1><p>po文件意为可移植对象；mo文件意为机器对象。</p>
+<p>在包含Glade项目文件的目录中创建名为po的目录，进入po目录，创建POTFILES.in新文件。打开文件，输入Glade项目文件的文件名后保存，如：</p>
+<pre><code>ui.glade
+</code></pre><p>安装inttool工具集，其中包含gettext软件包。</p>
+<pre><code>apt-get install intltool
+</code></pre><p>安装后，将工作目录设置为POTFILES.in文件的目录。输入下列命令创建po文件：</p>
+<pre><code>intltool-update --pot gettext-package=ui
+</code></pre><p>gettext-package参数的名称为Glade项目文件的前缀名。命令执行成功创建untitled.pot文件，该文件是po文件的模版。复制改文件，创建名为zh_CH.po的副本。打开，将charset=CHARSET改为utf-8,将msgid后的英文字符串翻译到下一行的msgstr后。</p>
+<p>将po文件编译为mo文件：</p>
+<pre><code>msgfmt zh_CH.po
+</code></pre><p>在po中创建zh_CH/LC_MESSAGES目录，复制zh_CH.mo到新建立的目录，改名为ui.mo</p>
+<pre><code>#include &lt;gtk/qtk.h&gt;
+#include &lt;glib-2.0/glib.h&gt;
+#include &lt;libinti.h&gt;    //提供gettext支持
+#define (String) gettext(String)    //翻译字符串
+#define N (String) String#define PACKAGE &quot;ui&quot;    //定义mo文件前缀名
+#define LOCALEDIR &quot;./po&quot;    //定义mo文件搜索路径
+int main (int argc, char *argv[])
+{
+    setlocale (LC ALL, &quot;&quot;);    //设置本地语言和字符集
+    bindtextdomain (PACKAGE, LOCALEDIR);    //设置mo文件的路径
+    textdomain (PACKAGE);    //设置mo文件前缀名
+    gtk_init (&amp;argc, &amp;argv);
+    GtkBuilder *ui;
+    ui = qtk_builder_new ();
+    qtk_builder_add_from_file (ui, &quot;ui.glade&quot;, NULL);
+    GtkWidget *window;
+    window = GTK_WIDGET (gtk_builder_get_object (ui, &quot;User Information&quot;));
+
+    gtk_widget_show_all (window);    //显示window内的所有构件,
+    gtk_builder_connect_signals (ui, NULL); //连接GtkBuilder对象所有己定义信号
+
+    gtk_main ();    //开始GTK+主循环
+    return 0;
+}
+</code></pre><p>修改环境变量：</p>
+<p>单个用户：用户主目录下的.profile文件；所有用户：/etc目录下的environment文件</p>
+<h1 id="实战"><a href="#实战" class="headerlink" title="实战"></a>实战</h1><p>libid3dtag可以很容易读取mp3文件信息。</p>
+<h2 id="版本控制"><a href="#版本控制" class="headerlink" title="版本控制"></a>版本控制</h2><p>linux可使用CVS版本控制工具。</p>
+<h3 id="CVS服务器配置"><a href="#CVS服务器配置" class="headerlink" title="CVS服务器配置"></a>CVS服务器配置</h3><p>安装<br>    apt-get install cvs cvsd</p>
+<p>配置</p>
+<pre><code>dpkg-reconfigure cvsd
+</code></pre><p>建立代码仓库</p>
+<pre><code>cd /var/cvsroot    //进入虚拟系统目录
+sudo mkdir mycvs    //建立代码仓库文件夹
+</code></pre><p>初始化代码仓库</p>
+<pre><code>sudo cvs -d /var/lib/cvsd init
+</code></pre><p>改变目录权限</p>
+<pre><code>sudo chown cvsd:cvsd -R /var/lib/cvsd/cvsrepo
+</code></pre><p>修改用户密码</p>
+<pre><code>sudo cvsd-passwd /var/cvsroot/mycvs cvsd    //修改文件夹所有者密码
+</code></pre><p>修改认证方式</p>
+<pre><code>sudo vi /var/cvsroot/mycvs/CVSROOT/config    //在配置文件中将“SystemAuto=no”前面的#号去掉
+</code></pre><p>重启服务</p>
+<pre><code>/etc/init.d/cvsd restart
+</code></pre><p>配置环境变量</p>
+<pre><code>export CVSROOT=:pserver:cvsd@localhost:/mycvs
+</code></pre><p>登录服务器</p>
+<pre><code>cvs login
+</code></pre><h3 id="CVS服务器管理"><a href="#CVS服务器管理" class="headerlink" title="CVS服务器管理"></a>CVS服务器管理</h3><p>查看当前仓库中的模块名称</p>
+<pre><code>ls $CVSROOT
+</code></pre><p>导入</p>
+<pre><code>cd /home/mp3player
+cvs import -m &quot;MP3 Player Test&quot; mp3player me start
+</code></pre><p>签出</p>
+<pre><code>cvs co mp3player
+</code></pre><p>签入</p>
+<pre><code>cvs commit
+</code></pre><p>添加和删除</p>
+<pre><code>cvs add test .c
+cvs commit
+cvs rm test.c
+cvs commit
+</code></pre><p>历史</p>
+<pre><code>cvs history -c interface.c
+</code></pre><p>冲突解决</p>
+<pre><code>svs update
+</code></pre><p>标记</p>
+<pre><code>cvs tag release
+</code></pre><p>分支</p>
+<pre><code>cvs rtag -b release mp3player
+</code></pre><p>远程访问</p>
+<pre><code>export CVS_RSH=ssh
+export CVSROOT=&lt;用户名&gt;@&lt;服务器地址&gt;:&lt;端口号&gt;&lt;CVS资源目录路径&gt;
+export CVSROOT=:pserver:&lt;用户名&gt;@&lt;服务器地址&gt;:&lt;端口号&gt;&lt;CVS资源目录路径&gt;
 </code></pre><h1 id="学习："><a href="#学习：" class="headerlink" title="学习："></a>学习：</h1><ul>
 <li><a href="https://i.linuxtoy.org/docs/guide/index.html" title="开源世界旅行手册" target="_blank" rel="noopener">开源世界旅行手册</a></li>
 <li><a href="https://tobegit3hub1.gitbooks.io/understanding-linux-processes/content/" target="_blank" rel="noopener">理解Linux进程</a></li>
@@ -1275,6 +1385,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">分词</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">ubuntu</a>
               </li>
             
             <div class="clearfix"></div>

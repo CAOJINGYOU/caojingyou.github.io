@@ -5,7 +5,7 @@
     
   <url>
     <loc>https://caojingyou.github.io/2018/05/02/linux%E4%B8%8BC%E5%BC%80%E5%8F%91/</loc>
-    <lastmod>2018-06-15T07:14:34.131Z</lastmod>
+    <lastmod>2018-06-20T04:36:42.515Z</lastmod>
     <data>
         <display>
         <title>linux下C开发</title>
@@ -16,6 +16,27 @@
         <tag>C/C++</tag>
          
         <tag>linux</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/06/16/Ubuntu%E5%8F%8C%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2018-06-16T08:34:05.000Z</lastmod>
+    <data>
+        <display>
+        <title>ubuntu双系统</title>
+        <pubTime>2018-06-16T08:30:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>linux</tag>
+         
+        <tag>ubuntu</tag>
          
          
            
