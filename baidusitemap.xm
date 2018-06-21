@@ -67,27 +67,6 @@
 
     
   <url>
-    <loc>https://caojingyou.github.io/2016/04/01/Qt%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE-%E5%86%B2%E7%AA%81-%E8%B5%A4%E9%BE%99%E7%BB%95%E6%9C%88/</loc>
-    <lastmod>2018-06-15T06:50:30.011Z</lastmod>
-    <data>
-        <display>
-        <title>Qt安装配置</title>
-        <pubTime>2016-04-01T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>C++</tag>
-         
-        <tag>Qt</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://caojingyou.github.io/2017/09/01/Shell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B30%E5%88%86%E9%92%9F%E5%85%A5%E9%97%A8/</loc>
     <lastmod>2018-06-15T06:40:36.929Z</lastmod>
     <data>
