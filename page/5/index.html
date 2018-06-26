@@ -160,6 +160,218 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-SVN版本号" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/08/SVN版本号/">SVN版本号</a>
+    </h1>
+  
+
+        
+        <a href="/2018/02/08/SVN版本号/" class="archive-article-date">
+  	<time datetime="2018-02-08T07:24:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="SVN获取版本号"><a href="#SVN获取版本号" class="headerlink" title="SVN获取版本号"></a>SVN获取版本号</h1><h2 id="version-template-h"><a href="#version-template-h" class="headerlink" title="version_template.h"></a>version_template.h</h2><pre><code>#ifndef _VERSION_H_
+#define _VERSION_H_
+#define VER_MAJOR 1
+#define VER_MINOR 0
+#define VER_REVISION $WCREV$
+
+#define SVN_REVISION&quot;$WCMIXED?$WCRANGE$:$WCREV$$&quot;
+
+#define SVN_RANGE   $WCRANGE$
+#define SVN_REV $WCREV$
+#define SVN_REVISION&quot;$WCMIXED?SVN_RANGE:SVN_REV$&quot;
+#endif //!_VERSION_H_
+
+// Test file for SubWCRev
+
+char *Revision  = &quot;$WCREV$&quot;;
+char *Revision16= &quot;$WCREV&amp;0xFF$&quot;;
+char *Revisionp100  = &quot;$WCREV+100$&quot;;
+char *Revisionm100  = &quot;$WCREV-100$&quot;;
+char *Modified  = &quot;$WCMODS?Modified:Not modified$&quot;;
+char *Unversioned   = &quot;$WCUNVER?Unversioned items found:no unversioned items$&quot;;
+char *Date  = &quot;$WCDATE$&quot;;
+char *CustDate  = &quot;$WCDATE=%a, %d %B %Y$&quot;;
+char *DateUTC   = &quot;$WCDATEUTC$&quot;;
+char *CustDateUTC   = &quot;$WCDATEUTC=%a, %d %B %Y$&quot;;
+char *TimeNow   = &quot;$WCNOW$&quot;;
+char *TimeNowUTC= &quot;$WCNOWUTC$&quot;;
+char *RevRange  = &quot;$WCRANGE$&quot;;
+char *Mixed = &quot;$WCMIXED?Mixed revision WC:Not mixed$&quot;;
+char *ExtAllFixed   = &quot;$WCEXTALLFIXED?All externals fixed:Not all externals fixed$&quot;;
+char *IsTagged  = &quot;$WCISTAGGED?Tagged:Not tagged$&quot;;
+char *URL   = &quot;$WCURL$&quot;;
+char *isInSVN   = &quot;$WCINSVN?versioned:not versioned$&quot;;
+char *needslck  = &quot;$WCNEEDSLOCK?TRUE:FALSE$&quot;;
+char *islocked  = &quot;$WCISLOCKED?locked:not locked$&quot;;
+char *lockdateutc   = &quot;$WCLOCKDATEUTC$&quot;;
+char *lockdate  = &quot;$WCLOCKDATE$&quot;;
+char *lockcustutc   = &quot;$WCLOCKDATEUTC=%a, %d %B %Y$&quot;;
+char *lockcust  = &quot;$WCLOCKDATE=%a, %d %B %Y$&quot;;
+char *lockown   = &quot;$WCLOCKOWNER$&quot;;
+char *lockcmt   = &quot;$WCLOCKCOMMENT$&quot;;
+
+#if $WCMODS?1:0$
+#error Source is modified
+#endif
+
+// End of file
+</code></pre><h2 id="运行bat"><a href="#运行bat" class="headerlink" title="运行bat"></a>运行bat</h2><pre><code>setlocal
+
+::设置svn客户端安装目录
+set SVN_PATH=D:\Program Files\TortoiseSVN\bin 
+
+::设置工作目录，即工程目录
+set WORK_DIR=E:\code\C++\Demo
+
+::设置版本模版文件，对应第一步中新建的模板文件
+set VERSION_TEMPLATE=E:\code\C++\Demo\version_template.h
+
+::设置版本号生成文件，生成的文件就是我们需要使用的版本文件
+set VERSION_RELEASE=E:\code\C++\Demo\version.h
+
+::进入svn客户端安装目录
+cd %SVN_PATH%
+::执行更新版本号操作
+&quot;%SVN_PATH%\SubWCRev.exe&quot; &quot;%WORK_DIR%&quot; &quot;%VERSION_TEMPLATE%&quot; &quot;%VERSION_RELEASE%&quot;
+
+endlocal
+</code></pre><h2 id="生成version-h"><a href="#生成version-h" class="headerlink" title="生成version.h"></a>生成version.h</h2><pre><code>#ifndef _VERSION_H_
+#define _VERSION_H_
+#define VER_MAJOR 1
+#define VER_MINOR 0
+#define VER_REVISION 6185
+
+#define SVN_REVISION&quot;4620&quot;
+
+#define SVN_RANGE   4620:6185
+#define SVN_REV 6185
+#define SVN_REVISION&quot;SVN_RANGE&quot;
+#endif //!_VERSION_H_
+
+// Test file for SubWCRev
+
+char *Revision  = &quot;6185&quot;;
+char *Revision16= &quot;41&quot;;
+char *Revisionp100  = &quot;6285&quot;;
+char *Revisionm100  = &quot;6085&quot;;
+char *Modified  = &quot;Modified&quot;;
+char *Unversioned   = &quot;Unversioned items found&quot;;
+char *Date  = &quot;2018/02/07 10:00:58&quot;;
+char *CustDate  = &quot;Wed, 07 February 2018&quot;;
+char *DateUTC   = &quot;2018/02/07 02:00:58&quot;;
+char *CustDateUTC   = &quot;Wed, 07 February 2018&quot;;
+char *TimeNow   = &quot;2018/02/08 14:56:08&quot;;
+char *TimeNowUTC= &quot;2018/02/08 06:56:08&quot;;
+char *RevRange  = &quot;4620:6185&quot;;
+char *Mixed = &quot;Mixed revision WC&quot;;
+char *ExtAllFixed   = &quot;All externals fixed&quot;;
+char *IsTagged  = &quot;Not tagged&quot;;
+char *URL   = &quot;http://xxx&quot;;
+char *isInSVN   = &quot;versioned&quot;;
+char *needslck  = &quot;FALSE&quot;;
+char *islocked  = &quot;not locked&quot;;
+char *lockdateutc   = &quot;1970/01/01 00:00:00&quot;;
+char *lockdate  = &quot;1970/01/01 08:00:00&quot;;
+char *lockcustutc   = &quot;Thu, 01 January 1970&quot;;
+char *lockcust  = &quot;Thu, 01 January 1970&quot;;
+char *lockown   = &quot;&quot;;
+char *lockcmt   = &quot;&quot;;
+
+#if 1
+#error Source is modified
+#endif
+
+// End of file
+</code></pre><h2 id="命令"><a href="#命令" class="headerlink" title="命令"></a>命令</h2><p>在VS2005的项目属性页-&gt;预生成事件-&gt;命令行中添加一句：</p>
+<pre><code>$(SolutionDir)\subwcrev.exe $(SolutionDir) $(SolutionDir)\src\qmlv\version_template.h $(SolutionDir)\src\qmlv\version.h
+</code></pre><p>SubWCRev 调用语法:</p>
+<pre><code>SubWCRev WorkingCopyPath [SrcVersionFile DstVersionFile]
+</code></pre><h1 id="svn版本日志"><a href="#svn版本日志" class="headerlink" title="svn版本日志"></a>svn版本日志</h1><p>Apache-Subversion-1.9.7：</p>
+<pre><code>&quot;svn.exe&quot; log --incremental -r4620
+&quot;svn.exe&quot; log --incremental -r4522
+</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html" title="https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html" target="_blank" rel="noopener">https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html</a></p>
+<p><a href="http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html" title="http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html</a></p>
+<p><a href="https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html" title="https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html</a></p>
+<p><a href="http://blog.csdn.net/yangxiao2shi/article/details/50719286/" title="http://blog.csdn.net/yangxiao2shi/article/details/50719286/" target="_blank" rel="noopener">http://blog.csdn.net/yangxiao2shi/article/details/50719286/</a></p>
+<p><a href="https://www.visualsvn.com/support/svnbook/ref/svn/" title="https://www.visualsvn.com/support/svnbook/ref/svn/" target="_blank" rel="noopener">https://www.visualsvn.com/support/svnbook/ref/svn/</a></p>
+<p><a href="https://www.visualsvn.com/support/svnbook/ref/svn/c/log/" title="https://www.visualsvn.com/support/svnbook/ref/svn/c/log/" target="_blank" rel="noopener">https://www.visualsvn.com/support/svnbook/ref/svn/c/log/</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">svn</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">版本号</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/02/08/SVN版本号/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-OpenSSL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1339,480 +1551,6 @@ public class Program
 
 
   
-    <article id="post-MSBuild (Visual C++)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/21/MSBuild (Visual C++)/">MSBuild</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/21/MSBuild (Visual C++)/" class="archive-article-date">
-  	<time datetime="2017-12-21T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Visual-Studio-文档"><a href="#Visual-Studio-文档" class="headerlink" title="Visual Studio 文档"></a>Visual Studio 文档</h1><p><a href="https://docs.microsoft.com/zh-cn/visualstudio/" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/visualstudio/</a></p>
-<h1 id="MSBuild-Visual-C"><a href="#MSBuild-Visual-C" class="headerlink" title="MSBuild (Visual C++)"></a>MSBuild (Visual C++)</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/dd293626.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/dd293626.aspx</a></p>
-<p>可以使用 MSBuild 工具从命令提示符处生成 Visual C++ 应用程序。 该生成过程由您可以创建和编辑的项目文件 (.vcxproj) 中的信息来控制。 该项目文件基于生成阶段、条件和事件指定生成选项</p>
-<h1 id="MSBuild-Visual-C-概述"><a href="#MSBuild-Visual-C-概述" class="headerlink" title="MSBuild (Visual C++) 概述"></a>MSBuild (Visual C++) 概述</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/ee662426.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/ee662426.aspx</a></p>
-<p>用户目标和属性</p>
-<p>若要在命令行上最有效地使用 MSBuild，最好先了解哪些属性和目标是有用且相关。 大多数属性和目标可以帮助实施 Visual c + + 生成系统，并因此不与用户相关。 本部分介绍一些值得面向用户的属性和目标。</p>
-<p>PlatformToolset 属性</p>
-<p>PlatformToolset 属性确定在生成中使用的 Visual c + + 工具集。 属性的值与字符串组合成包含生成用于特定平台的项目所需的属性和目标文件的目录路径串联。</p>
-<p>设置 PlatformToolset 属性设置为 v110 使用 Visual Studio 2012 中的 Visual C++ 工具和库来构建您的应用程序。</p>
-<p>msbuild myProject.vcxproj /p:PlatformToolset=v110</p>
-<p>设置 PlatformToolset 属性设置为 v100 使用 Visual C++ 2010 工具和库来构建您的应用程序。</p>
-<p>msbuild myProject.vcxproj /p:PlatformToolset=v100</p>
-<p>设置 PlatformToolset 属性设置为 v90 使用 Visual c + + 2008年工具和库来生成你的应用程序。 此属性才有效在计算机上必须已安装的 Visual c + + 2008年工具集。</p>
-<p>msbuild myProject.vcxproj /p:PlatformToolset=v90</p>
-<p>PreferredToolArchitecture 属性</p>
-<p>PreferredToolArchitecture 属性确定是否在生成中使用 32 位或 64 位编译器和工具。 此属性不影响输出的平台体系结构或配置。 默认情况下，MSBuild 使用 x86 版本的编译器和工具，如果此属性未设置，或为设置为任何值以外 x64。</p>
-<p>设置 PreferredToolArchitecture 属性设置为 x64 以使用 64 位编译器和工具来生成应用程序。</p>
-<p>msbuild myProject.vcxproj /p:PreferredToolArchitecture=x64</p>
-<p>UseEnv 属性</p>
-<p>默认情况下，当前项目的特定于平台的设置重写路径、 INCLUDE、 LIB、 LIBPATH、 配置和平台环境变量。 设置 UseEnv 属性设置为 true 若要确保环境变量不重写。</p>
-<p>msbuild myProject.vcxproj /p:UseEnv=true</p>
-<p>目标</p>
-<p>有数百个 Visual c + + 支持文件中的目标。 但是，大多数都是用户可忽略的面向系统的目标。 大多数系统目标前缀是下划线 (_)，或具有”PrepareFor”，”计算”，以”Before”，”After”，”之前”或”Post”开头的名称。</p>
-<p>下表列出了几个值得面向用户的目标。</p>
-<h1 id="MSBuild-命令行参考"><a href="#MSBuild-命令行参考" class="headerlink" title="MSBuild 命令行参考"></a>MSBuild 命令行参考</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/ms164311.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/ms164311.aspx</a></p>
-<p><code>MSBuild.exe [Switches] [ProjectFile]</code> </p>
-<pre><code>语法:                             MSBuild.exe [选项] [项目文件]
-
-描述:                    在项目文件中生成指定的目标。如果
-                     未指定项目文件，MSBuild 将搜索
-                     当前工作目录来查找文件扩展名
-                     以“proj”结尾的文件并使用该文件。
-
-开关:
-
-  /target:&lt;targets&gt;  在此项目中生成这些目标。使用
-                     分号或逗号分隔多个目标，或者分别指定
-                     每个目标。(缩写: /t)
-                     示例:
-                       /target:Resources;Compile
-
-  /property:&lt;n&gt;=&lt;v&gt;  设置或重写这些项目级属性。&lt;n&gt; 是
-                     属性名，&lt;v&gt; 为属性值。请使用
-                     分号或逗号分隔多个属性，或者
-                     分别指定每个属性。(缩写: /p)
-                     示例:
-                       /property:WarningLevel=2;OutDir=bin\Debug\
-
-  /maxcpucount[:n]   指定用于生成的最大
-                     并发进程数。如果未使用开关，则使用的默认值
-                     为 1。如果使用开关时不带值，
-                     MSBuild 将最多使用计算机上的
-                     处理器数。(缩写: /m[:n])
-
-  /toolsversion:&lt;version&gt;
-                     要在生成过程中使用的 MSBuild 工具集
-                     (任务、目标等) 的版本。此版本将重写
-                     个别项目指定的版本。(缩写:
-                     /tv)
-                     示例:
-                       /toolsversion:3.5
-
-  /verbosity:&lt;level&gt; 在事件日志中显示此级别的信息量。
-                     可用的详细级别有: q[uiet]、 m[inimal]、
-                     n[ormal]、d[etailed] 和 diag[nostic]。(缩写: /v)
-                     示例:
-                       /verbosity:quiet
-
-  /consoleloggerparameters:&lt;parameters&gt;
-                     控制台记录器的参数。(缩写: /clp)
-                     可用的参数有:
-                        PerformanceSummary -- 显示在任务、目标和项目上
-                            花费的时间。
-                        Summary -- 结束时显示错误和警告的摘要。
-                        NoSummary -- 结束时不显示错误和警告
-                            的摘要。
-                        ErrorsOnly -- 仅显示错误。
-                        WarningsOnly -- 仅显示警告。
-                        NoItemAndPropertyList -- 在开始生成每个项目时不显示
-                            项和属性的列表。
-                        ShowCommandLine -- 显示 TaskCommandLineEvent 消息
-                        ShowTimestamp -- 将时间戳作为所有消息的前缀
-                            显示。
-                        ShowEventId -- 显示已开始事件、已完成事件和消息
-                            的事件 ID。
-                        ForceNoAlign -- 不将文本与控制台缓冲区的大小
-                            匹配。
-                        DisableConsoleColor -- 将默认控制台颜色
-                            用于所有记录消息。
-                        DisableMPLogging -- 在非多处理器
-                            模式下运行时，禁用输出的多处理器
-                            日志记录样式。
-                        EnableMPLogging -- 即使在非多处理器
-                            模式下运行，也启用多处理器
-                            日志记录样式。默认情况下启用此日志记录样式。
-                        Verbosity -- 重写此记录器的  /verbosity
-                            设置。
-                     示例:
-                        /consoleloggerparameters:PerformanceSummary;NoSummary;
-                                                 Verbosity=minimal
-
-  /noconsolelogger   禁用默认控制台记录器，并且不将事件
-                     记录到控制台。(缩写:  /noconlog)
-
-  /fileLogger[n]     将生成输出记录到文件中。默认情况下，
-                     该文件在当前目录中，名称为
-                     “msbuild[n].log”。所有节点中的事件合并到
-                     单个日志中。fileLogger 的文件和
-                     其他参数的位置可以通过添加
-                     “/fileLoggerParameters[n]”开关来指定。
-                     “n”(如果存在)可以为 1-9 的数字，允许最多附加
-                     10 个文件记录器。(缩写:  /fl[n])
-
-  /fileloggerparameters[n]:&lt;parameters&gt;
-                     为文件记录器提供任何额外的参数。
-                     存在此开关意味着
-                     存在对应的 /filelogger[n] 开关。
-                    “n”(如果存在)可以为 1-9 的数字。
-                     任何分布式文件记录器也可以使用
-                     /fileloggerparameters，具体可参阅 /distributedFileLogger 的说明。
-                     (缩写: /flp[n])
-                     为控制台记录器列出的相同参数
-                     可用。某些其他可用参数有:
-                        LogFile -- 生成日志将写入其中的
-                            日志文件的路径。
-                        Append -- 确定是将生成日志附加到日志文件，
-                            还是覆盖日志文件。如果设置此
-                            开关，则会将生成日志附加到日志文件；
-                            如果不设置此开关，则会覆盖
-                            现有日志文件的内容。
-                            默认值为不附加到日志文件。
-                        Encoding -- 指定文件的编码，
-                            例如，UTF-8、Unicode 或 ASCII
-                     默认的详细级别为 Detailed。
-                     示例:
-                       /fileLoggerParameters:LogFile=MyLog.log;Append;
-                                           Verbosity=diagnostic;Encoding=UTF-8
-
-                       /flp:Summary;Verbosity=minimal;LogFile=msbuild.sum
-                       /flp1:warningsonly;logfile=msbuild.wrn
-                       /flp2:errorsonly;logfile=msbuild.err
-
-  /distributedlogger:&lt;central logger&gt;*&lt;forwarding logger&gt;
-                     使用此记录器来记录 MSBuild 中的事件，向每个节点
-                     附加不同的记录器实例。若要指定
-                     多个记录器，请分别指定每个记录器。
-                     (缩写 /dl)
-                     &lt;logger&gt; 语法为:
-                       [&lt;logger class&gt;,]&lt;logger assembly&gt;[;&lt;logger parameters&gt;]
-                     &lt;logger class&gt; 语法为:
-                       [&lt;partial or full namespace&gt;.]&lt;logger class name&gt;
-                     &lt;logger assembly&gt; 语法为:
-                       {&lt;assembly name&gt;[,&lt;strong name&gt;] | &lt;assembly file&gt;}
-                     &lt;logger parameters&gt; 是可选的，并且按键入的
-                     形式原样传递给记录器。(缩写: /l)
-                     示例:
-                       /dl:XMLLogger,MyLogger,Version=1.0.2,Culture=neutral
-                       /dl:MyLogger,C:\My.dll*ForwardingLogger,C:\Logger.dll
-
-  /distributedFileLogger
-                     将生成输出记录到多个日志文件，每个 MSBuild 节点
-                     一个日志文件。这些文件的初始位置为
-                     当前目录。默认情况下，这些文件名为
-                     “MSBuild&lt;nodeid&gt;.log”。可通过添加
-                     “/fileLoggerParameters”开关来指定
-                     这些文件的位置和 fileLogger 的其他参数。
-
-                     如果日志文件名是通过 fileLoggerParameters
-                     开关设置的，分布式记录器将使用 fileName 作为
-                     模板并将节点 ID 附加到此 fileName
-                     以便为每个节点创建一个日志文件。
-
-  /logger:&lt;logger&gt;   使用此记录器来记录 MSBuild 中的事件。若要指定
-                     多个记录器，请分别指定每个记录器。
-                     &lt;logger&gt; 语法为:
-                       [&lt;logger class&gt;,]&lt;logger assembly&gt;[;&lt;logger parameters&gt;]
-                    &lt;logger class&gt; 语法为:
-                        [&lt;partial or full namespace&gt;.]&lt;logger class name&gt;
-                   &lt;logger assembly&gt; 语法为:
-                        {&lt;assembly name&gt;[,&lt;strong name&gt;] | &lt;assembly file&gt;}
-                     &lt;logger parameters&gt; 是可选的，并按键入的
-                    形式原样传递给记录器。(缩写: /l)
-                     示例:
-                       /logger:XMLLogger,MyLogger,Version=1.0.2,Culture=neutral
-                       /logger:XMLLogger,C:\Loggers\MyLogger.dll;OutputAsHTML
-
-  /validate          依据默认架构验证项目。(缩写:
-                     /val)
-
-  /validate:&lt;schema&gt; 依据指定的架构验证项目。 (缩写:
-                     /val)
-                     示例:
-                       /validate:MyExtendedBuildSchema.xsd
-
-  /ignoreprojectextensions:&lt;扩展名&gt;
-                     确定要生成的项目文件时要忽略的
-                     扩展名的列表。使用分号或逗号来分隔
-                     多个扩展名。
-                     (缩写: /ignore)
-                     示例:
-                       /ignoreprojectextensions:.sln
-
-  /nodeReuse:&lt;parameters&gt;
-                     允许或禁止重复使用 MSBuild 节点。
-                     参数包括:
-                     True -- 生成完成后节点将保留，
-                             并且将由后面的生成重复使用(默认)
-                     False -- 生成完成后节点将不会保留
-                     (缩写: /nr)
-                     示例:
-                       /nr:true
-
-  /preprocess[:file]
-                     通过嵌入将在生成过程中导入的
-                     所有文件并标记其边界，
-                     创建一个聚合的项目文件。这对于
-                     了解导入什么文件、从何处导入以及
-                     这些文件在生成中的构成
-                     非常有用。默认情况下，输出将写入
-                     控制台窗口。如果提供输出文件的路径，
-                     则将改用该路径。
-                     (缩写: /pp)
-                      示例:
-                       /pp:out.txt
-
-  /detailedsummary
-                     在生成的结尾显示有关
-                     所生成的配置以及如何向节点安排
-                     这些配置的详细信息。
-                     (缩写:  /ds)
-
-  @&lt;file&gt;            从文本文件插入命令行设置。若要指定
-                     多个响应文件，请分别指定每个响应
-                     文件。
-
-                     自动从以下位置使用任何
-                     名为“msbuild.rsp”的响应文件:
-                     (1) msbuild.exe 的目录
-                     (2) 生成的第一个项目或解决方案的目录
-
-  /noautoresponse    不自动包括任何 MSBuild.rsp 文件。(缩写:
-                     /noautorsp)
-
-  /nologo            不显示启动版权标志和版权消息。
-
-  /version           仅显示版本信息。(缩写:  /ver)
-
-  /help              显示此用法消息。(缩写: /? 或 /h)
-
-示例:
-
-        MSBuild MyApp.sln /t:Rebuild /p:Configuration=Release
-        MSBuild MyApp.csproj /t:Clean
-                             /p:Configuration=Debug;TargetFrameworkVersion=v3.5
-</code></pre><p>示例</p>
-<pre><code>MSBuild.exe MyProject.proj /t:rebuild 
-</code></pre><h1 id="演练：使用-MSBuild-创建-Visual-C-项目"><a href="#演练：使用-MSBuild-创建-Visual-C-项目" class="headerlink" title="演练：使用 MSBuild 创建 Visual C++ 项目"></a>演练：使用 MSBuild 创建 Visual C++ 项目</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/dd293607.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/dd293607.aspx</a></p>
-<pre><code>msbuild myproject.vcxproj /p:configuration=debug
-
-msbuild myproject.vcxproj /t:clean
-</code></pre><h2 id="将-MSBuild-与生成目标结合使用"><a href="#将-MSBuild-与生成目标结合使用" class="headerlink" title="将 MSBuild 与生成目标结合使用"></a>将 MSBuild 与生成目标结合使用</h2><p>生成目标是指定的一组预定义命令或用户定义的命令，这组命令可在生成期间执行。 使用目标命令行选项 (/t) 可以指定生成目标。 对于 myproject 示例项目，预定义的 clean 目标将删除调试文件夹中的所有文件并创建新日志文件。<br>在命令提示符处，键入以下命令以清理 myproject。<br>    msbuild myproject.vcxproj /t:clean</p>
-<h2 id="将-MSBuild-与生成属性结合使用"><a href="#将-MSBuild-与生成属性结合使用" class="headerlink" title="将 MSBuild 与生成属性结合使用"></a>将 MSBuild 与生成属性结合使用</h2><p>通过使用属性命令行选项 (/p)，您可以在项目生成文件中重写属性。 在 myproject 示例项目中，发布版本配置或调试版本配置是由 Configuration 属性指定的。 用来运行生成的应用程序的操作系统是由 Platform 属性指定的。<br>在命令提示符处，键入以下命令，以创建打算在 32 位 Windows 上运行的 myproject 应用程序的调试版本。</p>
-<pre><code>msbuild myproject.vcxproj /p:configuration=debug /p:platform=win32
-</code></pre><p>假设 myproject 示例项目也为 64 位 Windows 定义了配置，并为名为 myplatform 的自定义操作系统定义了另一个配置。<br>在命令提示符处，键入以下命令，以创建在 64 位 Windows 上运行的发布版本。</p>
-<pre><code>msbuild myproject.vcxproj /p:configuration=release /p:platform=x64
-</code></pre><p>在命令提示符处，键入以下命令以为 myplatform 创建发布版本。</p>
-<pre><code>msbuild myproject.vcxproj /p:configuration=release /p:platform=myplatform
-</code></pre><h1 id="个人写的例子："><a href="#个人写的例子：" class="headerlink" title="个人写的例子："></a>个人写的例子：</h1><p>vs2005:</p>
-<pre><code>call &quot;D:\Program Files (x86)\Microsoft Visual Studio 8\VC\vcvarsall.bat&quot; x86
-</code></pre><p>vs2010:</p>
-<pre><code>call &quot;C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat&quot; x86
-</code></pre><p>vs2012:</p>
-<pre><code>call &quot;C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat&quot; x86
-</code></pre><p>重新编译：</p>
-<pre><code>MSBuild %~dp0..\Project\VC10\pro.sln /t:rebuild /p:configuration=&quot;Release&quot;
-</code></pre><h1 id="在命令行上生成"><a href="#在命令行上生成" class="headerlink" title="在命令行上生成"></a>在命令行上生成</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/f35ctcxw.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/f35ctcxw.aspx</a></p>
-<h1 id="为命令行生成设置路径和环境变量"><a href="#为命令行生成设置路径和环境变量" class="headerlink" title="为命令行生成设置路径和环境变量"></a>为命令行生成设置路径和环境变量</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/f2ccy3wt.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/f2ccy3wt.aspx</a></p>
-<h1 id="生成应用程序"><a href="#生成应用程序" class="headerlink" title="生成应用程序"></a>生成应用程序</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/ms181709.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/ms181709.aspx</a></p>
-<p><a href="https://msdn.microsoft.com/zh-cn/library/ms244359.aspx" target="_blank" rel="noopener">Team Foundation Build 参考</a></p>
-<h1 id="vcvars-bat-设置命令行编译环境"><a href="#vcvars-bat-设置命令行编译环境" class="headerlink" title="vcvars.bat 设置命令行编译环境"></a>vcvars.bat 设置命令行编译环境</h1><pre><code>@echo off
-
-if defined VSINSTALLDIR (
-    echo already installed
-goto eof
-)
-set &quot;_ARG_=%1&quot;
-
-rem help
-if &quot;%_ARG_%&quot; EQU &quot;&quot; (
-    echo syntax: %0 [2005 ^| 2008 ^| 2010 ^| 2012 ^| 2013 ^| 2015] [64]
-    goto eof
-)
-
-if &quot;%_ARG_%&quot; EQU &quot;2005&quot; set &quot;ProgramFiles(x86)=%VS80COMNTOOLS%..\..\&quot;
-if &quot;%_ARG_%&quot; EQU &quot;2008&quot; set &quot;ProgramFiles(x86)=%VS90COMNTOOLS%..\..\&quot;
-if &quot;%_ARG_%&quot; EQU &quot;2010&quot; set &quot;ProgramFiles(x86)=%VS100COMNTOOLS%..\..\&quot;
-if &quot;%_ARG_%&quot; EQU &quot;2012&quot; set &quot;ProgramFiles(x86)=%VS110COMNTOOLS%..\..\&quot;
-if &quot;%_ARG_%&quot; EQU &quot;2013&quot; set &quot;ProgramFiles(x86)=%VS120COMNTOOLS%..\..\&quot;
-if &quot;%_ARG_%&quot; EQU &quot;2015&quot; set &quot;ProgramFiles(x86)=%VS140COMNTOOLS%..\..\&quot;
-
-echo &quot;%ProgramFiles(x86)%&quot;
-
-if NOT DEFINED ProgramFiles(x86) set ProgramFiles(x86)=C:\Program Files (x86)
-if NOT DEFINED VS80COMNTOOLS set VS80COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 8\Common7\Tools\
-if NOT DEFINED VS90COMNTOOLS set VS90COMNTOOLS=c:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\Tools\
-rem VS100COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\Tools\
-rem VS110COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\Tools\
-rem VS120COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\
-rem VS140COMNTOOLS=D:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\
-rem VS80COMNTOOLS=D:\Program Files (x86)\Microsoft Visual Studio 8\Common7\Tools\
-rem VS90COMNTOOLS=D:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\Tools\
-rem VSSDK140Install=D:\Program Files (x86)\Microsoft Visual Studio 14.0\VSSDK\
-
-
-
-set &quot;_OPT_=%2&quot;
-if NOT DEFINED _OPT_ set _OPT_=64
-if &quot;%_OPT_%&quot; EQU &quot;x64&quot; set &quot;_OPT_=64&quot;
-
-if &quot;%_ARG_%&quot; EQU &quot;2005&quot; (
-  if &quot;%_OPT_%&quot; EQU &quot;64&quot; (
-pushd &quot;%ProgramFiles(x86)%\VC\bin\amd64\&quot;
-call vcvarsamd64.bat
-set PROCESSOR_ARCHITECTURE=AMD64
-  ) else (
-pushd &quot;%ProgramFiles(x86)%\VC\bin&quot;
-call vcvars32.bat
-set PROCESSOR_ARCHITECTURE=x86
-  )
-  popd
-  goto eof
-)
-
-rem set the variable _VC_
-set _VC_=
-
-if &quot;%_ARG_%&quot; EQU &quot;2008&quot; set &quot;_VC_=9.0&quot;
-if &quot;%_ARG_%&quot; EQU &quot;2010&quot; set &quot;_VC_=10.0&quot;
-if &quot;%_ARG_%&quot; EQU &quot;2012&quot; set &quot;_VC_=11.0&quot;
-if &quot;%_ARG_%&quot; EQU &quot;2013&quot; set &quot;_VC_=12.0&quot;
-if &quot;%_ARG_%&quot; EQU &quot;2015&quot; set &quot;_VC_=14.0&quot;
-
-if DEFINED _VC_ (
-  echo &quot;%ProgramFiles(x86)%\VC\&quot;
-  pushd &quot;%ProgramFiles(x86)%\VC\&quot;
-  if &quot;%_OPT_%&quot; EQU &quot;64&quot; (
-vcvarsall.bat x86_amd64
-set PROCESSOR_ARCHITECTURE=AMD64
-  ) else (
-vcvarsall.bat x86
-set PROCESSOR_ARCHITECTURE=x86
-  )
-  if errorlevel 1 (
-      echo.*** error - failed ***
-  ) else (
-      echo Success Environment for Visual Studio %_VC_% = %*
-  )
-  popd
-) else (
-  echo unknown version of Visual Studio %*
-  set _ARG_=
-  call:help
-)
-
-rem
-rem That&apos;s all Folks!
-:eof
-</code></pre><h1 id="devenv"><a href="#devenv" class="headerlink" title="devenv"></a>devenv</h1><pre><code>@echo off
-
-cd /d %~dp0
-set BUILD_TARGET=%CD%\MyProject.sln
-
-echo.
-if &quot;&quot;==&quot;%VS80COMNTOOLS%&quot; (
-   echo environment variable &apos;VS80COMNTOOLS%&apos; has not been set
-   goto Exit_Fail
-)
-
-set DEVENV=%VS80COMNTOOLS%\..\IDE\devenv.com
-if not exist &quot;%DEVENV%&quot; (
-   echo file &quot;%DEVENV%&quot; can not be found
-   goto Exit_Fail
-)
-
-@echo on
-
-&quot;%DEVENV%&quot; &quot;%BUILD_TARGET%&quot; /Build Release
-
-:Exit_Fail
-
-pause
-</code></pre><p><code>Build</code>可换成<code>Rebuild</code></p>
-<p><a href="https://www.cnblogs.com/songxingzhu/p/5242159.html" target="_blank" rel="noopener">使用devenv/MSBuild在命令行编译sln或csproj</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MSBuild</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">VS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/21/MSBuild (Visual C++)/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/4/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/6/">Next &raquo;</a>
@@ -2607,6 +2345,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
             
             <div class="clearfix"></div>

@@ -4,6 +4,25 @@
 
     
   <url>
+    <loc>https://caojingyou.github.io/2018/06/21/git/</loc>
+    <lastmod>2018-06-26T05:21:47.844Z</lastmod>
+    <data>
+        <display>
+        <title>git学习</title>
+        <pubTime>2018-06-21T10:08:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>git</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://caojingyou.github.io/2018/06/07/%E5%A4%9A%E5%AA%92%E4%BD%93%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2018-06-21T10:12:00.371Z</lastmod>
     <data>
