@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2016/08/15/程序打包/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="Visual Studio InstallerVS2010程序打包操作 InstallShieldInstallShield使用完全教程 探索InstallShield——制作一个完整的应用程序安装实例 一个完整的Installshield安装程序实例  从Visual Studio 2012开始，微软就把自家原来的安装与部署工具彻底废掉了，转而让大家去安装使用第三方的打包工具“InstallSh">
-<meta property="og:updated_time" content="2018-04-11T07:46:48.316Z">
+<meta property="og:updated_time" content="2018-07-11T06:21:40.308Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="程序打包">
 <meta name="twitter:description" content="Visual Studio InstallerVS2010程序打包操作 InstallShieldInstallShield使用完全教程 探索InstallShield——制作一个完整的应用程序安装实例 一个完整的Installshield安装程序实例  从Visual Studio 2012开始，微软就把自家原来的安装与部署工具彻底废掉了，转而让大家去安装使用第三方的打包工具“InstallSh">
@@ -192,6 +192,27 @@
 <h1 id="Inno"><a href="#Inno" class="headerlink" title="Inno"></a>Inno</h1><p><a href="http://blog.csdn.net/ruifangcui7758/article/details/6662646" target="_blank" rel="noopener">Inno setup 简单打包教程</a> </p>
 <p>官网上下载的不能新建中文项目，所以还是到网上找汉化版的吧。</p>
 <pre><code>&quot;ISCC.exe&quot; &quot;%~dp0..\Inno Setup\PeriodicalEditor.iss&quot;
+</code></pre><p>语言包列表</p>
+<pre><code>http://www.jrsoftware.org/files/istrans/
+</code></pre><h2 id="自定义安装目录："><a href="#自定义安装目录：" class="headerlink" title="自定义安装目录："></a>自定义安装目录：</h2><pre><code>DefaultDirName={code:GetPath}
+
+[Code]
+//获取安装路径
+function GetPath(Param: String): String;
+var
+strPath: String;
+begin
+  strPath := ExpandConstant(&apos;{pf}\{#MyAppName}&apos;);  
+  if 
+  RegQueryStringValue(HKEY_LOCAL_MACHINE,&apos;Software\Microsoft\Windows\CurrentVersion\App Paths\XSX.exe&apos;, &apos;Path&apos;, strPath)
+  then
+  begin
+  //MsgBox(&apos;安装路径为: &apos; + strPath, mbInformation, MB_OK)
+  strPath:=strPath+&apos;\Plugins\PeriodicalEditor\&apos; 
+  //strPath := ExtractFilePath(strPath);
+  end;
+Result := strPath;
+end;
 </code></pre><h1 id="advanced-installer"><a href="#advanced-installer" class="headerlink" title="advanced installer"></a>advanced installer</h1><p><a href="http://anger6678.blog.163.com/blog/static/3293226201072944119412/" target="_blank" rel="noopener">Advanced Installer汉化版教程</a></p>
 <h1 id="NSIS"><a href="#NSIS" class="headerlink" title="NSIS"></a>NSIS</h1><p><a href="http://blog.csdn.net/csxiaoshui/article/details/45310135" target="_blank" rel="noopener">NSIS简介</a> </p>
 <p><a href="http://www.cnblogs.com/modou/p/3573772.html" target="_blank" rel="noopener">使用NSIS制作安装包</a></p>
@@ -1174,6 +1195,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">chrome</a>
               </li>
             
             <div class="clearfix"></div>

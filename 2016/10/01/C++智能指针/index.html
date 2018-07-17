@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="https://caojingyou.github.io">
   <title>C++ 引用计数技术及智能指针的简单实现 | 曹景游</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="引用计数技术及智能指针的简单实现基础对象类class Point  {  public:      Point(int xVal = 0, int yVal = 0) : x(xVal), y(yVal) { }      int getX() const     {         return x;     }      int getY() const     {         retur">
-<meta name="keywords" content="随笔,C++,智能指针">
+  <meta name="description" content="智能指针是利用RAII（在对象的构造函数中执行资源的获取（指针的初始化），在析构函数中释放（delete 指针）：这种技法把它称之为RAII（Resource Acquisition Is Initialization：资源获取即初始化））来管理资源。 引用计数技术及智能指针的简单实现基础对象类class Point  {  public:      Point(int xVal = 0, int">
+<meta name="keywords" content="随笔,C++,智能指针,Boost">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++ 引用计数技术及智能指针的简单实现">
 <meta property="og:url" content="https://caojingyou.github.io/2016/10/01/C++智能指针/index.html">
 <meta property="og:site_name" content="曹景游">
-<meta property="og:description" content="引用计数技术及智能指针的简单实现基础对象类class Point  {  public:      Point(int xVal = 0, int yVal = 0) : x(xVal), y(yVal) { }      int getX() const     {         return x;     }      int getY() const     {         retur">
-<meta property="og:updated_time" content="2018-01-05T08:47:19.086Z">
+<meta property="og:description" content="智能指针是利用RAII（在对象的构造函数中执行资源的获取（指针的初始化），在析构函数中释放（delete 指针）：这种技法把它称之为RAII（Resource Acquisition Is Initialization：资源获取即初始化））来管理资源。 引用计数技术及智能指针的简单实现基础对象类class Point  {  public:      Point(int xVal = 0, int">
+<meta property="og:updated_time" content="2018-07-17T09:44:49.848Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++ 引用计数技术及智能指针的简单实现">
-<meta name="twitter:description" content="引用计数技术及智能指针的简单实现基础对象类class Point  {  public:      Point(int xVal = 0, int yVal = 0) : x(xVal), y(yVal) { }      int getX() const     {         return x;     }      int getY() const     {         retur">
+<meta name="twitter:description" content="智能指针是利用RAII（在对象的构造函数中执行资源的获取（指针的初始化），在析构函数中释放（delete 指针）：这种技法把它称之为RAII（Resource Acquisition Is Initialization：资源获取即初始化））来管理资源。 引用计数技术及智能指针的简单实现基础对象类class Point  {  public:      Point(int xVal = 0, int">
   
     <link rel="alternative" href="/atom.xml" title="曹景游" type="application/atom+xml">
   
@@ -182,7 +182,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="引用计数技术及智能指针的简单实现"><a href="#引用计数技术及智能指针的简单实现" class="headerlink" title="引用计数技术及智能指针的简单实现"></a>引用计数技术及智能指针的简单实现</h1><h2 id="基础对象类"><a href="#基础对象类" class="headerlink" title="基础对象类"></a>基础对象类</h2><pre><code>class Point
+        <p>智能指针是利用RAII（在对象的构造函数中执行资源的获取（指针的初始化），在析构函数中释放（delete 指针）：这种技法把它称之为RAII（Resource Acquisition Is Initialization：资源获取即初始化））来管理资源。</p>
+<h1 id="引用计数技术及智能指针的简单实现"><a href="#引用计数技术及智能指针的简单实现" class="headerlink" title="引用计数技术及智能指针的简单实现"></a>引用计数技术及智能指针的简单实现</h1><h2 id="基础对象类"><a href="#基础对象类" class="headerlink" title="基础对象类"></a>基础对象类</h2><pre><code>class Point
 
 {
 
@@ -320,9 +321,31 @@ private:
 
     return 0;
 }
-</code></pre><p>参考：</p>
-<ul>
+</code></pre><h1 id="C-11智能指针"><a href="#C-11智能指针" class="headerlink" title="C++11智能指针"></a>C++11智能指针</h1><p>c++ 智能指针主要包括：<code>unique_ptr</code>,<code>shared_ptr</code>, <code>weak_ptr</code>, 这三种，其中<code>auto_ptr</code>(C++17) 已被遗弃。</p>
+<h2 id="unique-ptr-拥有独有对象所有权语义的智能指针-类模板"><a href="#unique-ptr-拥有独有对象所有权语义的智能指针-类模板" class="headerlink" title="unique_ptr  拥有独有对象所有权语义的智能指针    (类模板)"></a><a href="https://zh.cppreference.com/w/cpp/memory/unique_ptr" target="_blank" rel="noopener"><code>unique_ptr</code></a>  拥有独有对象所有权语义的智能指针    (类模板)</h2><p><code>std::unique_ptr</code> 是通过指针占有并管理另一对象，并在 unique_ptr 离开作用域时释放该对象的智能指针。</p>
+<h2 id="shared-ptr-拥有共享对象所有权语义的智能指针-类模板"><a href="#shared-ptr-拥有共享对象所有权语义的智能指针-类模板" class="headerlink" title="shared_ptr  拥有共享对象所有权语义的智能指针    (类模板)"></a><code>shared_ptr</code>  拥有共享对象所有权语义的智能指针    (类模板)</h2><p><code>std::shared_ptr</code> 是通过指针保持对象共享所有权的智能指针。多个 <code>shared_ptr</code> 对象可占有同一对象。</p>
+<h2 id="weak-ptr-由std-shared-ptr所管理的对象的弱引用-类模板"><a href="#weak-ptr-由std-shared-ptr所管理的对象的弱引用-类模板" class="headerlink" title="weak_ptr  由std::shared_ptr所管理的对象的弱引用    (类模板)"></a><code>weak_ptr</code>  由<code>std::shared_ptr</code>所管理的对象的弱引用    (类模板)</h2><p><code>std::weak_ptr</code> 是一种智能指针，它对被 <code>std::shared_ptr</code> 管理的对象存在非拥有性（“弱”）引用。在访问所引用的对象前必须先转换为 <code>std::shared_ptr</code>。</p>
+<p><code>std::weak_ptr</code> 用来表达临时所有权的概念：当某个对象只有存在时才需要被访问，而且随时可能被他人删除时，可以使用 <code>std::weak_ptr</code> 来跟踪该对象。需要获得临时所有权时，则将其转换为 <code>std::shared_ptr</code>，此时如果原来的 <code>std::shared_ptr</code> 被销毁，则该对象的生命期将被延长至这个临时的 <code>std::shared_ptr</code> 同样被销毁为止。</p>
+<p>此外，<code>std::weak_ptr</code> 还可以用来避免 <code>std::shared_ptr</code> 的循环引用。</p>
+<p>weak_ptr 只能由shared_ptr或者其它的weak_ptr构造</p>
+<h1 id="Boost库智能指针（shared-ptr-amp-amp-scoped-ptr-amp-amp-weak-ptr）"><a href="#Boost库智能指针（shared-ptr-amp-amp-scoped-ptr-amp-amp-weak-ptr）" class="headerlink" title="Boost库智能指针（shared_ptr &amp;&amp; scoped_ptr &amp;&amp; weak_ptr）"></a>Boost库智能指针（<code>shared_ptr &amp;&amp; scoped_ptr &amp;&amp; weak_ptr</code>）</h1><h2 id="scoped-ptr"><a href="#scoped-ptr" class="headerlink" title="scoped_ptr"></a>scoped_ptr</h2><p><code>Scoped_ptr</code>不能够被拷贝和赋值，但是可以交换。不能够被拷贝和赋值的原因是赋值运算符和拷贝构造函数都是private。</p>
+<p>reset()也可以释放堆对象，就是利用交换实现的。</p>
+<p><code>boost::scoped_ptr</code>有着更严格的使用限制——不能拷贝。这就意味着：<code>boost::scoped_ptr</code>指针是不能转换其所有权的。</p>
+<p>它能够保证在离开作用域后对象被自动释放。</p>
+<h2 id="shared-ptr"><a href="#shared-ptr" class="headerlink" title="shared_ptr"></a>shared_ptr</h2><p><code>shared_ptr</code>是可以拷贝和赋值的，拷贝行为也是等价的，并且可以被比较，这意味这它可被放入标准库的一般容器（vector，list）和关联容器中（map）.</p>
+<p><code>boost::shared_ptr</code>的管理机制其实并不复杂，就是对所管理的对象进行了引用计数，当新增一个<code>boost::shared_ptr</code>对该对象进行管理时，就将该对象的引用计数加一；减少一个<code>boost::shared_ptr</code>对该对象进行管理时，就将该对象的引用计数减一，如果该对象的引用计数为0的时候，说明没有任何指针对其管理，才调用delete释放其所占的内存。</p>
+<p><code>shared_ptr</code>并不能对循环引用的对象内存自动管理（这点是其它各种引用计数管理内存方式的通病）。</p>
+<p>不要构造一个临时的<code>shared_ptr</code>作为函数的参数。</p>
+<p>构造一个临时的<code>shared_ptr</code>作为函数的参数:</p>
+<p>这个问题与异常和函数参数的求值顺序有关。C++构造函数发生的异常将不会调用析构函数。例如<code>f(shared_ptr&lt;int&gt;(new int(2)), g())</code>。构造了临时的 <code>shared_ptr</code> ，这就为内存泄漏留下了可乘之机。因为函数参数的求值顺序是不确定的，<code>new int(2)</code> 首先被求值，<code>g()</code> 第二个是有可能的，如果 g 抛出一个异常，我们永远也不可能到达 <code>shared_ptr</code> 的构造函数。<code>new int(2)</code>申请的资源没有机会被释放。</p>
+<h2 id="weak-ptr"><a href="#weak-ptr" class="headerlink" title="weak_ptr"></a>weak_ptr</h2><p>弱引用并不修改该对象的引用计数，这意味这弱引用它并不对对象的内存进行管理，在功能上类似于普通指针，然而一个比较大的区别是，弱引用能检测到所管理的对象是否已经被释放，从而避免访问非法内存.</p>
+<p><code>boost::weak_ptr</code>必须从一个<code>boost::share_ptr</code>或另一个<code>boost::weak_ptr</code>转换而来，这也说明，进行该对象的内存管理的是那个强引用的<code>boost::share_ptr</code>。<code>boost::weak_ptr</code>只是提供了对管理对象的一个访问手段。</p>
+<p><code>boost::weak_ptr</code>除了对所管理对象的基本访问功能（通过<code>get()</code>函数）外，还有两个常用的功能函数：<code>expired()</code>用于检测所管理的对象是否已经释放；<code>lock()</code>用于获取所管理的对象的强引用指针。</p>
+<p><code>weak_ptr&lt;T&gt;</code>的引入主要是为了解决<code>shared_ptr</code>的循环引用的问题.</p>
+<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
 <li><a href="http://mp.weixin.qq.com/s?__biz=MzAxNDI5NzEzNg==&amp;mid=2651156666&amp;idx=1&amp;sn=4109903d526468f5913922d2f06e5a1a&amp;scene=0#wechat_redirect" target="_blank" rel="noopener">C++ 引用计数技术及智能指针的简单实现</a>(文章写的太好了，转过了以后用)</li>
+<li><a href="https://blog.csdn.net/leichaowen/article/details/53064294" target="_blank" rel="noopener">弱引用<code>weak_ptr</code> 解决<code>shared_ptr</code>的循环引用</a></li>
+<li><a href="https://blog.csdn.net/applemonkey11/article/details/79031615" target="_blank" rel="noopener">将智能指针作为函数输入参数的两个问题</a></li>
 </ul>
 
       
@@ -377,6 +400,10 @@ private:
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">智能指针</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Boost</a>
         		</li>
       		
 		</ul>
@@ -446,18 +473,18 @@ private:
   
 <nav id="article-nav">
   
-    <a href="/2016/10/01/CShap 视频编辑/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/11/01/CShap 进程间通信/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          C# 视频编辑
+          C# 进程间通信
         
       </div>
     </a>
   
   
-    <a href="/2016/09/15/Github pages + jekyll 博客快速搭建/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Github pages + jekyll 博客快速搭建</div>
+    <a href="/2016/10/01/CShap 视频编辑/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">C# 视频编辑</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -1284,6 +1311,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">chrome</a>
               </li>
             
             <div class="clearfix"></div>

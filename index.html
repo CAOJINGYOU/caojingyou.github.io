@@ -160,6 +160,240 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-C++获取外部exe程序的返回值，判断图片颜色模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="C-获取外部exe程序的返回值"><a href="#C-获取外部exe程序的返回值" class="headerlink" title="C++获取外部exe程序的返回值"></a>C++获取外部exe程序的返回值</h1><pre><code>#include &quot;stdafx.h&quot;
+#include &lt;Windows.h&gt;
+#include &lt;iostream&gt;
+using namespace std;
+
+int _tmain(int argc, _TCHAR *argv[])
+{
+    STARTUPINFOA si;
+    PROCESS_INFORMATION pi;
+
+    ZeroMemory(&amp;pi,   sizeof(pi));
+    ZeroMemory(&amp;si,   sizeof(si));
+    si.cb = sizeof(STARTUPINFOA);
+
+    TCHAR cmd[256] = _T(&quot;D:\\7za.exe a D:\\nv1.zip D:\\test\\*.*&quot;);
+    BOOL working = ::CreateProcess(NULL, cmd, NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS , NULL, NULL, &amp;si, &amp;pi);
+
+    if (working == 0)
+    {
+        DWORD error = GetLastError();
+        cout &lt;&lt; &quot;CreateProcess Error : &quot; &lt;&lt; error &lt;&lt; endl;
+        getchar();
+        return 0;
+    }
+
+    WaitForSingleObject(pi.hProcess, INFINITE);
+
+    unsigned long Result;
+    GetExitCodeProcess(pi.hProcess, &amp;Result);
+
+    cout &lt;&lt; &quot;Exit Code : &quot; &lt;&lt; Result &lt;&lt; endl;
+    getchar();
+
+    return 0;
+}
+</code></pre><h1 id="调用命令行程序并获取返回信息"><a href="#调用命令行程序并获取返回信息" class="headerlink" title="调用命令行程序并获取返回信息"></a>调用命令行程序并获取返回信息</h1><pre><code>CString ExeCmd(CString pszCmd)
+{
+    //创建匿名管道
+    SECURITY_ATTRIBUTES sa = {sizeof(SECURITY_ATTRIBUTES), NULL, TRUE};
+    HANDLE hRead, hWrite;
+    if (!CreatePipe(&amp;hRead, &amp;hWrite, &amp;sa, 0))
+    {
+        return _T(&quot;&quot;);
+    }
+
+    //设置命令行进程启动信息(以隐藏方式启动命令并定位其输出到hWrite)
+    STARTUPINFO si = {sizeof(STARTUPINFO)};
+    GetStartupInfo(&amp;si);
+    si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
+    si.wShowWindow = SW_HIDE;
+    si.hStdError = hWrite;
+    si.hStdOutput = hWrite;
+
+    //启动命令行
+    PROCESS_INFORMATION pi;
+    if (!CreateProcess(NULL, (LPWSTR)(LPCWSTR)pszCmd, NULL, NULL, TRUE, NULL, NULL, NULL, &amp;si, &amp;pi))
+    {
+        return _T(&quot;&quot;);
+    }
+
+    //立即关闭hWrite
+    CloseHandle(hWrite);
+
+    //读取命令行返回值
+    char buff[1024] = {0};
+    DWORD dwRead = 0;
+    while (ReadFile(hRead, buff, 1024, &amp;dwRead, NULL))
+    {
+    }
+    CString strRet(buff);
+    CloseHandle(hRead);
+
+    return strRet;
+}
+</code></pre><p>使用：</p>
+<pre><code>ExeCmd(_T(&quot;ping baidu.com&quot;));
+ExeCmd(_T(&quot;identify -format &quot;%[colorspace]&quot; E:\\P70306-163226.jpg&quot;));
+</code></pre><h1 id="其他参考："><a href="#其他参考：" class="headerlink" title="其他参考："></a>其他参考：</h1><pre><code>BOOL    Start(LPCTSTR lpszTaskInfo)
+{
+    if (!lpszTaskInfo)
+    {
+        return FALSE;
+    }
+    if (m_hRenderProcess)
+    {
+        if (Wait(0))
+        {
+            m_nProgress = 0;
+            SAFE_CLOSE_HANDLE(m_hRenderProcess);
+            m_dwRenderThreadId = 0;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+
+    BOOL bRet = FALSE;
+    HANDLE hDebugInfo = NULL;
+    do
+    {
+        TCHAR szDebugLog[MAX_PATH];
+        _tcscpy(szDebugLog, m_szFastRenderExPath);
+        _tcscat(szDebugLog, _T(&quot;.debug&quot;));
+        SECURITY_ATTRIBUTES sa;
+        sa.nLength = sizeof(sa);
+        sa.lpSecurityDescriptor = NULL;
+        sa.bInheritHandle = TRUE;
+        hDebugInfo = CreateFile(szDebugLog, FILE_WRITE_DATA, FILE_SHARE_READ, &amp;sa, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+
+        STARTUPINFO si;
+        PROCESS_INFORMATION pi;
+        ZeroMemory( &amp;si, sizeof(si) );
+        si.cb = sizeof(si);
+        ZeroMemory( &amp;pi, sizeof(pi) );
+        si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
+        si.hStdInput = NULL;
+        si.hStdOutput = hDebugInfo;
+        si.hStdError = hDebugInfo;
+        si.wShowWindow = SW_HIDE;
+
+        TCHAR szCmdline[MAX_PATH * 2];
+        _sntprintf(szCmdline, ARRAYSIZE(szCmdline), _T(&quot; -i \&quot;%s\&quot;&quot;), lpszTaskInfo); // 第一个空格非常重要
+        // Start the child process.
+        if( !CreateProcess( m_szFastRenderExPath,   // Module name
+                            szCmdline,      // Command line
+                            NULL,           // Process handle not inheritable
+                            NULL,           // Thread handle not inheritable
+                            TRUE,          // Set handle inheritance to FALSE
+                            0,              // No creation flags
+                            NULL,           // Use parent&apos;s environment block
+                            NULL,           // Use parent&apos;s starting directory
+                            &amp;si,            // Pointer to STARTUPINFO structure
+                            &amp;pi )           // Pointer to PROCESS_INFORMATION structure
+          )
+        {
+            break;
+        }
+        // Close process and thread handles.
+        m_hRenderProcess = pi.hProcess;
+        CloseHandle( pi.hThread );
+        m_dwRenderThreadId = pi.dwThreadId;
+
+        // Start the message receive thread
+        if (!m_dwReceiveThreadId)
+        {
+            HANDLE hThread = (HANDLE) _beginthreadex(NULL,    0, ThreadFn, this, 0, &amp;m_dwReceiveThreadId);
+            if (hThread == NULL)
+            {
+                break;
+            }
+            CloseHandle(hThread);
+        }
+
+        if (!m_hMsgEvent)
+        {
+            m_hMsgEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
+        }
+        else
+        {
+            ResetEvent(m_hMsgEvent);
+        }
+
+        bRet = TRUE;
+    }
+    while (FALSE);
+
+    SAFE_CLOSE_HANDLE(hDebugInfo);
+
+    if (!bRet)
+    {
+        if (m_hRenderProcess)
+        {
+            TerminateProcess(m_hRenderProcess, -1);
+            SAFE_CLOSE_HANDLE(m_hRenderProcess);
+        }
+        m_dwRenderThreadId = 0;
+        SAFE_CLOSE_HANDLE(m_hMsgEvent);
+    }
+
+    return bRet;
+}
+</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<li><a href="http://blog.csdn.net/lgh1700/article/details/7713500" title="http://blog.csdn.net/lgh1700/article/details/7713500" target="_blank" rel="noopener">C++获取外部exe程序的返回值 </a></li>
+<li><a href="http://www.cnblogs.com/acloud/archive/2012/08/30/2663395.html" target="_blank" rel="noopener">调用命令行程序并获取返回信息</a></li>
+<li><a href="http://dahua2.blog.163.com/blog/static/1748435142015317633489/" target="_blank" rel="noopener">ImageMagick–identify详解</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/17/C++获取外部exe程序的返回值，判断图片颜色模式/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-git" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -3175,205 +3409,6 @@ printf(&quot;%s\n&quot;, output);
 
 
   
-    <article id="post-进程、线程、同步、并发" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/30/进程、线程、同步、并发/">进程、线程、同步、并发</a>
-    </h1>
-  
-
-        
-        <a href="/2018/05/30/进程、线程、同步、并发/" class="archive-article-date">
-  	<time datetime="2018-05-30T08:02:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Boost-Thread"><a href="#Boost-Thread" class="headerlink" title="Boost.Thread"></a>Boost.Thread</h1><h1 id="Win32-API"><a href="#Win32-API" class="headerlink" title="Win32 API"></a>Win32 API</h1><h1 id="pthread"><a href="#pthread" class="headerlink" title="pthread"></a>pthread</h1><h1 id="线程同步："><a href="#线程同步：" class="headerlink" title="线程同步："></a>线程同步：</h1><p>线程可分为UI线程，工作者线程</p>
-<ul>
-<li>临界区(Critical Section)</li>
-<li>互斥量(Mutex)、互斥对象</li>
-<li>信号量(Semaphore)</li>
-<li>事件(Event)</li>
-<li>读写锁shared_mutex、shared_lock、unique_lock</li>
-<li>可等待定时器</li>
-<li>原子锁</li>
-<li>条件变量</li>
-<li>线程池threadpool</li>
-<li>生产者-消费者</li>
-<li>期货future</li>
-</ul>
-<h1 id="进程间的同步"><a href="#进程间的同步" class="headerlink" title="进程间的同步"></a>进程间的同步</h1><p>windows和linux共有的进程间通信方式：1. 消息（linux中叫做信号） 2. 共享内存  3. 邮槽  4. 管道   5.socket</p>
-<h2 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h2><ul>
-<li>文件映射</li>
-<li>共享内存（是文件映射的一种特殊情况）</li>
-<li>邮件槽（mailslot）（点对点消息队列）CreateMailSlot</li>
-<li>命名管道 createNamePipe   connectNamePipe</li>
-<li>匿名管道</li>
-<li>剪贴板</li>
-<li>动态数据交换DDE</li>
-<li>对象链接与嵌入OLE</li>
-<li>远程过程调用RPC</li>
-<li>动态链接库DLL</li>
-<li>Socket</li>
-<li>WM_COPYDATA 消息</li>
-</ul>
-<h2 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h2><ul>
-<li>无名管道Pipe</li>
-<li>信号量semaphore</li>
-<li>共享内存</li>
-<li>消息队列、报文队列</li>
-<li>套接字</li>
-<li>信号Signal</li>
-<li>D-Bus主要概念是总线</li>
-</ul>
-<p><a href="https://www.cnblogs.com/findumars/p/6329593.html" target="_blank" rel="noopener">https://www.cnblogs.com/findumars/p/6329593.html</a></p>
-<p><a href="http://blog.163.com/laylau_ll/blog/static/178625909201173131345423/" target="_blank" rel="noopener">http://blog.163.com/laylau_ll/blog/static/178625909201173131345423/</a></p>
-<h1 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h1><p>协程，又称微线程，纤程。</p>
-<p>Boost.Coroutine</p>
-<h1 id="原子操作"><a href="#原子操作" class="headerlink" title="原子操作"></a>原子操作</h1><p>原子库为细粒度的原子操作提供组件，允许无锁并发编程。</p>
-<p><a href="http://zh.cppreference.com/w/cpp/atomic" target="_blank" rel="noopener">http://zh.cppreference.com/w/cpp/atomic</a></p>
-<h1 id="C-11线程"><a href="#C-11线程" class="headerlink" title="C++11线程"></a>C++11线程</h1><p><a href="http://zh.cppreference.com/w/cpp/thread" target="_blank" rel="noopener">http://zh.cppreference.com/w/cpp/thread</a></p>
-<h1 id="Win32多线程程序设计中关键函数"><a href="#Win32多线程程序设计中关键函数" class="headerlink" title="Win32多线程程序设计中关键函数"></a>Win32多线程程序设计中关键函数</h1><ul>
-<li>_beginthread</li>
-<li>_beginthreadex</li>
-<li>_endthread</li>
-<li>_endthreadex</li>
-<li>AfxBeginThread</li>
-<li>CloseHandle</li>
-<li>CoInitializeEx</li>
-<li>CreateEvent</li>
-<li>CreateFile</li>
-<li>CreateFileMapping</li>
-<li>CreateIoCompletionPort</li>
-<li>CreateMutex</li>
-<li>CreateSemaphore</li>
-<li>CreateThread</li>
-<li>DeleteCriticalSection</li>
-<li>DisableThreadLibraryCalls</li>
-<li>EnterCriticalSection</li>
-<li>ExitThread</li>
-<li>FileIOCompletionRoutine</li>
-<li>GetExitCodeThread</li>
-<li>GetQueuedCompletionStatus</li>
-<li>GetStdHandle</li>
-<li>GetThreadPriority</li>
-<li>InitializeCriticalSection</li>
-<li>InterlockedDecrement</li>
-<li>InterlockedExchange</li>
-<li>InterlockedIncrement</li>
-<li>LeaveCriticalSection</li>
-<li>MapViewOfFile</li>
-<li>MsgWaitForMultipleObjects</li>
-<li>MsgWaitForMultipleObjectsEx</li>
-<li>MsgWaitForMultipleObjects</li>
-<li>OpenFileMapping</li>
-<li>PostThreadMessage</li>
-<li>ReadFile</li>
-<li>ReadFileEx</li>
-<li>ReleaseMutex</li>
-<li>ReleaseSemaphore</li>
-<li>ReplyMessage</li>
-<li>ResumeThread</li>
-<li>SetThreadPriority</li>
-<li>SleepEx</li>
-<li>SuspendThread</li>
-<li>TerminateThread</li>
-<li>TlsAlloc</li>
-<li>TlsFree</li>
-<li>TlsGetValue</li>
-<li>TlsSetValue</li>
-<li>UnmapViewOfFile</li>
-<li>GetOverlappedResult</li>
-<li>WaitForMultipleObjects</li>
-<li>WaitForMultipleObjectsEx</li>
-<li>WaitForSingleObject</li>
-<li>WaitForSingleObjectEx</li>
-<li>WriteFile</li>
-<li>WriteFileEx</li>
-</ul>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://segmentfault.com/a/1190000006232497" target="_blank" rel="noopener">https://segmentfault.com/a/1190000006232497</a></p>
-<p><a href="http://www.bogotobogo.com/cplusplus/multithreaded4_cplusplus11.php" target="_blank" rel="noopener">http://www.bogotobogo.com/cplusplus/multithreaded4_cplusplus11.php</a></p>
-<h1 id="书籍"><a href="#书籍" class="headerlink" title="书籍"></a>书籍</h1><ul>
-<li>Win32多线程程序设计</li>
-<li>Windows核心编程</li>
-<li>C++并发编程</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">并发</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">多线程</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">同步</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/30/进程、线程、同步、并发/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -4172,6 +4207,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">chrome</a>
               </li>
             
             <div class="clearfix"></div>

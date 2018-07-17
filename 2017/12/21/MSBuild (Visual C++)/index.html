@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2017/12/21/MSBuild (Visual C++)/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="Visual Studio 文档https://docs.microsoft.com/zh-cn/visualstudio/ MSBuild (Visual C++)https://msdn.microsoft.com/zh-cn/library/dd293626.aspx 可以使用 MSBuild 工具从命令提示符处生成 Visual C++ 应用程序。 该生成过程由您可以创建和编辑的项目文件">
-<meta property="og:updated_time" content="2018-04-12T06:26:11.672Z">
+<meta property="og:updated_time" content="2018-07-13T08:02:53.272Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MSBuild">
 <meta name="twitter:description" content="Visual Studio 文档https://docs.microsoft.com/zh-cn/visualstudio/ MSBuild (Visual C++)https://msdn.microsoft.com/zh-cn/library/dd293626.aspx 可以使用 MSBuild 工具从命令提示符处生成 Visual C++ 应用程序。 该生成过程由您可以创建和编辑的项目文件">
@@ -549,6 +549,9 @@ set PROCESSOR_ARCHITECTURE=x86
 rem
 rem That&apos;s all Folks!
 :eof
+</code></pre><h1 id="MSBuild编译"><a href="#MSBuild编译" class="headerlink" title="MSBuild编译"></a>MSBuild编译</h1><pre><code>call &quot;%~dp0\vcvars.bat&quot; 2005|2008|2010|2012|2013|2015 x86|x64
+MSBuild %~dp0..\Project\pro.sln /t:rebuild /p:configuration=&quot;Release&quot;
+MSBuild &quot;%~dp0..\Project\pro.sln&quot; /t:clean
 </code></pre><h1 id="devenv"><a href="#devenv" class="headerlink" title="devenv"></a>devenv</h1><pre><code>@echo off
 
 cd /d %~dp0
@@ -1535,6 +1538,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">chrome</a>
               </li>
             
             <div class="clearfix"></div>

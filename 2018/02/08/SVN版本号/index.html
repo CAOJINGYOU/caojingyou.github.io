@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2018/02/08/SVN版本号/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="SVN获取版本号version_template.h#ifndef _VERSION_H_ #define _VERSION_H_ #define VER_MAJOR 1 #define VER_MINOR 0 #define VER_REVISION $WCREV$  #define SVN_REVISION&amp;quot;$WCMIXED?$WCRANGE$:$WCREV$$&amp;quot;  #de">
-<meta property="og:updated_time" content="2018-03-07T06:05:11.378Z">
+<meta property="og:updated_time" content="2018-07-17T09:23:11.911Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SVN版本号">
 <meta name="twitter:description" content="SVN获取版本号version_template.h#ifndef _VERSION_H_ #define _VERSION_H_ #define VER_MAJOR 1 #define VER_MINOR 0 #define VER_REVISION $WCREV$  #define SVN_REVISION&amp;quot;$WCMIXED?$WCRANGE$:$WCREV$$&amp;quot;  #de">
@@ -300,9 +300,15 @@ char *lockcmt   = &quot;&quot;;
 <pre><code>$(SolutionDir)\subwcrev.exe $(SolutionDir) $(SolutionDir)\src\qmlv\version_template.h $(SolutionDir)\src\qmlv\version.h
 </code></pre><p>SubWCRev 调用语法:</p>
 <pre><code>SubWCRev WorkingCopyPath [SrcVersionFile DstVersionFile]
-</code></pre><h1 id="svn版本日志"><a href="#svn版本日志" class="headerlink" title="svn版本日志"></a>svn版本日志</h1><p>Apache-Subversion-1.9.7：</p>
+</code></pre><h1 id="svn版本日志"><a href="#svn版本日志" class="headerlink" title="svn版本日志"></a>svn版本日志</h1><p>添加svn.exe目录到环境变量中</p>
+<p>Apache-Subversion-1.9.7：</p>
 <pre><code>&quot;svn.exe&quot; log --incremental -r4620
 &quot;svn.exe&quot; log --incremental -r4522
+</code></pre><p>显示当前工作副本的最新5条日志消息<br>    每次提交中更改的目录和显示路径：</p>
+<pre><code>svn log -l 5 -v
+</code></pre><p>更新readme.bat</p>
+<pre><code>svn update %~dp0..\
+svn log -l 1 %~dp0..\ &gt; %~dp0readme.txt
 </code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html" title="https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html" target="_blank" rel="noopener">https://tortoisesvn.net/docs/nightly/TortoiseSVN_zh_CN/tsvn-subwcrev-keywords.html</a></p>
 <p><a href="http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html" title="http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_75c9af020102vgh2.html</a></p>
 <p><a href="https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html" title="https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/ae97a646833b87bbfd461d0d.html</a></p>
@@ -1273,6 +1279,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">chrome</a>
               </li>
             
             <div class="clearfix"></div>

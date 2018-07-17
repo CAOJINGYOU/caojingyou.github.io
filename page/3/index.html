@@ -160,6 +160,123 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-设计模式之禅" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/15/设计模式之禅/">设计模式之禅-笔记</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/15/设计模式之禅/" class="archive-article-date">
+  	<time datetime="2018-05-15T01:32:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="设计模式之禅"><a href="#设计模式之禅" class="headerlink" title="设计模式之禅"></a>设计模式之禅</h1><h2 id="秦小波"><a href="#秦小波" class="headerlink" title="秦小波"></a>秦小波</h2><h3 id="Citation-APA-秦小波-2010-设计模式之禅-Kindle-Android-version-Retrieved-from-Amazon-com"><a href="#Citation-APA-秦小波-2010-设计模式之禅-Kindle-Android-version-Retrieved-from-Amazon-com" class="headerlink" title="Citation (APA): 秦小波. (2010). 设计模式之禅 [Kindle Android version]. Retrieved from Amazon.com"></a>Citation (APA): 秦小波. (2010). 设计模式之禅 [Kindle Android version]. Retrieved from Amazon.com</h3><p>单例模式和原型模式非常容易理解，单例模式是要保持在内存中只有一个对象，原型模式是要求通过复制的方式产生一个新的对象，这两个不容易混淆。</p>
+<p>工厂方法模式注重的是整体对象的创建方法，而建造者模式注重的是部件构建的过程，旨在通过一步一步的精确构造创建出一个复杂的对象。</p>
+<p>一般来说，工厂方法模式的对象粒度比较粗，建造者模式的产品对象粒度比较细。</p>
+<p>如果需要详细关注一个产品部件的生产、安装步骤，则选择建造者，否则选择工厂方法模式。</p>
+<p>抽象工厂模式实现对产品家族的创建，一个产品家族是这样的一系列产品：具有不同分类维度的产品组合，采用抽象工厂模式则是不需要关心构建过程，只关心什么产品由什么工厂生产即可。</p>
+<p>为什么叫结构类模式呢？因为它们都是通过组合类或对象产生更大结构以适应更高层次的逻辑需求。</p>
+<p>装饰模式就是代理模式的一个特殊应用，两者的共同点是都具有相同的接口，不同点则是代理模式着重对代理过程的控制，而装饰模式则是对类的功能进行加强或减弱，它着重类的功能变化，</p>
+<p>代理模式和装饰模式有非常相似的地方，甚至代码实现都非常相似，特别是装饰模式中省略抽象装饰角色后，两者代码基本上相同，但是还是有细微的差别。代理模式是把当前的行为或功能委托给其他对象执行，代理类负责接口限定：是否可以调用真实角色，以及是否对发送到真实角色的消息进行变形处理，它不对被主题角色（也就是被代理类）的功能做任何处理，保证原汁原味的调用。代理模式使用到极致开发就是AOP，这是各位采用Spring架构开发必然要使用到的技术，它就是使用了代理和反射的技术。装饰模式是在要保证接口不变的情况下加强类的功能，它保证的是被修饰的对象功能比原始对象丰富（当然，也可以减弱），但不做准入条件判断和准入参数过滤，如是否可以执行类的功能，过滤输入参数是否合规等，这不是装饰模式关心的。</p>
+<p>装饰模式和适配器模式在通用类图上没有太多的相似点，差别比较大，但是它们的功能有相似的地方：都是包装作用，都是通过委托方式实现其功能。不同点是：装饰模式包装的是自己的兄弟类，隶属于同一个家族（相同接口或父类），适配器模式则修饰非血缘关系类，把一个非本家族的对象伪装成本家族的对象，注意是伪装，因此它的本质还是非相同接口的对象。</p>
+<p>装饰模式很容易扩展！今天不用这个修饰，好，去掉；明天想再使用，好，加上。这都没有问题。而且装饰类可以继续扩展下去；但是适配器模式就不同了，它在两个不同对象之间架起了一座沟通的桥梁，建立容易，去掉就比较困难了，需要从系统整体考虑是否能够撤销。</p>
+<p>行为类模式包括责任链模式、命令模式、解释器模式、迭代器模式、中介者模式、备忘录模式、观察者模式、状态模式、策略模式、模板方法模式、访问者模式。</p>
+<p>命令模式和策略模式的类图确实很相似，只是命令模式多了一个接收者（Receiver）角色。它们虽然同为行为类模式，但是两者的区别还是很明显的。策略模式的意图是封装算法，它认为“算法”已经是一个完整的、不可拆分的原子业务（注意这里是原子业务，而不是原子对象），即其意图是让这些算法独立，并且可以相互替换，让行为的变化独立于拥有行为的客户；而命令模式则是对动作的解耦，把一个动作的执行分为执行对象（接收者角色）、执行行为（命令角色），让两者相互独立而不相互影响。</p>
+<p>策略模式和命令模式相似，特别是命令模式退化时，比如无接收者（接收者非常简单或者接收者是一个Java的基础操作，无需专门编写一个接收者），在这种情况下，命令模式和策略模式的类图完全一样，代码实现也比较类似，但是两者还是有区别的。</p>
+<p>策略模式关注的是算法替换的问题，一个新的算法投产，旧算法退休，或者提供多种算法由调用者自己选择使用，算法的自由更替是它实现的要点。换句话说，策略模式关注的是算法的完整性、封装性，只有具备了这两个条件才能保证其可以自由切换。命令模式则关注的是解耦问题，如何让请求者和执行者解耦是它需要首先解决的，解耦的要求就是把请求的内容封装为一个一个的命令，由接收者执行。由于封装成了命令，就同时可以对命令进行多种处理，例如撤销、记录等。</p>
+<p>策略模式中的抽象算法和具体算法与命令模式的接收者非常相似，但是它们的职责不同。策略模式中的具体算法是负责一个完整算法逻辑，它是不可再拆分的原子业务单元，一旦变更就是对算法整体的变更。</p>
+<p>策略模式适用于算法要求变换的场景，而命令模式适用于解耦两个有紧耦合关系的对象场合或者多命令多撤销的场景。</p>
+<p>策略模式封装的是不同的算法，算法之间没有交互，以达到算法可以自由切换的目的；而状态模式封装的是不同的状态，以达到状态切换行为随之发生改变的目的。这两种模式虽然都有变换的行为，但是两者的目标却是不同的。</p>
+<p>策略模式的环境角色只是一个委托作用，负责算法的替换；而状态模式的环境角色不仅仅是委托行为，它还具有登记状态变化的功能，与具体的状态类协作，共同完成状态切换行为随之切换的任务。</p>
+<p>策略模式只是确保算法可以自由切换，但是什么时候用什么算法它决定不了；而状态模式对外暴露的是行为，状态的变化一般是由环境角色和具体状态共同完成的，也就是说状态模式封装了状态的变化而暴露了不同的行为或行为结果。</p>
+<p>在责任链模式中，上下节点没有关系，都是接收同样的对象，所有传递的对象都是从链首传递过来，上一节点是什么没有关系，只要按照自己的逻辑处理就成。而触发链模式就不同了，它的上下级关系很亲密，下级对上级顶礼膜拜，上级对下级绝对信任，链中的任意两个相邻节点都是一个牢固的独立团体。</p>
+<p>在责任链模式中，一个消息从链首传递进来后，就开始沿着链条向链尾运动，方向是单一的、固定的；而触发链模式则不同，由于它采用的是观察者模式，所以有非常大的灵活性，一个消息传递到链首后，具体怎么传递是不固定的，可以以广播方式传递，也可以以跳跃方式传递，这取决于处理消息的逻辑。</p>
+<p>创建类模式描述如何创建对象，行为类模式关注如何管理对象的行为，结构类模式则着重于如何建立一个软件结构，虽然三种模式的着重点不同，</p>
+<p>策略模式实现两种算法的自由切换，它提供了这样的保证：封装邮件的两种行为是可选择的，至于选择哪个算法是由上层模块决定的。策略模式要完成的任务就是提供两种可以替换的算法。</p>
+<p>桥梁模式关注的是抽象和实现的分离，它是结构型模式，</p>
+<p>简单来说，策略模式是使用继承和多态建立一套可以自由切换算法的模式，桥梁模式是在不破坏封装的前提下解决抽象和实现都可以独立扩展的模式。桥梁模式必然有两个“桥墩”——抽象化角色和实现化角色，只要桥墩搭建好，桥就有了，而策略模式只有一个抽象角色，可以没有实现，也可以有很多实现。</p>
+<p>门面模式为复杂的子系统提供一个统一的访问界面，它定义的是一个高层接口，该接口使得子系统更加容易使用，避免外部模块深入到子系统内部而产生与子系统内部细节耦合的问题。中介者模式使用一个中介对象来封装一系列同事对象的交互行为，它使各对象之间不再显式地引用，从而使其耦合松散，建立一个可扩展的应用架构。</p>
+<p>门面模式和中介者模式之间的区别还是比较明显的，门面模式是以封装和隔离为主要任务，而中介者模式则是以调和同事类之间的关系为主，因为要调和，所以具有了部分的业务逻辑控制。</p>
+<p>门面模式只是增加了一个门面，它对子系统来说没有增加任何的功能，子系统若脱离门面模式是完全可以独立运行的。而中介者模式则增加了业务功能，它把各个同事类中的原有耦合关系移植到了中介者，同事类不可能脱离中介者而独立存在，除非是想增加系统的复杂性和降低扩展性。</p>
+<p>门面模式是一种简单的封装，所有的请求处理都委托给子系统完成，而中介者模式则需要有一个中心，由中心协调同事类完成，并且中心本身也完成部分业务，它属于更进一步的业务功能封装。</p>
+<p>包装模式包括：装饰模式、适配器模式、门面模式、代理模式、桥梁模式。</p>
+<p>5个包装模式是大家在系统设计中经常会用到的模式，它们具有相似的特征：都是通过委托的方式对一个对象或一系列对象（例如门面模式）施行包装，有了包装，设计的系统才更加灵活、稳定，并且极具扩展性。从实现的角度来看，它们都是代理的一种具体表现形式，</p>
+<p>装饰模式是一种特殊的代理模式，它倡导的是在不改变接口的前提下为对象增强功能，或者动态添加额外职责。就扩展性而言，它比子类更加灵活，例如在一个已经运行的项目中，可以很轻松地通过增加装饰类来扩展系统的功能。适配器模式的主要意图是接口转换，把一个对象的接口转换成系统希望的另外一个接口，这里的系统指的不仅仅是一个应用，也可能是某个环境，比如通过接口转换可以屏蔽外界接口，以免外界接口深入系统内部，从而提高系统的稳定性和可靠性。桥梁模式是在抽象层产生耦合，解决的是自行扩展的问题，它可以使两个有耦合关系的对象互不影响地扩展，比如对于使用笔画图这样的需求，可以采用桥梁模式设计成用什么笔（铅笔、毛笔）画什么图（圆形、方形）的方案，至于以后需求的变更，如增加笔的类型，增加图形等，对该设计来说是小菜一碟。门面模式是一个粗粒度的封装，它提供一个方便访问子系统的接口，不具有任何的业务逻辑，仅仅是一个访问复杂系统的快速通道，没有它，子系统照样运行，有了它，只是更方便访问而已。</p>
+<h1 id="23种设计模式彩图"><a href="#23种设计模式彩图" class="headerlink" title="23种设计模式彩图"></a>23种设计模式彩图</h1><p><img src="https://i.imgur.com/WT9XrQv.png" alt=""></p>
+<p><img src="https://i.imgur.com/oOq0ZC4.png" alt=""></p>
+<p><img src="https://i.imgur.com/ujyOLJH.png" alt=""></p>
+<p><img src="https://i.imgur.com/fAc8qmZ.png" alt=""></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">设计模式</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">笔记</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/15/设计模式之禅/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-设计模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -218,10 +335,16 @@
 </li>
 </ol>
 <p>在学习每一个设计模式时至少应该掌握如下几点：这个设计模式的意图是什么，它要解决一个什么问题，什么时候可以使用它；它是如何解决的，掌握它的结构图，记住它的关键代码；能够想到至少两个它的应用实例，一个生活中的，一个软件中的；这个模式的优缺点是什么，在使用时要注意什么。当你能够回答上述所有问题时，恭喜你，你了解一个设计模式了，至于掌握它，那就在开发中去使用吧，用多了你自然就掌握了。学习设计模式的目的在于应用，如果不懂如何使用一个设计模式，而只是学过，能够说出它的用途，绘制它的结构，充其量也只能说你了解这个模式，严格一点说：不会在开发中灵活运用一个模式基本上等于没学。所以一定要做到：少说多做。</p>
+<h1 id="设计模式概述-1"><a href="#设计模式概述-1" class="headerlink" title="设计模式概述"></a>设计模式概述</h1><pre><code>设计模式(Design Pattern)是一套被反复使用、多数人知晓的、经过分类编目的、代码设计经验的总结，使用设计模式是为了可重用代码、让代码更容易被他人理解并且保证代码可靠性。
+</code></pre><p>设计模式一般包含模式名称、问题、目的、解决方案、效果等组成要素，其中关键要素是模式名称、问题、解决方案和效果。模式名称(Pattern Name)通过一两个词来描述模式的问题、解决方案和效果，以便更好地理解模式并方便开发人员之间的交流，绝大多数模式都是根据其功能或模式结构来命名的（GoF设计模式中没有一个模式用人名命名）；问题(Problem)描述了应该在何时使用模式，它包含了设计中存在的问题以及问题存在的原因；解决方案(Solution)描述了一个设计模式的组成成分，以及这些组成成分之间的相互关系，各自的职责和协作方式，通常解决方案通过UML类图和核心代码来进行描述；效果(Consequences)描述了模式的优缺点以及在使用模式时应权衡的问题。</p>
+<p>学习每一个设计模式时至少应该掌握如下几点：这个设计模式的意图是什么，它要解决一个什么问题，什么时候可以使用它；它是如何解决的，掌握它的结构图，记住它的关键代码；能够想到至少两个它的应用实例，一个生活中的，一个软件中的；这个模式的优缺点是什么，在使用时要注意什么。</p>
 <h1 id="面向对象设计原则"><a href="#面向对象设计原则" class="headerlink" title="面向对象设计原则"></a>面向对象设计原则</h1><h2 id="7种常用的面向对象设计原则"><a href="#7种常用的面向对象设计原则" class="headerlink" title="7种常用的面向对象设计原则"></a>7种常用的面向对象设计原则</h2><h3 id="单一职责原则-Single-Responsibility-Principle-SRP"><a href="#单一职责原则-Single-Responsibility-Principle-SRP" class="headerlink" title="单一职责原则(Single Responsibility Principle, SRP)"></a>单一职责原则(Single Responsibility Principle, SRP)</h3><p>一个类只负责一个功能领域中的相应职责</p>
 <p>★★★★☆</p>
-<h3 id="开闭原则-Open-Closed-Principle-OCP"><a href="#开闭原则-Open-Closed-Principle-OCP" class="headerlink" title="开闭原则(Open-Closed Principle, OCP)"></a>开闭原则(Open-Closed Principle, OCP)</h3><p>软件实体应对扩展开放，而对修改关闭</p>
+<p>单一职责原则是实现高内聚、低耦合的指导方针，它是最简单但又最难运用的原则</p>
+<h3 id="开闭原则-Open-Closed-Principle-OCP"><a href="#开闭原则-Open-Closed-Principle-OCP" class="headerlink" title="开闭原则(Open-Closed Principle, OCP)"></a>开闭原则(Open-Closed Principle, OCP)</h3><p>软件实体应对扩展开放，而对修改关闭。即软件实体应尽量在不修改原有代码的情况下进行扩展。</p>
 <p>★★★★★</p>
+<p>软件实体可以指一个软件模块、一个由多个类组成的局部结构或一个独立的类。</p>
+<p>抽象化是开闭原则的关键</p>
 <h3 id="里氏代换原则-Liskov-Substitution-Principle-LSP"><a href="#里氏代换原则-Liskov-Substitution-Principle-LSP" class="headerlink" title="里氏代换原则(Liskov Substitution Principle, LSP)"></a>里氏代换原则(Liskov Substitution Principle, LSP)</h3><p>所有引用基类对象的地方能够透明地使用其子类的对象</p>
 <p>★★★★★</p>
 <p>里氏代换原则告诉我们，在软件中将一个基类对象替换成它的子类对象，程序将不会产生任何错误和异常，反过来则不成立，如果一个软件实体使用的是一个子类对象的话，那么它不一定能够使用基类对象。</p>
@@ -233,8 +356,10 @@
 <h3 id="接口隔离原则-Interface-Segregation-Principle-ISP"><a href="#接口隔离原则-Interface-Segregation-Principle-ISP" class="headerlink" title="接口隔离原则(Interface Segregation Principle, ISP)"></a>接口隔离原则(Interface Segregation Principle, ISP)</h3><p>使用多个专门的接口，而不使用单一的总接口，即客户端不应该依赖那些它不需要的接口。</p>
 <p>★★☆☆☆</p>
 <p>根据接口隔离原则，当一个接口太大时，我们需要将它分割成一些更细小的接口，使用该接口的客户端仅需知道与之相关的方法即可。每一个接口应该承担一种相对独立的角色，不干不该干的事，该干的事都要干。</p>
+<p>接口仅仅提供客户端需要的行为，客户端不需要的行为则隐藏起来，应当为客户端提供尽可能小的单独的接口，而不要提供大的总接口。</p>
 <h3 id="合成复用原则-Composite-Reuse-Principle-CRP"><a href="#合成复用原则-Composite-Reuse-Principle-CRP" class="headerlink" title="合成复用原则(Composite Reuse Principle, CRP)"></a>合成复用原则(Composite Reuse Principle, CRP)</h3><p>尽量使用对象组合，而不是继承来达到复用的目的</p>
 <p>★★★★☆</p>
+<p>复用时要尽量使用组合/聚合关系（关联关系），少用继承。</p>
 <p>一般而言，如果两个类之间是“Has-A”的关系应使用组合或聚合，如果是“Is-A”关系可使用继承。”Is-A”是严格的分类学意义上的定义，意思是一个类是另一个类的”一种”；而”Has-A”则不同，它表示某一个角色具有某一项责任。</p>
 <h3 id="迪米特法则-Law-of-Demeter-LoD"><a href="#迪米特法则-Law-of-Demeter-LoD" class="headerlink" title="迪米特法则(Law of Demeter, LoD)"></a>迪米特法则(Law of Demeter, LoD)</h3><p>一个软件实体应当尽可能少地与其他实体发生相互作用</p>
 <p>★★★☆☆</p>
@@ -265,7 +390,8 @@
 <pre><code>工厂方法模式(Factory Method Pattern)：定义一个用于创建对象的接口，让子类决定将哪一个类实例化。工厂方法模式让一个类的实例化延迟到其子类。工厂方法模式又
 简称为工厂模式(Factory Pattern)，又可称作虚拟构造器模式(Virtual Constructor Pattern)或多态工厂模式(Polymorphic Factory Pattern)。工厂方法模式是
 一种类创建型模式。
-</code></pre><p><img src="https://i.imgur.com/DCe0loP.jpg" alt="工厂方法模式结构图"></p>
+</code></pre><p>不再提供一个统一的工厂类来创建所有的产品对象，而是针对不同的产品提供不同的工厂，系统提供一个与产品等级结构对应的工厂等级结构。</p>
+<p><img src="https://i.imgur.com/DCe0loP.jpg" alt="工厂方法模式结构图"></p>
 <p>在工厂方法模式结构图中包含如下几个角色：</p>
 <pre><code>● Product（抽象产品）：它是定义产品的接口，是工厂方法模式所创建对象的超类型，也就是产品对象的公共父类。
 
@@ -1012,6 +1138,249 @@ ConcreteImplementor对象将替换其父类对象，提供给抽象类具体的�
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/05/07/自动构建/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-linux下C开发" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/02/linux下C开发/">linux下C开发</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/02/linux下C开发/" class="archive-article-date">
+  	<time datetime="2018-05-02T10:09:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>刚装好的系统中已经有GCC了，但是这个GCC几乎什么文件都不能编译，因为缺少一些必须的头文件，所以要安装build-essential这个软件包输入下面命令：</p>
+<pre><code>sudo apt-get install build-essential
+</code></pre><p><a href="http://wiki.ubuntu.org.cn/C_Cpp_IDE" target="_blank" rel="noopener">C Cpp IDE</a></p>
+<p>eclipse CDT</p>
+<pre><code>#apt-get install eclipse-cdt
+</code></pre><p>CodeBlocks、CodeLite、Qt跨平台</p>
+<p>kdevelop</p>
+<pre><code>sudo apt-get install kdevelop
+</code></pre><p>make是用来完成自动编译的工具</p>
+<p>gcc/g++/gcc port/g++ port</p>
+<p>在Linux系统中开发C、C++语言程序，可选择的集成开发环境有Eclipse和Kdevelop,分别运行在GNOME和KDE桌面环境。</p>
+<h2 id="ubuntukylin编程环境"><a href="#ubuntukylin编程环境" class="headerlink" title="ubuntukylin编程环境"></a><a href="http://www.ubuntukylin.com/ukd/home/app.php" target="_blank" rel="noopener">ubuntukylin编程环境</a></h2><h3 id="QtCreator"><a href="#QtCreator" class="headerlink" title="QtCreator"></a>QtCreator</h3><pre><code>$ sudo apt-get update &amp;&amp; sudo apt-get install qtcreator
+</code></pre><p>提示: 在Ubuntu Kylin1404以后，执行上面的命令，软件源默认安装的是Qt5，如果你想使用Qt4进行开发，请执行下面的命令：</p>
+<pre><code>$ sudo apt-get install qt4-default libqt4-dev
+</code></pre><p>如果想继续使用Qt5进行开发，请执行下面的命令：</p>
+<pre><code>$ sudo apt-get install qt5-default
+</code></pre><p>使用QtCreator</p>
+<pre><code>$ qtcreator
+</code></pre><h3 id="Eclipse"><a href="#Eclipse" class="headerlink" title="Eclipse"></a>Eclipse</h3><p>安装Eclipse</p>
+<pre><code>$ sudo apt-get install eclipse
+</code></pre><p>使用Eclipse</p>
+<pre><code>$ eclipse
+</code></pre><h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><p>fork</p>
+<h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><p>POSIX标准线程库，Pthread线程对应的函数库为libpthread.</p>
+<h1 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h1><h2 id="OSI参考模型"><a href="#OSI参考模型" class="headerlink" title="OSI参考模型"></a>OSI参考模型</h2><h2 id="TCP-IP模型"><a href="#TCP-IP模型" class="headerlink" title="TCP/IP模型"></a>TCP/IP模型</h2><h2 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h2><p><img src="https://i.imgur.com/0AuPUYT.jpg" alt=""></p>
+<h2 id="网络库"><a href="#网络库" class="headerlink" title="网络库"></a>网络库</h2><ul>
+<li>libcurl    url</li>
+<li>libESMTP    SMTP</li>
+<li>libspopc    POP</li>
+<li>mailutils    IMAP</li>
+<li>libpurple或Telepathy    即时通讯</li>
+</ul>
+<h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><p>Berkley与PostgreSQL</p>
+<p>SQLite</p>
+<p>MySQL</p>
+<p>Oracle    库：OCI，Libsqlora8</p>
+<p>通用数据库接口数据库：SQL Relay</p>
+<p>数据库连接池：unixODBC</p>
+<h1 id="界面"><a href="#界面" class="headerlink" title="界面"></a>界面</h1><h2 id="桌面环境"><a href="#桌面环境" class="headerlink" title="桌面环境"></a>桌面环境</h2><h3 id="GNOME"><a href="#GNOME" class="headerlink" title="GNOME"></a>GNOME</h3><p>工作站</p>
+<p>开发界面函数库：GTK+、X11、Cairo</p>
+<p>Glib库是GTK+和GNOME工程的基础低层核心程序库。</p>
+<p>GLib为C语言提供面向对象的GObject对象系统。</p>
+<h3 id="KDE"><a href="#KDE" class="headerlink" title="KDE"></a>KDE</h3><p>服务器</p>
+<p>KDE桌面核心为Qt程序库。</p>
+<h3 id="Xfce"><a href="#Xfce" class="headerlink" title="Xfce"></a>Xfce</h3><h3 id="HILDON"><a href="#HILDON" class="headerlink" title="HILDON"></a>HILDON</h3><p>移动设备</p>
+<p>HILDON是GNOME的裁切版</p>
+<h2 id="2D图形引擎Cairo"><a href="#2D图形引擎Cairo" class="headerlink" title="2D图形引擎Cairo"></a>2D图形引擎Cairo</h2><p>支持PDF格式</p>
+<h2 id="GStreamer"><a href="#GStreamer" class="headerlink" title="GStreamer"></a>GStreamer</h2><p>可处理MP3、RM、WMA、MPEG、MPEG2、AVI和Quicktime等多种格式的多媒体数据。</p>
+<h2 id="搭建GTK-开发环境"><a href="#搭建GTK-开发环境" class="headerlink" title="搭建GTK+开发环境"></a>搭建GTK+开发环境</h2><p>DEB:</p>
+<pre><code>apt-get install gnome-core-devel
+//安装libgtk2.0-dev libglib2.0-dev等开发相关的函数库文件
+apt-get install devhelp//安装开发帮助文档查看程序
+apt-get install libglib2.0-doc libgtk2.0-doc
+//安装GTK/GLIB的API参考手册及其他帮助文档
+apt-get install libgtk2.0*//安装GTK+2所需的所有文件
+</code></pre><p>YUM:</p>
+<pre><code>yum install devhelp
+yum install gtk2-devel//安装GTK+2所需的开发文件
+</code></pre><p>需要：</p>
+<ul>
+<li>pkg-config</li>
+<li>GLib</li>
+<li>libpng</li>
+<li>JPEG</li>
+<li>libtiff</li>
+<li>ATK</li>
+<li>Cairo</li>
+<li>Pango</li>
+<li>GTK+</li>
+</ul>
+<p>所见即所得工具Glade</p>
+<h1 id="界面构件开发"><a href="#界面构件开发" class="headerlink" title="界面构件开发"></a>界面构件开发</h1><p>GtkWidget</p>
+<ul>
+<li>基本构件<ul>
+<li>GtkButton</li>
+<li>调整对象，由GtkObject派生。</li>
+<li>范围构件，包括滚动条与比例构件</li>
+<li>标签构件</li>
+<li>箭头构件，上下左右箭头</li>
+<li>工具提示对象</li>
+<li>进度条</li>
+<li>对话框</li>
+<li>标尺</li>
+<li>状态栏</li>
+<li>文本输入构件</li>
+<li>微调按钮</li>
+<li>组合输入框</li>
+<li>日历</li>
+<li>颜色选择</li>
+<li>文件选择</li>
+</ul>
+</li>
+<li>复合构件<ul>
+<li>快捷标签</li>
+<li>绘图区</li>
+<li>字体选择对话框</li>
+<li>消息对话框</li>
+<li>图像构件</li>
+<li>文本视区</li>
+</ul>
+</li>
+<li>菜单构件<ul>
+<li>菜单栏</li>
+<li>菜单构件</li>
+<li>菜单项</li>
+<li>图形菜单项</li>
+<li>复合菜单项</li>
+<li>单菜单项</li>
+<li>分隔菜单项</li>
+</ul>
+</li>
+</ul>
+<p>RC文件，是用来定义界面构件的字体、颜色和背景图等样式风格的配置文件。</p>
+<h1 id="界面布局"><a href="#界面布局" class="headerlink" title="界面布局"></a>界面布局</h1><ul>
+<li>窗体构件-GtkWindow</li>
+<li>组装盒构件-GtkVBox与GtkHBox</li>
+<li>表构件-GtkTabel</li>
+<li>容器构件-GtkContainer<ul>
+<li>事件盒-GtkEventBox</li>
+<li>对齐构件-GtkAlignment</li>
+<li>固定容器-GtkFixed</li>
+<li>布局容器-GtkLayout</li>
+<li>框架构件-GtkFrame</li>
+<li>比例框架-GtkAspectFrame</li>
+<li>分栏窗体构件-GtkPaned</li>
+<li>视角构件-GtkViewport</li>
+<li>滚动条窗体-GtkScrolledWindow</li>
+<li>按钮盒-GtkButtonBox</li>
+<li>工具栏构件-GtkToolbar<ul>
+<li>工具项构件-GtkToolItem<ul>
+<li>GtkToolButton</li>
+<li>GtkSeparatorToolItem</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>笔记本构件(选项卡)-GtkNotebook</li>
+</ul>
+</li>
+</ul>
+<h1 id="信号与事件"><a href="#信号与事件" class="headerlink" title="信号与事件"></a>信号与事件</h1><pre><code>g_signal_connect()
+g_signal_handler_disconnect()
+g_signal_connect_after()
+g_signal_connect_swapped()
+g_signal_handler_disconnect_by_func()
+</code></pre><h1 id="Glade"><a href="#Glade" class="headerlink" title="Glade"></a>Glade</h1><p>Glade所设计的界面以XML格式保存。</p>
+<p>安装：</p>
+<pre><code>apt-get install glade
+</code></pre><h1 id="学习："><a href="#学习：" class="headerlink" title="学习："></a>学习：</h1><ul>
+<li><a href="https://i.linuxtoy.org/docs/guide/index.html" title="开源世界旅行手册" target="_blank" rel="noopener">开源世界旅行手册</a></li>
+<li><a href="https://tobegit3hub1.gitbooks.io/understanding-linux-processes/content/" target="_blank" rel="noopener">理解Linux进程</a></li>
+<li><a href="http://docs.linuxtone.org/ebooks/C&amp;CPP/c/" title="Linux C编程一站式学习" target="_blank" rel="noopener">Linux C编程一站式学习</a></li>
+<li><a href="https://github.com/hellogcc/100-gcc-tips/blob/master/src/index.md" title="100-gcc-tips" target="_blank" rel="noopener">100-gcc-tips</a></li>
+<li><a href="http://wiki.ubuntu.org.cn/%E9%A6%96%E9%A1%B5" target="_blank" rel="noopener">Ubuntu 中文 Wiki</a></li>
+<li><a href="http://wiki.ubuntu.org.cn/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80" target="_blank" rel="noopener">Ubuntu 中文 Wiki-编程语言</a></li>
+<li><a href="http://wiki.ubuntu.org.cn/Gcchowto#.E7.AE.80.E5.8D.95.E7.9A.84_Makefile_.E6.96.87.E4.BB.B6" target="_blank" rel="noopener">gcc</a></li>
+<li><a href="http://wiki.ubuntu.org.cn/%E7%94%A8GDB%E8%B0%83%E8%AF%95%E7%A8%8B%E5%BA%8F" target="_blank" rel="noopener">用GDB调试程序</a></li>
+<li><a href="http://wiki.ubuntu.org.cn/Gtk%E4%B8%8EQt%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE" target="_blank" rel="noopener">Gtk与Qt编译环境安装与配置</a></li>
+<li><a href="http://wiki.ubuntu.org.cn/%E8%B7%9F%E6%88%91%E4%B8%80%E8%B5%B7%E5%86%99Makefile" target="_blank" rel="noopener">跟我一起写Makefile</a></li>
+<li><a href="http://wiki.ubuntu.org.cn/%E7%BC%96%E8%AF%91%E6%89%93%E5%8C%85" target="_blank" rel="noopener">编译打包</a></li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://blog.csdn.net/wuweifeng_2017/article/details/78322249" target="_blank" rel="noopener">Ubuntu下安装Qt5.8</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/02/linux下C开发/">展开全文 >></a>
         </p>
       
 
@@ -5236,1470 +5605,6 @@ if (!callback_map_.empty()) {
 
 
   
-    <article id="post-duilib" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/12/duilib/">duilib</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/12/duilib/" class="archive-article-date">
-  	<time datetime="2018-04-12T01:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="duilib"><a href="#duilib" class="headerlink" title="duilib"></a>duilib</h1><p><a href="https://github.com/duilib/duilib" target="_blank" rel="noopener">https://github.com/duilib/duilib</a></p>
-<h2 id="设计器："><a href="#设计器：" class="headerlink" title="设计器："></a>设计器：</h2><p>DuiDesigner</p>
-<h2 id="教程："><a href="#教程：" class="headerlink" title="教程："></a>教程：</h2><p><a href="http://www.cnblogs.com/Alberl/p/3354459.html" target="_blank" rel="noopener">2013 duilib入门简明教程</a></p>
-<h1 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h1><p>直接打开DuiLib.sln</p>
-<p>提取DuiLib生成的dll与lib文件以及DuiLib目录。</p>
-<h1 id="Win32DuiLibTest"><a href="#Win32DuiLibTest" class="headerlink" title="Win32DuiLibTest"></a>Win32DuiLibTest</h1><pre><code>#pragma once
-#include &lt;UIlib.h&gt;
-using namespace DuiLib;
-
-#ifdef _DEBUG
-#   ifdef _UNICODE
-#       pragma comment(lib, &quot;DuiLib_ud.lib&quot;)
-#   else
-#       pragma comment(lib, &quot;DuiLib_d.lib&quot;)
-#   endif
-#else
-#   ifdef _UNICODE
-#       pragma comment(lib, &quot;DuiLib_u.lib&quot;)
-#   else
-#       pragma comment(lib, &quot;DuiLib.lib&quot;)
-#   endif
-#endif
-
-class CDuiFrameWnd : public CWindowWnd, public INotifyUI
-{
-public:
-    virtual LPCTSTR GetWindowClassName() const { return _T(&quot;DUIMainFrame&quot;); }
-    virtual void    Notify(TNotifyUI&amp; msg)
-    {
-        if (msg.sType == _T(&quot;click&quot;))
-        {
-            if (msg.pSender-&gt;GetName() == _T(&quot;btnHello&quot;))
-            {
-                ::MessageBox(NULL, _T(&quot;我是按钮&quot;), _T(&quot;点击了按钮&quot;), NULL);
-            }
-        }
-    }
-
-    virtual LRESULT HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)
-    {
-        LRESULT lRes = 0;
-
-        if (uMsg == WM_CREATE)
-        {
-            m_PaintManager.Init(m_hWnd);
-
-            //CControlUI *pWnd = new CButtonUI;
-            //pWnd-&gt;SetName(_T(&quot;btnHello&quot;));
-            //pWnd-&gt;SetText(_T(&quot;Hello World&quot;));   // 设置文字
-            //pWnd-&gt;SetBkColor(0xFF00FF00);       // 设置背景色
-            //m_PaintManager.AttachDialog(pWnd);
-
-            CDialogBuilder builder;
-            CControlUI* pRoot = builder.Create(_T(&quot;duilib.xml&quot;), (UINT)0, NULL, &amp;m_PaintManager);   // duilib.xml需要放到exe目录下
-            ASSERT(pRoot &amp;&amp; &quot;Failed to parse XML&quot;);
-
-            m_PaintManager.AttachDialog(pRoot);
-
-            m_PaintManager.AddNotifier(this);   // 添加控件等消息响应，这样消息就会传达到duilib的消息循环，我们可以在Notify函数里做消息处理
-            return lRes;
-        }
-        // 以下3个消息WM_NCACTIVATE、WM_NCCALCSIZE、WM_NCPAINT用于屏蔽系统标题栏
-        else if (uMsg == WM_NCACTIVATE)
-        {
-            if (!::IsIconic(m_hWnd))
-            {
-                return (wParam == 0) ? TRUE : FALSE;
-            }
-        }
-        else if (uMsg == WM_NCCALCSIZE)
-        {
-            return 0;
-        }
-        else if (uMsg == WM_NCPAINT)
-        {
-            return 0;
-        }
-
-        if (m_PaintManager.MessageHandler(uMsg, wParam, lParam, lRes))
-        {
-            return lRes;
-        }
-
-        return __super::HandleMessage(uMsg, wParam, lParam);
-    }
-
-protected:
-    CPaintManagerUI m_PaintManager;
-};
-
-class CDuiFrameWndBase : public WindowImplBase
-{
-public:
-    virtual LPCTSTR    GetWindowClassName() const   { return _T(&quot;DUIMainFrame&quot;); }
-    virtual CDuiString GetSkinFile()                { return _T(&quot;duilib.xml&quot;); }
-    virtual CDuiString GetSkinFolder()              { return _T(&quot;&quot;); }
-};
-
-int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
-{
-    CPaintManagerUI::SetInstance(hInstance);
-
-    CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath());   // 设置资源的默认路径（此处设置为和exe在同一目录）
-
-    CDuiFrameWndBase/*CDuiFrameWnd*/ duiFrame;
-    duiFrame.Create(NULL, _T(&quot;DUIWnd&quot;), UI_WNDSTYLE_FRAME, WS_EX_WINDOWEDGE);
-    duiFrame.CenterWindow();
-    duiFrame.ShowModal();
-
-    return 0;
-}
-</code></pre><h1 id="在MFC中使用duilib"><a href="#在MFC中使用duilib" class="headerlink" title="在MFC中使用duilib"></a>在MFC中使用duilib</h1><p>只需要将前面教程的CDuiFrameWnd的父窗口指定为MFC的窗口就好啦，将CDuiFrameWnd m_duiFrame; 定义为MFC的成员变量，在MFC的初始化函数OnInitDialog里面创建duilib的窗口，代码如下：</p>
-<pre><code>// TODO: 在此添加额外的初始化代码
-CPaintManagerUI::SetInstance(AfxGetInstanceHandle());                    // 指定duilib的实例
-CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath());    // 指定duilib资源的路径，这里指定为和exe同目录
-::CoInitialize(NULL);  // 记得释放::CoUninitialize();
-
-m_duiFrame.Create(*this, _T(&quot;DUIWnd&quot;), UI_WNDSTYLE_CHILD, 0, 0, 0, 800, 600); 
-m_duiFrame.ShowWindow(TRUE); 
-return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
-</code></pre><p>duilib中的例子：<br>    CDuiFrameWnd m_dlgWnd;<br>    this-&gt;MoveWindow(0, 0, 800, 572);<br>    ::SetWindowLongPtr(this-&gt;GetSafeHwnd(), GWLP_USERDATA, reinterpret_cast<lparam>(&amp;m_dlgWnd));<br>    m_dlgWnd.Subclass(this-&gt;GetSafeHwnd());<br>    m_dlgWnd.LoadSkin()</lparam></p>
-<h1 id="在duilib中使用MFC控件"><a href="#在duilib中使用MFC控件" class="headerlink" title="在duilib中使用MFC控件"></a>在duilib中使用MFC控件</h1><p>准备好一个duilib控件来容纳MFC控件</p>
-<pre><code>// 将带句柄HWND的控件显示到CControlUI上面
-class CWndUI: public CControlUI
-{
-public:
-    CWndUI(): m_hWnd(NULL){}
-
-    virtual void SetInternVisible(bool bVisible = true)
-    {
-        __super::SetInternVisible(bVisible);
-        ::ShowWindow(m_hWnd, bVisible);
-    }
-
-    virtual void SetPos(RECT rc)
-    {
-        __super::SetPos(rc);
-        ::SetWindowPos(m_hWnd, NULL, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, SWP_NOZORDER | SWP_NOACTIVATE);
-    }
-
-    BOOL Attach(HWND hWndNew)
-    {
-        if (! ::IsWindow(hWndNew))
-        {
-            return FALSE;
-        }
-
-        m_hWnd = hWndNew;
-        return TRUE;
-    }
-
-    HWND Detach()
-    {
-        HWND hWnd = m_hWnd;
-        m_hWnd = NULL;
-        return hWnd;
-    }
-
-protected:
-    HWND m_hWnd;
-};
-</code></pre><p>将XML中Slider节点换成Wnd，并且只保留位置信息</p>
-<pre><code>&lt;Wnd float=&quot;true&quot; pos=&quot;30,77,0,0&quot; width=&quot;139&quot; height=&quot;18&quot; /&gt;
-</code></pre><p>创建Wnd控件：由于Slider是duilib内置的控件，所以duilib会根据XML信息自动创建Slider控件，而CWndUI是我们自定义的控件，所以需要自己创建，只需要响应CreateControl函数（如果duilib发现自定义控件，会自动调用此函数来获取控件），在CDuiFrameWnd加上如下函数</p>
-<pre><code>virtual CControlUI* CreateControl(LPCTSTR pstrClassName)
-{
-    if (_tcsicmp(pstrClassName, _T(&quot;Wnd&quot;)) == 0)
-    {
-        CWndUI  *pUI  = new CWndUI;            
-        HWND    hWnd  = CreateWindow(_T(&quot;BUTTON&quot;), _T(&quot;win32&quot;), WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON, 0, 0, 0, 0, m_PaintManager.GetPaintWindow(), NULL, NULL, NULL);
-        pUI-&gt;Attach(hWnd);  
-
-        //// 上面用的是win32的按钮，下面这段用MFC的按钮
-        //CButton *pBtn = new CButton;    // 记得释放内存
-        //pBtn-&gt;Create(_T(&quot;MFC&quot;), WS_VISIBLE | WS_CHILD | BS_PUSHBUTTON, CRect(0, 0, 0, 0), CWnd::FromHandle(m_PaintManager.GetPaintWindow()), 0);
-        //pUI-&gt;Attach(*pBtn);            
-        return pUI;
-    }
-
-    return NULL;
-}
-</code></pre><h1 id="复杂控件"><a href="#复杂控件" class="headerlink" title="复杂控件"></a>复杂控件</h1><p><a href="http://www.cnblogs.com/Alberl/p/3345102.html" target="_blank" rel="noopener">http://www.cnblogs.com/Alberl/p/3345102.html</a>或直接看DuiLib中提供的例子。</p>
-<h1 id="消息机制"><a href="#消息机制" class="headerlink" title="消息机制"></a>消息机制</h1><p>duilib参考了MFC、ATL/WTL的消息机制，都有消息映射</p>
-<h1 id="XML属性列表"><a href="#XML属性列表" class="headerlink" title="XML属性列表"></a>XML属性列表</h1><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;!-- 可能有错漏，欢迎补充。wangchyz(wangchyz@gmail.com) --&gt;
-&lt;Controls&gt;
-    &lt;Window parent=&quot;&quot;&gt;
-        &lt;Attribute name=&quot;size&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;窗口的初始化大小,如(800,600)&quot;/&gt;
-        &lt;Attribute name=&quot;sizebox&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;窗口可拖动改变窗口大小的边距,如(4,4,6,6)&quot;/&gt;
-        &lt;Attribute name=&quot;caption&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;窗口可拖动的标题栏大小的边距,最后一个参数是指离上边框的距离,如(0,0,0,28)&quot;/&gt;
-        &lt;Attribute name=&quot;roundcorner&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;窗口圆角大小,如(4,4)&quot;/&gt;
-        &lt;Attribute name=&quot;mininfo&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;窗口最小大小,如(320,240)&quot;/&gt;
-        &lt;Attribute name=&quot;maxinfo&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;窗口最大大小,如(1600,1200)&quot;/&gt;
-        &lt;Attribute name=&quot;alpha&quot; default=&quot;255&quot; type=&quot;BYTE&quot; comment=&quot;窗口的alpha值(0-255),如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;bktrans&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;窗口是否使用静态透明背景,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;disabledfontcolor&quot; default=&quot;0xFFA7A6AA&quot; type=&quot;DWORD&quot; comment=&quot;默认的disabled字体颜色,如(0xFFA7A6AA)&quot;/&gt;
-        &lt;Attribute name=&quot;defaultfontcolor&quot; default=&quot;0xFF000000&quot; type=&quot;DWORD&quot; comment=&quot;默认的字体颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;linkfontcolor&quot; default=&quot;0xFF0000FF&quot; type=&quot;DWORD&quot; comment=&quot;默认的link字体颜色,如(0xFF0000FF)&quot;/&gt;
-        &lt;Attribute name=&quot;linkhoverfontcolor&quot; default=&quot;0xFFD3215F&quot; type=&quot;DWORD&quot; comment=&quot;默认的linkhoverfont字体颜色,如(0xFFD3215F)&quot;/&gt;
-        &lt;Attribute name=&quot;selectedcolor&quot; default=&quot;0xFFBAE4FF&quot; type=&quot;DWORD&quot; comment=&quot;默认的selected字体颜色,如(0xFFBAE4FF)&quot;/&gt;
-        &lt;Attribute name=&quot;showdirty&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;绘制脏矩形(屏幕上更新的区域被称为脏矩形)&quot;/&gt;
-    &lt;/Window&gt;
-    &lt;ChildLayout parent=&quot;Container&quot; &gt;
-        &lt;Attribute name=&quot;xmlfile&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;子窗体XML布局文件&quot;/&gt;
-    &lt;/ChildLayout&gt;
-    &lt;Control parent=&quot;&quot; notifies=&quot;setfocus killfocus timer menu windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;0&quot; type=&quot;INT | RECT&quot; comment=&quot;可以设置INT或RECT类型的值。当值为ING时则左、上、右、下都用该值作为宽。值为RECT类型时则分别设置左、上、右、下的边框&quot;/&gt;
-        &lt;Attribute name=&quot;leftbordersize&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;左边边框大小，如(1)，设置该值大于0，则将忽略bordersize属性的设置&quot;/&gt;
-        &lt;Attribute name=&quot;topbordersize&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;顶部边框大小，如(1)，设置该值大于0，则将忽略bordersize属性的设置&quot;/&gt;
-        &lt;Attribute name=&quot;rightbordersize&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;右边边框大小，如(1)，设置该值大于0，则将忽略bordersize属性的设置&quot;/&gt;
-        &lt;Attribute name=&quot;bottombordersize&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;底部边框大小，如(1)，设置该值大于0，则将忽略bordersize属性的设置&quot;/&gt;
-        &lt;Attribute name=&quot;borderstyle&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;边框样式的设置,数值范围0-5&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;keyboard&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;非CButtonUI类忽略该值，为false时不支持TAB_STOP,且该对象不处理键盘信息&quot;/&gt;
-    &lt;/Control&gt;
-    &lt;Container parent=&quot;Control&quot; notifies=&quot;setfocus killfocus timer menu windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mousechild&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件的子控件是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;inset&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;容器的内边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;vscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用竖向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;hscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用横向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;childpadding&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;子控件之间的额外距离,如(4)&quot;/&gt;
-    &lt;/Container&gt;
-    &lt;VerticalLayout parent=&quot;Container&quot; notifies=&quot;setfocus killfocus timer menu windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mousechild&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件的子控件是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;inset&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;容器的内边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;vscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用竖向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;hscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用横向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;childpadding&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;子控件之间的额外距离,如(4)&quot;/&gt;
-        &lt;Attribute name=&quot;sepheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;分隔符高度,正负表示分隔符在顶部还是底部,如(4)&quot;/&gt;
-        &lt;Attribute name=&quot;sepimm&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;拖动分隔符是否立即改变大小,如(false)&quot;/&gt;
-    &lt;/VerticalLayout&gt;
-    &lt;HorizontalLayout parent=&quot;Container&quot; notifies=&quot;setfocus killfocus timer menu windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mousechild&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件的子控件是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;inset&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;容器的内边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;vscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用竖向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;hscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用横向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;childpadding&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;子控件之间的额外距离,如(4)&quot;/&gt;
-        &lt;Attribute name=&quot;sepwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;分隔符宽,正负表示分隔符在左边还是右边,如(-4)&quot;/&gt;
-        &lt;Attribute name=&quot;sepimm&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;拖动分隔符是否立即改变大小,如(false)&quot;/&gt;
-    &lt;/HorizontalLayout&gt;
-    &lt;TileLayout parent=&quot;Container&quot; notifies=&quot;setfocus killfocus timer menu windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mousechild&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件的子控件是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;inset&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;容器的内边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;vscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用竖向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;hscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用横向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;childpadding&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;子控件之间的额外距离,如(4)&quot;/&gt;
-        &lt;Attribute name=&quot;columns&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;列数,如(4)&quot;/&gt;
-        &lt;Attribute name=&quot;itemsize&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;子项固定大小，如(128,128)&quot;/&gt;
-    &lt;/TileLayout&gt;
-    &lt;TabLayout parent=&quot;Container&quot; notifies=&quot;setfocus killfocus timer menu tabselect windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mousechild&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件的子控件是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;inset&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;容器的内边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;vscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用竖向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;hscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用横向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;childpadding&quot; default=&quot;0&quot; type=&quot;DWORD&quot; comment=&quot;子控件之间的额外距离,如(4)&quot;/&gt;
-        &lt;Attribute name=&quot;selectedid&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;默认选中的页面id,如(0)&quot;/&gt;
-    &lt;/TabLayout&gt;
-    &lt;ActiveX parent=&quot;Control&quot; notifies=&quot;setfocus killfocus timer menu showactivex windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mousechild&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件的子控件是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;clsid&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;activex的clsid,如({8856F961-340A-11D0-A96B-00C04FD705A2})&quot;/&gt;
-        &lt;Attribute name=&quot;modulename&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;activex从指定位置加载,如(flash/flash.ocx)&quot;/&gt;
-        &lt;Attribute name=&quot;delaycreate&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否需要延迟创建activex,如(false)&quot;/&gt;
-    &lt;/ActiveX&gt;
-    &lt;WebBrowser parent=&quot;ActiveX&quot; &gt;
-        &lt;Attribute name=&quot;homepage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;默认首页&quot; /&gt;
-        &lt;Attribute name=&quot;autonavi&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否打开默认首页&quot; /&gt;
-    &lt;/WebBrowser&gt;
-    &lt;Combo parent=&quot;Container&quot; notifies=&quot;setfocus killfocus timer menu dropdown itemselect windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mousechild&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件的子控件是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;inset&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;容器的内边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;vscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用竖向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;hscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用横向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;childpadding&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;子控件之间的额外距离,如(4)&quot;/&gt;
-        &lt;Attribute name=&quot;textpadding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;文字显示的边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;normalimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;普通状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;hotimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮的状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;pushedimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标按下的状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;focusedimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;获得焦点时的状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;disabledimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;禁用的状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;dropboxsize&quot; default=&quot;0,150&quot; type=&quot;STRING&quot; comment=&quot;弹出框大小设置&quot;/&gt;
-        &lt;Attribute name=&quot;itemfont&quot; default=&quot;-1&quot; type=&quot;INT&quot; comment=&quot;item的字体id,如(0)&quot;/&gt;
-        &lt;Attribute name=&quot;itemalign&quot; default=&quot;center&quot; type=&quot;STRING&quot; comment=&quot;item对齐方式,取值left、right、center，如(center)&quot;/&gt;
-        &lt;Attribute name=&quot;itemendellipsis&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;item句末显示不全是否使用...代替,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;itemtextpadding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;item文字显示的边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;itemtextcolor&quot; default=&quot;0xFF000000&quot; type=&quot;DWORD&quot; comment=&quot;item字体颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itembkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;item背景颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itembkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;item背景图片&quot;/&gt;
-        &lt;Attribute name=&quot;itemaltbk&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;item是否使用隔行交替背景&quot;/&gt;
-        &lt;Attribute name=&quot;itemselectedtextcolor&quot; default=&quot;0xFF000000&quot; type=&quot;DWORD&quot; comment=&quot;item被选中时的字体颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemselectedbkcolor&quot; default=&quot;0xFFC1E3FF&quot; type=&quot;DWORD&quot; comment=&quot;item被选中时的背景颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemselectedimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;item被选中时的背景图片&quot;/&gt;
-        &lt;Attribute name=&quot;itemhottextcolor&quot; default=&quot;0xFF000000&quot; type=&quot;DWORD&quot; comment=&quot;item鼠标悬浮时的字体颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemhotbkcolor&quot; default=&quot;0xFFE9F5FF&quot; type=&quot;DWORD&quot; comment=&quot;item鼠标悬浮时的背景颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemhotimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;item鼠标悬浮时的背景图片&quot;/&gt;
-        &lt;Attribute name=&quot;itemdisabledtextcolor&quot; default=&quot;0xFFCCCCCC&quot; type=&quot;DWORD&quot; comment=&quot;item禁用时的字体颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemdisabledbkcolor&quot; default=&quot;0xFFFFFFFF&quot; type=&quot;DWORD&quot; comment=&quot;item禁用时的背景颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemdisabledimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;item禁用时的背景图片&quot;/&gt;
-        &lt;Attribute name=&quot;itemlinecolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;item行分割线颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemshowhtml&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;item是否使用类html富文本绘制,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;multiexpanding&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否支持多个item同时打开,如(false)&quot;/&gt;
-    &lt;/Combo&gt;
-    &lt;Label parent=&quot;Control&quot; notifies=&quot;setfocus killfocus timer menu windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;align&quot; default=&quot;left&quot; type=&quot;STRING&quot; comment=&quot;文字对齐方式,取值left、right、center、top、bottom，如(center)&quot;/&gt;
-        &lt;Attribute name=&quot;endellipsis&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;句末显示不全是否使用...代替,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;font&quot; default=&quot;-1&quot; type=&quot;INT&quot; comment=&quot;字体id,如(0)&quot;/&gt;
-        &lt;Attribute name=&quot;textcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;字体颜色，0表示使用默认字体颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;disabledtextcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;disabled字体颜色，0表示使用默认disabled字体颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;textpadding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;文字显示的边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;showhtml&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用类html富文本绘制,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;enabledeffect&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用字体特效，使用下面文字特效属性必须该属性设置为true方有效&quot;/&gt;
-        &lt;Attribute name=&quot;align&quot; default=&quot;left&quot; type=&quot;STRING&quot; comment=&quot;文字横向对齐方式,取值left、center、right&quot;/&gt;
-        &lt;Attribute name=&quot;valign&quot; default=&quot;center&quot; type=&quot;STRING&quot; comment=&quot;文字纵向对齐方式,取值top、center、bottom&quot;/&gt;
-        &lt;Attribute name=&quot;rhaa&quot; default=&quot;0&quot; type=&quot;STRING&quot; comment=&quot;字体质量0-5&quot;/&gt;
-        &lt;Attribute name=&quot;enabledstroke&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用描边效果&quot;/&gt;
-        &lt;Attribute name=&quot;strokecolor&quot; default=&quot;0x00000000&quot; type=&quot;STRING&quot; comment=&quot;字体描边的颜色&quot;/&gt;
-        &lt;Attribute name=&quot;transstroke&quot; default=&quot;255&quot; type=&quot;STRING&quot; comment=&quot;字体描边的颜色透明度 0-255&quot;/&gt;
-        &lt;Attribute name=&quot;enabledshadow&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用阴影效果&quot;/&gt;
-        &lt;Attribute name=&quot;gradientangle&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;渐变色渲染角度&quot;/&gt;
-        &lt;Attribute name=&quot;gradientlength&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;渐变距离&quot;/&gt;
-        &lt;Attribute name=&quot;textcolor1&quot; default=&quot;0x00000000&quot; type=&quot;STRING&quot; comment=&quot;字体渐变色&quot;/&gt;
-        &lt;Attribute name=&quot;textshadowcolora&quot; default=&quot;0xff000000&quot; type=&quot;STRING&quot; comment=&quot;字体阴影渐变色&quot;/&gt;
-        &lt;Attribute name=&quot;textshadowcolorb&quot; default=&quot;0xff000000&quot; type=&quot;STRING&quot; comment=&quot;字体阴影渐变色&quot;/&gt;
-        &lt;Attribute name=&quot;transshadow&quot; default=&quot;100&quot; type=&quot;INT&quot; comment=&quot;阴影透明度&quot;/&gt;
-        &lt;Attribute name=&quot;transshadow1&quot; default=&quot;100&quot; type=&quot;INT&quot; comment=&quot;阴影透明度&quot;/&gt;
-        &lt;Attribute name=&quot;transtext&quot; default=&quot;100&quot; type=&quot;INT&quot; comment=&quot;字体色彩透明度&quot;/&gt;
-        &lt;Attribute name=&quot;transtext1&quot; default=&quot;100&quot; type=&quot;INT&quot; comment=&quot;字体色彩透明度&quot;/&gt;
-    &lt;/Label&gt;
-    &lt;Button parent=&quot;Label&quot; notifies=&quot;setfocus killfocus timer menu click windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;align&quot; default=&quot;left&quot; type=&quot;STRING&quot; comment=&quot;文字对齐方式,取值left、right、center、top、button，如(center)&quot;/&gt;
-        &lt;Attribute name=&quot;endellipsis&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;句末显示不完是否使用...代替,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;font&quot; default=&quot;-1&quot; type=&quot;INT&quot; comment=&quot;字体id,如(0)&quot;/&gt;
-        &lt;Attribute name=&quot;textcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;字体颜色，0表示使用默认字体颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;disabledtextcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;disabled字体颜色，0表示使用默认disabled字体颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;textpadding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;文字显示的边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;showhtml&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用类html富文本绘制,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;normalimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;普通状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;hotimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮的状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;pushedimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标按下的状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;focusedimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;获得焦点时的状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;disabledimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;禁用的状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;hottextcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;鼠标悬浮字体颜色，0表示不使用此颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;pushedtextcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;鼠标按下字体颜色，0表示不使用此颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusedtextcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点字体颜色，0表示不使用此颜色,如(0xFFFF0000)&quot;/&gt;
-    &lt;/Button&gt;
-    &lt;Option parent=&quot;Button&quot; notifies=&quot;setfocus killfocus timer menu click selectchanged windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;align&quot; default=&quot;left&quot; type=&quot;STRING&quot; comment=&quot;文字对齐方式,取值left、right、center、top、button，如(center)&quot;/&gt;
-        &lt;Attribute name=&quot;endellipsis&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;句末显示不完是否使用...代替,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;font&quot; default=&quot;-1&quot; type=&quot;INT&quot; comment=&quot;字体id,如(0)&quot;/&gt;
-        &lt;Attribute name=&quot;textcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;字体颜色，0表示使用默认字体颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;disabledtextcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;disabled字体颜色，0表示使用默认disabled字体颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;textpadding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;文字显示的边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;showhtml&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用类html富文本绘制,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;normalimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;普通状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;hotimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮的状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;pushedimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标按下的状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;focusedimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;获得焦点时的状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;disabledimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;禁用的状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;selectedimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;选中的状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;foreimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;前景图片&quot;/&gt;
-        &lt;Attribute name=&quot;hottextcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;鼠标悬浮字体颜色，0表示不使用此颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;pushedtextcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;鼠标按下字体颜色，0表示不使用此颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusedtextcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点字体颜色，0表示不使用此颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;selectedtextcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;选中状态字体颜色，0表示不使用此颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;group&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;所属组的名称，可不设&quot;/&gt;
-        &lt;Attribute name=&quot;selected&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否选中&quot;/&gt;
-    &lt;/Option&gt;
-    &lt;Text parent=&quot;Label&quot; notifies=&quot;setfocus killfocus timer menu link windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;align&quot; default=&quot;left&quot; type=&quot;STRING&quot; comment=&quot;文字对齐方式,取值left、right、center、top、button，如(center)&quot;/&gt;
-        &lt;Attribute name=&quot;endellipsis&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;句末显示不完是否使用...代替,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;font&quot; default=&quot;-1&quot; type=&quot;INT&quot; comment=&quot;字体id,如(0)&quot;/&gt;
-        &lt;Attribute name=&quot;textcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;字体颜色，0表示使用默认字体颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;disabledtextcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;disabled字体颜色，0表示使用默认disabled字体颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;textpadding&quot; default=&quot;2,0,2,0&quot; type=&quot;RECT&quot; comment=&quot;文字显示的边距,如(2,0,2,0)&quot;/&gt;
-        &lt;Attribute name=&quot;showhtml&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用类html富文本绘制,如(false)&quot;/&gt;
-    &lt;/Text&gt;
-    &lt;Progress parent=&quot;Label&quot; notifies=&quot;setfocus killfocus timer menu windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;align&quot; default=&quot;certer&quot; type=&quot;STRING&quot; comment=&quot;文字对齐方式,取值left、right、center、top、button，如(center)&quot;/&gt;
-        &lt;Attribute name=&quot;endellipsis&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;句末显示不完是否使用...代替,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;font&quot; default=&quot;-1&quot; type=&quot;INT&quot; comment=&quot;字体id,如(0)&quot;/&gt;
-        &lt;Attribute name=&quot;textcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;字体颜色，0表示使用默认字体颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;disabledtextcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;disabled字体颜色，0表示使用默认disabled字体颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;textpadding&quot; default=&quot;2,0,2,0&quot; type=&quot;RECT&quot; comment=&quot;文字显示的边距,如(2,0,2,0)&quot;/&gt;
-        &lt;Attribute name=&quot;showhtml&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用类html富文本绘制,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;foreimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;前景图片&quot;/&gt;
-        &lt;Attribute name=&quot;hor&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;水平或垂直,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;min&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;进度最小值，如(0)&quot;/&gt;
-        &lt;Attribute name=&quot;max&quot; default=&quot;100&quot; type=&quot;INT&quot; comment=&quot;进度最大值，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;value&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;进度值，如(50)&quot;/&gt;
-        &lt;Attribute name=&quot;isstretchfore&quot; default=&quot;TRUE&quot; type=&quot;BOOL&quot; comment=&quot;指定前景图片是否缩放显示&quot;/&gt;
-    &lt;/Progress&gt;
-    &lt;Slider parent=&quot;Progress&quot; notifies=&quot;setfocus killfocus timer menu valuechanged windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;align&quot; default=&quot;center&quot; type=&quot;STRING&quot; comment=&quot;文字对齐方式,取值left、right、center、top、button，如(center)&quot;/&gt;
-        &lt;Attribute name=&quot;endellipsis&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;句末显示不完是否使用...代替,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;font&quot; default=&quot;-1&quot; type=&quot;INT&quot; comment=&quot;字体id,如(0)&quot;/&gt;
-        &lt;Attribute name=&quot;textcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;字体颜色，0表示使用默认字体颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;disabledtextcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;disabled字体颜色，0表示使用默认disabled字体颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;textpadding&quot; default=&quot;2,0,2,0&quot; type=&quot;RECT&quot; comment=&quot;文字显示的边距,如(2,0,2,0)&quot;/&gt;
-        &lt;Attribute name=&quot;showhtml&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用类html富文本绘制,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;foreimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;前景图片&quot;/&gt;
-        &lt;Attribute name=&quot;hor&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;水平或垂直,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;min&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;进度最小值，如(0)&quot;/&gt;
-        &lt;Attribute name=&quot;max&quot; default=&quot;100&quot; type=&quot;INT&quot; comment=&quot;进度最大值，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;value&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;进度值，如(50)&quot;/&gt;
-        &lt;Attribute name=&quot;thumbimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;拖动滑块普通状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;thumbhotimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;拖动滑块鼠标悬浮状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;thumbpushedimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;拖动滑块鼠标按下状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;thumbsize&quot; default=&quot;10,10&quot; type=&quot;SIZE&quot; comment=&quot;拖动滑块大小,如(10,10)&quot;/&gt;
-        &lt;Attribute name=&quot;step&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;进度步长，如(1)&quot;/&gt;
-    &lt;/Slider&gt;
-    &lt;Edit parent=&quot;Label&quot; notifies=&quot;setfocus killfocus timer menu return textchanged windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;align&quot; default=&quot;left&quot; type=&quot;STRING&quot; comment=&quot;文字对齐方式,取值left、right、center、top、button，如(center)&quot;/&gt;
-        &lt;Attribute name=&quot;endellipsis&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;句末显示不完是否使用...代替,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;font&quot; default=&quot;-1&quot; type=&quot;INT&quot; comment=&quot;字体id,如(0)&quot;/&gt;
-        &lt;Attribute name=&quot;textcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;字体颜色，0表示使用默认字体颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;disabledtextcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;disabled字体颜色，0表示使用默认disabled字体颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;textpadding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;文字显示的边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;showhtml&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用类html富文本绘制,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;readonly&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否只读,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;password&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否显示密码字符,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;maxchar&quot; default=&quot;255&quot; type=&quot;INT&quot; comment=&quot;输入字符最大长度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;normalimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;普通状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;hotimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;focusedimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;获得焦点状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;disabledimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;禁用状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;nativebkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;windows原生edit控件的背景颜色,如(0xFFFFFFFF)&quot;/&gt;
-    &lt;/Edit&gt;
-    &lt;ScrollBar parent=&quot;Control&quot; notifies=&quot;timer menu scrolled windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;button1normalimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;左或上按钮普通状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;button1hotimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;左或上按钮鼠标悬浮状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;button1pushedimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;左或上按钮鼠标按下状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;button1disabledimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;左或上按钮禁用状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;button2normalimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;右或下按钮普通状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;button2hotimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;右或下按钮鼠标悬浮状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;button2pushedimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;右或下按钮鼠标按下状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;button2disabledimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;右或下按钮禁用状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;thumbnormalimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;滑块普通状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;thumbhotimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;滑块鼠标悬浮状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;thumbpushedimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;滑块鼠标按下状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;thumbdisabledimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;滑块禁用状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;railnormalimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;滑块中间标识普通状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;railhotimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;滑块中间标识鼠标悬浮状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;railpushedimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;滑块中间标识鼠标按下状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;raildisabledimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;滑块中间标识禁用状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;bknormalimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景普通状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;bkhotimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景鼠标悬浮状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;bkpushedimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景鼠标按下状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;bkdisabledimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景禁用状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;hor&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;水平或垂直,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;linesize&quot; default=&quot;8&quot; type=&quot;INT&quot; comment=&quot;滚动一行的大小，如(8)&quot;/&gt;
-        &lt;Attribute name=&quot;range&quot; default=&quot;100&quot; type=&quot;INT&quot; comment=&quot;滚动范围，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;value&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;滚动位置，如(0)&quot;/&gt;
-        &lt;Attribute name=&quot;showbutton1&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否显示左或上按钮,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;showbutton2&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否显示右或下按钮,如(true)&quot;/&gt;
-    &lt;/ScrollBar&gt;
-    &lt;List parent=&quot;VerticalLayout&quot; notifies=&quot;setfocus killfocus timer menu itemselect windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mousechild&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件的子控件是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;inset&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;容器的内边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;vscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用竖向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;hscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用横向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;childpadding&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;子控件之间的额外距离,如(4)&quot;/&gt;
-        &lt;Attribute name=&quot;sepheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;分隔符高度,正负表示分隔符在顶部还是底部,如(4)&quot;/&gt;
-        &lt;Attribute name=&quot;sepimm&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;拖动分隔符是否立即改变大小,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;header&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否显示表头,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;headerbkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;表头背景图片&quot;/&gt;
-        &lt;Attribute name=&quot;scrollselect&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否随滚动改变选中项,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;itemfont&quot; default=&quot;-1&quot; type=&quot;INT&quot; comment=&quot;item的字体id,如(0)&quot;/&gt;
-        &lt;Attribute name=&quot;itemalign&quot; default=&quot;center&quot; type=&quot;STRING&quot; comment=&quot;item对齐方式,取值left、right、center，如(center)&quot;/&gt;
-        &lt;Attribute name=&quot;itemendellipsis&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;item句末显示不全是否使用...代替,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;itemtextpadding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;item文字显示的边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;itemtextcolor&quot; default=&quot;0xFF000000&quot; type=&quot;DWORD&quot; comment=&quot;item字体颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itembkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;item背景颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itembkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;item背景图片&quot;/&gt;
-        &lt;Attribute name=&quot;itemaltbk&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;item是否使用隔行交替背景&quot;/&gt;
-        &lt;Attribute name=&quot;itemselectedtextcolor&quot; default=&quot;0xFF000000&quot; type=&quot;DWORD&quot; comment=&quot;item被选中时的字体颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemselectedbkcolor&quot; default=&quot;0xFFC1E3FF&quot; type=&quot;DWORD&quot; comment=&quot;item被选中时的背景颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemselectedimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;item被选中时的背景图片&quot;/&gt;
-        &lt;Attribute name=&quot;itemhottextcolor&quot; default=&quot;0xFF000000&quot; type=&quot;DWORD&quot; comment=&quot;item鼠标悬浮时的字体颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemhotbkcolor&quot; default=&quot;0xFFE9F5FF&quot; type=&quot;DWORD&quot; comment=&quot;item鼠标悬浮时的背景颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemhotimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;item鼠标悬浮时的背景图片&quot;/&gt;
-        &lt;Attribute name=&quot;itemdisabledtextcolor&quot; default=&quot;0xFFCCCCCC&quot; type=&quot;DWORD&quot; comment=&quot;item禁用时的字体颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemdisabledbkcolor&quot; default=&quot;0xFFFFFFFF&quot; type=&quot;DWORD&quot; comment=&quot;item禁用时的背景颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemdisabledimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;item禁用时的背景图片&quot;/&gt;
-        &lt;Attribute name=&quot;itemlinecolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;item行分割线颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemshowhtml&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;item是否使用类html富文本绘制,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;multiexpanding&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否支持多个item同时打开,如(false)&quot;/&gt;
-    &lt;/List&gt;
-    &lt;ListHeader parent=&quot;HorizontalLayout&quot; notifies=&quot;setfocus killfocus timer windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mousechild&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件的子控件是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;inset&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;容器的内边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;vscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用竖向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;hscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用横向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;childpadding&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;子控件之间的额外距离,如(4)&quot;/&gt;
-        &lt;Attribute name=&quot;sepwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;分隔符宽,正负表示分隔符在左边还是右边,如(-4)&quot;/&gt;
-        &lt;Attribute name=&quot;sepimm&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;拖动分隔符是否立即改变大小,如(false)&quot;/&gt;
-    &lt;/ListHeader&gt;
-    &lt;ListHeaderItem parent=&quot;Control&quot; notifies=&quot;setfocus killfocus timer headerclick windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;16&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;dragable&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可拖动改变大小,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;sepwidth&quot; default=&quot;4&quot; type=&quot;INT&quot; comment=&quot;分隔符宽,如(4)&quot;/&gt;
-        &lt;Attribute name=&quot;align&quot; default=&quot;left&quot; type=&quot;STRING&quot; comment=&quot;文字对齐方式,取值left、right、cente，如(center)&quot;/&gt;
-        &lt;Attribute name=&quot;endellipsis&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;句末显示不全是否使用...代替,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;font&quot; default=&quot;-1&quot; type=&quot;INT&quot; comment=&quot;字体id,如(0)&quot;/&gt;
-        &lt;Attribute name=&quot;textcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;字体颜色，0表示使用默认字体颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;textpadding&quot; default=&quot;2,0,2,0&quot; type=&quot;RECT&quot; comment=&quot;文字显示的边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;showhtml&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用类html富文本绘制,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;normalimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;普通状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;hotimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮的状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;pushedimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标按下的状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;focusedimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;获得焦点时的状态图片&quot;/&gt;
-        &lt;Attribute name=&quot;sepimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;拖动条图片&quot;/&gt;
-    &lt;/ListHeaderItem&gt;
-    &lt;ListLabelElement parent=&quot;Control&quot; notifies=&quot;setfocus killfocus timer itemactivate itemclick windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;selected&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否选中,如(true)&quot;/&gt;
-    &lt;/ListLabelElement&gt;
-    &lt;ListTextElement parent=&quot;ListLabelElement&quot; notifies=&quot;setfocus killfocus timer itemactivate itemclick link windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;selected&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否选中,如(true)&quot;/&gt;
-    &lt;/ListTextElement&gt;
-    &lt;ListContainerElement parent=&quot;Container&quot; notifies=&quot;setfocus killfocus timer itemactivate itemclick itemexpanded itemcollapsed windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mousechild&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件的子控件是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;inset&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;容器的内边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;vscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用竖向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;hscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用横向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;childpadding&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;子控件之间的额外距离,如(4)&quot;/&gt;
-        &lt;Attribute name=&quot;selected&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否选中,如(true)&quot;/&gt;
-    &lt;/ListContainerElement&gt;
-    &lt;RichEdit parent=&quot;Container&quot; notifies=&quot;setfocus killfocus timer menu return windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bordervisible&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否显示边框&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mousechild&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件的子控件是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;inset&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;容器的内边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;vscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用竖向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;autovscroll&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否随输入竖向滚动,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;hscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用横向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;autohscroll&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否随输入横向滚动,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;childpadding&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;子控件之间的额外距离,如(4)&quot;/&gt;
-        &lt;Attribute name=&quot;wanttab&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否接受tab按键消息,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;wantreturn&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否接受return按键消息,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;wantctrlreturn&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否接受ctrl+return按键消息,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;transparent&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否背景透明,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;rich&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否使用富格式,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;multiline&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否使用多行,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;readonly&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否只读,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;password&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否显示密码符,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;align&quot; default=&quot;left&quot; type=&quot;STRING&quot; comment=&quot;文字对齐方式,取值left、right、cente，如(center)&quot;/&gt;
-        &lt;Attribute name=&quot;font&quot; default=&quot;-1&quot; type=&quot;INT&quot; comment=&quot;字体id,如(0)&quot;/&gt;
-        &lt;Attribute name=&quot;textcolor&quot; default=&quot;0xFF000000&quot; type=&quot;DWORD&quot; comment=&quot;字体颜色，如(0xFFFF0000)&quot;/&gt;
-    &lt;/RichEdit&gt;
-    &lt;TreeView parent=&quot;List&quot; notifies=&quot;selectchanged setfocus killfocus timer menu itemselect windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mousechild&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件的子控件是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;inset&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;容器的内边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;vscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用竖向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;hscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用横向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;childpadding&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;子控件之间的额外距离,如(4)&quot;/&gt;
-        &lt;Attribute name=&quot;sepheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;分隔符高度,正负表示分隔符在顶部还是底部,如(4)&quot;/&gt;
-        &lt;Attribute name=&quot;sepimm&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;拖动分隔符是否立即改变大小,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;header&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否显示表头,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;headerbkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;表头背景图片&quot;/&gt;
-        &lt;Attribute name=&quot;scrollselect&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否随滚动改变选中项,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;itemfont&quot; default=&quot;-1&quot; type=&quot;INT&quot; comment=&quot;item的字体id,如(0)&quot;/&gt;
-        &lt;Attribute name=&quot;itemalign&quot; default=&quot;center&quot; type=&quot;STRING&quot; comment=&quot;item对齐方式,取值left、right、center，如(center)&quot;/&gt;
-        &lt;Attribute name=&quot;itemendellipsis&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;item句末显示不全是否使用...代替,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;itemtextpadding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;item文字显示的边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;itemtextcolor&quot; default=&quot;0xFF000000&quot; type=&quot;DWORD&quot; comment=&quot;item字体颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itembkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;item背景颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itembkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;item背景图片&quot;/&gt;
-        &lt;Attribute name=&quot;itemaltbk&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;item是否使用隔行交替背景&quot;/&gt;
-        &lt;Attribute name=&quot;itemselectedtextcolor&quot; default=&quot;0xFF000000&quot; type=&quot;DWORD&quot; comment=&quot;item被选中时的字体颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemselectedbkcolor&quot; default=&quot;0xFFC1E3FF&quot; type=&quot;DWORD&quot; comment=&quot;item被选中时的背景颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemselectedimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;item被选中时的背景图片&quot;/&gt;
-        &lt;Attribute name=&quot;itemhottextcolor&quot; default=&quot;0xFF000000&quot; type=&quot;DWORD&quot; comment=&quot;item鼠标悬浮时的字体颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemhotbkcolor&quot; default=&quot;0xFFE9F5FF&quot; type=&quot;DWORD&quot; comment=&quot;item鼠标悬浮时的背景颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemhotimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;item鼠标悬浮时的背景图片&quot;/&gt;
-        &lt;Attribute name=&quot;itemdisabledtextcolor&quot; default=&quot;0xFFCCCCCC&quot; type=&quot;DWORD&quot; comment=&quot;item禁用时的字体颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemdisabledbkcolor&quot; default=&quot;0xFFFFFFFF&quot; type=&quot;DWORD&quot; comment=&quot;item禁用时的背景颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemdisabledimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;item禁用时的背景图片&quot;/&gt;
-        &lt;Attribute name=&quot;itemlinecolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;item行分割线颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemshowhtml&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;item是否使用类html富文本绘制,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;multiexpanding&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否支持多个item同时打开,如(false)&quot;/&gt;
-        &lt;!--TreeView 私有属性--&gt;
-        &lt;Attribute name=&quot;multipleitem&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否允许item多选&quot;/&gt;
-        &lt;Attribute name=&quot;itemcheckimgsize&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;Item的复选框图片大小,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;itemiconimgsize&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;Item的图标大小,如(2,2)&quot;/&gt;
-
-        &lt;Attribute name=&quot;visiblefolderbtn&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否显示展开与收缩按钮对象&quot;/&gt;
-        &lt;Attribute name=&quot;visiblecheckbtn&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否显示复选框对象&quot;/&gt;
-        &lt;Attribute name=&quot;itemminwidth&quot; default=&quot;0&quot; type=&quot;UINT&quot; comment=&quot;设置Item的最小宽度，当hscrollbar为真且itemminwidth大于TreeView宽度时才会显示横向滚动条&quot;/&gt;
-        &lt;Attribute name=&quot;itemtextcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;item文本颜色&quot;/&gt;
-        &lt;Attribute name=&quot;itemhottextcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;鼠标进入item时文本颜色&quot;/&gt;
-        &lt;Attribute name=&quot;selitemtextcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;item被选中时文本颜色&quot;/&gt;
-        &lt;Attribute name=&quot;selitemhottextcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;item被选中时且鼠标进入时的文本颜色&quot;/&gt;
-    &lt;/TreeView&gt;
-    &lt;TreeNode parent=&quot;ListContainerElement&quot; notifies=&quot;setfocus killfocus timer itemactivate itemclick itemexpanded itemcollapsed windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;name&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;控件名字，同一窗口内必须唯一，如(testbtn)&quot;/&gt;
-        &lt;Attribute name=&quot;pos&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;位置，如果为float控件则指定位置和大小，否则只指定大小,如(0,0,100,100)&quot;/&gt;
-        &lt;Attribute name=&quot;padding&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;外边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor2&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色2,和bkcolor配合使用,如(0xFFFFFF00)&quot;/&gt;
-        &lt;Attribute name=&quot;bkcolor3&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;背景渐变色3,和bkcolor、bkcolor2配合使用,如(0xFFFF00FF)&quot;/&gt;
-        &lt;Attribute name=&quot;bordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;边框颜色,如(0xFF000000)&quot;/&gt;
-        &lt;Attribute name=&quot;focusbordercolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;获得焦点时边框的颜色,如(0xFFFF0000)&quot;/&gt;
-        &lt;Attribute name=&quot;colorhsl&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;本控件的颜色是否随窗口的hsl变化而变化,如(false)&quot;/&gt;
-        &lt;Attribute name=&quot;bordersize&quot; default=&quot;1&quot; type=&quot;INT&quot; comment=&quot;边框大小，如(1)&quot;/&gt;
-        &lt;Attribute name=&quot;borderround&quot; default=&quot;0,0&quot; type=&quot;SIZE&quot; comment=&quot;边框圆角半径,如(2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;背景图片,如(bk.bmp或file=&apos;aaa.jpg&apos; res=&apos;&apos; restype=&apos;0&apos; dest=&apos;0,0,0,0&apos; source=&apos;0,0,0,0&apos; corner=&apos;0,0,0,0&apos; mask=&apos;#FF0000&apos; fade=&apos;255&apos; hole=&apos;false&apos; xtiled=&apos;false&apos; ytiled=&apos;false&apos;)&quot;/&gt;
-        &lt;Attribute name=&quot;width&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;height&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件预设的高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;minwidth&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;minheight&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;控件的最小高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;maxwidth&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大宽度，如(100)&quot;/&gt;
-        &lt;Attribute name=&quot;maxheight&quot; default=&quot;9999&quot; type=&quot;INT&quot; comment=&quot;控件的最大高度，如(30)&quot;/&gt;
-        &lt;Attribute name=&quot;text&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;显示文本,如(测试文本)&quot;/&gt;
-        &lt;Attribute name=&quot;tooltip&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;鼠标悬浮提示,如(请在这里输入你的密码)&quot;/&gt;
-        &lt;Attribute name=&quot;userdata&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;自定义标识&quot;/&gt;
-        &lt;Attribute name=&quot;enabled&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mouse&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件是否可以响应鼠标操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;mousechild&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;本控件的子控件是否可以响应用户操作,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;visible&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否可见,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;float&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用绝对定位,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;shortcut&quot; default=&quot;&quot; type=&quot;CHAR&quot; comment=&quot;对应的快捷键,如(P)&quot;/&gt;
-        &lt;Attribute name=&quot;menu&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否需要右键菜单,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;inset&quot; default=&quot;0,0,0,0&quot; type=&quot;RECT&quot; comment=&quot;容器的内边距,如(2,2,2,2)&quot;/&gt;
-        &lt;Attribute name=&quot;vscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用竖向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;hscrollbar&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否使用横向滚动条,如(true)&quot;/&gt;
-        &lt;Attribute name=&quot;childpadding&quot; default=&quot;0&quot; type=&quot;INT&quot; comment=&quot;子控件之间的额外距离,如(4)&quot;/&gt;
-        &lt;Attribute name=&quot;selected&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否选中,如(true)&quot;/&gt;
-        &lt;!--TreeNode 私有属性--&gt;
-        &lt;Attribute name=&quot;horizattr&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;item虚线、复选框、展开与收缩、文本按钮等对象容器属性设置，格式参考Default元素的属性设置&quot;/&gt;
-        &lt;Attribute name=&quot;dotlineattr&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;item虚线对象属性设置，格式参考Default元素的属性设置&quot;/&gt;
-        &lt;Attribute name=&quot;folderattr&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;item展开与收缩按钮对象属性设置，格式参考Default元素的属性设置&quot;/&gt;
-        &lt;Attribute name=&quot;checkboxattr&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;item复选框对象属性设置，格式参考Default元素的属性设置&quot;/&gt;
-        &lt;Attribute name=&quot;itemattr&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;item按钮对象属性设置，格式参考Default元素的属性设置&quot;/&gt;
-        &lt;Attribute name=&quot;textcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;item文本颜色&quot;/&gt;
-        &lt;Attribute name=&quot;texthotcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;鼠标进入item时文本颜色&quot;/&gt;
-        &lt;Attribute name=&quot;selitemtextcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;item被选中时文本颜色&quot;/&gt;
-        &lt;Attribute name=&quot;selhotitemtextcolor&quot; default=&quot;0x00000000&quot; type=&quot;DWORD&quot; comment=&quot;item被选中时且鼠标进入时的文本颜色&quot;/&gt;
-    &lt;/TreeNode&gt;
-    &lt;GifAnim parent=&quot;Control&quot; notifies=&quot;setfocus killfocus timer menu windowinit(root)&quot;&gt;
-        &lt;Attribute name=&quot;bkimage&quot; default=&quot;&quot; type=&quot;STRING&quot; comment=&quot;Gif动画图片路径(不支持source等属性设置)&quot;/&gt;
-        &lt;Attribute name=&quot;autoplay&quot; default=&quot;true&quot; type=&quot;BOOL&quot; comment=&quot;是否自动播放GIF动画&quot;/&gt;
-        &lt;Attribute name=&quot;autosize&quot; default=&quot;false&quot; type=&quot;BOOL&quot; comment=&quot;是否根据图片自动设置控件大小(开启后width和height属性失效)&quot;/&gt;
-    &lt;/GifAnim&gt;
-&lt;/Controls&gt;
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ATL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">duilib</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/12/duilib/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ATL与WTL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/12/ATL与WTL/">ATL与WTL</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/12/ATL与WTL/" class="archive-article-date">
-  	<time datetime="2018-04-12T01:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="ATL"><a href="#ATL" class="headerlink" title="ATL"></a>ATL</h1><p>ATL中所使用的基本技术包括以下几个方面：</p>
-<ul>
-<li>COM技术</li>
-<li>C++模板类技术（Template)</li>
-<li>C++多继承技术（Multi-Inheritance)</li>
-</ul>
-<p><a href="https://msdn.microsoft.com/zh-cn/library/hh967573.aspx" target="_blank" rel="noopener">MFC 和 ATL</a></p>
-<h1 id="WTL"><a href="#WTL" class="headerlink" title="WTL"></a>WTL</h1><p><a href="https://sourceforge.net/projects/wtl/" target="_blank" rel="noopener">https://sourceforge.net/projects/wtl/</a></p>
-<p>AppWizard目录执行</p>
-<pre><code>wscript Setup.js
-</code></pre><p><a href="https://sourceforge.net/projects/visualfc/" title="https://sourceforge.net/projects/visualfc/" target="_blank" rel="noopener">visualfc</a></p>
-<p><a href="http://www.winmsg.com/cn/orbit.htm" title="http://www.winmsg.com/cn/orbit.htm" target="_blank" rel="noopener">WTL for MFC programmer 系列文章(翻译)</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ATL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">WTL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/12/ATL与WTL/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -7498,6 +6403,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">chrome</a>
               </li>
             
             <div class="clearfix"></div>
