@@ -4,6 +4,27 @@
 
     
   <url>
+    <loc>https://caojingyou.github.io/2017/01/13/C++%E8%8E%B7%E5%8F%96%E5%A4%96%E9%83%A8exe%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%EF%BC%8C%E5%88%A4%E6%96%AD%E5%9B%BE%E7%89%87%E9%A2%9C%E8%89%B2%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2018-07-18T02:04:44.144Z</lastmod>
+    <data>
+        <display>
+        <title>C++获取外部exe程序的返回值，判断图片颜色模式</title>
+        <pubTime>2017-01-13T09:23:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>运行外部程序</tag>
+         
+        <tag>C/C++</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://caojingyou.github.io/2016/10/01/C++%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</loc>
     <lastmod>2018-07-17T09:44:49.848Z</lastmod>
     <data>
@@ -2275,21 +2296,6 @@
          
         <tag>C++</tag>
          
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2018/07/17/C++%E8%8E%B7%E5%8F%96%E5%A4%96%E9%83%A8exe%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%EF%BC%8C%E5%88%A4%E6%96%AD%E5%9B%BE%E7%89%87%E9%A2%9C%E8%89%B2%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2018-01-05T08:47:18.799Z</lastmod>
-    <data>
-        <display>
-        <title></title>
-        <pubTime>2018-07-17T10:01:22.407Z</pubTime>
-        
          
            
         </display>
