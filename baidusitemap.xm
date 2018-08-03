@@ -4,18 +4,183 @@
 
     
   <url>
-    <loc>https://caojingyou.github.io/2017/01/13/C++%E8%8E%B7%E5%8F%96%E5%A4%96%E9%83%A8exe%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%EF%BC%8C%E5%88%A4%E6%96%AD%E5%9B%BE%E7%89%87%E9%A2%9C%E8%89%B2%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2018-07-18T02:04:44.144Z</lastmod>
+    <loc>https://caojingyou.github.io/2018/05/30/%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E3%80%81%E5%90%8C%E6%AD%A5%E3%80%81%E5%B9%B6%E5%8F%91/</loc>
+    <lastmod>2018-08-02T09:54:19.273Z</lastmod>
     <data>
         <display>
-        <title>C++获取外部exe程序的返回值，判断图片颜色模式</title>
-        <pubTime>2017-01-13T09:23:00.000Z</pubTime>
+        <title>进程、线程、同步、并发</title>
+        <pubTime>2018-05-30T08:02:00.000Z</pubTime>
         
         <tag>随笔</tag>
          
-        <tag>运行外部程序</tag>
+        <tag>C/C++</tag>
+         
+        <tag>并发</tag>
+         
+        <tag>多线程</tag>
+         
+        <tag>同步</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/05/30/IO%E6%A8%A1%E5%9E%8B/</loc>
+    <lastmod>2018-08-02T09:20:17.533Z</lastmod>
+    <data>
+        <display>
+        <title>IO模型</title>
+        <pubTime>2018-05-30T06:20:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
          
         <tag>C/C++</tag>
+         
+        <tag>IO模型</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/05/18/X3%E6%A1%86%E6%9E%B6/</loc>
+    <lastmod>2018-08-01T07:49:12.474Z</lastmod>
+    <data>
+        <display>
+        <title>X3框架</title>
+        <pubTime>2018-05-18T01:26:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C/C++</tag>
+         
+        <tag>X3框架</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/04/27/%E7%9B%AE%E5%BD%95%E7%9B%91%E6%8E%A7/</loc>
+    <lastmod>2018-08-01T00:45:41.687Z</lastmod>
+    <data>
+        <display>
+        <title>目录监控</title>
+        <pubTime>2018-04-27T08:03:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C++</tag>
+         
+        <tag>boost</tag>
+         
+        <tag>目录监控</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/05/07/%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA/</loc>
+    <lastmod>2018-07-30T03:24:58.494Z</lastmod>
+    <data>
+        <display>
+        <title>自动构建</title>
+        <pubTime>2018-05-07T01:47:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>MSBuild</tag>
+         
+        <tag>Jenkins</tag>
+         
+        <tag>自动构建</tag>
+         
+        <tag>CCNET</tag>
+         
+        <tag>持续集成</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/05/23/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E5%8F%8A%E6%A3%80%E6%B5%8B/</loc>
+    <lastmod>2018-07-26T08:23:34.937Z</lastmod>
+    <data>
+        <display>
+        <title>内存泄露检查</title>
+        <pubTime>2018-05-23T07:35:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C/C++</tag>
+         
+        <tag>调试</tag>
+         
+        <tag>内存泄露</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2017/10/15/Doxygen/</loc>
+    <lastmod>2018-07-19T02:51:06.719Z</lastmod>
+    <data>
+        <display>
+        <title>Doxygen</title>
+        <pubTime>2017-10-15T08:03:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C++</tag>
+         
+        <tag>Doxygen</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/05/23/C++%E8%B0%83%E8%AF%95/</loc>
+    <lastmod>2018-07-18T07:44:18.649Z</lastmod>
+    <data>
+        <display>
+        <title>C++调试</title>
+        <pubTime>2018-05-23T09:35:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C/C++</tag>
+         
+        <tag>调试</tag>
+         
+        <tag>错误报告</tag>
+         
+        <tag>内存泄露</tag>
          
          
            
@@ -26,7 +191,7 @@
     
   <url>
     <loc>https://caojingyou.github.io/2016/10/01/C++%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/</loc>
-    <lastmod>2018-07-17T09:44:49.848Z</lastmod>
+    <lastmod>2018-07-18T07:41:03.875Z</lastmod>
     <data>
         <display>
         <title>C++ 引用计数技术及智能指针的简单实现</title>
@@ -39,6 +204,48 @@
         <tag>智能指针</tag>
          
         <tag>Boost</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/04/18/%E6%8F%92%E4%BB%B6%E6%A1%86%E6%9E%B6/</loc>
+    <lastmod>2018-07-18T06:02:49.672Z</lastmod>
+    <data>
+        <display>
+        <title>插件框架</title>
+        <pubTime>2018-04-18T06:48:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C++</tag>
+         
+        <tag>插件框架</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2017/01/13/C++%E8%8E%B7%E5%8F%96%E5%A4%96%E9%83%A8exe%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%BF%94%E5%9B%9E%E5%80%BC%EF%BC%8C%E5%88%A4%E6%96%AD%E5%9B%BE%E7%89%87%E9%A2%9C%E8%89%B2%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2018-07-18T02:04:44.144Z</lastmod>
+    <data>
+        <display>
+        <title>C++获取外部exe程序的返回值，判断图片颜色模式</title>
+        <pubTime>2017-01-13T09:23:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>运行外部程序</tag>
+         
+        <tag>C/C++</tag>
          
          
            
@@ -219,29 +426,6 @@
         <tag>C/C++</tag>
          
         <tag>Linux</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2018/04/27/%E7%9B%AE%E5%BD%95%E7%9B%91%E6%8E%A7/</loc>
-    <lastmod>2018-06-21T08:08:01.946Z</lastmod>
-    <data>
-        <display>
-        <title>目录监控</title>
-        <pubTime>2018-04-27T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>C++</tag>
-         
-        <tag>boost</tag>
-         
-        <tag>目录监控</tag>
          
          
            
@@ -479,33 +663,6 @@
 
     
   <url>
-    <loc>https://caojingyou.github.io/2018/05/07/%E8%87%AA%E5%8A%A8%E6%9E%84%E5%BB%BA/</loc>
-    <lastmod>2018-06-15T02:26:41.046Z</lastmod>
-    <data>
-        <display>
-        <title>自动构建</title>
-        <pubTime>2018-05-07T01:47:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>MSBuild</tag>
-         
-        <tag>Jenkins</tag>
-         
-        <tag>自动构建</tag>
-         
-        <tag>CCNET</tag>
-         
-        <tag>持续集成</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://caojingyou.github.io/2018/04/16/CEF/</loc>
     <lastmod>2018-06-08T08:18:18.260Z</lastmod>
     <data>
@@ -592,52 +749,6 @@
 
     
   <url>
-    <loc>https://caojingyou.github.io/2018/05/30/%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E3%80%81%E5%90%8C%E6%AD%A5%E3%80%81%E5%B9%B6%E5%8F%91/</loc>
-    <lastmod>2018-06-01T06:36:05.294Z</lastmod>
-    <data>
-        <display>
-        <title>进程、线程、同步、并发</title>
-        <pubTime>2018-05-30T08:02:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>C/C++</tag>
-         
-        <tag>并发</tag>
-         
-        <tag>多线程</tag>
-         
-        <tag>同步</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2018/05/30/IO%E6%A8%A1%E5%9E%8B/</loc>
-    <lastmod>2018-05-30T07:02:23.528Z</lastmod>
-    <data>
-        <display>
-        <title>IO模型</title>
-        <pubTime>2018-05-30T06:20:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>C/C++</tag>
-         
-        <tag>IO模型</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://caojingyou.github.io/2018/05/25/COM/</loc>
     <lastmod>2018-05-30T06:03:52.526Z</lastmod>
     <data>
@@ -650,29 +761,6 @@
         <tag>C/C++</tag>
          
         <tag>COM</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2018/05/23/C++%E8%B0%83%E8%AF%95/</loc>
-    <lastmod>2018-05-30T06:02:34.628Z</lastmod>
-    <data>
-        <display>
-        <title>C++调试</title>
-        <pubTime>2018-05-23T09:35:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>C/C++</tag>
-         
-        <tag>调试</tag>
-         
-        <tag>错误报告</tag>
          
          
            
@@ -696,29 +784,6 @@
         <tag>Boost</tag>
          
         <tag>设计模式</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2018/05/23/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E5%8F%8A%E6%A3%80%E6%B5%8B/</loc>
-    <lastmod>2018-05-28T09:25:39.983Z</lastmod>
-    <data>
-        <display>
-        <title>内存泄露检查</title>
-        <pubTime>2018-05-23T07:35:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>C/C++</tag>
-         
-        <tag>调试</tag>
-         
-        <tag>内存泄露</tag>
          
          
            
@@ -792,27 +857,6 @@
         <tag>grpc</tag>
          
         <tag>flatbuffer</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2018/05/18/X3%E6%A1%86%E6%9E%B6/</loc>
-    <lastmod>2018-05-18T06:59:04.626Z</lastmod>
-    <data>
-        <display>
-        <title>X3框架</title>
-        <pubTime>2018-05-18T01:26:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>C/C++</tag>
-         
-        <tag>X3框架</tag>
          
          
            
@@ -1027,27 +1071,6 @@
         <tag>密码</tag>
          
         <tag>Cryptlib</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2018/04/18/%E6%8F%92%E4%BB%B6%E6%A1%86%E6%9E%B6/</loc>
-    <lastmod>2018-04-18T07:11:03.799Z</lastmod>
-    <data>
-        <display>
-        <title>插件框架</title>
-        <pubTime>2018-04-18T06:48:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>C++</tag>
-         
-        <tag>插件框架</tag>
          
          
            
@@ -1440,27 +1463,6 @@
         <tag>tesseract</tag>
          
         <tag>ocr</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2017/10/15/Doxygen/</loc>
-    <lastmod>2018-03-06T05:51:35.909Z</lastmod>
-    <data>
-        <display>
-        <title>Doxygen</title>
-        <pubTime>2017-10-15T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>C++</tag>
-         
-        <tag>Doxygen</tag>
          
          
            

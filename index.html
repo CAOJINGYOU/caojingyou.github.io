@@ -3195,7 +3195,23 @@ printf(&quot;%s\n&quot;, output);
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Boost-Thread"><a href="#Boost-Thread" class="headerlink" title="Boost.Thread"></a>Boost.Thread</h1><h1 id="Win32-API"><a href="#Win32-API" class="headerlink" title="Win32 API"></a>Win32 API</h1><h1 id="pthread"><a href="#pthread" class="headerlink" title="pthread"></a>pthread</h1><h1 id="线程同步："><a href="#线程同步：" class="headerlink" title="线程同步："></a>线程同步：</h1><p>线程可分为UI线程，工作者线程</p>
+        <h1 id="Boost-Thread"><a href="#Boost-Thread" class="headerlink" title="Boost.Thread"></a>Boost.Thread</h1><h1 id="Win32-API"><a href="#Win32-API" class="headerlink" title="Win32 API"></a>Win32 API</h1><p><a href="http://blog.jobbole.com/109200/" target="_blank" rel="noopener">C++ 线程同步的四种方式</a></p>
+<p>内核对象的线程同步则主要由<code>事件</code>、<code>等待定时器</code>、<code>信号量</code>以及<code>信号灯</code>等内核对象构成。由于这种同步机制使用了内核对象，使用时必须将线程从用户模式切换到内核模式，而这种转换一般要耗费近千个CPU周期，因此同步速度较慢，但在适用性上却要远优于用户模式的线程同步方式。</p>
+<p>在WIN32中，同步机制主要有以下几种：</p>
+<p>（1）事件(Event);<br>（2）信号量(semaphore);<br>（3）互斥量(mutex);<br>（4）临界区(Critical section)。</p>
+<ul>
+<li>可等待定时器</li>
+<li>原子锁</li>
+</ul>
+<h2 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h2><p>如果自旋锁已经被锁住，这时有程序申请“获取”这个自旋锁时，程序则处于“自旋”状态。所谓自旋状态，就是不停的询问是否可以“获取”自旋锁。</p>
+<p>自旋锁不同于其他的等待事件。在线程中如果等待某个事件（Event），操作系统会让这个线程进入睡眠状态，CPU会转而运行其他线程。而自旋锁则不同，它不会切换到别的线程，而是一直让这个线程“自旋”。因此，对自旋锁占用时间不宜过长，否则会导致申请自旋锁的其他线程处于自旋，这会浪费宝贵的CPU时间。</p>
+<p>自旋锁的作用一般是使各派遣函数之间同步。尽量不要将自旋锁放在全局变量中，而应该将自旋锁放在设备扩展里面。自旋锁用KSPIN_LOCK数据结构表示。</p>
+<h2 id="内核模式下线程同步"><a href="#内核模式下线程同步" class="headerlink" title="内核模式下线程同步"></a><a href="http://www.voidcn.com/article/p-bhakxtfz-beq.html" target="_blank" rel="noopener">内核模式下线程同步</a></h2><p><a href="http://www.voidcn.com/article/p-bqnbnjzn-ye.html" target="_blank" rel="noopener">内核模式下的线程同步——事件内核对象</a><br><a href="http://www.voidcn.com/article/p-qdxfckob-uy.html" target="_blank" rel="noopener">Windows Via C/C++：内核模式下的线程同步——概述</a></p>
+<p>以下是拥有signaled/unsignaled状态的内核对象：</p>
+<p>进程（Processes）<br>线程（Threads）<br>作业（Jobs）<br>文件和控制台标准输入/输出/错误流（File and console standard input/output/error streams）<br>事件（Events）<br>可待待定时器（Waitable timers）<br>信号量（Semaphores）<br>互斥量（Mutexes）</p>
+<p>内核对象线程同步】概述</p>
+<p>用户方式同步的优点是它的 同步速度非常快。但它也有其局限性。</p>
+<h2 id="线程同步方式比较"><a href="#线程同步方式比较" class="headerlink" title="线程同步方式比较"></a><a href="https://www.cnblogs.com/raichen/p/5768752.html" target="_blank" rel="noopener">线程同步方式比较</a></h2><h2 id="windows-多线程：-CreateThread、-beginthread、-beginthreadex、AfxBeginThread-的区别"><a href="#windows-多线程：-CreateThread、-beginthread、-beginthreadex、AfxBeginThread-的区别" class="headerlink" title="windows 多线程： CreateThread、_beginthread、_beginthreadex、AfxBeginThread 的区别"></a><a href="http://www.cnblogs.com/TenosDoIt/archive/2013/04/15/3022036.html" target="_blank" rel="noopener">windows 多线程： CreateThread、_beginthread、_beginthreadex、AfxBeginThread 的区别</a></h2><h1 id="pthread"><a href="#pthread" class="headerlink" title="pthread"></a>pthread</h1><h1 id="线程同步："><a href="#线程同步：" class="headerlink" title="线程同步："></a>线程同步：</h1><p>线程可分为UI线程，工作者线程</p>
 <ul>
 <li>临界区(Critical Section)</li>
 <li>互斥量(Mutex)、互斥对象</li>

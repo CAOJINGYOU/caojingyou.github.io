@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="https://caojingyou.github.io">
   <title>X3框架 | 曹景游</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="概述插件原理所有插件都是普通DLL，通过在工程内包含辅助文件自动实现了统一的导出函数，通过该导出函数就能获取到在该插件内所实现的所有接口的信息及对象创建函数地址；主程序使用插件管理器（PluginManager）加载这些DLL，插件管理器通过这个导出函数将各个类ID、对象创建函数地址统一管理起来，从而在插件管理器的中介作用下让各个插件能相互使用各种接口函数。 多接口转换、引用计数管理采用智能指针类">
+  <meta name="description" content="概述插件原理所有插件都是普通DLL，通过在工程内包含辅助文件自动实现了统一的导出函数，通过该导出函数就能获取到在该插件内所实现的所有接口的信息及对象创建函数地址；主程序使用插件管理器（PluginManager）加载这些DLL，插件管理器通过这个导出函数将各个类ID、对象创建函数地址统一管理起来，从而在插件管理器的中介作用下让各个插件能相互使用各种接口函数。 接口与实现分离对外提供接口文件，在插件">
 <meta name="keywords" content="随笔,C&#x2F;C++,X3框架">
 <meta property="og:type" content="article">
 <meta property="og:title" content="X3框架">
 <meta property="og:url" content="https://caojingyou.github.io/2018/05/18/X3框架/index.html">
 <meta property="og:site_name" content="曹景游">
-<meta property="og:description" content="概述插件原理所有插件都是普通DLL，通过在工程内包含辅助文件自动实现了统一的导出函数，通过该导出函数就能获取到在该插件内所实现的所有接口的信息及对象创建函数地址；主程序使用插件管理器（PluginManager）加载这些DLL，插件管理器通过这个导出函数将各个类ID、对象创建函数地址统一管理起来，从而在插件管理器的中介作用下让各个插件能相互使用各种接口函数。 多接口转换、引用计数管理采用智能指针类">
-<meta property="og:updated_time" content="2018-05-18T06:59:04.626Z">
+<meta property="og:description" content="概述插件原理所有插件都是普通DLL，通过在工程内包含辅助文件自动实现了统一的导出函数，通过该导出函数就能获取到在该插件内所实现的所有接口的信息及对象创建函数地址；主程序使用插件管理器（PluginManager）加载这些DLL，插件管理器通过这个导出函数将各个类ID、对象创建函数地址统一管理起来，从而在插件管理器的中介作用下让各个插件能相互使用各种接口函数。 接口与实现分离对外提供接口文件，在插件">
+<meta property="og:updated_time" content="2018-08-01T07:49:12.474Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="X3框架">
-<meta name="twitter:description" content="概述插件原理所有插件都是普通DLL，通过在工程内包含辅助文件自动实现了统一的导出函数，通过该导出函数就能获取到在该插件内所实现的所有接口的信息及对象创建函数地址；主程序使用插件管理器（PluginManager）加载这些DLL，插件管理器通过这个导出函数将各个类ID、对象创建函数地址统一管理起来，从而在插件管理器的中介作用下让各个插件能相互使用各种接口函数。 多接口转换、引用计数管理采用智能指针类">
+<meta name="twitter:description" content="概述插件原理所有插件都是普通DLL，通过在工程内包含辅助文件自动实现了统一的导出函数，通过该导出函数就能获取到在该插件内所实现的所有接口的信息及对象创建函数地址；主程序使用插件管理器（PluginManager）加载这些DLL，插件管理器通过这个导出函数将各个类ID、对象创建函数地址统一管理起来，从而在插件管理器的中介作用下让各个插件能相互使用各种接口函数。 接口与实现分离对外提供接口文件，在插件">
   
     <link rel="alternative" href="/atom.xml" title="曹景游" type="application/atom+xml">
   
@@ -183,7 +183,11 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="插件原理"><a href="#插件原理" class="headerlink" title="插件原理"></a>插件原理</h2><p>所有插件都是普通DLL，通过在工程内包含辅助文件自动实现了统一的导出函数，通过该导出函数就能获取到在该插件内所实现的所有接口的信息及对象创建函数地址；主程序使用插件管理器（PluginManager）加载这些DLL，插件管理器通过这个导出函数将各个类ID、对象创建函数地址统一管理起来，从而在插件管理器的中介作用下让各个插件能相互使用各种接口函数。</p>
+<h2 id="接口与实现分离"><a href="#接口与实现分离" class="headerlink" title="接口与实现分离"></a>接口与实现分离</h2><p>对外提供接口文件，在插件内部用类来实现一个或多个接口，不需要对外导出该类或暴露实现细节。这样还有一个好处是只有约定了接口就可以让多个模块并行开发，模块相互之间不存在编译依赖（不需要其他插件的LIB等文件），这可用于测试驱动开发模式。</p>
 <h2 id="多接口转换、引用计数管理"><a href="#多接口转换、引用计数管理" class="headerlink" title="多接口转换、引用计数管理"></a>多接口转换、引用计数管理</h2><p>采用智能指针类来管理接口的引用计数及生命期，可从一个接口动态转换为另一个接口（内部采用C++的RTTI机制动态转换），可以区分插件内部的接口引用和插件外部的接口引用。</p>
+<h2 id="模块透明部署"><a href="#模块透明部署" class="headerlink" title="模块透明部署"></a>模块透明部署</h2><p>一个模块只需要使用其他模块的接口，不需要关心该接口是在哪个插件中实现的。可以根据需要将各个实现类进行合并或拆分，使其分布到不同插件中，而接口使用者不受影响。另外，插件部署于哪个目录也不影响插件接口的使用。</p>
+<h2 id="模块可替换、可扩展"><a href="#模块可替换、可扩展" class="headerlink" title="模块可替换、可扩展"></a>模块可替换、可扩展</h2><p>可根据需要替换某个插件，只有该插件实现了相同的接口，即使内部功能不相同，这样就实现了插件可替换、按需组合。通过在新的插件中支持更多的接口，可扩展更多的功能。可以在新插件中局部替换原有插件的某些接口或部分函数，实现重用和扩展。</p>
+<h2 id="线程安全性"><a href="#线程安全性" class="headerlink" title="线程安全性"></a>线程安全性</h2><p>本插件机制所提供的内部实现文件考虑了线程安全性，允许多线程访问而不冲突，同时采用的是轻量级的锁定机制（计数原子锁定），运行开销很小。</p>
 <h2 id="跨版本"><a href="#跨版本" class="headerlink" title="跨版本"></a>跨版本</h2><p>允许不同版本的VC++开发的插件相互调用对方的接口，虽然实际中一般不需要这样做。由于没有采用VC++特殊的编译指令，因此容易移植到其他开发平台下。</p>
 <h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="接口定义"><a href="#接口定义" class="headerlink" title="接口定义"></a>接口定义</h2><pre><code>interface Ix_Example
 {

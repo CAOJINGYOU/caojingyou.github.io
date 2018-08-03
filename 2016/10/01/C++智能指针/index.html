@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2016/10/01/C++智能指针/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="智能指针是利用RAII（在对象的构造函数中执行资源的获取（指针的初始化），在析构函数中释放（delete 指针）：这种技法把它称之为RAII（Resource Acquisition Is Initialization：资源获取即初始化））来管理资源。 引用计数技术及智能指针的简单实现基础对象类class Point  {  public:      Point(int xVal = 0, int">
-<meta property="og:updated_time" content="2018-07-17T09:44:49.848Z">
+<meta property="og:updated_time" content="2018-07-18T07:41:03.875Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++ 引用计数技术及智能指针的简单实现">
 <meta name="twitter:description" content="智能指针是利用RAII（在对象的构造函数中执行资源的获取（指针的初始化），在析构函数中释放（delete 指针）：这种技法把它称之为RAII（Resource Acquisition Is Initialization：资源获取即初始化））来管理资源。 引用计数技术及智能指针的简单实现基础对象类class Point  {  public:      Point(int xVal = 0, int">
@@ -342,6 +342,10 @@ private:
 <p><code>boost::weak_ptr</code>必须从一个<code>boost::share_ptr</code>或另一个<code>boost::weak_ptr</code>转换而来，这也说明，进行该对象的内存管理的是那个强引用的<code>boost::share_ptr</code>。<code>boost::weak_ptr</code>只是提供了对管理对象的一个访问手段。</p>
 <p><code>boost::weak_ptr</code>除了对所管理对象的基本访问功能（通过<code>get()</code>函数）外，还有两个常用的功能函数：<code>expired()</code>用于检测所管理的对象是否已经释放；<code>lock()</code>用于获取所管理的对象的强引用指针。</p>
 <p><code>weak_ptr&lt;T&gt;</code>的引入主要是为了解决<code>shared_ptr</code>的循环引用的问题.</p>
+<h1 id="CComPtr类"><a href="#CComPtr类" class="headerlink" title="CComPtr类"></a>CComPtr类</h1><p>用于管理COM接口指针的智能指针类。</p>
+<p>ATL使用CComPtr和CComQIPtr管理COM接口指针。两者都源自CComPtrBase，并且都执行自动引用计数</p>
+<p>CComPtr被称为智能指针，是ATL提供的一个模版类，能够从语法上自动完成AddRef和Release。（源代码在atlbase.h中）</p>
+<p><a href="http://www.tsingfun.com/html/2015/dev_1111/ATL-CComPtr-CComQIPtr.html" target="_blank" rel="noopener">ATL CComPtr和CComQIPtr详解</a></p>
 <h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
 <li><a href="http://mp.weixin.qq.com/s?__biz=MzAxNDI5NzEzNg==&amp;mid=2651156666&amp;idx=1&amp;sn=4109903d526468f5913922d2f06e5a1a&amp;scene=0#wechat_redirect" target="_blank" rel="noopener">C++ 引用计数技术及智能指针的简单实现</a>(文章写的太好了，转过了以后用)</li>
 <li><a href="https://blog.csdn.net/leichaowen/article/details/53064294" target="_blank" rel="noopener">弱引用<code>weak_ptr</code> 解决<code>shared_ptr</code>的循环引用</a></li>

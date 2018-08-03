@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2018/04/27/目录监控/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="FileSystemWatcher// &amp;lt;https://msdn.microsoft.com/zh-cn/library/chzww271.aspx&amp;gt; // monitor_fs.cpp // compile with: /clr #using &amp;lt;system.dll&amp;gt;  using namespace System; using namespace System::IO">
-<meta property="og:updated_time" content="2018-06-21T08:08:01.946Z">
+<meta property="og:updated_time" content="2018-08-01T00:45:41.687Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="目录监控">
 <meta name="twitter:description" content="FileSystemWatcher// &amp;lt;https://msdn.microsoft.com/zh-cn/library/chzww271.aspx&amp;gt; // monitor_fs.cpp // compile with: /clr #using &amp;lt;system.dll&amp;gt;  using namespace System; using namespace System::IO">
@@ -242,6 +242,40 @@ int main()
 }
 </code></pre><h1 id="目录监视器-Directory-Monitor"><a href="#目录监视器-Directory-Monitor" class="headerlink" title="目录监视器(Directory Monitor)"></a>目录监视器(Directory Monitor)</h1><p>使用Boost.Asio扩展<br><a href="http://www.highscore.de/boost/dir_monitor.zip" title="http://www.highscore.de/boost/dir_monitor.zip" target="_blank" rel="noopener">http://www.highscore.de/boost/dir_monitor.zip</a></p>
 <h1 id="SHChangeNotifyRegister"><a href="#SHChangeNotifyRegister" class="headerlink" title="SHChangeNotifyRegister"></a>SHChangeNotifyRegister</h1><p>Win SDK Samples 下 ChangeNotifyWatcher 项目，使用<code>SHChangeNotifyRegister</code></p>
+<p>使用SHChangeNotifyRegister、FindFirstChangeNotification、ReadDirectoryChangesW</p>
+<p><a href="https://blog.csdn.net/miss_acha/article/details/7745216" target="_blank" rel="noopener">windows下文件的监控–ReadDirectoryChangesW函数的使用</a></p>
+<h2 id="监控文件和目录的四种方式"><a href="#监控文件和目录的四种方式" class="headerlink" title="监控文件和目录的四种方式"></a>监控文件和目录的四种方式</h2><p>以下内容引用<a href="https://blog.csdn.net/rankun1/article/details/53509628" target="_blank" rel="noopener">理解 ReadDirectoryChangesW</a></p>
+<p>在 Windows Vista 中，SHChangeNotifyRegister 已经可以报告所有文件的所有变更。但问题是，还存在上亿不打算立即升级的 Windows XP 用户。</p>
+<p>　　由于 SHChangeNotifyRegister 基于窗口消息，所以还会带来性能上的问题。如果发生了太多文件变更，应用程序会不断接收到变更消息，你必须自己确认实际发生的事情。对于一部分应用程序来说，这实在是相当的囧。</p>
+<p>　　Windows 2000 引入了两个新接口，<a href="http://msdn.microsoft.com/en-us/library/aa364417(VS.85" target="_blank" rel="noopener">FindFirstChangeNotification</a>.aspx) 和 <a href="http://msdn.microsoft.com/en-us/library/aa365465(v=VS.85" target="_blank" rel="noopener">ReadDirectoryChangesW</a>.aspx)。 FindFirstChangeNotification 很容易使用，但没有给出变更文件的信息。即便如此，这个函数对某些应用程序还是很有用的，比如传真服务和 SMTP 服务可以通过拖拽一个文件到一个目录来接受任务队列。ReadDirectoryChangesW 会给出变更的内容和方式, 不过相对的，在使用上也更复杂一些。</p>
+<p>　　同 SHChangeNotifyRegister 一样，这两个新函数也会有性能问题。与 Shell 通知相比，它们的运行速度有明显提升，但在不同目录间移动上千个文件仍然会导致你丢失一部分(或者很多)通知。丢失通知的原因很<a href="http://social.msdn.microsoft.com/forums/en-US/netfxbcl/thread/4465cafb-f4ed-434f-89d8-c85ced6ffaa8/" target="_blank" rel="noopener">复杂</a>。令人惊讶的是，似乎与你处理通知的速度有关。</p>
+<p>　　注意，FindFirstChangeNotification 和 ReadDirectoryChangesW 是互斥的，不能同时使用。</p>
+<p>　　Windows XP 引入了最终解决方案，变更日志(<a href="http://msdn.microsoft.com/en-us/library/aa363803(VS.85" target="_blank" rel="noopener">Change Journal</a>.aspx))可以跟踪每一个变更的细节，即使你的软件没有运行。很帅的技术，但也相当难用。</p>
+<p>　　第四个，同时也是最后一个解决方案需要安装<a href="http://msdn.microsoft.com/en-us/library/ff548202.aspx" target="_blank" rel="noopener">文件系统过滤驱动</a>，Sysinternals 的 FileMon 就使用了这种技术。在 Windows 驱动开发包(WDK)中有一个例子。这个方案本质上是一个<a href="http://msdn.microsoft.com/en-us/library/ff548084.aspx" target="_blank" rel="noopener">设备驱动</a>，如果没有正确的实现，有可能导致系统稳定性方面的问题。</p>
+<p>　　对我来说，使用 ReadDirectoryChangesW，在性能和复杂度上会是一个很好的平衡。</p>
+<p>　　使用 ReadDirectoryChangesW 的最大挑战在于，在IO模式，处理信号，等待方式，以及线程模型这几个问题的整合上，存在数百种可能性。如果你不是 Win32 I/O 方面的专家，即使最简单的场景，你也很难搞定。</p>
+<p>A. I/O模式:</p>
+<pre><code>阻塞同步(Blocking synchronous)
+触发式同步(Signaled synchronous)
+重叠异步(Overlapped asynchronous)
+完成例程(Completion Routine) (又名 Asynchronous Procedure Call or APC)
+</code></pre><p>B. 当调用 WaitForXxx 函数的时候:</p>
+<pre><code>等待目录句柄
+等待 OVERLAPPED 结构体里的 Event 对象
+什么都不等 (APCs)
+</code></pre><p>C. 处理通知:</p>
+<pre><code>阻塞
+WaitForSingleObject
+WaitForMultipleObjects
+WaitForMultipleObjectsEx
+MsgWaitForMultipleObjectsEx
+IO完成端口(I/O Completion Ports)
+</code></pre><p>D. 线程模型:</p>
+<pre><code>每个工作线程调用一次 ReadDirectoryChangesW.
+每个工作线程调用多次 ReadDirectoryChangesW.
+在主线程上调用多次 ReadDirectoryChangesW.
+多个线程进行多个调用. (I/O Completion Ports)
+</code></pre><p>　　最后，当调用 ReadDirectoryChangesW 的时候，你可以通过 flags 选择你要监控的内容，包括文件创建，内容变更，属性变更等等。你可以多次调用，每次一个 flag，也可以在一次调用中使用多个 flag。多个 flag 总是正确的解决方案。但如果你为了调试方便，需要一个 flag 一个 flag 的调用的话，那就需要从 ReadDirectoryChangesW 返回的通知缓冲区中读取更多的数据。</p>
 <h1 id="QFileSystemWatcher"><a href="#QFileSystemWatcher" class="headerlink" title="QFileSystemWatcher"></a>QFileSystemWatcher</h1><p>Qt的QFileSystemWatcher也可监控目录</p>
 
       

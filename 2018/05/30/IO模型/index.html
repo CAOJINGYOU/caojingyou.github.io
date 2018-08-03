@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2018/05/30/IO模型/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="windows 阻塞（blocking）模型 选择（select）模型 WSAAsyncSelect模型 WSAEventSelect 模型  函数:WSAEventSelect 、WSAWaitForMultipleEvents、WSAEnumNetworkEvents   重叠（overlapped）模型  overlapped I/O是Win32的一项技术 函数：WSAGetOverlapp">
-<meta property="og:updated_time" content="2018-05-30T07:02:23.528Z">
+<meta property="og:updated_time" content="2018-08-02T09:20:17.533Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IO模型">
 <meta name="twitter:description" content="windows 阻塞（blocking）模型 选择（select）模型 WSAAsyncSelect模型 WSAEventSelect 模型  函数:WSAEventSelect 、WSAWaitForMultipleEvents、WSAEnumNetworkEvents   重叠（overlapped）模型  overlapped I/O是Win32的一项技术 函数：WSAGetOverlapp">
@@ -208,12 +208,33 @@
 <li>线程池 + 完成端口</li>
 </ul>
 <p>函数：CreateThreadpoolIo，StartThreadpoolIo，CloseThreadpoolIo</p>
+<p><a href="https://blog.csdn.net/column/details/windowssocketbyiter.html" target="_blank" rel="noopener">windows socket 网络编程系列</a></p>
+<p>Select</p>
+<p>WSAAsyncSelect</p>
+<p>WSAEventSelect</p>
+<p>重叠IO-事件通知</p>
+<p>IOCP</p>
+<p><a href="https://blog.csdn.net/ithzhang/article/details/8508161" target="_blank" rel="noopener">《Windows核心编程系列》十异步IO之IO完成端口</a></p>
+<p><a href="https://blog.csdn.net/ithzhang/article/details/8316171" target="_blank" rel="noopener">《Windows核心编程系列》十谈谈﻿﻿﻿﻿同步设备IO与异步设备IO之异步IO</a></p>
+<p><a href="https://blog.csdn.net/ithzhang/article/details/8307633" target="_blank" rel="noopener">《Windows核心编程系列》九谈谈同步设备IO与异步设备IO之同步设备IO</a></p>
 <h1 id="IO多路复用"><a href="#IO多路复用" class="headerlink" title="IO多路复用"></a>IO多路复用</h1><p>select、kqueue、poll/epoll、overlapped I/O等</p>
+<p><a href="https://blog.csdn.net/shallwake/article/details/5265287" target="_blank" rel="noopener">再谈select, iocp, epoll,kqueue及各种I/O复用机制</a></p>
+<p>那么，为什么epoll,kqueue比select高级？ </p>
+<p>答案是，他们无轮询。因为他们用callback取代了。想想看，当套接字比较多的时候，每次select()都要通过遍历FD_SETSIZE个Socket来完成调度,不管哪个Socket是活跃的,都遍历一遍。这会浪费很多CPU时间。如果能给套接字注册某个回调函数，当他们活跃时，自动完成相关操作，那就避免了轮询，这正是epoll与kqueue做的。</p>
 <h1 id="库"><a href="#库" class="headerlink" title="库"></a>库</h1><p>ASIO:</p>
 <p>“C++的I/O框架，逐渐成为Boost库的一部分。it’s like ACE updated for the STL era。”</p>
 <p>支持select、epoll、IOCP等IO模型；</p>
 <p>libevent:</p>
 <p>由Niels Provos用C编写的一个轻量级的I/O框架。它支持kqueue和select、poll和epoll。</p>
+<p>广为人知的有ACE,Libevent这些，他们都是跨平台的，而且他们自动选择最优的I/O复用机制，用户只需调用接口即可。说到这里又得说说2个设计模式，Reactor and Proactor。</p>
+<p>Libevent是Reactor模型，ACE提供Proactor模型。实际都是对各种I/O复用机制的封装。</p>
+<p>Reactor: </p>
+<p>libevent/libev/libuv/ZeroMQ/Event Library in Redis</p>
+<p>Proactor</p>
+<p>IOCP/Boost.Asio</p>
+<p>linux下还是Reactor把, 没有os支持, Proactor玩不转.</p>
+<p><a href="https://segmentfault.com/a/1190000002715832" target="_blank" rel="noopener">IO设计模式：Reactor和Proactor对比</a></p>
+<p><a href="https://blog.csdn.net/chen8238065/article/details/48315085" target="_blank" rel="noopener">关于同步，异步，阻塞，非阻塞，IOCP/epoll,select/poll,AIO ,NIO ,BIO的总结</a></p>
 <h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="https://www.jianshu.com/p/5cf67fab6d61" target="_blank" rel="noopener">https://www.jianshu.com/p/5cf67fab6d61</a></p>
 <p><a href="https://blog.csdn.net/HQ354974212/article/details/76423050?locationNum=2&amp;fps=1" target="_blank" rel="noopener">https://blog.csdn.net/HQ354974212/article/details/76423050?locationNum=2&amp;fps=1</a></p>
 <p><a href="https://blog.csdn.net/zj510/article/details/44652923" target="_blank" rel="noopener">https://blog.csdn.net/zj510/article/details/44652923</a></p>

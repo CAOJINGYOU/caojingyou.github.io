@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2018/05/23/内存泄漏及检测/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="检测是否存在内存泄漏问题Windows平台下面Visual Studio 调试器和 C 运行时 (CRT) 库为我们提供了检测和识别内存泄漏的有效方法，原理大致如下：内存分配要通过CRT在运行时实现，只要在分配内存和释放内存时分别做好记录，程序结束时对比分配内存和释放内存的记录就可以确定是不是有内存泄漏。在vs中启用内存检测的方法如下：  STEP1，在程序中包括以下语句： （#include 语">
-<meta property="og:updated_time" content="2018-05-28T09:25:39.983Z">
+<meta property="og:updated_time" content="2018-07-26T08:23:34.937Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="内存泄露检查">
 <meta name="twitter:description" content="检测是否存在内存泄漏问题Windows平台下面Visual Studio 调试器和 C 运行时 (CRT) 库为我们提供了检测和识别内存泄漏的有效方法，原理大致如下：内存分配要通过CRT在运行时实现，只要在分配内存和释放内存时分别做好记录，程序结束时对比分配内存和释放内存的记录就可以确定是不是有内存泄漏。在vs中启用内存检测的方法如下：  STEP1，在程序中包括以下语句： （#include 语">
@@ -235,8 +235,45 @@ _CrtMemDumpStatistics( &amp;s3 );
 </code></pre><p>顾名思义，_CrtMemDifference 比较两个内存状态（s1 和 s2），生成这两个状态之间差异的结果（s3）。 在程序的开始和结尾放置 _CrtMemCheckpoint 调用，并使用_CrtMemDifference 比较结果，是检查内存泄漏的另一种方法。 如果检测到泄漏，则可以使用 _CrtMemCheckpoint 调用通过二进制搜索技术来划分程序和定位泄漏。</p>
 <h1 id="内容转载："><a href="#内容转载：" class="headerlink" title="内容转载："></a>内容转载：</h1><p>太有用了，故直接转载以下链接内容</p>
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzAxNDI5NzEzNg==&amp;mid=401055447&amp;idx=1&amp;sn=a3d1237c10b7352f827d95110c0f4b61#rd" target="_blank" rel="noopener">C/C++内存泄漏及检测</a></p>
-<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="https://en.wikipedia.org/wiki/Mtrace" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Mtrace</a></p>
+<h1 id="最快速度找到内存泄漏"><a href="#最快速度找到内存泄漏" class="headerlink" title="最快速度找到内存泄漏"></a><a href="http://cplusplus.wikidot.com/cn:the-fastest-way-to-find-memory-leak" target="_blank" rel="noopener">最快速度找到内存泄漏</a></h1><h2 id="确认是否存在内存泄漏"><a href="#确认是否存在内存泄漏" class="headerlink" title="确认是否存在内存泄漏"></a>确认是否存在内存泄漏</h2><pre><code>inline void EnableMemLeakCheck()
+{
+   _CrtSetDbgFlag(_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG) | _CRTDBG_LEAK_CHECK_DF);
+}
+
+#ifdef _DEBUG
+#define new   new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#endif
+
+void main()
+{
+   EnableMemLeakCheck();
+   int* leak = new int[10];
+}
+</code></pre><p>如果检测到存在内存泄漏，退出程序的时候会在调试窗口提醒内存泄漏。现在内存泄漏报告和MFC没有任何分别了。</p>
+<h2 id="快速找到内存泄漏"><a href="#快速找到内存泄漏" class="headerlink" title="快速找到内存泄漏"></a>快速找到内存泄漏</h2><p>单确定了内存泄漏发生在哪一行，有时候并不足够。特别是同一个new对应有多处释放的情形。在实际的工程中，以下两种情况很典型：</p>
+<p>创建对象的地方是一个类工厂（ClassFactory）模式。很多甚至全部类实例由同一个new创建。对于此，定位到了new出对象的所在行基本没有多大帮助。</p>
+<p>COM对象。我们知道COM对象采用Reference Count维护生命周期。也就是说，对象new的地方只有一个，但是Release的地方很多，你要一个个排除。</p>
+<p>我们让程序运行到第52次内存分配操作的时候，自动停下来，进入调试状态？所幸，crtdbg确实提供了这样的函数：即 long _CrtSetBreakAlloc(long nAllocID)。我们加上它：</p>
+<pre><code>inline void EnableMemLeakCheck()
+{
+   _CrtSetDbgFlag(_CrtSetDbgFlag(_CRTDBG_REPORT_FLAG) | _CRTDBG_LEAK_CHECK_DF);
+}
+
+#ifdef _DEBUG
+#define new   new(_NORMAL_BLOCK, __FILE__, __LINE__)
+#endif
+
+void main()
+{
+   EnableMemLeakCheck();
+   _CrtSetBreakAlloc(52);
+   int* leak = new int[10];
+}
+</code></pre><h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>实际项目中检测内存泄漏通常会十分繁琐，所以有许多工具帮助我们检测内存泄漏，比如 mtrace，valgrind。</p>
+<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="http://blog.jobbole.com/95375/" target="_blank" rel="noopener">C/C++内存泄漏及检测</a></p>
+<p><a href="https://en.wikipedia.org/wiki/Mtrace" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Mtrace</a></p>
 <p><a href="http://valgrind.org/docs/manual/manual.html" target="_blank" rel="noopener">http://valgrind.org/docs/manual/manual.html</a></p>
+<p><a href="https://github.com/xuelangZF/CS_Offer/blob/master/C%2B%2B/Memory.md" target="_blank" rel="noopener">https://github.com/xuelangZF/CS_Offer/blob/master/C%2B%2B/Memory.md</a></p>
 
       
 
