@@ -160,6 +160,545 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-获得GetLastError()内容" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/15/获得GetLastError()内容/">获得GetLastError()内容</a>
+    </h1>
+  
+
+        
+        <a href="/2017/06/15/获得GetLastError()内容/" class="archive-article-date">
+  	<time datetime="2017-06-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>GetStrError(CString&amp; strError, const DWORD&amp; dwErr)
+{
+    LPVOID lpMsgBuf;
+    //DWORD dw = GetLastError();
+    FormatMessage (
+        FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
+        NULL,
+        dwErr,
+        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+        (LPTSTR) &amp;lpMsgBuf,
+        0, NULL );
+    strError = (char *)lpMsgBuf;
+    LocalFree(lpMsgBuf);
+}
+</code></pre><p>个人写的：</p>
+<pre><code>GetStrError(CString &amp;strError, const DWORD &amp;dwErr)
+{
+    LPVOID lpMsgBuf;
+    //DWORD dw = GetLastError();
+    FormatMessage (
+        FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
+        NULL,
+        dwErr,
+        MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+        (LPTSTR) &amp;lpMsgBuf,
+        0, NULL );
+    strError = (char *)lpMsgBuf;
+    LocalFree(lpMsgBuf);
+}
+
+MyAfxMessageBox(CString strError)
+{
+    CString str;
+    DWORD dwErr = GetLastError();
+    GetStrError(str, dwErr);
+    CString strTemp;
+    strTemp.Format(_T(&quot;程序运行错误!%s\r\n错误码:%lu\r\n错误内容:%s&quot;), strError, dwErr, str);
+    AfxMessageBox(strTemp);
+}
+
+try
+{
+    AfxMessageBox(strMsg, MB_ICONINFORMATION);
+}
+catch (CMemoryException *e)
+{
+    MyAfxMessageBox(_T(&quot;CMemoryException&quot;));
+}
+catch (CFileException *e)
+{
+    MyAfxMessageBox(_T(&quot;CFileException&quot;));
+}
+catch (CException *e)
+{
+    MyAfxMessageBox(_T(&quot;CException&quot;));
+}
+catch(...)
+{
+    MyAfxMessageBox(_T(&quot;其他&quot;));
+}
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">GetLastError</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/06/15/获得GetLastError()内容/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-C++字符分割" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/06/01/C++字符分割/">C++字符串分割</a>
+    </h1>
+  
+
+        
+        <a href="/2017/06/01/C++字符分割/" class="archive-article-date">
+  	<time datetime="2017-06-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-06-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="AfxExtractSubString"><a href="#AfxExtractSubString" class="headerlink" title="AfxExtractSubString"></a>AfxExtractSubString</h1><p>表头: <afxwin.h></afxwin.h></p>
+<p>BOOL AFXAPI AfxExtractSubString ( CString&amp; rString, LPCTSTR lpszFullString, int iSubString, TCHAR chSep = ‘\n’);</p>
+<h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>rString 对CString将得到一个单独的子字符串的对象。</p>
+<p>lpszFullString 字符串包含字符串的全文提取自。</p>
+<p>iSubString 提取的子字符串的从零开始的索引从lpszFullString。</p>
+<p>chSep 使用的分隔符分隔子字符串，默认的是’\n’。</p>
+<h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><p>TRUE ，如果函数成功提取了该子字符串中提供的索引;否则， FALSE。</p>
+<h2 id="例："><a href="#例：" class="headerlink" title="例："></a>例：</h2><pre><code>// 使用AfxExtractSubString分割字符串
+void CSplitString::SplitString1()
+{
+    std::vector&lt;long&gt; arrPic;
+
+    CString strContent = _T(&quot;1,2,3,4,5&quot;);
+    CString strTemp;
+    int iPos = 0;
+
+    while (AfxExtractSubString(strTemp, strContent, iPos, &apos;,&apos;))
+    {
+        iPos++;
+        arrPic.push_back(_wtol(strTemp));
+    }
+}
+</code></pre><h1 id="STL-find-first-of"><a href="#STL-find-first-of" class="headerlink" title="STL find_first_of"></a>STL find_first_of</h1><pre><code>// 利用STL自己实现字符串分割
+void CSplitString::SplitString2()
+{
+    const std::string s(&quot;1,2,3,4,5;6;7;8;9&quot;);
+    std::vector&lt;std::string&gt; v;
+    const std::string c(&quot;,;&quot;);//多个分隔符
+
+    std::string::size_type pos1, pos2;
+    pos2 = s.find_first_of(c);
+    pos1 = 0;
+    while (std::string::npos != pos2)
+    {
+        v.push_back(s.substr(pos1, pos2 - pos1));
+
+        pos1 = pos2 + 1;
+        pos2 = s.find_first_of(c, pos1);
+    }
+    if (pos1 != s.length())
+        v.push_back(s.substr(pos1));
+}
+</code></pre><h1 id="tcstok-s"><a href="#tcstok-s" class="headerlink" title="_tcstok_s"></a>_tcstok_s</h1><pre><code>// 使用C的_tcstok分割字符串
+void CSplitString::SplitString3()
+{
+    CString str = _T(&quot;a,b*c,d&quot;);
+    TCHAR seps[] = _T(&quot;,*&quot;);//可按多个字符来分割
+    TCHAR *next_token1 = NULL;
+    TCHAR* token = _tcstok_s((LPTSTR)(LPCTSTR)str, seps,&amp;next_token1);
+    while (token != NULL)
+    {
+        TRACE(&quot;\r\nstr=%s  token=%s\r\n&quot;, str, token);
+        token = _tcstok_s(NULL, seps, &amp;next_token1);
+    }
+}
+</code></pre><p><a href="http://www.qiezichaodan.com/mfc_cstring_split/" target="_blank" rel="noopener">http://www.qiezichaodan.com/mfc_cstring_split/</a></p>
+<p><a href="http://blog.csdn.net/xjw532881071/article/details/49154911" target="_blank" rel="noopener">http://blog.csdn.net/xjw532881071/article/details/49154911</a></p>
+<p><a href="http://www.cnblogs.com/happykoukou/p/5427268.html" target="_blank" rel="noopener">http://www.cnblogs.com/happykoukou/p/5427268.html</a></p>
+<h1 id="词汇分割器库-Boost-Tokenizer"><a href="#词汇分割器库-Boost-Tokenizer" class="headerlink" title="词汇分割器库 Boost.Tokenizer"></a>词汇分割器库 Boost.Tokenizer</h1><pre><code>#include &lt;boost/tokenizer.hpp&gt; 
+#include &lt;string&gt; 
+#include &lt;iostream&gt; 
+
+int main() 
+{ 
+  typedef boost::tokenizer&lt;boost::char_separator&lt;char&gt; &gt; tokenizer; 
+  std::string s = &quot;Boost C++ libraries&quot;; 
+  boost::char_separator&lt;char&gt; sep(&quot; &quot;, &quot;+&quot;, boost::keep_empty_tokens); 
+  tokenizer tok(s, sep); 
+  for (tokenizer::iterator it = tok.begin(); it != tok.end(); ++it) 
+    std::cout &lt;&lt; *it &lt;&lt; std::endl; 
+} 
+</code></pre><h1 id="分词Boost-regex"><a href="#分词Boost-regex" class="headerlink" title="分词Boost.regex"></a>分词Boost.regex</h1><pre><code>void TestToken()
+{
+    using namespace std;
+    using namespace boost;
+    string str(&quot;tengxun@qq.com, aa@tt.com, bb@qq.com&quot;);
+    regex reg(&quot;\\w+&quot;);
+    sregex_token_iterator pos(str.begin(), str.end(), reg);
+    while (pos != sregex_token_iterator())
+    {
+        cout &lt;&lt; &quot;[&quot; &lt;&lt; *pos &lt;&lt; &quot;]&quot;;
+        ++pos;
+    }
+
+    cout &lt;&lt; endl;
+    //如果最后一个参数args为-1，则把匹配到的字符串视为分隔符
+    regex split_reg(&quot;,&quot;);
+    pos = sregex_token_iterator(str.begin(), str.end(), split_reg, -1);
+    while (pos != sregex_token_iterator())
+    {
+        cout &lt;&lt; &quot;[&quot; &lt;&lt; *pos &lt;&lt; &quot;]&quot;;
+        ++pos;
+    }
+    cout &lt;&lt; endl;
+    //如果最后一个参数args为正数，则返回匹配结果的第args个子串
+    regex split_sub_reg(&quot;(\\w*)@(\\w*).(\\w*)&quot;);
+    pos = sregex_token_iterator(str.begin(), str.end(), split_sub_reg, 1);
+    while (pos != sregex_token_iterator())
+    {
+        cout &lt;&lt; &quot;[&quot; &lt;&lt; *pos &lt;&lt; &quot;]&quot;;
+        ++pos;
+    }
+    cout &lt;&lt; endl;
+    //匹配并指定输出顺序
+    //从下面字符串中提取日期，并转换成 年月日 的顺序输出
+    std::string input(&quot;01/02/2003 blahblah 04/23/1999 blahblah 11/13/1981&quot;);
+    regex re(&quot;(\\d{2})/(\\d{2})/(\\d{4})&quot;); // find a date
+    int const sub_matches[] = { 3, 1, 2 }; // year，month， day
+    sregex_token_iterator begin(input.begin(), input.end(), re, sub_matches), end;
+    // write all the words to std::cout
+    std::ostream_iterator&lt; std::string &gt; out_iter(std::cout, &quot;\n&quot;);
+    std::copy(begin, end, out_iter);
+}
+</code></pre><p>参考：</p>
+<ul>
+<li><a href="http://www.cplusplus.com/faq/sequences/strings/split/" target="_blank" rel="noopener">http://www.cplusplus.com/faq/sequences/strings/split/</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">字符串</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/06/01/C++字符分割/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-GUID" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/15/GUID/">GUID</a>
+    </h1>
+  
+
+        
+        <a href="/2017/05/15/GUID/" class="archive-article-date">
+  	<time datetime="2017-05-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="GUID"><a href="#GUID" class="headerlink" title="GUID"></a>GUID</h1><pre><code>CString CreateNewUid()
+{
+    CoInitialize(NULL);
+
+    AUTH_TRACE_STACK();
+
+    GUID guid;
+    HRESULT hr = CoCreateGuid(&amp;guid);
+    if (FAILED(hr))
+    {
+        AUTH_LOGMESSAGE1(_T(&quot;Create Guid Failed!&quot;));
+    }
+
+#ifdef _UNICODE
+    unsigned short* buf = NULL;
+#else
+    unsigned char* buf = NULL;
+#endif
+
+    UuidToString((UUID*)&amp;guid, &amp;buf);    
+    CString strUID((LPCTSTR)buf);
+    RpcStringFree(&amp;buf);
+
+    CoUninitialize();
+
+    return strUID;    
+}
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">GUID</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/05/15/GUID/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-ZeroMQ" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/02/ZeroMQ/">ZeroMQ</a>
+    </h1>
+  
+
+        
+        <a href="/2017/05/02/ZeroMQ/" class="archive-article-date">
+  	<time datetime="2017-05-02T10:09:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://zeromq.org/" target="_blank" rel="noopener">http://zeromq.org/</a></p>
+<p><a href="https://github.com/zeromq" title="https://github.com/zeromq" target="_blank" rel="noopener">https://github.com/zeromq</a></p>
+<p><a href="http://zeromq.org/distro:microsoft-windows" title="http://zeromq.org/distro:microsoft-windows" target="_blank" rel="noopener">http://zeromq.org/distro:microsoft-windows</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">即时通讯</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ZeroMQ</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/05/02/ZeroMQ/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-ImageMagick" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1189,6 +1728,106 @@ int GetFilePath(std::string &amp;strFilePath)
 
 
   
+    <article id="post-CShap 系统托盘图标" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/01/CShap 系统托盘图标/">C# 系统托盘图标</a>
+    </h1>
+  
+
+        
+        <a href="/2017/02/01/CShap 系统托盘图标/" class="archive-article-date">
+  	<time datetime="2017-02-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p>
+<p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p>
+<p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p>
+<p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p>
+<h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf
+</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p>
+<h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml<window>添加</window></p>
+<pre><code>xmlns:tb=&quot;http://www.hardcodet.net/taskbar&quot;
+</code></pre><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p>
+<pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;
+  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;
+  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;
+  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;
+    &lt;ContextMenu&gt;
+      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;
+      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;
+    &lt;/ContextMenu&gt;
+  &lt;/tb:TaskbarIcon.ContextMenu&gt;
+&lt;/tb:TaskbarIcon&gt;
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/02/01/CShap 系统托盘图标/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-CShap与C++通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1434,1059 +2073,6 @@ BOOL CVcMessageDlg::VCSendMessage(int nMessgeId,CStringA strSend)
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/02/01/CShap与C++通信/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-CShap 系统托盘图标" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/01/CShap 系统托盘图标/">C# 系统托盘图标</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/01/CShap 系统托盘图标/" class="archive-article-date">
-  	<time datetime="2017-02-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p>
-<p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p>
-<p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p>
-<p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p>
-<h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf
-</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p>
-<h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml<window>添加</window></p>
-<pre><code>xmlns:tb=&quot;http://www.hardcodet.net/taskbar&quot;
-</code></pre><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p>
-<pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;
-  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;
-  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;
-  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;
-    &lt;ContextMenu&gt;
-      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;
-      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;
-    &lt;/ContextMenu&gt;
-  &lt;/tb:TaskbarIcon.ContextMenu&gt;
-&lt;/tb:TaskbarIcon&gt;
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/01/CShap 系统托盘图标/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-钩子" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/15/钩子/">钩子</a>
-    </h1>
-  
-
-        
-        <a href="/2017/01/15/钩子/" class="archive-article-date">
-  	<time datetime="2017-01-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="进程内钩子"><a href="#进程内钩子" class="headerlink" title="进程内钩子"></a>进程内钩子</h1><pre><code>//进程内钩子
-
-//鼠标钩子过程函数
-HHOOK g_hHookDm = NULL;
-HWND g_DestWndH = NULL;
-
-LRESULT CALLBACK MouseProc(int nCode, WPARAM wParam, LPARAM lParam)
-{
-    //此区间内的消息都是鼠标消息
-    if (WM_MOUSEMOVE &lt;= wParam &amp;&amp; wParam &lt;= WM_MOUSEWHEEL)
-    {
-        if (g_DestWndH != NULL)
-        {
-            ::SendMessage(g_DestWndH, wParam, wParam, lParam);
-            //鼠标钩子,lParam是MOUSEHOOKSTRUCT结构指针
-            PMOUSEHOOKSTRUCT lpMsg = (PMOUSEHOOKSTRUCT)lParam;
-            lpMsg-&gt;hwnd = NULL;
-            lpMsg-&gt;dwExtraInfo = 0L;
-            lpMsg-&gt;pt = CPoint(0, 0);
-            lpMsg-&gt;wHitTestCode = 0L;
-        }
-        return 1;//如果不想让此消息再往下传，返回非0
-    }
-    else
-    {
-        return ::CallNextHookEx(g_hHookDm, nCode, wParam, lParam);
-    }
-}
-
-//创建钩子过程
-if (g_hHookDm == NULL)
-{
-    //如果dwThreadid指定的线程是由当前进程创建，并且钩子过程在当时进程中，那么hMod必须设置为NULL.
-    g_hHookDm = ::SetWindowsHookEx(WH_MOUSE, MouseProc, NULL, GetCurrentThreadId());
-    if (g_hHookDm != NULL)
-    {
-        g_DestWndH = m_hWnd;//保存目的窗口句柄
-    }
-}
-
-//消毁进程内钩子
-if (g_hHookDm != NULL)
-{
-    UnhookWindowsHookEx(g_hHookDm);
-    g_DestWndH = NULL;
-}
-
-全局钩子-MFC扩展DLL
-
-/新建一个CMouseHook的导出类
-#pragma once
-
-// CMouseHook 命令目标
-//.h
-class AFX_EXT_CLASS CMouseHook : public CObject    //AFX_EXT_CLASS宏声明类为导出类
-{
-public:
-    CMouseHook();
-    virtual ~CMouseHook();
-
-public:
-    BOOL StartHook(HWND hWnd); //安装钩子函数
-
-    BOOL StopHook();//卸载钩子函数
-};
-
-//.cpp
-#include &lt;afxwin.h&gt;
-#include &lt;afxdllx.h&gt;
-
-#ifdef _DEBUG
-#define new DEBUG_NEW
-#endif
-
-#define  WM_TOTASK (WM_USER + 2)
-
-#pragma data_seg(&quot;SharedDataName&quot;)
-
-HHOOK g_mouseHook;
-HHOOK g_keyboardHook;
-
-HWND g_hwnd = NULL;
-
-HINSTANCE glhInstance = NULL; //DLL实例句柄
-
-#pragma data_seg()
-
-#pragma comment(linker,&quot;/section:.SharedDataName,rws&quot;)
-
-static AFX_EXTENSION_MODULE MyMouseHookDLL = { NULL, NULL };
-
-extern &quot;C&quot; int APIENTRY
-DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
-{
-    // 如果使用 lpReserved，请将此移除
-    UNREFERENCED_PARAMETER(lpReserved);
-
-    if (dwReason == DLL_PROCESS_ATTACH)
-    {
-        TRACE0(&quot;MyMouseHook.DLL 正在初始化!\n&quot;);
-
-        // 扩展 DLL 一次性初始化
-        if (!AfxInitExtensionModule(MyMouseHookDLL, hInstance))
-            return 0;
-
-        // 将此 DLL 插入到资源链中
-        // 注意: 如果此扩展 DLL 由
-        //  MFC 规则 DLL (如 ActiveX 控件)隐式链接到，
-        //  而不是由 MFC 应用程序链接到，则需要
-        //  将此行从 DllMain 中移除并将其放置在一个
-        //  从此扩展 DLL 导出的单独的函数中。使用此扩展 DLL 的
-        //  规则 DLL 然后应显式
-        //  调用该函数以初始化此扩展 DLL。否则，
-        //  CDynLinkLibrary 对象不会附加到
-        //  规则 DLL 的资源链，并将导致严重的
-        //  问题。
-
-        new CDynLinkLibrary(MyMouseHookDLL);
-        glhInstance = hInstance; //插入保存DLL
-    }
-    else if (dwReason == DLL_PROCESS_DETACH)
-    {
-        TRACE0(&quot;MyMouseHook.DLL 正在终止!\n&quot;);
-
-        // 在调用析构函数之前终止该库
-        AfxTermExtensionModule(MyMouseHookDLL);
-    }
-    return 1;   // 确定
-}
-
-LRESULT CALLBACK MouseProc(
-    int nCode,      // hook code
-    WPARAM wParam,  // message identifier
-    LPARAM lParam   // mouse coordinates
-) //鼠标钩子过程
-{
-    LPMOUSEHOOKSTRUCT pMouseHook = (MOUSEHOOKSTRUCT FAR *)lParam;
-    if (nCode &gt;= 0)
-    {
-        if (WM_LBUTTONDOWN == wParam)
-        {
-
-            //鼠标钩子,lParam是MOUSEHOOKSTRUCT结构指针
-            PMOUSEHOOKSTRUCT lpMsg = (PMOUSEHOOKSTRUCT)lParam;
-            CPoint point = lpMsg-&gt;pt;
-
-            RECT rect;
-            ::GetWindowRect(g_hwnd, &amp;rect);    //得到整个窗口在屏幕上的矩形框位置
-
-            if ((point.x &lt; rect.left || point.x &gt; rect.right) || (point.y &lt; rect.top || point.y &gt; rect.bottom))
-            {
-                ::SendMessage(g_hwnd, WM_SYSCOMMAND, WM_TOTASK, 0);
-            }
-        }
-    }
-    return CallNextHookEx(g_mouseHook, nCode, wParam, lParam);
-}
-
-LRESULT CALLBACK KeyboardProc(
-    int code,       // hook code
-    WPARAM wParam,  // virtual-key code
-    LPARAM lParam   // keystroke-message information
-)//键盘钩子过程
-{
-    if(VK_F2 == wParam)
-    {
-        ::SendMessage(g_hwnd, WM_CLOSE, 0, 0);
-        ::UnhookWindowsHookEx(g_mouseHook);
-        ::UnhookWindowsHookEx(g_keyboardHook);
-    }
-    else
-        return 1;
-}
-
-//安装钩子并设定接收显示窗口句柄
-BOOL CMouseHook::StartHook(HWND hWnd)
-{
-    BOOL bResult = FALSE;
-    g_hwnd = hWnd;
-    g_mouseHook =::SetWindowsHookEx(WH_MOUSE, MouseProc, glhInstance/*::GetModuleHandle(_T(&quot;MyMouseHook.dll&quot;))*/, 0);
-    g_keyboardHook =::SetWindowsHookEx(WH_KEYBOARD, KeyboardProc, ::GetModuleHandle(_T(&quot;MyMouseHook.dll&quot;)), 0);
-    /*=================================================================================
-    HHOOK SetWindowsHookEx( int idHook,HOOKPROC lpfn, INSTANCE hMod,DWORD dwThreadId )
-    　　参数idHook表示钩子类型，它是和钩子函数类型一一对应的。
-    比如，WH_KEYBOARD表示安装的是键盘钩子，WH_MOUSE表示是鼠标钩子等等。
-
-    　　Lpfn是钩子函数的地址。
-
-    　　HMod是钩子函数所在的实例的句柄。对于线程钩子，该参数为NULL；
-    对于系统钩子，该参数为钩子函数所在的DLL句柄。
-
-    　　dwThreadId 指定钩子所监视的线程的线程号。对于全局钩子，该参数为NULL。
-
-    　　SetWindowsHookEx返回所安装的钩子句柄。
-    值得注意的是线程钩子和系统钩子的钩子函数的位置有很大的差别。
-    线程钩子一般在当前线程或者当前线程派生的线程内，
-    而系统钩子必须放在独立的动态链接库中，实现起来要麻烦一些。
-    ==================================================================================*/
-    if(g_mouseHook != NULL)
-        bResult = TRUE;
-
-    if(g_keyboardHook != NULL)
-        bResult = TRUE;
-
-    //设置显示目标窗口标题编辑框的句柄
-    return bResult;
-}
-
-//卸载钩子
-BOOL CMouseHook::StopHook()
-{
-    BOOL bResult = FALSE;
-    if(g_mouseHook)
-    {
-        bResult = UnhookWindowsHookEx(g_mouseHook);
-        if(bResult)
-        {
-            g_mouseHook = NULL;
-        }
-    }
-
-    if(g_keyboardHook)
-    {
-        bResult = UnhookWindowsHookEx(g_keyboardHook);
-        if(bResult)
-        {
-            g_keyboardHook = NULL;
-        }
-    }
-
-    return bResult;
-}
-</code></pre><h1 id="全局钩子-WIN32-DLL"><a href="#全局钩子-WIN32-DLL" class="headerlink" title="全局钩子-WIN32  DLL"></a>全局钩子-WIN32  DLL</h1><pre><code>#pragma data_seg(&quot;MySec&quot;)
-HHOOK g_mouseHook;
-HHOOK g_keyboardHook;
-HWND g_hwnd = NULL;
-#pragma data_seg()
-#pragma comment(linker,&quot;/section:MySec,RWS&quot;)   //设置链接器，使MySec节拥有属性为 RWS (READ WRITE SHARED )
-
-LRESULT CALLBACK MouseProc(
-    int nCode,      // hook code
-    WPARAM wParam,  // message identifier
-    LPARAM lParam   // mouse coordinates
-) //鼠标钩子过程
-{
-    return 1;
-}
-
-LRESULT CALLBACK KeyboardProc(
-    int code,       // hook code
-    WPARAM wParam,  // virtual-key code
-    LPARAM lParam   // keystroke-message information
-)//键盘钩子过程
-{
-    if(VK_F2 == wParam)
-    {
-        ::SendMessage(g_hwnd, WM_CLOSE, 0, 0);
-        ::UnhookWindowsHookEx(g_mouseHook);
-        ::UnhookWindowsHookEx(g_keyboardHook);
-    }
-    else
-        return 1;
-}
-
-void SetHook(HWND hwnd)
-{
-    g_hwnd = hwnd;
-    g_mouseHook =::SetWindowsHookEx(WH_MOUSE, MouseProc, ::GetModuleHandle(_T(&quot;dll_hook.dll&quot;)), 0);
-    g_keyboardHook =::SetWindowsHookEx(WH_KEYBOARD, KeyboardProc, ::GetModuleHandle(_T(&quot;dll_hook.dll&quot;)), 0);
-}
-
-//之后我们添加def文件
-//或者在def(模块定义文件中 )
-
-LIBRARY    &quot;Hook&quot;
-EXPORTS
-SetHook @2
-SECTIONS
-MySec   READ WRITE SHARED
-
-//编译下，编译通过之后可以看到 hook_dll.dll  和  hook_dll.lib文件。
-//接着我们写一个测试程序，新建MFC工程 选择对话框程序.拷贝hook_dll.dll  和  hook_dll.lib到工程目录下，在链接器命令行加上  hook_dll.lib.
-//在OnInitDialog()函数之前 定义DLL函数：
-
-_declspec(dllimport) void SetHook(HWND hwnd);
-//在OnInitDialog()内添加
-
-SetHook(this-&gt;m_hWnd);
-</code></pre><p> </p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">钩子</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/01/15/钩子/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-C++获取外部exe程序的返回值，判断图片颜色模式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/13/C++获取外部exe程序的返回值，判断图片颜色模式/">C++获取外部exe程序的返回值，判断图片颜色模式</a>
-    </h1>
-  
-
-        
-        <a href="/2017/01/13/C++获取外部exe程序的返回值，判断图片颜色模式/" class="archive-article-date">
-  	<time datetime="2017-01-13T09:23:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-获取外部exe程序的返回值"><a href="#C-获取外部exe程序的返回值" class="headerlink" title="C++获取外部exe程序的返回值"></a>C++获取外部exe程序的返回值</h1><pre><code>#include &quot;stdafx.h&quot;
-#include &lt;Windows.h&gt;
-#include &lt;iostream&gt;
-using namespace std;
-
-int _tmain(int argc, _TCHAR *argv[])
-{
-    STARTUPINFOA si;
-    PROCESS_INFORMATION pi;
-
-    ZeroMemory(&amp;pi,   sizeof(pi));
-    ZeroMemory(&amp;si,   sizeof(si));
-    si.cb = sizeof(STARTUPINFOA);
-
-    TCHAR cmd[256] = _T(&quot;D:\\7za.exe a D:\\nv1.zip D:\\test\\*.*&quot;);
-    BOOL working = ::CreateProcess(NULL, cmd, NULL, NULL, FALSE, NORMAL_PRIORITY_CLASS , NULL, NULL, &amp;si, &amp;pi);
-
-    if (working == 0)
-    {
-        DWORD error = GetLastError();
-        cout &lt;&lt; &quot;CreateProcess Error : &quot; &lt;&lt; error &lt;&lt; endl;
-        getchar();
-        return 0;
-    }
-
-    WaitForSingleObject(pi.hProcess, INFINITE);
-
-    unsigned long Result;
-    GetExitCodeProcess(pi.hProcess, &amp;Result);
-
-    cout &lt;&lt; &quot;Exit Code : &quot; &lt;&lt; Result &lt;&lt; endl;
-    getchar();
-
-    return 0;
-}
-</code></pre><h1 id="调用命令行程序并获取返回信息"><a href="#调用命令行程序并获取返回信息" class="headerlink" title="调用命令行程序并获取返回信息"></a>调用命令行程序并获取返回信息</h1><pre><code>CString ExeCmd(CString pszCmd)
-{
-    //创建匿名管道
-    SECURITY_ATTRIBUTES sa = {sizeof(SECURITY_ATTRIBUTES), NULL, TRUE};
-    HANDLE hRead, hWrite;
-    if (!CreatePipe(&amp;hRead, &amp;hWrite, &amp;sa, 0))
-    {
-        return _T(&quot;&quot;);
-    }
-
-    //设置命令行进程启动信息(以隐藏方式启动命令并定位其输出到hWrite)
-    STARTUPINFO si = {sizeof(STARTUPINFO)};
-    GetStartupInfo(&amp;si);
-    si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
-    si.wShowWindow = SW_HIDE;
-    si.hStdError = hWrite;
-    si.hStdOutput = hWrite;
-
-    //启动命令行
-    PROCESS_INFORMATION pi;
-    if (!CreateProcess(NULL, (LPWSTR)(LPCWSTR)pszCmd, NULL, NULL, TRUE, NULL, NULL, NULL, &amp;si, &amp;pi))
-    {
-        return _T(&quot;&quot;);
-    }
-
-    //立即关闭hWrite
-    CloseHandle(hWrite);
-
-    //读取命令行返回值
-    char buff[1024] = {0};
-    DWORD dwRead = 0;
-    while (ReadFile(hRead, buff, 1024, &amp;dwRead, NULL))
-    {
-    }
-    CString strRet(buff);
-    CloseHandle(hRead);
-
-    return strRet;
-}
-</code></pre><p>使用：</p>
-<pre><code>ExeCmd(_T(&quot;ping baidu.com&quot;));
-ExeCmd(_T(&quot;identify -format &quot;%[colorspace]&quot; E:\\P70306-163226.jpg&quot;));
-</code></pre><h1 id="其他参考："><a href="#其他参考：" class="headerlink" title="其他参考："></a>其他参考：</h1><pre><code>BOOL    Start(LPCTSTR lpszTaskInfo)
-{
-    if (!lpszTaskInfo)
-    {
-        return FALSE;
-    }
-    if (m_hRenderProcess)
-    {
-        if (Wait(0))
-        {
-            m_nProgress = 0;
-            SAFE_CLOSE_HANDLE(m_hRenderProcess);
-            m_dwRenderThreadId = 0;
-        }
-        else
-        {
-            return FALSE;
-        }
-    }
-
-    BOOL bRet = FALSE;
-    HANDLE hDebugInfo = NULL;
-    do
-    {
-        TCHAR szDebugLog[MAX_PATH];
-        _tcscpy(szDebugLog, m_szFastRenderExPath);
-        _tcscat(szDebugLog, _T(&quot;.debug&quot;));
-        SECURITY_ATTRIBUTES sa;
-        sa.nLength = sizeof(sa);
-        sa.lpSecurityDescriptor = NULL;
-        sa.bInheritHandle = TRUE;
-        hDebugInfo = CreateFile(szDebugLog, FILE_WRITE_DATA, FILE_SHARE_READ, &amp;sa, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-
-        STARTUPINFO si;
-        PROCESS_INFORMATION pi;
-        ZeroMemory( &amp;si, sizeof(si) );
-        si.cb = sizeof(si);
-        ZeroMemory( &amp;pi, sizeof(pi) );
-        si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
-        si.hStdInput = NULL;
-        si.hStdOutput = hDebugInfo;
-        si.hStdError = hDebugInfo;
-        si.wShowWindow = SW_HIDE;
-
-        TCHAR szCmdline[MAX_PATH * 2];
-        _sntprintf(szCmdline, ARRAYSIZE(szCmdline), _T(&quot; -i \&quot;%s\&quot;&quot;), lpszTaskInfo); // 第一个空格非常重要
-        // Start the child process.
-        if( !CreateProcess( m_szFastRenderExPath,   // Module name
-                            szCmdline,      // Command line
-                            NULL,           // Process handle not inheritable
-                            NULL,           // Thread handle not inheritable
-                            TRUE,          // Set handle inheritance to FALSE
-                            0,              // No creation flags
-                            NULL,           // Use parent&apos;s environment block
-                            NULL,           // Use parent&apos;s starting directory
-                            &amp;si,            // Pointer to STARTUPINFO structure
-                            &amp;pi )           // Pointer to PROCESS_INFORMATION structure
-          )
-        {
-            break;
-        }
-        // Close process and thread handles.
-        m_hRenderProcess = pi.hProcess;
-        CloseHandle( pi.hThread );
-        m_dwRenderThreadId = pi.dwThreadId;
-
-        // Start the message receive thread
-        if (!m_dwReceiveThreadId)
-        {
-            HANDLE hThread = (HANDLE) _beginthreadex(NULL,    0, ThreadFn, this, 0, &amp;m_dwReceiveThreadId);
-            if (hThread == NULL)
-            {
-                break;
-            }
-            CloseHandle(hThread);
-        }
-
-        if (!m_hMsgEvent)
-        {
-            m_hMsgEvent = CreateEvent(NULL, FALSE, FALSE, NULL);
-        }
-        else
-        {
-            ResetEvent(m_hMsgEvent);
-        }
-
-        bRet = TRUE;
-    }
-    while (FALSE);
-
-    SAFE_CLOSE_HANDLE(hDebugInfo);
-
-    if (!bRet)
-    {
-        if (m_hRenderProcess)
-        {
-            TerminateProcess(m_hRenderProcess, -1);
-            SAFE_CLOSE_HANDLE(m_hRenderProcess);
-        }
-        m_dwRenderThreadId = 0;
-        SAFE_CLOSE_HANDLE(m_hMsgEvent);
-    }
-
-    return bRet;
-}
-</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="http://blog.csdn.net/lgh1700/article/details/7713500" title="http://blog.csdn.net/lgh1700/article/details/7713500" target="_blank" rel="noopener">C++获取外部exe程序的返回值 </a></li>
-<li><a href="http://www.cnblogs.com/acloud/archive/2012/08/30/2663395.html" target="_blank" rel="noopener">调用命令行程序并获取返回信息</a></li>
-<li><a href="http://dahua2.blog.163.com/blog/static/1748435142015317633489/" target="_blank" rel="noopener">ImageMagick–identify详解</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">运行外部程序</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/01/13/C++获取外部exe程序的返回值，判断图片颜色模式/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-CShap ShellExcute与Process" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/01/CShap ShellExcute与Process/">C#运行外部程序的两种方法</a>
-    </h1>
-  
-
-        
-        <a href="/2017/01/01/CShap ShellExcute与Process/" class="archive-article-date">
-  	<time datetime="2017-01-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-运行外部程序的两种方法"><a href="#C-运行外部程序的两种方法" class="headerlink" title="C#运行外部程序的两种方法"></a>C#运行外部程序的两种方法</h1><h2 id="ShellExecute"><a href="#ShellExecute" class="headerlink" title="ShellExecute"></a>ShellExecute</h2><pre><code>using System.Runtime.InteropServices;
-
-public enum ShowWindowCommands : int
-{
-
-    SW_HIDE = 0,
-    SW_SHOWNORMAL = 1,    //用最近的大小和位置显示，激活
-    SW_NORMAL = 1,
-    SW_SHOWMINIMIZED = 2,
-    SW_SHOWMAXIMIZED = 3,
-    SW_MAXIMIZE = 3,
-    SW_SHOWNOACTIVATE = 4,
-    SW_SHOW = 5,
-    SW_MINIMIZE = 6,
-    SW_SHOWMINNOACTIVE = 7,
-    SW_SHOWNA = 8,
-    SW_RESTORE = 9,
-    SW_SHOWDEFAULT = 10,
-    SW_MAX = 10
-}
-[DllImport(&quot;shell32.dll&quot;)]
-public static extern IntPtr ShellExecute(
-    IntPtr hwnd,
-    string lpszOp,
-    string lpszFile,
-    string lpszParams,
-    string lpszDir,
-    ShowWindowCommands FsShowCmd
-);
-</code></pre><h3 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h3><pre><code>ShellExecute(IntPtr.Zero, &quot;open&quot;, UrlOrPath, null, null, ShowWindowCommands.SW_SHOWNORMAL);
-</code></pre><p>UrlOrPath可为exe路径或者网页url(使用默认浏览器打开网页url)</p>
-<p>使用ie打开网页url</p>
-<pre><code>ShellExecute(NULL, &quot;open&quot;, &quot;IEXPLORE&quot;, &quot;http://www.csdn.net&quot;, NULL, SW_SHOWMAXIMIZED);
-</code></pre><h2 id="Process"><a href="#Process" class="headerlink" title="Process"></a>Process</h2><pre><code>using System.Diagnostics;
-
-private static string Execute(string exePath, string parameters)
-{
-    string result = String.Empty;
-
-    using (Process p = new Process())
-    {
-        p.StartInfo.UseShellExecute = false;
-        p.StartInfo.CreateNoWindow = true;
-        p.StartInfo.RedirectStandardOutput = true;
-        p.StartInfo.FileName = exePath;
-        p.StartInfo.Arguments = parameters;
-        p.Start();
-        p.WaitForExit();
-
-        result = p.StandardOutput.ReadToEnd();
-    }
-
-    return result;
-}
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">运行外部程序</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/01/01/CShap ShellExcute与Process/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-制作CAB包" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/15/制作CAB包/">制作CAB包</a>
-    </h1>
-  
-
-        
-        <a href="/2016/12/15/制作CAB包/" class="archive-article-date">
-  	<time datetime="2016-12-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="制作CAB包"><a href="#制作CAB包" class="headerlink" title="制作CAB包"></a>制作CAB包</h1><h2 id="inf文件"><a href="#inf文件" class="headerlink" title="inf文件"></a>inf文件</h2><p>INF是Device INFormation File的英文缩写，是Microsoft公司为硬件设备制造商发布其驱动程序推出的一种文件格式，INF文件中包含硬件设备的信息或脚本以控制硬件操作。在INF文件中指明了硬件驱动该如何安装到系统中，源文件在哪里、安装到哪一个文件夹中、怎样在注册表中加入自身相关信息等等。</p>
-<h3 id="给硬盘（U盘）DIY一个可爱的图标"><a href="#给硬盘（U盘）DIY一个可爱的图标" class="headerlink" title="给硬盘（U盘）DIY一个可爱的图标"></a>给硬盘（U盘）DIY一个可爱的图标</h3><p>接着打开记事本程序，录入以下内容：</p>
-<pre><code>[autorun]
-ICON=******.ICO
-</code></pre><p>其中“<strong>**</strong>”是图标文件的路径及图标文件名，请自行修改为具体的图标文件的路径及图标文件名。录入完毕，另存为“Autorun.inf”,并将其剪切到某一个你欲扮酷的分区的根目录下。</p>
-<h3 id="在命令行下安装INF文件"><a href="#在命令行下安装INF文件" class="headerlink" title="在命令行下安装INF文件"></a>在命令行下安装INF文件</h3><p>通常情况下，我们都是在Windows环境下安装INF文件的，但是假如有一天，你需要在命令行运行INF文件该怎么办呢？</p>
-<p>在命令行提示符后输入“ rundll32 syssetup,SetupInfObjectInstallAction DefaultInstall 128 INF文件所在的路径及文件名.inf ”，回车后即可安装相应的INF文件。</p>
-<p>[pre]再提供两个方法：</p>
-<p>　　方法1. 运行RunDll32 advpack.dll,LaunchINFSection YOUINF.inf,DefaultInstall</p>
-<p>　　方法2.修复右键安装</p>
-<p>　　操作步骤如下：</p>
-<p>　　打开我的电脑，“工具”菜单中的“文件夹选项”。切换至“文件类型”选项卡，在其中找到inf文件，点高级按钮，双击“安装”(如没有“安装”就添加一个)，按如下内容修改</p>
-<p>　　用于执行操作的应用程序:</p>
-<p>　　C:\WINDOWS\System32\rundll32.exe setupapi,InstallHinfSection DefaultInstall 132 %1</p>
-<p>　　点选使用DDE(U)</p>
-<p>　　应用程序(C):</p>
-<p>　　setupapi</p>
-<p>　　主题(T):</p>
-<p>　　System</p>
-<p>　　确认！</p>
-<p>　　然后再次右键点选inf文件安装。</p>
-<h3 id="编写inf文件"><a href="#编写inf文件" class="headerlink" title="编写inf文件"></a>编写inf文件</h3><pre><code>; Sample INF file for IMES.DLL
-
-;分号后为注释
-
-[version] 
-; version signature (same for both NT and Win95) do not remove
-
-;在该节中如果出现“signature=&quot;$CHICAGO$&quot;”这样的条目则表示该INF文件适用于Windows 98之后的所有操作系统，如果包含“signature=&quot;$Windows NT$&quot;”这样的条目则表示该INF文件适用于Windows 2000/XP/2003操作系统，而且两者必具其一
-
-signature=&quot;$CHICAGO$&quot;
-AdvancedINF=2.0  
-
-[Add.Code]
-Editor.ocx = Editor.ocx
-
-; needed DLL
-
-[Editor.ocx]
-file=thiscab
-clsid={8BB4EE5B-5919-11D1-A01A-0060971932BC}
-RegisterServer=yes
-FileVersion=5,0,1,7
-
-; end of INF file
-</code></pre><h2 id="将ActiveX控件进行打包并加数据鉴名的工具集："><a href="#将ActiveX控件进行打包并加数据鉴名的工具集：" class="headerlink" title="将ActiveX控件进行打包并加数据鉴名的工具集："></a>将ActiveX控件进行打包并加数据鉴名的工具集：</h2><ul>
-<li>Cabarc.exe 将ocx打包成cab</li>
-<li>Cert2spc.exe 将cer格式证书转换成spc格式证书， 即PKCS#7证书</li>
-<li>Certmgr.exe 是管理证书用的</li>
-<li>Chktrust.exe 检查签署证书后的ocx是否正确</li>
-<li>Makecat.exe</li>
-<li>Makecert.exe 制作cer格式的证书， 即X.509证书， 同时可以创建私钥和公钥</li>
-<li>Makectl.exe</li>
-<li>Signcode.exe 将证书签署到ocx上</li>
-</ul>
-<p>工具集下载：<a href="http://files.cnblogs.com/files/yhcao/makeCAB.rar" target="_blank" rel="noopener">makeCAB.rar</a></p>
-<h2 id="制作CAB文件"><a href="#制作CAB文件" class="headerlink" title="制作CAB文件"></a>制作CAB文件</h2><ul>
-<li>CMD 输入 iexpress，将启动Iexpress向导</li>
-<li>选中”Create new Self Extraction Directive file”</li>
-<li>选择”Create compressed files only(ActiveX Installs)”</li>
-<li>添加INF文件中所列所有文件（DLL及DEF等）</li>
-<li>单击”下一步(N)”，单击Browse按钮选择RemtCard.CAB文件，同时选中 “Store files using long Name inside Package”checkbx</li>
-<li>选择”Don’t save”</li>
-<li>单击完成按钮将同时生成RemtCard.CAB文件</li>
-</ul>
-<p>或</p>
-<p>执行<br>    CABARC -s 6144 n RemtCard.cab ocx文件.ocx inf文件.INF</p>
-<p>生成RemtCard.CAB文件</p>
-<h2 id="自制数字证书"><a href="#自制数字证书" class="headerlink" title="自制数字证书"></a>自制数字证书</h2><p>用CMD进入到控件所在的目录;</p>
-<p>创建PVK文件(私人密匙文件)，CMD输入makecert  -$ “individual” -r -sk RemtCard RemtCard.pvk -n CN=XXXXXXX</p>
-<p>创建CER文件(公司证书)，CMD输入“makecert -sk RemtCard.pvk RemtCard.cer”，然后回车,在相对目录下会出现一个安全证书</p>
-<p>创建SPC测试软件出版商证明书，CMD输入“cert2spc RemtCard.cer RemtCard.spc”</p>
-<p>或</p>
-<p>执行</p>
-<pre><code>makecert -cy both -d RemtCard -n CN=xxxx有限公司 -sv RemtCard.pvk RemtCard.cer
-Cert2SPC RemtCard.cer RemtCard.spc
-</code></pre><h2 id="文件数字签名"><a href="#文件数字签名" class="headerlink" title="文件数字签名"></a>文件数字签名</h2><p>在CMD中运行signcode</p>
-<p>选择RemtCard.CAB</p>
-<p>选择好RemtCard.CAB文件后单击”下一步（N）”按钮，在选择想要的签名类型里选择”自定义（C）”按钮</p>
-<p>单击”从文件选择（F）”按钮，选择刚制作的RemtCard.cer</p>
-<p>选择”CSP中的私钥（K）”</p>
-<p>容器密匙选择RemtCard.pvk</p>
-<p>在散列算法中选择”md5”</p>
-<p>“证书路径中的证书”中选择”证书路径中的所有证书，包括根证书（C）”，在”其它证书（可选）”中选择“包括在以下PKCS #7 证书（.p7b）文件中的证书（P）：””，并单击”浏览（R）…”按钮选择RemtCard.spc文件</p>
-<p>“数据描述”窗口中输入公司的名称及网址并单击”</p>
-<p>或</p>
-<p>执行</p>
-<pre><code>signcode.exe -spc RemtCard.spc -v RemtCard.pvk -n RemtCard1.0.0.1 -i www.xxx.com.cn  RemtCard.cab
-</code></pre><h2 id="activeX插件安装升级"><a href="#activeX插件安装升级" class="headerlink" title="activeX插件安装升级"></a>activeX插件安装升级</h2><pre><code>&lt;object codebase=&quot;http://localhost/RemtCard.cab#version=1,1&quot;CLASSID=&quot;CLSID:8BB4EE5B-5919-11D1-A01A-0060971932BC&quot;…/&gt;    
-</code></pre><p>参考：</p>
-<ul>
-<li><a href="http://baike.baidu.com/link?url=cCp8mTjGGqdPPJzIfyBi5NIW13Y0jnETjPfegu2BI0K5SCryoFRf4dnk7BdpkMyimDKw8iTuSKAGVSFItXJcIm72x-sU_FrV_41BJS3F09m" target="_blank" rel="noopener">inf文件</a></li>
-<li><a href="http://www.cnblogs.com/sbdx/archive/2006/12/14/whatisinffile.html?login=1" target="_blank" rel="noopener">如何编写 INF 文件</a></li>
-<li><a href="https://msdn.microsoft.com/zh-cn/library/bfsktky3(VS.80" target="_blank" rel="noopener">证书创建工具 (Makecert.exe)</a>.aspx)</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">制作CAB包</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">打包</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/12/15/制作CAB包/">展开全文 >></a>
         </p>
       
 
@@ -3318,6 +2904,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">chrome</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">UML</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">算法</a>
               </li>
             
             <div class="clearfix"></div>
