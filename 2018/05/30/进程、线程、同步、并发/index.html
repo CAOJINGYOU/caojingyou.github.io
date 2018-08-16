@@ -8,17 +8,19 @@
   <link rel="dns-prefetch" href="https://caojingyou.github.io">
   <title>进程、线程、同步、并发 | 曹景游</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Boost.ThreadWin32 APIC++ 线程同步的四种方式 内核对象的线程同步则主要由事件、等待定时器、信号量以及信号灯等内核对象构成。由于这种同步机制使用了内核对象，使用时必须将线程从用户模式切换到内核模式，而这种转换一般要耗费近千个CPU周期，因此同步速度较慢，但在适用性上却要远优于用户模式的线程同步方式。 在WIN32中，同步机制主要有以下几种： （1）事件(Event);（2）信">
+  <meta name="description" content="Boost.Thread线程：Thread thread_group 线程局部存储：thread_specific_ptr 锁：lock_guard   unique_lock   scoped_lock   shared_lock 如果只是为了保证数据同步，那么lock_guard完全够用；如果除了同步，还需要使用condition进行阻塞时，那么就需要用unique_lock。boost还要一">
 <meta name="keywords" content="随笔,C&#x2F;C++,并发,多线程,同步">
 <meta property="og:type" content="article">
 <meta property="og:title" content="进程、线程、同步、并发">
 <meta property="og:url" content="https://caojingyou.github.io/2018/05/30/进程、线程、同步、并发/index.html">
 <meta property="og:site_name" content="曹景游">
-<meta property="og:description" content="Boost.ThreadWin32 APIC++ 线程同步的四种方式 内核对象的线程同步则主要由事件、等待定时器、信号量以及信号灯等内核对象构成。由于这种同步机制使用了内核对象，使用时必须将线程从用户模式切换到内核模式，而这种转换一般要耗费近千个CPU周期，因此同步速度较慢，但在适用性上却要远优于用户模式的线程同步方式。 在WIN32中，同步机制主要有以下几种： （1）事件(Event);（2）信">
-<meta property="og:updated_time" content="2018-08-02T09:54:19.273Z">
+<meta property="og:description" content="Boost.Thread线程：Thread thread_group 线程局部存储：thread_specific_ptr 锁：lock_guard   unique_lock   scoped_lock   shared_lock 如果只是为了保证数据同步，那么lock_guard完全够用；如果除了同步，还需要使用condition进行阻塞时，那么就需要用unique_lock。boost还要一">
+<meta property="og:image" content="https://i.imgur.com/J3dEHpV.jpg">
+<meta property="og:updated_time" content="2018-08-10T02:37:48.754Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="进程、线程、同步、并发">
-<meta name="twitter:description" content="Boost.ThreadWin32 APIC++ 线程同步的四种方式 内核对象的线程同步则主要由事件、等待定时器、信号量以及信号灯等内核对象构成。由于这种同步机制使用了内核对象，使用时必须将线程从用户模式切换到内核模式，而这种转换一般要耗费近千个CPU周期，因此同步速度较慢，但在适用性上却要远优于用户模式的线程同步方式。 在WIN32中，同步机制主要有以下几种： （1）事件(Event);（2）信">
+<meta name="twitter:description" content="Boost.Thread线程：Thread thread_group 线程局部存储：thread_specific_ptr 锁：lock_guard   unique_lock   scoped_lock   shared_lock 如果只是为了保证数据同步，那么lock_guard完全够用；如果除了同步，还需要使用condition进行阻塞时，那么就需要用unique_lock。boost还要一">
+<meta name="twitter:image" content="https://i.imgur.com/J3dEHpV.jpg">
   
     <link rel="alternative" href="/atom.xml" title="曹景游" type="application/atom+xml">
   
@@ -182,14 +184,838 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Boost-Thread"><a href="#Boost-Thread" class="headerlink" title="Boost.Thread"></a>Boost.Thread</h1><h1 id="Win32-API"><a href="#Win32-API" class="headerlink" title="Win32 API"></a>Win32 API</h1><p><a href="http://blog.jobbole.com/109200/" target="_blank" rel="noopener">C++ 线程同步的四种方式</a></p>
+        <h1 id="Boost-Thread"><a href="#Boost-Thread" class="headerlink" title="Boost.Thread"></a>Boost.Thread</h1><h2 id="线程："><a href="#线程：" class="headerlink" title="线程："></a>线程：</h2><p>Thread</p>
+<p>thread_group</p>
+<h2 id="线程局部存储："><a href="#线程局部存储：" class="headerlink" title="线程局部存储："></a>线程局部存储：</h2><pre><code>thread_specific_ptr
+</code></pre><h2 id="锁："><a href="#锁：" class="headerlink" title="锁："></a>锁：</h2><pre><code>lock_guard
+
+
+unique_lock
+
+
+scoped_lock
+
+
+shared_lock
+</code></pre><p>如果只是为了保证数据同步，那么<code>lock_guard</code>完全够用；<br>如果除了同步，还需要使用condition进行阻塞时，那么就需要用<code>unique_lock</code>。<br>boost还要一个<code>boost::mutex::scoped_lock</code>，这个是<code>boost::unique_lock&lt;boost::mutex&gt;</code>的typedef，在C++11中已经禁用。</p>
+<p>独占锁：</p>
+<p><code>boost::unique_lock&lt;T&gt;</code>，其中T可以mutex中的任意一种。</p>
+<p>  如果T为mutex，那么<code>boost::unique_lock&lt;boost::mutex&gt;</code>，构造与析构时则分别自动调用lock和unlock方法。</p>
+<p>  如果T为shared_mutex，那么<code>boost::unique_lock&lt;boost::shared_mutex&gt;</code>，构造与析构时则分别调用<code>shared_mutex</code>的<code>shared_lock</code>和<code>shared_unlock</code>方法。</p>
+<p>注意：<code>scoped_lock</code>也是独占锁，其源代码中定义如下；</p>
+<pre><code>typedef unique_lock&lt;mutex&gt; scoped_lock;
+typedef unique_lock&lt;timed_mutex&gt; scoped_timed_lock;
+</code></pre><p>共享锁：</p>
+<p><code>boost::shared_lock&lt;T&gt;</code>，其中的T只能是<code>shared_mutex</code>类。<br>当然还有其他一些锁：<code>lock_guard</code>, <code>upgrade_lock</code>等。</p>
+<p><a href="https://blog.csdn.net/huang_xw/article/details/8457599" target="_blank" rel="noopener">boost库中thread多线程详解</a></p>
+<h2 id="互斥："><a href="#互斥：" class="headerlink" title="互斥："></a>互斥：</h2><p>独占式互斥量</p>
+<pre><code>mutex
+
+try_mutex
+
+timed_mutex
+</code></pre><p>递归式互斥量</p>
+<pre><code>recursive_mutex
+
+recursive_try_mutex
+
+recursive_timed_mutex
+</code></pre><p>共享式互斥量</p>
+<pre><code>shared_mutex
+</code></pre><h2 id="条件变量："><a href="#条件变量：" class="headerlink" title="条件变量："></a>条件变量：</h2><pre><code>condition_variable
+condition_variable_any
+</code></pre><h2 id="原子变量："><a href="#原子变量：" class="headerlink" title="原子变量："></a>原子变量：</h2><h2 id="future："><a href="#future：" class="headerlink" title="future："></a>future：</h2><pre><code>packaged_task
+
+unique_future
+
+Promise
+</code></pre><p>Promise对象可保存T类型的值，该值可被future对象读取(可能在另一个线程中)，这是promise提供的同步的一种手段。</p>
+<p>在构造promise时，promise对象可以与共享状态关联起来，这个共享状态可以存储一个T类型或者一个由std::exception派生出的类的值，并可以通过get_future来获取与promise对象关联的对象，调用该函数之后，两个对象共享相同的共享状态(shared state)。</p>
+<p>Promise对象是异步provider，它可以在某一时刻设置共享状态的值。</p>
+<p>Future对象可以返回共享状态的值，或者在必要的情况下阻塞调用者并等待共享状态标识变为ready，然后才能获取共享状态的值。</p>
+<h2 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h2><p>//保证在多线程中只允许一次</p>
+<pre><code>once_flag
+
+call_once
+</code></pre><p>示例：</p>
+<pre><code>#include &lt;boost/thread.hpp&gt; 
+#include &lt;iostream&gt; 
+#include &lt;complex.h&gt;
+#include &lt;stack&gt;
+#include &lt;mutex&gt;
+#include &lt;boost/thread/once.hpp&gt;
+#include &lt;boost/thread/future.hpp&gt;
+#include &lt;boost/asio.hpp&gt;
+
+void my_func()
+{
+    std::cout &lt;&lt; &quot;detach-分离 或 join-等待 线程&quot; &lt;&lt; std::endl;
+}
+
+TEST(BoostThread, detachOrjoin)//简单线程,线程状态joinable、detached
+{
+    boost::thread t(my_func);
+    boost::thread::yield();//当前线程放弃余下的时间片。
+    std::cout &lt;&lt; t.joinable() &lt;&lt; std::endl;
+    t.join();
+
+    boost::thread t1(my_func);
+    std::cout &lt;&lt; t1.joinable() &lt;&lt; std::endl;
+    t1.detach();
+    std::cout &lt;&lt; t1.joinable() &lt;&lt; std::endl;
+}
+
+//线程的创建需要传递给thread对象一个可调用物（函数或函数对象），它必须具
+//有operator()以供线程执行。
+boost::mutex io_mutex;
+struct count 
+{
+    count(int id) : id(id) { }
+
+    void operator()()
+    {
+        for (int i = 0; i &lt; 10; ++i)
+        {
+            boost::mutex::scoped_lock
+                lock(io_mutex);
+            std::cout &lt;&lt; id &lt;&lt; &quot;: &quot;
+                &lt;&lt; i &lt;&lt; std::endl;
+        }
+    }
+
+    int id;
+};
+
+TEST(BoostThread, Typeobject)//复杂类型对象作为参数来创建线程
+{
+    boost::thread thrd1(count(1));
+    boost::thread thrd2(count(2));
+    thrd1.join();
+    thrd2.join();
+}
+
+class HelloWorldStatic
+{
+public:
+    static void hello()
+    {
+        std::cout &lt;&lt;
+            &quot;Hello world, I&apos;&apos;m a thread!&quot;
+            &lt;&lt; std::endl;
+    }
+    static void start()
+    {
+
+        boost::thread thrd(hello);
+        thrd.join();
+    }
+
+};
+
+TEST(BoostThread, InClassStatic)//类内部创建线程
+{
+    HelloWorldStatic::start();//在这里start()和hello()方法都必须是static方法。
+}
+
+class HelloWorld
+{
+public:
+    void hello()
+    {
+        std::cout &lt;&lt;
+            &quot;Hello world, I&apos;&apos;m a thread!&quot;
+            &lt;&lt; std::endl;
+    }
+    void start()
+    {
+        boost::function0&lt; void&gt; f = boost::bind(&amp;HelloWorld::hello, this);
+        boost::thread thrd(f);
+        thrd.join();
+    }
+
+};
+
+TEST(BoostThread, InClass)//start()和hello()方法不是静态方法则采用此方法创建线程
+{
+    HelloWorld hello;
+    hello.start();
+}
+
+class HelloWorldOut
+{
+public:
+    void hello(const std::string&amp; str)
+    {
+        std::cout &lt;&lt; str;
+    }
+};
+
+TEST(BoostThread, OutClass)
+{
+    HelloWorldOut obj;
+    boost::thread thrd(boost::bind(&amp;HelloWorldOut::hello, &amp;obj, &quot;Hello world, I&apos;&apos;m a thread!&quot; ) ) ;
+    thrd.join();
+}
+
+void func1(const int &amp;id)
+{
+    std::cout &lt;&lt; &quot;func1 id : &quot; &lt;&lt; id &lt;&lt; std::endl;
+}
+
+struct MyThread
+{
+    void operator()(const int &amp;id)
+    {
+        std::cout &lt;&lt; &quot;MyThread id : &quot; &lt;&lt; id &lt;&lt; std::endl;
+    }
+
+    void func1(const int &amp;id)
+    {
+        std::cout &lt;&lt; &quot;MyThread::func1 id : &quot; &lt;&lt; id &lt;&lt; std::endl;
+    }
+};
+
+TEST(BoostThread, Threadparameters)
+{
+    //普通函数  
+    boost::thread t1(func1, 11);
+    t1.join();
+
+    //函数对象  
+    MyThread myThread;
+    boost::thread t2(myThread, 22);
+    t2.join();
+
+    //成员函数  
+    boost::thread t3(&amp;MyThread::func1, myThread, 33);
+    t3.join();
+
+    //临时对象  
+    boost::thread t4(MyThread(), 44);
+    t4.join();
+
+    //对象引用  
+    boost::thread t5(boost::ref(myThread), 55);
+    t5.join();
+}
+
+void wait(int seconds)
+{
+    boost::this_thread::sleep(boost::posix_time::seconds(seconds));
+}
+
+void threadinterrupt()
+{
+    try
+    {
+        for (int i = 0; i &lt; 4; ++i)
+        {
+            wait(1);
+            std::cout &lt;&lt; i&lt;&lt;&quot; 是否允许中断:&quot;&lt;&lt; boost::this_thread::interruption_enabled()&lt;&lt;&quot; 是否被要求中断:&quot;&lt;&lt; boost::this_thread::interruption_requested() &lt;&lt; std::endl;
+        }
+    }
+    catch (boost::thread_interrupted&amp;)
+    {
+        std::cout &lt;&lt; &quot;已经中断&quot; &lt;&lt; std::endl;
+    }
+}
+
+#define testinterruption() { std::cout &lt;&lt; &quot;\r\n是否允许中断:&quot; &lt;&lt; boost::this_thread::interruption_enabled() &lt;&lt; &quot; 是否被要求中断:&quot; &lt;&lt; boost::this_thread::interruption_requested()&lt;&lt; __FUNCTION__&lt;&lt; __LINE__ &lt;&lt; std::endl;}
+
+void f()
+{
+    testinterruption();
+    // interruption enabled here
+    {
+        boost::this_thread::disable_interruption di;
+        boost::this_thread::interruption_point();
+        testinterruption();
+        // interruption disabled
+        {
+            testinterruption();
+            boost::this_thread::disable_interruption di2;
+            testinterruption();
+            // interruption still disabled
+        } // di2 destroyed, interruption state restored
+          // interruption still disabled
+        boost::this_thread::interruption_point();
+        testinterruption();
+    } // di destroyed, interruption state restored
+      // interruption now enabled
+    testinterruption();
+    boost::this_thread::interruption_point();
+    testinterruption();
+}
+
+void g()
+{
+    testinterruption();
+    // interruption enabled here
+    {
+        testinterruption();
+        boost::this_thread::disable_interruption di;
+        boost::this_thread::interruption_point();
+        testinterruption();
+        // interruption disabled
+        {
+            testinterruption();
+            boost::this_thread::restore_interruption ri(di);
+            testinterruption();
+            // interruption now enabled
+        } // ri destroyed, interruption disable again
+        testinterruption();
+        boost::this_thread::interruption_point();
+    } // di destroyed, interruption state restored
+      // interruption now enabled
+    testinterruption();
+    boost::this_thread::interruption_point();
+    testinterruption();
+}
+
+//预定于中断点：
+//boost::thread::join()
+//boost::thread::timed_join()
+//boost::thread::try_join_for(),
+//boost::thread::try_join_until(),
+//boost::condition_variable::wait()
+//boost::condition_variable::timed_wait()
+//boost::condition_variable::wait_for()
+//boost::condition_variable::wait_until()
+//boost::condition_variable_any::wait()
+//boost::condition_variable_any::timed_wait()
+//boost::condition_variable_any::wait_for()
+//boost::condition_variable_any::wait_until()
+//boost::thread::sleep()
+//boost::this_thread::sleep_for()
+//boost::this_thread::sleep_until()
+//boost::this_thread::interruption_point()
+
+TEST(BoostThread, interrupt)//中断
+{
+    std::cout &lt;&lt; &quot;中断&quot; &lt;&lt; std::endl;
+    boost::thread t(threadinterrupt);
+    wait(3);
+    t.interrupt();
+    t.join();
+
+    boost::thread tf(f);
+    tf.interrupt();
+    tf.join();
+
+    boost::thread tg(g);
+    tg.interrupt();
+    tg.join();
+}
+
+TEST(BoostThread, threadid_count)
+{
+    std::cout &lt;&lt; boost::this_thread::get_id() &lt;&lt; std::endl;
+    std::cout &lt;&lt; boost::thread::hardware_concurrency() &lt;&lt; std::endl;
+}
+
+void thread_group_Fun()
+{
+    std::cout &lt;&lt;&quot;当前线程ID:&quot;&lt;&lt; boost::this_thread::get_id() &lt;&lt; std::endl;
+}
+
+TEST(BoostThread, thread_group)
+{
+    boost::thread_group grp;
+    boost::thread *p = new boost::thread(thread_group_Fun);
+    grp.add_thread(p);
+    std::cout &lt;&lt; &quot;remove_thread:&quot; &lt;&lt; p-&gt;get_id()&lt;&lt; std::endl;
+    grp.remove_thread(p);
+
+    grp.create_thread(thread_group_Fun);
+    grp.create_thread(thread_group_Fun);   
+
+    grp.join_all();                 
+}
+
+class BankAccount {
+    boost::mutex mtx_; // explicit mutex declaration 
+    int balance_;
+public:
+    void Deposit(int amount) {
+        boost::lock_guard&lt;boost::mutex&gt; guard(mtx_);
+        balance_ += amount;
+    }
+    void Withdraw(int amount) {
+        boost::lock_guard&lt;boost::mutex&gt; guard(mtx_);
+        balance_ -= amount;
+    }
+    int GetBalance() {
+        boost::lock_guard&lt;boost::mutex&gt; guard(mtx_);
+        return balance_;
+    }
+};
+
+BankAccount JoesAccount;
+
+void bankAgent()
+{
+    for (int i = 10; i &gt; 0; --i) {
+        JoesAccount.Deposit(500);
+        std::cout &lt;&lt; &quot;bankAgent:&quot; &lt;&lt; JoesAccount.GetBalance() &lt;&lt; std::endl;
+    }
+}
+
+void Joe() {
+    for (int i = 10; i &gt; 0; --i) {
+        JoesAccount.Withdraw(100);
+        std::cout &lt;&lt;&quot;Joe:&quot;&lt;&lt; JoesAccount.GetBalance() &lt;&lt; std::endl;
+    }
+}
+
+TEST(BoostThread, mutex)//互斥
+{
+    boost::thread thread1(bankAgent); // start concurrent execution of bankAgent
+    boost::thread thread2(Joe); // start concurrent execution of Joe
+    thread1.join();
+    thread2.join();
+}
+
+typedef boost::shared_lock&lt;boost::shared_mutex&gt; readLock;
+typedef boost::unique_lock&lt;boost::shared_mutex&gt; writeLock;
+boost::shared_mutex rwmutex;
+
+std::vector&lt;int&gt; random_numbers;
+
+void readOnly()
+{
+    for (int i = 0; i &lt; 3; ++i)
+    {
+        wait(1);
+        readLock rdlock(rwmutex);
+        std::cout &lt;&lt; random_numbers.back() &lt;&lt; std::endl;
+    }
+}
+
+void writeOnly()
+{
+    std::srand(static_cast&lt;unsigned int&gt;(std::time(0)));
+    for (int i = 0; i &lt; 3; ++i)
+    {
+        writeLock wtlock(rwmutex);
+        random_numbers.push_back(std::rand());
+        wait(1);
+    }
+}
+
+int sum = 0;
+
+void count()
+{
+    for (int i = 0; i &lt; 3; ++i)
+    {
+        wait(1);
+        readLock rdlock(rwmutex);
+        sum += random_numbers.back();
+    }
+}
+
+TEST(BoostThread, readwrite)//读写锁
+{
+    boost::thread t1(writeOnly);
+    boost::thread t2(readOnly);
+    boost::thread t3(count);
+    t1.join();
+    t2.join();
+    t3.join();
+    std::cout &lt;&lt; &quot;Sum: &quot; &lt;&lt; sum &lt;&lt; std::endl;
+}
+
+boost::condition_variable_any cond;
+boost::mutex rwmutexCV;
+std::vector&lt;int&gt; random_numbersCV;
+
+void print()
+{
+    std::size_t next_size = 1;
+    for (int i = 0; i &lt; 3; ++i)
+    {
+        boost::unique_lock&lt;boost::mutex&gt; lock(rwmutexCV);
+        while (random_numbersCV.size() != next_size)
+            cond.wait(rwmutexCV);
+        std::cout &lt;&lt; random_numbersCV.back() &lt;&lt; std::endl;
+        ++next_size;
+        cond.notify_all();
+    }
+}
+
+void fill()
+{
+    std::srand(static_cast&lt;unsigned int&gt;(std::time(0)));
+    for (int i = 0; i &lt; 3; ++i)
+    {
+        boost::unique_lock&lt;boost::mutex&gt; lock(rwmutexCV);
+        random_numbersCV.push_back(std::rand());
+        cond.notify_all();
+        cond.wait(rwmutexCV);
+    }
+}
+
+TEST(BoostThread, ConditionVariables)//条件变量
+{
+    boost::thread t1(fill);
+    boost::thread t2(print);
+    t1.join();
+    t2.join();
+}
+
+//生产者-消费者模式的后进先出型(std::stack)缓冲区
+class Buffer
+{
+public:
+    //构造函数
+    Buffer(size_t n) :un_read(0), capacity(n) {}
+
+    //写入数据x
+    void put(int x) {
+        //局部域
+        {
+            boost::mutex::scoped_lock lock(mu);  //锁定互斥量
+            while (is_full()) {
+                cond_put.wait(mu);  //条件变量等待
+            }
+            stk.push(x);  //写入数据
+            ++un_read;
+        }  //解锁互斥量
+
+        cond_get.notify_one();  //通知可以读取数据
+    }
+
+    //读取数据
+    void get(int *x) {
+
+        {
+            boost::mutex::scoped_lock lock(mu);
+            while (is_empty()) {
+                cond_get.wait(mu);
+            }
+            *x = stk.top();
+            stk.pop();
+            --un_read;
+        }
+
+        cond_put.notify_one();
+    }
+
+private:
+    //判断缓冲区是否满
+    bool is_full() {
+        return un_read == capacity;
+    }
+
+    //判断缓冲区是否为空
+    bool is_empty() {
+        return un_read == 0;
+    }
+
+private:
+    boost::mutex mu;  //互斥量，配合条件变量使用
+    boost::condition_variable_any cond_put;  //写入条件变量
+    boost::condition_variable_any cond_get;  //读取条件变量
+    std::stack&lt;int&gt; stk;  //缓冲区对象
+    int un_read;
+    int capacity;
+};
+
+Buffer buf(5);  //定义一个缓冲区对象
+
+boost::mutex io_mu_;  //定义一个输出互斥量
+
+//生产者,n个
+void producer(int n)
+{
+    for (int i = 0; i &lt; n; i++) {
+        //输出信息
+        {
+            boost::mutex::scoped_lock lock(io_mu_);
+            std::cout &lt;&lt; &quot;put &quot; &lt;&lt; i &lt;&lt; &quot; to buffer&quot; &lt;&lt; std::endl;
+
+        }
+        buf.put(i);  //写入数据
+    }
+}
+
+//消费者
+void consumer(int n)
+{
+    int result(0);
+    for (int i = 0; i &lt; n; i++) {
+        {
+            buf.get(&amp;result);  //读取数据
+            boost::mutex::scoped_lock lock(io_mu_);
+            std::cout &lt;&lt; &quot;get &quot; &lt;&lt; result &lt;&lt; &quot; from buffer&quot; &lt;&lt; std::endl;
+        }
+    }
+}
+
+TEST(BoostThread, producer_consumer_test)
+{
+    boost::thread t_producer(producer, 20);
+    boost::thread t_consumer1(consumer, 10);
+    boost::thread t_consumer2(consumer, 10);
+
+    t_producer.join();
+    t_consumer1.join();
+    t_consumer2.join();
+}
+
+class ThreadPool {
+public:
+    explicit ThreadPool(size_t size) : work_(io_service_) {
+        for (size_t i = 0; i &lt; size; ++i) {
+            workers_.create_thread(
+                boost::bind(&amp;boost::asio::io_service::run, &amp;io_service_));
+        }
+    }
+
+    ~ThreadPool() {
+        io_service_.stop();
+        workers_.join_all();
+    }
+
+    // Add new work item to the pool.
+    template&lt;class F&gt;
+    void Enqueue(F f) {
+        io_service_.post(f);
+    }
+
+private:
+    boost::thread_group workers_;
+    boost::asio::io_service io_service_;
+    boost::asio::io_service::work work_;
+};
+
+TEST(BoostThread, ThreadPool)
+{
+    // Create a thread pool of 4 worker threads.
+    ThreadPool pool(4);
+
+    // Queue a bunch of work items.
+    for (int i = 0; i &lt; 8; ++i) {
+        pool.Enqueue([i] {
+            std::cout &lt;&lt; &quot;hello &quot; &lt;&lt; i &lt;&lt; std::endl;
+            boost::this_thread::sleep(boost::posix_time::seconds(1));
+            std::cout &lt;&lt; &quot;world &quot; &lt;&lt; i &lt;&lt; std::endl;
+        });
+    }
+}
+
+void init_number_generator()
+{
+    static boost::thread_specific_ptr&lt;bool&gt; tls;
+    if (!tls.get())
+        tls.reset(new bool(false));
+    if (!*tls)
+    {
+        *tls = true;
+        std::srand(static_cast&lt;unsigned int&gt;(std::time(0)));
+    }
+}
+
+boost::mutex mutex;
+
+void random_number_generator()
+{
+    init_number_generator();
+    int i = std::rand();
+    boost::lock_guard&lt;boost::mutex&gt; lock(mutex);
+    std::cout &lt;&lt; i &lt;&lt; std::endl;
+}
+
+TEST(BoostThread, thread_specific_ptr)//线程局部存储
+{
+    boost::thread t[3];
+
+    for (int i = 0; i &lt; 3; ++i)
+        t[i] = boost::thread(random_number_generator);
+
+    for (int i = 0; i &lt; 3; ++i)
+        t[i].join();
+}
+
+std::once_flag flag1, flag2;
+
+void simple_do_once()
+{
+    std::call_once(flag1, []() { std::cout &lt;&lt; &quot;Simple example: called once\n&quot;; });
+}
+
+void may_throw_function(bool do_throw)
+{
+    if (do_throw) {
+        std::cout &lt;&lt; &quot;throw: call_once will retry\n&quot;; // 这会出现多于一次
+        throw std::exception();
+    }
+    std::cout &lt;&lt; &quot;Didn&apos;t throw, call_once will not attempt again\n&quot;; // 保证一次
+}
+
+void do_once(bool do_throw)
+{
+    try {
+        std::call_once(flag2, may_throw_function, do_throw);
+    }
+    catch (...) {
+    }
+}
+
+TEST(StdThread, std_call_once)
+{
+    std::thread st1(simple_do_once);
+    std::thread st2(simple_do_once);
+    std::thread st3(simple_do_once);
+    std::thread st4(simple_do_once);
+    st1.join();
+    st2.join();
+    st3.join();
+    st4.join();
+
+    std::thread t1(do_once, true);
+    std::thread t2(do_once, true);
+    std::thread t3(do_once, false);
+    std::thread t4(do_once, true);
+    t1.join();
+    t2.join();
+    t3.join();
+    t4.join();
+}
+
+// Some sort of connection class that should only be initialized once
+struct Conn {
+    static void init() { ++i_; }
+    static boost::once_flag init_;
+    static int i_;
+    // ...
+};
+
+int Conn::i_ = 0;
+boost::once_flag Conn::init_ = BOOST_ONCE_INIT;
+
+void worker() {
+    boost::call_once(Conn::init, Conn::init_);
+    // Do the real work...
+}
+
+Conn c;  // You probably don&apos;t want to use a global, so see the
+         // next Recipe
+
+TEST(BoostThread, Boost_call_once)
+{
+
+    boost::thread_group grp;
+
+    for (int i = 0; i &lt; 100; ++i)
+        grp.create_thread(worker);
+
+    grp.join_all();
+
+    std::cout &lt;&lt; c.i_ &lt;&lt; &apos;\n&apos;;// c.i_ = 1
+}
+
+int fab(int n)
+{
+    if (n == 0 || n == 1)
+    {
+        return 1;
+    }
+    return fab(n - 1) + fab(n - 2);
+}
+
+
+TEST(BoostThread, futuretest)
+{
+    // 声明packaged_task对象，用模板参数指明返回值类型
+    // packaged_task只接受无参函数，因此需要使用bind
+    boost::packaged_task&lt;int&gt; pt(boost::bind(fab, 10));
+
+    // 声明unique_future对象，接受packaged_task的future值
+    // 同样要用模板参数指明返回值类型
+    boost::unique_future&lt;int&gt; uf = pt.get_future();
+
+    // 启动线程计算，必须使用boost::move()来转移package_task对象
+    // 因为packaged_task是不可拷贝的
+    boost::thread(boost::move(pt));
+    uf.wait(); // unique_future等待计算结果
+    assert(uf.is_ready() &amp;&amp; uf.has_value());
+    std::cout &lt;&lt; uf.get()&lt;&lt;std::endl; // 输出计算结果99
+}
+
+int calculate_the_answer_to_life_the_universe_and_everything()
+{
+    return 42;
+}
+
+void invoke_lazy_task(boost::packaged_task&lt;int&gt;&amp; task)
+{
+    try
+    {
+        task();
+    }
+    catch (boost::task_already_started&amp;)
+    {
+    }
+}
+
+//shared_future与unique_future
+TEST(BoostThread, BoostFuture)
+{
+    {
+        boost::packaged_task&lt;int&gt; pt(calculate_the_answer_to_life_the_universe_and_everything);
+        boost::unique_future&lt;int&gt; fi = pt.get_future();
+
+        boost::thread task(boost::move(pt)); // launch task on a thread
+
+        fi.wait(); // wait for it to finish
+
+        ASSERT_TRUE(fi.is_ready());
+        ASSERT_TRUE(fi.has_value());
+        ASSERT_TRUE(!fi.has_exception());
+        ASSERT_TRUE(fi.get_state() == boost::future_state::ready);
+        ASSERT_TRUE(fi.get() == 42);
+    }
+
+    {
+        boost::promise&lt;int&gt; pi;
+        boost::unique_future&lt;int&gt; fi;
+        fi = pi.get_future();
+
+        pi.set_value(42);
+
+        ASSERT_TRUE(fi.is_ready());
+        ASSERT_TRUE(fi.has_value());
+        ASSERT_TRUE(!fi.has_exception());
+        ASSERT_TRUE(fi.get_state() == boost::future_state::ready);
+        ASSERT_TRUE(fi.get() == 42);
+    }
+
+    {
+        boost::packaged_task&lt;int&gt; task(calculate_the_answer_to_life_the_universe_and_everything);
+        task.set_wait_callback(invoke_lazy_task);
+        boost::unique_future&lt;int&gt; f(task.get_future());
+
+        ASSERT_TRUE(f.get() == 42);
+    }
+}
+</code></pre><h1 id="Win32-API"><a href="#Win32-API" class="headerlink" title="Win32 API"></a>Win32 API</h1><p><a href="http://blog.jobbole.com/109200/" target="_blank" rel="noopener">C++ 线程同步的四种方式</a></p>
 <p>内核对象的线程同步则主要由<code>事件</code>、<code>等待定时器</code>、<code>信号量</code>以及<code>信号灯</code>等内核对象构成。由于这种同步机制使用了内核对象，使用时必须将线程从用户模式切换到内核模式，而这种转换一般要耗费近千个CPU周期，因此同步速度较慢，但在适用性上却要远优于用户模式的线程同步方式。</p>
 <p>在WIN32中，同步机制主要有以下几种：</p>
 <p>（1）事件(Event);<br>（2）信号量(semaphore);<br>（3）互斥量(mutex);<br>（4）临界区(Critical section)。</p>
+<p>下面简单对比一下Windows中的Mutex、Semaphore、Event和Critical Section。</p>
+<p>Mutext，也叫做Mutant。只允许一个线程进入，这个进入的线程被认为是Mutex的所有者。所有者可以重入。Mutex的所有者需要在操作完成后释放这个Mutex，如果没有释放就结束了，操作系统会释放这个Mutex，但是会设置成Abandoned Mutex。</p>
+<p>Semaphore。维护了一个计数器，每当一个线程获取这个Semaphore，就会减一。当线程释放这个Semaphore，就会加一。Semaphore不维护所有者信息。</p>
+<p>Event。维护一个布尔标志。分为自动和手动两种。</p>
+<p>Critical Section。和Mutex类似，但是是用户态的对象，前面3个都是内核态的。只能用在进程内。线程退出前必须释放（LeaveCriticalSection），否则其他等待这个Critical Section的线程会永远等待下去。</p>
+<p>windows其实也有<a href="https://blog.csdn.net/u010261063/article/details/80293266" target="_blank" rel="noopener">条件变量</a>和读写锁。</p>
+<p><a href="https://www.cnblogs.com/tocy/archive/2012/06/03/2532559.html" target="_blank" rel="noopener">线程通信机制之条件变量</a></p>
 <ul>
 <li>可等待定时器</li>
 <li>原子锁</li>
 </ul>
+<p>根据用户模式及内核模式下的同步方式的不同，分类及对比如下：</p>
+<p><img src="https://i.imgur.com/J3dEHpV.jpg" alt=""></p>
 <h2 id="自旋锁"><a href="#自旋锁" class="headerlink" title="自旋锁"></a>自旋锁</h2><p>如果自旋锁已经被锁住，这时有程序申请“获取”这个自旋锁时，程序则处于“自旋”状态。所谓自旋状态，就是不停的询问是否可以“获取”自旋锁。</p>
 <p>自旋锁不同于其他的等待事件。在线程中如果等待某个事件（Event），操作系统会让这个线程进入睡眠状态，CPU会转而运行其他线程。而自旋锁则不同，它不会切换到别的线程，而是一直让这个线程“自旋”。因此，对自旋锁占用时间不宜过长，否则会导致申请自旋锁的其他线程处于自旋，这会浪费宝贵的CPU时间。</p>
 <p>自旋锁的作用一般是使各派遣函数之间同步。尽量不要将自旋锁放在全局变量中，而应该将自旋锁放在设备扩展里面。自旋锁用KSPIN_LOCK数据结构表示。</p>
@@ -236,13 +1062,29 @@
 <li>信号Signal</li>
 <li>D-Bus主要概念是总线</li>
 </ul>
+<p>windows和linux共有的进程间通信方式：1. 消息（linux中叫做信号） 2. 共享内存  3. 邮槽  4. 管道   5.socket</p>
+<h2 id="其他总结："><a href="#其他总结：" class="headerlink" title="其他总结："></a>其他总结：</h2><p>Unix和windows进程间通信的主要方式</p>
+<p>　　linux系统IPC：<br>　　管道( pipe )：管道是一种半双工的通信方式，数据只能单向流动，而且只能在具有亲缘关系的进程间使用。进程的亲缘关系通常是指父子进程关系。</p>
+<p>　　命名管道 (named pipe) ： 命名管道也是半双工的通信方式，但是它允许无亲缘关系进程间的通信。</p>
+<p>　　信号量( semophore )： 信号量是一个计数器，可以用来控制多个进程对共享资源的访问。它常作为一种锁机制，防止某进程正在访问共享资源时，其他进程也访问该资源。因此，主要作为进程间以及同一进程内不同线程之间的同步手段。</p>
+<p>　　消息队列( message queue ) ： 消息队列是由消息的链表，存放在内核中并由消息队列标识符标识。消息队列克服了信号传递信息少、管道只能承载无格式字节流以及缓冲区大小受限等缺点。</p>
+<p>　　信号 ( sinal )：信号是一种比较复杂的通信方式，用于通知接收进程某个事件已经发生。</p>
+<p>　　共享内存( shared memory ) ：共享内存就是映射一段能被其他进程所访问的内存，这段共享内存由一个进程创建，但多个进程都可以访问。共享内存是最快的 IPC 方式，它是针对其他进程间通信方式运行效率低而专门设计的。它往往与其他通信机制，如信号量，配合使用，来实现进程间的同步和通信。</p>
+<p>　　套接字( socket ) ： 套解口也是一种进程间通信机制，与其他通信机制不同的是，它可用于不同及其间的进程通信。</p>
+<p>　　windows系统IPC：<br>　　剪贴板(Clipboard)：当用户在应用程序中执行剪切或复制操作时，应用程序将选定的数据以一个或多个标准或应用程序定义的格式放在剪贴板中。</p>
+<p>　　WM_COPYDATA消息：当一个应用向另一个应用传送数据时，发送方只需使用调用SendMessage函数， 接收方只需像处理其它消息那样处理WM_COPYDATA消息，这样收发双方就实现了数据共享，它在底层实际上是通过文件映射来实现的。</p>
+<p>　　文件映射(File Mapping )：使进程把文件内容当作进程地址区间一块内存那样来对待。只需简单的指针操作就可读取和修改文件的内容。 允许多个进程访问同一文件映射对象，各个进程在它自己的地址空间里接收内存的指针，通过使用这些指针，不同进程就可以读写文件的内容，实现了对文件中数据的共享。</p>
+<p>　　共享内存(Shared Memory)是文件映射的一种特殊情况进程在创建文件映射对象时用0xFFFFFFFF来代替文件句柄(HANDLE)，就表示了对应的文件映射对象是从操作系统页面文件访问内存，其它进程打开该文件映射对象就可以访问该内存块。由于共享内存是用 文件映射实现的， 所以它也有较好的安全性，也只能运行于同一计算机上的进程之间。</p>
+<p>　　动态数据交换(DDE)：是使用共享内存在应用程序之间进行数据交换的一种进程间通信形式。应用程序可以使用DDE进行一次性数据传输，也可以当出现新数据时， 通过发送更新值在应用程序间动态交换数据。DDE和剪贴板一样既支持标准数据格式(如文本、位图等)，又可以支持自己定义的数据格式。但它们的数据传输机制却不同，一个明显区别是剪贴板操作几乎总是用作对用户指定操作的一次性应答，如从菜单中选择Paste命令。尽管DDE也可以由用户启动，但它继续发挥作用一般不必用户进一步干预。可以发生在单机或网络中不同计算机的应用程序之间。</p>
+<p>　　邮件槽(Mailslot)：提供进程间单向通信能力，任何进程都能建立邮件槽成为邮件槽服务器。其它进程称为邮件槽客户，可以通过邮件槽的名字给邮件槽服务器进程发送消息。进来的消息一直放在邮件槽中，直到服务器进程读取它为止。一个进程既可以是邮件槽服务器也可以是邮件槽客户，因此可建立多个 邮件槽实现进程间的双向通信。</p>
+<p>　　管道( pipe )：同上linux系统 &amp; 命名管道</p>
+<p>　　套接字（Sockets ）：同上linux系统</p>
 <p><a href="https://www.cnblogs.com/findumars/p/6329593.html" target="_blank" rel="noopener">https://www.cnblogs.com/findumars/p/6329593.html</a></p>
 <p><a href="http://blog.163.com/laylau_ll/blog/static/178625909201173131345423/" target="_blank" rel="noopener">http://blog.163.com/laylau_ll/blog/static/178625909201173131345423/</a></p>
 <h1 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h1><p>协程，又称微线程，纤程。</p>
 <p>Boost.Coroutine</p>
 <h1 id="原子操作"><a href="#原子操作" class="headerlink" title="原子操作"></a>原子操作</h1><p>原子库为细粒度的原子操作提供组件，允许无锁并发编程。</p>
 <p><a href="http://zh.cppreference.com/w/cpp/atomic" target="_blank" rel="noopener">http://zh.cppreference.com/w/cpp/atomic</a></p>
-<h1 id="C-11线程"><a href="#C-11线程" class="headerlink" title="C++11线程"></a>C++11线程</h1><p><a href="http://zh.cppreference.com/w/cpp/thread" target="_blank" rel="noopener">http://zh.cppreference.com/w/cpp/thread</a></p>
 <h1 id="Win32多线程程序设计中关键函数"><a href="#Win32多线程程序设计中关键函数" class="headerlink" title="Win32多线程程序设计中关键函数"></a>Win32多线程程序设计中关键函数</h1><ul>
 <li>_beginthread</li>
 <li>_beginthreadex</li>
@@ -301,6 +1143,24 @@
 <li>WriteFile</li>
 <li>WriteFileEx</li>
 </ul>
+<h1 id="C-11线程"><a href="#C-11线程" class="headerlink" title="C++11线程"></a>C++11线程</h1><p><a href="http://zh.cppreference.com/w/cpp/thread" target="_blank" rel="noopener">http://zh.cppreference.com/w/cpp/thread</a></p>
+<p><a href="https://blog.csdn.net/jiange_zh/article/details/51602938" target="_blank" rel="noopener">C++11 多线程 future/promise简介</a></p>
+<h2 id="std-async"><a href="#std-async" class="headerlink" title="std::async"></a>std::async</h2><p>std::async大概的工作过程：先将异步操作用std::packaged_task包装起来，然后将异步操作的结果放到std::promise中，这个过程就是创造未来的过程。外面再通过future.get/wait来获取这个未来的结果。</p>
+<p>可以说，std::async帮我们将std::future、std::promise和std::packaged_task三者结合了起来。</p>
+<h1 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h1><h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="一个-Linux-上分析死锁的简单方法"><a href="#一个-Linux-上分析死锁的简单方法" class="headerlink" title="一个 Linux 上分析死锁的简单方法"></a><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-deadlock/index.html" target="_blank" rel="noopener">一个 Linux 上分析死锁的简单方法</a></h3><p>产生死锁的四个必要条件</p>
+<ul>
+<li>（1） 互斥条件：一个资源每次只能被一个进程（线程）使用。</li>
+<li>（2） 请求与保持条件：一个进程（线程）因请求资源而阻塞时，对已获得的资源保持不放。</li>
+<li>（3） 不剥夺条件 : 此进程（线程）已获得的资源，在末使用完之前，不能强行剥夺。</li>
+<li>（4） 循环等待条件 : 多个进程（线程）之间形成一种头尾相接的循环等待资源关系。</li>
+</ul>
+<p>使用 pstack 和 gdb 工具对死锁程序进行分析</p>
+<h2 id="window"><a href="#window" class="headerlink" title="window"></a>window</h2><h3 id="LockCop"><a href="#LockCop" class="headerlink" title="LockCop"></a>LockCop</h3><p>LockCop通过下载Windows核心编程的源码编译可以得到</p>
+<p> 多线程程序开发过程中，最难的是对多线程的调试和逻辑分析，特别是与锁相关的缺陷分析，比如：死锁和无限等待。为此，微乳提供了一套API，从系统层面来辅助开发者分析各个线程的运行状态（running or blocking）和线程与锁的等待关系，这就是：Wait Chain Tranversal。</p>
+<p>Windows核心编程》也提供了Lockcop.exe和badlock.exe这一对示例来演示WCT</p>
+<h4 id="WCT"><a href="#WCT" class="headerlink" title="WCT"></a>WCT</h4><p>要检索一个或多个线程的等待链，请使用<a href="https://docs.microsoft.com/en-us/windows/desktop/api/Wct/nf-wct-openthreadwaitchainsession" target="_blank" rel="noopener">OpenThreadWaitChainSession</a>和<a href="https://docs.microsoft.com/en-us/windows/desktop/api/Wct/nf-wct-getthreadwaitchain" target="_blank" rel="noopener">GetThreadWaitChain</a>函数创建WCT会话。WCT会话由HWCT类型的句柄表示。会话本质上可以是同步的，也可以是异步的。同步会话将阻止调用线程，直到检索到等待链。无法取消同步会话。异步会话不会阻塞调用线程，并且可以使用<a href="https://docs.microsoft.com/en-us/windows/desktop/api/Wct/nf-wct-closethreadwaitchainsession" target="_blank" rel="noopener">CloseThreadWaitChainSession</a>函数由应用程序取消。异步操作的结果通过应用程序提供的<a href="https://msdn.microsoft.com/en-us/library/ms681421(v=VS.85" target="_blank" rel="noopener">WaitChainCallback</a>.aspx)回调函数提供。</p>
+<p>对于异步会话，调用者可以通过<a href="https://docs.microsoft.com/en-us/windows/desktop/api/Wct/nf-wct-getthreadwaitchain" target="_blank" rel="noopener">GetThreadWaitChain</a>指定指向上下文数据结构的指针。相同的指针传递给回调函数。该上下文数据结构是用户定义的并且对WCT不透明。应用程序可以使用它来在WCT查询和回调函数之间传递上下文。一种常见的方法是通过此结构传递事件句柄; 执行回调时，它会发出此事件的信号，并通知某个监控线程查询已完成。</p>
+<p><a href="https://msdn.microsoft.com/en-us/library/cc308564.aspx" target="_blank" rel="noopener">Developing with Wait Chain Traversal</a></p>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://segmentfault.com/a/1190000006232497" target="_blank" rel="noopener">https://segmentfault.com/a/1190000006232497</a></p>
 <p><a href="http://www.bogotobogo.com/cplusplus/multithreaded4_cplusplus11.php" target="_blank" rel="noopener">http://www.bogotobogo.com/cplusplus/multithreaded4_cplusplus11.php</a></p>
 <h1 id="书籍"><a href="#书籍" class="headerlink" title="书籍"></a>书籍</h1><ul>

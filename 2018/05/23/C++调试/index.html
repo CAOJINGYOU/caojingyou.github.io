@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="https://caojingyou.github.io">
   <title>C++调试 | 曹景游</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="err,hr调试代码时，监视窗口里面填入“$err,hr”(@err,hr或err,hr) 它的意义相当于让调试器帮你获取GetLastError的值 windbg使用windbg分析dmp文件定位程序bug http://www.windbg.org/ https://debugging.wellisolutions.de/windbg-versions/ https://docs.micros">
+  <meta name="description" content="err,hr调试代码时，监视窗口里面填入“$err,hr”(@err,hr或err,hr) 它的意义相当于让调试器帮你获取GetLastError的值 Pseudovariables $err    显示通过SetLastError设置的错误代码，何在代码中调用GetLastError效果一样。可以用$err,hr来显示错误代码对应的文本信息 $handles    显示应用程序中的句柄数量 $v">
 <meta name="keywords" content="随笔,C&#x2F;C++,调试,错误报告,内存泄露">
 <meta property="og:type" content="article">
 <meta property="og:title" content="C++调试">
 <meta property="og:url" content="https://caojingyou.github.io/2018/05/23/C++调试/index.html">
 <meta property="og:site_name" content="曹景游">
-<meta property="og:description" content="err,hr调试代码时，监视窗口里面填入“$err,hr”(@err,hr或err,hr) 它的意义相当于让调试器帮你获取GetLastError的值 windbg使用windbg分析dmp文件定位程序bug http://www.windbg.org/ https://debugging.wellisolutions.de/windbg-versions/ https://docs.micros">
-<meta property="og:updated_time" content="2018-07-18T07:44:18.649Z">
+<meta property="og:description" content="err,hr调试代码时，监视窗口里面填入“$err,hr”(@err,hr或err,hr) 它的意义相当于让调试器帮你获取GetLastError的值 Pseudovariables $err    显示通过SetLastError设置的错误代码，何在代码中调用GetLastError效果一样。可以用$err,hr来显示错误代码对应的文本信息 $handles    显示应用程序中的句柄数量 $v">
+<meta property="og:updated_time" content="2018-08-10T02:49:48.275Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++调试">
-<meta name="twitter:description" content="err,hr调试代码时，监视窗口里面填入“$err,hr”(@err,hr或err,hr) 它的意义相当于让调试器帮你获取GetLastError的值 windbg使用windbg分析dmp文件定位程序bug http://www.windbg.org/ https://debugging.wellisolutions.de/windbg-versions/ https://docs.micros">
+<meta name="twitter:description" content="err,hr调试代码时，监视窗口里面填入“$err,hr”(@err,hr或err,hr) 它的意义相当于让调试器帮你获取GetLastError的值 Pseudovariables $err    显示通过SetLastError设置的错误代码，何在代码中调用GetLastError效果一样。可以用$err,hr来显示错误代码对应的文本信息 $handles    显示应用程序中的句柄数量 $v">
   
     <link rel="alternative" href="/atom.xml" title="曹景游" type="application/atom+xml">
   
@@ -182,8 +182,25 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="err-hr"><a href="#err-hr" class="headerlink" title="err,hr"></a>err,hr</h1><p>调试代码时，监视窗口里面填入<code>“$err,hr”(@err,hr或err,hr)</code></p>
+        <h1 id="err-hr"><a href="#err-hr" class="headerlink" title="err,hr"></a><code>err,hr</code></h1><p>调试代码时，监视窗口里面填入<code>“$err,hr”(@err,hr或err,hr)</code></p>
 <p>它的意义相当于让调试器帮你获取GetLastError的值</p>
+<h2 id="Pseudovariables"><a href="#Pseudovariables" class="headerlink" title="Pseudovariables"></a><a href="https://msdn.microsoft.com/en-us/library/ms164891.aspx" target="_blank" rel="noopener">Pseudovariables</a></h2><ul>
+<li>$err    显示通过SetLastError设置的错误代码，何在代码中调用GetLastError效果一样。可以用$err,hr来显示错误代码对应的文本信息</li>
+<li>$handles    显示应用程序中的句柄数量</li>
+<li>$vframe    显示当前栈帧的地址</li>
+<li>$tid    显示当前的线程ID</li>
+<li>$env    显示当前应用的环境变量</li>
+<li>$cmdline    显示运行当前应用的命令行参数</li>
+<li>$pid    显示进程ID</li>
+<li>$registername或@registername    显示寄存器的内容，如果寄存器的名字不和当前其他变量重名，直接写寄存器的名字也行</li>
+<li>$clk    显示clock cycles</li>
+<li>$user    显示运行当前用户的用户信息</li>
+</ul>
+<p>在C#的程序中可以使用的Pseudovariables</p>
+<ul>
+<li>$exception    显示最后的异常信息</li>
+<li>$user    显示运行当前用户的用户信息</li>
+</ul>
 <h1 id="windbg"><a href="#windbg" class="headerlink" title="windbg"></a>windbg</h1><p>使用windbg分析dmp文件定位程序bug</p>
 <p><a href="http://www.windbg.org/" target="_blank" rel="noopener">http://www.windbg.org/</a></p>
 <p><a href="https://debugging.wellisolutions.de/windbg-versions/" target="_blank" rel="noopener">https://debugging.wellisolutions.de/windbg-versions/</a></p>
@@ -250,7 +267,7 @@ int main()
 <p><a href="https://www.cnblogs.com/lidabo/p/3706725.html" title="使用PageHeap.EXE或GFlags.EXE检查内存越界错误" target="_blank" rel="noopener">https://www.cnblogs.com/lidabo/p/3706725.html</a></p>
 <h1 id="About-DbgHelp"><a href="#About-DbgHelp" class="headerlink" title="About DbgHelp"></a>About DbgHelp</h1><p><a href="https://msdn.microsoft.com/en-us/library/windows/desktop/ms679267%28v=vs.85%29.aspx?f=255&amp;MSPPError=-2147217396" target="_blank" rel="noopener">MSDN-About DbgHelp</a></p>
 <h1 id="STL扩展库"><a href="#STL扩展库" class="headerlink" title="STL扩展库"></a><a href="http://cplusplus.wikidot.com/cn:stdext" target="_blank" rel="noopener">STL扩展库</a></h1><p><a href="http://cplusplus.wikidot.com/cn:memory-management" target="_blank" rel="noopener">内存管理专题（Memory Management）</a></p>
-<h1 id="关于MFC中的-ifdef-DEBUG-undef-THIS-FILE-static-char-THIS-FILE-FILE-endif"><a href="#关于MFC中的-ifdef-DEBUG-undef-THIS-FILE-static-char-THIS-FILE-FILE-endif" class="headerlink" title="关于MFC中的#ifdef _DEBUG #undef THIS_FILE static char THIS_FILE[]=FILE; #endif"></a><a href="https://blog.csdn.net/ZYTTAE/article/details/44926393" target="_blank" rel="noopener">关于MFC中的#ifdef _DEBUG #undef THIS_FILE static char THIS_FILE[]=<strong>FILE</strong>; #endif</a></h1><p>情况1:</p>
+<h1 id="关于MFC中的-ifdef-DEBUG-undef-THIS-FILE-static-char-THIS-FILE-FILE-endif"><a href="#关于MFC中的-ifdef-DEBUG-undef-THIS-FILE-static-char-THIS-FILE-FILE-endif" class="headerlink" title="关于MFC中的#ifdef _DEBUG #undef THIS_FILE static char THIS_FILE[]=__FILE__; #endif"></a><a href="https://blog.csdn.net/ZYTTAE/article/details/44926393" target="_blank" rel="noopener">关于MFC中的<code>#ifdef _DEBUG #undef THIS_FILE static char THIS_FILE[]=__FILE__; #endif</code></a></h1><p>情况1:</p>
 <pre><code>#ifdef _DEBUG
 virtual void AssertValid() const; //assert(断言)valid(有效的，正确的)
 virtual void Dump(CDumpContext&amp; dc) const; //存储上下文
@@ -284,7 +301,12 @@ __STDC__条件编译，意思是：如果定义了标准C或c++，那么编译�
 _STDC__cplusplus这两个都是标准宏，_STDC_表示是是否符合标准C；_cplusplus表示是否是C++。
 </code></pre><p>曾经一个解释说，多次使用<code>__FILE__</code>宏，虽然得到字符串的内容相同，但是可能地址不同，即同一个字符串常量多次用到时占用不同的地址，这样导致需要的内存增加了。为了检测内在泄露, Debug 版本的 new 附加上了调用 new 的文件名与调用所在的行号信息, 这是通过 <code>__FILE__</code> 和 <code>__LINE__</code> 来实现的, 这两个属于预定义的内部宏, 而之所以要用 <code>THIS_FILE</code> 来代替 <code>__FILE__</code>, 是为了减少程序大小: 如果你在一个文件中有 10000 次对 new 的调用, 那么会生成 10000 个当前文件名的常量字符串(第一个都是由 <code>__FILE__</code> 宏扩展而来的), 最后生成的目标文件会很大, 而用 <code>THIS_FILE</code> 来代替, 当前文件名只有一份, 传递文件名使用 <code>THIS_FILE</code> 指针就可以了。<br><code>__FILE__</code>和<code>__LINE__</code>一样都是编译器定义的宏。当碰到<code>__FILE__</code>时，编译器会把<code>__FILE__</code>替换成一个字符串，这个字符串就是当前在编译的文件的路径名。在<code>DEBUG_NEW</code>的定义中没有直接使用<code>__FILE__</code>，而是用了<code>THIS_FILE</code>，其目的是为了减小目标文件的大小。假设在某个cpp文件中有100处使用了new，如果直接使用<code>__FILE__</code>，那编译器会产生100个常量字符串，这100个字符串都是这个cpp文件的路径名，显然十分冗余。如果使用<code>THIS_FILE</code>，编译器只会产生一个常量字符串，那100处new的调用使用的都是指向常量字符串的指针。</p>
 <p>在MFC中，可以使用 <code>DEBUG_NEW</code> 宏代替 new 运算符来帮助定位内存泄漏。在程序的“Debug”版本中，<code>DEBUG_NEW</code> 将为所分配的每个对象跟踪文件名和行号。当编译程序的“Release”版本时，<code>DEBUG_NEW</code> 将解析为不包含文件名和行号信息的简单 new 操作。因此，在程序的“Release”版本中不会造成任何速度损失。 </p>
-<h1 id="最快速度找到内存泄漏"><a href="#最快速度找到内存泄漏" class="headerlink" title="最快速度找到内存泄漏"></a><a href="http://cplusplus.wikidot.com/cn:the-fastest-way-to-find-memory-leak" target="_blank" rel="noopener">最快速度找到内存泄漏</a></h1>
+<h1 id="最快速度找到内存泄漏"><a href="#最快速度找到内存泄漏" class="headerlink" title="最快速度找到内存泄漏"></a><a href="http://cplusplus.wikidot.com/cn:the-fastest-way-to-find-memory-leak" target="_blank" rel="noopener">最快速度找到内存泄漏</a></h1><h1 id="dmp调试"><a href="#dmp调试" class="headerlink" title="dmp调试"></a>dmp调试</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/d5zhxt22.aspx" target="_blank" rel="noopener">使用转储文件在 Visual Studio 中调试应用程序崩溃和挂起</a></p>
+<p>exe + pdb + dmp 在同一目录，然后双击dmp文件VC就可以打开，然后点击右上角的调试按钮就可以直接定位到崩溃的代码了；</p>
+<h1 id="适用于Windows的调试工具（WinDbg，KD，CDB，NTSD）"><a href="#适用于Windows的调试工具（WinDbg，KD，CDB，NTSD）" class="headerlink" title="适用于Windows的调试工具（WinDbg，KD，CDB，NTSD）"></a><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/index" target="_blank" rel="noopener">适用于Windows的调试工具（WinDbg，KD，CDB，NTSD）</a></h1><h1 id="SECH（结构化异常处理）"><a href="#SECH（结构化异常处理）" class="headerlink" title="SECH（结构化异常处理）"></a>SECH（结构化异常处理）</h1><h1 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h1><p><a href="http://blog.chenxu.me/post/detail?id=f4301bf3-3709-4c8f-8a45-9b9015909ce2" target="_blank" rel="noopener">Visual Studio 调试扫盲</a></p>
+<p><a href="https://www.jianshu.com/p/c6f0939d512e" target="_blank" rel="noopener">Dump调试</a></p>
+<p><a href="http://fresky.github.io/tags/Debug/" target="_blank" rel="noopener">http://fresky.github.io/tags/Debug/</a></p>
+
       
 
       
