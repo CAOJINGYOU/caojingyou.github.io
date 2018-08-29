@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="https://caojingyou.github.io">
   <title>ATL与WTL | 曹景游</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ATLATL中所使用的基本技术包括以下几个方面：  COM技术 C++模板类技术（Template) C++多继承技术（Multi-Inheritance)  MFC 和 ATL WTLhttps://sourceforge.net/projects/wtl/ AppWizard目录执行 wscript Setup.js visualfc WTL for MFC programmer 系列文章(翻">
+  <meta name="description" content="ATLATL中所使用的基本技术包括以下几个方面：  COM技术 C++模板类技术（Template) C++多继承技术（Multi-Inheritance)  MFC 和 ATL WTLhttps://sourceforge.net/projects/wtl/ 安装WTL向导 AppWizard目录执行 wscript Setup.js visualfc WTL for MFC programme">
 <meta name="keywords" content="随笔,c++,ATL,WTL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ATL与WTL">
 <meta property="og:url" content="https://caojingyou.github.io/2018/04/12/ATL与WTL/index.html">
 <meta property="og:site_name" content="曹景游">
-<meta property="og:description" content="ATLATL中所使用的基本技术包括以下几个方面：  COM技术 C++模板类技术（Template) C++多继承技术（Multi-Inheritance)  MFC 和 ATL WTLhttps://sourceforge.net/projects/wtl/ AppWizard目录执行 wscript Setup.js visualfc WTL for MFC programmer 系列文章(翻">
-<meta property="og:updated_time" content="2018-04-13T07:22:35.580Z">
+<meta property="og:description" content="ATLATL中所使用的基本技术包括以下几个方面：  COM技术 C++模板类技术（Template) C++多继承技术（Multi-Inheritance)  MFC 和 ATL WTLhttps://sourceforge.net/projects/wtl/ 安装WTL向导 AppWizard目录执行 wscript Setup.js visualfc WTL for MFC programme">
+<meta property="og:updated_time" content="2018-08-21T09:56:05.286Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ATL与WTL">
-<meta name="twitter:description" content="ATLATL中所使用的基本技术包括以下几个方面：  COM技术 C++模板类技术（Template) C++多继承技术（Multi-Inheritance)  MFC 和 ATL WTLhttps://sourceforge.net/projects/wtl/ AppWizard目录执行 wscript Setup.js visualfc WTL for MFC programmer 系列文章(翻">
+<meta name="twitter:description" content="ATLATL中所使用的基本技术包括以下几个方面：  COM技术 C++模板类技术（Template) C++多继承技术（Multi-Inheritance)  MFC 和 ATL WTLhttps://sourceforge.net/projects/wtl/ 安装WTL向导 AppWizard目录执行 wscript Setup.js visualfc WTL for MFC programme">
   
     <link rel="alternative" href="/atom.xml" title="曹景游" type="application/atom+xml">
   
@@ -190,11 +190,16 @@
 </ul>
 <p><a href="https://msdn.microsoft.com/zh-cn/library/hh967573.aspx" target="_blank" rel="noopener">MFC 和 ATL</a></p>
 <h1 id="WTL"><a href="#WTL" class="headerlink" title="WTL"></a>WTL</h1><p><a href="https://sourceforge.net/projects/wtl/" target="_blank" rel="noopener">https://sourceforge.net/projects/wtl/</a></p>
+<p>安装WTL向导</p>
 <p>AppWizard目录执行</p>
 <pre><code>wscript Setup.js
 </code></pre><p><a href="https://sourceforge.net/projects/visualfc/" title="https://sourceforge.net/projects/visualfc/" target="_blank" rel="noopener">visualfc</a></p>
 <p><a href="http://www.winmsg.com/cn/orbit.htm" title="http://www.winmsg.com/cn/orbit.htm" target="_blank" rel="noopener">WTL for MFC programmer 系列文章(翻译)</a></p>
-
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="添加按钮事件"><a href="#添加按钮事件" class="headerlink" title="添加按钮事件"></a>添加按钮事件</h3><p>对话框中添加button，id为IDC_BUTTON1</p>
+<pre><code>BEGIN_MSG_MAP(xx)
+    COMMAND_ID_HANDLER(IDC_BUTTON1, OnButton1)
+END_MSG_MAP()
+</code></pre>
       
 
       
@@ -320,18 +325,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/04/12/duilib/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/04/16/CEF/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          duilib
+          CEF
         
       </div>
     </a>
   
   
-    <a href="/2018/04/03/正则表达式/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">正则表达式</div>
+    <a href="/2018/04/12/duilib/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">duilib</div>
       <i class="icon-circle-right"></i>
     </a>
   

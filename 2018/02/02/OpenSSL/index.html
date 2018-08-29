@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2018/02/02/OpenSSL/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="OpenSSLhttps://www.openssl.org/ https://github.com/openssl/openssl 编译：安装ActiveState Perl  https://www.perl.org/ ActivePerl-5.24.1.2402-MSWin32-x86-64int-401627.exe Perl 在 Window 平台上有 ActiveStatePerl 和">
-<meta property="og:updated_time" content="2018-04-12T06:25:41.592Z">
+<meta property="og:updated_time" content="2018-08-17T02:00:59.158Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="OpenSSL">
 <meta name="twitter:description" content="OpenSSLhttps://www.openssl.org/ https://github.com/openssl/openssl 编译：安装ActiveState Perl  https://www.perl.org/ ActivePerl-5.24.1.2402-MSWin32-x86-64int-401627.exe Perl 在 Window 平台上有 ActiveStatePerl 和">
@@ -190,6 +190,7 @@
 <p>Perl 在 Window 平台上有 ActiveStatePerl 和 Strawberry Perl 编译器。</p>
 <p>ActiveState Perl和 Strawberry Perl最大的区别是 Strawberry Perl 里面有多包含一些 CPAN 里的模块， 所以Strawberry Perl 下载的安装文件有 80多M, 而ActiveState Perl 只有20M 左右。</p>
 <p>使用libcur中的<code>build-openssl.bat</code>编译</p>
+<p>需要注意%PE%路径与VS真是路径</p>
 <p><a href="http://files.cnblogs.com/files/yhcao/build-openssl.rar" title="http://files.cnblogs.com/files/yhcao/build-openssl.rar" target="_blank" rel="noopener">build-openssl.rar</a></p>
 <h2 id="需要文件："><a href="#需要文件：" class="headerlink" title="需要文件："></a>需要文件：</h2><pre><code>$ copy /b inc32\openssl\*       c:\openssl\include\openssl
 $ copy /b out32dll\ssleay32.lib c:\openssl\lib

@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2018/05/23/内存泄漏及检测/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="检测是否存在内存泄漏问题Windows平台下面Visual Studio 调试器和 C 运行时 (CRT) 库为我们提供了检测和识别内存泄漏的有效方法，原理大致如下：内存分配要通过CRT在运行时实现，只要在分配内存和释放内存时分别做好记录，程序结束时对比分配内存和释放内存的记录就可以确定是不是有内存泄漏。在vs中启用内存检测的方法如下：  STEP1，在程序中包括以下语句： （#include 语">
-<meta property="og:updated_time" content="2018-08-10T02:22:26.681Z">
+<meta property="og:updated_time" content="2018-08-28T10:00:41.217Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="内存泄露检查">
 <meta name="twitter:description" content="检测是否存在内存泄漏问题Windows平台下面Visual Studio 调试器和 C 运行时 (CRT) 库为我们提供了检测和识别内存泄漏的有效方法，原理大致如下：内存分配要通过CRT在运行时实现，只要在分配内存和释放内存时分别做好记录，程序结束时对比分配内存和释放内存的记录就可以确定是不是有内存泄漏。在vs中启用内存检测的方法如下：  STEP1，在程序中包括以下语句： （#include 语">
@@ -269,7 +269,90 @@ void main()
    _CrtSetBreakAlloc(52);
    int* leak = new int[10];
 }
-</code></pre><h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>实际项目中检测内存泄漏通常会十分繁琐，所以有许多工具帮助我们检测内存泄漏，比如 mtrace，valgrind。</p>
+</code></pre><h1 id="Aspect-C"><a href="#Aspect-C" class="headerlink" title="Aspect C ++"></a><a href="https://www.aspectc.org/" target="_blank" rel="noopener">Aspect C ++</a></h1><p>面向AOP切面编程</p>
+<p><a href="http://www.cppblog.com/cpunion/archive/2005/12/16/1836.html" target="_blank" rel="noopener">实战Aspect C ++之检查内存泄漏</a></p>
+<p>实现一个内存分配记录管理器：</p>
+<p>memory_recorder.h</p>
+<pre><code>#ifndef __MEMORY_RECORDER_H__
+#define __MEMORY_RECORDER_H__
+
+#include &lt;map&gt;
+#include &lt;typeinfo&gt;
+using namespace std;
+
+class MemoryRecorder
+{
+    map&lt;void *, const type_info *&gt; objects;
+public:
+    ~MemoryRecorder ();
+    void addObject(void *obj, const type_info &amp;ti);
+    void removeObject(void *obj, const type_info &amp;ti);
+};
+
+extern MemoryRecorder g_memoryRecorder;
+
+#endif // __MEMORY_RECORDER_H__
+</code></pre><p>memory_recorder.cc</p>
+<pre><code>#include &quot;memory_recorder.h&quot;
+
+#include &lt;iostream&gt;
+using namespace std;
+
+
+MemoryRecorder g_memoryRecorder;
+
+
+MemoryRecorder::~MemoryRecorder ()
+{
+    if (objects.size() &gt; 0)
+    {
+        cout &lt;&lt; objects.size() &lt;&lt; &quot; objects not released:&quot; &lt;&lt; endl;
+        for (map&lt;void *, const type_info *&gt;::const_iterator iter = objects.begin();
+                iter != objects.end();
+                iter ++)
+        {
+            cout &lt;&lt; &quot;\t&quot; &lt;&lt; iter-&gt;second-&gt;name() &lt;&lt; &quot;: &quot; &lt;&lt; (iter-&gt;first) &lt;&lt; endl;
+            delete (iter-&gt;first);
+        }
+    }
+}
+
+void MemoryRecorder::addObject(void *obj, const type_info &amp;ti)
+{
+    objects.insert(make_pair(obj, &amp;ti));
+}
+
+void MemoryRecorder::removeObject(void *obj, const type_info &amp;ti)
+{
+    objects.erase(obj);
+}
+</code></pre><p>实现方面，test.ah</p>
+<pre><code>#ifndef __TEST_AH__
+#define __TEST_AH__
+
+#include &quot;memory_recorder.h&quot;
+#include &lt;iostream&gt;
+using namespace std;
+
+aspect MemberRecorder
+{
+    pointcut all_class() = classes(&quot;Test%&quot;);
+
+    advice construction (all_class()) : after ()
+    {
+        g_memoryRecorder.addObject (tjp-&gt;target(), typeid(*tjp-&gt;target()));
+    }
+
+    advice destruction (all_class()) : after ()
+    {
+        g_memoryRecorder.removeObject (tjp-&gt;target(), typeid(*tjp-&gt;target()));
+    }
+};
+
+#endif // __TEST_AH__
+</code></pre><p>这个方面实现的功能很简单，首先定义了一个pointcut(切面)，它匹配所有以“Test”开头的类。<br>接下来定义了2个处理方法，分别在这些类的构造函数和析构函数调用之后执行。</p>
+<p>tjp-&gt;target()指向Test*对象实例</p>
+<h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>实际项目中检测内存泄漏通常会十分繁琐，所以有许多工具帮助我们检测内存泄漏，比如 mtrace，valgrind。</p>
 <h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="http://blog.jobbole.com/95375/" target="_blank" rel="noopener">C/C++内存泄漏及检测</a></p>
 <p><a href="https://en.wikipedia.org/wiki/Mtrace" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Mtrace</a></p>
 <p><a href="http://valgrind.org/docs/manual/manual.html" target="_blank" rel="noopener">http://valgrind.org/docs/manual/manual.html</a></p>

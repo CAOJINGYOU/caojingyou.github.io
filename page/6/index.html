@@ -160,6 +160,488 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-OpenSSL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/02/OpenSSL/">OpenSSL</a>
+    </h1>
+  
+
+        
+        <a href="/2018/02/02/OpenSSL/" class="archive-article-date">
+  	<time datetime="2018-02-02T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="OpenSSL"><a href="#OpenSSL" class="headerlink" title="OpenSSL"></a>OpenSSL</h1><p><a href="https://www.openssl.org/" title="https://www.openssl.org/" target="_blank" rel="noopener">https://www.openssl.org/</a></p>
+<p><a href="https://github.com/openssl/openssl" title="https://github.com/openssl/openssl" target="_blank" rel="noopener">https://github.com/openssl/openssl</a></p>
+<h1 id="编译："><a href="#编译：" class="headerlink" title="编译："></a>编译：</h1><p>安装<code>ActiveState Perl</code> </p>
+<p><a href="https://www.perl.org/" title="https://www.perl.org/" target="_blank" rel="noopener">https://www.perl.org/</a></p>
+<p><a href="https://www.activestate.com/activeperl/downloads/thank-you?dl=http://downloads.activestate.com/ActivePerl/releases/5.24.1.2402/ActivePerl-5.24.1.2402-MSWin32-x86-64int-401627.exe" title="https://www.activestate.com/activeperl/downloads/thank-you?dl=http://downloads.activestate.com/ActivePerl/releases/5.24.1.2402/ActivePerl-5.24.1.2402-MSWin32-x86-64int-401627.exe" target="_blank" rel="noopener">ActivePerl-5.24.1.2402-MSWin32-x86-64int-401627.exe</a></p>
+<p>Perl 在 Window 平台上有 ActiveStatePerl 和 Strawberry Perl 编译器。</p>
+<p>ActiveState Perl和 Strawberry Perl最大的区别是 Strawberry Perl 里面有多包含一些 CPAN 里的模块， 所以Strawberry Perl 下载的安装文件有 80多M, 而ActiveState Perl 只有20M 左右。</p>
+<p>使用libcur中的<code>build-openssl.bat</code>编译</p>
+<p>需要注意%PE%路径与VS真是路径</p>
+<p><a href="http://files.cnblogs.com/files/yhcao/build-openssl.rar" title="http://files.cnblogs.com/files/yhcao/build-openssl.rar" target="_blank" rel="noopener">build-openssl.rar</a></p>
+<h2 id="需要文件："><a href="#需要文件：" class="headerlink" title="需要文件："></a>需要文件：</h2><pre><code>$ copy /b inc32\openssl\*       c:\openssl\include\openssl
+$ copy /b out32dll\ssleay32.lib c:\openssl\lib
+$ copy /b out32dll\libeay32.lib c:\openssl\lib
+$ copy /b out32dll\ssleay32.dll c:\openssl\bin
+$ copy /b out32dll\libeay32.dll c:\openssl\bin
+$ copy /b out32dll\openssl.exe  c:\openssl\bin
+</code></pre><p><a href="http://slproweb.com/products/Win32OpenSSL.html" target="_blank" rel="noopener">http://slproweb.com/products/Win32OpenSSL.html</a></p>
+<h1 id="安装程序："><a href="#安装程序：" class="headerlink" title="安装程序："></a>安装程序：</h1><p>或到此处下载：</p>
+<p><a href="http://slproweb.com/products/Win32OpenSSL.html" title="http://slproweb.com/products/Win32OpenSSL.html" target="_blank" rel="noopener">http://slproweb.com/products/Win32OpenSSL.html</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">OpenSSL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">加密</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/02/02/OpenSSL/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-VS工具" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/02/01/VS工具/">VS工具</a>
+    </h1>
+  
+
+        
+        <a href="/2018/02/01/VS工具/" class="archive-article-date">
+  	<time datetime="2018-02-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Conan"><a href="#Conan" class="headerlink" title="Conan"></a>Conan</h1><p>C/C++包管理开发工具</p>
+<p><a href="https://conan.io/" title="https://conan.io/" target="_blank" rel="noopener">https://conan.io/</a></p>
+<p><a href="https://docs.conan.io/en/latest/introduction.html" title="https://docs.conan.io/en/latest/introduction.html" target="_blank" rel="noopener">https://docs.conan.io/en/latest/introduction.html</a></p>
+<h1 id="vcpkg"><a href="#vcpkg" class="headerlink" title="vcpkg"></a>vcpkg</h1><p>C++包管理开发工具</p>
+<p><a href="https://github.com/Microsoft/vcpkg" title="https://github.com/Microsoft/vcpkg" target="_blank" rel="noopener">https://github.com/Microsoft/vcpkg</a></p>
+<p><a href="https://blog.csdn.net/cjmqas/article/details/79282847" title="https://blog.csdn.net/cjmqas/article/details/79282847" target="_blank" rel="noopener">https://blog.csdn.net/cjmqas/article/details/79282847</a></p>
+<p><a href="https://blogs.msdn.microsoft.com/vcblog/2016/09/19/vcpkg-a-tool-to-acquire-and-build-c-open-source-libraries-on-windows/" title="https://blogs.msdn.microsoft.com/vcblog/2016/09/19/vcpkg-a-tool-to-acquire-and-build-c-open-source-libraries-on-windows/" target="_blank" rel="noopener">https://blogs.msdn.microsoft.com/vcblog/2016/09/19/vcpkg-a-tool-to-acquire-and-build-c-open-source-libraries-on-windows/</a></p>
+<h1 id="nuget"><a href="#nuget" class="headerlink" title="nuget"></a>nuget</h1><p>.net包管理开发工具</p>
+<p><a href="https://www.nuget.org/downloads" title="https://www.nuget.org/downloads" target="_blank" rel="noopener">https://www.nuget.org/downloads</a></p>
+<h1 id="MSDN-Code-Gallery"><a href="#MSDN-Code-Gallery" class="headerlink" title="MSDN Code Gallery"></a>MSDN Code Gallery</h1><p><a href="https://code.msdn.microsoft.com/" title="https://code.msdn.microsoft.com/" target="_blank" rel="noopener">https://code.msdn.microsoft.com/</a></p>
+<h1 id="Visual-Studio-Gallery"><a href="#Visual-Studio-Gallery" class="headerlink" title="Visual Studio Gallery"></a>Visual Studio Gallery</h1><p><a href="https://visualstudiogallery.msdn.microsoft.com/" title="https://visualstudiogallery.msdn.microsoft.com/" target="_blank" rel="noopener">https://visualstudiogallery.msdn.microsoft.com/</a></p>
+<h1 id="cppcheck"><a href="#cppcheck" class="headerlink" title="cppcheck"></a>cppcheck</h1><p><a href="http://cppcheck.sourceforge.net/" title="http://cppcheck.sourceforge.net/" target="_blank" rel="noopener">http://cppcheck.sourceforge.net/</a></p>
+<p><a href="https://github.com/danmar/cppcheck" title="https://github.com/danmar/cppcheck" target="_blank" rel="noopener">https://github.com/danmar/cppcheck</a></p>
+<p><a href="http://cppcheck.sourceforge.net/manual.html" title="http://cppcheck.sourceforge.net/manual.html" target="_blank" rel="noopener">http://cppcheck.sourceforge.net/manual.html</a></p>
+<h1 id="Resharper"><a href="#Resharper" class="headerlink" title="Resharper"></a>Resharper</h1><p>深度代码分析，智能代码协助，实时错误代码高亮显示，解决方案范围内代码分析，快速代码更正，一步完成代码格式化和清理，业界领先的自动代码重构，高级的集成单元测试方案，和强大的解决方案内导航和搜索</p>
+<p><a href="https://www.jetbrains.com/resharper/" title="https://www.jetbrains.com/resharper/" target="_blank" rel="noopener">https://www.jetbrains.com/resharper/</a></p>
+<h1 id="CodeMaid"><a href="#CodeMaid" class="headerlink" title="CodeMaid"></a>CodeMaid</h1><p>整理代码</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=SteveCadwallader.CodeMaid" title="https://marketplace.visualstudio.com/items?itemName=SteveCadwallader.CodeMaid" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=SteveCadwallader.CodeMaid</a></p>
+<h1 id="ClaudiaIDE"><a href="#ClaudiaIDE" class="headerlink" title="ClaudiaIDE"></a>ClaudiaIDE</h1><p>vs背景</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=kbuchi.ClaudiaIDE" title="https://marketplace.visualstudio.com/items?itemName=kbuchi.ClaudiaIDE" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=kbuchi.ClaudiaIDE</a></p>
+<h1 id="VSColorOutput"><a href="#VSColorOutput" class="headerlink" title="VSColorOutput"></a>VSColorOutput</h1><p>vs彩色输出信息</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=MikeWard-AnnArbor.VSColorOutput" title="https://marketplace.visualstudio.com/items?itemName=MikeWard-AnnArbor.VSColorOutput" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=MikeWard-AnnArbor.VSColorOutput</a></p>
+<h1 id="VS10x-Comments-Extender"><a href="#VS10x-Comments-Extender" class="headerlink" title="VS10x Comments Extender"></a>VS10x Comments Extender</h1><p>更改代码注释样式</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.VS10xCommentsExtender" title="https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.VS10xCommentsExtender" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.VS10xCommentsExtender</a></p>
+<h1 id="VS10x-CodeMAP"><a href="#VS10x-CodeMAP" class="headerlink" title="VS10x CodeMAP"></a>VS10x CodeMAP</h1><p>可视化代码</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.VS10xCodeMAP" title="https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.VS10xCodeMAP" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.VS10xCodeMAP</a></p>
+<h1 id="VS10x-Editor-View-Enhancer"><a href="#VS10x-Editor-View-Enhancer" class="headerlink" title="VS10x Editor View Enhancer"></a>VS10x Editor View Enhancer</h1><p>增强 代码 编辑器 突出 显示 类 和 成员 名称</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.VS10xEditorViewEnhancer" title="https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.VS10xEditorViewEnhancer" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=MichaelKissBG8.VS10xEditorViewEnhancer</a></p>
+<h1 id="Atomineer-Pro-Documentation"><a href="#Atomineer-Pro-Documentation" class="headerlink" title="Atomineer Pro Documentation"></a>Atomineer Pro Documentation</h1><p>生成Doxygen注释</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=JasonWilliams.AtomineerProDocumentation" title="https://marketplace.visualstudio.com/items?itemName=JasonWilliams.AtomineerProDocumentation" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=JasonWilliams.AtomineerProDocumentation</a></p>
+<h1 id="Atomineer-Pro-Documentation-Trial"><a href="#Atomineer-Pro-Documentation-Trial" class="headerlink" title="Atomineer Pro Documentation Trial"></a>Atomineer Pro Documentation Trial</h1><p>生成Doxygen注释</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=JasonWilliams.AtomineerProDocumentationTrial" title="https://marketplace.visualstudio.com/items?itemName=JasonWilliams.AtomineerProDocumentationTrial" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=JasonWilliams.AtomineerProDocumentationTrial</a></p>
+<h1 id="DoxygenComments"><a href="#DoxygenComments" class="headerlink" title="DoxygenComments"></a>DoxygenComments</h1><p>Doxygen注释高亮</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=OleksandrManenko.DoxygenComments" title="https://marketplace.visualstudio.com/items?itemName=OleksandrManenko.DoxygenComments" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=OleksandrManenko.DoxygenComments</a></p>
+<h1 id="XML-Comments"><a href="#XML-Comments" class="headerlink" title="XML Comments"></a>XML Comments</h1><p>xml注释</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=UwePhilipps.XMLComments" title="https://marketplace.visualstudio.com/items?itemName=UwePhilipps.XMLComments" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=UwePhilipps.XMLComments</a></p>
+<h1 id="Go-To-Definition"><a href="#Go-To-Definition" class="headerlink" title="Go To Definition"></a>Go To Definition</h1><p>转到定义</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=NoahRichards.GoToDefinition" title="https://marketplace.visualstudio.com/items?itemName=NoahRichards.GoToDefinition" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=NoahRichards.GoToDefinition</a></p>
+<h1 id="AnkhSVN"><a href="#AnkhSVN" class="headerlink" title="AnkhSVN"></a>AnkhSVN</h1><p>svn</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=vs-publisher-303797.AnkhSVN-SubversionSupportSCCProvider" title="https://marketplace.visualstudio.com/items?itemName=vs-publisher-303797.AnkhSVN-SubversionSupportSCCProvider" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=vs-publisher-303797.AnkhSVN-SubversionSupportSCCProvider</a></p>
+<h1 id="Code-Compare"><a href="#Code-Compare" class="headerlink" title="Code Compare"></a>Code Compare</h1><p>代码对比</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=DevartSoftware.CodeCompare" title="https://marketplace.visualstudio.com/items?itemName=DevartSoftware.CodeCompare" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=DevartSoftware.CodeCompare</a></p>
+<h1 id="Indent-Guides"><a href="#Indent-Guides" class="headerlink" title="Indent Guides"></a>Indent Guides</h1><p>花括号虚线</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=SteveDowerMSFT.IndentGuides" title="https://marketplace.visualstudio.com/items?itemName=SteveDowerMSFT.IndentGuides" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=SteveDowerMSFT.IndentGuides</a></p>
+<h1 id="Hide-Main-Menu"><a href="#Hide-Main-Menu" class="headerlink" title="Hide Main Menu"></a>Hide Main Menu</h1><p>隐藏主菜单</p>
+<p><a href="https://marketplace.visualstudio.com/items?itemName=MatthewJohnsonMSFT.HideMainMenu" title="https://marketplace.visualstudio.com/items?itemName=MatthewJohnsonMSFT.HideMainMenu" target="_blank" rel="noopener">https://marketplace.visualstudio.com/items?itemName=MatthewJohnsonMSFT.HideMainMenu</a></p>
+<h1 id="重复代码检查工具simian"><a href="#重复代码检查工具simian" class="headerlink" title="重复代码检查工具simian"></a>重复代码检查工具simian</h1><p><a href="http://www.harukizaemon.com/simian/" target="_blank" rel="noopener">http://www.harukizaemon.com/simian/</a></p>
+<h1 id="代码度量工具——SourceMonitor"><a href="#代码度量工具——SourceMonitor" class="headerlink" title="代码度量工具——SourceMonitor"></a>代码度量工具——SourceMonitor</h1><p><a href="http://www.campwoodsw.com/sourcemonitor.html" target="_blank" rel="noopener">source moniter</a></p>
+<p><a href="https://blog.csdn.net/feng_ma_niu/article/details/40594799" target="_blank" rel="noopener">软件质量之道：SourceMonitor</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Doxygen</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">VS工具</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Conan</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">vcpkg</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nuget</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">cppcheck</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Resharper</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CodeMaid</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/02/01/VS工具/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-bypy" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/25/bypy/">bypy</a>
+    </h1>
+  
+
+        
+        <a href="/2018/01/25/bypy/" class="archive-article-date">
+  	<time datetime="2018-01-25T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="bypy"><a href="#bypy" class="headerlink" title="bypy"></a>bypy</h1><p><a href="https://github.com/houtianze/bypy" title="https://github.com/houtianze/bypy" target="_blank" rel="noopener">https://github.com/houtianze/bypy</a></p>
+<p>TL;DR: <code>pip install bypy</code>. <code>Run bypy</code></p>
+<p>安装配置完毕后可用命令行直接上传文件</p>
+<pre><code>@echo off
+
+bypy -v upload E:\图片\Aatrox_Splash_0.jpg test/2.jpg
+
+pause
+</code></pre><h2 id="可能出现的问题"><a href="#可能出现的问题" class="headerlink" title="可能出现的问题"></a>可能出现的问题</h2><ol>
+<li>第一次运行要授权，打开命令行中的提示网站，复制授权码到命令行中</li>
+</ol>
+<ol>
+<li><p>可能会由于百度权限问题，使用百度云备份需要差不多一个月跟新一次授权，否则报错</p>
+<p> OpenShift server failed, authorizing/refreshing with the Heroku server …</p>
+</li>
+</ol>
+<p>或者不小心删除了</p>
+<p><code>Hash Cache File &#39;/home/pipi/.bypy/bypy.hashcache.json&#39; not found, no caching</code><br><code>Note: Skip saving Hash Cache since it has not been updated.</code></p>
+<p>这个应该不是错误，而是没有再次更新授权的提示吧。</p>
+<p>更新(重新)授权办法如下：</p>
+<p>运行</p>
+<p><code>bypy.py -c</code></p>
+<p>删除令牌文件，然后重新授权一次。如果还不行，去百度应用授权里删除bypy再重新授权。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">bypy</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">百度云盘</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/25/bypy/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-cppunit" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/18/cppunit/">CppUnit</a>
+    </h1>
+  
+
+        
+        <a href="/2018/01/18/cppunit/" class="archive-article-date">
+  	<time datetime="2018-01-18T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="CppUnit"><a href="#CppUnit" class="headerlink" title="CppUnit"></a>CppUnit</h1><p><a href="https://sourceforge.net/projects/cppunit/?source=directory" target="_blank" rel="noopener">CppUnit - C++ port of JUnit</a></p>
+<p><a href="https://www.freedesktop.org/wiki/Software/cppunit/" target="_blank" rel="noopener">cppunit-freedesktop.org</a></p>
+<p><a href="http://cppunit.sourceforge.net/doc/lastest/index.html" target="_blank" rel="noopener">CppUnit Documentation</a></p>
+<p><a href="https://baike.baidu.com/item/CppUnit/2218302?fr=aladdin" target="_blank" rel="noopener">CppUnit百度百科</a></p>
+<p><a href="https://www.ibm.com/developerworks/cn/linux/l-cppunit/" target="_blank" rel="noopener">便利的开发工具 CppUnit 快速使用指南</a></p>
+<p><a href="https://wenku.baidu.com/view/b7fcad4bcf84b9d528ea7ae1.html" target="_blank" rel="noopener">CppUnit源码解读</a></p>
+<p><a href="http://morningspace.51.net/resource/cppunit/cppunit_anno.html" target="_blank" rel="noopener">晨光（Morning）CppUnit源码解读</a></p>
+<p><a href="http://blog.csdn.net/eplanet/article/details/1844456" target="_blank" rel="noopener">C++——测试工具CppUnit的安装和配置</a></p>
+<p><a href="http://blog.csdn.net/x_iya/article/details/8433716" target="_blank" rel="noopener">CppUnit在VS2010上的正确使用</a></p>
+<p><a href="https://wenku.baidu.com/view/0997c8a30b1c59eef9c7b47f.html" target="_blank" rel="noopener">[vs2010 配置与实例] CppUnit快速入门</a></p>
+<h1 id="文件"><a href="#文件" class="headerlink" title="文件"></a>文件</h1><p><a href="http://dev-www.libreoffice.org/src/cppunit-1.14.0.tar.gz" target="_blank" rel="noopener">cppunit-1.14.0.tar.gz</a></p>
+<p><a href="https://sourceforge.net/projects/cppunit/files/cppunit/1.12.1/cppunit-1.12.1.tar.gz/download" target="_blank" rel="noopener">cppunit-1.12.1.tar.gz</a></p>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><p>在CppUnit的源代码中，包含了几个测试工程的例子。</p>
+<ul>
+<li>CppUnitTestMain：一个实际的测试包（test suite）用来测试CppUnit。使用了TextTestRunner（文本方式的单元测试环境），利用CompilterOutputter进行post-build testing（即在编译结束之后紧跟着进行测试）。在配置中设定连接了cppunit的静态库和动态库。</li>
+</ul>
+<ul>
+<li>CppUnitTestApp：包含了与CppUnitTestMain相同的测试包，但使用了MFC TestRunner（GUI方式的单元测试环境）</li>
+</ul>
+<ul>
+<li>Hierarchy：一个演示如何子类化测试的例子（你也许更愿意使用HelperMacros.h以及宏CPPUNIT_TEST_SUB_SUITE，这种方式更为简洁清晰。本示例已经很久没有更新了）。</li>
+</ul>
+<ul>
+<li>HostApp ：一个用MFC TestRunner演示各种失败测试的例子。也演示了MFC Unicode TestRunner。</li>
+</ul>
+<ul>
+<li>TestPlugIn：一个演示如何为TestPlugInRunner编写TestPlugIn的例子（实验性的）。</li>
+</ul>
+<h1 id="判断宏"><a href="#判断宏" class="headerlink" title="判断宏"></a>判断宏</h1><p><code>CPPUNIT_ASSERT</code>是一个宏，判断后面的参数是否正确，CPPUNIT还有很多宏，如</p>
+<pre><code>CPPUNIT_ASSERT(condition)                      // 确信condition为真
+CPPUNIT_ASSERT_MESSAGE(message, condition)     // 当condition为假时失败, 并打印message
+CPPUNIT_FAIL(message)                          // 当前测试失败, 并打印message
+CPPUNIT_ASSERT_EQUAL(expected, actual)         // 确信两者相等
+CPPUNIT_ASSERT_EQUAL_MESSAGE(message, expected, actual) // 失败的同时打印message
+CPPUNIT_ASSERT_DOUBLES_EQUAL(expected, actual, delta)   // 当expected和actual之间差大于delta时失败
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">CppUnit</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">单元测试</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/18/cppunit/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Hexo yilia主题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1353,397 +1835,9 @@ log4net使用继承体系，也就是说假如存在两个Logger，名字分别�
 
 
   
-    <article id="post-程序只能启动一次" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/01/程序只能启动一次/">程序只能启动一次</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/01/程序只能启动一次/" class="archive-article-date">
-  	<time datetime="2017-12-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="程序只能启动一次"><a href="#程序只能启动一次" class="headerlink" title="程序只能启动一次"></a>程序只能启动一次</h1><pre><code>BOOL CIMServerApp::InitInstance()
-{
-    HANDLE hMutex=::CreateMutex(NULL,TRUE,&quot;NAME&quot;);//NAME随便写个
-    if (hMutex!=NULL)
-    {
-        if (GetLastError()==ERROR_ALREADY_EXISTS)
-        {
-            AfxMessageBox(&quot;已经有一个程序运行.&quot;);
-            return FALSE;
-        }
-    }
-}
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/01/程序只能启动一次/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-libssh2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/24/libssh2/">libssh2</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/24/libssh2/" class="archive-article-date">
-  	<time datetime="2017-11-24T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="libssh2"><a href="#libssh2" class="headerlink" title="libssh2"></a>libssh2</h1><h2 id="下载："><a href="#下载：" class="headerlink" title="下载："></a>下载：</h2><p><a href="https://www.libssh2.org/" title="https://www.libssh2.org/" target="_blank" rel="noopener">https://www.libssh2.org/</a></p>
-<p><a href="https://github.com/libssh2/libssh2" title="https://github.com/libssh2/libssh2" target="_blank" rel="noopener">https://github.com/libssh2/libssh2</a></p>
-<h2 id="编译："><a href="#编译：" class="headerlink" title="编译："></a>编译：</h2><p>需要<a href="https://www.openssl.org/" target="_blank" rel="noopener">openssl</a>以及<a href="http://www.zlib.net/" target="_blank" rel="noopener">zlib</a></p>
-<p>修改libssh下的win32目录下config.mk,修改openssl与zlib路径</p>
-<p>在source根目录下nmake /f NMakefile</p>
-<p>或vs2010打开win32\libssh2.dsp，在项目属性中配置openssl与zlib路径</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">加密</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">libssh2</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/24/libssh2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-C++与浏览器交互" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/15/C++与浏览器交互/">C++与浏览器交互</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/15/C++与浏览器交互/" class="archive-article-date">
-  	<time datetime="2017-11-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="WebBrowser"><a href="#WebBrowser" class="headerlink" title="WebBrowser"></a>WebBrowser</h1><ul>
-<li><a href="http://blog.csdn.net/charlessimonyi/article/details/18447471" target="_blank" rel="noopener">http://blog.csdn.net/charlessimonyi/article/details/18447471</a></li>
-<li><a href="http://blog.csdn.net/charlessimonyi/article/details/18450783" target="_blank" rel="noopener">http://blog.csdn.net/charlessimonyi/article/details/18450783</a></li>
-<li><a href="http://blog.csdn.net/charlessimonyi/article/details/50984903" target="_blank" rel="noopener">http://blog.csdn.net/charlessimonyi/article/details/50984903</a></li>
-<li><a href="https://www.codeproject.com/articles/2352/javascript-call-from-c" target="_blank" rel="noopener">https://www.codeproject.com/articles/2352/javascript-call-from-c</a></li>
-</ul>
-<h1 id="CEF"><a href="#CEF" class="headerlink" title="CEF"></a>CEF</h1><ul>
-<li><a href="https://www.codeproject.com/Articles/1105945/Embedding-a-Chromium-browser-in-an-MFC-application" target="_blank" rel="noopener">https://www.codeproject.com/Articles/1105945/Embedding-a-Chromium-browser-in-an-MFC-application</a></li>
-<li><a href="http://blog.csdn.net/daoxwj/article/details/8783629/" target="_blank" rel="noopener">http://blog.csdn.net/daoxwj/article/details/8783629/</a></li>
-<li><a href="http://blog.csdn.net/daoxwj/article/details/8786911" target="_blank" rel="noopener">http://blog.csdn.net/daoxwj/article/details/8786911</a></li>
-<li><a href="http://mariusbancila.ro/blog/2016/05/05/building-the-64-bit-version-of-chromium-embedded-framework-on-windows/" target="_blank" rel="noopener">http://mariusbancila.ro/blog/2016/05/05/building-the-64-bit-version-of-chromium-embedded-framework-on-windows/</a></li>
-<li><a href="https://www.codeproject.com/Tips/785840/A-Simple-Windows-Example-Using-the-Chromium-Embedd" target="_blank" rel="noopener">https://www.codeproject.com/Tips/785840/A-Simple-Windows-Example-Using-the-Chromium-Embedd</a></li>
-<li><a href="https://bitbucket.org/chromiumembedded/cef" target="_blank" rel="noopener">https://bitbucket.org/chromiumembedded/cef</a></li>
-<li><a href="http://blog.csdn.net/mfcing/article/details/43953433" target="_blank" rel="noopener">http://blog.csdn.net/mfcing/article/details/43953433</a></li>
-<li><a href="http://blog.csdn.net/mfcing/article/details/52066579" target="_blank" rel="noopener">http://blog.csdn.net/mfcing/article/details/52066579</a></li>
-</ul>
-<ol>
-<li>CefClient：回调管理类，包含5个接口用于创建其它的回调类的对象</li>
-<li>CefLifeSpanHandler: 回调类，用于控制popup对话框的创建和关闭等操作</li>
-<li>CefLoadHandler: 回调类，可以用来监听frame的加载开始，完成，错误等信息</li>
-<li>CefRequestHandler: 回调类，用于监听资源加载，重定向等信息</li>
-<li>CefDisplayHandler: 回调类，用于监听页面加载状态，地址变化，标题等得信息</li>
-<li>CefGeolocationHandler: 回调类，用于CEF3向嵌入者申请geolocation的权限</li>
-<li>CefApp: 与进程，命令行参数，代理，资源管理相关的回调类，用于让CEF3的调用者们定制自己的逻辑</li>
-<li>CefBrowser: renderer进程中执行浏览相关的类，例如前进，后退等</li>
-<li>CefBrowserHost: browser进程中的执行浏览相关的类，其会把请求发送给CefBrowser</li>
-<li>CefFrame: 表示的是页面中的一个Frame，可以加载特定url，在该运行环境下执行JavaScript代码等得。</li>
-<li>V8：CEF3提供支持V8extension的接口，但是这有两个限制，第一，v8 extension仅在Renderer进程使用；第二，仅在沙箱模型关闭时使用</li>
-</ol>
-<p>需要安装cmake</p>
-<ul>
-<li><a href="https://cmake.org/" target="_blank" rel="noopener">https://cmake.org/</a></li>
-<li><a href="https://cmake.org/download/" target="_blank" rel="noopener">https://cmake.org/download/</a></li>
-<li></li>
-</ul>
-<h1 id="V8"><a href="#V8" class="headerlink" title="V8"></a>V8</h1><ul>
-<li><a href="https://github.com/v8/v8/wiki" target="_blank" rel="noopener">https://github.com/v8/v8/wiki</a></li>
-</ul>
-<h1 id="SWIG"><a href="#SWIG" class="headerlink" title="SWIG"></a>SWIG</h1><p>SWIG 是一个非常优秀的开源工具，支持您将 C/C++ 代码与任何主流脚本语言相集成。此外，它向更广泛的受众公开了基本代码，改善了可测试性，让您的 Ruby 代码库某部分能快速写出高性能的 C/C++ 模块。</p>
-<ul>
-<li><a href="https://www.ibm.com/developerworks/cn/aix/library/au-swig/" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/aix/library/au-swig/</a></li>
-<li><a href="https://github.com/swig/swig" target="_blank" rel="noopener">https://github.com/swig/swig</a></li>
-<li><a href="http://www.swig.org/download.html?cm_mc_uid=85410804137714897351221&amp;cm_mc_sid_50200000=1489735122" target="_blank" rel="noopener">http://www.swig.org/download.html?cm_mc_uid=85410804137714897351221&amp;cm_mc_sid_50200000=1489735122</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">浏览器</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CEF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/15/C++与浏览器交互/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-gitbook" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/05/gitbook/">gitbook</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/05/gitbook/" class="archive-article-date">
-  	<time datetime="2017-11-05T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="gitbook"><a href="#gitbook" class="headerlink" title="gitbook"></a>gitbook</h1><p><a href="https://github.com/GitbookIO/gitbook" title="https://github.com/GitbookIO/gitbook" target="_blank" rel="noopener">https://github.com/GitbookIO/gitbook</a></p>
-<p><a href="https://toolchain.gitbook.com/ebook.html" title="https://toolchain.gitbook.com/ebook.html" target="_blank" rel="noopener">https://toolchain.gitbook.com/ebook.html</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">gitbook</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/05/gitbook/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
     </nav>
   
 
