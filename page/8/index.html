@@ -6405,6 +6405,47 @@ int main()
     std::ostream_iterator&lt; std::string &gt; out_iter(std::cout, &quot;\n&quot;);
     std::copy(begin, end, out_iter);
 }
+</code></pre><h1 id="C-11正则表达式"><a href="#C-11正则表达式" class="headerlink" title="C++ 11正则表达式"></a>C++ 11正则表达式</h1><pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;iterator&gt;
+#include &lt;regex&gt;
+
+// std::wstring版本
+std::vector&lt;std::wstring&gt; ws_split(const std::wstring&amp; in, const std::wstring&amp; delim) {
+    std::wregex re{ delim };
+    return std::vector&lt;std::wstring&gt; {
+        std::wsregex_token_iterator(in.begin(), in.end(), re, -1),
+        std::wsregex_token_iterator()
+    };
+}
+// c string版本
+std::vector&lt;std::string&gt; c_split(const char* in, const char* delim) {
+    std::regex re{ delim };
+    return std::vector&lt;std::string&gt; {
+        std::cregex_token_iterator(in, in + strlen(in),re, -1),
+        std::cregex_token_iterator()
+    };
+}
+// 支持wchar_t宽字符集的版本
+std::vector&lt;std::wstring&gt; wc_split(const wchar_t* in, const wchar_t* delim) {
+    std::wregex re{ delim };
+    return std::vector&lt;std::wstring&gt; {
+        std::wcregex_token_iterator(in, in + wcslen(in),re, -1),
+        std::wcregex_token_iterator()
+    };
+}
+// 上面的s_split和ws_split可以统一用模板来实现
+template&lt;typename E,
+    typename TR = std::char_traits&lt;E&gt;,
+    typename AL = std::allocator&lt;E&gt;,
+    typename _str_type = std::basic_string&lt;E, TR, AL&gt;&gt;
+std::vector&lt;_str_type&gt; bs_split(const std::basic_string&lt;E, TR, AL&gt;&amp; in, const std::basic_string&lt;E, TR, AL&gt;&amp; delim) {
+    std::basic_regex&lt;E&gt; re{ delim };
+    return std::vector&lt;_str_type&gt; {
+        std::regex_token_iterator&lt;typename _str_type::const_iterator&gt;(in.begin(), in.end(), re, -1),
+            std::regex_token_iterator&lt;typename _str_type::const_iterator&gt;()
+    };
+}
 </code></pre><p>参考：</p>
 <ul>
 <li><a href="http://www.cplusplus.com/faq/sequences/strings/split/" target="_blank" rel="noopener">http://www.cplusplus.com/faq/sequences/strings/split/</a></li>

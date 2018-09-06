@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2018/05/23/内存泄漏及检测/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="检测是否存在内存泄漏问题Windows平台下面Visual Studio 调试器和 C 运行时 (CRT) 库为我们提供了检测和识别内存泄漏的有效方法，原理大致如下：内存分配要通过CRT在运行时实现，只要在分配内存和释放内存时分别做好记录，程序结束时对比分配内存和释放内存的记录就可以确定是不是有内存泄漏。在vs中启用内存检测的方法如下：  STEP1，在程序中包括以下语句： （#include 语">
-<meta property="og:updated_time" content="2018-08-28T10:00:41.217Z">
+<meta property="og:updated_time" content="2018-09-06T08:43:38.682Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="内存泄露检查">
 <meta name="twitter:description" content="检测是否存在内存泄漏问题Windows平台下面Visual Studio 调试器和 C 运行时 (CRT) 库为我们提供了检测和识别内存泄漏的有效方法，原理大致如下：内存分配要通过CRT在运行时实现，只要在分配内存和释放内存时分别做好记录，程序结束时对比分配内存和释放内存的记录就可以确定是不是有内存泄漏。在vs中启用内存检测的方法如下：  STEP1，在程序中包括以下语句： （#include 语">
@@ -233,6 +233,24 @@ if ( _CrtMemDifference( &amp;s3, &amp;s1, &amp;s2) )
 
 _CrtMemDumpStatistics( &amp;s3 );
 </code></pre><p>顾名思义，_CrtMemDifference 比较两个内存状态（s1 和 s2），生成这两个状态之间差异的结果（s3）。 在程序的开始和结尾放置 _CrtMemCheckpoint 调用，并使用_CrtMemDifference 比较结果，是检查内存泄漏的另一种方法。 如果检测到泄漏，则可以使用 _CrtMemCheckpoint 调用通过二进制搜索技术来划分程序和定位泄漏。</p>
+<h1 id="VLD"><a href="#VLD" class="headerlink" title="VLD"></a>VLD</h1><p><a href="https://archive.codeplex.com/?p=vld" target="_blank" rel="noopener">https://archive.codeplex.com/?p=vld</a></p>
+<p>Visual Leak Detector是一个免费，强大的开源内存泄漏检测系统，适用于Visual C ++。</p>
+<p>关键api:</p>
+<pre><code>_CrtSetAllocHook
+
+StackWalk64
+
+SymGetLineFromAddr64
+
+SymFromAddr
+</code></pre><h2 id="Allocation-Hooking"><a href="#Allocation-Hooking" class="headerlink" title="Allocation Hooking"></a>Allocation Hooking</h2><p>对我们来说幸运的是，Microsoft提供了一种简单的方法来监视从调试堆进行的每个分配：分配挂钩。分配钩子只是一个用户提供的回调函数，它将在从调试堆进行每次分配之前调用。Microsoft提供了一个函数，_CrtSetAllocHook它使用调试堆注册分配挂钩函数。当调试堆调用分配挂钩时，传递的参数之一是唯一标识每个分配的ID号 - 它基本上是分配的每个内存块的序列号。内存块标题中没有足够的空间让我们直接在其中记录任何信息，但我们可以使用这个唯一的ID号作为键将每个块映射到我们想要记录的任何数据。</p>
+<h2 id="Walking-the-Stack"><a href="#Walking-the-Stack" class="headerlink" title="Walking the Stack"></a>Walking the Stack</h2><p>现在我们有一种方法可以在每次分配一个块时得到通知，以及一种唯一标识每个分配的方法，剩下要做的就是每次分配时记录调用堆栈。我们可以想象使用内联汇编来尝试展开堆栈。但是堆栈帧可以以不同的方式组织，这取决于编译器优化和调用约定，因此以这种方式执行它可能变得复杂。微软再一次为我们提供了一个帮助我们的工具。这次它是一个函数，我们可以迭代地调用来逐帧遍历堆栈。那个功能是StackWalk64。它是Debug Help Library（dbghelp.dll）的一部分）。只要我们为它提供建立起始“参考框架”所需的信息，可以说，它可以从那里检查我们的堆栈并为我们可靠地解除它。每次StackWalk64调用时，它都会返回一个STACKFRAME64结构，可以将其重新用作下次调用的输入StackWalk64。它可以以这种方式重复调用，直到到达堆栈的末尾。</p>
+<h2 id="Initializing-the-Memory-Leak-Detector"><a href="#Initializing-the-Memory-Leak-Detector" class="headerlink" title="Initializing the Memory Leak Detector"></a>Initializing the Memory Leak Detector</h2><p>我们现在有一个更好的内存泄漏检测器的开始。我们可以监控每个分配，对于每个监控的分配，我们可以获取并记录堆栈跟踪。剩下的唯一挑战是确保在程序开始执行时立即向调试堆注册分配挂钩函数。这可以通过创建C ++类对象的全局实例来非常简单地解决。初始化程序时，构造函数将运行。从构造函数中，我们可以调用_CrtSetAllocHook注册我们的分配钩子函数。但是等等，如果我们正在调试的程序已经有了其他的话分配内存的全局C ++类对象？我们如何确保首先调用构造函数，并且在构造任何其他全局对象之前安装我们的分配钩子函数？不幸的是，C ++规范没有说明决定构造全局对象的顺序的任何规则。因此，没有绝对保证我们的构造函数将首先被调用。但我们可以非常接近保证它。我们可以利用特定于编译器的预处理器指令，该指令明确告诉编译器确保我们的全局变量尽快构建：#pragma init_seg (compiler)。该指令告诉编译器将我们的全局对象放在“编译器”初始化段中。此段中的对象是第一个构造的对象。接下来，构建“库”段中的对象，并且最后构造“用户”段中的对象。“用户”段是全局对象的默认段。一般来说，不应将普通用户对象放在“编译器”段中，因此这提供了在任何用户对象之前构造我们的全局对象的合理确定性。</p>
+<h2 id="检测内存泄漏"><a href="#检测内存泄漏" class="headerlink" title="检测内存泄漏"></a>检测内存泄漏</h2><p>因为全局对象以它们构造的相反顺序被销毁，所以我们的全局对象将在任何用户对象之后被销毁。然后我们可以检查堆，就像内置检测器一样。如果我们在堆上找到一个尚未释放的块，则它是一个泄漏，我们可以使用我们的分配钩子函数记录的唯一ID号查找其调用堆栈。STL映射在这里可以正常工作，用于将ID号映射到调用堆栈。我没有使用STL地图，因为我希望我的库兼容新旧版本的Visual C ++。旧版本的STL与较新版本不兼容，因此我无法使用STL组件。但好消息是，这让我有机会创建一个与STL地图概念相似的数据结构，</p>
+<p>你还记得内置的泄漏检测器在内存块中对等，以获取文件的名称和分配块的行号吗？好吧，我们所有的调用堆栈都是一堆程序地址。将所有这些十六进制数转储到调试器中的用处不大。为了使这些地址更有意义，我们需要将它们转换为人类可读的信息：文件和行号（以及函数名称）。微软再次提供了有助于我们完成工作的工具：符号处理程序API。就像StackWalk64，它们也恰好是Debug Help Library的一部分。我不会在这里详细介绍它们，因为它们有很多，而且使用起来非常简单。他们不需要那么多的聪明才智StackWalk64确实。我们可以使用两个符号处理程序API来获取我们想要的文件名，行号和函数名。恰当命名的SymGetLineFromAddr64地址将地址转换为源文件名和行号。它的姐妹API SymFromAddr将地址转换为符号名称。对于我们所拥有的程序地址，相应的符号名称将是包含该程序地址的函数的名称。</p>
+<h2 id="源代码的关键部分"><a href="#源代码的关键部分" class="headerlink" title="源代码的关键部分"></a>源代码的关键部分</h2><p>如果你对上面的部分感到厌倦并跳过了，我会在这里总结一下。简而言之，这个内存泄漏检测器的工作原理如下：</p>
+<p>自动构建全局对象。它是第一个构建的对象。构造函数注册我们的分配钩子函数。<br>每个分配最终调用我们的分配钩子函数。分配挂钩函数获取并记录每个分配的调用堆栈。调用堆栈信息记录在类似STL的专用映射中。<br>程序终止时，全局对象是最后一个被销毁的对象。它检查堆并识别泄漏。在地图中查找泄漏的块并与其对应的调用堆栈进行匹配。生成的数据将发送到调试器以进行显示。</p>
+<h2 id="限制"><a href="#限制" class="headerlink" title="限制"></a>限制</h2><p>VLD不会检测COM泄漏，进程外资源泄漏或与CRT堆无关的任何其他类型的内存泄漏。简单来说，VLD只检测因调用new或导致的内存泄漏malloc。请记住，VLD是作为内置内存泄漏检测器的替代产品而创建的，它也只检测来自new和的泄漏malloc。</p>
 <h1 id="内容转载："><a href="#内容转载：" class="headerlink" title="内容转载："></a>内容转载：</h1><p>太有用了，故直接转载以下链接内容</p>
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzAxNDI5NzEzNg==&amp;mid=401055447&amp;idx=1&amp;sn=a3d1237c10b7352f827d95110c0f4b61#rd" target="_blank" rel="noopener">C/C++内存泄漏及检测</a></p>
 <h1 id="最快速度找到内存泄漏"><a href="#最快速度找到内存泄漏" class="headerlink" title="最快速度找到内存泄漏"></a><a href="http://cplusplus.wikidot.com/cn:the-fastest-way-to-find-memory-leak" target="_blank" rel="noopener">最快速度找到内存泄漏</a></h1><h2 id="确认是否存在内存泄漏"><a href="#确认是否存在内存泄漏" class="headerlink" title="确认是否存在内存泄漏"></a>确认是否存在内存泄漏</h2><pre><code>inline void EnableMemLeakCheck()
@@ -353,11 +371,16 @@ aspect MemberRecorder
 </code></pre><p>这个方面实现的功能很简单，首先定义了一个pointcut(切面)，它匹配所有以“Test”开头的类。<br>接下来定义了2个处理方法，分别在这些类的构造函数和析构函数调用之后执行。</p>
 <p>tjp-&gt;target()指向Test*对象实例</p>
 <h1 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h1><p>实际项目中检测内存泄漏通常会十分繁琐，所以有许多工具帮助我们检测内存泄漏，比如 mtrace，valgrind。</p>
-<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="http://blog.jobbole.com/95375/" target="_blank" rel="noopener">C/C++内存泄漏及检测</a></p>
-<p><a href="https://en.wikipedia.org/wiki/Mtrace" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Mtrace</a></p>
-<p><a href="http://valgrind.org/docs/manual/manual.html" target="_blank" rel="noopener">http://valgrind.org/docs/manual/manual.html</a></p>
-<p><a href="https://github.com/xuelangZF/CS_Offer/blob/master/C%2B%2B/Memory.md" target="_blank" rel="noopener">https://github.com/xuelangZF/CS_Offer/blob/master/C%2B%2B/Memory.md</a></p>
-<p>调试内存泄漏问题的一些经验<a href="http://fresky.github.io/2015/06/21/how-to-attack-the-memory-leak-issue/" target="_blank" rel="noopener">http://fresky.github.io/2015/06/21/how-to-attack-the-memory-leak-issue/</a></p>
+<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<li><a href="http://blog.jobbole.com/95375/" target="_blank" rel="noopener">C/C++内存泄漏及检测</a></li>
+<li><a href="http://www.codeproject.com/KB/applications/visualleakdetector.aspx" target="_blank" rel="noopener">Visual Leak Detector Visual C ++增强的内存泄漏检测</a></li>
+<li><a href="http://msdn.microsoft.com/en-us/library/x98tx3cf.aspx" target="_blank" rel="noopener">使用CRT库查找内存泄漏</a></li>
+<li><a href="http://codeyarns.com/2010/09/11/visual-leak-detector-investigate-memory-leaks-in-visual-c/" target="_blank" rel="noopener">Visual Leak Detector：调查Visual C ++中的内存泄漏</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Mtrace" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Mtrace</a></li>
+<li><a href="http://valgrind.org/docs/manual/manual.html" target="_blank" rel="noopener">http://valgrind.org/docs/manual/manual.html</a></li>
+<li><a href="https://github.com/xuelangZF/CS_Offer/blob/master/C%2B%2B/Memory.md" target="_blank" rel="noopener">https://github.com/xuelangZF/CS_Offer/blob/master/C%2B%2B/Memory.md</a></li>
+<li><a href="http://fresky.github.io/2015/06/21/how-to-attack-the-memory-leak-issue/" target="_blank" rel="noopener">调试内存泄漏问题的一些经验</a></li>
+</ul>
 
       
 

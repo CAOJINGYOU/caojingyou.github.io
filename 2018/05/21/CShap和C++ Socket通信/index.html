@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="https://caojingyou.github.io">
   <title>CShap和C++ Socket通信 | 曹景游</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="通信传输数据类型C++:char* C#:byte[] java:byte[] 传输不定长度的数据1 以结束符标记2 长度 + 数据 C# 和 C++ 结构体Socket通信 仿照C++结构体写出C#的结构来  using System.Runtime.InteropServices;  [Serializable] // 指示可序列化 [StructLayout(LayoutKind.Seque">
+  <meta name="description" content="通信传输数据类型C++:char*  C#:byte[]  java:byte[] 在C++中：在C++中，char是基础数据类型，8位，1个字节。byte不是基础数据类型，一般是typedef unsigned char byte;这样子的，也就是说，byte其实是unsigned char类型，那么也是8位，1个字节。不同的是，char可以表示的范围是-128-127，而byte可以表示的范围">
 <meta name="keywords" content="随笔,C#,C&#x2F;C++,Socket,Java,protobuf,grpc,flatbuffer">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CShap和C++ Socket通信">
 <meta property="og:url" content="https://caojingyou.github.io/2018/05/21/CShap和C++ Socket通信/index.html">
 <meta property="og:site_name" content="曹景游">
-<meta property="og:description" content="通信传输数据类型C++:char* C#:byte[] java:byte[] 传输不定长度的数据1 以结束符标记2 长度 + 数据 C# 和 C++ 结构体Socket通信 仿照C++结构体写出C#的结构来  using System.Runtime.InteropServices;  [Serializable] // 指示可序列化 [StructLayout(LayoutKind.Seque">
+<meta property="og:description" content="通信传输数据类型C++:char*  C#:byte[]  java:byte[] 在C++中：在C++中，char是基础数据类型，8位，1个字节。byte不是基础数据类型，一般是typedef unsigned char byte;这样子的，也就是说，byte其实是unsigned char类型，那么也是8位，1个字节。不同的是，char可以表示的范围是-128-127，而byte可以表示的范围">
 <meta property="og:image" content="https://i.imgur.com/RiswVtr.jpg">
-<meta property="og:updated_time" content="2018-05-21T08:36:19.454Z">
+<meta property="og:updated_time" content="2018-09-05T10:19:42.653Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CShap和C++ Socket通信">
-<meta name="twitter:description" content="通信传输数据类型C++:char* C#:byte[] java:byte[] 传输不定长度的数据1 以结束符标记2 长度 + 数据 C# 和 C++ 结构体Socket通信 仿照C++结构体写出C#的结构来  using System.Runtime.InteropServices;  [Serializable] // 指示可序列化 [StructLayout(LayoutKind.Seque">
+<meta name="twitter:description" content="通信传输数据类型C++:char*  C#:byte[]  java:byte[] 在C++中：在C++中，char是基础数据类型，8位，1个字节。byte不是基础数据类型，一般是typedef unsigned char byte;这样子的，也就是说，byte其实是unsigned char类型，那么也是8位，1个字节。不同的是，char可以表示的范围是-128-127，而byte可以表示的范围">
 <meta name="twitter:image" content="https://i.imgur.com/RiswVtr.jpg">
   
     <link rel="alternative" href="/atom.xml" title="曹景游" type="application/atom+xml">
@@ -184,11 +184,44 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="通信传输数据类型"><a href="#通信传输数据类型" class="headerlink" title="通信传输数据类型"></a>通信传输数据类型</h1><p>C++:char*</p>
-<p>C#:byte[]</p>
-<p>java:byte[]</p>
+        <h1 id="通信传输数据类型"><a href="#通信传输数据类型" class="headerlink" title="通信传输数据类型"></a>通信传输数据类型</h1><pre><code>C++:char*
+
+C#:byte[]
+
+java:byte[]
+</code></pre><p>在C++中：<br>在C++中，char是基础数据类型，8位，1个字节。byte不是基础数据类型，一般是typedef unsigned char byte;这样子的，也就是说，byte其实是unsigned char类型，那么也是8位，1个字节。不同的是，char可以表示的范围是-128-127，而byte可以表示的范围是0-255。</p>
+<p>在Java中：<br>在java中，char和byte都是基础数据类型，其中的byte和C++中的char类型是一样的，8位，1个字节，-128-127。但是，char类型，是16位，2个字节，’\u0000’-‘\uFFFF’。</p>
+<p>为什么java里的char是2个字节？</p>
+<p>因为java内部都是用unicode的，所以java其实是支持中文变量名的，比如string 世界 = “我的世界”;这样的语句是可以通过的。</p>
 <h1 id="传输不定长度的数据"><a href="#传输不定长度的数据" class="headerlink" title="传输不定长度的数据"></a>传输不定长度的数据</h1><p>1 以结束符标记<br>2 长度 + 数据</p>
-<h2 id="C-和-C-结构体Socket通信"><a href="#C-和-C-结构体Socket通信" class="headerlink" title="C# 和 C++ 结构体Socket通信"></a>C# 和 C++ 结构体Socket通信</h2><p><img src="https://i.imgur.com/RiswVtr.jpg" alt=""></p>
+<pre><code>#pragma pack(push, 1)
+//协议头
+struct msg
+{
+    char     compressflag;     //压缩标志，如果为1，则启用压缩，反之不启用压缩
+    int32_t  originsize;       //包体压缩前大小
+    int32_t  compresssize;     //包体压缩后大小
+    char     reserved[16];
+};
+
+#pragma pack(pop)
+
+int32_t可换成msg
+</code></pre><p>发送：</p>
+<pre><code>std::string strBuffer,m_strSendBuf；
+
+int32_t length = (int32_t)strBuffer.length();
+ m_strSendBuf.append((const char*)&amp;length, sizeof(length));
+m_strSendBuf.append(strDestBuf);
+nRet = ::send(m_hSocket, m_strSendBuf.c_str(), m_strSendBuf.length(), 0);
+</code></pre><p>接收：</p>
+<pre><code>nRet = ::recv(m_hSocket, buff, 10 * 1024, 0);
+m_strRecvBuf.append(buff, nRet);
+int32_t length;
+memcpy_s(&amp;length, sizeof(int32_t), m_strRecvBuf.data(), sizeof(int32_t));
+m_strRecvBuf.erase(0, sizeof(int32_t));
+std::string strTempMsg = m_strRecvBuf.substr(0, length);
+</code></pre><h2 id="C-和-C-结构体Socket通信"><a href="#C-和-C-结构体Socket通信" class="headerlink" title="C# 和 C++ 结构体Socket通信"></a>C# 和 C++ 结构体Socket通信</h2><p><img src="https://i.imgur.com/RiswVtr.jpg" alt=""></p>
 <pre><code>仿照C++结构体写出C#的结构来
 
 using System.Runtime.InteropServices;
