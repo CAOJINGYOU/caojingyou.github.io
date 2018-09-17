@@ -160,6 +160,226 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-带你玩转Visual Studio" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/15/带你玩转Visual Studio/">带你玩转Visual Studio</a>
+    </h1>
+  
+
+        
+        <a href="/2016/11/15/带你玩转Visual Studio/" class="archive-article-date">
+  	<time datetime="2016-11-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-11-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="带你玩转Visual-Studio"><a href="#带你玩转Visual-Studio" class="headerlink" title="带你玩转Visual Studio"></a>带你玩转Visual Studio</h1><h2 id="带你新建一个工程"><a href="#带你新建一个工程" class="headerlink" title="带你新建一个工程"></a>带你新建一个工程</h2><h3 id="工程目录下各文件的含义"><a href="#工程目录下各文件的含义" class="headerlink" title="工程目录下各文件的含义"></a>工程目录下各文件的含义</h3><h4 id="解决方案与工程"><a href="#解决方案与工程" class="headerlink" title="解决方案与工程"></a>解决方案与工程</h4><p>在这之前先了解一个概念：解决方案与工程。<br>解决方案(Solution)：一个大型项目的整体的工作环境；<br>工程 (Project)：一个解决方案下的一个子工程；</p>
+<p>在VS中，一个Solution可以有一个或多个Project。在我们创建一个工程时，如果没有指定Solution，VS会帮我们创建一个与工程名相同的Solution，这时一个Solution里只有一个Project。所有在我们的TestProject的文件目录结构中TestProject文件夹下还有一个TestProject文件夹(如图4)，第一个就是整个Solution的目录，第二个才是Project的目录。</p>
+<h4 id="解决方案相关的文件："><a href="#解决方案相关的文件：" class="headerlink" title="解决方案相关的文件："></a>解决方案相关的文件：</h4><p>TestProject.sln：<br>整个解决方案(Solution)的配制文件，组织多个工程和相关的元素到一个解决方案中。用鼠标双击它就能用VS打开整个工程项目。</p>
+<p>TestProject.sdf：<br>浏览相关的数据库文件，它支持浏览和导航的特性。如跳转到方法、变量的声明，查找所有对象的所有被引用的地方，类视图等等。</p>
+<p>TestProject.suo：<br>(solution user opertion) 解决方案用户选项,记录所有将与解决方案建立关联的选项， 以便在每次打开时，它都包含您所做的自定义设置.</p>
+<p>TestProject.opensdf：<br>打开解决方案(Solution)时的临时文件，这个文件只有你的解决方案在VS打开的状态才会有，工程一关闭文件就被删除了。</p>
+<h4 id="工程相关的文件"><a href="#工程相关的文件" class="headerlink" title="工程相关的文件"></a>工程相关的文件</h4><p>TestProject.vcxproj：<br>记录工程(Project)相关的属性配制。</p>
+<p>TestProject.vcxproj.filters：<br>文件过虑器，上图3“工程结构”中各个文件的组织和编排都是定义在这个文件中的。如果由于某种特殊的原因(如系统或VS突然崩溃)导致你打开工程时文件的组织结构是乱的，100%就是这个文件的原因。</p>
+<p>TestProject.vcxproj.user：<br>用户相关的一些配制。</p>
+<p>上面这些文件中有几个比较重要的一定不能删的文件是：</p>
+<p>TestProject.sln、TestProject.vcxproj、TestProject.vcxproj.filters</p>
+<p>不要问我是怎样知道这些文件的作用的，请看官方文档：</p>
+<p>VS2010定义：<a href="工程目录下各文件的含义">https://msdn.microsoft.com/en-us/library/3awe4781.aspx</a>.</p>
+<p>VS2015定义：<a href="https://msdn.microsoft.com/en-us/library/vstudio/hx0cxhaw(v=vs.110" target="_blank" rel="noopener">https://msdn.microsoft.com/en-us/library/vstudio/hx0cxhaw(v=vs.110).aspx</a>.aspx)</p>
+<h2 id="带你了解VC-各种类型的工程"><a href="#带你了解VC-各种类型的工程" class="headerlink" title="带你了解VC++各种类型的工程"></a>带你了解VC++各种类型的工程</h2><h3 id="理解几个概念"><a href="#理解几个概念" class="headerlink" title="理解几个概念"></a>理解几个概念</h3><h4 id="COM"><a href="#COM" class="headerlink" title="COM"></a>COM</h4><p>COM(Component Object Model)组件对象模型是microsoft制定的一个组件软件标准，跟unix上的CORBA一样。凡是遵循COM标准开发出来的组件称为COM组件。目地是实现二进制方式的软件重用 。在windows平台上，COM的实现形式有DLL(进程内组件)和EXE(进程外组件)2种。</p>
+<h4 id="OLE"><a href="#OLE" class="headerlink" title="OLE"></a>OLE</h4><p>OLE(Object Linking and Embedding)对象连接与嵌入是微软的复合文档技术，可方便实现应用程序之间的通信。在后来的OLE2中才导入了 COM，提供了对COM的支持，利用这种技术可开发可重复使用的软件组件COM。OLE是软件比较早提出的一种技术。</p>
+<h4 id="ATL"><a href="#ATL" class="headerlink" title="ATL"></a>ATL</h4><p>ATL(Active Template Library)活动模板库是一套C++模板库，常用于开发COM程序和ActiveX程序。要理解ATL技术可从以下两方面理解：</p>
+<ol>
+<li>ATL可以说是把COM封装了一下，象MFC一样做成一个库，并有一个向导，使COM应用开发尽可能地自动化、可视化，这就决定了ATL只面向COM开发提供支持。</li>
+<li>ATL因其采用了特定的基本实现技术，摆脱了大量冗余代码，使用ATL开发出来的COM应用的代码简练高效。<br>在ATL产生以前，开发COM组件的方法主要有两种：一是使用COM SDK(COM软件开发包)直接开发COM组件，另一种方式是通过MFC提供的COM支持来实现。而现在 ATL已经成为Microsoft支持COM应用开发的主要开发工具。<h4 id="MFC"><a href="#MFC" class="headerlink" title="MFC"></a>MFC</h4></li>
+</ol>
+<p>MFC(Microsoft Foundation Classes)微软基础类是微软提供的一个用于Windows程序开发的基础类库。MFC以C++类的形式封装了Windows的API，并且包含一个应用程序框架，以减少应用程序开发人员的工作量。其中包含的类包含大量Windows句柄封装类和很多Windows的内建控件和组件的封装类。</p>
+<h4 id="ActiveX"><a href="#ActiveX" class="headerlink" title="ActiveX"></a>ActiveX</h4><p>ActiveX是微软提出的一组使用COM技术使得软件组件在网络环境中进行交互的技术集，它与具体的编程语言无关。作为针对Internet应用开发的技术，ActiveX被广泛应用于WEB服务器以及客户端的各个方面。同时，ActiveX技术也被用于方便地创建普通的桌面应用程序，此外ActiveX一般具有界面。</p>
+<p>ActiveX既包含服务器端技术，也包含客户端技术。其主要内容是：</p>
+<ol>
+<li>ActiveX控制（ActiveX Control）；用于向WEB页面、Microsoft Word等支持ActiveX的容器（Container）中插入COM对象。</li>
+<li>ActiveX文档（ActiveX Document）；用于在WEB Browser或者其它支持ActiveX的容器中浏览复合文档（非HTML文档），例如Microsoft Word文档，Microsoft Excel文档或者用户自定义的文档等。</li>
+<li>ActiveX脚本描述（ActiveX Scripting）；用于从客户端或者服务器端操纵ActiveX控制和Java程序，传递数据，协调它们之间的操作。</li>
+<li>ActiveX服务器框架（ActiveX Server Framework）；提供了一系列针对WEB服务器应用程序设计各个方面的函数及其封装类，诸如服务器过滤器、HTML数据流控制等。</li>
+<li>在Internet Explorer中内置Java虚拟机(Java Virtual Machine)，从而使Java Applet能够在Internet Explorer上运行，并可以与ActiveX控制通过脚本描述语言进行通信。</li>
+</ol>
+<h2 id="带你高效开发"><a href="#带你高效开发" class="headerlink" title="带你高效开发"></a>带你高效开发</h2><p>使用Visual Assist X</p>
+<h3 id="Visual-Assist-X-Snippets-宏"><a href="#Visual-Assist-X-Snippets-宏" class="headerlink" title="Visual Assist X Snippets 宏"></a>Visual Assist X Snippets 宏</h3><p><a href="http://blog.csdn.net/ejay/article/details/7750728" target="_blank" rel="noopener">Visual Assist X Snippets 宏</a> </p>
+<h2 id="带你高效管理代码"><a href="#带你高效管理代码" class="headerlink" title="带你高效管理代码"></a>带你高效管理代码</h2><h3 id="目前主流的版本控制系统有："><a href="#目前主流的版本控制系统有：" class="headerlink" title="目前主流的版本控制系统有："></a>目前主流的版本控制系统有：</h3><ol>
+<li>CVS：是一个用于代码版本控制的自由软件，它是一个比较早出现的工具，由于它有很多自身的缺陷，现在几乎被SVN所取代了。</li>
+<li>SVN：SVN是Subversion的简称，它是集中式的版本控制系统。SVN继承了CVS的基本思想，包含了CVS的几乎所有功能。你可以认为SVN是CVS的升级版(但实际上它们完全是两个软件)。</li>
+<li>GIT：GIT是分布式的版本控制系统。相信玩过开源代码的都知道github吧，它就是一个基于git的代码托管平台</li>
+</ol>
+<h3 id="C-工程上传服务器要忽视的文件"><a href="#C-工程上传服务器要忽视的文件" class="headerlink" title="C++工程上传服务器要忽视的文件"></a>C++工程上传服务器要忽视的文件</h3><h4 id="C-工程上传服务器要忽视的文件-1"><a href="#C-工程上传服务器要忽视的文件-1" class="headerlink" title="C++工程上传服务器要忽视的文件"></a>C++工程上传服务器要忽视的文件</h4><pre><code>h: 头文件
+cpp: 源文件
+txt: 说明文件，如readme
+rc: 资源文件
+rc2: 资源文件
+ico: 图标，如logo等
+sln: 解决方案工程文件
+vcxproj: 工程文件
+filters: 文件过虑器
+</code></pre><h4 id="不要上传的文件类型"><a href="#不要上传的文件类型" class="headerlink" title="不要上传的文件类型"></a>不要上传的文件类型</h4><pre><code>Debug、Release等编译结构目录
+ipch目录
+aps: last resource editor state
+exe: build result
+idb: build state
+ipch: build helper
+lastbuildstate: build helper
+lib: build result. Can be 3rd party
+log: build log
+manifest: build helper. Can be written yourself.
+obj: build helper
+pch: build helper
+pdb: build result
+res: build helper
+sdf: intellisense dbase
+suo: solution user options
+tlog: build log
+user: debug settings. Do preserve if just one dev or custom debug settings
+</code></pre><p>如果用TortoiseSVN进行管理，需要手动添加ignore属性将不需要上传的文件忽略掉。在你工程目录里，右键-&gt;TortoiseSVN-&gt;Properties-&gt;New-&gt;Other，弹出的对话框中Property name中选择svn:ignore，Property value中填入要忽略的内容(这里可以使用能配符)。可以设置全局忽略样式。</p>
+<h2 id="带你跳出坑爹的Runtime-Library坑"><a href="#带你跳出坑爹的Runtime-Library坑" class="headerlink" title="带你跳出坑爹的Runtime Library坑"></a>带你跳出坑爹的Runtime Library坑</h2><pre><code>Multi-threaded     /MT     Release版的多线程静态库     libcmt.lib     
+Multi-threaded Debug     /MTd     Debug版的多线程静态库     libcmtd.lib     
+Multi-threaded DLL     /MD     Release版的多线程动态库     msvcrt.lib+msvcrtxx.dll     
+Multi-threaded DLL Debug     MDd     Debug版的多线程动态库     msvcrtd.lib+msvcrtxxd.dll
+</code></pre><p>结论：/MD和/MDd将是潮流所趋，/ML和/MLd方式请及时放弃，/MT和/MTd在非必要时最好也不要采用了。</p>
+<h2 id="带你理解多字节编码与Unicode码"><a href="#带你理解多字节编码与Unicode码" class="headerlink" title="带你理解多字节编码与Unicode码"></a>带你理解多字节编码与Unicode码</h2><ol>
+<li>当设置为Use Unicode Character Set时，会有预编译宏：_UNICODE、UNICODE </li>
+<li>当设置为Use Unicode Character Set时，会有预编译宏：_UNICODE、UNICODE </li>
+</ol>
+<h2 id="incremental-linking-增量链接-的作用"><a href="#incremental-linking-增量链接-的作用" class="headerlink" title="incremental linking(增量链接)的作用"></a>incremental linking(增量链接)的作用</h2><p><a href="http://www.cnblogs.com/lidabo/archive/2012/05/29/2524170.html" target="_blank" rel="noopener">VS中的路径宏 vc++中OutDir、ProjectDir、SolutionDir各种路径</a></p>
+<h2 id="命令行编译C-C-程序"><a href="#命令行编译C-C-程序" class="headerlink" title="命令行编译C/C++程序"></a>命令行编译C/C++程序</h2><p>打开安装目录下的VSDIR\VC\bin可以看到一系列的可执行程序.exe和批处理文件，这些就是VS2010构建、编译、链接时要用到的工具。看一下几个主要的工具：</p>
+<pre><code>cl.exe：编译程序
+link.exe：链接程序
+lib.exe：加载lib库的程序
+nmake.exe：用makefile进行构建、编译的工具
+</code></pre><p><a href="http://www.lellansin.com/%E5%BE%AE%E8%BD%AF-cl-exe-%E7%BC%96%E8%AF%91%E5%99%A8.html" target="_blank" rel="noopener">微软 CL.exe 编译器</a></p>
+<p>##性能分析与优化## </p>
+<p>使用VS的性能分析工具</p>
+<h3 id="性能分析工具的选择"><a href="#性能分析工具的选择" class="headerlink" title="性能分析工具的选择"></a>性能分析工具的选择</h3><p>打开一个“性能分析”的会话:Debug-&gt;Start Diagnotic Tools Without Debugging(或按Alt+F2)，VS2013在Analysis菜单中。 </p>
+<h4 id="CPU-Usage"><a href="#CPU-Usage" class="headerlink" title="CPU Usage"></a>CPU Usage</h4><p>检测CPU的性能，主要用于发现影响CPU瓶颈(消耗大量CPU资源)的代码。</p>
+<h4 id="GPU-Usage"><a href="#GPU-Usage" class="headerlink" title="GPU Usage"></a>GPU Usage</h4><p>检测GPU的性能，常用于图形引擎的应用(如DirectX程序)，主要用于判断是CPU还是GPU的瓶颈。</p>
+<h4 id="Memory-Usage"><a href="#Memory-Usage" class="headerlink" title="Memory Usage"></a>Memory Usage</h4><p>检测应用程序的内存，发现内存。</p>
+<h4 id="Performance-Wizard"><a href="#Performance-Wizard" class="headerlink" title="Performance Wizard"></a>Performance Wizard</h4><p>性能(监测)向导，综合检测程序的性能瓶颈。这个比较常用，下面再逐一说明。</p>
+<h3 id="性能-监测-向导"><a href="#性能-监测-向导" class="headerlink" title="性能(监测)向导"></a>性能(监测)向导</h3><h4 id="CPU-Sampling-CPU采样-："><a href="#CPU-Sampling-CPU采样-：" class="headerlink" title="CPU Sampling(CPU采样)："></a>CPU Sampling(CPU采样)：</h4><p>进行采样统计，以低开销水平监视占用大量CPU的应用程序。这个对于计算量大的程序可大大节省监控时间。</p>
+<h4 id="Instrumentation-检测-："><a href="#Instrumentation-检测-：" class="headerlink" title="Instrumentation(检测)："></a>Instrumentation(检测)：</h4><p>完全统计，测量函数调用计数和用时</p>
+<h4 id="NET-memory-allocation-NET-内存分配-："><a href="#NET-memory-allocation-NET-内存分配-：" class="headerlink" title=".NET memory allocation(.NET 内存分配)："></a>.NET memory allocation(.NET 内存分配)：</h4><p>跟踪托管内存分配。这个好像只有托管代码(如C#)才可用，一般以C++代码好像不行。</p>
+<h4 id="Resource-contention-data-并发-："><a href="#Resource-contention-data-并发-：" class="headerlink" title="Resource contention data(并发)："></a>Resource contention data(并发)：</h4><p>检测等待其他线程的线程，多用于多线程的并发。</p>
+<h3 id="性能分析报告"><a href="#性能分析报告" class="headerlink" title="性能分析报告"></a>性能分析报告</h3><h4 id="视图类型"><a href="#视图类型" class="headerlink" title="视图类型"></a>视图类型</h4><p>有几个不同的视图可供我们切换，下面加粗的部分是个人觉得比较方便和常用的视图。</p>
+<ul>
+<li>Summary(概要):整个报告概要说明</li>
+<li>Call Tree(调用树):以树形表格的方式展开函数之间的关系。</li>
+<li>Module(模块):分析调用的不同的程序模块，如不同的DLL、lib模块的耗时</li>
+<li>Caller/Callee(调用与被调用):以数值显示的调用与被调用的关系</li>
+<li>Functions(函数统计):以数值显示的各个函数的执行时间和执行次数统计值</li>
+<li>Marks(标记):</li>
+<li>Processers(进程):</li>
+<li>Function Detials(函数详情):以图表的方式形象地显示：调用函数-当前函数-被调用子函数之间的关系和时间比例。</li>
+</ul>
+<h4 id="专用术语"><a href="#专用术语" class="headerlink" title="专用术语"></a>专用术语</h4><ul>
+<li>Num of Calls:(函数)调用次数</li>
+<li>Elapsed Inclusive Time:已用非独占时间</li>
+<li>Elapsed Exclusive Time:已用独占时间</li>
+<li>Avg Elapsed Inclusive Time:平均已用非独占时间</li>
+<li>Avg Elapsed Exclusive Time:平均已用独占时间</li>
+<li>Module Name:模块名称，一般为可执行文件(.exe)、动态库(.dll)、静态库(.lib)的名称。</li>
+</ul>
+<h2 id="调用约定cdecl、stdcall和-fastcall"><a href="#调用约定cdecl、stdcall和-fastcall" class="headerlink" title="调用约定cdecl、stdcall和__fastcall"></a>调用约定<strong>cdecl、</strong>stdcall和__fastcall</h2><h3 id="什么是调用约定"><a href="#什么是调用约定" class="headerlink" title="什么是调用约定"></a>什么是调用约定</h3><p>函数的调用约定，顾名思义就是对函数调用的一个约束和规定(规范)，描述了函数参数是怎么传递和由谁清除堆栈的。它决定以下内容：(1)函数参数的压栈顺序，(2)由调用者还是被调用者把参数弹出栈，(3)以及产生函数修饰名的方法。</p>
+<p>常见的调用约定有<strong>cdecl、</strong>stdcall、fastcall，应用最广泛的是<strong>cdecl和</strong>stdcall,下面我们会详细进行讲述。。还有一些不常见的，如 <strong>pascal、</strong>thiscall、__vectorcall。</p>
+<h3 id="cdecl的特点"><a href="#cdecl的特点" class="headerlink" title="__cdecl的特点"></a>__cdecl的特点</h3><p>__cdecl 是 C Declaration 的缩写，表示 C 和 C++ 默认的函数调用约定。是C/C++和MFCX的默认调用约定。</p>
+<ul>
+<li>按从右至左的顺序压参数入栈、。</li>
+<li>由调用者把参数弹出栈。切记：对于传送参数的内存栈是由调用者来维护的，返回值在EAX中。因此对于像printf这样可变参数的函数必须用这种约定。</li>
+<li>编译器在编译的时候对这种调用规则的函数生成修饰名的时候，在输出函数名前加上一个下划线前缀，格式为_function。如函数int add(int a, int b)的修饰名是_add。</li>
+</ul>
+<h3 id="stdcall的特点"><a href="#stdcall的特点" class="headerlink" title="__stdcall的特点"></a>__stdcall的特点</h3><p><strong>stdcall是Standard Call的缩写，是C++的标准调用方式,当然这是微软定义的标准，</strong>stdcall通常用于Win32 API中(可查看WINAPI的定义)。</p>
+<ul>
+<li>按从右至左的顺序压参数入栈。</li>
+<li>由被调用者把参数弹出栈。切记：函数自己在退出时清空堆栈，返回值在EAX中。</li>
+<li>__stdcall调用约定在输出函数名前加上一个下划线前缀，后面加上一个“@”符号和其参数的字节数，格式为_function@number。如函数int sub(int a, int b)的修饰名是_sub@8。</li>
+</ul>
+<h3 id="fastcall的特点"><a href="#fastcall的特点" class="headerlink" title="__fastcall的特点"></a>__fastcall的特点</h3><p>__fastcall调用的主要特点就是快，因为它是通过寄存器来传送参数的。</p>
+<ul>
+<li>实际上__fastcall用ECX和EDX传送前两个DWORD或更小的参数，剩下的参数仍自右向左压栈传送，被调用的函数在返回前清理传送参数的内存栈。</li>
+<li>__fastcall调用约定在输出函数名前加上一个“@”符号，后面也是一个“@”符号和其参数的字节数，格式为@function@number,如double multi(double a, double b)的修饰名是@multi@16。</li>
+<li><strong>fastcall和</strong>stdcall很象，唯一差别就是头两个参数通过寄存器传送。注意通过寄存器传送的两个参数是从左向右的，即第1个参数进ECX，第2个进EDX，其他参数是从右向左的入栈，返回仍然通过EAX。</li>
+</ul>
+<h3 id="thiscall"><a href="#thiscall" class="headerlink" title="__thiscall"></a>__thiscall</h3><p>__thiscall是C++类成员函数缺省的调用约定，但它没有显示的声明形式。因为在C++类中，成员函数调用还有一个this指针参数，因此必须特殊处理，thiscall调用约定的特点：</p>
+<ul>
+<li>参数入栈：参数从右向左入栈</li>
+<li>this指针入栈：如果参数个数确定，this指针通过ecx传递给被调用者；如果参数个数不确定，this指针在所有参数压栈后被压入栈。</li>
+<li>栈恢复：对参数个数不定的，调用者清理栈，否则函数自己清理栈。</li>
+</ul>
+<h2 id="调用约定与-动态-库"><a href="#调用约定与-动态-库" class="headerlink" title="调用约定与(动态)库"></a>调用约定与(动态)库</h2><p><a href="http://blog.csdn.net/luoweifu/article/details/52456407" target="_blank" rel="noopener">调用约定与(动态)库</a></p>
+<p>参考：</p>
+<ul>
+<li><a href="http://blog.csdn.net/column/details/visualstudio.html" target="_blank" rel="noopener">带你玩转Visual Studio</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">VC</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/11/15/带你玩转Visual Studio/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-CShap 进程间通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -373,106 +593,6 @@ namespace GetTest
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2016/11/01/CShap 进程间通信/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-CShap 视频编辑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/10/01/CShap 视频编辑/">C# 视频编辑</a>
-    </h1>
-  
-
-        
-        <a href="/2016/10/01/CShap 视频编辑/" class="archive-article-date">
-  	<time datetime="2016-10-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="VidCoder"><a href="#VidCoder" class="headerlink" title="VidCoder"></a>VidCoder</h1><p>VidCoder是一个开源免费的DVD/蓝光视频抓取和转码软件.使用HandBrake做为编码引擎.比Handbrake拥有更友好的用户界面.</p>
-<p>可裁剪、剪切、字幕编辑、转码等。</p>
-<p>官网：<br><a href="http://vidcoder.codeplex.com/" target="_blank" rel="noopener">http://vidcoder.codeplex.com/</a></p>
-<h1 id="VLC-media-player"><a href="#VLC-media-player" class="headerlink" title="VLC media player"></a>VLC media player</h1><p>VLC 是一款自由、开源的跨平台多媒体播放器及框架，可播放大多数多媒体文件，以及 DVD、音频 CD、VCD 及各类流媒体协议。</p>
-<p>官网：<a href="http://www.videolan.org/vlc/" target="_blank" rel="noopener">http://www.videolan.org/vlc/</a></p>
-<h1 id="ffmpeg-Mencoder"><a href="#ffmpeg-Mencoder" class="headerlink" title="ffmpeg + Mencoder"></a>ffmpeg + Mencoder</h1><p>ffmpeg下载：<a href="http://ffmpeg.org/download.html" target="_blank" rel="noopener">http://ffmpeg.org/download.html</a></p>
-<p>Mencoder下载：<a href="http://www.mplayerhq.hu/design7/dload.html" target="_blank" rel="noopener">http://www.mplayerhq.hu/design7/dload.html</a></p>
-<p>C#调用ffmpeg的方法，仅供参考：<a href="https://github.com/CAOJINGYOU/VideoEditor" target="_blank" rel="noopener">VideoEditor</a></p>
-<h1 id="SharpFFmpeg"><a href="#SharpFFmpeg" class="headerlink" title="SharpFFmpeg"></a>SharpFFmpeg</h1><p>SharpFFmpeg 是一个 ffmpeg 的 C# 绑定版本，允许 .NET 开发者轻松的创建音频和视频应用。</p>
-<p>个人没用过，感觉不错，一会有机会研究下。</p>
-<p>下载地址：<a href="https://sourceforge.net/projects/sharpffmpeg/" target="_blank" rel="noopener">https://sourceforge.net/projects/sharpffmpeg/</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VidCoder</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VLC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ffmpeg</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/10/01/CShap 视频编辑/">展开全文 >></a>
         </p>
       
 
@@ -727,6 +847,106 @@ private:
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2016/10/01/C++智能指针/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-CShap 视频编辑" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/01/CShap 视频编辑/">C# 视频编辑</a>
+    </h1>
+  
+
+        
+        <a href="/2016/10/01/CShap 视频编辑/" class="archive-article-date">
+  	<time datetime="2016-10-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-10-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="VidCoder"><a href="#VidCoder" class="headerlink" title="VidCoder"></a>VidCoder</h1><p>VidCoder是一个开源免费的DVD/蓝光视频抓取和转码软件.使用HandBrake做为编码引擎.比Handbrake拥有更友好的用户界面.</p>
+<p>可裁剪、剪切、字幕编辑、转码等。</p>
+<p>官网：<br><a href="http://vidcoder.codeplex.com/" target="_blank" rel="noopener">http://vidcoder.codeplex.com/</a></p>
+<h1 id="VLC-media-player"><a href="#VLC-media-player" class="headerlink" title="VLC media player"></a>VLC media player</h1><p>VLC 是一款自由、开源的跨平台多媒体播放器及框架，可播放大多数多媒体文件，以及 DVD、音频 CD、VCD 及各类流媒体协议。</p>
+<p>官网：<a href="http://www.videolan.org/vlc/" target="_blank" rel="noopener">http://www.videolan.org/vlc/</a></p>
+<h1 id="ffmpeg-Mencoder"><a href="#ffmpeg-Mencoder" class="headerlink" title="ffmpeg + Mencoder"></a>ffmpeg + Mencoder</h1><p>ffmpeg下载：<a href="http://ffmpeg.org/download.html" target="_blank" rel="noopener">http://ffmpeg.org/download.html</a></p>
+<p>Mencoder下载：<a href="http://www.mplayerhq.hu/design7/dload.html" target="_blank" rel="noopener">http://www.mplayerhq.hu/design7/dload.html</a></p>
+<p>C#调用ffmpeg的方法，仅供参考：<a href="https://github.com/CAOJINGYOU/VideoEditor" target="_blank" rel="noopener">VideoEditor</a></p>
+<h1 id="SharpFFmpeg"><a href="#SharpFFmpeg" class="headerlink" title="SharpFFmpeg"></a>SharpFFmpeg</h1><p>SharpFFmpeg 是一个 ffmpeg 的 C# 绑定版本，允许 .NET 开发者轻松的创建音频和视频应用。</p>
+<p>个人没用过，感觉不错，一会有机会研究下。</p>
+<p>下载地址：<a href="https://sourceforge.net/projects/sharpffmpeg/" target="_blank" rel="noopener">https://sourceforge.net/projects/sharpffmpeg/</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VidCoder</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">VLC</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ffmpeg</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/10/01/CShap 视频编辑/">展开全文 >></a>
         </p>
       
 
@@ -1437,144 +1657,6 @@ std::cout &lt;&lt; root;
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2016/07/01/jQuery/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-C++ tinyXML使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/15/C++ tinyXML使用/">C++ tinyXML使用</a>
-    </h1>
-  
-
-        
-        <a href="/2016/06/15/C++ tinyXML使用/" class="archive-article-date">
-  	<time datetime="2016-06-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-15</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="tinyXML下载："><a href="#tinyXML下载：" class="headerlink" title="tinyXML下载："></a>tinyXML下载：</h1><p><a href="http://sourceforge.net/projects/tinyxml/" title="http://sourceforge.net/projects/tinyxml/" target="_blank" rel="noopener">http://sourceforge.net/projects/tinyxml/</a></p>
-<h1 id="加载到项目："><a href="#加载到项目：" class="headerlink" title="加载到项目："></a>加载到项目：</h1><p>这六个文件添加到你的c++工程中，分别是tinystr.h、tinystr.cpp、tinyxml.h、tinyxml.cpp、tinyxmlerror.cpp、tinyxmlparser.cpp</p>
-<p>添加头文件</p>
-<pre><code>#include &quot;tinyxml.h&quot;
-</code></pre><h1 id="使用："><a href="#使用：" class="headerlink" title="使用："></a>使用：</h1><pre><code>_bstr_t errorWords;
-
-TiXmlDocument pXmlDoc;
-
-TiXmlDeclaration pDeclaration;
-pDeclaration.Parse( &quot;&lt;?xml version=&apos;1.0&apos; encoding=&apos;UTF-8&apos;?&gt;&quot;, 0, TIXML_ENCODING_UNKNOWN );//插入头
-pXmlDoc.InsertEndChild(pDeclaration);
-TiXmlElement xElement(&quot;proof-result&quot;);
-TiXmlElement errorElement(&quot;error-result&quot;);
-
-TiXmlElement errorLevelElement(&quot;error&quot;);
-errorLevelElement.SetAttribute(&quot;level&quot;,szLevel);//设置节点属性
-TiXmlText  levelText(m_pCheckResult[i].ErrWord);
-levelText.SetCDATA(true);//设置DATA属性
-errorLevelElement.InsertEndChild(levelText);
-errorElement.InsertEndChild(errorLevelElement);
-TiXmlElement replaceElement(&quot;replace&quot;);
-
-TiXmlText  replaceText(errorWords);
-replaceText.SetCDATA(true);
-replaceElement.InsertEndChild(replaceText);//插入文本
-errorElement.InsertEndChild(replaceElement);
-TiXmlElement positionElement(&quot;position&quot;);
-
-TiXmlText  szLevelText(errorWords);
-positionElement.InsertEndChild(szLevelText);
-errorElement.InsertEndChild(positionElement);
-TiXmlElement source_sentenceElement(&quot;source_sentence&quot;);
-TiXmlText  sentenseText(sentense);
-sentenseText.SetCDATA(true);
-source_sentenceElement.InsertEndChild(sentenseText);
-errorElement.InsertEndChild(source_sentenceElement);
-xElement.InsertEndChild(errorElement);
-
-TiXmlElement leader_sort_errorsElement(&quot;leader_sort_errors&quot;);
-leader_sort_errorsElement.SetAttribute(&quot;count&quot;,szCount);
-TiXmlText  szLeaderBufferText((const char*)szLeaderBuffer);
-szLeaderBufferText.SetCDATA(true);
-leader_sort_errorsElement.InsertEndChild(szLeaderBufferText);
-xElement.InsertEndChild(leader_sort_errorsElement);
-
-pXmlDoc.InsertEndChild(xElement);//插入根节点
-
-//获得生成的xml字符串
-TiXmlPrinter printer;
-printer.SetStreamPrinting();
-pXmlDoc.Accept( &amp;printer );
-_bstr_t bstrOutPutSentense(printer.CStr());
-</code></pre><h1 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h1><p>可以查看tinyXML自带的文档</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">tinyXML</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">XML</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/06/15/C++ tinyXML使用/">展开全文 >></a>
         </p>
       
 
@@ -2414,6 +2496,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">网络编程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">SOCKET</a>
               </li>
             
             <div class="clearfix"></div>

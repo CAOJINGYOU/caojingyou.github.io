@@ -160,198 +160,38 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-linux下C开发" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-自动构建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/02/linux下C开发/">linux下C开发</a>
+      <a class="article-title" href="/2018/05/07/自动构建/">自动构建</a>
     </h1>
   
 
         
-        <a href="/2018/05/02/linux下C开发/" class="archive-article-date">
-  	<time datetime="2018-05-02T10:09:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-02</time>
+        <a href="/2018/05/07/自动构建/" class="archive-article-date">
+  	<time datetime="2018-05-07T01:47:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>刚装好的系统中已经有GCC了，但是这个GCC几乎什么文件都不能编译，因为缺少一些必须的头文件，所以要安装build-essential这个软件包输入下面命令：</p>
-<pre><code>sudo apt-get install build-essential
-</code></pre><p><a href="http://wiki.ubuntu.org.cn/C_Cpp_IDE" target="_blank" rel="noopener">C Cpp IDE</a></p>
-<p>eclipse CDT</p>
-<pre><code>#apt-get install eclipse-cdt
-</code></pre><p>CodeBlocks、CodeLite、Qt跨平台</p>
-<p>kdevelop</p>
-<pre><code>sudo apt-get install kdevelop
-</code></pre><p>make是用来完成自动编译的工具</p>
-<p>gcc/g++/gcc port/g++ port</p>
-<p>在Linux系统中开发C、C++语言程序，可选择的集成开发环境有Eclipse和Kdevelop,分别运行在GNOME和KDE桌面环境。</p>
-<p><a href="http://www.yolinux.com/TUTORIALS/LinuxTutorialC++.html#GUIFRAMEWORKS" target="_blank" rel="noopener">适用于Linux的C / C ++ IDE（集成开发环境）</a></p>
-<ul>
-<li><h1 id="Eclipse-CDT"><a href="#Eclipse-CDT" class="headerlink" title="Eclipse/CDT"></a><a href="http://www.yolinux.com/TUTORIALS/LinuxTutorialC++.html#ECLIPSE" target="_blank" rel="noopener">Eclipse/CDT</a></h1></li>
-<li><h1 id="NetBeans-Sun"><a href="#NetBeans-Sun" class="headerlink" title="NetBeans (Sun)"></a><a href="http://www.yolinux.com/TUTORIALS/LinuxTutorialC++.html#NETBEANS" target="_blank" rel="noopener">NetBeans (Sun)</a></h1></li>
-<li><h1 id="KDevelop-KDE-Qt"><a href="#KDevelop-KDE-Qt" class="headerlink" title="KDevelop (KDE/Qt)"></a><a href="http://www.yolinux.com/TUTORIALS/LinuxTutorialC++.html#KDEVELOP" target="_blank" rel="noopener">KDevelop (KDE/Qt)</a></h1></li>
-<li><h1 id="Anjuta-Gnome-GTK"><a href="#Anjuta-Gnome-GTK" class="headerlink" title="Anjuta (Gnome/GTK)"></a><a href="http://www.yolinux.com/TUTORIALS/LinuxTutorialC++.html#ANJUTA" target="_blank" rel="noopener">Anjuta (Gnome/GTK)</a></h1></li>
-<li><h1 id="Code-Dragon-for-wxWindows-development"><a href="#Code-Dragon-for-wxWindows-development" class="headerlink" title="Code Dragon (for wxWindows development)"></a><a href="http://www.yolinux.com/TUTORIALS/LinuxTutorialC++.html#CODEDRAGON" target="_blank" rel="noopener">Code Dragon (for wxWindows development)</a></h1></li>
-<li><h1 id="Code-Warrior-by-Freescale"><a href="#Code-Warrior-by-Freescale" class="headerlink" title="Code Warrior (by Freescale)"></a><a href="http://www.yolinux.com/TUTORIALS/LinuxTutorialC++.html#CODEWARRIOR" target="_blank" rel="noopener">Code Warrior (by Freescale)</a></h1></li>
-<li><h1 id="IDE-Links"><a href="#IDE-Links" class="headerlink" title="IDE Links"></a><a href="http://www.yolinux.com/TUTORIALS/LinuxTutorialC++.html#IDELINKS" target="_blank" rel="noopener">IDE Links</a></h1></li>
-</ul>
-<h2 id="ubuntukylin编程环境"><a href="#ubuntukylin编程环境" class="headerlink" title="ubuntukylin编程环境"></a><a href="http://www.ubuntukylin.com/ukd/home/app.php" target="_blank" rel="noopener">ubuntukylin编程环境</a></h2><h3 id="QtCreator"><a href="#QtCreator" class="headerlink" title="QtCreator"></a>QtCreator</h3><pre><code>$ sudo apt-get update &amp;&amp; sudo apt-get install qtcreator
-</code></pre><p>提示: 在Ubuntu Kylin1404以后，执行上面的命令，软件源默认安装的是Qt5，如果你想使用Qt4进行开发，请执行下面的命令：</p>
-<pre><code>$ sudo apt-get install qt4-default libqt4-dev
-</code></pre><p>如果想继续使用Qt5进行开发，请执行下面的命令：</p>
-<pre><code>$ sudo apt-get install qt5-default
-</code></pre><p>使用QtCreator</p>
-<pre><code>$ qtcreator
-</code></pre><h3 id="Eclipse"><a href="#Eclipse" class="headerlink" title="Eclipse"></a>Eclipse</h3><p>安装Eclipse</p>
-<pre><code>$ sudo apt-get install eclipse
-</code></pre><p>使用Eclipse</p>
-<pre><code>$ eclipse
-</code></pre><h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><p>fork</p>
-<h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><p>POSIX标准线程库，Pthread线程对应的函数库为libpthread.</p>
-<h1 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h1><h2 id="OSI参考模型"><a href="#OSI参考模型" class="headerlink" title="OSI参考模型"></a>OSI参考模型</h2><h2 id="TCP-IP模型"><a href="#TCP-IP模型" class="headerlink" title="TCP/IP模型"></a>TCP/IP模型</h2><h2 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h2><p><img src="https://i.imgur.com/0AuPUYT.jpg" alt=""></p>
-<h2 id="网络库"><a href="#网络库" class="headerlink" title="网络库"></a>网络库</h2><ul>
-<li>libcurl    url</li>
-<li>libESMTP    SMTP</li>
-<li>libspopc    POP</li>
-<li>mailutils    IMAP</li>
-<li>libpurple或Telepathy    即时通讯</li>
-</ul>
-<h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><p>Berkley与PostgreSQL</p>
-<p>SQLite</p>
-<p>MySQL</p>
-<p>Oracle    库：OCI，Libsqlora8</p>
-<p>通用数据库接口数据库：SQL Relay</p>
-<p>数据库连接池：unixODBC</p>
-<h1 id="界面"><a href="#界面" class="headerlink" title="界面"></a>界面</h1><h2 id="桌面环境"><a href="#桌面环境" class="headerlink" title="桌面环境"></a>桌面环境</h2><h3 id="GNOME"><a href="#GNOME" class="headerlink" title="GNOME"></a>GNOME</h3><p>工作站</p>
-<p>开发界面函数库：GTK+、X11、Cairo</p>
-<p>Glib库是GTK+和GNOME工程的基础低层核心程序库。</p>
-<p>GLib为C语言提供面向对象的GObject对象系统。</p>
-<h3 id="KDE"><a href="#KDE" class="headerlink" title="KDE"></a>KDE</h3><p>服务器</p>
-<p>KDE桌面核心为Qt程序库。</p>
-<h3 id="Xfce"><a href="#Xfce" class="headerlink" title="Xfce"></a>Xfce</h3><h3 id="HILDON"><a href="#HILDON" class="headerlink" title="HILDON"></a>HILDON</h3><p>移动设备</p>
-<p>HILDON是GNOME的裁切版</p>
-<h2 id="2D图形引擎Cairo"><a href="#2D图形引擎Cairo" class="headerlink" title="2D图形引擎Cairo"></a>2D图形引擎Cairo</h2><p>支持PDF格式</p>
-<h2 id="GStreamer"><a href="#GStreamer" class="headerlink" title="GStreamer"></a>GStreamer</h2><p>可处理MP3、RM、WMA、MPEG、MPEG2、AVI和Quicktime等多种格式的多媒体数据。</p>
-<h2 id="搭建GTK-开发环境"><a href="#搭建GTK-开发环境" class="headerlink" title="搭建GTK+开发环境"></a>搭建GTK+开发环境</h2><p>DEB:</p>
-<pre><code>apt-get install gnome-core-devel
-//安装libgtk2.0-dev libglib2.0-dev等开发相关的函数库文件
-apt-get install devhelp//安装开发帮助文档查看程序
-apt-get install libglib2.0-doc libgtk2.0-doc
-//安装GTK/GLIB的API参考手册及其他帮助文档
-apt-get install libgtk2.0*//安装GTK+2所需的所有文件
-</code></pre><p>YUM:</p>
-<pre><code>yum install devhelp
-yum install gtk2-devel//安装GTK+2所需的开发文件
-</code></pre><p>需要：</p>
-<ul>
-<li>pkg-config</li>
-<li>GLib</li>
-<li>libpng</li>
-<li>JPEG</li>
-<li>libtiff</li>
-<li>ATK</li>
-<li>Cairo</li>
-<li>Pango</li>
-<li>GTK+</li>
-</ul>
-<p>所见即所得工具Glade</p>
-<h1 id="界面构件开发"><a href="#界面构件开发" class="headerlink" title="界面构件开发"></a>界面构件开发</h1><p>GtkWidget</p>
-<ul>
-<li>基本构件<ul>
-<li>GtkButton</li>
-<li>调整对象，由GtkObject派生。</li>
-<li>范围构件，包括滚动条与比例构件</li>
-<li>标签构件</li>
-<li>箭头构件，上下左右箭头</li>
-<li>工具提示对象</li>
-<li>进度条</li>
-<li>对话框</li>
-<li>标尺</li>
-<li>状态栏</li>
-<li>文本输入构件</li>
-<li>微调按钮</li>
-<li>组合输入框</li>
-<li>日历</li>
-<li>颜色选择</li>
-<li>文件选择</li>
-</ul>
-</li>
-<li>复合构件<ul>
-<li>快捷标签</li>
-<li>绘图区</li>
-<li>字体选择对话框</li>
-<li>消息对话框</li>
-<li>图像构件</li>
-<li>文本视区</li>
-</ul>
-</li>
-<li>菜单构件<ul>
-<li>菜单栏</li>
-<li>菜单构件</li>
-<li>菜单项</li>
-<li>图形菜单项</li>
-<li>复合菜单项</li>
-<li>单菜单项</li>
-<li>分隔菜单项</li>
-</ul>
-</li>
-</ul>
-<p>RC文件，是用来定义界面构件的字体、颜色和背景图等样式风格的配置文件。</p>
-<h1 id="界面布局"><a href="#界面布局" class="headerlink" title="界面布局"></a>界面布局</h1><ul>
-<li>窗体构件-GtkWindow</li>
-<li>组装盒构件-GtkVBox与GtkHBox</li>
-<li>表构件-GtkTabel</li>
-<li>容器构件-GtkContainer<ul>
-<li>事件盒-GtkEventBox</li>
-<li>对齐构件-GtkAlignment</li>
-<li>固定容器-GtkFixed</li>
-<li>布局容器-GtkLayout</li>
-<li>框架构件-GtkFrame</li>
-<li>比例框架-GtkAspectFrame</li>
-<li>分栏窗体构件-GtkPaned</li>
-<li>视角构件-GtkViewport</li>
-<li>滚动条窗体-GtkScrolledWindow</li>
-<li>按钮盒-GtkButtonBox</li>
-<li>工具栏构件-GtkToolbar<ul>
-<li>工具项构件-GtkToolItem<ul>
-<li>GtkToolButton</li>
-<li>GtkSeparatorToolItem</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>笔记本构件(选项卡)-GtkNotebook</li>
-</ul>
-</li>
-</ul>
-<h1 id="信号与事件"><a href="#信号与事件" class="headerlink" title="信号与事件"></a>信号与事件</h1><pre><code>g_signal_connect()
-g_signal_handler_disconnect()
-g_signal_connect_after()
-g_signal_connect_swapped()
-g_signal_handler_disconnect_by_func()
-</code></pre><h1 id="Glade"><a href="#Glade" class="headerlink" title="Glade"></a>Glade</h1><p>Glade所设计的界面以XML格式保存。</p>
-<p>安装：</p>
-<pre><code>apt-get install glade
-</code></pre><h1 id="学习："><a href="#学习：" class="headerlink" title="学习："></a>学习：</h1><ul>
-<li><a href="https://i.linuxtoy.org/docs/guide/index.html" title="开源世界旅行手册" target="_blank" rel="noopener">开源世界旅行手册</a></li>
-<li><a href="https://tobegit3hub1.gitbooks.io/understanding-linux-processes/content/" target="_blank" rel="noopener">理解Linux进程</a></li>
-<li><a href="http://docs.linuxtone.org/ebooks/C&amp;CPP/c/" title="Linux C编程一站式学习" target="_blank" rel="noopener">Linux C编程一站式学习</a></li>
-<li><a href="https://github.com/hellogcc/100-gcc-tips/blob/master/src/index.md" title="100-gcc-tips" target="_blank" rel="noopener">100-gcc-tips</a></li>
-<li><a href="http://wiki.ubuntu.org.cn/%E9%A6%96%E9%A1%B5" target="_blank" rel="noopener">Ubuntu 中文 Wiki</a></li>
-<li><a href="http://wiki.ubuntu.org.cn/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80" target="_blank" rel="noopener">Ubuntu 中文 Wiki-编程语言</a></li>
-<li><a href="http://wiki.ubuntu.org.cn/Gcchowto#.E7.AE.80.E5.8D.95.E7.9A.84_Makefile_.E6.96.87.E4.BB.B6" target="_blank" rel="noopener">gcc</a></li>
-<li><a href="http://wiki.ubuntu.org.cn/%E7%94%A8GDB%E8%B0%83%E8%AF%95%E7%A8%8B%E5%BA%8F" target="_blank" rel="noopener">用GDB调试程序</a></li>
-<li><a href="http://wiki.ubuntu.org.cn/Gtk%E4%B8%8EQt%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE" target="_blank" rel="noopener">Gtk与Qt编译环境安装与配置</a></li>
-<li><a href="http://wiki.ubuntu.org.cn/%E8%B7%9F%E6%88%91%E4%B8%80%E8%B5%B7%E5%86%99Makefile" target="_blank" rel="noopener">跟我一起写Makefile</a></li>
-<li><a href="http://wiki.ubuntu.org.cn/%E7%BC%96%E8%AF%91%E6%89%93%E5%8C%85" target="_blank" rel="noopener">编译打包</a></li>
-</ul>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://blog.csdn.net/wuweifeng_2017/article/details/78322249" target="_blank" rel="noopener">Ubuntu下安装Qt5.8</a></p>
+        <p>有许多持续集成服务器供你使用。知名的工具包括：Jenkins、buildbot、CruiseControl和<br>TeamCity。要根据环境及构建脚本选择最适合的。</p>
+<h1 id="Jenkins"><a href="#Jenkins" class="headerlink" title="Jenkins"></a>Jenkins</h1><p><a href="https://caojingyou.github.io/2018/03/02/Jenkins/" title="https://caojingyou.github.io/2018/03/02/Jenkins/">https://caojingyou.github.io/2018/03/02/Jenkins/</a></p>
+<h1 id="MSBuild"><a href="#MSBuild" class="headerlink" title="MSBuild"></a>MSBuild</h1><p><a href="https://caojingyou.github.io/2017/12/21/MSBuild%20(Visual%20C++">https://caojingyou.github.io/2017/12/21/MSBuild%20(Visual%20C++)/</a>/ “<a href="https://caojingyou.github.io/2017/12/21/MSBuild%20(Visual%20C++)/">https://caojingyou.github.io/2017/12/21/MSBuild%20(Visual%20C++)/</a>“)</p>
+<h1 id="CCNET"><a href="#CCNET" class="headerlink" title="CCNET"></a>CCNET</h1><p><a href="http://build.nauck-it.de/download/CruiseControl.NET-package/1.8.5.0/" title="http://build.nauck-it.de/download/CruiseControl.NET-package/1.8.5.0/" target="_blank" rel="noopener">http://build.nauck-it.de/download/CruiseControl.NET-package/1.8.5.0/</a></p>
+<p><a href="http://www.cnblogs.com/hnlong1/p/4664978.html" title="http://www.cnblogs.com/hnlong1/p/4664978.html" target="_blank" rel="noopener">http://www.cnblogs.com/hnlong1/p/4664978.html</a></p>
+<p><a href="http://www.mamicode.com/info-detail-1690848.html" title="http://www.mamicode.com/info-detail-1690848.html" target="_blank" rel="noopener">http://www.mamicode.com/info-detail-1690848.html</a></p>
+<h1 id="Chef"><a href="#Chef" class="headerlink" title="Chef"></a>Chef</h1><h1 id="Cabie"><a href="#Cabie" class="headerlink" title="Cabie"></a>Cabie</h1><p><a href="http://www.yolinux.com/TUTORIALS/CabieBuildSystem.html" target="_blank" rel="noopener">Cabie自动构建系统</a></p>
+<p>Cabie是一个构建系统，具有分布式构建服务器，可在各种硬件平台上执行软件构建。Cabie支持“持续集成”（使用每个CM构建，即Subversion签入）或“夜间构建”，以及自动回归测试。Cabie是“开源”，并根据GNU通用公共许可证版本2的条款进行分发。</p>
+<h1 id="SCons"><a href="#SCons" class="headerlink" title="SCons"></a>SCons</h1><p><a href="https://www.scons.org/" target="_blank" rel="noopener">https://www.scons.org/</a></p>
+<p><a href="https://github.com/SCons/scons" target="_blank" rel="noopener">https://github.com/SCons/scons</a></p>
+<p><a href="使用 SCons 轻松建造程序">使用 SCons 轻松建造程序</a></p>
+<h1 id="Nant"><a href="#Nant" class="headerlink" title="Nant"></a>Nant</h1><p>开源免费项目，可以方便快捷对自己的.NET项目或解决方案进行自动构建。</p>
 
       
 
@@ -369,11 +209,23 @@ g_signal_handler_disconnect_by_func()
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MSBuild</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Jenkins</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">自动构建</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">CCNET</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">持续集成</a>
         		</li>
       		
 		</ul>
@@ -383,7 +235,7 @@ g_signal_handler_disconnect_by_func()
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/02/linux下C开发/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/05/07/自动构建/">展开全文 >></a>
         </p>
       
 
@@ -730,6 +582,259 @@ export CVSROOT=:pserver:&lt;用户名&gt;@&lt;服务器地址&gt;:&lt;端口号&
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/05/02/linux环境下C程序设计-读书笔记/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-linux下C开发" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/02/linux下C开发/">linux下C开发</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/02/linux下C开发/" class="archive-article-date">
+  	<time datetime="2018-05-02T10:09:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h1><p>刚装好的系统中已经有GCC了，但是这个GCC几乎什么文件都不能编译，因为缺少一些必须的头文件，所以要安装build-essential这个软件包输入下面命令：</p>
+<pre><code>sudo apt-get install build-essential
+</code></pre><p><a href="http://wiki.ubuntu.org.cn/C_Cpp_IDE" target="_blank" rel="noopener">C Cpp IDE</a></p>
+<p>eclipse CDT</p>
+<pre><code>#apt-get install eclipse-cdt
+</code></pre><p>CodeBlocks、CodeLite、Qt跨平台</p>
+<p>kdevelop</p>
+<pre><code>sudo apt-get install kdevelop
+</code></pre><p>make是用来完成自动编译的工具</p>
+<p>gcc/g++/gcc port/g++ port</p>
+<p>在Linux系统中开发C、C++语言程序，可选择的集成开发环境有Eclipse和Kdevelop,分别运行在GNOME和KDE桌面环境。</p>
+<p><a href="http://www.yolinux.com/TUTORIALS/LinuxTutorialC++.html#GUIFRAMEWORKS" target="_blank" rel="noopener">适用于Linux的C / C ++ IDE（集成开发环境）</a></p>
+<ul>
+<li><h1 id="Eclipse-CDT"><a href="#Eclipse-CDT" class="headerlink" title="Eclipse/CDT"></a><a href="http://www.yolinux.com/TUTORIALS/LinuxTutorialC++.html#ECLIPSE" target="_blank" rel="noopener">Eclipse/CDT</a></h1></li>
+<li><h1 id="NetBeans-Sun"><a href="#NetBeans-Sun" class="headerlink" title="NetBeans (Sun)"></a><a href="http://www.yolinux.com/TUTORIALS/LinuxTutorialC++.html#NETBEANS" target="_blank" rel="noopener">NetBeans (Sun)</a></h1></li>
+<li><h1 id="KDevelop-KDE-Qt"><a href="#KDevelop-KDE-Qt" class="headerlink" title="KDevelop (KDE/Qt)"></a><a href="http://www.yolinux.com/TUTORIALS/LinuxTutorialC++.html#KDEVELOP" target="_blank" rel="noopener">KDevelop (KDE/Qt)</a></h1></li>
+<li><h1 id="Anjuta-Gnome-GTK"><a href="#Anjuta-Gnome-GTK" class="headerlink" title="Anjuta (Gnome/GTK)"></a><a href="http://www.yolinux.com/TUTORIALS/LinuxTutorialC++.html#ANJUTA" target="_blank" rel="noopener">Anjuta (Gnome/GTK)</a></h1></li>
+<li><h1 id="Code-Dragon-for-wxWindows-development"><a href="#Code-Dragon-for-wxWindows-development" class="headerlink" title="Code Dragon (for wxWindows development)"></a><a href="http://www.yolinux.com/TUTORIALS/LinuxTutorialC++.html#CODEDRAGON" target="_blank" rel="noopener">Code Dragon (for wxWindows development)</a></h1></li>
+<li><h1 id="Code-Warrior-by-Freescale"><a href="#Code-Warrior-by-Freescale" class="headerlink" title="Code Warrior (by Freescale)"></a><a href="http://www.yolinux.com/TUTORIALS/LinuxTutorialC++.html#CODEWARRIOR" target="_blank" rel="noopener">Code Warrior (by Freescale)</a></h1></li>
+<li><h1 id="IDE-Links"><a href="#IDE-Links" class="headerlink" title="IDE Links"></a><a href="http://www.yolinux.com/TUTORIALS/LinuxTutorialC++.html#IDELINKS" target="_blank" rel="noopener">IDE Links</a></h1></li>
+</ul>
+<h2 id="ubuntukylin编程环境"><a href="#ubuntukylin编程环境" class="headerlink" title="ubuntukylin编程环境"></a><a href="http://www.ubuntukylin.com/ukd/home/app.php" target="_blank" rel="noopener">ubuntukylin编程环境</a></h2><h3 id="QtCreator"><a href="#QtCreator" class="headerlink" title="QtCreator"></a>QtCreator</h3><pre><code>$ sudo apt-get update &amp;&amp; sudo apt-get install qtcreator
+</code></pre><p>提示: 在Ubuntu Kylin1404以后，执行上面的命令，软件源默认安装的是Qt5，如果你想使用Qt4进行开发，请执行下面的命令：</p>
+<pre><code>$ sudo apt-get install qt4-default libqt4-dev
+</code></pre><p>如果想继续使用Qt5进行开发，请执行下面的命令：</p>
+<pre><code>$ sudo apt-get install qt5-default
+</code></pre><p>使用QtCreator</p>
+<pre><code>$ qtcreator
+</code></pre><h3 id="Eclipse"><a href="#Eclipse" class="headerlink" title="Eclipse"></a>Eclipse</h3><p>安装Eclipse</p>
+<pre><code>$ sudo apt-get install eclipse
+</code></pre><p>使用Eclipse</p>
+<pre><code>$ eclipse
+</code></pre><h1 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h1><p>fork</p>
+<h1 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h1><p>POSIX标准线程库，Pthread线程对应的函数库为libpthread.</p>
+<h1 id="网络"><a href="#网络" class="headerlink" title="网络"></a>网络</h1><h2 id="OSI参考模型"><a href="#OSI参考模型" class="headerlink" title="OSI参考模型"></a>OSI参考模型</h2><h2 id="TCP-IP模型"><a href="#TCP-IP模型" class="headerlink" title="TCP/IP模型"></a>TCP/IP模型</h2><h2 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h2><p><img src="https://i.imgur.com/0AuPUYT.jpg" alt=""></p>
+<h2 id="网络库"><a href="#网络库" class="headerlink" title="网络库"></a>网络库</h2><ul>
+<li>libcurl    url</li>
+<li>libESMTP    SMTP</li>
+<li>libspopc    POP</li>
+<li>mailutils    IMAP</li>
+<li>libpurple或Telepathy    即时通讯</li>
+</ul>
+<h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><p>Berkley与PostgreSQL</p>
+<p>SQLite</p>
+<p>MySQL</p>
+<p>Oracle    库：OCI，Libsqlora8</p>
+<p>通用数据库接口数据库：SQL Relay</p>
+<p>数据库连接池：unixODBC</p>
+<h1 id="界面"><a href="#界面" class="headerlink" title="界面"></a>界面</h1><h2 id="桌面环境"><a href="#桌面环境" class="headerlink" title="桌面环境"></a>桌面环境</h2><h3 id="GNOME"><a href="#GNOME" class="headerlink" title="GNOME"></a>GNOME</h3><p>工作站</p>
+<p>开发界面函数库：GTK+、X11、Cairo</p>
+<p>Glib库是GTK+和GNOME工程的基础低层核心程序库。</p>
+<p>GLib为C语言提供面向对象的GObject对象系统。</p>
+<h3 id="KDE"><a href="#KDE" class="headerlink" title="KDE"></a>KDE</h3><p>服务器</p>
+<p>KDE桌面核心为Qt程序库。</p>
+<h3 id="Xfce"><a href="#Xfce" class="headerlink" title="Xfce"></a>Xfce</h3><h3 id="HILDON"><a href="#HILDON" class="headerlink" title="HILDON"></a>HILDON</h3><p>移动设备</p>
+<p>HILDON是GNOME的裁切版</p>
+<h2 id="2D图形引擎Cairo"><a href="#2D图形引擎Cairo" class="headerlink" title="2D图形引擎Cairo"></a>2D图形引擎Cairo</h2><p>支持PDF格式</p>
+<h2 id="GStreamer"><a href="#GStreamer" class="headerlink" title="GStreamer"></a>GStreamer</h2><p>可处理MP3、RM、WMA、MPEG、MPEG2、AVI和Quicktime等多种格式的多媒体数据。</p>
+<h2 id="搭建GTK-开发环境"><a href="#搭建GTK-开发环境" class="headerlink" title="搭建GTK+开发环境"></a>搭建GTK+开发环境</h2><p>DEB:</p>
+<pre><code>apt-get install gnome-core-devel
+//安装libgtk2.0-dev libglib2.0-dev等开发相关的函数库文件
+apt-get install devhelp//安装开发帮助文档查看程序
+apt-get install libglib2.0-doc libgtk2.0-doc
+//安装GTK/GLIB的API参考手册及其他帮助文档
+apt-get install libgtk2.0*//安装GTK+2所需的所有文件
+</code></pre><p>YUM:</p>
+<pre><code>yum install devhelp
+yum install gtk2-devel//安装GTK+2所需的开发文件
+</code></pre><p>需要：</p>
+<ul>
+<li>pkg-config</li>
+<li>GLib</li>
+<li>libpng</li>
+<li>JPEG</li>
+<li>libtiff</li>
+<li>ATK</li>
+<li>Cairo</li>
+<li>Pango</li>
+<li>GTK+</li>
+</ul>
+<p>所见即所得工具Glade</p>
+<h1 id="界面构件开发"><a href="#界面构件开发" class="headerlink" title="界面构件开发"></a>界面构件开发</h1><p>GtkWidget</p>
+<ul>
+<li>基本构件<ul>
+<li>GtkButton</li>
+<li>调整对象，由GtkObject派生。</li>
+<li>范围构件，包括滚动条与比例构件</li>
+<li>标签构件</li>
+<li>箭头构件，上下左右箭头</li>
+<li>工具提示对象</li>
+<li>进度条</li>
+<li>对话框</li>
+<li>标尺</li>
+<li>状态栏</li>
+<li>文本输入构件</li>
+<li>微调按钮</li>
+<li>组合输入框</li>
+<li>日历</li>
+<li>颜色选择</li>
+<li>文件选择</li>
+</ul>
+</li>
+<li>复合构件<ul>
+<li>快捷标签</li>
+<li>绘图区</li>
+<li>字体选择对话框</li>
+<li>消息对话框</li>
+<li>图像构件</li>
+<li>文本视区</li>
+</ul>
+</li>
+<li>菜单构件<ul>
+<li>菜单栏</li>
+<li>菜单构件</li>
+<li>菜单项</li>
+<li>图形菜单项</li>
+<li>复合菜单项</li>
+<li>单菜单项</li>
+<li>分隔菜单项</li>
+</ul>
+</li>
+</ul>
+<p>RC文件，是用来定义界面构件的字体、颜色和背景图等样式风格的配置文件。</p>
+<h1 id="界面布局"><a href="#界面布局" class="headerlink" title="界面布局"></a>界面布局</h1><ul>
+<li>窗体构件-GtkWindow</li>
+<li>组装盒构件-GtkVBox与GtkHBox</li>
+<li>表构件-GtkTabel</li>
+<li>容器构件-GtkContainer<ul>
+<li>事件盒-GtkEventBox</li>
+<li>对齐构件-GtkAlignment</li>
+<li>固定容器-GtkFixed</li>
+<li>布局容器-GtkLayout</li>
+<li>框架构件-GtkFrame</li>
+<li>比例框架-GtkAspectFrame</li>
+<li>分栏窗体构件-GtkPaned</li>
+<li>视角构件-GtkViewport</li>
+<li>滚动条窗体-GtkScrolledWindow</li>
+<li>按钮盒-GtkButtonBox</li>
+<li>工具栏构件-GtkToolbar<ul>
+<li>工具项构件-GtkToolItem<ul>
+<li>GtkToolButton</li>
+<li>GtkSeparatorToolItem</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>笔记本构件(选项卡)-GtkNotebook</li>
+</ul>
+</li>
+</ul>
+<h1 id="信号与事件"><a href="#信号与事件" class="headerlink" title="信号与事件"></a>信号与事件</h1><pre><code>g_signal_connect()
+g_signal_handler_disconnect()
+g_signal_connect_after()
+g_signal_connect_swapped()
+g_signal_handler_disconnect_by_func()
+</code></pre><h1 id="Glade"><a href="#Glade" class="headerlink" title="Glade"></a>Glade</h1><p>Glade所设计的界面以XML格式保存。</p>
+<p>安装：</p>
+<pre><code>apt-get install glade
+</code></pre><h1 id="学习："><a href="#学习：" class="headerlink" title="学习："></a>学习：</h1><ul>
+<li><a href="https://i.linuxtoy.org/docs/guide/index.html" title="开源世界旅行手册" target="_blank" rel="noopener">开源世界旅行手册</a></li>
+<li><a href="https://tobegit3hub1.gitbooks.io/understanding-linux-processes/content/" target="_blank" rel="noopener">理解Linux进程</a></li>
+<li><a href="http://docs.linuxtone.org/ebooks/C&amp;CPP/c/" title="Linux C编程一站式学习" target="_blank" rel="noopener">Linux C编程一站式学习</a></li>
+<li><a href="https://github.com/hellogcc/100-gcc-tips/blob/master/src/index.md" title="100-gcc-tips" target="_blank" rel="noopener">100-gcc-tips</a></li>
+<li><a href="http://wiki.ubuntu.org.cn/%E9%A6%96%E9%A1%B5" target="_blank" rel="noopener">Ubuntu 中文 Wiki</a></li>
+<li><a href="http://wiki.ubuntu.org.cn/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80" target="_blank" rel="noopener">Ubuntu 中文 Wiki-编程语言</a></li>
+<li><a href="http://wiki.ubuntu.org.cn/Gcchowto#.E7.AE.80.E5.8D.95.E7.9A.84_Makefile_.E6.96.87.E4.BB.B6" target="_blank" rel="noopener">gcc</a></li>
+<li><a href="http://wiki.ubuntu.org.cn/%E7%94%A8GDB%E8%B0%83%E8%AF%95%E7%A8%8B%E5%BA%8F" target="_blank" rel="noopener">用GDB调试程序</a></li>
+<li><a href="http://wiki.ubuntu.org.cn/Gtk%E4%B8%8EQt%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE" target="_blank" rel="noopener">Gtk与Qt编译环境安装与配置</a></li>
+<li><a href="http://wiki.ubuntu.org.cn/%E8%B7%9F%E6%88%91%E4%B8%80%E8%B5%B7%E5%86%99Makefile" target="_blank" rel="noopener">跟我一起写Makefile</a></li>
+<li><a href="http://wiki.ubuntu.org.cn/%E7%BC%96%E8%AF%91%E6%89%93%E5%8C%85" target="_blank" rel="noopener">编译打包</a></li>
+</ul>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://blog.csdn.net/wuweifeng_2017/article/details/78322249" target="_blank" rel="noopener">Ubuntu下安装Qt5.8</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/02/linux下C开发/">展开全文 >></a>
         </p>
       
 
@@ -4644,108 +4749,6 @@ if (!callback_map_.empty()) {
 
 
   
-    <article id="post-ATL与WTL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/12/ATL与WTL/">ATL与WTL</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/12/ATL与WTL/" class="archive-article-date">
-  	<time datetime="2018-04-12T01:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="ATL"><a href="#ATL" class="headerlink" title="ATL"></a>ATL</h1><p>ATL中所使用的基本技术包括以下几个方面：</p>
-<ul>
-<li>COM技术</li>
-<li>C++模板类技术（Template)</li>
-<li>C++多继承技术（Multi-Inheritance)</li>
-</ul>
-<p><a href="https://msdn.microsoft.com/zh-cn/library/hh967573.aspx" target="_blank" rel="noopener">MFC 和 ATL</a></p>
-<h1 id="WTL"><a href="#WTL" class="headerlink" title="WTL"></a>WTL</h1><p><a href="https://sourceforge.net/projects/wtl/" target="_blank" rel="noopener">https://sourceforge.net/projects/wtl/</a></p>
-<p>安装WTL向导</p>
-<p>AppWizard目录执行</p>
-<pre><code>wscript Setup.js
-</code></pre><p><a href="https://sourceforge.net/projects/visualfc/" title="https://sourceforge.net/projects/visualfc/" target="_blank" rel="noopener">visualfc</a></p>
-<p><a href="http://www.winmsg.com/cn/orbit.htm" title="http://www.winmsg.com/cn/orbit.htm" target="_blank" rel="noopener">WTL for MFC programmer 系列文章(翻译)</a></p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="添加按钮事件"><a href="#添加按钮事件" class="headerlink" title="添加按钮事件"></a>添加按钮事件</h3><p>对话框中添加button，id为IDC_BUTTON1</p>
-<pre><code>BEGIN_MSG_MAP(xx)
-    COMMAND_ID_HANDLER(IDC_BUTTON1, OnButton1)
-END_MSG_MAP()
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ATL</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">WTL</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/12/ATL与WTL/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-duilib" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -6113,782 +6116,44 @@ protected:
 
 
   
-    <article id="post-正则表达式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-ATL与WTL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/03/正则表达式/">正则表达式</a>
+      <a class="article-title" href="/2018/04/12/ATL与WTL/">ATL与WTL</a>
     </h1>
   
 
         
-        <a href="/2018/04/03/正则表达式/" class="archive-article-date">
-  	<time datetime="2018-04-03T01:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-03</time>
+        <a href="/2018/04/12/ATL与WTL/" class="archive-article-date">
+  	<time datetime="2018-04-12T01:53:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="c-regex"><a href="#c-regex" class="headerlink" title="c regex"></a>c regex</h1><ol>
-<li>编译正则表达式 <code>regcomp()</code></li>
-<li>匹配正则表达式 <code>regexec()</code></li>
-<li>释放正则表达式 <code>regfree()</code></li>
-<li>错误处理 <code>regerror()</code></li>
-</ol>
-<pre><code>#include &lt;stdio.h&gt;
-#include &lt;regex.h&gt;  //标准c不支持，Linux常带有此文件
-
-int main(){
-    regex_t reg;    //定义一个正则实例
-    const char* pattern = &quot;^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*.\\w+([-.]\\w+)*$&quot;; //定义模式串
-    regcomp(&amp;reg, pattern, REG_EXTENDED);    //编译正则模式串
-
-    char* buf = &quot;david19842003@gmail.com&quot;;   //定义待匹配串
-    const size_t nmatch = 1;    //定义匹配结果最大允许数
-    regmatch_t pmatch[1];   //定义匹配结果在待匹配串中的下标范围
-    int status = regexec(&amp;reg, buf, nmatch, pmatch, 0); //匹配他
-
-    if (status == REG_NOMATCH){ //如果没匹配上
-        printf(&quot;No Match\n&quot;);
-    }
-    else if (status == 0){  //如果匹配上了
-        printf(&quot;Match\n&quot;);
-        for (int i = pmatch[0].rm_so; i &lt; pmatch[0].rm_eo; i++){    //遍历输出匹配范围的字符串
-            printf(&quot;%c&quot;, buf[i]);
-        }
-        printf(&quot;\n&quot;);
-    }
-    regfree(&amp;reg);  //释放正则表达式
-    return 0;
-}
-</code></pre><p>1.<code>int regcomp (regex_t *compiled, const char *pattern, int cflags)</code></p>
+        <h1 id="ATL"><a href="#ATL" class="headerlink" title="ATL"></a>ATL</h1><p>ATL中所使用的基本技术包括以下几个方面：</p>
 <ul>
-<li><code>regex_t</code> 是一个结构体数据类型，用来存放编译后的正则表达式<ul>
-<li><code>regex_t</code> 的成员<code>re_nsub</code> 用来存储正则表达式中的子正则表达式的个数，子正则表达式就是用圆括号包起来的部分表达式</li>
+<li>COM技术</li>
+<li>C++模板类技术（Template)</li>
+<li>C++多继承技术（Multi-Inheritance)</li>
 </ul>
-</li>
-<li><code>pattern</code> 是指向我们写好的正则表达式的指针</li>
-<li><code>cflags</code> 有如下4个值或者是它们或运算(|)后的值：<ul>
-<li>REG_EXTENDED 以功能更加强大的扩展正则表达式的方式进行匹配。</li>
-<li>REG_ICASE 匹配字母时忽略大小写。</li>
-<li>REG_NOSUB 不用存储匹配后的结果。</li>
-<li>REG_NEWLINE 识别换行符，这样’$’就可以从行尾开始匹配，’^’就可以从行的开头开始匹配</li>
-</ul>
-</li>
-</ul>
-<p>2.<code>int regexec (regex_t *compiled, char *string, size_t nmatch, regmatch_t matchptr [], int eflags)</code></p>
-<ul>
-<li>如果在编译正则表达式的时候没有指定cflags的参数为REG_NEWLINE，则默认情况下是忽略换行符的，也就是把整个文本串当作一个字符串处理。执行成功返回0<ul>
-<li><code>regmatch_t</code> 是一个结构体数据类型，在regex.h中定义：<code>typedef struct{regoff_t rm_so;regoff_t rm_eo;} regmatch_t;</code></li>
-<li>成员<code>rm_so</code> 存放匹配文本串在目标串中的开始位置，<code>rm_eo</code>存放结束位置</li>
-<li>通常我们以数组的形式定义一组这样的结构。因为往往我们的正则表达式中还包含子正则表达式。数组0单元存放主正则表达式位置，后边的单元依次存放子正则表达式位置</li>
-</ul>
-</li>
-<li><code>compiled</code> 是已经用<code>regcomp</code>函数编译好的正则表达式</li>
-<li><code>string</code> 是目标文本串</li>
-<li><code>nmatch</code> 是<code>regmatch_t</code>结构体数组的长度</li>
-<li><code>matchptr regmatch_t</code>类型的结构体数组，存放匹配文本串的位置信息</li>
-<li><code>eflags</code> 有两个值<ul>
-<li><code>REG_NOTBOL</code> 按我的理解是如果指定了这个值，那么’^’就不会从我们的目标串开始匹配。总之我到现在还不是很明白这个参数的意义</li>
-<li><code>REG_NOTEOL</code> 和上边那个作用差不多，不过这个指定结束<code>end of line</code></li>
-</ul>
-</li>
-</ul>
-<p>3.<code>void regfree (regex_t *compiled)</code></p>
-<ul>
-<li>清空compiled指向的regex_t结构体的内容</li>
-<li>如果是重新编译的话，一定要先清空regex_t结构体c</li>
-</ul>
-<p>4.<code>size_t regerror (int errcode, regex_t *compiled, char *buffer, size_t length)</code></p>
-<ul>
-<li><code>当执行regcomp</code> 或者<code>regexec</code> 产生错误的时候，就可以调用这个函数而返回一个包含错误信息的字符串</li>
-<li><code>errcode</code> <code>是由regcomp</code> 和 <code>regexec</code> 函数返回的错误代号</li>
-<li><code>compiled</code> 是已经用<code>regcomp</code>函数编译好的正则表达式，这个值可以为<code>NULL</code></li>
-<li><code>buffer</code> 指向用来存放错误信息的字符串的内存空间</li>
-<li><code>length</code> 指明<code>buffer</code>的长度，如果这个错误信息的长度大于这个值，则<code>regerror</code> 函数会自动截断超出的字符串，但他仍然会返回完整的字符串的长度。所以我们可以用如下的方法先得到错误字符串的长度。</li>
-</ul>
-<pre><code>`size_t length = regerror (errcode, compiled, NULL, 0);`
-</code></pre><p>转载：<br><a href="http://www.yingzinanfei.com/2017/02/06/c-regex-yongfa/" target="_blank" rel="noopener">c regex 用法</a></p>
-<h1 id="C-regex"><a href="#C-regex" class="headerlink" title="C++ regex"></a>C++ regex</h1><p><a href="https://msdn.microsoft.com/en-us/library/bb982382.aspx" target="_blank" rel="noopener">regex头文件</a></p>
-<p><a href="https://msdn.microsoft.com/en-us/library/bb982727.aspx" target="_blank" rel="noopener">Regular Expressions (C++)</a></p>
-<p><a href="https://msdn.microsoft.com/zh-cn/ch/library/bb982727.aspx" target="_blank" rel="noopener">正则表达式 (C++)</a></p>
-<p><a href="https://docs.microsoft.com/zh-cn/cpp/standard-library/regular-expressions-cpp" target="_blank" rel="noopener">正则表达式 (C++)</a></p>
-<p><a href="https://docs.microsoft.com/zh-cn/cpp/standard-library/regex" target="_blank" rel="noopener">微软regex</a></p>
-<p><a href="https://docs.microsoft.com/zh-cn/cpp/standard-library/regex-typedefs" target="_blank" rel="noopener">regex typedefs</a></p>
-<h2 id="类"><a href="#类" class="headerlink" title="类"></a>类</h2><ul>
-<li><code>basic_regex</code>    包装正则表达式。</li>
-<li><code>match_results</code>    包含一系列子匹配项。</li>
-<li><code>regex_constants</code>    包含各种类型的常量。</li>
-<li><code>regex_error</code>    报告错误的正则表达式。</li>
-<li><code>regex_iterator</code>    循环访问匹配结果。</li>
-<li><code>regex_traits</code>    描述用于匹配的元素的特征。</li>
-<li><code>regex_traits&lt;char&gt;</code>    描述用于匹配的 <code>char</code> 的特征。</li>
-<li><code>regex_traits&lt;wchar_t&gt;</code>    描述用于匹配的 <code>wchar_t</code> 的特征。</li>
-<li><code>regex_token_iterator</code>    循环访问子匹配项。</li>
-<li><code>sub_match</code>    介绍子匹配项。</li>
-</ul>
-<h2 id="类型定义"><a href="#类型定义" class="headerlink" title="类型定义"></a>类型定义</h2><ul>
-<li><code>cmatch</code>    <code>char match_results</code> 的类型定义。</li>
-<li><code>cregex_iterator</code>    <code>char regex_iterator</code> 的类型定义。</li>
-<li><code>cregex_token_iterator</code>    <code>char regex_token_iterator</code> 的类型定义。</li>
-<li><code>csub_match</code>    <code>char sub_match</code> 的类型定义。</li>
-<li><code>regex</code>    <code>char basic_regex</code> 的类型定义。</li>
-<li><code>smatch</code>    <code>string match_results</code> 的类型定义。</li>
-<li><code>sregex_iterator</code>    <code>string regex_iterator</code> 的类型定义。</li>
-<li><code>sregex_token_iterator</code>    <code>string regex_token_iterator</code> 的类型定义。</li>
-<li><code>ssub_match</code>    <code>string sub_match</code> 的类型定义。</li>
-<li><code>wcmatch</code>    <code>wchar_t match_results</code> 的类型定义。</li>
-<li><code>wcregex_iterator</code>    <code>wchar_t regex_iterator</code> 的类型定义。</li>
-<li><code>wcregex_token_iterator</code>    <code>wchar_t regex_token_iterator</code> 的类型定义。</li>
-<li><code>wcsub_match</code>    <code>wchar_t sub_match</code> 的类型定义。</li>
-<li><code>wregex</code>    <code>wchar_t basic_regex</code> 的类型定义。</li>
-<li><code>wsmatch</code>    <code>wstring match_results</code> 的类型定义。</li>
-<li><code>wsregex_iterator</code>    <code>wstring regex_iterator</code> 的类型定义。</li>
-<li><code>wsregex_token_iterator</code>    <code>wstring regex_token_iterator</code> 的类型定义。</li>
-<li><code>wssub_match</code>    <code>wstring sub_match</code> 的类型定义。</li>
-</ul>
-<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ul>
-<li><code>regex_match</code>    与正则表达式完全匹配。</li>
-<li><code>regex_replace</code>    替换匹配正则表达式。</li>
-<li><code>regex_search</code>    搜索正则表达式匹配项。</li>
-<li><code>swap</code>    交换 <code>basic_regex</code> 或 <code>match_results</code> 对象。</li>
-</ul>
-<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><ul>
-<li><code>operator==</code>    比较各种对象，相等。</li>
-<li><code>operator!=</code>    比较各种对象，不相等。</li>
-<li><code>operator&lt;</code>    比较各种对象，小于。</li>
-<li><code>operator&lt;=</code>    比较各种对象，小于或等于。</li>
-<li><code>operator&gt;</code>    比较各种对象，大于。</li>
-<li><code>operator&gt;=</code>    比较各种对象，大于或等于。</li>
-<li><code>operator&lt;&lt;</code>    将 sub_match 插入流中。</li>
-</ul>
-<h2 id="regex-match"><a href="#regex-match" class="headerlink" title="regex_match"></a><code>regex_match</code></h2><pre><code>#include &quot;stdafx.h&quot;  
-#include &lt;regex&gt;   
-#include &lt;iostream&gt;   
-
-using namespace std;  
-
-int _tmain(int argc, _TCHAR* argv[])  
-{  
-
-    // (1) with char*  
-    // Note how const char* requires cmatch and regex  
-    const char *first = &quot;abc&quot;;  
-    const char *last = first + strlen(first);  
-    cmatch narrowMatch;  
-    regex rx(&quot;a(b)c&quot;);  
-
-    bool found = regex_match(first, last, narrowMatch, rx);  
-
-    // (1) with std::wstring  
-    // Note how wstring requires wsmatch and wregex.  
-    // Note use of const iterators cbegin() and cend().  
-    wstring target(L&quot;Hello&quot;);  
-    wsmatch wideMatch;  
-    wregex wrx(L&quot;He(l+)o&quot;);  
-
-    if (regex_match(target.cbegin(), target.cend(), wideMatch, wrx))  
-        wcout &lt;&lt; L&quot;The matching text is:&quot; &lt;&lt; wideMatch.str() &lt;&lt; endl;   
-
-    // (2) with std::string  
-    string target2(&quot;Drizzle&quot;);  
-    regex rx2(R&quot;(D\w+e)&quot;); // no double backslashes with raw string literal  
-    found = regex_match(target2.cbegin(), target2.cend(), rx2);  
-
-    // (3) with wchar_t*  
-    const wchar_t* target3 = L&quot;2014-04-02&quot;;  
-    wcmatch wideMatch2;  
-
-    // LR&quot;(...)&quot; is a  raw wide-string literal. Open and close parens  
-    // are delimiters, not string elements.  
-    wregex wrx2(LR&quot;(\d{4}(-|/)\d{2}(-|/)\d{2})&quot;);   
-    if (regex_match(target3, wideMatch2, wrx2))  
-    {  
-        wcout &lt;&lt; L&quot;Matching text: &quot; &lt;&lt; wideMatch2.str() &lt;&lt; endl;  
-    }  
-
-     return 0;  
-}
-</code></pre><h2 id="regex-replace"><a href="#regex-replace" class="headerlink" title="regex_replace"></a><code>regex_replace</code></h2><pre><code>// std__regex__regex_replace.cpp   
-// compile with: /EHsc   
-#include &lt;regex&gt;   
-#include &lt;iostream&gt;   
-
-int main()   
-    {   
-    char buf[20];   
-    const char *first = &quot;axayaz&quot;;   
-    const char *last = first + strlen(first);   
-    std::regex rx(&quot;a&quot;);   
-    std::string fmt(&quot;A&quot;);   
-    std::regex_constants::match_flag_type fonly =   
-        std::regex_constants::format_first_only;   
-
- *std::regex_replace(&amp;buf[0], first, last, rx, fmt) = &apos;\0&apos;;   
-    std::cout &lt;&lt; &quot;replacement == &quot; &lt;&lt; &amp;buf[0] &lt;&lt; std::endl;   
-
- *std::regex_replace(&amp;buf[0], first, last, rx, fmt, fonly) = &apos;\0&apos;;   
-    std::cout &lt;&lt; &quot;replacement == &quot; &lt;&lt; &amp;buf[0] &lt;&lt; std::endl;   
-
-    std::string str(&quot;adaeaf&quot;);   
-    std::cout &lt;&lt; &quot;replacement == &quot;   
-        &lt;&lt; std::regex_replace(str, rx, fmt) &lt;&lt; std::endl;   
-
-    std::cout &lt;&lt; &quot;replacement == &quot;   
-        &lt;&lt; std::regex_replace(str, rx, fmt, fonly) &lt;&lt; std::endl;   
-
-    return (0);   
-    }
-</code></pre><p>结果：</p>
-<pre><code>replacement == AxAyAz  
-replacement == Axayaz  
-replacement == AdAeAf  
-replacement == Adaeaf 
-</code></pre><h2 id="regex-search"><a href="#regex-search" class="headerlink" title="regex_search"></a><code>regex_search</code></h2><pre><code>// std__regex__regex_search.cpp   
-// compile with: /EHsc   
-#include &lt;regex&gt;   
-#include &lt;iostream&gt;   
-
-int main()   
-    {   
-    const char *first = &quot;abcd&quot;;   
-    const char *last = first + strlen(first);   
-    std::cmatch mr;   
-    std::regex rx(&quot;abc&quot;);   
-    std::regex_constants::match_flag_type fl =   
-        std::regex_constants::match_default;   
-
-    std::cout &lt;&lt; &quot;search(f, f+1, \&quot;abc\&quot;) == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; regex_search(first, first + 1, rx, fl) &lt;&lt; std::endl;   
-
-    std::cout &lt;&lt; &quot;search(f, l, \&quot;abc\&quot;) == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; regex_search(first, last, mr, rx) &lt;&lt; std::endl;   
-    std::cout &lt;&lt; &quot;  matched: \&quot;&quot; &lt;&lt; mr.str() &lt;&lt; &quot;\&quot;&quot; &lt;&lt; std::endl;   
-
-    std::cout &lt;&lt; &quot;search(\&quot;a\&quot;, \&quot;abc\&quot;) == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; regex_search(&quot;a&quot;, rx) &lt;&lt; std::endl;   
-
-    std::cout &lt;&lt; &quot;search(\&quot;xabcd\&quot;, \&quot;abc\&quot;) == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; regex_search(&quot;xabcd&quot;, mr, rx) &lt;&lt; std::endl;   
-    std::cout &lt;&lt; &quot;  matched: \&quot;&quot; &lt;&lt; mr.str() &lt;&lt; &quot;\&quot;&quot; &lt;&lt; std::endl;   
-
-    std::cout &lt;&lt; &quot;search(string, \&quot;abc\&quot;) == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; regex_search(std::string(&quot;a&quot;), rx) &lt;&lt; std::endl;   
-
-    std::string str(&quot;abcabc&quot;);   
-    std::match_results&lt;std::string::const_iterator&gt; mr2;   
-    std::cout &lt;&lt; &quot;search(string, \&quot;abc\&quot;) == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; regex_search(str, mr2, rx) &lt;&lt; std::endl;   
-    std::cout &lt;&lt; &quot;  matched: \&quot;&quot; &lt;&lt; mr2.str() &lt;&lt; &quot;\&quot;&quot; &lt;&lt; std::endl;   
-
-    return (0);   
-}
-</code></pre><h2 id="match-results"><a href="#match-results" class="headerlink" title="match_results"></a><code>match_results</code></h2><pre><code>// std__regex__match_results_begin.cpp   
-// compile with: /EHsc   
-#include &lt;regex&gt;   
-#include &lt;iostream&gt;   
-
-int main()   
-    {   
-    std::regex rx(&quot;c(a*)|(b)&quot;);   
-    std::cmatch mr;   
-
-    std::regex_search(&quot;xcaaay&quot;, mr, rx);   
-
-    std::cout &lt;&lt; &quot;prefix: matched == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; mr.prefix().matched   
-        &lt;&lt; &quot;, value == &quot; &lt;&lt; mr.prefix() &lt;&lt; std::endl;   
-    std::cout &lt;&lt; &quot;whole match: &quot; &lt;&lt; mr.length() &lt;&lt; &quot; chars, value == &quot;   
-        &lt;&lt; mr.str() &lt;&lt; std::endl;   
-    std::cout &lt;&lt; &quot;suffix: matched == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; mr.suffix().matched   
-        &lt;&lt; &quot;, value == &quot; &lt;&lt; mr.suffix() &lt;&lt; std::endl;   
-    std::cout &lt;&lt; std::endl;   
-
-    std::string fmt(&quot;\&quot;c(a*)|(b)\&quot; matched \&quot;$0\&quot;\n&quot;   
-        &quot;\&quot;(a*)\&quot; matched \&quot;$1\&quot;\n&quot;   
-        &quot;\&quot;(b)\&quot; matched \&quot;$2\&quot;\n&quot;);   
-    std::cout &lt;&lt; mr.format(fmt) &lt;&lt; std::endl;   
-    std::cout &lt;&lt; std::endl;   
-
-// index through submatches   
-    for (size_t n = 0; n &lt; mr.size(); ++n)   
-        {   
-        std::cout &lt;&lt; &quot;submatch[&quot; &lt;&lt; n &lt;&lt; &quot;]: matched == &quot; &lt;&lt; std::boolalpha   
-            &lt;&lt; mr[n].matched &lt;&lt;   
-            &quot; at position &quot; &lt;&lt; mr.position(n) &lt;&lt; std::endl;   
-        std::cout &lt;&lt; &quot;  &quot; &lt;&lt; mr.length(n)   
-            &lt;&lt; &quot; chars, value == &quot; &lt;&lt; mr[n] &lt;&lt; std::endl;   
-        }   
-    std::cout &lt;&lt; std::endl;   
-
-// iterate through submatches   
-    for (std::cmatch::iterator it = mr.begin(); it != mr.end(); ++it)   
-        {   
-        std::cout &lt;&lt; &quot;next submatch: matched == &quot; &lt;&lt; std::boolalpha   
-            &lt;&lt; it-&gt;matched &lt;&lt; std::endl;   
-        std::cout &lt;&lt; &quot;  &quot; &lt;&lt; it-&gt;length()   
-            &lt;&lt; &quot; chars, value == &quot; &lt;&lt; *it &lt;&lt; std::endl;   
-        }   
-    std::cout &lt;&lt; std::endl;   
-
-// other members   
-    std::cmatch mr1(mr);   
-    mr = mr1;   
-    mr.swap(mr1);   
-
-    char buf[10];   
- *mr.format(&amp;buf[0], &quot;&lt;$0&gt;&quot;) = &apos;\0&apos;;   
-    std::cout &lt;&lt; &amp;buf[0] &lt;&lt; std::endl;   
-    std::cout &lt;&lt; &quot;empty == &quot; &lt;&lt; std::boolalpha &lt;&lt; mr.empty() &lt;&lt; std::endl;   
-
-    std::cmatch::allocator_type al = mr.get_allocator();   
-    std::cmatch::string_type str = std::string(&quot;x&quot;);   
-    std::cmatch::size_type maxsiz = mr.max_size();   
-    std::cmatch::char_type ch = &apos;x&apos;;   
-    std::cmatch::difference_type dif = mr.begin() - mr.end();   
-    std::cmatch::const_iterator cit = mr.begin();   
-    std::cmatch::value_type val = *cit;   
-    std::cmatch::const_reference cref = val;   
-    std::cmatch::reference ref = val;   
-
-    maxsiz = maxsiz;  // to quiet &quot;unused&quot; warnings   
-    if (ref == cref)   
-        ch = ch;   
-    dif = dif;   
-
-    return (0);   
-    }
-</code></pre><h2 id="sub-match"><a href="#sub-match" class="headerlink" title="sub_match"></a><code>sub_match</code></h2><pre><code>// std__regex__sub_match_compare.cpp   
-// compile with: /EHsc   
-#include &lt;regex&gt;   
-#include &lt;iostream&gt;   
-
-int main()   
-    {   
-    std::regex rx(&quot;c(a*)|(b)&quot;);   
-    std::cmatch mr;   
-
-    std::regex_search(&quot;xcaaay&quot;, mr, rx);   
-
-    std::csub_match sub = mr[1];   
-    std::cout &lt;&lt; &quot;matched == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; sub.matched &lt;&lt; std::endl;   
-    std::cout &lt;&lt; &quot;length == &quot; &lt;&lt; sub.length() &lt;&lt; std::endl;   
-
-    std::csub_match::difference_type dif = std::distance(sub.first, sub.second);   
-    std::cout &lt;&lt; &quot;difference == &quot; &lt;&lt; dif &lt;&lt; std::endl;   
-
-    std::csub_match::iterator first = sub.first;   
-    std::csub_match::iterator last = sub.second;   
-    std::cout &lt;&lt; &quot;range == &quot; &lt;&lt; std::string(first, last)   
-        &lt;&lt; std::endl;   
-    std::cout &lt;&lt; &quot;string == &quot; &lt;&lt; sub &lt;&lt; std::endl;   
-
-    std::csub_match::value_type *ptr = &quot;aab&quot;;   
-    std::cout &lt;&lt; &quot;compare(\&quot;aab\&quot;) == &quot;   
-        &lt;&lt; sub.compare(ptr) &lt;&lt; std::endl;   
-    std::cout &lt;&lt; &quot;compare(string) == &quot;   
-        &lt;&lt; sub.compare(std::string(&quot;AAA&quot;)) &lt;&lt; std::endl;   
-    std::cout &lt;&lt; &quot;compare(sub) == &quot;   
-        &lt;&lt; sub.compare(sub) &lt;&lt; std::endl;   
-
-    return (0);   
-    }
-</code></pre><h2 id="regex-error"><a href="#regex-error" class="headerlink" title="regex_error"></a><code>regex_error</code></h2><pre><code>// std__regex__regex_error_code.cpp   
-// compile with: /EHsc   
-#include &lt;regex&gt;   
-#include &lt;iostream&gt;   
-
-int main()   
-    {   
-    std::regex_error paren(std::regex_constants::error_paren);   
-
-    try   
-        {   
-        std::regex rx(&quot;(a&quot;);   
-        }   
-    catch (const std::regex_error&amp; rerr)   
-        {   
-        std::cout &lt;&lt; &quot;regex error: &quot;   
-            &lt;&lt; (rerr.code() == paren.code()   
-                 &quot;unbalanced parentheses&quot; : &quot;&quot;)   
-            &lt;&lt; std::endl;   
-        }   
-    catch (...)   
-        {   
-        std::cout &lt;&lt; &quot;unknown exception&quot; &lt;&lt; std::endl;   
-        }   
-
-    return (0);   
-    }
-</code></pre><h2 id="regex-iterator"><a href="#regex-iterator" class="headerlink" title="regex_iterator"></a><code>regex_iterator</code></h2><pre><code>// std__regex__regex_iterator_difference_type.cpp   
-// compile with: /EHsc   
-#include &lt;regex&gt;   
-#include &lt;iostream&gt;   
-
-typedef std::regex_iterator&lt;const char *&gt; Myiter;   
-int main()   
-    {   
-    const char *pat = &quot;axayaz&quot;;   
-    Myiter::regex_type rx(&quot;a&quot;);   
-    Myiter next(pat, pat + strlen(pat), rx);   
-    Myiter end;   
-
-    for (; next != end; ++next)   
-        std::cout &lt;&lt; &quot;match == &quot; &lt;&lt; next-&gt;str() &lt;&lt; std::endl;   
-
-// other members   
-    Myiter it1(pat, pat + strlen(pat), rx);   
-    Myiter it2(it1);   
-    next = it1;   
-
-    Myiter::iterator_category cat = std::forward_iterator_tag();   
-    Myiter::difference_type dif = -3;   
-    Myiter::value_type mr = *it1;   
-    Myiter::reference ref = mr;   
-    Myiter::pointer ptr = &amp;ref;   
-
-    dif = dif; // to quiet &quot;unused&quot; warnings   
-    ptr = ptr;   
-
-    return (0);   
-    }
-</code></pre><h2 id="regex-token-iterator"><a href="#regex-token-iterator" class="headerlink" title="regex_token_iterator"></a><code>regex_token_iterator</code></h2><pre><code>#include &lt;regex&gt;   
-#include &lt;iostream&gt;   
-
-typedef std::regex_token_iterator&lt;const char *&gt; Myiter;   
-int main()   
-    {   
-    const char *pat = &quot;aaxaayaaz&quot;;   
-    Myiter::regex_type rx(&quot;(a)a&quot;);   
-    Myiter next(pat, pat + strlen(pat), rx);   
-    Myiter end;   
-
-// show whole match   
-    for (; next != end; ++next)   
-        std::cout &lt;&lt; &quot;match == &quot; &lt;&lt; next-&gt;str() &lt;&lt; std::endl;   
-    std::cout &lt;&lt; std::endl;   
-
-// show prefix before match   
-    next = Myiter(pat, pat + strlen(pat), rx, -1);   
-    for (; next != end; ++next)   
-        std::cout &lt;&lt; &quot;match == &quot; &lt;&lt; next-&gt;str() &lt;&lt; std::endl;   
-    std::cout &lt;&lt; std::endl;   
-
-// show (a) submatch only   
-    next = Myiter(pat, pat + strlen(pat), rx, 1);   
-    for (; next != end; ++next)   
-        std::cout &lt;&lt; &quot;match == &quot; &lt;&lt; next-&gt;str() &lt;&lt; std::endl;   
-    std::cout &lt;&lt; std::endl;   
-
-// show prefixes and submatches   
-    std::vector&lt;int&gt; vec;   
-    vec.push_back(-1);   
-    vec.push_back(1);   
-    next = Myiter(pat, pat + strlen(pat), rx, vec);   
-    for (; next != end; ++next)   
-        std::cout &lt;&lt; &quot;match == &quot; &lt;&lt; next-&gt;str() &lt;&lt; std::endl;   
-    std::cout &lt;&lt; std::endl;   
-
-// show prefixes and whole matches   
-    int arr[] = {-1, 0};   
-    next = Myiter(pat, pat + strlen(pat), rx, arr);   
-    for (; next != end; ++next)   
-        std::cout &lt;&lt; &quot;match == &quot; &lt;&lt; next-&gt;str() &lt;&lt; std::endl;   
-    std::cout &lt;&lt; std::endl;   
-
-// other members   
-    Myiter it1(pat, pat + strlen(pat), rx);   
-    Myiter it2(it1);   
-    next = it1;   
-
-    Myiter::iterator_category cat = std::forward_iterator_tag();   
-    Myiter::difference_type dif = -3;   
-    Myiter::value_type mr = *it1;   
-    Myiter::reference ref = mr;   
-    Myiter::pointer ptr = &amp;ref;   
-
-    dif = dif; // to quiet &quot;unused&quot; warnings   
-    ptr = ptr;   
-
-    return (0);   
-    }
-</code></pre><h2 id="regex-traits"><a href="#regex-traits" class="headerlink" title="regex_traits"></a><code>regex_traits</code></h2><pre><code>// std__regex__regex_traits_char_class_type.cpp   
-// compile with: /EHsc   
-#include &lt;regex&gt;   
-#include &lt;iostream&gt;   
-
-typedef std::regex_traits&lt;char&gt; Mytr;   
-int main()   
-    {   
-    Mytr tr;   
-
-    Mytr::char_type ch = tr.translate(&apos;a&apos;);   
-    std::cout &lt;&lt; &quot;translate(&apos;a&apos;) == &apos;a&apos; == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; (ch == &apos;a&apos;) &lt;&lt; std::endl;   
-
-    std::cout &lt;&lt; &quot;nocase &apos;a&apos; == &apos;A&apos; == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; (tr.translate_nocase(&apos;a&apos;) == tr.translate_nocase(&apos;A&apos;))   
-        &lt;&lt; std::endl;   
-
-    const char *lbegin = &quot;abc&quot;;   
-    const char *lend = lbegin + strlen(lbegin);   
-    Mytr::size_type size = tr.length(lbegin);   
-    std::cout &lt;&lt; &quot;length(\&quot;abc\&quot;) == &quot; &lt;&lt; size &lt;&lt;std::endl;   
-
-    Mytr::string_type str = tr.transform(lbegin, lend);   
-    std::cout &lt;&lt; &quot;transform(\&quot;abc\&quot;) &lt; \&quot;abc\&quot; == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; (str &lt; &quot;abc&quot;) &lt;&lt; std::endl;   
-
-    const char *ubegin = &quot;ABC&quot;;   
-    const char *uend = ubegin + strlen(ubegin);   
-    std::cout &lt;&lt; &quot;primary \&quot;ABC\&quot; &lt; \&quot;abc\&quot; == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; (tr.transform_primary(ubegin, uend) &lt;   
-            tr.transform_primary(lbegin, lend))   
-        &lt;&lt; std::endl;   
-
-    const char *dig = &quot;digit&quot;;   
-    Mytr::char_class_type cl = tr.lookup_classname(dig, dig + 5);   
-    std::cout &lt;&lt; &quot;class digit == d == &quot; &lt;&lt; std::boolalpha   
-        &lt;&lt; (cl == tr.lookup_classname(dig, dig + 1))   
-        &lt;&lt; std::endl;   
-
-    std::cout &lt;&lt; &quot;&apos;3&apos; is digit == &quot; &lt;&lt;std::boolalpha   
-        &lt;&lt; tr.isctype(&apos;3&apos;, tr.lookup_classname(dig, dig + 5))   
-        &lt;&lt; std::endl;   
-
-    std::cout &lt;&lt; &quot;hex C == &quot; &lt;&lt; tr.value(&apos;C&apos;, 16) &lt;&lt; std::endl;   
-
-// other members   
-    str = tr.lookup_collatename(dig, dig + 5);   
-
-    Mytr::locale_type loc = tr.getloc();   
-    tr.imbue(loc);   
-
-    return (0);   
-    }
-</code></pre><h2 id="C-正则表达式库"><a href="#C-正则表达式库" class="headerlink" title="C++正则表达式库"></a>C++正则表达式库</h2><p><a href="http://zh.cppreference.com/w/cpp/regex" target="_blank" rel="noopener">C++正则表达式库</a></p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;iterator&gt;
-#include &lt;string&gt;
-#include &lt;regex&gt;
-
-int main()
-{
-    std::string s = &quot;Some people, when confronted with a problem, think &quot;
-        &quot;\&quot;I know, I&apos;ll use regular expressions.\&quot; &quot;
-        &quot;Now they have two problems.&quot;;
-
-    std::regex self_regex(&quot;REGULAR EXPRESSIONS&quot;,
-            std::regex_constants::ECMAScript | std::regex_constants::icase);
-    if (std::regex_search(s, self_regex)) {
-        std::cout &lt;&lt; &quot;Text contains the phrase &apos;regular expressions&apos;\n&quot;;
-    }
-
-    std::regex word_regex(&quot;(\\S+)&quot;);
-    auto words_begin = 
-        std::sregex_iterator(s.begin(), s.end(), word_regex);
-    auto words_end = std::sregex_iterator();
-
-    std::cout &lt;&lt; &quot;Found &quot;
-              &lt;&lt; std::distance(words_begin, words_end)
-              &lt;&lt; &quot; words\n&quot;;
-
-    const int N = 6;
-    std::cout &lt;&lt; &quot;Words longer than &quot; &lt;&lt; N &lt;&lt; &quot; characters:\n&quot;;
-    for (std::sregex_iterator i = words_begin; i != words_end; ++i) {
-        std::smatch match = *i;
-        std::string match_str = match.str();
-        if (match_str.size() &gt; N) {
-            std::cout &lt;&lt; &quot;  &quot; &lt;&lt; match_str &lt;&lt; &apos;\n&apos;;
-        }
-    }
-
-    std::regex long_word_regex(&quot;(\\w{7,})&quot;);
-    std::string new_s = std::regex_replace(s, long_word_regex, &quot;[$&amp;]&quot;);
-    std::cout &lt;&lt; new_s &lt;&lt; &apos;\n&apos;;
-}
-</code></pre><h2 id="ECMA与POSIX区别"><a href="#ECMA与POSIX区别" class="headerlink" title="ECMA与POSIX区别"></a>ECMA与POSIX区别</h2><pre><code>#include &lt;iostream&gt;
-#include &lt;string&gt;
-#include &lt;regex&gt;
-
-int main()
-{
-    std::string str = &quot;zzxayyzz&quot;;
-    std::regex re1(&quot;.*(a|xayy)&quot;); // ECMA
-    std::regex re2(&quot;.*(a|xayy)&quot;, std::regex::extended); // POSIX
-
-    std::cout &lt;&lt; &quot;Searching for .*(a|xayy) in zzxayyzz:\n&quot;;
-    std::smatch m;
-    std::regex_search(str, m, re1);
-    std::cout &lt;&lt; &quot; ECMA (depth first search) match: &quot; &lt;&lt; m[0] &lt;&lt; &apos;\n&apos;;
-    std::regex_search(str, m, re2);
-    std::cout &lt;&lt; &quot; POSIX (leftmost longest)  match: &quot; &lt;&lt; m[0] &lt;&lt; &apos;\n&apos;;
-}
-</code></pre><h1 id="boost-regex"><a href="#boost-regex" class="headerlink" title="boost regex"></a>boost regex</h1><p>1 boost::regex_match</p>
-<p>正则表达式匹配</p>
-<p>2 boost::regex_replace</p>
-<p>正则表达式替换</p>
-<p>3 boost::regex_search</p>
-<p>正则表达式检索</p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;boost/regex.hpp&gt;
-
-void main()
-{
-    std::string str = &quot;chinaen 8Glish&quot;;
-
-    boost::regex expr(&quot;(\\w+)\\s(\\w+)&quot;);
-
-    //+ 用来表示重复一或多次
-    //d-digit 任何0-9之间的数字
-    //s-space 任何空格字符
-    //u-upper A-Z之间的大写字母。如果设置了地域的话，可能包含其他字符
-    //w-word 任何单词字符-字母数字下划线
-
-    std::cout &lt;&lt; boost::regex_match(str, expr) &lt;&lt; std::endl;//匹配1，不匹配0
-
-    boost::smatch what;
-
-    if (boost::regex_search(str, what, expr))//正则表达式检索
-    {
-        std::cout &lt;&lt; what[0] &lt;&lt; std::endl;
-        std::cout &lt;&lt; what[1] &lt;&lt; std::endl;
-        std::cout &lt;&lt; what[2] &lt;&lt; std::endl;
-        std::cout &lt;&lt; what[3] &lt;&lt; std::endl;
-    }
-    else
-    {
-        std::cout &lt;&lt; &quot;检索失败&quot; &lt;&lt; std::endl;
-    }
-}
-</code></pre><p>boost::regex_replace</p>
-<p>正则表达式替换</p>
-<p>//s-space 任何空格字符</p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;boost/regex.hpp&gt;
-
-void main()
-{
-    std::string str = &quot;chinaen 8Glish&quot;;
-
-    boost::regex expr(&quot;\\s&quot;);//s-space 任何空格字符
-
-    std::string tihuan = &quot;____&quot;;
-
-    std::cout &lt;&lt; boost::regex_replace(str, expr, tihuan) &lt;&lt; std::endl;//把expr替换
-}
-</code></pre><p>以上内容转载：<a href="https://www.cnblogs.com/denggelin/p/5769624.html" target="_blank" rel="noopener">https://www.cnblogs.com/denggelin/p/5769624.html</a></p>
-<p><a href="https://yq.aliyun.com/articles/75580" target="_blank" rel="noopener">Boost学习之正则表达式–regex</a></p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;boost/regex.hpp&gt;
-
-using namespace std;
-int main(int argc, char* argv[])
-{    
-    //( 1 )   ((  3  )  2 )((  5 )4)(    6    )   
-    //(\w+)://((\w+\.)*\w+)((/\w*)*)(/\w+\.\w+)?
-    //^协议://网址(x.x...x)/路径(n个\字串)/网页文件(xxx.xxx)
-    const char *szReg = &quot;(\\w+)://((\\w+\\.)*\\w+)((/\\w*)*)(/\\w+\\.\\w+)?&quot;;
-    const char *szStr = &quot;http://www.cppprog.com/2009/0112/48.html&quot;;
-
-    {    //字符串匹配
-        boost::regex reg( szReg );
-        bool r=boost::regex_match( szStr , reg);
-        assert(r);
-    }
-
-    {    //提取子串
-        boost::cmatch mat;
-        boost::regex reg( szReg );
-        bool r=boost::regex_match( szStr, mat, reg);
-        if(r) //如果匹配成功
-        {
-            //显示所有子串
-            for(boost::cmatch::iterator itr=mat.begin(); itr!=mat.end(); ++itr)
-            {
-                //       指向子串对应首位置        指向子串对应尾位置          子串内容
-                cout &lt;&lt; itr-&gt;first-szStr &lt;&lt; &apos; &apos; &lt;&lt; itr-&gt;second-szStr &lt;&lt; &apos; &apos; &lt;&lt; *itr &lt;&lt; endl;
-            }
-        }
-        //也可直接取指定位置信息
-        if(mat[4].matched) cout &lt;&lt; &quot;Path is&quot; &lt;&lt; mat[4] &lt;&lt; endl;
-    }
-
-    { //查找
-        boost::cmatch mat;
-        boost::regex reg( &quot;\\d+&quot; );    //查找字符串里的数字
-        if(boost::regex_search(szStr, mat, reg))
-        {
-            cout &lt;&lt; &quot;searched:&quot; &lt;&lt; mat[0] &lt;&lt; endl;
-        }
-    }
-
-    { //替换
-        boost::regex reg( szReg );
-        string s = boost::regex_replace( string(szStr), reg, &quot;ftp://$2$5&quot;);
-        cout &lt;&lt; &quot;ftp site:&quot;&lt;&lt; s &lt;&lt; endl;
-    }
-    { //替换2，把&lt;&gt;&amp;转换成网页字符
-        string s1 = &quot;(&lt;)|(&gt;)|(&amp;)&quot;;
-        string s2 = &quot;(?1&lt;)(?2&gt;)(?3&amp;)&quot;;
-        boost::regex reg( s1 );
-        string s = boost::regex_replace( string(&quot;cout &lt;&lt; a&amp;b &lt;&lt; endl;&quot;), reg, s2, boost::match_default | boost::format_all);
-        cout &lt;&lt; &quot;HTML:&quot;&lt;&lt; s &lt;&lt; endl;
-    }
-
-    { //使用迭代器找出所有数字
-        boost::regex reg( &quot;\\d+&quot; );    //查找字符串里的数字
-        boost::cregex_iterator itrBegin = make_regex_iterator(szStr,reg); //(szStr, szStr+strlen(szStr), reg);
-        boost::cregex_iterator itrEnd;
-        for(boost::cregex_iterator itr=itrBegin; itr!=itrEnd; ++itr)
-        {
-            //       指向子串对应首位置        指向子串对应尾位置          子串内容
-            cout &lt;&lt; (*itr)[0].first-szStr &lt;&lt; &apos; &apos; &lt;&lt; (*itr)[0].second-szStr &lt;&lt; &apos; &apos; &lt;&lt; *itr &lt;&lt; endl;
-        }
-    }
-
-    { //使用迭代器拆分字符串
-        boost::regex reg(&quot;/&quot;);  //按/符拆分字符串
-        boost::cregex_token_iterator itrBegin = make_regex_token_iterator(szStr,reg,-1); //使用-1参数时拆分，使用其它数字时表示取第几个子串，可使用数组取多个串
-        boost::cregex_token_iterator itrEnd;
-        for(boost::cregex_token_iterator itr=itrBegin; itr!=itrEnd; ++itr)
-        {
-            cout &lt;&lt; *itr &lt;&lt; endl;
-        }
-    }
-
-    { //使用迭代器拆分字符串2
-        boost::regex reg(&quot;(.)/(.)&quot;);  //取/的前一字符和后一字符（这个字符串形象貌似有点邪恶-_-）
-        int subs[] = {1,2};        // 第一子串和第二子串
-        boost::cregex_token_iterator itrBegin = make_regex_token_iterator(szStr,reg,subs); //使用-1参数时拆分，使用其它数字时表示取第几个子串，可使用数组取多个串
-        boost::cregex_token_iterator itrEnd;
-        for(boost::cregex_token_iterator itr=itrBegin; itr!=itrEnd; ++itr)
-        {
-            cout &lt;&lt; *itr &lt;&lt; endl;
-        }
-    }
-
-    cin.get();
-    return 0;
-}
-</code></pre><p><a href="https://blog.csdn.net/leonardwang/article/details/6035171?spm=a2c4e.11153940.blogcont75580.15.3a02b5f4uSDlxO" target="_blank" rel="noopener">正则表达式 boost Regex</a></p>
-<h1 id="NET-正则表达式"><a href="#NET-正则表达式" class="headerlink" title=".NET 正则表达式"></a>.NET 正则表达式</h1><p><a href="https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expressions" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expressions</a></p>
-<p><a href="http://download.microsoft.com/download/D/2/4/D240EBF6-A9BA-4E4F-A63F-AEB6DA0B921C/Regular%20expressions%20quick%20reference.docx" target="_blank" rel="noopener">http://download.microsoft.com/download/D/2/4/D240EBF6-A9BA-4E4F-A63F-AEB6DA0B921C/Regular%20expressions%20quick%20reference.docx</a></p>
-<p><a href="https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expression-language-quick-reference" target="_blank" rel="noopener">正则表达式语言 - 快速参考</a></p>
-<p><a href="https://msdn.microsoft.com/zh-cn/library/system.text.regularexpressions.regex.aspx" target="_blank" rel="noopener">Regex 类</a></p>
-<h1 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h1><p><a href="http://www.zjmainstay.cn/regexp-lookaround" target="_blank" rel="noopener">深入理解正则表达式环视的概念与用法</a></p>
-<p><a href="http://tool.oschina.net/uploads/apidocs/jquery/regexp.html" target="_blank" rel="noopener">表达式全集</a></p>
-<p><a href="http://www.jb51.net/tools/zhengze.html" target="_blank" rel="noopener">正则表达式30分钟入门教程</a></p>
-<p><a href="http://www.regexlab.com/zh/regref.htm" target="_blank" rel="noopener">揭开正则表达式的神秘面纱</a></p>
-<p><a href="http://blog.jobbole.com/96708/" target="_blank" rel="noopener">正则表达式 30 分钟入门教程</a></p>
-<p><a href="http://blog.jobbole.com/75188/" target="_blank" rel="noopener">Python正则表达式指南</a></p>
-
+<p><a href="https://msdn.microsoft.com/zh-cn/library/hh967573.aspx" target="_blank" rel="noopener">MFC 和 ATL</a></p>
+<h1 id="WTL"><a href="#WTL" class="headerlink" title="WTL"></a>WTL</h1><p><a href="https://sourceforge.net/projects/wtl/" target="_blank" rel="noopener">https://sourceforge.net/projects/wtl/</a></p>
+<p>安装WTL向导</p>
+<p>AppWizard目录执行</p>
+<pre><code>wscript Setup.js
+</code></pre><p><a href="https://sourceforge.net/projects/visualfc/" title="https://sourceforge.net/projects/visualfc/" target="_blank" rel="noopener">visualfc</a></p>
+<p><a href="http://www.winmsg.com/cn/orbit.htm" title="http://www.winmsg.com/cn/orbit.htm" target="_blank" rel="noopener">WTL for MFC programmer 系列文章(翻译)</a></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><h3 id="添加按钮事件"><a href="#添加按钮事件" class="headerlink" title="添加按钮事件"></a>添加按钮事件</h3><p>对话框中添加button，id为IDC_BUTTON1</p>
+<pre><code>BEGIN_MSG_MAP(xx)
+    COMMAND_ID_HANDLER(IDC_BUTTON1, OnButton1)
+END_MSG_MAP()
+</code></pre>
       
 
       
@@ -6905,15 +6170,15 @@ int main(int argc, char* argv[])
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">正则表达式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">c++</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">regex</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ATL</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Boost</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">WTL</a>
         		</li>
       		
 		</ul>
@@ -6923,7 +6188,7 @@ int main(int argc, char* argv[])
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/03/正则表达式/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/04/12/ATL与WTL/">展开全文 >></a>
         </p>
       
 
@@ -7763,6 +7028,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">网络编程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">SOCKET</a>
               </li>
             
             <div class="clearfix"></div>

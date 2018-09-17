@@ -4,6 +4,31 @@
 
     
   <url>
+    <loc>https://caojingyou.github.io/2018/08/14/TCP%20IP%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2018-09-17T02:54:48.417Z</lastmod>
+    <data>
+        <display>
+        <title>网络编程</title>
+        <pubTime>2018-08-14T10:04:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C/C++</tag>
+         
+        <tag>网络编程</tag>
+         
+        <tag>TCP/IP</tag>
+         
+        <tag>SOCKET</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://caojingyou.github.io/2018/05/23/%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F%E5%8F%8A%E6%A3%80%E6%B5%8B/</loc>
     <lastmod>2018-09-06T08:43:38.682Z</lastmod>
     <data>

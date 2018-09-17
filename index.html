@@ -160,6 +160,100 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-TCP IP网络编程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/14/TCP IP网络编程/">网络编程</a>
+    </h1>
+  
+
+        
+        <a href="/2018/08/14/TCP IP网络编程/" class="archive-article-date">
+  	<time datetime="2018-08-14T10:04:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-14</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://blog.csdn.net/column/details/13478.html" target="_blank" rel="noopener">网络通信编程</a></p>
+<p><a href="https://blog.csdn.net/column/details/19222.html" target="_blank" rel="noopener">Windows网络模型</a></p>
+<p><a href="https://blog.csdn.net/column/details/18557.html" target="_blank" rel="noopener">网络协议</a></p>
+<h1 id="book"><a href="#book" class="headerlink" title="book"></a>book</h1><p>《TCP/IP网络编程》</p>
+<p>《Windows网络编程》</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">网络编程</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">TCP/IP</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">SOCKET</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/08/14/TCP IP网络编程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-个人喜欢的工具" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1715,874 +1809,6 @@ if(!db.open())
 
 
   
-    <article id="post-C++性能优化指南-读书笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/19/C++性能优化指南-读书笔记/">C++性能优化指南-读书笔记</a>
-    </h1>
-  
-
-        
-        <a href="/2018/06/19/C++性能优化指南-读书笔记/" class="archive-article-date">
-  	<time datetime="2018-06-19T02:38:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Windows计时函数"><a href="#Windows计时函数" class="headerlink" title="Windows计时函数"></a>Windows计时函数</h1><pre><code>time()
-GetTickCount()
-GetTickCount64()
-timeGetTime(
-clock()
-GetSystemTimeAsFileTime( ) 
-GetSystemTimePreciseAsFileTime()
-QueryPerformanceCounter()
-</code></pre><h1 id="创建-stopwatch-类"><a href="#创建-stopwatch-类" class="headerlink" title="创建 stopwatch 类"></a>创建 stopwatch 类</h1><h2 id="stopwatch-类"><a href="#stopwatch-类" class="headerlink" title="stopwatch 类"></a>stopwatch 类</h2><pre><code>template &lt;typename T&gt; class basic_stopwatch : T
-{
-    typedef typename T BaseTimer;
-public:
-    // 创建一个秒表，开始计时一项程序活动（可选）
-    explicit basic_stopwatch(bool start);
-    explicit basic_stopwatch(char const *activity = &quot;Stopwatch&quot;,
-                             bool start = true);
-    basic_stopwatch(std::ostream &amp;log,
-                    char const *activity = &quot;Stopwatch&quot;,
-                    bool start = true);
-    // 停止并销毁秒表
-    ~basic_stopwatch();
-    // 得到上一次计时时间（上一次停止时的时间）
-    unsigned LapGet() const;
-    // 判断：如果秒表正在运行，则返回true
-    bool IsStarted() const;
-    // 显示累计时间，一直运行，设置/返回上次计时时间
-    unsigned Show(char const *event = &quot;show&quot;);
-    // 启动（重启）秒表， 设置/返回上次计时时间
-    unsigned Start(char const *event_namee = &quot;start&quot;);
-    // 停止正在计时的秒表， 设置/返回上次计时时间
-    unsigned Stop(char const *event_name = &quot;stop&quot;);
-private: // 成员变量
-    char const *m_activity; // &quot;activity&quot;字符串
-    unsigned m_lap; // 上次计时时间（上一次停止时的时间）
-    std::ostream &amp;m_log; // 用于记录事件的流
-};
-</code></pre><h2 id="使用了-的-TimerBase-类"><a href="#使用了-的-TimerBase-类" class="headerlink" title="使用了  的 TimerBase 类"></a>使用了 <chrono> 的 TimerBase 类</chrono></h2><pre><code># include &lt;chrono&gt;
-using namespace std::chrono;
-class TimerBase
-{
-public:
-    // 清除计时器
-    TimerBase() : m_start(system_clock::time_point::min()) { }
-    // 清除计时器
-    void Clear()
-    {
-        m_start = system_clock::time_point::min();
-    }
-    // 如果计时器正在计时，则返回true
-    bool IsStarted() const
-    {
-        return (m_start.time_since_epoch() != system_clock::duration(0));
-    }
-    // 启动计时器
-    void Start()
-    {
-        m_start = system_clock::now();
-    }
-    // 得到自计时开始后的毫秒值
-    unsigned long GetMs()
-    {
-        if (IsStarted())
-        {
-            system_clock::duration diff;
-            diff = system_clock::now() - m_start;
-            return (unsigned)(duration_cast&lt;milliseconds&gt;(diff).count());
-        }
-        return 0;
-    }
-private:
-    system_clock::time_point m_start;
-};
-</code></pre><p> TimerBase 类与这个类的功能相同，不过其中使用的是在 Windows 上和<br>Linux 上都可以使用的 clock() 函数。</p>
-<h2 id="使用了-clock-的-TimerBase-类"><a href="#使用了-clock-的-TimerBase-类" class="headerlink" title="使用了 clock() 的 TimerBase 类"></a>使用了 clock() 的 TimerBase 类</h2><pre><code>class TimerBaseClock
-{
-public:
-
-    // 清除计时器
-    TimerBaseClock()
-    {
-        m_start = -1;
-    }
-    // 清除计时器
-    void Clear()
-    {
-        m_start = -1;
-    }
-    // 如果计时器正在计时，则返回true
-    bool IsStarted() const
-    {
-        return (m_start != -1);
-    }
-    // 启动计时器
-    void Start()
-    {
-        m_start = clock();
-    }
-    // 得到自计时开始后的毫秒值
-    unsigned long GetMs()
-    {
-        clock_t now;
-        if (IsStarted())
-        {
-            now = clock();
-            clock_t dt = (now - m_start);
-            return (unsigned long)(dt * 1000 / CLOCKS_PER_SEC);
-        }
-        return 0;
-    }
-private:
-    clock_t m_start;
-};
-</code></pre><p>这种实现方式的优点是在不同 C++ 版本和不同操作系统之间具有可移植性，缺点是在<br>Linux 上和 Windows 上， clock() 函数的测量结果略有不同。</p>
-<h2 id="使用了-gettimeofday-的-TimerBase"><a href="#使用了-gettimeofday-的-TimerBase" class="headerlink" title="使用了 gettimeofday() 的 TimerBase"></a>使用了 gettimeofday() 的 TimerBase</h2><pre><code># include &lt;chrono&gt;
-using namespace std::chrono;
-class TimerBaseChrono
-{
-public:
-    // 清除计时器
-    TimerBaseChrono() :
-        m_start(system_clock::time_point::min())
-    {
-    }
-    // 清除计时器
-    void Clear()
-    {
-        m_start = system_clock::time_point::min();
-    }
-    // 如果计时器正在计时，则返回true
-    bool IsStarted() const
-    {
-        return (m_start != system_clock::time_point::min());
-    }
-    // 启动计时器
-    void Start()
-    {
-        m_start = std::chrono::system_clock::now();
-    }
-    // 得到自计时开始后的毫秒值
-    unsigned long GetMs()
-    {
-        if (IsStarted())
-        {
-            system_clock::duration diff;
-            diff = system_clock::now() - m_start;
-            return (unsigned)
-                   (duration_cast&lt;milliseconds&gt;(diff).count());
-        }
-        return 0;
-    }
-private:
-    std::chrono::system_clock::time_point m_start;
-};
-</code></pre><p>TimerBase 类可以工作于旧版本的 Windows 上和 Linux 上。如果是在<br>Windows 上，那么还必须显式地提供 gettimeofday() 函数，因为它既不属于 Windows<br>API，也不属于 C 标准库。</p>
-<p>这种实现方式在不同的 C++ 版本和不同操作系统之间具有可移植性。但当运行于 Windows<br>上时，需要实现 gettimeofday() 函数。    </p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><pre><code>Stopwatch sw(&quot;activity&quot;);
-</code></pre><h2 id="Boost"><a href="#Boost" class="headerlink" title="Boost"></a>Boost</h2><p>timer（V1）库包含三个小组件，分别是：计时器timer、progress_timer和进度指示器progress_display，</p>
-<p>timer类可以测量时间的流逝，是一个小型的计时器，提供毫秒级别的计时精度和操作函数，供程序员手工控制使用，就像是个方便的秒表。</p>
-<p>progress_timer也是一个计时器，它继承自timer，会在析构时自动输出时间，省去了timer手动调用elapsed（）的工作，是一个用于自动计时相当方便的小工具。</p>
-<p>progress_display可以在控制台上显示程序的执行进度，如果程序执行很耗费时间，那么它能够提供一个友好的用户界面，不至于让用户在等待中失去耐心。</p>
-<p>timer和progress_timer是两个用于计时的小工具，实现原理很简单，使用了C标准中的std：：clock（），精度不高但足够用。特别是progress_timer，它利用了C++中析构函数会被自动调用的特点，能够自动显示时间，用起来更方便。但如果我们需要更高精度的计时，那么应该使用timer库的另一个组件：cpu_timer</p>
-<p>cpu_timer使用了chrono库的高精度时钟high_resolution_clock，不仅能够度量进程使用的实际时间，还能够度量CPU时间，它支持最高到微秒精度的计时，而且使用起来同样非常方便，是旧版本timer的很好替代品。</p>
-<p>auto_cpu_timer是一个类似于progress_timer的自动计时器，它继承自cpu_timer</p>
-<h1 id="采用更丰富的-std-string-库"><a href="#采用更丰富的-std-string-库" class="headerlink" title="采用更丰富的 std::string 库"></a>采用更丰富的 std::string 库</h1><h2 id="Boost-字符串库（http-www-boost-org-doc-libs-view-category-String）"><a href="#Boost-字符串库（http-www-boost-org-doc-libs-view-category-String）" class="headerlink" title="Boost 字符串库（http://www.boost.org/doc/libs/?view=category_String）"></a>Boost 字符串库（<a href="http://www.boost.org/doc/libs/?view=category_String）" target="_blank" rel="noopener">http://www.boost.org/doc/libs/?view=category_String）</a></h2><p>Boost 字符串库提供了按标记将字符串分段、格式化字符串和其他操作 std::string 的<br>函数。这为那些喜爱标准库中的 <algorithm> 头文件的开发人员提供了很大的帮助。</algorithm></p>
-<h2 id="C-字符串工具包-（http-www-partow-net-programming-strtk-index-html）"><a href="#C-字符串工具包-（http-www-partow-net-programming-strtk-index-html）" class="headerlink" title="C++ 字符串工具包 （http://www.partow.net/programming/strtk/index.html）"></a>C++ 字符串工具包 （<a href="http://www.partow.net/programming/strtk/index.html）" target="_blank" rel="noopener">http://www.partow.net/programming/strtk/index.html）</a></h2><p>另一个选择是 C++ 字符串工具包（StrTk）。StrTk 在解析字符串和按标记将字符串分段<br>方面格外优秀，而且它兼容 std::string 。</p>
-<h2 id="std-stringstream"><a href="#std-stringstream" class="headerlink" title="std::stringstream"></a>std::stringstream</h2><p>C++引入了ostringstream、istringstream、stringstream这三个类，要使用他们创建对象就必须包含sstream.h头文件。</p>
-<pre><code>istringstream类用于执行C++风格的串流的输入操作。 
-ostringstream类用于执行C风格的串流的输出操作。 
-strstream类同时可以支持C风格的串流的输入输出操作。
-</code></pre><p>C++ 中还有另外一种字符串。 std::stringstream 之于字符串，就如同 std::ostream 之于<br>输出文件。 std::stringstream 类以一种不同的方式封装了一块动态大小的缓冲区（事实<br>上，通常就是一个 std::string ），数据可以被添加至这个实体<br>中。 std::stringstream 是一个很好的例子，它展示了如何在类似的实现的顶层使用不同的<br>API 来提高代码性能。</p>
-<h2 id="std-string-view"><a href="#std-string-view" class="headerlink" title="std::string_view"></a>std::string_view</h2><p>string_view 可以解决 std::string 的某些问题。它包含一个指向字符串数据的无主指<br>针和一个表示字符串长度的值，所以它可以表示为 std::string 或字面字符串的子字<br>符串。与 std::string 的返回值的成员函数相比，它的 substring 和 trim 等操作更高<br>效。 std::string. string_view 可能会被加入到 C++14 中。有些编译器现在已经实现了<br>std::experimental::string_view 。 string_view 与 std::string 的接口几乎相同。<br>std::string 的问题在于指针是无主的。程序员必须确保每个 string_view 的生命周期<br>都不会比它所指向的 std::string 的生命周期长。</p>
-<h2 id="boost-string-ref"><a href="#boost-string-ref" class="headerlink" title="boost.string_ref"></a>boost.string_ref</h2><p>string_ref提供了一个“只读视图”，可以避免字符串的拷贝代价，是更好的const std：：string&amp;</p>
-<p>boost.string_ref就是这样一种轻量级的字符串，顾名思义，它只持有字符串的引用，没有内存拷贝成本，所以运行效率很高，是更好的const std：：string&amp;。</p>
-<p>string_ref是轻量级的字符串表示，功能与std：：string一样，但操作它只需要很小的成本，完全可以代替const std：：string&amp;来提高字符串处理的效率，非常有价值。string_ref即将在C++17标准里出现，但可能采用新名字string_view。 </p>
-<h2 id="folly-fbstring-（https-github-com-facebook-folly-blob-master-folly-docs-FBString-md）"><a href="#folly-fbstring-（https-github-com-facebook-folly-blob-master-folly-docs-FBString-md）" class="headerlink" title="folly::fbstring （https://github.com/facebook/folly/blob/master/folly/docs/FBString.md）"></a>folly::fbstring （<a href="https://github.com/facebook/folly/blob/master/folly/docs/FBString.md）" target="_blank" rel="noopener">https://github.com/facebook/folly/blob/master/folly/docs/FBString.md）</a></h2><p>folly是一个完整的代码库，它被 Facebook 用在了他们自己的服务器上。它包含了高度<br>优化过的、可以直接替代 std::string 的 fbstring 。在 fbstring 的实现方式中，对于短<br>的字符串是不用分配缓冲区的。 fbstring 的设计人员声称他们测量到性能得到了改善。<br>由于这种特性，Folly 很可能非常健壮和完整。目前，只有 Linux 支持 Folly。</p>
-<h2 id="字符串类的工具包（http-johnpanzer-com-tsc-cuj-ToolboxOfStrings-html）"><a href="#字符串类的工具包（http-johnpanzer-com-tsc-cuj-ToolboxOfStrings-html）" class="headerlink" title="字符串类的工具包（http://johnpanzer.com/tsc_cuj/ToolboxOfStrings.html）"></a>字符串类的工具包（<a href="http://johnpanzer.com/tsc_cuj/ToolboxOfStrings.html）" target="_blank" rel="noopener">http://johnpanzer.com/tsc_cuj/ToolboxOfStrings.html）</a></h2><p>这篇发表于 2000 年的文章和代码描述了一个模板化的字符串类型，其接口与 SGI 5 的<br>std::string 相同。它提供了一个固定最大长度的字符串类型和一个可变长度的字符串<br>类型。这是模板元编程（template metaprogramming）魔法的一个代表作，但可能会让<br>一些人费解。对于那些致力于设计更好的字符串类的开发人员来说，这是一个切实可行<br>的候选类库。</p>
-<h2 id="C-03-表达式模板（http-craighenderson-co-uk-papers-exptempl-）"><a href="#C-03-表达式模板（http-craighenderson-co-uk-papers-exptempl-）" class="headerlink" title="C++03 表达式模板（http://craighenderson.co.uk/papers/exptempl/）"></a>C++03 表达式模板（<a href="http://craighenderson.co.uk/papers/exptempl/）" target="_blank" rel="noopener">http://craighenderson.co.uk/papers/exptempl/）</a></h2><p>这是在 2005 年的一篇论文中展示的用于解决特定字符串连接问题的模板代码。表达<br>式模板重写了 + 运算符， 这样可以创建一个表示两个字符串的连接或是一个字符串和<br>一个字符串表达式的连接的中间类型。当表达式模板被赋值给一个字符串时，表达式<br>模板将内存分配和复制推迟至表达式结束，只会执行一次内存分配。表达式模版兼容<br>std::string 。当既存的代码中有一个连接一长串子字符串的表达式时，使用表达式模<br>板可以显著地提升性能。这个概念可以扩展至整个字符串库。</p>
-<h2 id="Better-String-库（http-bstring-sourceforge-net-）"><a href="#Better-String-库（http-bstring-sourceforge-net-）" class="headerlink" title="Better String 库（http://bstring.sourceforge.net/）"></a>Better String 库（<a href="http://bstring.sourceforge.net/）" target="_blank" rel="noopener">http://bstring.sourceforge.net/）</a></h2><p>这个代码归档文件中包含了一个通用的字符串实现。它与 std::string 的实现方式不<br>同，但是包含一些强大的特征。如果许多字符串是从其他字符串中的一部分构建出来<br>的， bstring 允许通过相对一个字符串的偏移量和长度来组成一个新的字符串。我用过<br>以这种思想设计实现的有专利权的字符串，它们确实非常高效。在 C++ 中有一个称为<br>CBString 的 bstring 库的包装类。</p>
-<h2 id="rope-（https-www-sgi-com-tech-stl-Rope-html）"><a href="#rope-（https-www-sgi-com-tech-stl-Rope-html）" class="headerlink" title="rope （https://www.sgi.com/tech/stl/Rope.html）"></a>rope<t,alloc> （<a href="https://www.sgi.com/tech/stl/Rope.html）" target="_blank" rel="noopener">https://www.sgi.com/tech/stl/Rope.html）</a></t,alloc></h2><p>这是一个非常适合在长字符串中进行插入和删除操作的字符串库。它不兼容 std::string 。</p>
-<h2 id="Boost-字符串算法（http-www-boost-org-doc-libs-1-60-0-doc-html-string-algo-html）"><a href="#Boost-字符串算法（http-www-boost-org-doc-libs-1-60-0-doc-html-string-algo-html）" class="headerlink" title="Boost 字符串算法（http://www.boost.org/doc/libs/1_60_0/doc/html/string_algo.html）"></a>Boost 字符串算法（<a href="http://www.boost.org/doc/libs/1_60_0/doc/html/string_algo.html）" target="_blank" rel="noopener">http://www.boost.org/doc/libs/1_60_0/doc/html/string_algo.html）</a></h2><p>这是一个字符串算法库，它是对 std::string 的成员函数的补充。这个库是基于“查找<br>和替换”的概念构建起来的。</p>
-<h1 id="优化算法"><a href="#优化算法" class="headerlink" title="优化算法"></a>优化算法</h1><h2 id="时间开销"><a href="#时间开销" class="headerlink" title="时间开销"></a>时间开销</h2><p>概括介绍了一些常用算法的时间开销以及相对于程序运行时开销的倍数。</p>
-<h3 id="O-1-，即常量时间"><a href="#O-1-，即常量时间" class="headerlink" title="O(1)，即常量时间"></a>O(1)，即常量时间</h3><p>最快的算法的时间开销是常量时间；也就是说，它们的开销是固定的，完全不取决于输<br>入数据的规模。常量时间算法就像是“圣杯”一样，如果你找到它，它就具有难以置信<br>的价值，但是你也可能穷极一生都找不到它，因此要当心那些向你兜售常量时间算法的<br>陌生人。常量的比例可能非常高；也就是说，开销可能只是一次操作，但这次操作的时<br>间可能非常长。实际上，它可能是 O(n) 伪装而成的，甚至可能更糟。</p>
-<h3 id="O-log-2-n"><a href="#O-log-2-n" class="headerlink" title="O(log 2^n)"></a>O(log 2^n)</h3><p>时间开销比线性更小。例如，一种可以在每一步都将输入数据分为两半的查找算法，其<br>时间开销是 O(log 2^ n)。时间开销比线性更小，表示这类算法的时间开销的增长速度比输<br>入数据规模的增长速度缓慢。因此，它们通常足够高效，以至于许多情况下（但并非所<br>有情况下）都无需再去寻找更快的算法。算法的实现代码也不会出现在分析器列出的昂<br>贵函数列表中。我们可以在程序中大量地调用 O(log 2^ n) 时间开销的算法，而不用担心这<br>会明显地降低程序性能。二分查找算法是一种常用的具有 O(log 2^ n) 时间开销的算法。</p>
-<h3 id="O-n-，即线性时间"><a href="#O-n-，即线性时间" class="headerlink" title="O(n)，即线性时间"></a>O(n)，即线性时间</h3><p>如果一个算法的时间开销是 O(n)，那么算法需要花费的时间与输入数据的规模成正比。<br>这种算法称为线性时间算法。时间开销是 O(n) 的算法通常是那些从输入数据的一端向<br>另一端扫描，直至找到最小值或最大值的算法。线性时间算法的时间开销的增长速度与<br>其输入数据规模的增长速度相同。这种算法也并不昂贵，即使不断地扩大程序的输入数<br>据的规模，也不必担心会占用巨大的计算资源。不过，当多种线性时间算法合并在一起<br>时，可能会导致它们的时间开销变为 O(n ^2 ) 或者更差。因此，当一个程序对大型输入数<br>据集的处理时间很长时，很可能就是这个原因。</p>
-<h3 id="O-n-log-2-n"><a href="#O-n-log-2-n" class="headerlink" title="O(n log 2 ^n)"></a>O(n log 2 ^n)</h3><p>算法可能具有超线性时间开销。例如，许多排序算法会在每一步都成对地比较输入数<br>据，并将待排序的数据分成两部分。这些算法的时间开销是 O(nlog 2 ^n) 。虽然随着 n 的<br>增加，时间开销是 O(n log 2^ n) 的算法时间开销相对更大，但其增长速率是如此之慢，以<br>至于通常情况下即使 n 很大，使用这类算法也没有问题。当然，还是要避免在程序中无<br>谓地调用这类算法。</p>
-<h3 id="O-n-2-、O-n-3-等"><a href="#O-n-2-、O-n-3-等" class="headerlink" title="O(n^ 2 )、O(n ^3 ) 等"></a>O(n^ 2 )、O(n ^3 ) 等</h3><p>有些算法，包括一些比较低效的排序算法，必须将每个输入数据都与其他所有输入数据<br>进行比较。这类算法的时间开销是 O(n^ 2 )。这类算法的时间开销的增长速度非常快，以<br>至于让人不免有些担心它在 n 很大的数据集上的效率。对于有些问题，简单解决方案的<br>时间开销是 O(n ^2 ) 或 O(n ^3 )，而微妙一点的解决方案的速度会更快。</p>
-<h3 id="O-2-n"><a href="#O-2-n" class="headerlink" title="O(2^ n )"></a>O(2^ n )</h3><p>O(2 ^n ) 算法的时间开销增长得太快了，它们应当只被应用于 n 很小的情况下。有时，这<br>是没问题的。那些需要检查规模为 n 的输入数据集中的所有数据组合的算法的时间复<br>杂度是 O(2 ^n )。调度问题和行程规划问题，如著名的旅行商问题（Traveling Salesman<br>Problem）的时间开销是 O(2 ^n )。如果解决基本问题时使用的算法的时间开销是 O(2 ^n<br>)，<br>那么开发人员将面临几个难以抉择的选项：使用一种无法确保最优解决方案的启发式算<br>法，将解决方案限制在 n 很小的输入数据集上；或是找到其他方法加上与解决问题完全<br>无关的值。</p>
-<h2 id="查找算法的时间开销"><a href="#查找算法的时间开销" class="headerlink" title="查找算法的时间开销"></a>查找算法的时间开销</h2><ul>
-<li>线性查找算法的时间开销为 O(n)，它的开销虽然大，却极其常用。它可以用于无序表。<br>即使无法对表中的关键字进行排序，只要能够比较关键字是否相等，即可使用它。对于有序表，线性查找算法可以在查找完表中的所有元素之前结束。虽然它的时间开销仍然<br>是 O(n)，但是平均速度的确比原来快了一倍。<br>如果允许改变表，一种将每次查找结果都移动至表头的线性查找算法在某些情况下可<br>能会有更高的性能。例如， 每次在表达式中用到标识符时，都会去查找编译器中的符号<br>表。如果程序中有很多形如 i = i + 1; 的表达式，这项优化就可以使线性算法有用武<br>之地了。</li>
-</ul>
-<ul>
-<li>二分查找算法的时间开销是 O(log 2 n)，效率更高，但它并不是可能的最好的查找算法。<br>二分查找算法要求表已经按照查找关键字排序完成，不仅需要可以比较查找关键字是否<br>相等，还需要可以比较它们之间的大小关系。<br>在查找和排序世界中，二分查找是最常用的算法。它是一种分治法算法，通过将待排序<br>元素的关键字与位于表中间的元素的关键字进行比较，来决定该元素究竟是排在中间元<br>素之前还是之后，不断地将表一分为二。</li>
-</ul>
-<ul>
-<li>插补查找（interpolation search）与二分查找类似，也是将有序表分为两部分，不过它用<br>到了查找关键字的一些其他特性来改善分块性能。当查找关键字均匀分布时，插补查找<br>的性能可以达到非常高效的 O(log log n) 。如果表很大或是测试表项的成本很高（例如<br>当在一个旋转盘上时），这种改善效果是非常显著的。不过，插补查找仍然不是可能的<br>最快的查找算法。</li>
-</ul>
-<ul>
-<li>通过散列法，即将查找关键字转换为散列表中的数组索引，是可以以平均 O(1) 的时间<br>找出一条记录的。 散列法无法工作于键值对的链表上，它需要一种特殊结构的表。它<br>只需要比较散列表项是否相等即可。散列法在最差情况下的性能是 O(n)，而且它所需<br>要的散列表项的数量可能比要查找的记录的数量多。不过，当表的内容是固定时（例如<br>月份的名字或是编程语言的关键字），就不会发生最差情况了。</li>
-</ul>
-<h2 id="高效排序算法"><a href="#高效排序算法" class="headerlink" title="高效排序算法"></a>高效排序算法</h2><table>
-<thead>
-<tr>
-<th>排序算法</th>
-<th>最好情况</th>
-<th>平均情况</th>
-<th>最差情况</th>
-<th>空间需求</th>
-<th>最好/最差情况的注意点</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>插入排序</td>
-<td>n</td>
-<td>n^ 2</td>
-<td>n^ 2</td>
-<td>1</td>
-<td>最好情况出现在当数据集已经排序完成或是几乎排序完成时</td>
-</tr>
-<tr>
-<td>快速排序</td>
-<td>nlog 2^ n</td>
-<td>n log 2^ n</td>
-<td>n^ 2</td>
-<td>log 2^ n</td>
-<td>最差情况出现在数据集已经排序完成或是支点元素的原生选择（第一个 / 最后一个）</td>
-</tr>
-<tr>
-<td>归并排序</td>
-<td>nlog 2^ n</td>
-<td>nlog 2^ n</td>
-<td>nlog 2^ n</td>
-<td>1</td>
-<td></td>
-</tr>
-<tr>
-<td>树形排序</td>
-<td>nlog 2^ n</td>
-<td>nlog 2^ n</td>
-<td>nlog 2^ n</td>
-<td>n</td>
-<td></td>
-</tr>
-<tr>
-<td>堆排序</td>
-<td>nlog 2^ n</td>
-<td>nlog 2^ n</td>
-<td>nlog 2^ n</td>
-<td>1</td>
-<td></td>
-</tr>
-<tr>
-<td>Timsort^ 1</td>
-<td>n</td>
-<td>nlog 2^ n</td>
-<td>nlog 2^ n</td>
-<td>n</td>
-<td>最好情况出现在当数据集已经排序完成时</td>
-</tr>
-<tr>
-<td>内省排序</td>
-<td>nlog 2^ n</td>
-<td>nlog 2^ n</td>
-<td>nlog 2^ n</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-<h3 id="利用输入数据集的已知特性"><a href="#利用输入数据集的已知特性" class="headerlink" title="利用输入数据集的已知特性"></a>利用输入数据集的已知特性</h3><p>如果你知道输入数据集已经排序完成或是几乎排序完成，通常情况下性能差得让人无法接<br>受的插入排序算法反而在这些数据上的性能很棒，达到了 O(n)。<br>Timsort 是一种相对较新的混合型排序算法，它在输入数据集已经排序完成或是几乎排序<br>完成时，性能也能达到 O(n)；而对于其他情况，最优性能则是 O(n log 2 n)。Timsort 现在已<br>经成为 Python 语言的标准排序算法了。<br>最近还出现了一种称为内省排序（introsort）的算法，它是快速排序和堆排序的混合形式。<br>内省排序首先以快速排序算法开始进行排序，但是当输入数据集导致快速排序的递归深度<br>太深时，会切换为堆排序。内省排序可以确保在最差情况下的时间开销是 O(n log 2 n) 的同<br>时，利用了快速排序算法的高效实现来减少平均情况下的运行时间。自 C++11 开始，内省<br>排序已经成为了 std::sort() 的优先实现。<br>另外一种最近非常流行的算法是 Flash Sort。对于抽取自某种概率分布的数据，它的性能非<br>常棒，达到了 O(n)。Flash Sort 是与基数排序类似，都是基于概率分布的百分位将数据排<br>序至桶中。Flash Sort 的一个简单的适用场景是当数据元素均匀分布时。</p>
-<h1 id="优化动态分配内存的变量"><a href="#优化动态分配内存的变量" class="headerlink" title="优化动态分配内存的变量"></a>优化动态分配内存的变量</h1><h2 id="减少动态变量的使用"><a href="#减少动态变量的使用" class="headerlink" title="减少动态变量的使用"></a>减少动态变量的使用</h2><ul>
-<li>静态地创建类的成员变量</li>
-<li>使用静态数据结构<ul>
-<li>用 std::array 替代 std::vector</li>
-<li>在栈上创建大块缓冲区</li>
-<li>静态地创建链式数据结构，可以使用静态初始化的方式构建具有链式数据结构的数据</li>
-<li>在数组中创建二叉树，在数组中构建二叉树，然后不在节点中保存子节点的链接，而是利用节点的数组索引来计算子节点的数组索引。如果节点的索引是 i，那么它的两个子节点的索引分别是 2i 和 2i+1。这种方法带来的另外一个好处是，能够很快地知道父节点的索引是 i/2。对于平衡二叉树而言，数组形式的树可能会比链式树低效。</li>
-<li>用环形缓冲区替代双端队列</li>
-</ul>
-</li>
-<li>使用 std::make_shared 替代 new 表达式</li>
-<li>不要无谓地共享所有权</li>
-</ul>
-<h2 id="减少动态变量的重新分配"><a href="#减少动态变量的重新分配" class="headerlink" title="减少动态变量的重新分配"></a>减少动态变量的重新分配</h2><ul>
-<li>预分配动态变量以防止重新分配</li>
-<li>在循环外创建动态变量</li>
-</ul>
-<h2 id="移除无谓的复制"><a href="#移除无谓的复制" class="headerlink" title="移除无谓的复制"></a>移除无谓的复制</h2><ul>
-<li><p>在类定义中禁止不希望发生的复制，将复制构造函数和赋值运算符的可见性声明为 private 可以防止它们被<br>外部调用。在 C++11 中，我们可以在复制构造函数和赋值运算符后面加上 delete 关键字来达到这个目的。</p>
-</li>
-<li><p>移除函数调用上的复制，引用参数</p>
-</li>
-<li>移除函数返回上的复制，返回引用。<ul>
-<li>为复制省略（copy elision）或是返回值优化（return value optimization，RVO）。</li>
-<li>函数内更新引用参数。<h2 id="实现移动语义"><a href="#实现移动语义" class="headerlink" title="实现移动语义"></a>实现移动语义</h2></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>std::swap() ：“穷人”的移动语义<ul>
-<li>交换操作的强大之处在于它可以递归地应用于类的成员变量上。交换并不会复制指针所指<br>向的对象，而是交换指针自身。对于那些指向大的、动态分配内存的数据结构，交换比复<br>制更加高效。</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>共享所有权的实体<ul>
-<li>实体无法复制。不过，一个指向实体的共享指针却可以复制。因此，虽然在移动语义出现之前无法创建 std::vector<std::mutex> 等，但是我们可以定义一个 std::vector&lt;std::shared_ptr<std::mutex>&gt; 。</std::mutex></std::mutex></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>移动语义的移动部分<ul>
-<li>C++ 的类型系统被扩展了，它能够从函数调用上的左值中识别出右值。如果 T 是一个类<br>型，那么声明 T&amp;&amp; 就是指向 T 的右值引用——也就是说，一个指向类型 T 的右值的引用。函数重载的解析规则也被扩展了，这样当右值是一个实参时，优先右值引用重载；而当左值是实参时，则需要左值引用重载。特殊成员函数的列表被扩展了，现在它包含了移动构造函数和一个移动赋值运算符。这些函数是复制构造函数和赋值运算符的重载，它们接收右值引用作为参数。如果一个类实现了移动构造函数和移动赋值运算符，那么在进行初始化或是赋值实例时就可以使用高效的移动语义。std::move。</li>
-</ul>
-</li>
-</ul>
-<h1 id="优化热点语句"><a href="#优化热点语句" class="headerlink" title="优化热点语句"></a>优化热点语句</h1><ul>
-<li>从循环中移除代码<ul>
-<li>缓存循环结束条件值</li>
-<li>使用更高效的循环语句，将一个 for 循环简化为 do 循环通常可以提高循环处理的速度。在 Visual Studio 2010 上耗时 482 毫秒，性能提高了12%；不过在 Visual Studio 2015 上却耗时 674 毫秒，性能降低了 25%。</li>
-<li>用递减替代递增</li>
-<li>从循环中移除不变性代码</li>
-<li>从循环中移除无谓的函数调用</li>
-<li>从循环中移除隐含的函数调用<ul>
-<li>声明一个类实例（调用构造函数）</li>
-<li>初始化一个类实例（调用构造函数）</li>
-<li>赋值给一个类实例（调用赋值运算符）</li>
-<li>涉及类实例的计算表达式（调用运算符成员函数）</li>
-<li>退出作用域（调用在作用域中声明的类实例的析构函数）</li>
-<li>函数参数（每个参数表达式都会被复制构造到它的形参中）</li>
-<li>函数返回一个类的实例 （调用复制构造函数，可能是两次） </li>
-<li>向标准库容器中插入元素（元素会被移动构造或复制构造）</li>
-<li>向矢量中插入元素（如果矢量重新分配了内存，那么所有的元素都需要被移动构造或是复制构造）</li>
-</ul>
-</li>
-<li>从循环中移除昂贵的、缓慢改变的调用</li>
-<li>将循环放入函数以减少调用开销</li>
-<li>不要频繁地进行操作,不要频繁地检测事件</li>
-</ul>
-</li>
-<li>从函数中移除代码<ul>
-<li>简短地声明内联函数,内联是一种通过在编译时进行计算来移除多余计算的改善性能的手段。函数内联可能是最强力的代码优化武器。事实上，Visual Studio 中“调试”版本与“正式”版本（或是在 GCC 的 -d 选项与 -O 选项）的性能区别，主要源于“调试”版本关闭了函数内联。</li>
-<li>在使用之前定义函数,在第一次调用函数之前定义函数（提供函数体）给了编译器优化函数调用的机会。当编译器编译对某个函数的调用时发现该函数已经被定义了，那么编译器能够自主选择内联这次函数调用。如果编译器能够同时找到函数体，以及实例化那些发生虚函数调用的类变量、指针或是引用的代码，那么这也同样适用于虚函数。</li>
-<li>移除未使用的多态性</li>
-<li>放弃不使用的接口</li>
-<li>用模板在编译时选择实现,模板参数可以是任意类型——具有自己的一组成员函数的类类型或是具有内建运算符的基本类型。因此，存在两种接口：模板类的 public 成员，以及由在模板参数上被调用的运算符和函数所定义的接口。抽象基类中定义的接口是非常严格的，继承类必须实现在抽象基类中定义的所有函数。而通过模板定义的接口就没有这么严格了。只有参数中那些实际会被模板的某种特化所调用的函数才需要被定义。</li>
-<li>避免使用PIMPL惯用法,采用将BigClass 分解，使接口功能更加集中的方法，可能与 PIMPL 同样有效。</li>
-<li>移除对DDL的调用,一种改善函数调用性能的方式是不使用 DLL，而是使用对象代码库并将其链接到可执行程序上。</li>
-<li>使用静态成员函数取代成员函数,每次对成员函数的调用都有一个额外的隐式参数：指向成员函数被调用的类实例的 this 指针。通过对 this 指针加上偏移量可以获取类成员数据。虚成员函数必须解引 this 指针来获得虚函数表指针。有时，一个成员函数中的处理仅仅使用了它的参数，而不用访问成员数据，也不用调用其他的虚成员函数。在这种情况下， this 指针没有任何作用。</li>
-<li>将虚析构函数移至基类中</li>
-</ul>
-</li>
-<li>优化表达式<ul>
-<li>简化表达式，y = a<em>x</em>x<em>x + b</em>x<em>x + c</em>x + d优化为y = (((a<em>x + b)</em>x) + c)*x + d;</li>
-<li>将常量组合在一起，seconds = 24 <em> 60 </em> 60 <em> days;或是seconds = days </em> (24 <em> 60 </em> 60);编译器会计算表达式中的常量部分，产生类似下面的表达式：seconds = 86400 <em> days;但是，如果程序员这样写：seconds = 24 </em> days <em> 60 </em> 60;编译器只能在运行时进行乘法计算了。</li>
-<li>使用更高效的运算符，位移运算和加法运算替代乘法。例如，整数表达式 x<em>9 可以被重写为x</em>8+x*1 ，进而可以重写为 (x&lt;&lt;3)+x 。</li>
-<li>使用整数计算替代浮点型计算</li>
-<li>双精度类型可能会比浮点型更快</li>
-<li>用闭形式替代迭代计算</li>
-</ul>
-</li>
-<li>优化控制流程惯用法<ul>
-<li>用 switch 替代 if-else　if-else</li>
-<li>用虚函数替代 switch 或 if</li>
-<li>使用无开销的异常处理<ul>
-<li>在 C++11 中引入了一种新的异常规范，称为 noexcept 。声明一个函数为 noexcept 会告诉编译器这个函数不可能抛出任何异常。如果这个函数抛出了异常，那么如同在 throw() 规范中一样， terminate() 将会被调用。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="判断一个整数是否是-2-的幂的闭形式"><a href="#判断一个整数是否是-2-的幂的闭形式" class="headerlink" title="判断一个整数是否是 2 的幂的闭形式"></a>判断一个整数是否是 2 的幂的闭形式</h2><pre><code>inline bool is_power_2_closed(unsigned n) {
-    return ((n != 0) &amp;&amp; !(n &amp; (n - 1)));
-}
-
-int isPowerOfTwo (unsigned int x)
-{
-  return ((x != 0) &amp;&amp; ((x &amp; (~x + 1)) == x));
-}
-</code></pre><p>Rick Regan 在他的网页（<a href="http://www.exploringbinary.com/ten-ways-" target="_blank" rel="noopener">http://www.exploringbinary.com/ten-ways-</a><br>to-check-if-an-integer-is-a-power-of-two-in-c/）上记录了 10 种方法</p>
-<p>Hacker’s Delight ：<a href="http://hackersdelight.org/" target="_blank" rel="noopener">http://hackersdelight.org/</a></p>
-<h1 id="优化查找和排序"><a href="#优化查找和排序" class="headerlink" title="优化查找和排序"></a>优化查找和排序</h1><p>lower_bound<br>返回指向第一个不小于给定值的元素的迭代器 </p>
-<p>upper_bound<br>返回指向第一个大于给定值的元素的迭代器 </p>
-<p>binary_search<br>判断一个元素是否在区间内 </p>
-<p>equal_range<br>返回匹配特定键值的元素区间 </p>
-<p>以 C 风格的 char* 作为键、lambda 表达式作为比较函数的 map</p>
-<pre><code>auto comp = [](char const* p1, char const* p2) {
-    return strcmp(p1,p2)&lt;0;
-};
-std::map&lt;char const*,
-    unsigned,
-    decltype(comp)&gt; table(comp);    
-</code></pre><p>这段示例代码中使用了 C++11 中的 decltype 关键字。 map 的第三个参数是一个类<br>型。名字 comp 是一个变量，而 decltype(comp) 则是变量的类型。lambda 表达式的类型没<br>有名字，每个 lambda 表达式的类型都是唯一的，因此 decltype 是获得 lambda 表达式的类<br>型的唯一方法。</p>
-<h3 id="std-find-：-功能如其名，O-n-时间开销"><a href="#std-find-：-功能如其名，O-n-时间开销" class="headerlink" title="std::find()： 功能如其名，O(n)时间开销"></a>std::find()： 功能如其名，O(n)时间开销</h3><pre><code>kv* result=std::find(std::begin(names), std::end(names), key);
-</code></pre><p>find() 函数的一种变化形式是 find_if() ，它接收比较函数作为第四个参数。这里开发人<br>员不用在 find() 的作用域中定义 operator==() ，而是可以编写一个 lambda 表达式作为比<br>较函数。lambda 表达式只接收一个参数——要进行比较的表元素。因此，lambda 表达式必<br>须从环境中捕捉键值。</p>
-<h3 id="std-binary-search-：-不返回值"><a href="#std-binary-search-：-不返回值" class="headerlink" title="std::binary_search()： 不返回值"></a>std::binary_search()： 不返回值</h3><p>标准库算法 binary<em>search() 返回一个 bool 值，表示键是否存在于有序表中。非常奇<br>怪的是，标准库却没有提供配套的返回匹配的表元素的函数。因此， find() 和 binary</em><br>search() 虽然从名字上看都像是我们要找的解决方法，但其实不然。<br>如果程序只是想知道一个元素是否存在于表中，而不是找到它的值，那么我们可以使用<br>binary_search() 。</p>
-<h3 id="使用-std-equal-range-的二分查找"><a href="#使用-std-equal-range-的二分查找" class="headerlink" title="使用 std::equal_range() 的二分查找"></a>使用 std::equal_range() 的二分查找</h3><pre><code>auto res = std::equal_range(std::begin(names),
-                            std::end(names),
-                            key);
-kv *result = (res.first == res.second)
-             ? std::end(names)
-             : res.first;
-</code></pre><h3 id="使用-std-lower-bound-的二分查找"><a href="#使用-std-lower-bound-的二分查找" class="headerlink" title="使用 std::lower_bound() 的二分查找"></a>使用 std::lower_bound() 的二分查找</h3><pre><code>kv *result = std::lower_bound(std::begin(names),
-                              std::end(names),
-                              key);
-if (result != std::end(names) &amp;&amp; key &lt; *result.key)
-    result = std::end(names);
-</code></pre><h3 id="自己编写二分查找法"><a href="#自己编写二分查找法" class="headerlink" title="自己编写二分查找法"></a>自己编写二分查找法</h3><pre><code>kv *find_binary_lessthan(kv *start, kv *end, char const *key)
-{
-    kv *stop = end;
-    while (start &lt; stop)
-    {
-        auto mid = start + (stop - start) / 2;
-        if (*mid &lt; key)  // 查找右半部分[mid+1,stop)
-        {
-            start = mid + 1;
-        }
-        else   // 查找左半部分[start,mid)
-        {
-            stop = mid;
-        }
-    }
-    return (start == end || key &lt; *start) ? end : start;
-}
-</code></pre><h3 id="使用-strcmp-自己编写二分查找法"><a href="#使用-strcmp-自己编写二分查找法" class="headerlink" title="使用 strcmp() 自己编写二分查找法"></a>使用 strcmp() 自己编写二分查找法</h3><pre><code>kv *find_binary_3(kv *start, kv *end, char const *key)
-{
-    auto stop = end;
-    while (start &lt; stop)
-    {
-        auto mid = start + (stop - start) / 2;
-        auto rc = strcmp(mid-&gt;key, key);
-        if (rc &gt; 0)
-        {
-            stop = mid;
-        }
-        else if (rc &lt; 0)
-        {
-            start = mid + 1;
-        }
-        else
-        {
-            return mid;
-        }
-    }
-    return end;
-}
-</code></pre><h2 id="优化键值对散列表中的查找"><a href="#优化键值对散列表中的查找" class="headerlink" title="优化键值对散列表中的查找"></a>优化键值对散列表中的查找</h2><p>C++ 定义了一个称为 std::hash 的标准散列函数对象。 std::hash 是一个模板，为整数、浮<br>点数据、指针和 std::string 都提供了特化实现。同样适用于指针的未特化的 std::hash<br>的定义会将散列类型转换为 size_t ，然后随机设置它的各个位的值。</p>
-<h3 id="使用-std-unordered-map-进行散列"><a href="#使用-std-unordered-map-进行散列" class="headerlink" title="使用 std::unordered_map 进行散列"></a>使用 std::unordered_map 进行散列</h3><p>std::unordered_map 使用的默认散列函数是模板函数对象 std::hash 。由于该模板为<br>std::string 提供了特化实现，因此我们无需显式地提供散列函数。</p>
-<pre><code>auto it = table.find(key);
-</code></pre><p>GNU 计划（还有其他项<br>目）构建了一个称为 gperf（<a href="http://www.gnu.org/software/gperf/）的命令行工具，它所生成" target="_blank" rel="noopener">http://www.gnu.org/software/gperf/）的命令行工具，它所生成</a><br>的完美散列函数通常也是最小散列函数。</p>
-<h2 id="使用C-标准库优化排序"><a href="#使用C-标准库优化排序" class="headerlink" title="使用C++标准库优化排序"></a>使用C++标准库优化排序</h2><p>C++ 标准库提供了两种能够高效地对序列容器进行排序的标准算法—— std::sort() 和 std::stable_sort() 。</p>
-<h1 id="优化数据结构"><a href="#优化数据结构" class="headerlink" title="优化数据结构"></a>优化数据结构</h1><h2 id="理解标准库容器"><a href="#理解标准库容器" class="headerlink" title="理解标准库容器"></a>理解标准库容器</h2><h3 id="序列容器"><a href="#序列容器" class="headerlink" title="序列容器"></a>序列容器</h3><p>序列容器 std::string 、 std::vector 、 std::deque 、 std::list 和 std::forward_list 中元素的顺序与它们被插入的顺序相同。因此，每个容器都有一头一尾。所有的序列容器都能够插入元素。除了 std::forward_list 外，所有的序列容器都有一个具有常量时间性能开销的成员函数能够将元素推入至序列容器的末尾。不过，只有 std::deque 、 std::list 和std::forward_list 能够高效地将元素推入至序列容器的头部。</p>
-<h3 id="关联容器"><a href="#关联容器" class="headerlink" title="关联容器"></a>关联容器</h3><p>有 四 种 有 序 关 联 容 器： std::map 、 std::multimap 、 std::set 和<br>std::multiset 。有序关联容器要求必须对键（ std::map ）或是元素自身（ std::set ）定义能够对它们进行排序的 operator&lt;() 等。有序关联容器的实现是平衡二叉树，因此我们无<br>需对有序关联容器进行排序。遍历它们时会按照排序关系的顺序访问它们中的元素。插入或是移除元素的分摊开销是 O(log 2 n)，其中 n 是容器中元素的数量。</p>
-<p>C++11 又给我们带来了四种无序关联容器： std::unordered_map 、 std::unordered_multimap 、std::unordered_set 和 std::unordered_multiset 。无序关联容器只要求对键（ std::unordered_map ）或是元素（ std::unordered_set ）定义了相等关系即可。无序关联容器的实现方式是散列表。</p>
-<h3 id="std-vector-与-std-string"><a href="#std-vector-与-std-string" class="headerlink" title="std::vector 与 std::string"></a>std::vector 与 std::string</h3><p>要想确保在所有版本的 C++ 中都能释放 vector 的内存，可以使用以下技巧：</p>
-<pre><code>std::vector&lt;Foo&gt; x;
-...
-vector&lt;Foo&gt;().swap(x);
-</code></pre><p>这段语句会构造一个临时的空的矢量，将它的内容与矢量 x 交换，接着删除这个临时矢量，这样内存管理器会回收所有之前属于 x 的内存。</p>
-<h4 id="std-vector-中的插入与删除"><a href="#std-vector-中的插入与删除" class="headerlink" title="std::vector 中的插入与删除"></a>std::vector 中的插入与删除</h4><p>如果数据是在另外一个容器中，使用 std::vector::insert() 可以将它复制到 vector 中：</p>
-<pre><code>std::vector&lt;kvstruct&gt; test_container, random_vector;
-...
-test_container.insert(
-    test_container.end(),
-    random_vector.begin(),
-    random_vector.end());
-</code></pre><p>或</p>
-<pre><code>std::vector&lt;kvstruct&gt; test_container, random_vector;
-...
-test_container.reserve(nelts);
-for (auto it = random_vector.begin(); it != random_vector.end(); ++it)
-    test_container.push_back(*it);
-</code></pre><h4 id="遍历-std-vector"><a href="#遍历-std-vector" class="headerlink" title="遍历 std::vector"></a>遍历 std::vector</h4><pre><code>std::vector&lt;kvstruct&gt; test_container;
-...
-unsigned sum = 0;
-for (auto it = test_container.begin(); it != test_container.end(); ++it)
-    sum += it-&gt;value;
-std::vector&lt;kvstruct&gt; test_container;
-...
-unsigned sum = 0;
-for (unsigned i = 0; i &lt; nelts; ++i)
-    sum += test_container.at(i).value;
-std::vector&lt;kvstruct&gt; test_container;
-...
-unsigned sum = 0;
-for (unsigned i = 0; i &lt; nelts; ++i)
-    sum += test_container[i].value;
-</code></pre><p>下标版本更加高效</p>
-<h3 id="std-deque"><a href="#std-deque" class="headerlink" title="std::deque"></a>std::deque</h3><p>std::deque 是一种专门用于创建“先进先出”（FIFO）队列的容器。在队列两端插入和删除元素的开销都是常量时间。下标操作也是常量时间。它的迭代器与 std::vector 一样，都是随机访问迭代器，因此对 std::deque 进行排序的时间开销是 O(n log 2^n)。</p>
-<p>以下是三种使用 push_back() 将元素从 vector 复制到 deque 中的方法：</p>
-<pre><code>std::deque&lt;kvstruct&gt; test_container;
-std::vector&lt;kvstruct&gt; random_vector;
-...
-for (auto it = random_vector.begin(); it != random_vector.end(); ++it)
-    test_container.push_back(*it);
-for (unsigned i = 0; i &lt; nelts; ++i)
-    test_container.push_back(random_vector.at(i));
-for (unsigned i = 0; i &lt; nelts; ++i)
-    test_container.push_back(random_vector[i]);
-</code></pre><p>迭代器版本最快</p>
-<h4 id="遍历-std-deque"><a href="#遍历-std-deque" class="headerlink" title="遍历 std::deque"></a>遍历 std::deque</h4><p>有意思的是，对于 deque ，基于迭代器的遍历更快，而对于 vector ，基于下标的遍历则更快。但是遍历 deque 的最快方法的性能开销是遍历 vector 的最快方法的两倍，与之前的趋势相同。</p>
-<h3 id="std-list"><a href="#std-list" class="headerlink" title="std::list"></a>std::list</h3><p>最快的查找 list 的方法是使用 std::find() ，它的时间开销是 O(n)。</p>
-<p>插入删除与遍历使用迭代器比较快</p>
-<h4 id="对-std-list-排序"><a href="#对-std-list-排序" class="headerlink" title="对 std::list 排序"></a>对 std::list 排序</h4><p>std::list 上的迭代器是双向迭代器，不如 std::vector 的随机访问迭代器功能强大。这些<br>迭代器的一个很特别的特性是，找到两个双向迭代器之间的距离或是元素个数的性能开销是 O(n)。因此，使用 std::sort() 对 std::list 排序的时间开销是 O(n ^2 )。编译器的编译结果仍然是对 list 调用一次 std::sort() ，但性能可能远比开发人员所期待的差。幸运的是， std::list 有一种内置的更高效的排序方法，其时间开销是 O(n log 2^ n)。使用std::list 内置的 sort() 函数对 list 排序耗时 23.2 毫秒，只比排序相同的 vector 慢了25%。</p>
-<h3 id="std-forward-list"><a href="#std-forward-list" class="headerlink" title="std::forward_list"></a>std::forward_list</h3><p>单向链表，其他方面跟list差不多</p>
-<h3 id="std-map-与-std-multimap"><a href="#std-map-与-std-multimap" class="headerlink" title="std::map 与 std::multimap"></a>std::map 与 std::multimap</h3><p>所有的提示都比无提示更快，也都比不带提示版本的 insert() 和未排序的输入数据集快。</p>
-<h4 id="优化“检查并更新”惯用法"><a href="#优化“检查并更新”惯用法" class="headerlink" title="优化“检查并更新”惯用法"></a>优化“检查并更新”惯用法</h4><p>一种常用的编程惯用法是在程序中先检查某个键是否存在于 map 中，然后根据结果进行相应的处理。当这些处理涉及插入或是更新键所对应的值时，那么就可能进行性能优化。理解性能优化的关键在于，由于需要先检查键是否存在于 map 中，然后再找到插入位置，因此 map::find() 和 map::insert() 的时间开销都是 O(log 2 n)。这两种操作都会遍历 map 的二叉树数据结构中的相同的节点：</p>
-<pre><code>iterator it = table.find(key); // O(log n)
-if (it != table.end()) {
-    // 找到key的分支
-    it-&gt;second = value;
-}
-else {
-    // 没有找到key的分支
-    it = table.insert(key, value); // O(log n)
-}
-</code></pre><p>如果程序程序能够得到第一次查找的结果，那么就能够将其作为对 insert() 的提示，将插入操作的时间开销提高到 O(1)。取决于程序的需求，有两种方法能够实现这个惯用法。如果只要知道是否找到了键即可，那么可以使用返回 pair 的版本的 insert() 。在被返回的pair 中保存的是一个指向找到或是插入的元素的迭代器以及一个布尔型变量，当这个布尔型变量为 true 时表示该元素被找到了，而当这个布尔型变量为 false 时表示该元素是被插入的。当程序在检查元素是否存在于 map 之前知道如何初始化元素，或是更新值的性能开销并不大时，这种方法非常有效：</p>
-<pre><code>std::pair&lt;value_t, bool&gt; result = table.insert(key, value);
-if (result.second) {
-    // k找到key的分支
-}
-else {
-    // 没有找到key的分支
-}
-</code></pre><p>第二种方法是通过调用 lower_bound() 或是 upper_bound() 找到键或是插入位置作为 C++98风格或是 C++11 风格的提示。 lower_bound() 会返回一个指向 map 中那些键比带查找的键小的所有元素中最小的元素或是指向 end 的迭代器。当要插入键时，这个迭代器就是插入位置提示；而当要更新已经存在的元素时，它指向的就是该元素的键。这种方法对于待插入的元素没有任何要求：</p>
-<pre><code>iterator it = table.lower_bound(key);
-if (it == table.end() || key &lt; it-&gt;first) {
-    // 找到key的分支
-table.insert(it, key, value);
-}
-else {
-    // 没有找到key的分支
-    it-&gt;second = value;
-}
-</code></pre><h3 id="std-set-与-std-multiset"><a href="#std-set-与-std-multiset" class="headerlink" title="std::set 与 std::multiset"></a>std::set 与 std::multiset</h3><p> std::set 和 std::multiset 使用了与 std::map 相同的数据结构</p>
-<h3 id="std-unordered-map-与-std-unordered-multimap"><a href="#std-unordered-map-与-std-unordered-multimap" class="headerlink" title="std::unordered_map 与 std::unordered_multimap"></a>std::unordered_map 与 std::unordered_multimap</h3><p>unordered_map 的构造是昂贵的。它包含了为表中所有元素动态分配的节点，另外还有一个会随着表的增长定期重新分配的动态可变大小的桶数组。因此，要想改善它的查找性能，需要消耗相当多的内存。每次桶数组重新分配时，迭代器都会失效。不过，只有在删除元素时，指向元素节点的引用才会失效。</p>
-<p>unordered_map 中元素的数量就是它的大小。计算出的 size / buckets 比例称为负载系数（load factor）。负载系数大于 1.0 表示有些桶有一条多个元素链接而成的元素链，降低了查询这些键的性能（换言之，非完美散列）。在实际的散列表中，即使负载系数小于1.0，键之间的冲突也会导致形成元素链。负载系数小于 1.0 表示存在着未被使用，但却在unordered_map 的骨干数组中占用了存储空间的桶（换言之，非最小散列）。当负载系数小于 1.0 时，(1 – 负载系数 ) 的值是空桶数量的下界，但是由于散列函数可能非完美，因此未使用的存储空间通常更多。</p>
-<p>使用迭代器遍历 unordered_map 相对比较高效.</p>
-<h2 id="其他数据结构"><a href="#其他数据结构" class="headerlink" title="其他数据结构"></a>其他数据结构</h2><p>boost::circular_buffer （<a href="http://www.boost.org/doc/libs/1_60_0/doc/html/circular_buffer.html）" target="_blank" rel="noopener">http://www.boost.org/doc/libs/1_60_0/doc/html/circular_buffer.html）</a><br>在许多方面都与 std::deque 类似，但更加高效。</p>
-<p>Boost.Container （<a href="http://www.boost.org/doc/libs/1_60_0/doc/html/container.html）" target="_blank" rel="noopener">http://www.boost.org/doc/libs/1_60_0/doc/html/container.html）</a><br>标准库容器的各种变种，包括一种稳定的 vector （一种发生重新分配也不会造成迭代器失效的 vector ）；一组作为 std::vector 的容器适配器实现的 map/multimap/set/multiset；<br>一个长度可变但最大长度固定的静态 vector ，以及一个当只有几个元素时具有最优行为的 vector 。</p>
-<p>dynamic_bitset （<a href="http://www.boost.org/doc/libs/1_60_0/libs/dynamic_bitset/dynamic_bitset.html）" target="_blank" rel="noopener">http://www.boost.org/doc/libs/1_60_0/libs/dynamic_bitset/dynamic_bitset.html）</a><br>看起来像是位组成的 vector 。</p>
-<p>Fusion（<a href="http://www.boost.org/doc/libs/1_60_0/libs/fusion/doc/html/）" target="_blank" rel="noopener">http://www.boost.org/doc/libs/1_60_0/libs/fusion/doc/html/）</a><br>元组上的容器和迭代器。</p>
-<p>Boost 图形库（BGL，<a href="http://www.boost.org/doc/libs/1_60_0/libs/graph/doc/index.html）" target="_blank" rel="noopener">http://www.boost.org/doc/libs/1_60_0/libs/graph/doc/index.html）</a><br>适用于遍历图形的算法和数据结构。</p>
-<p>boost.heap （<a href="http://bit.ly/b-heap/）" target="_blank" rel="noopener">http://bit.ly/b-heap/）</a><br>比简单 std::priority_queue 容器适配器具有更好性能和更微妙行为的优先队列。</p>
-<p>Boost.Intrusive（<a href="http://www.boost.org/doc/libs/1_60_0/doc/html/intrusive.html）" target="_blank" rel="noopener">http://www.boost.org/doc/libs/1_60_0/doc/html/intrusive.html）</a><br>提供了侵入式容器（依赖于显式地包含链接的节点类型的容器）。侵入容器的重点是提高热点代码的性能。这个库包含单向和双向链表、关联容器、无序关联容器和各种显式平衡树实现。在大多数容器中都加入了 make_shared 、移动语义和 emplace() 成员函数，减少了对侵入式容器的需求。</p>
-<p>boost.lockfree （<a href="http://www.boost.org/doc/libs/1_60_0/doc/html/lockfree.html）" target="_blank" rel="noopener">http://www.boost.org/doc/libs/1_60_0/doc/html/lockfree.html）</a><br>无锁（lock-free）和无等待（wait-free）的队列和栈。</p>
-<p>Boost.MultiIndex（<a href="http://www.boost.org/doc/libs/1_60_0/libs/multi_index/doc/index.html）" target="_blank" rel="noopener">http://www.boost.org/doc/libs/1_60_0/libs/multi_index/doc/index.html）</a><br>有多个具有不同行为的索引的容器。</p>
-<p>毫无疑问，Boost 中还有其他容器类。</p>
-<p>对标准库容器类的另一个巨大贡献来自于游戏公司艺电（Electronic Arts，EA），他们开源了名为“EASTL”（<a href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2271.html）的标准库容器类。艺电对标注库容器类的贡献包括：" target="_blank" rel="noopener">http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2271.html）的标准库容器类。艺电对标注库容器类的贡献包括：</a></p>
-<ul>
-<li>一个更简单和更合理的 Allocator 的定义</li>
-<li>对容器提供了更有力的保证，包括保证容器不会调用内存管理器，除非程序将元素放到容器中具有更多的可编程性的 std::deque</li>
-<li>一组与 Boost 所提供的容器类似的容器</li>
-</ul>
-<h2 id="创建一个由无重复的-kvstruct-实例组成的-vector"><a href="#创建一个由无重复的-kvstruct-实例组成的-vector" class="headerlink" title="创建一个由无重复的 kvstruct 实例组成的 vector"></a>创建一个由无重复的 kvstruct 实例组成的 vector</h2><pre><code># include &lt;random&gt;
-// 创建一个由count个无重复的kvstruct实例组成的vector
-void build_rnd_vector(std::vector&lt;kvstruct&gt; &amp;v, unsigned count)
-{
-    std::default_random_engine e;
-    std::uniform_int_distribution&lt;unsigned&gt; d(count, 10 * count - 1);
-    auto randomizer = std::bind(d, e);
-    std::set&lt;unsigned&gt; unique;
-    v.clear();
-    while (v.size() &lt; count)
-    {
-        unsigned rv = randomizer();
-        if (unique.insert(rv).second == true)   // 插入元素
-        {
-            kvstruct keyvalue(rv);
-            v.push_back(keyvalue);
-        }
-    }
-}
-</code></pre><h2 id="sort和stable-sort的不同之处"><a href="#sort和stable-sort的不同之处" class="headerlink" title="sort和stable_sort的不同之处"></a>sort和stable_sort的不同之处</h2><p>这两个函数的原理都是快速排序，时间复杂度在所有排序中最低，为O(nlog2n) ;</p>
-<p>stable_sort 和 sort的区别在于 前者作排序可以使原来的”相同”的值在序列中的相对位置不变，这个应用在数组里面不受影响，当函数参数传入的是结构体时，会发现两者之间的明显区别；</p>
-<h1 id="优化I-O"><a href="#优化I-O" class="headerlink" title="优化I/O"></a>优化I/O</h1><h2 id="读取文件至字符串中"><a href="#读取文件至字符串中" class="headerlink" title="读取文件至字符串中"></a>读取文件至字符串中</h2><pre><code>bool stream_read_sgetn(std::istream &amp;f, std::string &amp;result)
-{
-    std::streamoff len = stream_size(f);
-    if (len == -1)
-        return false;
-    result.resize (static_cast&lt;std::string::size_type&gt;(len));
-    f.rdbuf()-&gt;sgetn(&amp;result[0], len);
-    return true;
-}
-
-bool stream_read_string(std::istream &amp;f, std::string &amp;result)
-{
-    std::streamoff len = stream_size(f);
-    if (len == -1)
-        return false;
-    result.resize (static_cast&lt;std::string::size_type&gt;(len));
-    f.read(&amp;result[0], result.length());
-    return true;
-}
-
-bool stream_read_array(std::istream &amp;f, std::string &amp;result)
-{
-    std::streamoff len = stream_size(f);
-    if (len == -1)
-        return false;
-    std::unique_ptr&lt;char&gt; data(new char[static_cast&lt;size_t&gt;(len)]);
-    f.read(data.get(), static_cast&lt;std::streamsize&gt;(len));
-    result.assign(data.get(), static_cast&lt;std::string::size_type&gt;(len));
-    return true;
-}
-</code></pre><h2 id="写文件stream-write-line-noflush-更快"><a href="#写文件stream-write-line-noflush-更快" class="headerlink" title="写文件stream_write_line_noflush() 更快"></a>写文件stream_write_line_noflush() 更快</h2><pre><code>void stream_write_line_noflush(std::ostream &amp;f,
-                               std::string const &amp;line)
-{
-    f &lt;&lt; line &lt;&lt; &quot;\n&quot;;
-}
-</code></pre><p>要么以 f.flush() 结束 stream_write_line_noflush() ，要么关闭流，这样最后一个写满数据的缓冲区中的信息才会被输出。</p>
-<h2 id="从-std-cin-读取和向-std-cout-中写入"><a href="#从-std-cin-读取和向-std-cout-中写入" class="headerlink" title="从 std::cin 读取和向 std::cout 中写入"></a>从 std::cin 读取和向 std::cout 中写入</h2><p>当从标准输入中读取数据时， std::cin 是与 std::cout 紧密联系在一起的。</p>
-<p>关于 std::cin 和 std::cout 的另外一件需要知道的事情的是，C++ 流在概念上是与 C 的<br>FILE* 对象的 stdin 和 stdout 连接在一起的。这让程序能够同时使用 C++ 和 C 的 I/O 语句，并使得输入或输出的交叉在某种程度上有了意义。 std::cout 与 stdout 的连接是实现定义（implementation-defined）的。多数标准库实现默认都会直接将 std::cout 发送至stdout 。 stdout 默认是按行缓存的，在 C++ 的输入输出流中没有这种方式。每当 stdout<br>遇到新的一行，它都会刷新缓冲区。切断连接有助于改善性能。调用静态成员函数 td::ios_base::sync_with_stdio(false) 可以打破这种连接，改善性能，但代价是如果程序同时使用了 C 和 C++ I/O 函数，那么交叉行为将变得不可预测。</p>
-<h1 id="优化并发"><a href="#优化并发" class="headerlink" title="优化并发"></a>优化并发</h1><h2 id="最著名的几种并发形式如下"><a href="#最著名的几种并发形式如下" class="headerlink" title="最著名的几种并发形式如下:"></a>最著名的几种并发形式如下:</h2><h3 id="时间分割（time-slicing）"><a href="#时间分割（time-slicing）" class="headerlink" title="时间分割（time slicing）"></a>时间分割（time slicing）</h3><p>这是操作系统中的一个调度函数。在时间分割中，操作系统会维护一份当前正在执行的<br>程序和系统任务的列表，并为每个程序都分配时间块。任何时候，当一个程序等待事件<br>或是资源时，操作系统会将程序从可运行程序列表中移除，并将它所使用的处理器资源<br>共享给其他程序。<br>操作系统是依赖于处理器和硬件的。它会使用计时器和周期性的中断来调整处理器的调<br>度。C++ 程序并不知道它被时间分割了。</p>
-<h3 id="虚拟化（Virtualization）"><a href="#虚拟化（Virtualization）" class="headerlink" title="虚拟化（Virtualization）"></a>虚拟化（Virtualization）</h3><p>一种常见的虚拟化技术是让一个称为“hypervisor”的轻量级操作系统将处理器的时<br>间块分配给客户虚拟机。客户虚拟机（VM）包含一个文件系统镜像和一个内存镜<br>像，通常这都是一个正在运行一个或多个程序的操作系统。当 hypervisor 运行客户虚<br>拟机后，某些处理器指令和对内存区域的某些访问会产生 Trap（陷入），并将它下传给<br>hypervisor，这将允许 hypervisor 竞争 I/O 设备和其他硬件资源。另外一种虚拟化技术是<br>使用传统操作系统作为客户虚拟机的主机。如果主机和客户虚拟机上运行的操作系统相<br>同，那么就能够使用操作系统的 I/O 工具更加高效地竞争 I/O 资源。<br>虚拟化技术的优点如下。</p>
-<ul>
-<li>客户虚拟机是在运行时被打包为磁盘文件的，因此我们能够对客户虚拟机设置检查点（checkpoint），保存客户虚拟机，加载和继续执行客户虚拟机，以及在多台主机上运行客户虚拟机。</li>
-<li>只要资源允许，我们能够并发地运行多台客户虚拟机。hypervisor 会与计算机虚拟内存保护硬件共同协作，隔离这些客户虚拟机。这使得硬件能够被当作商品租借出去并计时收费。</li>
-<li>我们能够配置客户虚拟机使用主机的一部分资源（物理内存、处理器核心）。计算资源能够根据每台客户虚拟机上正在运行的程序的需求“量体裁衣”，确保并发地在同一硬件上运行的多台虚拟机保持性能稳定，并防止它们之间意外地发生交互。</li>
-</ul>
-<p>与传统的时间分割一样，C++ 程序同样不知道它运行于 hypervisor 下的一台客户虚拟机中。<br>C++ 程序也许会间接地注意到它们所使用的资源受到了限制。虚拟化技术与 C++ 程序设计<br>是有关的，因为它既能够限制程序所消耗的计算资源，也需要让程序知道哪些资源才是真<br>正可用的。</p>
-<h3 id="容器化（containerization）"><a href="#容器化（containerization）" class="headerlink" title="容器化（containerization）"></a>容器化（containerization）</h3><p>容器化与虚拟化的相似之处在于，容器中也有一个包含了程序在检查点的状态的文件系<br>统镜像和内存镜像；不同之处在于容器主机是一个操作系统，这样能够直接地提供 I/O<br>和系统资源，而不必通过 hypervisor 去较低效地竞争资源。<br>容器化具有与虚拟化相同的优点（打包、配置和隔离性），同时它在某种程度上更<br>加高效。对于运行于容器中的 C++ 程序，容器化是不可见的。容器化与 C++ 程序相关的原因与<br>虚拟化相同。</p>
-<h3 id="对称式多处理（symmetric-multiprocessing）"><a href="#对称式多处理（symmetric-multiprocessing）" class="headerlink" title="对称式多处理（symmetric multiprocessing）"></a>对称式多处理（symmetric multiprocessing）</h3><p>对称式多处理器（symmetric multiprocessor）是一种包含若干执行相同机器代码并访问<br>相同物理内存的执行单元的计算机。现代多核处理器都是对称式多处理器。当前正在执<br>行的程序和系统任务能够运行于任何可用的执行单元上，尽管选择执行单元可能会给性<br>能带来影响。<br>对称式多处理器使用真正的硬件并发执行多线程控制。如果对称式多处理器有 n 个执行<br>单元，那么一个计算密集型程序的执行时间最多可以被缩短为 1/n。</p>
-<h3 id="同步多线程（simultaneous-multithreading）"><a href="#同步多线程（simultaneous-multithreading）" class="headerlink" title="同步多线程（simultaneous multithreading）"></a>同步多线程（simultaneous multithreading）</h3><p>有些处理器的硬件核心有两个（或多个）寄存器集，可以相应地执行两条或多条指令<br>流。当一条指令流停顿时（如需要访问主内存），处理器核心能够执行另外一条指令流<br>上的指令。具有这种特性的处理器核心的行为就像是有两个（或多个）核心一样，这<br>样一个“四核处理器”就能够真正地处理八个硬件线程。</p>
-<h3 id="多进程"><a href="#多进程" class="headerlink" title="多进程"></a>多进程</h3><p>进程是并发的执行流，这些执行流有它们自己的受保护的虚拟内存空间。进程之间通过<br>管道、队列、网络 I/O 或是其他不共享的机制<br>进行通信。线程使用同步原语或是通过<br>等待输入（即发生阻塞直至输入变为可用状态）来进行同步。<br>进程的主要优点是操作系统会隔离各个进程。如果一个进程崩溃了，其他进程依然活<br>着，尽管它们可能什么也不会做。<br>进程最大的缺点是它们有太多的状态：虚内存表、多执行单元上下文、所有暂停线程的<br>上下文。进程的启动、停止以及互相之间的切换都比线程慢。<br>C++ 无法直接操作进程。通常，一个 C++ 程序的表现形式就是操作系统中的一个进程。<br>C++ 中没有任何工具能够操作进程，因为并非所有的操作系统都有进程的概念。有些小<br>型处理器会为程序分割时间，但不会隔离程序，所以这些程序看起来更像是线程。</p>
-<h3 id="分布式处理（distributed-processing）"><a href="#分布式处理（distributed-processing）" class="headerlink" title="分布式处理（distributed processing）"></a>分布式处理（distributed processing）</h3><p>分布式处理是指程序活动分布于一组处理器上。这些处理器可以不同。相比于处理器的<br>处理速度，它们之间的通信速度非常慢。一组通过 TCP/IP 协议进行通信的云服务器的<br>实例就是一种分布式处理。在一台单独的 PC 上也存在着分布式处理，例如将驱动器分<br>流（offload）给运行于磁盘驱动器和网卡之上的处理器。另一个例子是将图形任务分流<br>给图形处理单元（GPU）中的多种专用处理器。在典型的分布式处理结构中，数据通过管道或网络流向进程，进程在对输入数据进行处<br>理后再将数据放入到下一段管道中。这种模型与 Unix 的命令行管道一样古老，使得相<br>对重量级的进程也能够高效地运行。管道中的进程具有很长的生命周期，这样能够避免<br>启动进程的开销。进程能够连续地对工作单元进行处理，因此根据输入数据的情况，它<br>们可能会使用整个分割时间。最重要的是，进程之间不会共享内存或是同步，因此它们<br>能够全速运行。<br>尽管 C++ 中没有进程的概念，但 C++ 开发依然与分布式处理有关，因为它会影响程序<br>设计和程序结构。共享内存不会超过几个线程。有些并发方案提倡完全放弃共享内存。<br>分布式处理系统通常都会自然而然地被分解为子系统，形成模块化的、易理解的和能够<br>重新配置的体系结构。</p>
-<h3 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h3><p>线程是进程中的并发执行流，它们之间共享内存。线程使用同步原语进行同步，使用共<br>享的内存地址进行通信。<br>与进程相比，线程的优点在于消耗的资源更少，创建和切换也更快。<br>不过，线程也有几个缺点。由于进程中的所有线程都共享相同的内存空间，一个线程写<br>入无效的内存地址可能会覆盖掉其他线程的数据结构，导致线程崩溃或出现不可预测的<br>行为。此外，访问共享内存远比访问不共享的内存慢，并且内存中保存的内容必须在线<br>程之间同步，否则线程将会难以解释这些内容。<br>大多数操作系统都有自己的支持多线程的库。一直到现在，具有丰富的并发开发经验<br>的 C++ 开发人员一直都使用原生线程库或是提供了基本线程服务功能的跨平台解决方<br>案——POSIX 线程库。</p>
-<h3 id="任务"><a href="#任务" class="headerlink" title="任务"></a>任务</h3><p>任务是在一个独立线程的上下文中能够被异步调用的执行单元。在基于任务的并发中，<br>任务和线程是独立地和显式地被管理的，这样可以将一个任务分配给一个线程去执行。<br>相比之下，在基于线程的并发中，线程以及在线程上运行的可执行代码是作为一个单元<br>被管理的。<br>基于任务的并发构建于线程之上，因此任务也具有线程的优点和缺点。<br>基于任务的并发的另外一个优势是，处于活动状态的软件线程的数量能够与硬件线程的<br>数量匹配起来，这样线程就能运行得非常高效。程序能够设置待执行任务的优先级和队<br>列。相比之下，在基于线程的系统中，操作系统以一种不透明的和依赖于操作系统的方<br>式设置线程优先级。<br>任务的灵活性的代价比应用程序的复杂性更大。程序必须实现对任务设置优先级或是排<br>序任务的方法。另外，程序还必须管理任务运行的基础——线程池。</p>
-<h2 id="C-并发方式"><a href="#C-并发方式" class="headerlink" title="C++并发方式"></a>C++并发方式</h2><h3 id="线程-1"><a href="#线程-1" class="headerlink" title="线程"></a>线程</h3><p><thread> 头文件提供了 std::thread 模板类，它允许程序创建线程对象作为操作系统自<br>身的线程工具的包装器。 std::thread 的构造函数接收一个可调用对象（函数指针、函数<br>对象、lambda 或是绑定表达式）作为参数，并会在新的软件线程上下文中执行这个对象。<br>C++ 使用可变模板参数转发“魔法”调用带有可变参数列表的函数，而底层操作系统的线<br>程调用通常接收一个指向带有 void* 参数的 void 函数的指针作为参数。</thread></p>
-<h3 id="promise-和-future"><a href="#promise-和-future" class="headerlink" title="promise 和 future"></a>promise 和 future</h3><p>C++ 中的 std::promise 模板类和 std::future 分别是一个线程向另外一个线程发送和接收<br>消息的模板类。 promise 和 future 允许线程异步地计算值和抛出异常。 promise 和 future<br>共享一个称为共享状态（shared state）的动态分配内存的变量，这个变量能够保存一个已<br>定义类型的值，或是在标准包装器中封装的任意类型的异常。一个执行线程能够在 future<br>上被挂起，因此 future 也扮演着同步设备的角色。C++ <future> 头文件中包含 promise 和 future 的功能。 std::promise 模板的实例允许线程<br>将共享状态设置为一个指定类型的值或是一个异常。发送线程并不会等待共享状态变为可<br>读状态，它能够立即继续执行。<br>promise 的共享状态直到被设置为一个值或是一个异常后才就绪。共享状态必须且只能被<br>设置一次，否则会发生以下情况。</future></p>
-<ul>
-<li>如果某个线程多次试图将共享状态设置为一个值或是一个异常，那么共享状态将会被设置为 std::future_error 异常，错误代码是 promise_already_satisfied ，而且共享状态变为就绪状态，为释放所有在 promise 上等待的 future 做好准备。</li>
-<li>如果某个线程从来没有将共享状态设置为一个值或是一个异常，那么在 promise 被销毁时，它的析构函数会将共享状态设置为 std::future_error 异常，错误代码是 broken_promise ，而且共享状态变为就绪状态，为释放所有在 promise 上等待的 future 做好准备。要想获得这个有用的错误提示，我们必须在线程的可调用对象中销毁 promise 。</li>
-</ul>
-<p>std::future 允许线程接收保存在 promise 的共享状态中的值或是异常。 future 是一个同步<br>原语，接收线程会在对 future 的 get() 成员函数的调用中挂起，直到相应的 promise 设置<br>了共享状态的值或是异常，变为就绪状态为止。<br>在被构造出来或是通过 promise 赋值后， future 才是有效的。在 future 无效时，接收线程<br>是无法在 future 上挂起的。 future 必须在发送线程被执行之前通过 promise 构造出来。否<br>则，接收线程会试图在 future 变为有效之前在它上面挂起。<br>promise 和 future 无法被复制。它们是代表特定通信集结点的实体。我们能构造和移动构<br>造它们，可以将一个 promise 赋值给一个 future 。理想情况下， promise 是在发送线程中<br>被创建的，而 future 则是在接收线程中被创建的。有一种编程惯用法是在发送线程中创建<br>promise ，然后使用 std::move(promise) 将其作为右值引用传递给接收线程，这样它的内<br>容就会被移动到属于接收线程的 promise 中。开发人员可以使用 std::async() 来做到这一<br>点。我们也可以通过指向发送线程的引用来传递 promise 。</p>
-<h4 id="promise-、-future-和线程"><a href="#promise-、-future-和线程" class="headerlink" title="promise 、 future 和线程"></a>promise 、 future 和线程</h4><pre><code>void promise_future_example()
-{
-    auto meaning = [](std::promise&lt;int&gt; &amp;prom)
-    {
-        prom.set_value(42); // 计算&quot;meaning of life&quot;
-    };
-    std::promise&lt;int&gt; prom;
-    std::thread(meaning, std::ref(prom)).detach();
-    std::future&lt;int&gt; result = prom.get_future();
-    std::cout &lt;&lt; &quot;the meaning of life: &quot; &lt;&lt; result.get() &lt;&lt; &quot;\n&quot;;
-}
-</code></pre><h3 id="异步任务"><a href="#异步任务" class="headerlink" title="异步任务"></a>异步任务</h3><p>C++11 提供了将可调用对象包装为任<br>务，并在可复用的线程上调用它的 async() 模板函数。在 C++ 标准库 <future> 头文件中定义了任务。 std::packaged_task 模板类能够包装任意<br>的可调用对象（可以是函数指针、函数对象、lambda 表达式或是绑定表达式），使其能够<br>被异步调用。 packaged_task 自身也是一个可调用对象，它可以作为可调用对象参数传递<br>给 std::thread 。与其他可调用对象相比，任务的最大优点是一个任务能够在不突然终止<br>程序的情况下抛出异常或返回值。任务的返回值或抛出的异常会被存储在一个可以通过<br>std::future 对象访问的共享状态中。</future></p>
-<h4 id="packaged-task-和线程"><a href="#packaged-task-和线程" class="headerlink" title="packaged_task 和线程"></a>packaged_task 和线程</h4><pre><code>void promise_future_example_2()
-{
-    auto meaning = std::packaged_task&lt;int(int)&gt;(
-                       [](int n)
-    {
-        return n;
-    });
-    auto result = meaning.get_future();
-    auto t = std::thread(std::move(meaning), 42);
-    std::cout &lt;&lt; &quot;the meaning of life: &quot; &lt;&lt; result.get() &lt;&lt; &quot;\n&quot;;
-    t.join();
-}
-</code></pre><h4 id="任务和-async"><a href="#任务和-async" class="headerlink" title="任务和 async()"></a>任务和 async()</h4><pre><code>void promise_future_example_3()
-{
-    auto meaning = [](int n)
-    {
-        return n;
-    };
-    auto result = std::async(std::move(meaning), 42);
-    std::cout &lt;&lt; &quot;the meaning of life: &quot; &lt;&lt; result.get() &lt;&lt; &quot;\n&quot;;
-}
-</code></pre><h3 id="互斥量"><a href="#互斥量" class="headerlink" title="互斥量"></a>互斥量</h3><p><mutex> 头文件包含了四种互斥量模板。</mutex></p>
-<h4 id="std-mutex"><a href="#std-mutex" class="headerlink" title="std::mutex"></a>std::mutex</h4><p>一种简单且相对高效的互斥量。在 Windows 上，这个类会首先尝试繁忙等待策略，如<br>果它无法很快获得互斥量，就会改为调用操作系统。</p>
-<h4 id="std-recursive-mutex"><a href="#std-recursive-mutex" class="headerlink" title="std::recursive_mutex"></a>std::recursive_mutex</h4><p>一种线程能够递归获取的互斥量，就像函数的嵌套调用一样。由于该类需要对它被获取<br>的次数计数，因此可能稍微低效。</p>
-<h4 id="std-timed-mutex"><a href="#std-timed-mutex" class="headerlink" title="std::timed_mutex"></a>std::timed_mutex</h4><p>允许在一定时间内尝试获取互斥量。要想在一定时间内尝试获取互斥量，通常需要操作<br>系统的介入，导致与 std::mutex 相比，这类互斥量的延迟显著地增大了。</p>
-<h4 id="std-recursive-timed-mutex"><a href="#std-recursive-timed-mutex" class="headerlink" title="std::recursive_timed_mutex"></a>std::recursive_timed_mutex</h4><p>一种能够在一定时间内递归地获取的互斥量，开销也非常昂贵。</p>
-<p>在 C++14 中加入的 <shared_mutex> 头文件包含了对共享互斥量——也被称为 reader/writer<br>互斥量——的支持。</shared_mutex></p>
-<h4 id="std-shared-timed-mutex"><a href="#std-shared-timed-mutex" class="headerlink" title="std::shared_timed_mutex"></a>std::shared_timed_mutex</h4><p>一种同时支持定时和非定时获取互斥量的共享互斥量。</p>
-<h4 id="std-shared-mutex"><a href="#std-shared-mutex" class="headerlink" title="std::shared_mutex"></a>std::shared_mutex</h4><p>一个更加简单的共享互斥量，按照计划在 C++17 中会被加入</p>
-<h3 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h3><p>在 <mutex> 头文件中有两个锁模板。</mutex></p>
-<h4 id="std-lock-guard"><a href="#std-lock-guard" class="headerlink" title="std::lock_guard"></a>std::lock_guard</h4><p>一种简单的 RAII 锁。在这个类的构造过程中，程序会等待直到获得锁；而在析构过程<br>中则会释放锁。这个类的预标准实现通常被称为 scope_guard 。</p>
-<h4 id="std-unique-lock"><a href="#std-unique-lock" class="headerlink" title="std::unique_lock"></a>std::unique_lock</h4><p>一个通用的互斥量所有权类，提供了 RAII 锁、延迟锁、定时锁、互斥量所有权的转移<br>和条件变量的使用。<br>在 C++14 的 <shared_mutex> 头文件中加入了共享互斥量的锁。</shared_mutex></p>
-<h4 id="std-shared-lock"><a href="#std-shared-lock" class="headerlink" title="std::shared_lock"></a>std::shared_lock</h4><p>共享（reader/writer）互斥量的一个互斥量所有权类。它提供了 std::unique_lock 的所<br>有复杂特性，另外还有共享互斥量的控制权。</p>
-<h3 id="条件变量"><a href="#条件变量" class="headerlink" title="条件变量"></a>条件变量</h3><p>C++ 在 <condition_variable> 头文件中提供了条件变量的两种实现方式。它们之间的区别<br>在于所接收的参数锁的一般性。</condition_variable></p>
-<h4 id="std-condition-variable"><a href="#std-condition-variable" class="headerlink" title="std::condition_variable"></a>std::condition_variable</h4><p>最高效的条件变量，它需要使用 std::unique_lock 来锁住互斥量。</p>
-<h4 id="std-condition-variable-any"><a href="#std-condition-variable-any" class="headerlink" title="std::condition_variable_any"></a>std::condition_variable_any</h4><p>一种能够使用任何 BasicLockable 锁（即任何具有 lock() 和 unlock() 成员函数的锁）<br>的条件变量。该条件变量可能会比 std::condition_variable 低效。</p>
-<h4 id="使用条件变量实现的简单的生产者和消费者"><a href="#使用条件变量实现的简单的生产者和消费者" class="headerlink" title="使用条件变量实现的简单的生产者和消费者"></a>使用条件变量实现的简单的生产者和消费者</h4><pre><code>void cv_example()
-{
-    std::mutex m;
-    std::condition_variable cv;
-    bool terminate = false;
-    int shared_data = 0;
-    int counter = 0;
-    auto consumer = [&amp;]()
-    {
-        std::unique_lock&lt;std::mutex&gt; lk(m);
-        do
-        {
-            while (!(terminate || shared_data != 0))
-                cv.wait(lk);
-            if (terminate)
-                break;
-            std::cout &lt;&lt; &quot;consuming &quot; &lt;&lt; shared_data &lt;&lt; std::endl;
-            shared_data = 0;
-            cv.notify_one();
-        }
-        while (true);
-    };
-    auto producer = [&amp;]()
-    {
-        std::unique_lock&lt;std::mutex&gt; lk(m);
-        for (counter = 1; true; ++counter)
-        {
-            cv.wait(lk, [&amp;]()
-            {
-                return terminate || shared_data == 0;
-            });
-            if (terminate)
-                break;
-            shared_data = counter;
-            std::cout &lt;&lt; &quot;producing &quot; &lt;&lt; shared_data &lt;&lt; std::endl;
-            cv.notify_one();
-        }
-    };
-    auto p = std::thread(producer);
-    auto c = std::thread(consumer);
-    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    {
-        std::lock_guard&lt;std::mutex&gt; l(m);
-        terminate = true;
-    }
-    std::cout &lt;&lt; &quot;total items consumed &quot; &lt;&lt; counter &lt;&lt; std::endl;
-    cv.notify_all();
-    p.join();
-    c.join();
-    exit(0);
-}
-</code></pre><h3 id="共享变量上的原子操作"><a href="#共享变量上的原子操作" class="headerlink" title="共享变量上的原子操作"></a>共享变量上的原子操作</h3><p>C++ 标准库 <atomic> 头文件提供了用于构建多线程同步原语的底层工具：内存栅栏和原子<br>性的加载与存储。</atomic></p>
-<h4 id="内存栅栏"><a href="#内存栅栏" class="headerlink" title="内存栅栏"></a>内存栅栏</h4><p>std::atomic 的许多成员函数都会接收一个可选参数 memory_order ，它会选择一个围绕在操<br>作上下的栅栏。如果没有提供 memory_order 参数，它的默认值是 memory_order_acq_rel 。<br>这样会选择使用永远安全但开销昂贵的完全栅栏。当然，还有其他许多受限制的栅栏可<br>选，不过最好是由知识渊博的开发专家来做出决定。</p>
-<p>内存栅栏通过多个硬件线程的高速缓存来同步主内存。通常，在一个线程与另一个线程同<br>步时，这两个线程上都会加上内存栅栏。在 C++ 中能够使用以下内存栅栏。</p>
-<h4 id="memory-order-acquire"><a href="#memory-order-acquire" class="headerlink" title="memory_order_acquire"></a>memory_order_acquire</h4><p>你可以将 memory_order_acquire 理解为“通过其他线程完成所有工作”的意思。它确保<br>随后的加载不会被移动到当前的加载或是前面的加载之前。自相矛盾的是，它是通过等<br>待在处理器和主内存之间的当前的存储操作完成来实现这一点的。如果没有栅栏，当一<br>次存储还处于处理器和主内存之间，它的线程就在相同的地址进行了一次加载时，该线<br>程会得到旧的数据，仿佛这次在程序中加载被移动到了存储之前。<br>memory_order_acquire 可能会比默认的完全栅栏高效。例如，在原子性地读取在繁忙等<br>待 while 循环中的标识位时，可以使用 memory_order_acquire 。</p>
-<h4 id="memory-order-release"><a href="#memory-order-release" class="headerlink" title="memory_order_release"></a>memory_order_release</h4><p>你可以将 memory_order_release 理解为“通过这个线程将所有工作释放到这个位置”的<br>意思。它确保这个线程完成的之前的加载和存储不会被移动到当前的存储之后。它是通<br>过等待这个线程内部的当前存储操作完成来实现这一点的。<br>memory_order_release 可能会比默认的完全栅栏高效。例如，在自定义的互斥量的尾部<br>设置标识位时，可以使用 memory_order_release 。</p>
-<h4 id="memory-order-acq-rel"><a href="#memory-order-acq-rel" class="headerlink" title="memory_order_acq_rel"></a>memory_order_acq_rel</h4><p>这会结合之前的两种“确保”，创建一个完全栅栏。</p>
-<h4 id="memory-order-consume"><a href="#memory-order-consume" class="headerlink" title="memory_order_consume"></a>memory_order_consume</h4><p>memory_order_consume 是 memory_order_acquire 的一种弱化（但更快）的形式，它只要<br>求当前的加载发生在其他依赖这次加载数据的操作之前。例如，当一个指针的加载被标<br>记为 memory_order_consume 时，紧接着的解引这个指针的操作就不会被移动它之前。</p>
-<h4 id="memory-order-relaxed"><a href="#memory-order-relaxed" class="headerlink" title="memory_order_relaxed"></a>memory_order_relaxed</h4><p>使用这个值意味着允许所有的重新排序。</p>
-<h3 id="展望未来的C-并发特性"><a href="#展望未来的C-并发特性" class="headerlink" title="展望未来的C++并发特性"></a>展望未来的C++并发特性</h3><p>许多开发人员在使用原生调用或是 POSIX 线程<br>（pthreads）库的 C 风格的函数实现线程并发方面经验丰富。</p>
-<p>以下是 C++17 可能会带给我们的一些并发特性。</p>
-<h4 id="协作多线程"><a href="#协作多线程" class="headerlink" title="协作多线程"></a>协作多线程</h4><p>在协作多线程中，两个或多个软件线程通过语句显式地互相传递执行，这样实际上在同<br>一时间只有一个线程在运行。协程（coroutines）就是协作多线程的例子。</p>
-<h4 id="SIMD-指令"><a href="#SIMD-指令" class="headerlink" title="SIMD 指令"></a>SIMD 指令</h4><p>SIMD 是单指令多数据（single instruction multiple data）的首字母缩写。在支持 SIMD<br>的处理器中，某些指令会操作寄存器向量。处理器会同时在向量中的每个寄存器上进行<br>相同的操作，与标量操作相比减少了间接开销。<br>C++ 编译器通常不会生成 SIMD 指令，因为它们的行为很复杂，不太符合 C++ 描述<br>程序的方式。依赖于编译器的编译指令或是内联汇编特性允许在函数中插入 SIMD 指<br>令，然后这些函数会被收录到用于数字信号处理或是计算机图形等专业任务的库中。因<br>此，SIMD 编程是同时依赖于处理器和编译器的。互联网上有许多关于 SIMD 指令的资<br>源，其中 Stack Exchange Q&amp;A（<a href="http://gamedev.stackexchange.com/questions/12601/simd-" target="_blank" rel="noopener">http://gamedev.stackexchange.com/questions/12601/simd-</a><br>c-library）上有许多讨论如何在 C++ 中使用 SIMD 的资料。</p>
-<h2 id="优化多线程C-程序"><a href="#优化多线程C-程序" class="headerlink" title="优化多线程C++程序"></a>优化多线程C++程序</h2><h3 id="用-std-async-替代-std-thread"><a href="#用-std-async-替代-std-thread" class="headerlink" title="用 std::async 替代 std::thread"></a>用 std::async 替代 std::thread</h3><p>并发编程的一项实用优化技巧是用复用线程取代在每次需要时创建新线程。线程可能会在<br>某个条件变量上挂起，直到程序需要使用它们时才会被释放，并接着执行一个可调用对象。尽管切换线程的有些开销（保存和恢复寄存器并刷新和重新填充高速缓存）是相同<br>的，但可以移除或减少为线程分配内存以及操作系统调度线程等其他开销。</p>
-<p>模板函数 std::async() 会运行线程上下文中的可调用对象，但是它的实现方式允许复用<br>线程。从 C++ 标准来看， std::async() 可能是使用线程池的方式实现的。在 Windows 上，<br>std::async() 明显快得多。</p>
-<p>使用 async() 启动和停止线程</p>
-<pre><code>std::async(std::launch::async, []() { return; });
-</code></pre><p>async() 会返回一个 std::future ，在这种情况下它是一个匿名临时变量。只要 std::async()<br>一返回，程序就会立即调用这个匿名 std::future 的析构函数。析构函数会等待该 future<br>变为就绪状态，因此它可以抛出所有会发生的异常。这里不需要显式地调用 join() 或是<br>detach() 。</p>
-<h3 id="创建与核心数量一样多的可执行线程"><a href="#创建与核心数量一样多的可执行线程" class="headerlink" title="创建与核心数量一样多的可执行线程"></a>创建与核心数量一样多的可执行线程</h3><p>C++ 提供了一个 std::thread::hardware_concurrency() 函数，它可以返回可用核心的数<br>量。这个函数会计算由 hypervisor 分配给其他虚拟机的核心，以及因多线程同步而表现为两个或多个逻辑核心的核心的数量。通过这个函数，以后我们可以方便地将程序部署到包<br>含更多（或少）核心的硬件上运行。</p>
-<h3 id="实现任务队列和线程池"><a href="#实现任务队列和线程池" class="headerlink" title="实现任务队列和线程池"></a>实现任务队列和线程池</h3><p>解决不知道有多少个线程正在运行这个问题的方法是让线程更加明显：使用线程池（一种<br>保持固定数量的永久线程的数据结构）和任务队列（一种存储待执行的计算的列表的数据<br>结构），这些计算将由线程池中的线程负责执行。</p>
-<h3 id="在单独的线程中执行I-O"><a href="#在单独的线程中执行I-O" class="headerlink" title="在单独的线程中执行I/O"></a>在单独的线程中执行I/O</h3><p>磁盘转速和网络连接距离等物理现实问题造成在程序请求数据和数据变为可用状态之间存<br>在着延迟。因此，I/O 是适用并发的绝佳位置。另外一个典型的 I/O 问题是，程序在写数<br>据之前或是读数据之后必须对它进行转换。例如，我们先从互联网上读取一个 XML 文件，<br>接着解析它，从中提取程序所需信息。由于在对数据进行转换之前是无法直接使用它的，<br>我们可以考虑将整个处理（包括读数据和解析数据）移动到一个单独的线程中。</p>
-<h3 id="没有同步的程序"><a href="#没有同步的程序" class="headerlink" title="没有同步的程序"></a>没有同步的程序</h3><h4 id="面向事件编程"><a href="#面向事件编程" class="headerlink" title="面向事件编程"></a>面向事件编程</h4><p>在面向事件编程中，程序是一组由框架调用的事件处理函数的集合。底层框架从事件队<br>列中将每个事件分发给注册了该事件的事件处理函数。面向事件编程在许多方面都与面<br>向任务编程类似。在面向事件的程序中，框架的行为类似于任务调度器，而事件处理函<br>数则类似于任务。它们两者之间的重要区别在于，在面向事件的程序中，框架是单线程<br>的，事件处理函数也不会并发执行。</p>
-<h4 id="协程"><a href="#协程" class="headerlink" title="协程"></a>协程</h4><p>协程是可执行对象，虽然它会显式地将执行从一个对象转交给另外一个对象，但是它们<br>会记住执行指针，这样如果它们被再次调用了也可以继续执行。与面向事件的程序相<br>同，协程并非真正的多线程，因此只要它们不受多线程控制就不需要同步。<br>协程有两种。第一种有自己的栈，而且可以在执行途中的任何位置将控制转交给另外一<br>个协程。第二种是向另外一个线程借栈，并且只能在它的顶层转交控制。</p>
-<h4 id="消息传递"><a href="#消息传递" class="headerlink" title="消息传递"></a>消息传递</h4><p>在消息传递程序中，控制线程从一个或多个输入源中接收输入，对输入进行转换后将它<br>放到一个或多个输出槽中。相互连接的输出和输入组成了一幅具有良好定义的入口节点<br>和出口节点的图。这些被实现了一个消息传递程序的各个阶段的线程所读写的元素可以<br>是网络数据报、字符 I/O 流或是隐式队列中的数据结构。<br>Unix 命令行管道和 Web 服务都是消息传递编程的例子。分布式处理系统的组件也都是<br>消息传递程序。</p>
-<h4 id="无锁编程（lock-free-programming）"><a href="#无锁编程（lock-free-programming）" class="headerlink" title="无锁编程（lock-free programming）"></a>无锁编程（lock-free programming）</h4><p>无锁编程是指无需互斥，允许多线程更新数据结构的编程实践。在无锁程序中，硬件同<br>步的原子性操作取代了昂贵的互斥量。无锁数据结构远比由互斥量保护的传统容器要优<br>秀，特别是当许多线程访问同一个容器时。<br>C++ 中无锁的数组、队列和散列表容器类已经发布了。Boost 也有无锁的栈和队列容器<br>（<a href="http://www.boost.org/doc/libs/1_59_0/doc/html/lockfree.html），" target="_blank" rel="noopener">http://www.boost.org/doc/libs/1_59_0/doc/html/lockfree.html），</a> 但 是 只 在 GCC 和 Clang<br>编译器上进行了测试。英特尔的线程构建模块（<a href="http://www.threadingbuildingblocks.org/）" target="_blank" rel="noopener">http://www.threadingbuildingblocks.org/）</a><br>中有无锁的数组、队列和散列表容器。由于无锁编程的需求，这些容器并非与 C++ 标<br>准库中的容器完全相同。</p>
-<h2 id="让同步更加高效"><a href="#让同步更加高效" class="headerlink" title="让同步更加高效"></a>让同步更加高效</h2><ul>
-<li>减小临界区的范围</li>
-<li>限制并发线程的数量</li>
-<li>避免惊群，当有许多线程挂起在一个事件当发生这个事件时，所有的线程都会变为可运行状态，但由于只有几个核心，因此只有几个线程能够立即运行。</li>
-<li>避免锁护送,当大量线程同步，挂起在某个资源或是临界区上时会发生锁护送（lock convoy）。这会导致额外的阻塞，因为它们都会试图立即继续进行处理，但是每次却只有一个线程能够继续处理，仿佛是在护送锁一样。</li>
-<li>减少竞争<ul>
-<li>注意内存和 I/O 都是资源</li>
-<li>复制资源</li>
-<li>分割资源</li>
-<li>细粒度锁,我们可以使用多个互斥量，而不是一个互斥量来锁住整个数据结构。</li>
-<li>无锁数据结构，我们使用无锁散列表等无锁数据结构来摆脱对互斥的依赖。这是细粒度锁的终极形态。</li>
-<li>资源的调度</li>
-</ul>
-</li>
-<li>不要在单核系统上繁忙等待</li>
-<li>不要永远等待</li>
-<li>自己设计互斥量可能会低效</li>
-<li>限制生产者输出队列的长度</li>
-</ul>
-<h2 id="并发库"><a href="#并发库" class="headerlink" title="并发库"></a>并发库</h2><h3 id="Boost-Thread（http-www-boost-org-doc-libs-1-60-0-doc-html-thread-html）和-Boost-Coroutine（http-www-boost-org-doc-libs-1-60-0-libs-coroutine-doc-html-index-html）"><a href="#Boost-Thread（http-www-boost-org-doc-libs-1-60-0-doc-html-thread-html）和-Boost-Coroutine（http-www-boost-org-doc-libs-1-60-0-libs-coroutine-doc-html-index-html）" class="headerlink" title="Boost.Thread（http://www.boost.org/doc/libs/1_60_0/doc/html/thread.html）和 Boost.Coroutine（http://www.boost.org/doc/libs/1_60_0/libs/coroutine/doc/html/index.html）"></a>Boost.Thread（<a href="http://www.boost.org/doc/libs/1_60_0/doc/html/thread.html）和" target="_blank" rel="noopener">http://www.boost.org/doc/libs/1_60_0/doc/html/thread.html）和</a> Boost.Coroutine（<a href="http://www.boost.org/doc/libs/1_60_0/libs/coroutine/doc/html/index.html）" target="_blank" rel="noopener">http://www.boost.org/doc/libs/1_60_0/libs/coroutine/doc/html/index.html）</a></h3><p>Boost 的线程库是对 C++17 标准库线程库的展望。其中有些部分现在仍然处于实验状<br>态。 Boost.Coroutine 也处于实验状态。</p>
-<h3 id="POSIX-线程"><a href="#POSIX-线程" class="headerlink" title="POSIX 线程"></a>POSIX 线程</h3><p>POSIX 线程（pthreads）是一个跨平台的线程和同步原语库，它可能是最古老和使<br>用最广泛的并发库了。POSIX 线程是 C 风格的函数库，提供了传统的并发能力。它<br>有非常完整的文档资源，不仅适用于多种 Linux 发行版，也适用于 Windows（http://<br>sourceware.org/pthreads-win32/）。</p>
-<h3 id="线程构建模块（TBB，http-www-threadingbuildingblocks-org-）"><a href="#线程构建模块（TBB，http-www-threadingbuildingblocks-org-）" class="headerlink" title="线程构建模块（TBB，http://www.threadingbuildingblocks.org/）"></a>线程构建模块（TBB，<a href="http://www.threadingbuildingblocks.org/）" target="_blank" rel="noopener">http://www.threadingbuildingblocks.org/）</a></h3><p>TBB 是一个有雄心壮志的、有良好文档记录的、具有模板特性的 C++ 线程 API。它提<br>供了并行 for 循环，任务和线程池，并发容器，数据流消息传递类以及同步原语。TBB<br>由英特尔开发，旨在提高多核处理器效率。现在它已经被开源了，同时支持 Windows<br>和 Linux。它有良好的文档记录，其中还包括一本优秀书籍（James Reinders 编写的<br>Intel Threading Building Blocks，O’Reilly 出版社）。</p>
-<h3 id="0mq（也拼写为-ZeroMQ，http-zeromq-org-）"><a href="#0mq（也拼写为-ZeroMQ，http-zeromq-org-）" class="headerlink" title="0mq（也拼写为 ZeroMQ，http://zeromq.org/）"></a>0mq（也拼写为 ZeroMQ，<a href="http://zeromq.org/）" target="_blank" rel="noopener">http://zeromq.org/）</a></h3><p>0mq 是一个用于连接消息传递程序的通信库。它支持多种通信范式，追求高效与简约。<br>以我的个人经验来看，0mq 是非常优秀的。0mq 是开源的，有良好的文档，获得了不少<br>支持。0mq 还有一个称为 nanomsg 的改进版（<a href="http://www.nanomsg.org），它修正了" target="_blank" rel="noopener">http://www.nanomsg.org），它修正了</a> 0mq<br>中的一些问题。</p>
-<h3 id="消息传递接口（MPI，http-computing-llnl-gov-tutorials-mpi-）"><a href="#消息传递接口（MPI，http-computing-llnl-gov-tutorials-mpi-）" class="headerlink" title="消息传递接口（MPI，http://computing.llnl.gov/tutorials/mpi/）"></a>消息传递接口（MPI，<a href="http://computing.llnl.gov/tutorials/mpi/）" target="_blank" rel="noopener">http://computing.llnl.gov/tutorials/mpi/）</a></h3><p>MPI 是分布式计算机网络中的消息传递的一个 API 规范。它的实现类似于 C 风格的函<br>数库。MPI 诞生于加利福尼亚的劳伦斯利弗莫尔国家实验室，该实验室长期与超级计算<br>机集群和繁荣的高能物理联系在一起。MPI 具有良好的文档记录，具有老式的 20 世纪<br>80 年代的 DoD 风格。它既有支持 Linux 的实现，也有支持 Windows 的实现，其中还包<br>括来自 Boost 的实现（<a href="http://www.boost.org/doc/libs/1_60_0/doc/html/mpi.html），但是这" target="_blank" rel="noopener">http://www.boost.org/doc/libs/1_60_0/doc/html/mpi.html），但是这</a><br>些实现并非都完整地覆盖了规范。</p>
-<h3 id="OpenMP（http-openmp-org）"><a href="#OpenMP（http-openmp-org）" class="headerlink" title="OpenMP（http://openmp.org）"></a>OpenMP（<a href="http://openmp.org）" target="_blank" rel="noopener">http://openmp.org）</a></h3><p>OpenMP 是一款用于“使用 C/C++ 和 Fortran 语言进行多平台共享内存并行编程”的<br>API。其用法是开发人员使用定义程序并行行为的编译指令装饰 C++ 程序。OpenMP 提<br>供了一个擅长数值计算的细粒度的并发模型，而且它正在朝着 GPU 编程的方向发展。<br>在 Linux 上，GCC 和 Clang 都支持 OpenMP；在 Windows 上 Visual C++ 支持 OpenMP。</p>
-<h3 id="C-AMP（https-msdn-microsoft-com-en-us-library-hh265137-aspx）"><a href="#C-AMP（https-msdn-microsoft-com-en-us-library-hh265137-aspx）" class="headerlink" title="C++ AMP（https://msdn.microsoft.com/en-us/library/hh265137.aspx）"></a>C++ AMP（<a href="https://msdn.microsoft.com/en-us/library/hh265137.aspx）" target="_blank" rel="noopener">https://msdn.microsoft.com/en-us/library/hh265137.aspx）</a></h3><p>C++ AMP 是一份关于设计 C++ 库在 GPU 设备上进行并行数据计算的开源规范。其中，<br>来自于微软的版本会被解析为 DirectX 11 调用。</p>
-<h1 id="优化内存管理"><a href="#优化内存管理" class="headerlink" title="优化内存管理"></a>优化内存管理</h1>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">读书笔记</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">性能优化</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/06/19/C++性能优化指南-读书笔记/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -3393,6 +2619,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">算法</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">网络编程</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">TCP/IP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">SOCKET</a>
               </li>
             
             <div class="clearfix"></div>
