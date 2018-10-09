@@ -160,6 +160,483 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-MSBuild (Visual C++)" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/12/21/MSBuild (Visual C++)/">MSBuild</a>
+    </h1>
+  
+
+        
+        <a href="/2017/12/21/MSBuild (Visual C++)/" class="archive-article-date">
+  	<time datetime="2017-12-21T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-21</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Visual-Studio-文档"><a href="#Visual-Studio-文档" class="headerlink" title="Visual Studio 文档"></a>Visual Studio 文档</h1><p><a href="https://docs.microsoft.com/zh-cn/visualstudio/" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/visualstudio/</a></p>
+<h1 id="MSBuild-Visual-C"><a href="#MSBuild-Visual-C" class="headerlink" title="MSBuild (Visual C++)"></a>MSBuild (Visual C++)</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/dd293626.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/dd293626.aspx</a></p>
+<p>可以使用 MSBuild 工具从命令提示符处生成 Visual C++ 应用程序。 该生成过程由您可以创建和编辑的项目文件 (.vcxproj) 中的信息来控制。 该项目文件基于生成阶段、条件和事件指定生成选项</p>
+<h1 id="MSBuild-Visual-C-概述"><a href="#MSBuild-Visual-C-概述" class="headerlink" title="MSBuild (Visual C++) 概述"></a>MSBuild (Visual C++) 概述</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/ee662426.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/ee662426.aspx</a></p>
+<p>用户目标和属性</p>
+<p>若要在命令行上最有效地使用 MSBuild，最好先了解哪些属性和目标是有用且相关。 大多数属性和目标可以帮助实施 Visual c + + 生成系统，并因此不与用户相关。 本部分介绍一些值得面向用户的属性和目标。</p>
+<p>PlatformToolset 属性</p>
+<p>PlatformToolset 属性确定在生成中使用的 Visual c + + 工具集。 属性的值与字符串组合成包含生成用于特定平台的项目所需的属性和目标文件的目录路径串联。</p>
+<p>设置 PlatformToolset 属性设置为 v110 使用 Visual Studio 2012 中的 Visual C++ 工具和库来构建您的应用程序。</p>
+<p>msbuild myProject.vcxproj /p:PlatformToolset=v110</p>
+<p>设置 PlatformToolset 属性设置为 v100 使用 Visual C++ 2010 工具和库来构建您的应用程序。</p>
+<p>msbuild myProject.vcxproj /p:PlatformToolset=v100</p>
+<p>设置 PlatformToolset 属性设置为 v90 使用 Visual c + + 2008年工具和库来生成你的应用程序。 此属性才有效在计算机上必须已安装的 Visual c + + 2008年工具集。</p>
+<p>msbuild myProject.vcxproj /p:PlatformToolset=v90</p>
+<p>PreferredToolArchitecture 属性</p>
+<p>PreferredToolArchitecture 属性确定是否在生成中使用 32 位或 64 位编译器和工具。 此属性不影响输出的平台体系结构或配置。 默认情况下，MSBuild 使用 x86 版本的编译器和工具，如果此属性未设置，或为设置为任何值以外 x64。</p>
+<p>设置 PreferredToolArchitecture 属性设置为 x64 以使用 64 位编译器和工具来生成应用程序。</p>
+<p>msbuild myProject.vcxproj /p:PreferredToolArchitecture=x64</p>
+<p>UseEnv 属性</p>
+<p>默认情况下，当前项目的特定于平台的设置重写路径、 INCLUDE、 LIB、 LIBPATH、 配置和平台环境变量。 设置 UseEnv 属性设置为 true 若要确保环境变量不重写。</p>
+<p>msbuild myProject.vcxproj /p:UseEnv=true</p>
+<p>目标</p>
+<p>有数百个 Visual c + + 支持文件中的目标。 但是，大多数都是用户可忽略的面向系统的目标。 大多数系统目标前缀是下划线 (_)，或具有”PrepareFor”，”计算”，以”Before”，”After”，”之前”或”Post”开头的名称。</p>
+<p>下表列出了几个值得面向用户的目标。</p>
+<h1 id="MSBuild-命令行参考"><a href="#MSBuild-命令行参考" class="headerlink" title="MSBuild 命令行参考"></a>MSBuild 命令行参考</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/ms164311.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/ms164311.aspx</a></p>
+<p><code>MSBuild.exe [Switches] [ProjectFile]</code> </p>
+<pre><code>语法:                             MSBuild.exe [选项] [项目文件]
+
+描述:                    在项目文件中生成指定的目标。如果
+                     未指定项目文件，MSBuild 将搜索
+                     当前工作目录来查找文件扩展名
+                     以“proj”结尾的文件并使用该文件。
+
+开关:
+
+  /target:&lt;targets&gt;  在此项目中生成这些目标。使用
+                     分号或逗号分隔多个目标，或者分别指定
+                     每个目标。(缩写: /t)
+                     示例:
+                       /target:Resources;Compile
+
+  /property:&lt;n&gt;=&lt;v&gt;  设置或重写这些项目级属性。&lt;n&gt; 是
+                     属性名，&lt;v&gt; 为属性值。请使用
+                     分号或逗号分隔多个属性，或者
+                     分别指定每个属性。(缩写: /p)
+                     示例:
+                       /property:WarningLevel=2;OutDir=bin\Debug\
+
+  /maxcpucount[:n]   指定用于生成的最大
+                     并发进程数。如果未使用开关，则使用的默认值
+                     为 1。如果使用开关时不带值，
+                     MSBuild 将最多使用计算机上的
+                     处理器数。(缩写: /m[:n])
+
+  /toolsversion:&lt;version&gt;
+                     要在生成过程中使用的 MSBuild 工具集
+                     (任务、目标等) 的版本。此版本将重写
+                     个别项目指定的版本。(缩写:
+                     /tv)
+                     示例:
+                       /toolsversion:3.5
+
+  /verbosity:&lt;level&gt; 在事件日志中显示此级别的信息量。
+                     可用的详细级别有: q[uiet]、 m[inimal]、
+                     n[ormal]、d[etailed] 和 diag[nostic]。(缩写: /v)
+                     示例:
+                       /verbosity:quiet
+
+  /consoleloggerparameters:&lt;parameters&gt;
+                     控制台记录器的参数。(缩写: /clp)
+                     可用的参数有:
+                        PerformanceSummary -- 显示在任务、目标和项目上
+                            花费的时间。
+                        Summary -- 结束时显示错误和警告的摘要。
+                        NoSummary -- 结束时不显示错误和警告
+                            的摘要。
+                        ErrorsOnly -- 仅显示错误。
+                        WarningsOnly -- 仅显示警告。
+                        NoItemAndPropertyList -- 在开始生成每个项目时不显示
+                            项和属性的列表。
+                        ShowCommandLine -- 显示 TaskCommandLineEvent 消息
+                        ShowTimestamp -- 将时间戳作为所有消息的前缀
+                            显示。
+                        ShowEventId -- 显示已开始事件、已完成事件和消息
+                            的事件 ID。
+                        ForceNoAlign -- 不将文本与控制台缓冲区的大小
+                            匹配。
+                        DisableConsoleColor -- 将默认控制台颜色
+                            用于所有记录消息。
+                        DisableMPLogging -- 在非多处理器
+                            模式下运行时，禁用输出的多处理器
+                            日志记录样式。
+                        EnableMPLogging -- 即使在非多处理器
+                            模式下运行，也启用多处理器
+                            日志记录样式。默认情况下启用此日志记录样式。
+                        Verbosity -- 重写此记录器的  /verbosity
+                            设置。
+                     示例:
+                        /consoleloggerparameters:PerformanceSummary;NoSummary;
+                                                 Verbosity=minimal
+
+  /noconsolelogger   禁用默认控制台记录器，并且不将事件
+                     记录到控制台。(缩写:  /noconlog)
+
+  /fileLogger[n]     将生成输出记录到文件中。默认情况下，
+                     该文件在当前目录中，名称为
+                     “msbuild[n].log”。所有节点中的事件合并到
+                     单个日志中。fileLogger 的文件和
+                     其他参数的位置可以通过添加
+                     “/fileLoggerParameters[n]”开关来指定。
+                     “n”(如果存在)可以为 1-9 的数字，允许最多附加
+                     10 个文件记录器。(缩写:  /fl[n])
+
+  /fileloggerparameters[n]:&lt;parameters&gt;
+                     为文件记录器提供任何额外的参数。
+                     存在此开关意味着
+                     存在对应的 /filelogger[n] 开关。
+                    “n”(如果存在)可以为 1-9 的数字。
+                     任何分布式文件记录器也可以使用
+                     /fileloggerparameters，具体可参阅 /distributedFileLogger 的说明。
+                     (缩写: /flp[n])
+                     为控制台记录器列出的相同参数
+                     可用。某些其他可用参数有:
+                        LogFile -- 生成日志将写入其中的
+                            日志文件的路径。
+                        Append -- 确定是将生成日志附加到日志文件，
+                            还是覆盖日志文件。如果设置此
+                            开关，则会将生成日志附加到日志文件；
+                            如果不设置此开关，则会覆盖
+                            现有日志文件的内容。
+                            默认值为不附加到日志文件。
+                        Encoding -- 指定文件的编码，
+                            例如，UTF-8、Unicode 或 ASCII
+                     默认的详细级别为 Detailed。
+                     示例:
+                       /fileLoggerParameters:LogFile=MyLog.log;Append;
+                                           Verbosity=diagnostic;Encoding=UTF-8
+
+                       /flp:Summary;Verbosity=minimal;LogFile=msbuild.sum
+                       /flp1:warningsonly;logfile=msbuild.wrn
+                       /flp2:errorsonly;logfile=msbuild.err
+
+  /distributedlogger:&lt;central logger&gt;*&lt;forwarding logger&gt;
+                     使用此记录器来记录 MSBuild 中的事件，向每个节点
+                     附加不同的记录器实例。若要指定
+                     多个记录器，请分别指定每个记录器。
+                     (缩写 /dl)
+                     &lt;logger&gt; 语法为:
+                       [&lt;logger class&gt;,]&lt;logger assembly&gt;[;&lt;logger parameters&gt;]
+                     &lt;logger class&gt; 语法为:
+                       [&lt;partial or full namespace&gt;.]&lt;logger class name&gt;
+                     &lt;logger assembly&gt; 语法为:
+                       {&lt;assembly name&gt;[,&lt;strong name&gt;] | &lt;assembly file&gt;}
+                     &lt;logger parameters&gt; 是可选的，并且按键入的
+                     形式原样传递给记录器。(缩写: /l)
+                     示例:
+                       /dl:XMLLogger,MyLogger,Version=1.0.2,Culture=neutral
+                       /dl:MyLogger,C:\My.dll*ForwardingLogger,C:\Logger.dll
+
+  /distributedFileLogger
+                     将生成输出记录到多个日志文件，每个 MSBuild 节点
+                     一个日志文件。这些文件的初始位置为
+                     当前目录。默认情况下，这些文件名为
+                     “MSBuild&lt;nodeid&gt;.log”。可通过添加
+                     “/fileLoggerParameters”开关来指定
+                     这些文件的位置和 fileLogger 的其他参数。
+
+                     如果日志文件名是通过 fileLoggerParameters
+                     开关设置的，分布式记录器将使用 fileName 作为
+                     模板并将节点 ID 附加到此 fileName
+                     以便为每个节点创建一个日志文件。
+
+  /logger:&lt;logger&gt;   使用此记录器来记录 MSBuild 中的事件。若要指定
+                     多个记录器，请分别指定每个记录器。
+                     &lt;logger&gt; 语法为:
+                       [&lt;logger class&gt;,]&lt;logger assembly&gt;[;&lt;logger parameters&gt;]
+                    &lt;logger class&gt; 语法为:
+                        [&lt;partial or full namespace&gt;.]&lt;logger class name&gt;
+                   &lt;logger assembly&gt; 语法为:
+                        {&lt;assembly name&gt;[,&lt;strong name&gt;] | &lt;assembly file&gt;}
+                     &lt;logger parameters&gt; 是可选的，并按键入的
+                    形式原样传递给记录器。(缩写: /l)
+                     示例:
+                       /logger:XMLLogger,MyLogger,Version=1.0.2,Culture=neutral
+                       /logger:XMLLogger,C:\Loggers\MyLogger.dll;OutputAsHTML
+
+  /validate          依据默认架构验证项目。(缩写:
+                     /val)
+
+  /validate:&lt;schema&gt; 依据指定的架构验证项目。 (缩写:
+                     /val)
+                     示例:
+                       /validate:MyExtendedBuildSchema.xsd
+
+  /ignoreprojectextensions:&lt;扩展名&gt;
+                     确定要生成的项目文件时要忽略的
+                     扩展名的列表。使用分号或逗号来分隔
+                     多个扩展名。
+                     (缩写: /ignore)
+                     示例:
+                       /ignoreprojectextensions:.sln
+
+  /nodeReuse:&lt;parameters&gt;
+                     允许或禁止重复使用 MSBuild 节点。
+                     参数包括:
+                     True -- 生成完成后节点将保留，
+                             并且将由后面的生成重复使用(默认)
+                     False -- 生成完成后节点将不会保留
+                     (缩写: /nr)
+                     示例:
+                       /nr:true
+
+  /preprocess[:file]
+                     通过嵌入将在生成过程中导入的
+                     所有文件并标记其边界，
+                     创建一个聚合的项目文件。这对于
+                     了解导入什么文件、从何处导入以及
+                     这些文件在生成中的构成
+                     非常有用。默认情况下，输出将写入
+                     控制台窗口。如果提供输出文件的路径，
+                     则将改用该路径。
+                     (缩写: /pp)
+                      示例:
+                       /pp:out.txt
+
+  /detailedsummary
+                     在生成的结尾显示有关
+                     所生成的配置以及如何向节点安排
+                     这些配置的详细信息。
+                     (缩写:  /ds)
+
+  @&lt;file&gt;            从文本文件插入命令行设置。若要指定
+                     多个响应文件，请分别指定每个响应
+                     文件。
+
+                     自动从以下位置使用任何
+                     名为“msbuild.rsp”的响应文件:
+                     (1) msbuild.exe 的目录
+                     (2) 生成的第一个项目或解决方案的目录
+
+  /noautoresponse    不自动包括任何 MSBuild.rsp 文件。(缩写:
+                     /noautorsp)
+
+  /nologo            不显示启动版权标志和版权消息。
+
+  /version           仅显示版本信息。(缩写:  /ver)
+
+  /help              显示此用法消息。(缩写: /? 或 /h)
+
+示例:
+
+        MSBuild MyApp.sln /t:Rebuild /p:Configuration=Release
+        MSBuild MyApp.csproj /t:Clean
+                             /p:Configuration=Debug;TargetFrameworkVersion=v3.5
+</code></pre><p>示例</p>
+<pre><code>MSBuild.exe MyProject.proj /t:rebuild 
+</code></pre><h1 id="演练：使用-MSBuild-创建-Visual-C-项目"><a href="#演练：使用-MSBuild-创建-Visual-C-项目" class="headerlink" title="演练：使用 MSBuild 创建 Visual C++ 项目"></a>演练：使用 MSBuild 创建 Visual C++ 项目</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/dd293607.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/dd293607.aspx</a></p>
+<pre><code>msbuild myproject.vcxproj /p:configuration=debug
+
+msbuild myproject.vcxproj /t:clean
+</code></pre><h2 id="将-MSBuild-与生成目标结合使用"><a href="#将-MSBuild-与生成目标结合使用" class="headerlink" title="将 MSBuild 与生成目标结合使用"></a>将 MSBuild 与生成目标结合使用</h2><p>生成目标是指定的一组预定义命令或用户定义的命令，这组命令可在生成期间执行。 使用目标命令行选项 (/t) 可以指定生成目标。 对于 myproject 示例项目，预定义的 clean 目标将删除调试文件夹中的所有文件并创建新日志文件。<br>在命令提示符处，键入以下命令以清理 myproject。<br>    msbuild myproject.vcxproj /t:clean</p>
+<h2 id="将-MSBuild-与生成属性结合使用"><a href="#将-MSBuild-与生成属性结合使用" class="headerlink" title="将 MSBuild 与生成属性结合使用"></a>将 MSBuild 与生成属性结合使用</h2><p>通过使用属性命令行选项 (/p)，您可以在项目生成文件中重写属性。 在 myproject 示例项目中，发布版本配置或调试版本配置是由 Configuration 属性指定的。 用来运行生成的应用程序的操作系统是由 Platform 属性指定的。<br>在命令提示符处，键入以下命令，以创建打算在 32 位 Windows 上运行的 myproject 应用程序的调试版本。</p>
+<pre><code>msbuild myproject.vcxproj /p:configuration=debug /p:platform=win32
+</code></pre><p>假设 myproject 示例项目也为 64 位 Windows 定义了配置，并为名为 myplatform 的自定义操作系统定义了另一个配置。<br>在命令提示符处，键入以下命令，以创建在 64 位 Windows 上运行的发布版本。</p>
+<pre><code>msbuild myproject.vcxproj /p:configuration=release /p:platform=x64
+</code></pre><p>在命令提示符处，键入以下命令以为 myplatform 创建发布版本。</p>
+<pre><code>msbuild myproject.vcxproj /p:configuration=release /p:platform=myplatform
+</code></pre><h1 id="个人写的例子："><a href="#个人写的例子：" class="headerlink" title="个人写的例子："></a>个人写的例子：</h1><p>vs2005:</p>
+<pre><code>call &quot;D:\Program Files (x86)\Microsoft Visual Studio 8\VC\vcvarsall.bat&quot; x86
+</code></pre><p>vs2010:</p>
+<pre><code>call &quot;C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\vcvarsall.bat&quot; x86
+</code></pre><p>vs2012:</p>
+<pre><code>call &quot;C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\vcvarsall.bat&quot; x86
+</code></pre><p>重新编译：</p>
+<pre><code>MSBuild %~dp0..\Project\VC10\pro.sln /t:rebuild /p:configuration=&quot;Release&quot;
+</code></pre><h1 id="在命令行上生成"><a href="#在命令行上生成" class="headerlink" title="在命令行上生成"></a>在命令行上生成</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/f35ctcxw.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/f35ctcxw.aspx</a></p>
+<h1 id="为命令行生成设置路径和环境变量"><a href="#为命令行生成设置路径和环境变量" class="headerlink" title="为命令行生成设置路径和环境变量"></a>为命令行生成设置路径和环境变量</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/f2ccy3wt.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/f2ccy3wt.aspx</a></p>
+<h1 id="生成应用程序"><a href="#生成应用程序" class="headerlink" title="生成应用程序"></a>生成应用程序</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/ms181709.aspx" target="_blank" rel="noopener">https://msdn.microsoft.com/zh-cn/library/ms181709.aspx</a></p>
+<p><a href="https://msdn.microsoft.com/zh-cn/library/ms244359.aspx" target="_blank" rel="noopener">Team Foundation Build 参考</a></p>
+<h1 id="vcvars-bat-设置命令行编译环境"><a href="#vcvars-bat-设置命令行编译环境" class="headerlink" title="vcvars.bat 设置命令行编译环境"></a>vcvars.bat 设置命令行编译环境</h1><pre><code>@echo off
+
+if defined VSINSTALLDIR (
+    echo already installed
+goto eof
+)
+set &quot;_ARG_=%1&quot;
+
+rem help
+if &quot;%_ARG_%&quot; EQU &quot;&quot; (
+    echo syntax: %0 [2005 ^| 2008 ^| 2010 ^| 2012 ^| 2013 ^| 2015] [64]
+    goto eof
+)
+
+if &quot;%_ARG_%&quot; EQU &quot;2005&quot; set &quot;ProgramFiles(x86)=%VS80COMNTOOLS%..\..\&quot;
+if &quot;%_ARG_%&quot; EQU &quot;2008&quot; set &quot;ProgramFiles(x86)=%VS90COMNTOOLS%..\..\&quot;
+if &quot;%_ARG_%&quot; EQU &quot;2010&quot; set &quot;ProgramFiles(x86)=%VS100COMNTOOLS%..\..\&quot;
+if &quot;%_ARG_%&quot; EQU &quot;2012&quot; set &quot;ProgramFiles(x86)=%VS110COMNTOOLS%..\..\&quot;
+if &quot;%_ARG_%&quot; EQU &quot;2013&quot; set &quot;ProgramFiles(x86)=%VS120COMNTOOLS%..\..\&quot;
+if &quot;%_ARG_%&quot; EQU &quot;2015&quot; set &quot;ProgramFiles(x86)=%VS140COMNTOOLS%..\..\&quot;
+
+echo &quot;%ProgramFiles(x86)%&quot;
+
+if NOT DEFINED ProgramFiles(x86) set ProgramFiles(x86)=C:\Program Files (x86)
+if NOT DEFINED VS80COMNTOOLS set VS80COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 8\Common7\Tools\
+if NOT DEFINED VS90COMNTOOLS set VS90COMNTOOLS=c:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\Tools\
+rem VS100COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\Tools\
+rem VS110COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 11.0\Common7\Tools\
+rem VS120COMNTOOLS=C:\Program Files (x86)\Microsoft Visual Studio 12.0\Common7\Tools\
+rem VS140COMNTOOLS=D:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\Tools\
+rem VS80COMNTOOLS=D:\Program Files (x86)\Microsoft Visual Studio 8\Common7\Tools\
+rem VS90COMNTOOLS=D:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\Tools\
+rem VSSDK140Install=D:\Program Files (x86)\Microsoft Visual Studio 14.0\VSSDK\
+
+
+
+set &quot;_OPT_=%2&quot;
+if NOT DEFINED _OPT_ set _OPT_=64
+if &quot;%_OPT_%&quot; EQU &quot;x64&quot; set &quot;_OPT_=64&quot;
+
+if &quot;%_ARG_%&quot; EQU &quot;2005&quot; (
+  if &quot;%_OPT_%&quot; EQU &quot;64&quot; (
+pushd &quot;%ProgramFiles(x86)%\VC\bin\amd64\&quot;
+call vcvarsamd64.bat
+set PROCESSOR_ARCHITECTURE=AMD64
+  ) else (
+pushd &quot;%ProgramFiles(x86)%\VC\bin&quot;
+call vcvars32.bat
+set PROCESSOR_ARCHITECTURE=x86
+  )
+  popd
+  goto eof
+)
+
+rem set the variable _VC_
+set _VC_=
+
+if &quot;%_ARG_%&quot; EQU &quot;2008&quot; set &quot;_VC_=9.0&quot;
+if &quot;%_ARG_%&quot; EQU &quot;2010&quot; set &quot;_VC_=10.0&quot;
+if &quot;%_ARG_%&quot; EQU &quot;2012&quot; set &quot;_VC_=11.0&quot;
+if &quot;%_ARG_%&quot; EQU &quot;2013&quot; set &quot;_VC_=12.0&quot;
+if &quot;%_ARG_%&quot; EQU &quot;2015&quot; set &quot;_VC_=14.0&quot;
+
+if DEFINED _VC_ (
+  echo &quot;%ProgramFiles(x86)%\VC\&quot;
+  pushd &quot;%ProgramFiles(x86)%\VC\&quot;
+  if &quot;%_OPT_%&quot; EQU &quot;64&quot; (
+vcvarsall.bat x86_amd64
+set PROCESSOR_ARCHITECTURE=AMD64
+  ) else (
+vcvarsall.bat x86
+set PROCESSOR_ARCHITECTURE=x86
+  )
+  if errorlevel 1 (
+      echo.*** error - failed ***
+  ) else (
+      echo Success Environment for Visual Studio %_VC_% = %*
+  )
+  popd
+) else (
+  echo unknown version of Visual Studio %*
+  set _ARG_=
+  call:help
+)
+
+rem
+rem That&apos;s all Folks!
+:eof
+</code></pre><h1 id="MSBuild编译"><a href="#MSBuild编译" class="headerlink" title="MSBuild编译"></a>MSBuild编译</h1><pre><code>call &quot;%~dp0\vcvars.bat&quot; 2005|2008|2010|2012|2013|2015 x86|x64
+MSBuild %~dp0..\Project\pro.sln /t:rebuild /p:configuration=&quot;Release&quot;
+MSBuild &quot;%~dp0..\Project\pro.sln&quot; /t:clean
+</code></pre><h1 id="devenv"><a href="#devenv" class="headerlink" title="devenv"></a>devenv</h1><pre><code>@echo off
+
+cd /d %~dp0
+set BUILD_TARGET=%CD%\MyProject.sln
+
+echo.
+if &quot;&quot;==&quot;%VS80COMNTOOLS%&quot; (
+   echo environment variable &apos;VS80COMNTOOLS%&apos; has not been set
+   goto Exit_Fail
+)
+
+set DEVENV=%VS80COMNTOOLS%\..\IDE\devenv.com
+if not exist &quot;%DEVENV%&quot; (
+   echo file &quot;%DEVENV%&quot; can not be found
+   goto Exit_Fail
+)
+
+@echo on
+
+&quot;%DEVENV%&quot; &quot;%BUILD_TARGET%&quot; /Build Release
+
+:Exit_Fail
+
+pause
+</code></pre><p><code>Build</code>可换成<code>Rebuild</code></p>
+<p><a href="https://www.cnblogs.com/songxingzhu/p/5242159.html" target="_blank" rel="noopener">使用devenv/MSBuild在命令行编译sln或csproj</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">MSBuild</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">VS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/12/21/MSBuild (Visual C++)/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Log4Net" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -2265,353 +2742,6 @@ std::cout &lt;&lt; &quot;SHA-512: &quot; &lt;&lt; s4 &lt;&lt; std::endl;
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/09/15/Crypto++/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Shell脚本编程30分钟入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/09/01/Shell脚本编程30分钟入门/">Shell脚本编程30分钟入门</a>
-    </h1>
-  
-
-        
-        <a href="/2017/09/01/Shell脚本编程30分钟入门/" class="archive-article-date">
-  	<time datetime="2017-09-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-09-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Shell脚本编程30分钟入门"><a href="#Shell脚本编程30分钟入门" class="headerlink" title="Shell脚本编程30分钟入门"></a>Shell脚本编程30分钟入门</h1><p>转载地址：<br><a href="https://github.com/qinjx/30min_guides/blob/master/shell.md" target="_blank" rel="noopener">Shell脚本编程30分钟入门</a></p>
-<h2 id="什么是Shell脚本"><a href="#什么是Shell脚本" class="headerlink" title="什么是Shell脚本"></a>什么是Shell脚本</h2><h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>看个例子吧：</p>
-<pre><code>#!/bin/sh
-cd ~
-mkdir shell_tut
-cd shell_tut
-
-for ((i=0; i&lt;10; i++)); do
-    touch test_$i.txt
-done
-</code></pre><h3 id="示例解释"><a href="#示例解释" class="headerlink" title="示例解释"></a>示例解释</h3><ul>
-<li>第1行：指定脚本解释器，这里是用/bin/sh做解释器的</li>
-<li>第2行：切换到当前用户的home目录</li>
-<li>第3行：创建一个目录shell_tut</li>
-<li>第4行：切换到shell_tut目录</li>
-<li>第5行：循环条件，一共循环10次</li>
-<li>第6行：创建一个test_1…10.txt文件</li>
-<li>第7行：循环体结束</li>
-</ul>
-<p>cd, mkdir, touch都是系统自带的程序，一般在/bin或者/usr/bin目录下。for, do, done是sh脚本语言的关键字。</p>
-<h3 id="shell和shell脚本的概念"><a href="#shell和shell脚本的概念" class="headerlink" title="shell和shell脚本的概念"></a>shell和shell脚本的概念</h3><p>shell是指一种应用程序，这个应用程序提供了一个界面，用户通过这个界面访问操作系统内核的服务。Ken Thompson的sh是第一种Unix Shell，Windows Explorer是一个典型的图形界面Shell。</p>
-<p>shell脚本（shell script），是一种为shell编写的脚本程序。业界所说的shell通常都是指shell脚本，但读者朋友要知道，shell和shell script是两个不同的概念。由于习惯的原因，简洁起见，本文出现的“shell编程”都是指shell脚本编程，不是指开发shell自身（如Windows Explorer扩展开发）。</p>
-<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>shell编程跟java、php编程一样，只要有一个能编写代码的文本编辑器和一个能解释执行的脚本解释器就可以了。</p>
-<h3 id="OS"><a href="#OS" class="headerlink" title="OS"></a>OS</h3><p>当前主流的操作系统都支持shell编程，本文档所述的shell编程是指Linux下的shell，讲的基本都是POSIX标准下的功能，所以，也适用于Unix及BSD（如Mac OS）。</p>
-<h4 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h4><p>Linux默认安装就带了shell解释器。</p>
-<h4 id="Mac-OS"><a href="#Mac-OS" class="headerlink" title="Mac OS"></a>Mac OS</h4><p>Mac OS不仅带了sh、bash这两个最基础的解释器，还内置了ksh、csh、zsh等不常用的解释器。</p>
-<h4 id="Windows上的模拟器"><a href="#Windows上的模拟器" class="headerlink" title="Windows上的模拟器"></a>Windows上的模拟器</h4><p>windows出厂时没有内置shell解释器，需要自行安装，为了同时能用grep, awk, curl等工具，最好装一个cygwin或者mingw来模拟linux环境。</p>
-<ul>
-<li><a href="http://www.cygwin.com" target="_blank" rel="noopener">cygwin</a></li>
-<li><a href="http://www.mingw.org" target="_blank" rel="noopener">mingw</a></li>
-</ul>
-<h3 id="脚本解释器"><a href="#脚本解释器" class="headerlink" title="脚本解释器"></a>脚本解释器</h3><h4 id="sh"><a href="#sh" class="headerlink" title="sh"></a>sh</h4><p>即Bourne shell，POSIX（Portable Operating System Interface）标准的shell解释器，它的二进制文件路径通常是/bin/sh，由Bell Labs开发。</p>
-<p>本文讲的是sh，如果你使用其它语言用作shell编程，请自行参考相应语言的文档。</p>
-<h4 id="bash"><a href="#bash" class="headerlink" title="bash"></a>bash</h4><p>Bash是Bourne shell的替代品，属GNU Project，二进制文件路径通常是/bin/bash。业界通常混用bash、sh、和shell，比如你会经常在招聘运维工程师的文案中见到：熟悉Linux Bash编程，精通Shell编程。</p>
-<p>在CentOS里，/bin/sh是一个指向/bin/bash的符号链接:</p>
-<pre><code>[root@centosraw ~]# ls -l /bin/*sh
--rwxr-xr-x. 1 root root 903272 Feb 22 05:09 /bin/bash
--rwxr-xr-x. 1 root root 106216 Oct 17  2012 /bin/dash
-lrwxrwxrwx. 1 root root      4 Mar 22 10:22 /bin/sh -&gt; bash
-</code></pre><p>但在Mac OS上不是，/bin/sh和/bin/bash是两个不同的文件，尽管它们的大小只相差100字节左右:</p>
-<pre><code>iMac:~ wuxiao$ ls -l /bin/*sh
--r-xr-xr-x  1 root  wheel  1371648  6 Nov 16:52 /bin/bash
--rwxr-xr-x  2 root  wheel   772992  6 Nov 16:52 /bin/csh
--r-xr-xr-x  1 root  wheel  2180736  6 Nov 16:52 /bin/ksh
--r-xr-xr-x  1 root  wheel  1371712  6 Nov 16:52 /bin/sh
--rwxr-xr-x  2 root  wheel   772992  6 Nov 16:52 /bin/tcsh
--rwxr-xr-x  1 root  wheel  1103984  6 Nov 16:52 /bin/zsh
-</code></pre><h4 id="高级编程语言"><a href="#高级编程语言" class="headerlink" title="高级编程语言"></a>高级编程语言</h4><p>理论上讲，只要一门语言提供了解释器（而不仅是编译器），这门语言就可以胜任脚本编程，常见的解释型语言都是可以用作脚本编程的，如：Perl、Tcl、Python、PHP、Ruby。Perl是最老牌的脚本编程语言了，Python这些年也成了一些linux发行版的预置解释器。</p>
-<p>编译型语言，只要有解释器，也可以用作脚本编程，如C shell是内置的（/bin/csh），Java有第三方解释器Jshell，Ada有收费的解释器AdaScript。</p>
-<p>如下是一个PHP Shell Script示例（假设文件名叫test.php）：</p>
-<pre><code>#!/usr/bin/php
-&lt;?php
-for ($i=0; $i &lt; 10; $i++)
-        echo $i . &quot;\n&quot;;
-</code></pre><p>执行：</p>
-<pre><code>/usr/bin/php test.php
-</code></pre><p>或者：</p>
-<pre><code>chmod +x test.php
-./test.php
-</code></pre><h2 id="如何选择shell编程语言"><a href="#如何选择shell编程语言" class="headerlink" title="如何选择shell编程语言"></a>如何选择shell编程语言</h2><h3 id="熟悉-vs-陌生"><a href="#熟悉-vs-陌生" class="headerlink" title="熟悉 vs 陌生"></a>熟悉 vs 陌生</h3><p>如果你已经掌握了一门编程语言（如PHP、Python、Java、JavaScript），建议你就直接使用这门语言编写脚本程序，虽然某些地方会有点啰嗦，但你能利用在这门语言领域里的经验（单元测试、单步调试、IDE、第三方类库）。</p>
-<p>新增的学习成本很小，只要学会怎么使用shell解释器（Jshell、AdaScript）就可以了。</p>
-<h3 id="简单-vs-高级"><a href="#简单-vs-高级" class="headerlink" title="简单 vs 高级"></a>简单 vs 高级</h3><p>如果你觉得自己熟悉的语言（如Java、C）写shell脚本实在太啰嗦，你只是想做一些备份文件、安装软件、下载数据之类的事情，学着使用sh，bash会是一个好主意。</p>
-<p>shell只定义了一个非常简单的编程语言，所以，如果你的脚本程序复杂度较高，或者要操作的数据结构比较复杂，那么还是应该使用Python、Perl这样的脚本语言，或者是你本来就已经很擅长的高级语言。因为sh和bash在这方面很弱，比如说：</p>
-<ul>
-<li>它的函数只能返回字串，无法返回数组</li>
-<li>它不支持面向对象，你无法实现一些优雅的设计模式</li>
-<li>它是解释型的，一边解释一边执行，连PHP那种预编译都不是，如果你的脚本包含错误(例如调用了不存在的函数)，只要没执行到这一行，就不会报错</li>
-</ul>
-<h3 id="环境兼容性"><a href="#环境兼容性" class="headerlink" title="环境兼容性"></a>环境兼容性</h3><p>如果你的脚本是提供给别的用户使用，使用sh或者bash，你的脚本将具有最好的环境兼容性，perl很早就是linux标配了，python这些年也成了一些linux发行版的标配，至于mac os，它默认安装了perl、python、ruby、php、java等主流编程语言。</p>
-<h2 id="第一个shell脚本"><a href="#第一个shell脚本" class="headerlink" title="第一个shell脚本"></a>第一个shell脚本</h2><h3 id="编写"><a href="#编写" class="headerlink" title="编写"></a>编写</h3><p>打开文本编辑器，新建一个文件，扩展名为sh（sh代表shell），扩展名并不影响脚本执行，见名知意就好，如果你用php写shell 脚本，扩展名就用php好了。</p>
-<p>输入一些代码，第一行一般是这样：</p>
-<pre><code>#!/bin/bash
-#!/usr/bin/php
-</code></pre><p>“#!”是一个约定的标记，它告诉系统这个脚本需要什么解释器来执行。</p>
-<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><p>运行Shell脚本有两种方法：</p>
-<h4 id="作为可执行程序"><a href="#作为可执行程序" class="headerlink" title="作为可执行程序"></a>作为可执行程序</h4><pre><code>chmod +x test.sh
-./test.sh
-</code></pre><p>注意，一定要写成./test.sh，而不是test.sh，运行其它二进制的程序也一样，直接写test.sh，linux系统会去PATH里寻找有没有叫test.sh的，而只有/bin, /sbin, /usr/bin，/usr/sbin等在PATH里，你的当前目录通常不在PATH里，所以写成test.sh是会找不到命令的，要用./test.sh告诉系统说，就在当前目录找。</p>
-<p>通过这种方式运行bash脚本，第一行一定要写对，好让系统查找到正确的解释器。</p>
-<p>这里的”系统”，其实就是shell这个应用程序（想象一下Windows Explorer），但我故意写成系统，是方便理解，既然这个系统就是指shell，那么一个使用/bin/sh作为解释器的脚本是不是可以省去第一行呢？是的。</p>
-<h4 id="作为解释器参数"><a href="#作为解释器参数" class="headerlink" title="作为解释器参数"></a>作为解释器参数</h4><p>这种运行方式是，直接运行解释器，其参数就是shell脚本的文件名，如：</p>
-<pre><code>/bin/sh test.sh
-/bin/php test.php
-</code></pre><p>这种方式运行的脚本，不需要在第一行指定解释器信息，写了也没用。</p>
-<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><h3 id="定义变量"><a href="#定义变量" class="headerlink" title="定义变量"></a>定义变量</h3><p>定义变量时，变量名不加美元符号（$），如：</p>
-<pre><code>your_name=&quot;qinjx&quot;
-</code></pre><p>注意，变量名和等号之间不能有空格，这可能和你熟悉的所有编程语言都不一样。</p>
-<p>除了显式地直接赋值，还可以用语句给变量赋值，如：</p>
-<pre><code>for file in `ls /etc`
-</code></pre><h3 id="使用变量"><a href="#使用变量" class="headerlink" title="使用变量"></a>使用变量</h3><p>使用一个定义过的变量，只要在变量名前面加美元符号即可，如：</p>
-<pre><code>your_name=&quot;qinjx&quot;
-echo $your_name
-echo ${your_name}
-</code></pre><p>变量名外面的花括号是可选的，加不加都行，加花括号是为了帮助解释器识别变量的边界，比如下面这种情况：</p>
-<pre><code>for skill in Ada Coffe Action Java; do
-    echo &quot;I am good at ${skill}Script&quot;
-done
-</code></pre><p>如果不给skill变量加花括号，写成echo “I am good at $skillScript”，解释器就会把$skillScript当成一个变量（其值为空），代码执行结果就不是我们期望的样子了。</p>
-<p>推荐给所有变量加上花括号，这是个好的编程习惯。IntelliJ IDEA编写shell script时，IDE就会提示加花括号。</p>
-<h3 id="重定义变量"><a href="#重定义变量" class="headerlink" title="重定义变量"></a>重定义变量</h3><p>已定义的变量，可以被重新定义，如：</p>
-<pre><code>your_name=&quot;qinjx&quot;
-echo $your_name
-
-your_name=&quot;alibaba&quot;
-echo $your_name
-</code></pre><p>这样写是合法的，但注意，第二次赋值的时候不能写$your_name=”alibaba”，使用变量的时候才加美元符。</p>
-<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>以“#”开头的行就是注释，会被解释器忽略。</p>
-<h3 id="多行注释"><a href="#多行注释" class="headerlink" title="多行注释"></a>多行注释</h3><p>sh里没有多行注释，只能每一行加一个#号。就像这样：</p>
-<pre><code>#--------------------------------------------
-# 这是一个自动打ipa的脚本，基于webfrogs的ipa-build书写：https://github.com/webfrogs/xcode_shell/blob/master/ipa-build
-
-# 功能：自动为etao ios app打包，产出物为14个渠道的ipa包
-# 特色：全自动打包，不需要输入任何参数
-#--------------------------------------------
-
-##### 用户配置区 开始 #####
-#
-#
-# 项目根目录，推荐将此脚本放在项目的根目录，这里就不用改了
-# 应用名，确保和Xcode里Product下的target_name.app名字一致
-#
-##### 用户配置区 结束  #####
-</code></pre><p>如果在开发过程中，遇到大段的代码需要临时注释起来，过一会儿又取消注释，怎么办呢？每一行加个#符号太费力了，可以把这一段要注释的代码用一对花括号括起来，定义成一个函数，没有地方调用这个函数，这块代码就不会执行，达到了和注释一样的效果。</p>
-<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>字符串是shell编程中最常用最有用的数据类型（除了数字和字符串，也没啥其它类型好用了，哈哈），字符串可以用单引号，也可以用双引号，也可以不用引号。单双引号的区别跟PHP类似。</p>
-<h3 id="单引号"><a href="#单引号" class="headerlink" title="单引号"></a>单引号</h3><pre><code>str=&apos;this is a string&apos;
-</code></pre><p>单引号字符串的限制：</p>
-<ul>
-<li>单引号里的任何字符都会原样输出，单引号字符串中的变量是无效的</li>
-<li>单引号字串中不能出现单引号（对单引号使用转义符后也不行）</li>
-</ul>
-<h3 id="双引号"><a href="#双引号" class="headerlink" title="双引号"></a>双引号</h3><pre><code>your_name=&apos;qinjx&apos;
-str=&quot;Hello, I know your are \&quot;$your_name\&quot;! \n&quot;
-</code></pre><ul>
-<li>双引号里可以有变量</li>
-<li>双引号里可以出现转义字符</li>
-</ul>
-<h3 id="字符串操作"><a href="#字符串操作" class="headerlink" title="字符串操作"></a>字符串操作</h3><h4 id="拼接字符串"><a href="#拼接字符串" class="headerlink" title="拼接字符串"></a>拼接字符串</h4><pre><code>your_name=&quot;qinjx&quot;
-greeting=&quot;hello, &quot;$your_name&quot; !&quot;
-greeting_1=&quot;hello, ${your_name} !&quot;
-
-echo $greeting $greeting_1
-</code></pre><h4 id="获取字符串长度："><a href="#获取字符串长度：" class="headerlink" title="获取字符串长度："></a>获取字符串长度：</h4><pre><code>string=&quot;abcd&quot;
-echo ${#string} #输出：4
-</code></pre><h4 id="提取子字符串"><a href="#提取子字符串" class="headerlink" title="提取子字符串"></a>提取子字符串</h4><pre><code>string=&quot;alibaba is a great company&quot;
-echo ${string:1:4} #输出：liba
-</code></pre><h4 id="查找子字符串"><a href="#查找子字符串" class="headerlink" title="查找子字符串"></a>查找子字符串</h4><pre><code>string=&quot;alibaba is a great company&quot;
-echo `expr index &quot;$string&quot; is`#输出：8，这个语句的意思是：找出单词is在这名话中的位置
-</code></pre><h4 id="更多"><a href="#更多" class="headerlink" title="更多"></a>更多</h4><p>参见本文档末尾的参考资料中<a href="http://tldp.org/LDP/abs/html/string-manipulation.html" target="_blank" rel="noopener">Advanced Bash-Scripting Guid Chapter 10.1</a></p>
-<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><h2 id="管道"><a href="#管道" class="headerlink" title="管道"></a>管道</h2><h2 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h2><h2 id="流程控制"><a href="#流程控制" class="headerlink" title="流程控制"></a>流程控制</h2><p>和Java、PHP等语言不一样，sh的流程控制不可为空，如：</p>
-<pre><code>&lt;?php
-if (isset($_GET[&quot;q&quot;])) {
-    search(q);
-}
-else {
-    //do nothing
-}
-</code></pre><p>在sh/bash里可不能这么写，如果else分支没有语句执行，就不要写这个else。</p>
-<p>还要注意，sh里的if [ $foo -eq 0 ]，这个方括号跟Java/PHP里if后面的圆括号大不相同，它是一个可执行程序（和cd, ls, grep一样），想不到吧？在CentOS上，它在/usr/bin目录下：</p>
-<pre><code>ll /usr/bin/[
--rwxr-xr-x. 1 root root 33408 6月  22 2012 /usr/bin/[
-</code></pre><p>正因为方括号在这里是一个可执行程序，方括号后面必须加空格，不能写成if [$foo -eq 0]</p>
-<h3 id="if-else"><a href="#if-else" class="headerlink" title="if else"></a>if else</h3><h4 id="if"><a href="#if" class="headerlink" title="if"></a>if</h4><pre><code>if condition
-then
-    command1 
-    command2
-    ...
-    commandN 
-fi
-</code></pre><p>写成一行（适用于终端命令提示符）：</p>
-<pre><code>if `ps -ef | grep ssh`;  then echo hello; fi
-</code></pre><p>末尾的fi就是if倒过来拼写，后面还会遇到类似的</p>
-<h4 id="if-else-1"><a href="#if-else-1" class="headerlink" title="if else"></a>if else</h4><pre><code>if condition
-then
-    command1 
-    command2
-    ...
-    commandN
-else
-    command
-fi
-</code></pre><h4 id="if-else-if-else"><a href="#if-else-if-else" class="headerlink" title="if else-if else"></a>if else-if else</h4><pre><code>if condition1
-then
-    command1
-elif condition2
-    command2
-else
-    commandN
-fi
-</code></pre><h3 id="for-while"><a href="#for-while" class="headerlink" title="for while"></a>for while</h3><h4 id="for"><a href="#for" class="headerlink" title="for"></a>for</h4><p>在开篇的示例里演示过了：</p>
-<pre><code>for var in item1 item2 ... itemN
-do
-    command1
-    command2
-    ...
-    commandN
-done
-</code></pre><p>写成一行：</p>
-<pre><code>for var in item1 item2 ... itemN; do command1; command2… done;
-</code></pre><h4 id="C风格的for"><a href="#C风格的for" class="headerlink" title="C风格的for"></a>C风格的for</h4><pre><code>for (( EXP1; EXP2; EXP3 ))
-do
-    command1
-    command2
-    command3
-done
-</code></pre><h4 id="while"><a href="#while" class="headerlink" title="while"></a>while</h4><pre><code>while condition
-do
-    command
-done
-</code></pre><h4 id="无限循环"><a href="#无限循环" class="headerlink" title="无限循环"></a>无限循环</h4><pre><code>while :
-do
-    command
-done
-</code></pre><p>或者</p>
-<pre><code>while true
-do
-    command
-done
-</code></pre><p>或者</p>
-<pre><code>for (( ; ; ))
-</code></pre><h4 id="until"><a href="#until" class="headerlink" title="until"></a>until</h4><pre><code>until condition
-do
-    command
-done
-</code></pre><h3 id="case"><a href="#case" class="headerlink" title="case"></a>case</h3><pre><code>case &quot;${opt}&quot; in
-    &quot;Install-Puppet-Server&quot; )
-        install_master $1
-        exit
-    ;;
-
-    &quot;Install-Puppet-Client&quot; )
-        install_client $1
-        exit
-    ;;
-
-    &quot;Config-Puppet-Server&quot; )
-        config_puppet_master
-        exit
-    ;;
-
-    &quot;Config-Puppet-Client&quot; )
-        config_puppet_client
-        exit
-    ;;
-
-    &quot;Exit&quot; )
-        exit
-    ;;
-
-    * ) echo &quot;Bad option, please choose again&quot;
-esac
-</code></pre><p>case的语法和C family语言差别很大，它需要一个esac（就是case反过来）作为结束标记，每个case分支用右圆括号，用两个分号表示break</p>
-<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><h3 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h3><h2 id="文件包含"><a href="#文件包含" class="headerlink" title="文件包含"></a>文件包含</h2><p>可以使用source和.关键字，如：</p>
-<pre><code>source ./function.sh
-. ./function.sh
-</code></pre><p>在bash里，source和.是等效的，他们都是读入function.sh的内容并执行其内容（类似PHP里的include），为了更好的可移植性，推荐使用第二种写法。</p>
-<p>包含一个文件和执行一个文件一样，也要写这个文件的路径，不能光写文件名，比如上述例子中:</p>
-<pre><code>. ./function.sh
-</code></pre><p>不可以写作：</p>
-<pre><code>. function.sh
-</code></pre><p>如果function.sh是用户传入的参数，如何获得它的绝对路径呢？方法是：</p>
-<pre><code>real_path=`readlink -f $1`#$1是用户输入的参数，如function.sh
-. $real_path
-</code></pre><h2 id="用户输入"><a href="#用户输入" class="headerlink" title="用户输入"></a>用户输入</h2><h3 id="执行脚本时传入"><a href="#执行脚本时传入" class="headerlink" title="执行脚本时传入"></a>执行脚本时传入</h3><h3 id="脚本运行中输入"><a href="#脚本运行中输入" class="headerlink" title="脚本运行中输入"></a>脚本运行中输入</h3><h3 id="select菜单"><a href="#select菜单" class="headerlink" title="select菜单"></a>select菜单</h3><h2 id="stdin和stdout"><a href="#stdin和stdout" class="headerlink" title="stdin和stdout"></a>stdin和stdout</h2><h2 id="常用的命令"><a href="#常用的命令" class="headerlink" title="常用的命令"></a>常用的命令</h2><p>sh脚本结合系统命令便有了强大的威力，在字符处理领域，有grep、awk、sed三剑客，grep负责找出特定的行，awk能将行拆分成多个字段，sed则可以实现更新插入删除等写操作。</p>
-<h3 id="ps"><a href="#ps" class="headerlink" title="ps"></a>ps</h3><p>查看进程列表</p>
-<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><h4 id="排除grep自身"><a href="#排除grep自身" class="headerlink" title="排除grep自身"></a>排除grep自身</h4><h4 id="查找与target相邻的结果"><a href="#查找与target相邻的结果" class="headerlink" title="查找与target相邻的结果"></a>查找与target相邻的结果</h4><h3 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h3><h3 id="sed"><a href="#sed" class="headerlink" title="sed"></a>sed</h3><h4 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h4><h4 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h4><h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><h3 id="xargs"><a href="#xargs" class="headerlink" title="xargs"></a>xargs</h3><h3 id="curl"><a href="#curl" class="headerlink" title="curl"></a>curl</h3><h2 id="综合案例"><a href="#综合案例" class="headerlink" title="综合案例"></a>综合案例</h2><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><a href="http://tldp.org/LDP/abs/html/" target="_blank" rel="noopener">Advanced Bash-Scripting Guide</a>，非常详细，非常易读，大量example，既可以当入门教材，也可以当做工具书查阅</li>
-<li><a href="http://www.tutorialspoint.com/unix/unix-shell.htm" target="_blank" rel="noopener">Unix Shell Programming</a></li>
-<li><a href="http://bash.cyberciti.biz/guide/Main_Page" target="_blank" rel="noopener">Linux Shell Scripting Tutorial - A Beginner’s handbook</a></li>
-<li><a href="http://wiki.ubuntu.org.cn/Shell%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80" target="_blank" rel="noopener">Shell编程基础</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Shell</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/09/01/Shell脚本编程30分钟入门/">展开全文 >></a>
         </p>
       
 

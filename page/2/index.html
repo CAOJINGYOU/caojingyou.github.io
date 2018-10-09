@@ -160,6 +160,305 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Linux与Qt程序设计-读书笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/20/Linux与Qt程序设计-读书笔记/">Linux与Qt程序设计-读书笔记</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/20/Linux与Qt程序设计-读书笔记/" class="archive-article-date">
+  	<time datetime="2018-06-20T01:12:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Linux与Qt程序设计</p>
+<p>陈爽主编</p>
+<p>Citation (APA): 陈爽主编. (2011). Linux与Qt程序设计 [Kindle Android version]. Retrieved from Amazon.com</p>
+<p>安装完毕后，MySQL会自动启动，也可以通过命令来启动和停止MySQL服务。</p>
+<p>（1）启动MySQL服务 <code>chenshuang@myHost:～$sudo start mysql mysql start/running,process 3209</code></p>
+<p>（2）停止MySQL服务 <code>chenshuang@myHost:～$sudo stop mysql mysql stop/waiting</code></p>
+<p>（3）测试MySQL是否启动，返回MySQL服务的进程id。 <code>chenshuang@myHost:～$pgrep mysqlid 3209</code></p>
+<p>（4）通过命令行连接MySQL服务器，登录过程中，需要输入root密码。 </p>
+<pre><code>chenshuang@myHost:～$mysql-uroot-p Enter password: Welcome to the MySQL monitor. Commands end with;or\g. 
+Your MySQL connection id is 34 Server version:5.1.54-1ubuntu4(Ubuntu) Copyright(c)2000,2010,Oracle and/or its affiliates.All rights reserved.
+ This software comes with ABSOLUTELY NO WARRANTY.
+This is free software, and you are welcome to modify and redistribute it under the GPL v2 license Type&apos;help;
+&apos;or&apos;\h&apos;for help.Type&apos;\c&apos;to clear the current input statement.
+ mysql&gt;
+</code></pre><p><code>sudo</code>是允许系统管理员让普通用户执行一些或者全部的root命令的一个工具，</p>
+<p>Qt是以工具开发包的形式提供给开发者的，这些工具开发包包括Qt图形设计器（Qt Designer），Makefile 制作工具（qmake），字体国际化工具（Qt Linguist），Qt的C++类库，等等。</p>
+<p>Qt已经成为Linux上自由软件的主流GUI开发工具，是流行的KDE桌面环境的基础。如今在Internet上有很多关于Qt开发的可用资源，如： </p>
+<pre><code>Qt官方主页（英文）：http://Qt.nokia.com/； 
+Qt中文网论坛（Qt中文网论坛）（简体中文）：http://www.Qtcn.org/；
+匿名访问FTP：ftp://ftp.trolltech.com； 
+Qt中心（论坛，新闻，Wiki）：http://www.Qtcentre.org； 
+Qt的实验室（开发人员博客，研究项目）：http://labs.Qt.nokia.com/；
+邮件列表：http://lists.Qt.nokia.com.
+</code></pre><p>Qt为各种专业应用提供了丰富的类库，共计超过370个，主要包括：界面控件类，数据库类，日期时间类，拖曳操作类，事件类，通用容器类，图形图像类，打印类，系统帮助类，布局管理类，设备相关类，输入输出与网络类，窗口相关类等。这些类组成了Qt编程的基本模块—组件，Qt含有用来实现各种专业应用所需要的各种组件。</p>
+<p>图形支持 Qt通过<code>QPainter</code>和<code>QGraphicsViewAPI</code>对高级2D图形提供了支持。此外，Qt通过其OpenGL模块支持3D图形。 QPainter提供了一个全面的2D绘图框架。除了渲染多边形、绘图路径等功能外，还支持平滑处理、渐变和alpha混合。 Qt Graphics View提供了2D场景图形API。它带有高级API，用于在场景中放置对象并在多个视图中显示场景。 Qt开发人员可以使用OpenGL在GUI应用程序中绘制3D图形。Qt提供了单独的Qt OpenGL模块，可将OpenGL图像与本地窗口系统集成在一起。</p>
+<p>Qt SDK包括了Qt库、Qt Creator IDE和Qt工具，Qt SDK同样也支持Linux/X11，Windows，Mac三种主流桌面操作系统。主要开发工具如下。</p>
+<pre><code>（1）Qt Designer。一个功能强大的GUI布局与窗口构造器，能够在所有支持平台上，以本地化的视图外观与认知，快速开发高性能的用户界面。
+（2）Qt Linguist。一套用来消除国际化工作流程中所带来的障碍的工具。使用Qt Linguist，开发小组可把应用程序的翻译转换外包给非技术性翻译人员，从而可增加精确度，大大加快本地化处理过程。
+（3）Qt Assistant。一个完全可自定义、重新分配的帮助文件或文档浏览器。
+</code></pre><p>由于GNOME和KDE都是以X Window系统为基础，所以GNOME和KDE上的应用程序也都是基于X Window系统的。为了屏蔽X协议层实现的细节，Xlib库被开发了出来。Xlib是一种X Window System协议的客户端，以C语言撰写。其功能是与X Server沟通，这样的功能可以让程序人员撰写程序时，无须了解其协议的细节。Xlib是底层库，在应用程序开发过程中很少有应用程序直接调用Xlib，而是使用在Xlib库上发展出的更高层的函数库，如：Xt SDK、Motif SDK和Qt SDK。</p>
+<p>Qt SDK中主要包括：类库（class library）、开发工具（development tools）、平台相关支持（cross-platform support）、授权许可（Flexible license）等。其中类库包含了Qt的所有对外发布的功能组件，介绍如下。</p>
+<pre><code>（1）Core：Qt4的基本模块,定义了其他模块使用的Qt核心的非GUI类,所有其他的模块都依赖于该模块。
+（2）GUI：定义了图形用户界面类。
+（3）WebKit：提供了一个在Qt中使用Web Browser的渲染与解析引擎。
+（4）Graphic View：提供的是一种 Qt Model-View的编程模式，既可以管理大数量的定制2D graphical items，又可与它们交互，有一个视图窗口可以把这些项绘制出来，并支持旋转与缩放。
+（5）Scripting：提供了对脚本（如Java、Python、Perl、Ruby）的支持。
+（6）OpenGL：提供了便于在Qt应用程序中使用OpenGL和OpenGL ES加入3D图形的类。
+（7）XML：定义了处理XML（eXtensible Markup Language）语言的类。
+（8）Multimedia：提供了播放媒体源的功能。
+（9）Database：提供了与平台和数据库种类无关的SQL访问接口。
+（10）Network：定义了Qt的网络编程类。
+（11）Unit Tests：定义了对Qt应用程序和库进行单元测试的类。
+</code></pre><p>开发工具集包含了Qt开发者所使用的集成开发环境，介绍如下。</p>
+<pre><code>（1）Qt Creator：是一个跨平台集成开发环境（Integrated Development Environment，IDE），开发人员能够利用这个Qt提供的轻量级开发环境快速、简单地完成开发任务；
+（2）GUI Designer：是一个所见即所得的GUI构造器，利用Qt Designer，可以拖放各种Qt控件构造图形用户界面并可以在多种平台上使用。
+（3）Build Tool：包括qmake、moc、uic等，构成了Qt完整的编译体系。
+（4）Help System：Qt Assistant是可配置且可重新发布的文档阅读器，可轻易进行定制并与用户的Qt应用程序一起重新发布。
+</code></pre><p>在平台相关支持，Qt支持下列操作系统：Microsoft Windows 95/98、Microsoft Windows NT、Linux、Solaris、SunOS、HP-UX、DigitalUNIX（OSF/1、Tru64）、Irix、Free BSD、BSD/OS、SCO、AIX、OS 390和QNX等。特别是在嵌入式环境中，Qt提供的Qt Embedded已经直接取代了X Server及X Library等角色，将所有的功能全部整合在一起。</p>
+<p>首先要介绍的是扩展名为Pro的文件类型，此类型的文件在Qt中是物理级别最高的，称为工程文件。之所以称之为物理级别最高是因为在Qt中存在会话（session）的概念，在一个会话中可以包含多个Qt工程，Qt通过会话来管理多个工程之间协作开发。在Qt中，应用程序是以Project的形式存在的，Qt将程序的资源（头文件(.h)、源文件(.cpp)、ui文件、qrc文件）以工程的形式组织在一起，Project文件的扩展名是.pro。 Qt工程文件是以标签选项的结构进行组织的，其中常用的标签项有：<code>TEMPLATE</code>、<code>SOURCES</code>、<code>HEADERS</code>、<code>FORMS</code>、<code>TARGET</code>、<code>DESTDIR</code>、<code>INCLUDEPATH</code>、<code>DEPENDPATH</code>、<code>CONFIG等</code>，</p>
+<p>对一些常用的标签进行详细介绍。</p>
+<ul>
+<li>1.TEMPLATE 此标签的作用是用qmake表示Qt工程类型，以便qmake程序根据不同的工程类型配置编译过程。 TEMPLATE的主要类型如下。 <ul>
+<li>app：建立一个应用程序的makefile。这是默认值，所以如果模板没有被指定，它将被使用。 </li>
+<li>lib：建立一个库的makefile。 </li>
+<li>subdirs：这是一个特殊的模板，它可以创建一个能够进入的特定目录并且为一个项目文件生成makefile并且为它调用make的makefile。 </li>
+<li>vcapp：建立一个应用程序的Visual Studio项目文件。 </li>
+<li>vclib：建立一个库的Visual Studio项目文件。 </li>
+<li>vcsubdirs：同subdirs。</li>
+</ul>
+</li>
+<li>2.TARGET 可执行应用程序的名称。默认值为项目文件的名称。（如果需要扩展名，会被自动加上。） </li>
+<li>3.Qt Qt 变量被用来声明引用Qt提供的扩展模块，如：core，gui，network，opengl，sql，svg，xml，xmlpatterns，Qt3support。Qt的core模块和gui模块会被作为默认选项自动添加，如果想去掉默认选项，可以通过Qt-=gui实现。 </li>
+<li>4.CONFIG CONFIG 变量指定了编译器所要使用的选项和所需要被连接的库。配置变量中可以添加任何东西，但只有下面这些选项可以被qmake识别。<ul>
+<li>下面这些选项控制着使用哪些编译器标志： <ul>
+<li>release：应用程序将以release模式连编。如果debug被指定，它将被忽略。 </li>
+<li>debug：应用程序将以debug模式连编。 </li>
+<li>warn_on：编译器会输出尽可能多的警告信息。如果warn_off被指定，它将被忽略。 </li>
+<li>warn_off：编译器会输出尽可能少的警告信息。</li>
+</ul>
+</li>
+<li>下面这些选项定义了所要连编的库/应用程序的类型： <ul>
+<li>Qt：应用程序是一个Qt应用程序，并且Qt库将会被连接。</li>
+<li>thread：应用程序是一个多线程应用程序。 </li>
+<li>x11：应用程序是一个X11应用程序或库。 </li>
+<li>windows：只用于app模板，应用程序是一个Windows下的窗口应用程序。 </li>
+<li>console：只用于app模板，应用程序是一个Windows下的控制台应用程序。 </li>
+<li>dll：只用于lib模板，库是一个共享库（dll）。 </li>
+<li>staticlib：只用于lib模板，库是一个静态库。 </li>
+<li>plugin：只用于lib模板，库是一个插件，这将会使dll选项生效。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>5.HEADERS 应用程序中的所有头文件的列表。 </li>
+<li>6.SOURCES 应用程序中的所有源文件的列表。 </li>
+<li>7.FORMS 应用程序中的所有.ui文件（由Qt设计器生成）的列表。 </li>
+<li>8.LIBS 记录了程序中所用到的其他库文件列表（以-l开头）及库文件的搜索路径（以-L开头）。 </li>
+<li>9.TARGET 可执行应用程序的名称。默认值为项目文件的名称。（如果需要扩展名，会被自动加上。） </li>
+<li>10.DESTDIR 放置可执行程序目标的目录。 </li>
+<li>11.DEFINES 应用程序所需的额外的预处理程序定义的列表。 </li>
+<li>12.INCLUDEPATH 应用程序所需的额外的包含路径的列表。 </li>
+<li>13.DEPENDPATH 应用程序所依赖的搜索路径。 </li>
+<li>14.DEF_FILE 只有Windows需要，应用程序所要连接的.def文件。 </li>
+<li>15.RC_FILE 只有Windows需要，应用程序的资源文件。 </li>
+<li>16.RES_FILE 只有Windows需要，应用程序所要连接的资源文件。</li>
+</ul>
+<p>MOC（Meta-Object Compiler）是用来实现Qt对C++的扩展部分。MOC解析C++文件中的类定义，并生成元对象（Meta Object）的代码，包括所有signal和slot成员的名字和函数指针。Meta Object还包含诸如对象的类名称等静态信息，以此来检查该对象的继承派生关系。moc文件必须与目标类的实现代码一起被编译和链接。 MOC 读取 C++类文件。如果它发现其中该类包含<code>Q_OBJECT</code> 宏，它就会给含有<code>Q_OBJECT</code>宏的类生成另一个含有元对象代码的C++源文件。除了提供对象间通信的信号和槽机制之外，派生自QObject中的元对象代码实现其他特征。</p>
+<pre><code>（1）className()：函数在运行的时候以字符串返回类的名称，不需要C++编译器中的本地运行类型信息（RTTI）的支持。
+（2）inherits()：函数返回这个对象是否是一个继承于QObject继承树中一个特定类的实例。
+（3）tr()：用于国际化中的字符串翻译。
+（4）setProperty()、property()：两个函数是用来通过名称动态设置和获得对象属性的。
+（5）metaObject()：函数返回这个类所关联的元对象。
+</code></pre><p>单继承方法是Qt4之后的默认实现方法。以上面所创建的MyMainWindow工程为例，它的主窗口名为MyMainWindow，它继承于QMainWindow，它有一个Ui:: MyMainWindow的私有成员，并在MyMainWindow的构造函数中，实例化这个私有的Ui::MyMainWindow，之后调用这个私有Ui::MyMainWindow的setupUi 方法，设置MyMainWindow的用户界面接口，即按UI文件中记录的界面信息初始化MyMainWindow的界面。至此，一个按照UI文件设计的界面的窗口就建立起来了。</p>
+<p>在Linux操作系统中，采用了很多共享对象技术（Shared Object），虽然它和Windows里的动态库相对应，但它并不称为动态库。相应的共享对象文件以.so作为后缀，</p>
+<p>所有从<code>QObject</code>或其子类(例如QWidget)派生的类都能够包含<code>信号和槽</code>。当对象改变其状态时，信号就由该对象发射(<code>emit</code>)出去，这就是对象所要做的全部事情，它不知道另一端是谁在接收这个信号。这就是真正的信息封装，它确保对象被当作一个真正的软件组件来使用。槽用于接收信号，但它们是普通的对象成员函数。一个槽并不知道是否有任何信号与自己相连接。而且，对象并不了解具体的通信机制。可以将很多信号与单个的槽进行连接，也可以将单个的信号与很多的槽进行连接，甚至于将一个信号与另外一个信号相连接也是可能的，这时无论第一个信号什么时候发射，系统都将立刻发射第二个信号。总之，信号与槽构造了一个强大的部件编程机制。</p>
+<p>指定信号 <code>signal</code>时必须使用Qt的宏 <code>SIGNAL()</code>，当指定槽函数时必须使用宏 <code>SLOT()</code>。如果发射者与接收者属于同一个对象，那么在<code>connect</code> 调用中接收者参数可以省略。</p>
+<p>在Windows 平台下，Qt程序的消息处理系统每收到一个操作系统底层传来的消息就会调用<code>winEventFilter</code>函数，原型 如下： </p>
+<pre><code>bool winEventFilter( MSG* msg, long* result);
+</code></pre><p>窗口消息截获的主要功能实现是通过派生 QApplication类并重新实现函数winEventFilter。当程序接收到一个发自Windows的消息时会调用winEventFilter并将消息的内容通过参数msg进行传递，在重新实现的winEventFilter中，首先对消息的类型进行判断，当消息的类型是窗口消息时（在Windows中窗口消息的类型定义为<code>WM_COPYDATA</code>），就将消息的内容还原成一个字符串，并触发信号signalReceiveCopyData将内容传递出去。</p>
+<p>当派生类QApplication4Win32Filter 触发信号后，槽会被调用，从而实现信息的传递。</p>
+<p>与前节所述的Windows 消息截获相类似，Linux平台下消息的截获是通过派生应用类QApplication并重新实现函数x11EventFilter来实现的，不同之处在于Linux平台下x11EventFilter的参数是一个定义自XLib的结构体指针。Xlib是X Window提供的API集合，Qt建立在Xlib之上。</p>
+<p>在Qt中引入了一个MVC的变体——Model/View结构。这个结构依然是分离数据存储与数据，它与MVC都基于同样的思想，但它更简单一些。在几个不同的View 上显示同一个数据成为可能，需重新实现新的View时,不必改变底层的数据结构。为了更灵活地对用户输入进行处理，引入了delegate的概念。它的好处是，数据项的渲染与编程可以进行定制。</p>
+<p>在Qt Creator/Desinger中，常用的基础控件都被放在WidgetBox中，而且根据控件的类型进行了分类。</p>
+<p>QButton类是按钮窗口控件的抽象基类，并且为用户提供了按钮共有的功能。其中包括isDown()、isOn()、isEnabled()、setAutoRepeat()、setToggleButton()这五种基本状态，以及pressed()、released()、clicked()、toggled(bool)、stateChanged(int)五种基本信号。</p>
+<p>用户可以通过QPushButton类创建一个常用的按钮。</p>
+<p>QButtonGroup类将多个QButton窗口控件组合在一起。它是一组按钮的父窗口控件，也就是说它是按钮构造函数中的parent参数。QRadionButton类则是单选按钮控件，一般与QButtonGroup类结合使用来控制组群的唯一性。</p>
+<p>QlineEdit类是一个单行文本输入框，用户在文本框内可以输入文字或数字，也可以对输入的文本进行验证，还可以设置文本的显示方式。下面展示了几种不同类型的QlineEdit类，包括字符串输入、密码输入、只读和验证类型等，</p>
+<p>与QlineEdit类的单行文本框不同，QtextEdit类提供了强大的单页面的多信息文本编辑器，它支持浏览HTML风格标记的多信息文本格式。QtextEdit类提供了三种文本操作模式，包括：一般文本编辑器、多信息文本编辑器和文本查看器。</p>
+<p>通过调用QtextEdit类提供的setAcceptRichText()来设置该文本部件对象是否接受富文本形式。</p>
+<p>QCalendarWidget类提供一个日历控件，它允许用户简单直观地选择日期。</p>
+<p>QCombox类是一个下拉列表框控件，它为用户提供了一组可以选择的下拉列表。用户在使用QCombox类的过程中需引入头文件声明#include。</p>
+<p>QLCDNumber类是一个LCD显示控件，该控件以LCD方式显示数字。用户在使用QLCDNumber类的过程中需引入头文件声明#include。</p>
+<p>QProgressBar类是一个横的或者竖的进度条控件，该类常用来显示目前的工作进度，</p>
+<p>QSpinBox类和QDoubleSpinBox类都是微调控件，QSpinBox类常用来手动设置整数和一些其他数据的集合，而QdoubleSpinBox类常用来设置浮点数。它们允许用户通过单击上下按钮来选择值，或者通过按键盘的Up或Down键来增大或减小当前显示值，也允许手工设置值。</p>
+<p>QSlider类是一个横或者竖的滑动条控件,该类通过滑块来控制一个绑定变量的值。</p>
+<p>QTreeWidget类是一种树形的部件，它以树的形式显示各个项，每一项用QtreeWidgetItem类来描述。</p>
+<p>Qt提供了三种方式来管理窗口上子窗口部件的布局。 </p>
+<ol>
+<li>绝对位置法这种布局方法是一种比较原始的布局窗口部件的方法。该布局方法通过调用基类QWidget提供的setGeometry()函数来设置子窗口部件在父窗口中显示的固定大小和位置。这种布局方式有很多种缺点，主要包括：<ol>
+<li>无法改变窗口的大小；</li>
+<li>当应用程序的运行环境或者样式发生改变时，有可能会影响子窗口部件的显示效果和内容；</li>
+<li>为了达到比较好的显示效果，必须通过人工反复计算子窗口部件的大小和位置，不易于开发和维护。 </li>
+</ol>
+</li>
+<li>人工位置法这种布局方式也是通过调用基类QWidget提供的setGeometry()函数来设置子窗口部件在父窗口中显示的位置和大小。但与绝对位置法不同的是，该方法通过重载void QWidget::resizeEvent(QResizeEvent*)函数使得子窗口部件大小和父窗口部件大小成比例。 </li>
+<li>布局管理器方式这种布局方法是一种简单的布局窗口部件的方法。该布局方法为不同类型的窗口部件提供一系列合适的默认值，并且会根据窗口的大小策略和最大、最小尺寸，自动调整布局来响应样式、窗口大小的变化。 </li>
+</ol>
+<p>布局管理器：Qt布局管理器负责在父窗口部件区域内存放子窗口部件。布局管理器可以使其中的窗口部件自动定位并重新调整它们的位置和大小。QLayout类是布局管理器的基类，它的派生类主要有QBoxLayout、QFormLayout、QGridLayout和QStackedLayout，而QBoxLayout又有两类派生类QHBoxLayout和QVBoxLayout。</p>
+<p>Qt中常用的五种布局管理器的特点如下。</p>
+<pre><code>（1）QHBoxLayout：水平布局管理器，按水平方向存放窗口部件。
+（2）QVBoxLayout：垂直布局管理器，按垂直方向存放窗口部件。
+（3）QGridLayout：网格布局管理器，按二维网格方式存放窗口部件。
+（4）QFormLayout：表单布局管理器，按表单形式存放窗口部件。
+（5）QStackedLayout：栈布局管理器，按类似栈方式存放窗口部件。
+</code></pre><p>QFormLayout布局管理器将窗口部件按表单形式布局，</p>
+<p>QStackedLayout布局管理器按照一种类似栈的方式排列窗口部件，</p>
+<pre><code>//Main.cpp
+#include&quot;mainwindow.h&quot;
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
+    QTextCodec::setCodecForTr(QTextCodec::codecForName(&quot;gb18030&quot;));
+    MainWindow w;
+    w.show();
+    return a.exec();
+}
+</code></pre><p> 在上述代码中，MainWindow是派生自QMainWindow的主窗口应用程序类。Main文件完成两个功能：设置字符集支持汉字和创建并显示主窗口应用程序。</p>
+<p>根据数据在容器中排列的特性，容器可以分为序列式（Sequence）和关联式（Associative）两种。</p>
+<p>与标准模板库对应，Qt也提供了一组自己的通用容器模板类。与标准模板库相比，在Qt的开发环境中更加易于使用。Qt通用容器类都是隐含共享（Implicit Sharing）的，这使得容器类实例在传值操作中内存开销最优化。Qt提供了如QVector、QList等序列式容器模板类（它们的差别在于访问元素的方式，以及添加或删除元素相关操作的运行代价），也提供了如QMap、QHash等关联式容器模板类。</p>
+<p>QFile类是一个操作文件的输入/输出设备，是用来读写二进制文件和文本文件的。用户可以单独使用QFile类，也可以和QDataStream或QTextStream一起使用。</p>
+<p>QDir类提供了一种与平台无关的遍历目录结构并获得目录结构当中的内容，使用QDir类可以操作目录、存取目录或文件信息、操作底层文件系统和存取Qt资源文件。Qt使用“/”作为分隔符。用户通过QDir类提供的convertSeparators()静态函数，根据底层操作系统环境的不同，自动将程序中的目录分隔符转换成符合要求的符号（如Windows使用“\”，Linux使用“/”）。</p>
+<p>QFileInfo类提供了一种与平台无关的文件信息，包括文件名称、路径、读取权限、大小、最后修改/读取时间及是否为目录或者符号链接等。要读取一个文件信息，可以在QFileInfo类的构造函数中设置文件名，也可以通过setFile()函数来设置。</p>
+<p>exists()函数用来判断一个文件是否存在，size()函数用来返回文件的大小。文件类型可以通过isFile()、isDir()和isSymLink()来获取。symLinkTarget()函数用来返回符号链接所指向的文件名。为了提高运行效率，QFileInfo类将文件的一部分信息存入缓存当中，由于文件在使用过程中，很有可能被应用程序改变，所以QFileInfo类提供了refresh()函数来刷新文件信息。</p>
+<p>Qt提供了<code>QFileSystemWatcher</code>类来监视目录或者文件的变化。addPath()、addPaths()函数用来监视指定的一个或者多个文件或者目录。如果需要移除不需要监视的文件或者目录，则可以调用removePath()或者removePaths()函数。当所监视的文件发生改变时，会产生一个fileChange()信号，当所监视的目录发生改变时，会产生一个directoryChange()信号。</p>
+<p>Qt提供了QXML模块来支持对XML数据的处理。QXML模块提供了以下两种常见的XML文件操作方式。（1）DOM（Document Object Model，文档对象模型），其实现方式是将整个XML文档数据以树状结构的形式加载到内存。这种方式的优点是操作简单，缺点是将整个XML文件放入内存，不适合处理过大文件。（2）SAX（Simple API for XML，XML简单应用程序接口），其实现方式是基于事件的循序存取XML数据流。这种方式的优点是适合处理大的文件，但是操作比较复杂。</p>
+<p>在Qt中，常见的操作XML的类有QXmlStreamReader、QDomDocument、QxmlDefault Handler等。</p>
+<p>Qt提供了三种生成XML文档的方法：使用QXmlStreamWriter、DOM树保存和手动生成XML文档。利用QDomDocument类生成XML首先需要构造DOM树，然后调用save()方法将占据保存为XML文档。</p>
+<p>用户可以配置Qt来支持多线程，并提供类来表示线程、互斥锁、信号灯、线程全局存储，另外还提供支持不同锁定机制的类。</p>
+<p>Qt通过三种形式提供了对线程的支持。它们分别是: </p>
+<pre><code>（1）平台无关的线程类；
+（2）线程安全的事件投递；
+（3）跨线程的信号-槽连接。
+</code></pre><p>Qt包含下面一些线程相关的类：</p>
+<pre><code>（1）QThread提供了开始一个新线程的方法；
+（2）QThreadStorage提供逐线程数据存储；
+（3）QMutex提供相互排斥的锁，或互斥量；
+（4）QMutexLocker是一个互斥锁的，它可以自动对QMutex加锁与解；
+（5）QReadWriterLock提供了一个可以同时读操作的锁；
+（6）QReadLocker与QWriteLocker是便利类，它自动对QReadWriteLock加锁与解锁；
+（7）QSemaphore提供了一个整型信号量，是互斥量的泛化；
+（8）QWaitCondition提供了一种方法，使得线程可以在被其他线程唤醒它之前一直休眠。
+</code></pre><p>Qt 4中实现线程同步的机制包括：互斥体（QMutex）、读写锁（QReadWriteLock）、信号量（QSemaphore）和条件变量（QWaitCondition）。</p>
+<p>QSemaphore类是QMutex类的一般化，它可以保护一定数量的相同资源，与此相对，一个QMutex类只保护一个资源。</p>
+<p>使用QSemaphore类来控制对环状缓冲的访问，此缓冲区被生产者线程和消费者线程共享。生产者不断向缓冲区写入数据直到缓冲末端，再从头开始。消费者从缓冲区不断读取数据。信号量比互斥量有更好的并发性，假如用互斥量来控制对缓冲区的访问，那么生产者、消费者不能同时访问缓冲区。然而，在同一时刻，不同线程访问缓冲区的不同部分并没有什么危害。</p>
+<p>QWaitCondition类允许线程在某些情况发生时唤醒其他的线程。当一个或多个线程阻塞等待时，可用wakeOne()或wakeAll()执行唤醒操作。wakeOne()随机唤醒一个线程，wakeAll()唤醒所有线程。</p>
+<p>每一个Qt的应用程序都有一个全局的QThreadPool对象，可以通过函数globalInstance()调用该线程池全局对象。</p>
+<p>事实上，这里是使用QThreadPool类来运行一个QRunnable对象，它维护了一个线程池。通过调用QThreadPool::start(runnable)，把一个QRunnable放入QThreadPool的运行队列中；只要线程是可见的，QRunnable将会被拾起并且在那个线程里运行。尽管所有的Qt应用程序都有一个全局的线程池，且它是通过调用QThreadPool::globalInstance()可见的，但通常是显式地创建并管理一个私有的QThreadPool实例。</p>
+<p>Qt支持的数据库类型</p>
+<p>Qt的数据库模块主要通过QSqlDatabase类和QSqlQuery类来实现对数据库的绑定、连接和执行。可以通过QSqlDatabase类对象实现对数据库的绑定和连接，然后通过QSqlQuery类对象执行相关的SQL语句对数据库进行操作。</p>
+<pre><code>QSqlDatabase db = QSqlDatabase::addDatabase(&quot;QMYSQL&quot;);
+db.setHostName(&quot;qpk&quot;);
+db.setDatabaseName(&quot;bookmis.db&quot;);
+db.setUserName(&quot;qpk&quot;);
+db.setPassword(&quot;cugbupt&quot;);
+bool ok = db.open();
+QSqlDatabase db = QSqlDatabase::addDatabase(&quot;QSQLITE&quot;);
+db.setDatabaseName(&quot;bookmis.db&quot;);
+if(!db.open())
+{
+    QMessageBox::critical(0, qApp-&gt;tr(&quot;Cannot open database&quot;), qApp-&gt;tr(&quot;Unable to establish a database connection.\n&quot;), QMessageBox::Cancel);
+    return false;
+}
+</code></pre><p> 在上述代码中，首先实例化QSqlDatabase对象并指定加载SQLite数据库，指定打开的数据库名称。由于SQLite为文件数据库，所以无须指定用户名密码等相关信息。</p>
+<p>QSqlQuery提供了执行数据库语句的方法，在Qt中利用QSqlQuery类实现了执行SQL语句。它可以返回所有的执行结果。当建立好数据库连接后可以使用<code>QSqlQuery::exec()</code>，如同下面的语句： <code>QSqlQuery query; query.exec(&quot;SELECT*FROM book&quot;);</code> 当创建一个QSqlQuery对象后，可以被指定的QSqlDatabase对象连接来使用。</p>
+<p>在Qt中，QHostInfo类用来获取主机网络配置的相关信息。该类提供了两个常用的静态函数来获取主机信息，一个是使用<code>lookupHost( const QString &amp; name, QObject*receiver, const char *member)</code>函数异步查询主机信息，并且在主机查询完毕后发出一个信号，另一个是使用<code>QHostInfo fromName(const QString&amp;name)</code>函数阻塞查询主机信息，并且返回一个QHostInfo对象。</p>
+<p>TCP是一种可靠的、面向数据量、面向连接的传输协议，在它的基础上构成了HTTP、FTP等高层网络协议。而UDP 则是一种不可靠的、面向数据报的、面向无连接的传输协议。在Qt中，QTcpSocket、QTcpServer类用来实现TCP客户端和服务器端的应用程序，QUdpSocket类可以用来发送和接收UDP数据报。</p>
+<p>超文本传输协议 HTTP是一种应用级的网络文件传输协议，主要用于文件传输。Qt提供了QHttp、QNetworkAccessManager等类来构建 HTTP客户端，并且提供了许多常用的操作。</p>
+<p>QHttp采用异步执行方式，如果某个操作不能立即执行完毕，函数也会马上返回。</p>
+<p>Qt对2D和3D图形提供了强大的支持。Qt的2D图形类支持点阵图形和向量图形，可以加载并保存各种图形格式，并可将文本和图形导出为Portable Document Format(PDF)文件。Qt可以绘制转换后的Unicode文本和Scalable Vector Graphics(SVG)图纸，并可为需要交互的应用程序提供功能全面的Canvas。Qt实际上是与平台无关的OpenGL编程的一个标准GUI框架。</p>
+<p>Qt的2D图形系统的基础是类QPainter。QPainter类提供了一个与平台无关的API，以便在控件和其他绘图设备中进行绘图。Qt的所有内建的控件均可使用QPainter来绘制其本身。QPainter能够绘制各种几何图形（点、线、矩形、椭圆、圆弧、弦、扇形、多段线、贝赛尔曲线），还能绘制位图、图像和文字。此外QPainter还提供了很多高级功能：如平滑（平滑文字和几何图形的边界），透明度，渐变色和矢量路径。QPainter还支持矩阵变换，使绘制2D图形和分辨率无关。</p>
+<p>Qt一共提供了四个继承自QPainterDevice类，分别是QPixmap、QBitmap、QImage和QPicture。</p>
+<p>Qt中使用QPainterPath显示任意路径曲线的绘制。通过连接基本图形元素，如直线、椭圆、多段线、圆弧、二次和三次贝塞尔曲线等，QPainterPath类能确定任何矢量图形。因此，绘图路径（Painter Paths）是最基本的绘制元素，任何图形和图形的组合都可以用路径（Path）表示。一个路径能够确定一个轮廓，由这个轮廓确定的区域可以由刷子来填充。</p>
+<p>绘图设备是指继承QPainterDevice的子类。Qt一共提供了四个这样的类，分别是QPixmap、QBitmap、QImage和QPicture。其中，QPixmap专门为图像在屏幕上的显示做了优化，而QBitmap是QPixmap的一个子类，它的色深限定为1，可以使用QPixmap的isQBitmap()函数来确定这个QPixmap是不是一个QBitmap。QImage专门为图像的像素级访问做了优化。QPicture 则可以记录和重现QPainter的各条命令。</p>
+<p>坐标系变换是利用变换矩阵来进行的，可以利用QTransform类来设置变换矩阵。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Qt</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/20/Linux与Qt程序设计-读书笔记/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-C++性能优化指南-读书笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -3762,146 +4061,6 @@ TEST(BoostThread, BoostFuture)
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/05/30/进程、线程、同步、并发/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-IO模型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/30/IO模型/">IO模型</a>
-    </h1>
-  
-
-        
-        <a href="/2018/05/30/IO模型/" class="archive-article-date">
-  	<time datetime="2018-05-30T06:20:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-30</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h1><ul>
-<li>阻塞（blocking）模型</li>
-<li>选择（select）模型</li>
-<li>WSAAsyncSelect模型</li>
-<li>WSAEventSelect 模型</li>
-</ul>
-<p>函数:WSAEventSelect 、WSAWaitForMultipleEvents、WSAEnumNetworkEvents </p>
-<ul>
-<li>重叠（overlapped）模型</li>
-</ul>
-<p>overlapped I/O是Win32的一项技术</p>
-<p>函数：WSAGetOverlappedResult </p>
-<ul>
-<li>完成端口（completion port）模型</li>
-</ul>
-<p>函数：CreateIoCompletionPort、GetQueuedCompletionStatus</p>
-<ul>
-<li><p>内核对象</p>
-<p>  Windows提供了几种内核对象可以处于已通知状态和未通知状态：进程、线程、作业、文件、控制台输入/输出/错误流、事件、等待定时器、信号量、互斥对象。</p>
-</li>
-</ul>
-<p>函数：WaitForSingleObject与WaitForMultipleObjects</p>
-<ul>
-<li>线程池 + 完成端口</li>
-</ul>
-<p>函数：CreateThreadpoolIo，StartThreadpoolIo，CloseThreadpoolIo</p>
-<p><a href="https://blog.csdn.net/column/details/windowssocketbyiter.html" target="_blank" rel="noopener">windows socket 网络编程系列</a></p>
-<p>Select(选择)</p>
-<p>WSAAsyncSelect(异步选择)</p>
-<p>WSAEventSelect(事件选择)</p>
-<p>Overlapped(重叠IO)-事件通知</p>
-<p>IOCP Completion port(完成端口) </p>
-<p><a href="https://my.oschina.net/zengjs275/blog/524145" target="_blank" rel="noopener">关于网络编程六种IO模型的形象比喻</a></p>
-<p><a href="https://blog.csdn.net/ithzhang/article/details/8508161" target="_blank" rel="noopener">《Windows核心编程系列》十异步IO之IO完成端口</a></p>
-<p><a href="https://blog.csdn.net/ithzhang/article/details/8316171" target="_blank" rel="noopener">《Windows核心编程系列》十谈谈﻿﻿﻿﻿同步设备IO与异步设备IO之异步IO</a></p>
-<p><a href="https://blog.csdn.net/ithzhang/article/details/8307633" target="_blank" rel="noopener">《Windows核心编程系列》九谈谈同步设备IO与异步设备IO之同步设备IO</a></p>
-<h1 id="IO多路复用"><a href="#IO多路复用" class="headerlink" title="IO多路复用"></a>IO多路复用</h1><p>select、kqueue、poll/epoll、overlapped I/O等</p>
-<p><a href="https://blog.csdn.net/shallwake/article/details/5265287" target="_blank" rel="noopener">再谈select, iocp, epoll,kqueue及各种I/O复用机制</a></p>
-<p>那么，为什么epoll,kqueue比select高级？ </p>
-<p>答案是，他们无轮询。因为他们用callback取代了。想想看，当套接字比较多的时候，每次select()都要通过遍历FD_SETSIZE个Socket来完成调度,不管哪个Socket是活跃的,都遍历一遍。这会浪费很多CPU时间。如果能给套接字注册某个回调函数，当他们活跃时，自动完成相关操作，那就避免了轮询，这正是epoll与kqueue做的。</p>
-<h1 id="库"><a href="#库" class="headerlink" title="库"></a>库</h1><p>ASIO:</p>
-<p>“C++的I/O框架，逐渐成为Boost库的一部分。it’s like ACE updated for the STL era。”</p>
-<p>支持select、epoll、IOCP等IO模型；</p>
-<p>libevent:</p>
-<p>由Niels Provos用C编写的一个轻量级的I/O框架。它支持kqueue和select、poll和epoll。</p>
-<p>广为人知的有ACE,Libevent这些，他们都是跨平台的，而且他们自动选择最优的I/O复用机制，用户只需调用接口即可。说到这里又得说说2个设计模式，Reactor and Proactor。</p>
-<p>Libevent是Reactor模型，ACE提供Proactor模型。实际都是对各种I/O复用机制的封装。</p>
-<p>Reactor: </p>
-<p>libevent/libev/libuv/ZeroMQ/Event Library in Redis</p>
-<p>Proactor</p>
-<p>IOCP/Boost.Asio</p>
-<p>linux下还是Reactor把, 没有os支持, Proactor玩不转.</p>
-<p><a href="https://segmentfault.com/a/1190000002715832" target="_blank" rel="noopener">IO设计模式：Reactor和Proactor对比</a></p>
-<p><a href="https://blog.csdn.net/chen8238065/article/details/48315085" target="_blank" rel="noopener">关于同步，异步，阻塞，非阻塞，IOCP/epoll,select/poll,AIO ,NIO ,BIO的总结</a></p>
-<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="https://www.jianshu.com/p/5cf67fab6d61" target="_blank" rel="noopener">https://www.jianshu.com/p/5cf67fab6d61</a></p>
-<p><a href="https://blog.csdn.net/HQ354974212/article/details/76423050?locationNum=2&amp;fps=1" target="_blank" rel="noopener">https://blog.csdn.net/HQ354974212/article/details/76423050?locationNum=2&amp;fps=1</a></p>
-<p><a href="https://blog.csdn.net/zj510/article/details/44652923" target="_blank" rel="noopener">https://blog.csdn.net/zj510/article/details/44652923</a></p>
-<p><a href="https://blog.csdn.net/u010807583/article/details/52433159" target="_blank" rel="noopener">https://blog.csdn.net/u010807583/article/details/52433159</a></p>
-<p><a href="https://blog.csdn.net/zhangzeyuaaa/article/details/42609723" target="_blank" rel="noopener">https://blog.csdn.net/zhangzeyuaaa/article/details/42609723</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">IO模型</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/30/IO模型/">展开全文 >></a>
         </p>
       
 

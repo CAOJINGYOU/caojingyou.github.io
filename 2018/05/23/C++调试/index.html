@@ -15,10 +15,12 @@
 <meta property="og:url" content="https://caojingyou.github.io/2018/05/23/C++调试/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="err,hr调试代码时，监视窗口里面填入“$err,hr”(@err,hr或err,hr) 它的意义相当于让调试器帮你获取GetLastError的值 Pseudovariables $err    显示通过SetLastError设置的错误代码，何在代码中调用GetLastError效果一样。可以用$err,hr来显示错误代码对应的文本信息 $handles    显示应用程序中的句柄数量 $v">
-<meta property="og:updated_time" content="2018-08-10T02:49:48.275Z">
+<meta property="og:image" content="http://crashrpt.sourceforge.net/images/maindlg.png">
+<meta property="og:updated_time" content="2018-09-30T01:07:35.231Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++调试">
 <meta name="twitter:description" content="err,hr调试代码时，监视窗口里面填入“$err,hr”(@err,hr或err,hr) 它的意义相当于让调试器帮你获取GetLastError的值 Pseudovariables $err    显示通过SetLastError设置的错误代码，何在代码中调用GetLastError效果一样。可以用$err,hr来显示错误代码对应的文本信息 $handles    显示应用程序中的句柄数量 $v">
+<meta name="twitter:image" content="http://crashrpt.sourceforge.net/images/maindlg.png">
   
     <link rel="alternative" href="/atom.xml" title="曹景游" type="application/atom+xml">
   
@@ -205,6 +207,10 @@
 <p><a href="http://www.windbg.org/" target="_blank" rel="noopener">http://www.windbg.org/</a></p>
 <p><a href="https://debugging.wellisolutions.de/windbg-versions/" target="_blank" rel="noopener">https://debugging.wellisolutions.de/windbg-versions/</a></p>
 <p><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/debugger-download-tools</a></p>
+<p><a href="https://blog.csdn.net/hjing1988/article/details/44399093" target="_blank" rel="noopener">调试相关</a></p>
+<p><a href="http://www.zhimengzhe.com/windows/296803.html" target="_blank" rel="noopener">用GFlags和UMDH发现堆内存泄漏</a></p>
+<p><a href="https://blog.csdn.net/lluozh2015/article/details/73611079" target="_blank" rel="noopener">【性能分析】UMDH分析内存泄露</a></p>
+<p><a href="https://blog.csdn.net/flyingleo1981/article/details/78127625" target="_blank" rel="noopener">windbg小工具umdh查找内存泄露</a></p>
 <h1 id="Dbgview"><a href="#Dbgview" class="headerlink" title="Dbgview"></a>Dbgview</h1><p>DebugView跟踪调试信息</p>
 <h1 id="dump"><a href="#dump" class="headerlink" title="dump"></a>dump</h1><p>生成dump文件</p>
 <p><a href="http://www.debuginfo.com/articles/effminidumps.html" target="_blank" rel="noopener">http://www.debuginfo.com/articles/effminidumps.html</a></p>
@@ -236,22 +242,26 @@ int main()
         std::cout &lt;&lt; e.what() &lt;&lt; &apos;\n&apos;;
     }
 }
-</code></pre><h2 id="set-invalid-parameter-handler"><a href="#set-invalid-parameter-handler" class="headerlink" title="_set_invalid_parameter_handler"></a>_set_invalid_parameter_handler</h2><p>当系统函数调用检测到非法的参数时，会使用_set_invalid_parameter_handler()函数来处理这种情况</p>
+</code></pre><h2 id="set-invalid-parameter-handler"><a href="#set-invalid-parameter-handler" class="headerlink" title="_set_invalid_parameter_handler"></a><code>_set_invalid_parameter_handler</code></h2><p>当系统函数调用检测到非法的参数时，会使用_set_invalid_parameter_handler()函数来处理这种情况</p>
 <h1 id="XCrashReport"><a href="#XCrashReport" class="headerlink" title="XCrashReport"></a>XCrashReport</h1><p><a href="https://www.codeproject.com/Articles/5260/XCrashReport-Exception-Handling-and-Crash-Report" target="_blank" rel="noopener">https://www.codeproject.com/Articles/5260/XCrashReport-Exception-Handling-and-Crash-Report</a></p>
 <p><a href="https://blog.csdn.net/ljmscsq/article/details/4998738" target="_blank" rel="noopener">https://blog.csdn.net/ljmscsq/article/details/4998738</a></p>
 <p><a href="https://www.codeproject.com/Articles/207464/Exception-Handling-in-Visual-Cplusplus" target="_blank" rel="noopener">https://www.codeproject.com/Articles/207464/Exception-Handling-in-Visual-Cplusplus</a>-可成功生成dump</p>
 <p><a href="https://www.cnblogs.com/hdtianfu/archive/2011/12/27/2303113.html" target="_blank" rel="noopener">https://www.cnblogs.com/hdtianfu/archive/2011/12/27/2303113.html</a></p>
 <p><a href="https://www.cnblogs.com/kanego/p/4081287.html" target="_blank" rel="noopener">https://www.cnblogs.com/kanego/p/4081287.html</a></p>
-<h1 id="crashrpt"><a href="#crashrpt" class="headerlink" title="crashrpt"></a>crashrpt</h1><p>可以使用<code>crashrpt</code>直接集成到自己的项目中，程序崩溃是生成错误报告</p>
+<h1 id="crashrpt"><a href="#crashrpt" class="headerlink" title="crashrpt"></a>crashrpt</h1><p><img src="http://crashrpt.sourceforge.net/images/maindlg.png" alt=""></p>
+<p>可以使用<code>crashrpt</code>直接集成到自己的项目中，程序崩溃是生成错误报告</p>
 <p><a href="http://crashrpt.sourceforge.net/" target="_blank" rel="noopener">http://crashrpt.sourceforge.net/</a></p>
-<p><a href="http://crashrpt.sourceforge.net/docs/html/index.html" target="_blank" rel="noopener">http://crashrpt.sourceforge.net/docs/html/index.html</a></p>
+<p><a href="http://crashrpt.sourceforge.net/docs/html/index.html" target="_blank" rel="noopener">CrashRpt文档</a></p>
 <p><a href="http://crashrpt.sourceforge.net/docs/html/simple_example.html" target="_blank" rel="noopener">http://crashrpt.sourceforge.net/docs/html/simple_example.html</a></p>
+<p><a href="http://crashrpt.sourceforge.net/docs/html/exception_handling.html#getting_exception_context" target="_blank" rel="noopener">关于异常和异常处理</a></p>
 <p>crashrpt是一个包含能够在程序出现各种类型未处理异常时生成程序错误报告，然后将该报告按照指定的方式(例如HTTP或者SMTP)发送给开发者，最后分析这些信息的工具。crashrpt由3个部分组成，错误报告生成库CrashRpt，我们需要在自己的程序中使用该库捕获我们的程序没有处理的异常，在该库捕获到这些未处理的异常后，CrashRpt会生成MiniDump文件，并将和你使用该库指定的信息(例如日志文件和屏幕截图等)一起打包成错误报告。CrashRpt库支持处理我所知道的所有Windows C/C++程序抛出的各类异常，例如我前面提到过的SEH，它还能捕获C++异常、信号和调用各类CRT库中的函数出现的错误。异常信息发送工具CrashSender，该工具能够按照我们使用CrashRpt设置的方式，将生成的错误报告按照我们指定的方式(HTTP、SMTP或者MAPI)发送给我们。自动异常信息处理工具crprober，该工具能够在后台接收CrashSender发送给我们的错误报告，通过分析错误报告后以文本的形式输出程序的异常信息。</p>
 <p><a href="https://blog.csdn.net/shining100/article/details/7760872" target="_blank" rel="noopener">https://blog.csdn.net/shining100/article/details/7760872</a></p>
 <p><a href="http://crashrpt.sourceforge.net/docs/html/configuring_project.html" target="_blank" rel="noopener">http://crashrpt.sourceforge.net/docs/html/configuring_project.html</a></p>
-<h1 id="crashfix"><a href="#crashfix" class="headerlink" title="crashfix"></a>crashfix</h1><p>crashfix 允许服务器容易地接收、存储、组织及分析事故报告发送的 C + + 应用程序。</p>
+<h1 id="crashfix"><a href="#crashfix" class="headerlink" title="crashfix"></a>crashfix</h1><p>crashfix CrashRpt的免费和开源服务器，接收、存储、组织及分析事故报告发送的 C + + 应用程序。</p>
+<p>崩溃报告是一种允许接收用户反馈并提高软件质量和稳定性的技术。当您的应用遇到严重错误（也称为异常或崩溃）时，会生成崩溃报告文件并通过Internet发送到您的服务器。CrashFix服务器允许轻松接收，存储，组织和分析C ++应用程序发送的崩溃报告。</p>
 <p><a href="http://crashfix.sourceforge.net/" target="_blank" rel="noopener">http://crashfix.sourceforge.net/</a></p>
 <p><a href="http://crashfix.sourceforge.net/doc/html/index.html" target="_blank" rel="noopener">http://crashfix.sourceforge.net/doc/html/index.html</a></p>
+<p><a href="https://blog.csdn.net/aa13058219642/article/details/80431100#comments" target="_blank" rel="noopener">CrashFix——CrshRpt的分析工具</a></p>
 <h1 id="http-www-debuginfo-com"><a href="#http-www-debuginfo-com" class="headerlink" title="http://www.debuginfo.com"></a><a href="http://www.debuginfo.com" target="_blank" rel="noopener">http://www.debuginfo.com</a></h1><h2 id="MINIDUMPS"><a href="#MINIDUMPS" class="headerlink" title="MINIDUMPS"></a>MINIDUMPS</h2><p><a href="http://www.debuginfo.com/articles/effminidumps.html" target="_blank" rel="noopener">http://www.debuginfo.com/articles/effminidumps.html</a></p>
 <p><a href="http://www.debuginfo.com/examples/effmdmpexamples.html" target="_blank" rel="noopener">http://www.debuginfo.com/examples/effmdmpexamples.html</a></p>
 <p><a href="http://www.debuginfo.com/download/effminidumpexamples.zip" target="_blank" rel="noopener">effminidumpexamples.zip</a></p>
@@ -303,7 +313,690 @@ _STDC__cplusplus这两个都是标准宏，_STDC_表示是是否符合标准C；
 <p>在MFC中，可以使用 <code>DEBUG_NEW</code> 宏代替 new 运算符来帮助定位内存泄漏。在程序的“Debug”版本中，<code>DEBUG_NEW</code> 将为所分配的每个对象跟踪文件名和行号。当编译程序的“Release”版本时，<code>DEBUG_NEW</code> 将解析为不包含文件名和行号信息的简单 new 操作。因此，在程序的“Release”版本中不会造成任何速度损失。 </p>
 <h1 id="最快速度找到内存泄漏"><a href="#最快速度找到内存泄漏" class="headerlink" title="最快速度找到内存泄漏"></a><a href="http://cplusplus.wikidot.com/cn:the-fastest-way-to-find-memory-leak" target="_blank" rel="noopener">最快速度找到内存泄漏</a></h1><h1 id="dmp调试"><a href="#dmp调试" class="headerlink" title="dmp调试"></a>dmp调试</h1><p><a href="https://msdn.microsoft.com/zh-cn/library/d5zhxt22.aspx" target="_blank" rel="noopener">使用转储文件在 Visual Studio 中调试应用程序崩溃和挂起</a></p>
 <p>exe + pdb + dmp 在同一目录，然后双击dmp文件VC就可以打开，然后点击右上角的调试按钮就可以直接定位到崩溃的代码了；</p>
-<h1 id="适用于Windows的调试工具（WinDbg，KD，CDB，NTSD）"><a href="#适用于Windows的调试工具（WinDbg，KD，CDB，NTSD）" class="headerlink" title="适用于Windows的调试工具（WinDbg，KD，CDB，NTSD）"></a><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/index" target="_blank" rel="noopener">适用于Windows的调试工具（WinDbg，KD，CDB，NTSD）</a></h1><h1 id="SECH（结构化异常处理）"><a href="#SECH（结构化异常处理）" class="headerlink" title="SECH（结构化异常处理）"></a>SECH（结构化异常处理）</h1><h1 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h1><p><a href="http://blog.chenxu.me/post/detail?id=f4301bf3-3709-4c8f-8a45-9b9015909ce2" target="_blank" rel="noopener">Visual Studio 调试扫盲</a></p>
+<h1 id="适用于Windows的调试工具（WinDbg，KD，CDB，NTSD）"><a href="#适用于Windows的调试工具（WinDbg，KD，CDB，NTSD）" class="headerlink" title="适用于Windows的调试工具（WinDbg，KD，CDB，NTSD）"></a><a href="https://docs.microsoft.com/en-us/windows-hardware/drivers/debugger/index" target="_blank" rel="noopener">适用于Windows的调试工具（WinDbg，KD，CDB，NTSD）</a></h1><h1 id="SEH（结构化异常处理）"><a href="#SEH（结构化异常处理）" class="headerlink" title="SEH（结构化异常处理）"></a>SEH（结构化异常处理）</h1><p><a href="https://blog.csdn.net/xuhao_xuhao/article/details/49519695" target="_blank" rel="noopener">异常和异常处理（windows平台）</a></p>
+<p><a href="https://blog.csdn.net/aa13058219642/article/details/80253609" target="_blank" rel="noopener">深入解析结构化异常处理(SEH)</a></p>
+<h1 id="CRT"><a href="#CRT" class="headerlink" title="CRT"></a>CRT</h1><p><a href="https://blog.csdn.net/hjing1988/article/details/50933735" target="_blank" rel="noopener">CRT内存泄露检测</a></p>
+<p><a href="https://blog.csdn.net/hongxingabc/article/details/49873541?locationNum=4" target="_blank" rel="noopener">内存泄露检测之使用CRT的Debug技术</a></p>
+<h1 id="MemTrack"><a href="#MemTrack" class="headerlink" title="MemTrack"></a><a href="http://www.almostinfinite.com/memtrack.html" target="_blank" rel="noopener">MemTrack</a></h1><p>Appendix A: MemTrack.h</p>
+<pre><code>/*
+Copyright (c) 2002, 2008 Curtis Bartley
+All rights reserved.
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+- Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+
+- Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the
+distribution.
+
+- Neither the name of Curtis Bartley nor the names of any other
+contributors may be used to endorse or promote products derived
+from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+&quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+#ifndef MemTrack_H_
+#define MemTrack_H_
+
+#include &lt;typeinfo&gt;
+
+namespace MemTrack
+{
+    /* ---------------------------------------- class MemStamp */
+
+    class MemStamp
+    {
+        public:        // member variables
+            char const * const filename;
+            int const lineNum;
+        public:        // construction/destruction
+            MemStamp(char const *filename, int lineNum)
+                : filename(filename), lineNum(lineNum) { }
+            ~MemStamp() { }
+    };
+
+    /* ---------------------------------------- memory allocation and stamping prototypes */
+
+    void *TrackMalloc(size_t size);
+    void TrackFree(void *p);
+    void TrackStamp(void *p, const MemStamp &amp;stamp, char const *typeName);
+    void TrackDumpBlocks();
+    void TrackListMemoryUsage();
+
+    /* ---------------------------------------- operator * (MemStamp, ptr) */
+
+    template &lt;class T&gt; inline T *operator*(const MemStamp &amp;stamp, T *p)
+    {
+        TrackStamp(p, stamp, typeid(T).name());
+        return p;
+    }
+
+}    // namespace MemTrack
+
+/* ---------------------------------------- new macro */
+
+#define MEMTRACK_NEW MemTrack::MemStamp(__FILE__, __LINE__) * new
+#define new MEMTRACK_NEW
+
+#endif    // MemTrack_H_
+</code></pre><p>Appendix B: MemTrack.cpp</p>
+<pre><code>/*
+Copyright (c) 2002, 2008 Curtis Bartley
+All rights reserved.
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions
+are met:
+
+- Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+
+- Redistributions in binary form must reproduce the above copyright
+notice, this list of conditions and the following disclaimer in the
+documentation and/or other materials provided with the
+distribution.
+
+- Neither the name of Curtis Bartley nor the names of any other
+contributors may be used to endorse or promote products derived
+from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+&quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
+STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
+OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+/* ---------------------------------------- includes */
+
+#include &lt;assert.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;algorithm&gt;
+#include &lt;new&gt;
+
+#include &quot;MemTrack.h&quot;
+#undef new    // IMPORTANT!
+
+/* ------------------------------------------------------------ */
+/* -------------------- namespace MemTrack -------------------- */
+/* ------------------------------------------------------------ */
+
+namespace MemTrack
+{
+
+    /* ------------------------------------------------------------ */
+    /* --------------------- class BlockHeader -------------------- */
+    /* ------------------------------------------------------------ */
+
+    class BlockHeader
+    {
+        private:    // static member variables
+            static BlockHeader *ourFirstNode;
+
+        private:    // member variables
+            BlockHeader *myPrevNode;
+            BlockHeader *myNextNode;
+            size_t myRequestedSize;
+            char const *myFilename;
+            int myLineNum;
+            char const *myTypeName;
+
+        public:     // members
+            BlockHeader(size_t requestedSize);
+            ~BlockHeader();
+
+            size_t GetRequestedSize() const { return myRequestedSize; }
+            char const *GetFilename() const { return myFilename; }
+            int GetLineNum() const { return myLineNum; }
+            char const *GetTypeName() const { return myTypeName; }
+
+            void Stamp(char const *filename, int lineNum, char const *typeName);
+
+            static void AddNode(BlockHeader *node);
+            static void RemoveNode(BlockHeader *node);
+            static size_t CountBlocks();
+            static void GetBlocks(BlockHeader **blockHeaderPP);
+            static bool TypeGreaterThan(BlockHeader *header1, BlockHeader *header2);
+    };
+
+    /* ---------------------------------------- BlockHeader static member variables */
+
+    BlockHeader *BlockHeader::ourFirstNode = NULL;
+
+    /* ---------------------------------------- BlockHeader constructor */
+
+    BlockHeader::BlockHeader(size_t requestedSize)
+    {
+        myPrevNode = NULL;
+        myNextNode = NULL;
+        myRequestedSize = requestedSize;
+        myFilename = &quot;[unknown]&quot;;
+        myLineNum = 0;
+        myTypeName = &quot;[unknown]&quot;;
+    }
+
+    /* ---------------------------------------- BlockHeader destructor */
+
+    BlockHeader::~BlockHeader()
+    {
+    }
+
+    /* ---------------------------------------- BlockHeader Stamp */
+
+    void BlockHeader::Stamp(char const *filename, int lineNum, char const *typeName)
+    {
+        myFilename = filename;
+        myLineNum = lineNum;
+        myTypeName = typeName;
+    }
+
+    /* ---------------------------------------- BlockHeader AddNode */
+
+    void BlockHeader::AddNode(BlockHeader *node)
+    {
+        assert(node != NULL);
+        assert(node-&gt;myPrevNode == NULL);
+        assert(node-&gt;myNextNode == NULL);
+
+        // If we have at least one node in the list ...        
+        if (ourFirstNode != NULL)
+        {
+            // ... make the new node the first node&apos;s predecessor.
+            assert(ourFirstNode-&gt;myPrevNode == NULL);
+            ourFirstNode-&gt;myPrevNode = node;
+        }
+
+        // Make the first node the new node&apos;s succesor.
+        node-&gt;myNextNode = ourFirstNode;
+
+        // Make the new node the first node.
+        ourFirstNode = node;
+    }
+
+    /* ---------------------------------------- BlockHeader RemoveNode */
+
+    void BlockHeader::RemoveNode(BlockHeader *node)
+    {
+        assert(node != NULL);
+        assert(ourFirstNode != NULL);
+
+        // If target node is the first node in the list...
+        if (ourFirstNode == node)
+        {
+            // ... make the target node&apos;s successor the first node.
+            assert(ourFirstNode-&gt;myPrevNode == NULL);
+            ourFirstNode = node-&gt;myNextNode;
+        }
+
+        // Link target node&apos;s predecessor, if any, to its successor.
+        if (node-&gt;myPrevNode != NULL)
+        {
+            node-&gt;myPrevNode-&gt;myNextNode = node-&gt;myNextNode;
+        }
+
+        // Link target node&apos;s successor, if any, to its predecessor.
+        if (node-&gt;myNextNode != NULL)
+        {
+            node-&gt;myNextNode-&gt;myPrevNode = node-&gt;myPrevNode;
+        }
+
+        // Clear target node&apos;s previous and next pointers.
+        node-&gt;myPrevNode = NULL;
+        node-&gt;myNextNode = NULL;
+    }
+
+    /* ---------------------------------------- BlockHeader CountBlocks */
+
+    size_t BlockHeader::CountBlocks()
+    {
+        size_t count = 0;
+        BlockHeader *currNode = ourFirstNode;
+        while (currNode != NULL)
+        {
+            count++;
+            currNode = currNode-&gt;myNextNode;
+        }
+        return count;
+    }
+
+    /* ---------------------------------------- BlockHeader GetBlocks */
+
+    void BlockHeader::GetBlocks(BlockHeader **blockHeaderPP)
+    {
+        BlockHeader *currNode = ourFirstNode;
+        while (currNode != NULL)
+        {
+            *blockHeaderPP = currNode;
+            blockHeaderPP++;
+            currNode = currNode-&gt;myNextNode;
+        }
+    }
+
+    /* ---------------------------------------- BlockHeader TypeGreaterThan */
+
+    bool BlockHeader::TypeGreaterThan(BlockHeader *header1, BlockHeader *header2)
+    {
+        return (strcmp(header1-&gt;myTypeName, header2-&gt;myTypeName) &gt; 0);
+    }
+
+    /* ------------------------------------------------------------ */
+    /* ---------------------- class Signature --------------------- */
+    /* ------------------------------------------------------------ */
+
+    class Signature
+    {
+        private:    // constants
+            static const unsigned int SIGNATURE1 = 0xCAFEBABE;
+            static const unsigned int SIGNATURE2 = 0xFACEFACE;
+
+        private:    // member variables
+            unsigned int mySignature1;
+            unsigned int mySignature2;
+
+        public:        // construction/destruction
+            Signature() : mySignature1(SIGNATURE1), mySignature2(SIGNATURE2) {};
+            ~Signature() { mySignature1 = 0; mySignature2 = 0; }
+
+        public:        // static member functions
+            static bool IsValidSignature(const Signature *pProspectiveSignature)
+            {
+                try
+                {
+                    if (pProspectiveSignature-&gt;mySignature1 != SIGNATURE1) return false;
+                    if (pProspectiveSignature-&gt;mySignature2 != SIGNATURE2) return false;
+                    return true;
+                }
+                catch (...)
+                {
+                    return false;
+                }
+            }
+    };
+
+    /* ------------------------------------------------------------ */
+    /* -------------------- address conversion -------------------- */
+    /* ------------------------------------------------------------ */
+
+    /* We divide the memory blocks we allocate into two &quot;chunks&quot;, the
+     * &quot;prolog chunk&quot; where we store information about the allocation,
+     * and the &quot;user chunk&quot; which we return to the caller to use.
+     */
+
+    /* ---------------------------------------- alignment */
+
+    const size_t ALIGNMENT = 4;
+
+    /* If &quot;value&quot; (a memory size or offset) falls on an alignment boundary,
+     * then just return it.  Otherwise return the smallest number larger
+     * than &quot;value&quot; that falls on an alignment boundary.
+     */    
+
+    #define PAD_TO_ALIGNMENT_BOUNDARY(value) \
+        ((value) + ((ALIGNMENT - ((value) % ALIGNMENT)) % ALIGNMENT))
+
+    /* ---------------------------------------- chunk structs */
+
+    /* We declare incomplete structures for each chunk, just to 
+     * provide type safety.
+     */
+
+    struct PrologChunk;
+    struct UserChunk;
+
+    /* ---------------------------------------- chunk sizes and offsets */
+
+    const size_t SIZE_BlockHeader = PAD_TO_ALIGNMENT_BOUNDARY(sizeof(BlockHeader));
+    const size_t SIZE_Signature = PAD_TO_ALIGNMENT_BOUNDARY(sizeof(Signature));
+
+    const size_t OFFSET_BlockHeader = 0;
+    const size_t OFFSET_Signature = OFFSET_BlockHeader + SIZE_BlockHeader;
+    const size_t OFFSET_UserChunk = OFFSET_Signature + SIZE_Signature;
+
+    const size_t SIZE_PrologChunk = OFFSET_UserChunk;
+
+    /* ---------------------------------------- GetUserAddress */
+
+    static UserChunk *GetUserAddress(PrologChunk *pProlog)
+    {
+        char *pchProlog = reinterpret_cast&lt;char *&gt;(pProlog);
+        char *pchUser = pchProlog + OFFSET_UserChunk;
+        UserChunk *pUser = reinterpret_cast&lt;UserChunk *&gt;(pchUser);
+        return pUser;
+    }
+
+    /* ---------------------------------------- GetPrologAddress */
+
+    static PrologChunk *GetPrologAddress(UserChunk *pUser)
+    {
+        char *pchUser = reinterpret_cast&lt;char *&gt;(pUser);
+        char *pchProlog = pchUser - OFFSET_UserChunk;
+        PrologChunk *pProlog = reinterpret_cast&lt;PrologChunk *&gt;(pchProlog);
+        return pProlog;
+    }
+
+    /* ---------------------------------------- GetHeaderAddress */
+
+    static BlockHeader *GetHeaderAddress(PrologChunk *pProlog)
+    {
+        char *pchProlog = reinterpret_cast&lt;char *&gt;(pProlog);
+        char *pchHeader = pchProlog + OFFSET_BlockHeader;
+        BlockHeader *pHeader = reinterpret_cast&lt;BlockHeader *&gt;(pchHeader);
+        return pHeader;
+    }
+
+    /* ---------------------------------------- GetSignatureAddress */
+
+    static Signature *GetSignatureAddress(PrologChunk *pProlog)
+    {
+        char *pchProlog = reinterpret_cast&lt;char *&gt;(pProlog);
+        char *pchSignature = pchProlog + OFFSET_Signature;
+        Signature *pSignature = reinterpret_cast&lt;Signature *&gt;(pchSignature);
+        return pSignature;
+    }
+
+    /* ------------------------------------------------------------ */
+    /* -------------- memory allocation and stamping -------------- */
+    /* ------------------------------------------------------------ */
+
+    /* ---------------------------------------- TrackMalloc */
+
+    void *TrackMalloc(size_t size)
+    {
+        // Allocate the memory, including space for the prolog.
+        PrologChunk *pProlog = (PrologChunk *)malloc(SIZE_PrologChunk + size);
+
+        // If the allocation failed, then return NULL.
+        if (pProlog == NULL) return NULL;
+
+        // Use placement new to construct the block header in place.
+        BlockHeader *pBlockHeader = new (pProlog) BlockHeader(size);
+
+        // Link the block header into the list of extant block headers.
+        BlockHeader::AddNode(pBlockHeader);
+
+        // Use placement new to construct the signature in place.
+        Signature *pSignature = new (GetSignatureAddress(pProlog)) Signature;
+
+        // Get the offset to the user chunk and return it.
+        UserChunk *pUser = GetUserAddress(pProlog);
+
+        return pUser;
+    }
+
+    /* ---------------------------------------- TrackFree */
+
+    void TrackFree(void *p)
+    {
+        // It&apos;s perfectly valid for &quot;p&quot; to be null; return if it is.
+        if (p == NULL) return;
+
+        // Get the prolog address for this memory block.
+        UserChunk *pUser = reinterpret_cast&lt;UserChunk *&gt;(p);    
+        PrologChunk *pProlog = GetPrologAddress(pUser);
+
+        // Check the signature, and if it&apos;s invalid, return immediately.
+        Signature *pSignature = GetSignatureAddress(pProlog);
+        if (!Signature::IsValidSignature(pSignature)) return;
+
+        // Destroy the signature.
+        pSignature-&gt;~Signature();
+        pSignature = NULL;
+
+        // Unlink the block header from the list and destroy it.
+        BlockHeader *pBlockHeader = GetHeaderAddress(pProlog);
+        BlockHeader::RemoveNode(pBlockHeader);
+        pBlockHeader-&gt;~BlockHeader();
+        pBlockHeader = NULL;
+
+        // Free the memory block.    
+        free(pProlog);
+    }
+
+    /* ---------------------------------------- TrackStamp */
+
+    void TrackStamp(void *p, const MemStamp &amp;stamp, char const *typeName)
+    {
+        // Get the header and signature address for this pointer.
+        UserChunk *pUser = reinterpret_cast&lt;UserChunk *&gt;(p);
+        PrologChunk *pProlog = GetPrologAddress(pUser);
+        BlockHeader *pHeader = GetHeaderAddress(pProlog);
+        Signature *pSignature = GetSignatureAddress(pProlog);
+
+        // If the signature is not valid, then return immediately.
+        if (!Signature::IsValidSignature(pSignature)) return;
+
+        // &quot;Stamp&quot; the information onto the header.
+        pHeader-&gt;Stamp(stamp.filename, stamp.lineNum, typeName);
+    }
+
+    /* ---------------------------------------- TrackDumpBlocks */
+
+    void TrackDumpBlocks()
+    {
+        // Get an array of pointers to all extant blocks.
+        size_t numBlocks = BlockHeader::CountBlocks();
+        BlockHeader **ppBlockHeader =
+            (BlockHeader **)calloc(numBlocks, sizeof(*ppBlockHeader));
+        BlockHeader::GetBlocks(ppBlockHeader);
+
+        // Dump information about the memory blocks.
+        printf(&quot;\n&quot;);
+        printf(&quot;=====================\n&quot;);
+        printf(&quot;Current Memory Blocks\n&quot;);
+        printf(&quot;=====================\n&quot;);
+        printf(&quot;\n&quot;);
+        for (size_t i = 0; i &lt; numBlocks; i++)
+        {
+            BlockHeader *pBlockHeader = ppBlockHeader[i];
+            char const *typeName = pBlockHeader-&gt;GetTypeName();
+            size_t size = pBlockHeader-&gt;GetRequestedSize();
+            char const *fileName = pBlockHeader-&gt;GetFilename();
+            int lineNum = pBlockHeader-&gt;GetLineNum();
+            printf(&quot;*** #%-6d %5d bytes %-50s\n&quot;, i, size, typeName);
+            printf(&quot;... %s:%d\n&quot;, fileName, lineNum);
+        }
+
+        // Clean up.
+        free(ppBlockHeader);
+    }
+
+    /* ---------------------------------------- struct MemDigest */
+
+    struct MemDigest
+    {
+        char const *typeName;
+        int blockCount;
+        size_t totalSize;
+
+        static bool TotalSizeGreaterThan(const MemDigest &amp;md1, const MemDigest &amp;md2)
+            { return md1.totalSize &gt; md2.totalSize; }
+    };
+
+
+    /* ---------------------------------------- SummarizeMemoryUsageForType */
+
+    static void SummarizeMemoryUsageForType(
+        MemDigest *pMemDigest,
+        BlockHeader **ppBlockHeader,
+        size_t startPost,
+        size_t endPost
+    )
+    {
+        pMemDigest-&gt;typeName = ppBlockHeader[startPost]-&gt;GetTypeName();
+        pMemDigest-&gt;blockCount = 0;
+        pMemDigest-&gt;totalSize = 0;
+        for (size_t i = startPost; i &lt; endPost; i++)
+        {
+            pMemDigest-&gt;blockCount++;
+            pMemDigest-&gt;totalSize += ppBlockHeader[i]-&gt;GetRequestedSize();
+            assert(strcmp(ppBlockHeader[i]-&gt;GetTypeName(), pMemDigest-&gt;typeName) == 0);
+        }
+    }
+
+    /* ---------------------------------------- TrackListMemoryUsage */
+
+    void TrackListMemoryUsage()
+    {
+        // If there are no allocated blocks, then return now.
+        size_t numBlocks = BlockHeader::CountBlocks();
+        if (numBlocks == 0) return;
+
+        // Get an array of pointers to all extant blocks.
+        BlockHeader **ppBlockHeader =
+            (BlockHeader **)calloc(numBlocks, sizeof(*ppBlockHeader));
+        BlockHeader::GetBlocks(ppBlockHeader);
+
+        // Sort the blocks by type name.
+        std::sort(
+            ppBlockHeader,
+            ppBlockHeader + numBlocks,
+            BlockHeader::TypeGreaterThan
+        );
+
+        // Find out how many unique types we have.
+        size_t numUniqueTypes = 1;
+        for (size_t i = 1; i &lt; numBlocks; i++)
+        {
+            char const *prevTypeName = ppBlockHeader[i - 1]-&gt;GetTypeName();
+            char const *currTypeName = ppBlockHeader[i]-&gt;GetTypeName();
+            if (strcmp(prevTypeName, currTypeName) != 0) numUniqueTypes++;
+        }
+
+        // Create an array of &quot;digests&quot; summarizing memory usage by type.
+        size_t startPost = 0;
+        size_t uniqueTypeIndex = 0;
+        MemDigest *pMemDigestArray =
+            (MemDigest *)calloc(numUniqueTypes, sizeof(*pMemDigestArray));
+        for (size_t i = 1; i &lt;= numBlocks; i++)    // yes, less than or *equal* to
+        {
+            char const *prevTypeName = ppBlockHeader[i - 1]-&gt;GetTypeName();
+            char const *currTypeName = (i &lt; numBlocks) ? ppBlockHeader[i]-&gt;GetTypeName() : &quot;&quot;;
+            if (strcmp(prevTypeName, currTypeName) != 0)
+            {
+                size_t endPost = i;
+                SummarizeMemoryUsageForType(
+                    pMemDigestArray + uniqueTypeIndex,
+                    ppBlockHeader,
+                    startPost,
+                    endPost
+                );
+                startPost = endPost;
+                uniqueTypeIndex++;
+            }
+        }
+        assert(uniqueTypeIndex = numUniqueTypes);
+
+        // Sort the digests by total memory usage.
+        std::sort(
+            pMemDigestArray,
+            pMemDigestArray + numUniqueTypes,
+            MemDigest::TotalSizeGreaterThan
+        );
+
+        // Compute the grand total memory usage.
+        size_t grandTotalNumBlocks = 0;
+        size_t grandTotalSize = 0;
+        for (size_t i = 0; i &lt; numUniqueTypes; i++)
+        {
+            grandTotalNumBlocks += pMemDigestArray[i].blockCount;
+            grandTotalSize += pMemDigestArray[i].totalSize;
+        }
+
+        // Dump the memory usage statistics.
+        printf(&quot;\n&quot;);
+        printf(&quot;-----------------------\n&quot;);
+        printf(&quot;Memory Usage Statistics\n&quot;);
+        printf(&quot;-----------------------\n&quot;);
+        printf(&quot;\n&quot;);
+        printf(&quot;%-50s%5s  %5s %7s %s \n&quot;, &quot;allocated type&quot;, &quot;blocks&quot;, &quot;&quot;, &quot;bytes&quot;, &quot;&quot;);
+        printf(&quot;%-50s%5s  %5s %7s %s \n&quot;, &quot;--------------&quot;, &quot;------&quot;, &quot;&quot;, &quot;-----&quot;, &quot;&quot;);
+
+        for (size_t i = 0; i &lt; numUniqueTypes; i++)
+        {
+            MemDigest *pMD = pMemDigestArray + i;
+            size_t blockCount = pMD-&gt;blockCount;
+            double blockCountPct = 100.0 * blockCount / grandTotalNumBlocks;
+            size_t totalSize = pMD-&gt;totalSize;
+            double totalSizePct = 100.0 * totalSize / grandTotalSize;
+
+            printf(
+                &quot;%-50s %5d %5.1f%% %7d %5.1f%%\n&quot;,
+                pMD-&gt;typeName,
+                blockCount,
+                blockCountPct,
+                totalSize,
+                totalSizePct
+            );
+        }
+        printf(&quot;%-50s %5s %5s  %7s %s \n&quot;, &quot;--------&quot;, &quot;-----&quot;, &quot;&quot;, &quot;-------&quot;, &quot;&quot;);
+        printf(&quot;%-50s %5d %5s  %7d %s \n&quot;, &quot;[totals]&quot;, grandTotalNumBlocks, &quot;&quot;, grandTotalSize, &quot;&quot;);
+
+        // Clean up.
+        free(ppBlockHeader);
+        free(pMemDigestArray);
+    }
+
+}    // namespace MemTrack
+
+/* ------------------------------------------------------------ */
+/* ---------------------- new and delete ---------------------- */
+/* ------------------------------------------------------------ */
+
+/* ---------------------------------------- operator new */
+
+void *operator new(size_t size)
+{
+    void *p = MemTrack::TrackMalloc(size);
+    if (p == NULL) throw std::bad_alloc();
+    return p;
+}
+
+/* ---------------------------------------- operator delete */
+
+void operator delete(void *p)
+{
+    MemTrack::TrackFree(p);
+}
+
+/* ---------------------------------------- operator new[] */
+
+void *operator new[](size_t size)
+{
+    void *p = MemTrack::TrackMalloc(size);
+    if (p == NULL) throw std::bad_alloc();
+    return p;
+}
+
+/* ---------------------------------------- operator delete[] */
+
+void operator delete[](void *p)
+{
+    MemTrack::TrackFree(p);
+}
+</code></pre><h1 id="Valgrind"><a href="#Valgrind" class="headerlink" title="Valgrind"></a><a href="http://valgrind.org/" target="_blank" rel="noopener">Valgrind</a></h1><h1 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h1><p><a href="http://blog.chenxu.me/post/detail?id=f4301bf3-3709-4c8f-8a45-9b9015909ce2" target="_blank" rel="noopener">Visual Studio 调试扫盲</a></p>
 <p><a href="https://www.jianshu.com/p/c6f0939d512e" target="_blank" rel="noopener">Dump调试</a></p>
 <p><a href="http://fresky.github.io/tags/Debug/" target="_blank" rel="noopener">http://fresky.github.io/tags/Debug/</a></p>
 

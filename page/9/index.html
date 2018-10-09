@@ -160,6 +160,308 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-ImageMagick" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/15/ImageMagick/">ImageMagick</a>
+    </h1>
+  
+
+        
+        <a href="/2017/04/15/ImageMagick/" class="archive-article-date">
+  	<time datetime="2017-04-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-04-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Unix-源码安装-Windows-源码安装"><a href="#Unix-源码安装-Windows-源码安装" class="headerlink" title="[ Unix 源码安装 | Windows 源码安装 ]"></a>[ Unix 源码安装 | Windows 源码安装 ]</h1><p>首先检查一下电脑里已经安装的ImageMagick版本，输入：</p>
+<pre><code>convert -version
+</code></pre><p>除非你想要把对另外的图像格式的支持或升级一个较新的版本，否则你可能不需要ImageMagick的源码安装。 你也可以安装预先编译二进位版本。然而，如果你仍然想要从源码安装，请选择一个平台，Unix 或 Windows。<br>在源码安装之前，你可能要回顾ImageMagick的最近变化。</p>
+<h2 id="Unix-源码安装"><a href="#Unix-源码安装" class="headerlink" title="Unix 源码安装"></a>Unix 源码安装</h2><p>ImageMagick 在多种操作系统 Unix 和包括 Linux，Solaris，FreeBSD，Mac 操作系统 X 和其它的类 Unix 一样的操作系统上建立。 它需要一个编译器，几乎所有现代的 Unix 系统都会有一个。 可以从 ftp.imagemagick.org 或它的镜像网站下载 ImageMagick.tar.gz 并用这个指令解压缩:</p>
+<pre><code>gunzip -c ImageMagick.tar.gz | tar xvf -
+</code></pre><p>然后配置编译ImageMagick:</p>
+<pre><code>cd ImageMagick-6.?.?
+</code></pre><p>./configure<br>make</p>
+<p>如果配置编译的ImageMagick没有出现错误，要把它安装到系统里，你需要使用管理员权限，输入：</p>
+<pre><code>make install
+</code></pre><p>最后，可以测试一下ImageMagick的工作效果：</p>
+<pre><code>/usr/local/bin/convert logo: logo.gif
+</code></pre><p>恭喜你，你已经有ImageMagick的工作环境了，你可以使用ImageMagick加入新图片，生成缩略图，组合图片……<br>还可以使用其它程序接口 C, C++, Perl, 和其它程序。<br>上述的指导将会使很多的 ImageMagick 使用者满意，但是我们怀疑一些将会有另外的问题或问题考虑。<br>如果 ImageMagick 无法配置或编译，或如果你没有管理员权限或没有将ImageMagick安装到默认目录<br>请点这里了解更多……</p>
+<h2 id="Windows-源码安装"><a href="#Windows-源码安装" class="headerlink" title="Windows 源码安装"></a>Windows 源码安装</h2><p>Windows系统下ImageMagick源码安装需要Microsoft Visual Studio IDE。<br>有的用户也成功的用Borland C++编译。如果你没有编译器，你可以安装二进位发布版本</p>
+<p>从ftp.imagemagick.org或它的镜像网站下载 ImageMagick-windows.zip 文件，然后用 WinZip 解压缩。</p>
+<p>然后运行你的Visual Studio IDE选择Open-&gt;Project从ImageMagick-6.?.?/VisualMagick/configure文件夹里选择configure.dsp文件 Build-&gt;Build编译并执行。</p>
+<p>可以通过以下方法获取图片信息</p>
+<h2 id="安装ImageMagick便携版本"><a href="#安装ImageMagick便携版本" class="headerlink" title="安装ImageMagick便携版本"></a>安装ImageMagick便携版本</h2><h1 id="调用命令行程序并获取返回信息"><a href="#调用命令行程序并获取返回信息" class="headerlink" title="调用命令行程序并获取返回信息"></a>调用命令行程序并获取返回信息</h1><pre><code>CString ExeCmd(CString pszCmd)
+{
+    //创建匿名管道
+    SECURITY_ATTRIBUTES sa = {sizeof(SECURITY_ATTRIBUTES), NULL, TRUE};
+    HANDLE hRead, hWrite;
+    if (!CreatePipe(&amp;hRead, &amp;hWrite, &amp;sa, 0))
+    {
+        return _T(&quot;&quot;);
+    }
+
+    //设置命令行进程启动信息(以隐藏方式启动命令并定位其输出到hWrite)
+    STARTUPINFO si = {sizeof(STARTUPINFO)};
+    GetStartupInfo(&amp;si);
+    si.dwFlags = STARTF_USESHOWWINDOW | STARTF_USESTDHANDLES;
+    si.wShowWindow = SW_HIDE;
+    si.hStdError = hWrite;
+    si.hStdOutput = hWrite;
+
+    //启动命令行
+    PROCESS_INFORMATION pi;
+    if (!CreateProcess(NULL, (LPWSTR)(LPCWSTR)pszCmd, NULL, NULL, TRUE, NULL, NULL, NULL, &amp;si, &amp;pi))
+    {
+        return _T(&quot;&quot;);
+    }
+
+    //立即关闭hWrite
+    CloseHandle(hWrite);
+
+    //读取命令行返回值
+    char buff[1024] = {0};
+    DWORD dwRead = 0;
+    while (ReadFile(hRead, buff, 1024, &amp;dwRead, NULL))
+    {
+    }
+    CString strRet(buff);
+    CloseHandle(hRead);
+
+    return strRet;
+}
+</code></pre><p>使用：</p>
+<pre><code>ExeCmd(_T(&quot;ping baidu.com&quot;));
+ExeCmd(_T(&quot;identify -format &quot;%[colorspace]&quot; E:\\P70306-163226.jpg&quot;));
+</code></pre><h2 id="安装ImageMagickCOM-对象"><a href="#安装ImageMagickCOM-对象" class="headerlink" title="安装ImageMagickCOM+对象"></a>安装ImageMagickCOM+对象</h2><p>C++程序员应该看一下MagickCMD.cpp命令行实用工具的示例调用该对象的C++。对象变量列表的大小需要BSTR的模仿命令行argc，argv风格的COM组件的调用约定，这是更复杂的C++中然后在VB或VBS。</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;atlbase.h&gt;
+#include &lt;atlsafe.h&gt;
+#import &quot;ImageMagickObject.tlb&quot; no_namespace
+using namespace std;
+
+typedef enum
+{
+  cmdUnknown,
+  cmdCompare,
+  cmdComposite,
+  cmdConvert,
+  cmdIdentify,
+  cmdMogrify,
+  cmdMontage,
+  cmdStream
+} CommandType;
+
+static struct
+  Commands
+  {
+    char
+      *name;
+
+    CommandType
+      code;
+  } Commands[] =
+  {
+    { &quot;&quot;,          cmdUnknown   },
+    { &quot;compare&quot;,   cmdCompare   },
+    { &quot;composite&quot;, cmdComposite },
+    { &quot;convert&quot;,   cmdConvert   },
+    { &quot;identify&quot;,  cmdIdentify  },
+    { &quot;mogrify&quot;,   cmdMogrify   },
+    { &quot;montage&quot;,   cmdMontage   },
+    { &quot;stream&quot;,    cmdStream   }
+  };
+
+int main(int argc, char* argv[])
+{
+  int
+    index,
+    status = 0;
+
+  char
+    *name;
+
+  CommandType
+    code = cmdUnknown;
+
+  // We must have at least a command, input, and output
+  if (argc &lt; 4)
+    return 0;
+
+  index = 1;
+  while ((name = Commands[index].name))
+  {
+    if (stricmp(name,argv[1]) == 0)
+    {
+      code = Commands[index].code;
+      break;
+    }
+    index++;
+  }
+  if (code == cmdUnknown)
+    return 0;
+
+  CoInitialize(NULL);
+
+  try
+  {
+    CComVariant
+      result;
+
+    SAFEARRAY
+      **ppsa = (SAFEARRAY**) NULL;
+
+    IMagickImagePtr pImageProc(__uuidof(MagickImage));
+    if (pImageProc == NULL)
+      status = 1;
+    else
+    {
+      {
+        // Define the array bound structure
+        CComSafeArrayBound bound[1];
+        bound[0].SetCount(argc-2);
+        bound[0].SetLowerBound(0);
+        CComSafeArray&lt;VARIANT&gt; args(bound);
+        if( !args )
+          status = 2;
+        else
+        {
+          for(index = 2; index &lt; argc; ++index)
+          {
+            CComVariant vt(argv[index]);
+            HRESULT hr = vt.Detach(&amp;args[index-2]);
+          }
+          switch(code)
+          {
+            case cmdCompare:
+              result = pImageProc-&gt;Compare(args.GetSafeArrayPtr());
+              break;
+            case cmdComposite:
+              result = pImageProc-&gt;Composite(args.GetSafeArrayPtr());
+              break;
+            case cmdConvert:
+              result = pImageProc-&gt;Convert(args.GetSafeArrayPtr());
+              break;
+            case cmdIdentify:
+              result = pImageProc-&gt;Identify(args.GetSafeArrayPtr());
+              break;
+            case cmdMogrify:
+              result = pImageProc-&gt;Mogrify(args.GetSafeArrayPtr());
+              break;
+            case cmdMontage:
+              result = pImageProc-&gt;Montage(args.GetSafeArrayPtr());
+              break;
+            case cmdStream:
+              result = pImageProc-&gt;Stream(args.GetSafeArrayPtr());
+              break;
+          }
+          pImageProc.Release();
+        }
+      }
+    }
+  }
+  catch(_com_error ex)
+  {
+    HRESULT
+      res = ex.Error();  
+
+    _bstr_t
+      desc = ex.Description();  
+
+    printf(&quot;Error %s (0x%08x)\n&quot;,(char *)desc,res);
+    status = 4;
+  }
+
+  CoUninitialize();
+  return status;
+}
+</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<li><a href="http://www.imagemagick.org/script/index.php" target="_blank" rel="noopener">http://www.imagemagick.org/script/index.php</a></li>
+<li><a href="http://www.imagemagick.com.cn/" target="_blank" rel="noopener">http://www.imagemagick.com.cn/</a></li>
+<li><a href="http://www.imagemagick.org/script/download.php" target="_blank" rel="noopener">http://www.imagemagick.org/script/download.php</a></li>
+<li><a href="https://github.com/ImageMagick/ImageMagick/tree/master/Magick%2B%2B" target="_blank" rel="noopener">https://github.com/ImageMagick/ImageMagick/tree/master/Magick%2B%2B</a></li>
+<li><a href="https://legacy.imagemagick.org/script/index.php" target="_blank" rel="noopener">https://legacy.imagemagick.org/script/index.php</a></li>
+<li><a href="https://www.imagemagick.org/Usage/" target="_blank" rel="noopener">https://www.imagemagick.org/Usage/</a></li>
+<li><a href="https://www.imagemagick.org/Usage/color_basics/" target="_blank" rel="noopener">https://www.imagemagick.org/Usage/color_basics/</a></li>
+<li><a href="ftp://ftp.imagemagick.org/pub/ImageMagick/windows/" target="_blank" rel="noopener">ftp://ftp.imagemagick.org/pub/ImageMagick/windows/</a></li>
+<li><a href="https://legacy.imagemagick.org/script/install-source.php" target="_blank" rel="noopener">https://legacy.imagemagick.org/script/install-source.php</a></li>
+<li><a href="https://legacy.imagemagick.org/script/advanced-windows-installation.php" target="_blank" rel="noopener">https://legacy.imagemagick.org/script/advanced-windows-installation.php</a></li>
+<li><a href="https://legacy.imagemagick.org/script/download.php" target="_blank" rel="noopener">https://legacy.imagemagick.org/script/download.php</a></li>
+<li><a href="https://legacy.imagemagick.org/script/ImageMagickObject.php" target="_blank" rel="noopener">https://legacy.imagemagick.org/script/ImageMagickObject.php</a></li>
+<li><a href="https://legacy.imagemagick.org/script/ImageMagickObject.php" target="_blank" rel="noopener">http://imagemagick.org/Magick++/</a></li>
+<li><a href="https://www.imagemagick.org/discourse-server/" target="_blank" rel="noopener">https://www.imagemagick.org/discourse-server/</a></li>
+<li><a href="http://dahua2.blog.163.com/blog/static/1748435142015317633489/" target="_blank" rel="noopener">http://dahua2.blog.163.com/blog/static/1748435142015317633489/</a></li>
+<li><a href="http://www.tuicool.com/articles/NvYfi2" target="_blank" rel="noopener">http://www.tuicool.com/articles/NvYfi2</a></li>
+<li><a href="http://www.tuicool.com/articles/6fyI7z" target="_blank" rel="noopener">http://www.tuicool.com/articles/6fyI7z</a></li>
+<li><a href="http://www.tuicool.com/articles/NN3M7fv" target="_blank" rel="noopener">http://www.tuicool.com/articles/NN3M7fv</a></li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">图像</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ImageMagick</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/04/15/ImageMagick/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-C++进程间通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -887,6 +1189,106 @@ int GetFilePath(std::string &amp;strFilePath)
 
 
   
+    <article id="post-CShap 系统托盘图标" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/01/CShap 系统托盘图标/">C# 系统托盘图标</a>
+    </h1>
+  
+
+        
+        <a href="/2017/02/01/CShap 系统托盘图标/" class="archive-article-date">
+  	<time datetime="2017-02-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p>
+<p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p>
+<p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p>
+<p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p>
+<h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf
+</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p>
+<h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml<window>添加</window></p>
+<pre><code>xmlns:tb=&quot;http://www.hardcodet.net/taskbar&quot;
+</code></pre><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p>
+<pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;
+  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;
+  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;
+  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;
+    &lt;ContextMenu&gt;
+      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;
+      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;
+    &lt;/ContextMenu&gt;
+  &lt;/tb:TaskbarIcon.ContextMenu&gt;
+&lt;/tb:TaskbarIcon&gt;
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/02/01/CShap 系统托盘图标/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-CShap与C++通信" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1132,106 +1534,6 @@ BOOL CVcMessageDlg::VCSendMessage(int nMessgeId,CStringA strSend)
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/02/01/CShap与C++通信/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-CShap 系统托盘图标" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/01/CShap 系统托盘图标/">C# 系统托盘图标</a>
-    </h1>
-  
-
-        
-        <a href="/2017/02/01/CShap 系统托盘图标/" class="archive-article-date">
-  	<time datetime="2017-02-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-系统托盘图标"><a href="#C-系统托盘图标" class="headerlink" title="C# 系统托盘图标"></a>C# 系统托盘图标</h1><h2 id="WPF-NotifyIcon-资料"><a href="#WPF-NotifyIcon-资料" class="headerlink" title="WPF NotifyIcon 资料"></a>WPF NotifyIcon 资料</h2><h3 id="网址："><a href="#网址：" class="headerlink" title="网址："></a>网址：</h3><p><a href="http://www.codeproject.com/Articles/36468/WPF-NotifyIcon" target="_blank" rel="noopener">http://www.codeproject.com/Articles/36468/WPF-NotifyIcon</a></p>
-<p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p>
-<p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p>
-<p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p>
-<h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf
-</code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p>
-<h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml<window>添加</window></p>
-<pre><code>xmlns:tb=&quot;http://www.hardcodet.net/taskbar&quot;
-</code></pre><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p>
-<pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;
-  IconSource=&quot;Founder.ico&quot;&lt;!--托盘显示图标--&gt;
-  ToolTipText=&quot;Founder 启动本地程序&quot;&gt;&lt;!--鼠标移动到托盘图标显示的文字--&gt;
-  &lt;tb:TaskbarIcon.ContextMenu&gt;&lt;!--添加菜单--&gt;
-    &lt;ContextMenu&gt;
-      &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Click=&quot;MenuItem_Click_Show&quot; /&gt;
-      &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Click=&quot;MenuItem_Click_Close&quot; /&gt;
-    &lt;/ContextMenu&gt;
-  &lt;/tb:TaskbarIcon.ContextMenu&gt;
-&lt;/tb:TaskbarIcon&gt;
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">系统托盘</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/02/01/CShap 系统托盘图标/">展开全文 >></a>
         </p>
       
 
@@ -2185,93 +2487,6 @@ Cert2SPC RemtCard.cer RemtCard.spc
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2016/12/15/制作CAB包/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-CShap http" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/01/CShap http/">C# http</a>
-    </h1>
-  
-
-        
-        <a href="/2016/12/01/CShap http/" class="archive-article-date">
-  	<time datetime="2016-12-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="minihttpd"><a href="#minihttpd" class="headerlink" title="minihttpd"></a>minihttpd</h1><p>minihttpd：HTTPWeb服务器库</p>
-<p><a href="https://www.codeproject.com/articles/11342/minihttpd-an-http-web-server-library" target="_blank" rel="noopener">https://www.codeproject.com/articles/11342/minihttpd-an-http-web-server-library</a></p>
-<h1 id="Embedded-NET-HTTP-Server"><a href="#Embedded-NET-HTTP-Server" class="headerlink" title="Embedded .NET HTTP Server"></a>Embedded .NET HTTP Server</h1><p>嵌入式.NET的HTTP服务器</p>
-<p><a href="https://www.codeproject.com/Articles/25050/Embedded-NET-HTTP-Server" target="_blank" rel="noopener">https://www.codeproject.com/Articles/25050/Embedded-NET-HTTP-Server</a></p>
-<h1 id="HttpLib"><a href="#HttpLib" class="headerlink" title="HttpLib"></a>HttpLib</h1><p>HttpLib是一个免费的.net(Apache 2.0许可协议)web请求帮助,让开发人员更容易访问和从互联网下载资源</p>
-<p><a href="http://httplib.codeplex.com/" target="_blank" rel="noopener">http://httplib.codeplex.com/</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">http</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/12/01/CShap http/">展开全文 >></a>
         </p>
       
 

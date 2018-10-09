@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2016/08/15/程序打包/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="Visual Studio InstallerVS2010程序打包操作 InstallShieldInstallShield使用完全教程 探索InstallShield——制作一个完整的应用程序安装实例 一个完整的Installshield安装程序实例  从Visual Studio 2012开始，微软就把自家原来的安装与部署工具彻底废掉了，转而让大家去安装使用第三方的打包工具“InstallSh">
-<meta property="og:updated_time" content="2018-08-14T09:39:43.970Z">
+<meta property="og:updated_time" content="2018-09-25T08:38:07.287Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="程序打包">
 <meta name="twitter:description" content="Visual Studio InstallerVS2010程序打包操作 InstallShieldInstallShield使用完全教程 探索InstallShield——制作一个完整的应用程序安装实例 一个完整的Installshield安装程序实例  从Visual Studio 2012开始，微软就把自家原来的安装与部署工具彻底废掉了，转而让大家去安装使用第三方的打包工具“InstallSh">
@@ -213,6 +213,240 @@ begin
   end;
 Result := strPath;
 end;
+</code></pre><h2 id="一个比较完整的Inno-Setup-安装脚本"><a href="#一个比较完整的Inno-Setup-安装脚本" class="headerlink" title="一个比较完整的Inno Setup 安装脚本"></a>一个比较完整的Inno Setup 安装脚本</h2><pre><code>[Setup]
+; 注: AppId的值为单独标识该应用程序。
+; 不要为其他安装程序使用相同的AppId值。
+; (生成新的GUID，点击 工具|在IDE中生成GUID。)
+AppId={{A9861883-31C5-4324-BD9A-DC3271EEB675}
+;程序名
+AppName=ISsample
+;版本号
+AppVerName=ISsample 1.0.0.0
+;发布者名
+AppPublisher=Hkiss
+;相关连接
+AppPublisherURL=http://zwkufo.blog.163.com
+AppSupportURL=http://zwkufo.blog.163.com
+AppUpdatesURL=http://zwkufo.blog.163.com
+;默认安装目录
+DefaultDirName={pf}\ISsample
+;默认开始菜单名
+DefaultGroupName=ISsample
+;是否打开-&gt;可选安装开始菜单项
+;AllowNoIcons=yes
+;安装协议
+;LicenseFile=C:\Example\原始文件\agreement.txt
+;安装前查看的文本文件
+;InfoBeforeFile=C:\Example\原始文件\Setup_New.txt
+;安装后查看文本文件
+;InfoAfterFile=C:\Example\原始文件\Setup_Old.txt
+;输出文件夹
+OutputDir=C:\Example\InnoSetup\out
+;输出文件名
+OutputBaseFilename=setup
+;安装图标
+SetupIconFile=C:\Example\原始文件\title.ico
+;安装需要输入密码
+;Password=123
+;Encryption=yes
+
+;压缩相关
+Compression=lzma
+SolidCompression=yes
+
+;可以让用户忽略选择语言相关
+ShowLanguageDialog = yes
+;备注版本信息
+VersionInfoCompany=HTTP://www.Hkiss.COM
+VersionInfoDescription=ISsample 汉化增强版
+VersionInfoVersion=1.0.0.0
+VersionInfoCopyright=Copyright (C) 2007-2008 Hkiss
+
+;制作选择语言
+[Languages]
+Name: &quot;chs&quot;; MessagesFile: &quot;compiler:Default.isl&quot; ;LicenSeFile :&quot;C:\Example\原始文件\chs\agreement.txt&quot;
+Name: &quot;en&quot;; MessagesFile: &quot;compiler:Languages\English.isl&quot;;LicenSeFile :&quot;C:\Example\原始文件\en\agreement.txt&quot;
+
+;用户定制任务
+[Tasks]
+Name: &quot;desktopicon&quot;; Description: &quot;{cm:CreateDesktopIcon}&quot;; GroupDescription: &quot;{cm:AdditionalIcons}&quot;; Flags: unchecked
+Name: &quot;quicklaunchicon&quot;; Description: &quot;{cm:CreateQuickLaunchIcon}&quot;; GroupDescription: &quot;{cm:AdditionalIcons}&quot;; Flags: unchecked
+Name: &quot;Tasks_1&quot; ; Description:&quot;用户自定义任务1&quot;; Flags: unchecked
+Name: &quot;Tasks_2&quot; ; Description:&quot;用户自定义任务2&quot;; Flags: unchecked
+;选择了组件才会出现的定制任务
+Name: &quot;Tasks_3&quot; ; Description:&quot;用户自定义任务3&quot;;Components: c1 ; Flags: unchecked
+
+;文件安装
+[Files]
+;多语言安装环境设置    公共参数Languages 来设置
+Source: &quot;C:\Example\原始文件\enfile.txt&quot;; DestDir: &quot;{app}&quot;; Languages: en ; Flags: ignoreversion
+Source: &quot;C:\Example\原始文件\chsfile.txt&quot;; DestDir: &quot;{app}&quot;; Languages: chs ; Flags: ignoreversion
+;用户自定义任务 Tasks
+Source: &quot;C:\Example\原始文件\Tasks\tasks_1.txt&quot;; DestDir: &quot;{app}\Tasks&quot;; Flags: ignoreversion ;Tasks : Tasks_1
+Source: &quot;C:\Example\原始文件\Tasks\tasks_2.txt&quot;; DestDir: &quot;{app}\Tasks&quot;; Flags: ignoreversion ;Tasks :Tasks_2
+Source: &quot;C:\Example\原始文件\Tasks\tasks_Components.txt&quot;; DestDir: &quot;{app}\Tasks&quot;; Flags: ignoreversion ;Tasks :Tasks_2
+;用户定义组件安装
+Source: &quot;C:\Example\原始文件\Components\Components_1.txt&quot;; DestDir: &quot;{app}\Components&quot;; Flags: ignoreversion ; Components: a1;
+Source: &quot;C:\Example\原始文件\Components\Components_2.txt&quot;; DestDir: &quot;{app}\Components&quot;; Flags: ignoreversion ; Components: a2;
+Source: &quot;C:\Example\原始文件\Components\Components_3.txt&quot;; DestDir: &quot;{app}\Components&quot;; Flags: ignoreversion ; Components: a3;
+Source: &quot;C:\Example\原始文件\Components\Components_4.txt&quot;; DestDir: &quot;{app}\Components&quot;; Flags: ignoreversion ; Components: a1 a2 a3;
+
+;用户注册自定义Dll文件      regserver 注册 noregerror 不显示错误信息
+Source: &quot;C:\Example\原始文件\jmail.dll&quot;; DestDir: &quot;{app}&quot;; Flags: ignoreversion regserver
+;添加自述文件
+Source: &quot;C:\Example\原始文件\ISsample.txt&quot;; DestDir: &quot;{app}&quot;; Flags: ignoreversion
+;添加一个文件到缓存文件夹{Tmp} deleteafterinstall 安装后删除
+Source: &quot;C:\Example\原始文件\test.exe&quot;; DestDir: &quot;{tmp}&quot;; Flags: ignoreversion deleteafterinstall
+
+Source: &quot;C:\Example\原始文件\ISsample.chm&quot;; DestDir: &quot;{app}&quot;; Flags: ignoreversion
+Source: &quot;C:\Example\原始文件\ISsample.exe&quot;; DestDir: &quot;{app}&quot;; Flags: ignoreversion
+Source: &quot;C:\Example\原始文件\ISsample.dll&quot;; DestDir: &quot;{app}&quot;; Flags: ignoreversion
+Source: &quot;C:\Example\原始文件\ISsample.ini&quot;; DestDir: &quot;{app}&quot;; Flags: ignoreversion
+Source: &quot;C:\Example\原始文件\ISsample.rar&quot;; DestDir: &quot;{app}&quot;; Flags: ignoreversion
+Source: &quot;C:\Example\原始文件\ISsample_sys.dll&quot;; DestDir: &quot;{win}\System32&quot;; Flags: ignoreversion
+Source: &quot;C:\Example\原始文件\log\*&quot;; DestDir: &quot;{app}\log&quot;; Flags: ignoreversion recursesubdirs createallsubdirs
+; 注意: 不要在任何共享系统文件上使用“Flags: ignoreversion”
+;安装类型设置
+[Types]
+Name: Full ;Description:&quot;完全安装&quot;; Flags: iscustom
+Name: Compact ;Description:&quot;简洁安装&quot;;
+Name: Custom; Description:&quot;自定义安装&quot;;
+;组件安装
+[Components]
+Name: c1; Description: &quot;自定义任务3&quot; ; Types: Full
+Name: a1; Description: &quot;安装Components_1&quot;; Types: Full Compact Custom ;
+Name: a2; Description: &quot;安装Components_2&quot;; Types : Full   Compact
+Name: a3; Description: &quot;安装Components_3&quot;; Types : Full
+
+;开始菜单，桌面快捷方式
+[Icons]
+Name: &quot;{group}\ISsample&quot;; Filename: &quot;{app}\ISsample.exe&quot;
+Name: &quot;{group}\{cm:ProgramOnTheWeb,ISsample}&quot;; Filename: &quot;http://zwkufo.blog.163.com&quot;
+Name: &quot;{group}\{cm:UninstallProgram,ISsample}&quot;; Filename: &quot;{uninstallexe}&quot;
+Name: &quot;{commondesktop}\ISsample&quot;; Filename: &quot;{app}\ISsample.exe&quot;; Tasks: desktopicon
+Name: &quot;{userappdata}\Microsoft\Internet Explorer\Quick Launch\ISsample&quot;; Filename: &quot;{app}\ISsample.exe&quot;; Tasks: quicklaunchicon
+;添加一个帮助文挡
+Name: {group}\ISsample 1.0.0.0 帮助文档;Filename: {app}\ISsample.chm
+
+;用来在程序安装完成后 在安装程序显示最终对话框之前执行程序 常用与运行主程序 显示自述文件 删除临时文件
+[Run]
+Filename: &quot;{app}\ISsample.exe&quot;; Description: &quot;{cm:LaunchProgram,ISsample}&quot;; Flags: nowait postinstall skipifsilent
+Filename: &quot;{app}\ISsample.txt&quot;; Description: &quot;查看显示自述文件&quot;; Flags: postinstall skipifsilent shellexec
+
+;更改显示在程序中显示的消息文本
+[Messages]
+BeveledLabel=HKiss科技
+;卸载对话框说明
+ConfirmUninstall=您真的想要从电脑中卸载ISsample吗?%n%n按 [是] 则完全删除 %1 以及它的所有组件;%n按 [否]则让软件继续留在您的电脑上.
+;定义解压说明
+;StatusExtractFiles=解压并复制主程序文件及相关库文件...
+
+;用于在用户系统中创建，修改或删除ini文件健值
+[INI]
+Filename: &quot;{app}\cfg.ini&quot;; Section: &quot;Startup Options&quot;; Flags: uninsdeletesection
+Filename: &quot;{app}\cfg.ini&quot;; Section: &quot;Startup Options&quot;; Key: &quot;server ip&quot;; String: &quot;127.0.0.1&quot;
+Filename: &quot;{app}\cfg.ini&quot;; Section: &quot;Startup Options&quot;; Key: &quot;server port&quot;; String: &quot;8080&quot;
+
+;用于在用户系统中创建，修改或删除注册表健值
+[Registry]
+Root: HKLM ;SubKey:&quot;Software\ISsample&quot;;ValueType:dword;ValueName:config;ValueData:10 ;Flags:uninsdeletevalue
+;在执行脚本
+[code]
+//全局变量
+var MyProgChecked: Boolean;
+
+//判断程序是否存在
+//初始华程序事件
+function InitializeSetup(): boolean;
+var Isbl: boolean;         //声明变量
+var Isstr: string;
+begin       //开始
+Isbl := true;             //变量赋值
+Isstr := &apos;欢迎&apos;;
+if RegValueExists(HKEY_LOCAL_MACHINE, &apos;SOFTWARE\ISsample&apos;, &apos;config&apos;) then
+begin
+    MsgBox(&apos;已安装过，请先卸载在安装&apos;,mbConfirmation, MB_OK);
+    isbl := false;
+end else
+begin
+   //MsgBox(&apos;无值&apos;,mbConfirmation, MB_OK);
+     isbl := true;
+end;
+
+//下面是个麻烦的 条件语句 end else 注意
+//if MsgBox(Isstr, mbConfirmation, MB_OKCANCEL) = IDOK then
+//begin
+// isbl := true;
+// MsgBox(&apos;执行了&apos;, mbConfirmation, MB_OK);
+//end else
+//begin
+// isbl := false;
+//MsgBox(&apos;执行了&apos;, mbConfirmation, MB_OK);
+//end;
+
+Result := Isbl;
+end;       //结束
+
+procedure CurStepChanged(CurStep: TSetupStep);
+var Isstr :string;
+begin
+if CurStep=ssInstall then       //实际安装前调用
+begin
+    //MsgBox(&apos;CurStepChanged:实际安装前调用&apos;, mbConfirmation, MB_OKCANCEL);           //安装完成后调用
+end;
+if CurStep=ssPostInstall then
+begin
+    Isstr := ExpandConstant(&apos;{tmp}\tmp.rar&apos;);
+//    if FileExists(Isstr) then
+//    begin
+//      MsgBox(&apos;文件存在&apos;,mbConfirmation, MB_OK);
+//    end else
+//    begin
+//      MsgBox(&apos;文件不存在&apos;,mbConfirmation, MB_OK);
+//    end;
+   // MsgBox(&apos;CurStepChanged:实际安装后调用&apos;, mbConfirmation, MB_OKCANCEL);
+end;
+end;
+
+//下一步 按钮按钮 事件
+function NextButtonClick(CurPageID: Integer): Boolean;
+var ResultCode: Integer;
+var IsSetup : Boolean;
+begin
+IsSetup := true ;
+case CurPageID of
+    wpSelectDir:
+       MsgBox(&apos;NextButtonClick:&apos; #13#13 &apos;You selected: &apos;&apos;&apos; + WizardDirValue + &apos;&apos;&apos;.&apos;, mbInformation, MB_OK);   //WizardDirValue路径
+    wpSelectProgramGroup:
+       MsgBox(&apos;NextButtonClick:&apos; #13#13 &apos;You selected: &apos;&apos;&apos; + WizardGroupValue + &apos;&apos;&apos;.&apos;, mbInformation, MB_OK); //开始菜单名
+    wpReady:
+      begin
+       if not RegValueExists(HKEY_LOCAL_MACHINE, &apos;SOFTWARE\Test&apos;, &apos;config&apos;) then   begin
+          if MsgBox(&apos;程序执行需要Test.ext,是否安装!&apos;, mbConfirmation, MB_YESNO) = idYes then begin
+           ExtractTemporaryFile(&apos;test.exe&apos;);
+            if not Exec(ExpandConstant(&apos;{tmp}\test.exe&apos;), &apos;&apos;, &apos;&apos;, SW_SHOWNORMAL, ewWaitUntilTerminated, ResultCode) then
+              MsgBox(&apos;Test.exe出错:&apos; #13#13 &apos; &apos; + SysErrorMessage(ResultCode) + &apos;.&apos;, mbError, MB_OK);
+          end else begin
+                IsSetup := false ;
+          end ;
+          BringToFrontAndRestore();
+        end;
+      end;
+end;
+Result := IsSetup;
+end;
+</code></pre><h2 id="inno-setup读取注册表遇到的一个坑"><a href="#inno-setup读取注册表遇到的一个坑" class="headerlink" title="inno setup读取注册表遇到的一个坑"></a>inno setup读取注册表遇到的一个坑</h2><p>64位操作系统读取注册表问题：</p>
+<pre><code>function GetInstallString(): String;
+var
+  sInstallPath: String;
+begin
+  sInstallPath := &apos;C:\Program Files\Adobe\Common\Plug-ins\7.0\MediaCore&apos;;
+  if RegValueExists(HKLM64, &apos;SOFTWARE\Adobe\Premiere Pro\CurrentVersion&apos;, &apos;Plug-InsDir&apos;) then
+  begin
+    RegQueryStringValue(HKLM64, &apos;SOFTWARE\Adobe\Premiere Pro\CurrentVersion&apos;, &apos;Plug-InsDir&apos;, sInstallPath)
+  end
+  Result := sInstallPath;
+end;
 </code></pre><h1 id="advanced-installer"><a href="#advanced-installer" class="headerlink" title="advanced installer"></a>advanced installer</h1><p><a href="http://anger6678.blog.163.com/blog/static/3293226201072944119412/" target="_blank" rel="noopener">Advanced Installer汉化版教程</a></p>
 <h1 id="NSIS"><a href="#NSIS" class="headerlink" title="NSIS"></a>NSIS</h1><p><a href="http://blog.csdn.net/csxiaoshui/article/details/45310135" target="_blank" rel="noopener">NSIS简介</a> </p>
 <p><a href="http://www.cnblogs.com/modou/p/3573772.html" target="_blank" rel="noopener">使用NSIS制作安装包</a></p>
@@ -225,6 +459,8 @@ end;
 <p><a href="https://github.com/cppfuns/nsSkinEngine_NSIS_demo" target="_blank" rel="noopener">nsSkinEngine_NSIS_demo</a></p>
 <p><a href="https://blog.csdn.net/column/details/19012.html" target="_blank" rel="noopener">打包狂魔之NSIS教程</a></p>
 <p><a href="https://blog.csdn.net/china_jeffery/article/details/79109313" target="_blank" rel="noopener">NSIS教程(9): NSIS+duilib仿QQ安装包</a></p>
+<p><a href="https://www.cnblogs.com/joean/p/4881191.html" target="_blank" rel="noopener">一个比较完整的Inno Setup 安装脚本</a></p>
+<p><a href="https://blog.csdn.net/qq_34248512/article/details/77033165" target="_blank" rel="noopener">通过nsis和duilib实现自定义安装界面</a></p>
 <h1 id="牛牛安装包界面美化控件-nsNiuniuSkin"><a href="#牛牛安装包界面美化控件-nsNiuniuSkin" class="headerlink" title="牛牛安装包界面美化控件 [nsNiuniuSkin]"></a>牛牛安装包界面美化控件 [nsNiuniuSkin]</h1><p><a href="http://www.ggniu.cn/download.htm" title="http://www.ggniu.cn/download.htm" target="_blank" rel="noopener">http://www.ggniu.cn/download.htm</a></p>
 <h1 id="WixToolSet"><a href="#WixToolSet" class="headerlink" title="WixToolSet"></a>WixToolSet</h1><p><a href="http://wixtoolset.org/" title="http://wixtoolset.org/" target="_blank" rel="noopener">http://wixtoolset.org/</a></p>
 <p><a href="http://wixtoolset.org/releases/" target="_blank" rel="noopener">http://wixtoolset.org/releases/</a></p>

@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2018/03/20/Adobe Photoshop插件开发/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="Photoshop SDK 查看SDK\document.html文章 文件夹Photoshopapi文件夹：包含了c/c++头文件、源文件、资源文件，定义了在插件开发中需要的结构、常量、函数。 Samplecode文件夹：保护了每一种类插件的示例源代码。 Documentation文件夹：包含了各种插件开发相关的文档，这里是开发的主要学习材料和api文档来源。 为Photoshop制作64位Wi">
-<meta property="og:updated_time" content="2018-08-24T10:41:03.620Z">
+<meta property="og:updated_time" content="2018-09-30T08:34:23.306Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Adobe Photoshop插件开发">
 <meta name="twitter:description" content="Photoshop SDK 查看SDK\document.html文章 文件夹Photoshopapi文件夹：包含了c/c++头文件、源文件、资源文件，定义了在插件开发中需要的结构、常量、函数。 Samplecode文件夹：保护了每一种类插件的示例源代码。 Documentation文件夹：包含了各种插件开发相关的文档，这里是开发的主要学习材料和api文档来源。 为Photoshop制作64位Wi">
@@ -189,6 +189,20 @@
 <p>Documentation文件夹：包含了各种插件开发相关的文档，这里是开发的主要学习材料和api文档来源。</p>
 <h1 id="为Photoshop制作64位Windows插件-SixtyFour-html"><a href="#为Photoshop制作64位Windows插件-SixtyFour-html" class="headerlink" title="为Photoshop制作64位Windows插件-SixtyFour.html"></a>为Photoshop制作64位Windows插件-SixtyFour.html</h1><h1 id="用于构建Photoshop和SDK示例的工具的详细信息-buildinfo-html"><a href="#用于构建Photoshop和SDK示例的工具的详细信息-buildinfo-html" class="headerlink" title="用于构建Photoshop和SDK示例的工具的详细信息-buildinfo.html"></a>用于构建Photoshop和SDK示例的工具的详细信息-buildinfo.html</h1><p>Photoshop 18.0 - CC 2017</p>
 <p>Windows是使用64位工具链和以下版本在Windows 7 64位SP 1计算机上构建的：Microsoft Visual Studio 2015版本14.0.24720.0。更新3<br>OS X构建于OS X 10.10.5计算机上使用Xcode 7.2.1（7C1002），基本SDK 10.11，OS X部署目标10.10</p>
+<h2 id="PS插件开发简介"><a href="#PS插件开发简介" class="headerlink" title="PS插件开发简介"></a><a href="https://blog.csdn.net/jize00/article/details/8638056" target="_blank" rel="noopener">PS插件开发简介</a></h2><p> 入门首先需要学习两个插件：getter 和 listener，它们在samplecode\automation目录下</p>
+<p>getter插件：打开samplecode\automation\getter\win\getter.sln，编译生成插件，放到PS插件目录下试下（你也可以将Output里插件目录设置为PS的增效工具目录），运行PS-&gt;文件-&gt;自动-&gt;getter，然后你会发现桌面上多了个getter.log，该插件的主要目的就是把你当前在PS里打开的文件、图层信息及函数调用方法输出到log里去，所以当你不知道如何获取某个信息时，查找getter.log里对应的函数</p>
+<p>listener插件：该插件的作用是监听PS里的大部分操作和事件的函数调用过程，并输出到桌面上的listerner.log里，比如你要复制剪切某一图层，而且不知道如何用函数实现它的时候，先使用listener插件，打开PS对图层进行一次复制剪切操作，然后打开listener.log，代码就在那</p>
+<h3 id="框架："><a href="#框架：" class="headerlink" title="框架："></a>框架：</h3><p>每个插件里都有个AutoPluginMain，其实就是DLL入口，所谓的插件其实就是个DLL，找几个插件，在AutoPluginMain里加个断点，跟踪一下，看看这些插件都干了些什么</p>
+<p>有些插件自带弹框界面，可以用资源管理器编辑，用DialogBoxParam创建你自定义的界面，参考listener里的DoUI函数，makenew里的DoAbout等</p>
+<p>几乎所有的API函数都会返回一个SPErr，表示函数调用正确与否</p>
+<p>所有的操作都需要有个PIActionDescriptor，可以创建（sPSActionDescriptor-&gt;make()）或获取（PIUGetInfo()）</p>
+<p>sPSActionDescriptor是一个接口指针，可以从中获取PIActionDescriptor信息（下面简称desc）以及执行一些操作</p>
+<p>sPSActionReference是一个接口指针，用来封装一些信息到desc中，（下面简称refer）</p>
+<p>sPSActionControl是一个接口指针，用来Play各种事件</p>
+<p>如果要获取信息，可以使用PIUGetInfo系列函数（在PIUGet.h中定义）</p>
+<h2 id="Photoshop插件开发"><a href="#Photoshop插件开发" class="headerlink" title="Photoshop插件开发"></a><a href="https://blog.csdn.net/yiyi31130108/article/details/38924993" target="_blank" rel="noopener">Photoshop插件开发</a></h2><p>探索SDK</p>
+<p>Plug-In SDK：开发者可以使用这个SDK来创建插件和扩展Adobe Photoshop CC的功能。</p>
+<p>Connection SDK：使用这个SDK，开发者可以创建和使得APP能操控或与PhotoshopCC通信。</p>
 <h1 id="InDesign"><a href="#InDesign" class="headerlink" title="InDesign"></a>InDesign</h1><p><a href="https://www.adobe.com/devnet/indesign/sdk.html" target="_blank" rel="noopener">https://www.adobe.com/devnet/indesign/sdk.html</a></p>
 <p><a href="https://www.adobe.com/devnet/indesign/sdk/eula_cs6.html" target="_blank" rel="noopener">https://www.adobe.com/devnet/indesign/sdk/eula_cs6.html</a></p>
 <p>界面：</p>
