@@ -4,6 +4,73 @@
 
     
   <url>
+    <loc>https://caojingyou.github.io/2018/03/02/Jenkins/</loc>
+    <lastmod>2018-10-19T01:25:34.362Z</lastmod>
+    <data>
+        <display>
+        <title>Jenkins</title>
+        <pubTime>2018-03-02T01:53:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>Jenkins</tag>
+         
+        <tag>自动构建</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2016/02/01/%E6%88%91%E5%96%9C%E7%88%B1%E7%9A%84%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8F%92%E4%BB%B6/</loc>
+    <lastmod>2018-10-16T09:13:42.322Z</lastmod>
+    <data>
+        <display>
+        <title>我喜爱的浏览器插件</title>
+        <pubTime>2016-02-01T08:03:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>火狐</tag>
+         
+        <tag>浏览器插件</tag>
+         
+        <tag>chrome</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2016/08/15/%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85/</loc>
+    <lastmod>2018-10-15T06:16:46.790Z</lastmod>
+    <data>
+        <display>
+        <title>程序打包</title>
+        <pubTime>2016-08-15T08:03:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>打包</tag>
+         
+        <tag>InstallShield</tag>
+         
+        <tag>Inno</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://caojingyou.github.io/2018/05/02/linux%E4%B8%8BC%E5%BC%80%E5%8F%91/</loc>
     <lastmod>2018-10-09T08:03:01.529Z</lastmod>
     <data>
@@ -46,29 +113,6 @@
 
     
   <url>
-    <loc>https://caojingyou.github.io/2016/02/01/%E6%88%91%E5%96%9C%E7%88%B1%E7%9A%84%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8F%92%E4%BB%B6/</loc>
-    <lastmod>2018-09-30T01:10:42.099Z</lastmod>
-    <data>
-        <display>
-        <title>我喜爱的浏览器插件</title>
-        <pubTime>2016-02-01T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>火狐</tag>
-         
-        <tag>浏览器插件</tag>
-         
-        <tag>chrome</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://caojingyou.github.io/2018/05/23/C++%E8%B0%83%E8%AF%95/</loc>
     <lastmod>2018-09-30T01:07:35.231Z</lastmod>
     <data>
@@ -85,29 +129,6 @@
         <tag>错误报告</tag>
          
         <tag>内存泄露</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2016/08/15/%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85/</loc>
-    <lastmod>2018-09-25T08:38:07.287Z</lastmod>
-    <data>
-        <display>
-        <title>程序打包</title>
-        <pubTime>2016-08-15T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>打包</tag>
-         
-        <tag>InstallShield</tag>
-         
-        <tag>Inno</tag>
          
          
            
@@ -1453,27 +1474,6 @@
         <tag>C#</tag>
          
         <tag>C++</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2018/03/02/Jenkins/</loc>
-    <lastmod>2018-04-13T07:19:36.684Z</lastmod>
-    <data>
-        <display>
-        <title>Jenkins</title>
-        <pubTime>2018-03-02T01:53:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>Jenkins</tag>
-         
-        <tag>自动构建</tag>
          
          
            

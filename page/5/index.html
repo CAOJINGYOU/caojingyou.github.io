@@ -2859,11 +2859,26 @@ print(code)
         <p><a href="https://jenkins.io/" target="_blank" rel="noopener">https://jenkins.io/</a></p>
 <p><a href="https://jenkins.io/" target="_blank" rel="noopener">https://jenkins.io/solutions/c/</a></p>
 <p><a href="https://www.cnblogs.com/huangenai/p/7416322.html" target="_blank" rel="noopener">记密码解决方法</a></p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzAxMTMxMDQ3Mw==&amp;mid=2660102866&amp;idx=1&amp;sn=658b53b6acaa94d0aa9ccf1c279bf874&amp;chksm=803a5634b74ddf2201d6278b2df7a8fa21742500d10abe6bfbd2713f32627c85fa301818f5c4&amp;mpshare=1&amp;scene=1&amp;srcid=1018hYeF9tGVav3Z5GCckPox#rd" target="_blank" rel="noopener">.NET 半天搭建Jenkins持续集成与自动化部署系统</a></p>
+<p><img src="https://i.imgur.com/R7ziHHK.jpg" alt=""></p>
 <h1 id="安装-MSBuild-plugin"><a href="#安装-MSBuild-plugin" class="headerlink" title="安装 MSBuild plugin"></a>安装 MSBuild plugin</h1><p>在 Jenkins 管理页面中，点击[插件管理]进入插件管理页面，切换到[可选插件]页签，在右上角搜索框中输入 MSBuild 找到 MSBuild Plugin，点击[直接安装]按钮开始安装</p>
 <p>安装好之后，就会在[已安装]页签找到 MSBuild Plugin。<br>回到 Jenkins 管理页面中，点击[Global Tool Configuration]，进入全局工具设置页面。</p>
 <p>找到[MSBuild]栏目，点击[新增MSBuild]按钮，[Name]随意填写，使用MSBuild 14.0。[Path to MSBuild]填写MSBuild.exe所在的实际路径。</p>
 <p>.\build\src\AppName.sln</p>
 <p>/t:rebuild /p:configuration=”Release”</p>
+<h2 id="C-项目配置"><a href="#C-项目配置" class="headerlink" title="C#项目配置"></a>C#项目配置</h2><p>打开我们之前创建的项目，找到构建选项-&gt;增加构建步骤-&gt;Build a Visual Studio project or solution using MSBuild</p>
+<p>Name:选择全局MSBuild配置的名称</p>
+<p>MSBuild Build File:填写我们的要构建的项目.csproj文件，所相对工作的路径。如:/Test.csproj</p>
+<p>Command Line Arguments:MSBuild的参数如：/t:Rebuild /P:Configuration=Release /p:VisualStudioVersion=14.0 /p:DeployOnBuild=True;PublishProfile=Test.pubxml</p>
+<p>/t:Rebuild 重新生成</p>
+<p>/p:Configuration=Release Release 生成模式</p>
+<p>/p:VisualStudioVersion=14.0 指定子工具集(VS2015为14.0，2017为15.0)，不设置会报错</p>
+<p>/p:DeployOnBuild=True;PublishProfile=Test.pubxml 使用 Test.pubxml 发布文件来发布项目 .pubxml文件可在VS发布时配置，位于Properties文件夹内。</p>
+<p>配置完成后，点击构建，查看控制台信息，如能构建成功，则代表我们的配置无误！</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>Jenkins 是讲版本库源代码更新到自己的工作空间内，再执行后续的构建工作。我们的程序很不规范，其中引用了许多不属于自己版本库的第三方依赖包，和一些自己开发的公共库，当时这些第三方包和公共库放在我们SVN的另一个版本库里进行管理，因此在构建的时候导致很多程序集找不到引用。</p>
+<p>SVN可以设置外部引用，这样在更新版本库的时候就可以把依赖的版本库也更新下来，然后Jenkins SVN插件把这个Ignore externals选项去掉，然后在Additional Credentials选项里填上所依赖版本库的SVN配置，就能够把这些依赖也更新到SVN工作空间内。</p>
+<h1 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h1><p>SVN的插件:Subversion Plug-in </p>
+<p>Jenkins 安装插件Publish Over FTP</p>
 
       
 
