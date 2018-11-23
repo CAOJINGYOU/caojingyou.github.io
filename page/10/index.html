@@ -1349,6 +1349,7 @@ hexo g -d #生成并部署
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="Visual-Studio-Installer"><a href="#Visual-Studio-Installer" class="headerlink" title="Visual Studio Installer"></a>Visual Studio Installer</h1><p><a href="http://www.cnblogs.com/daban/archive/2012/06/27/2565449.html" target="_blank" rel="noopener">VS2010程序打包操作</a></p>
+<p>使用Windows Installer 4.0作为安装程序包</p>
 <h1 id="InstallShield"><a href="#InstallShield" class="headerlink" title="InstallShield"></a>InstallShield</h1><p><a href="http://liucw.blog.51cto.com/6751239/1220134" target="_blank" rel="noopener">InstallShield使用完全教程</a></p>
 <p><a href="http://www.jb51.net/softjc/467.html" target="_blank" rel="noopener">探索InstallShield——制作一个完整的应用程序安装实例</a></p>
 <p><a href="http://blog.csdn.net/duanbeibei/article/details/50333603" target="_blank" rel="noopener">一个完整的Installshield安装程序实例</a> </p>
@@ -1361,9 +1362,19 @@ hexo g -d #生成并部署
 <pre><code>&quot;ISCC.exe&quot; &quot;%~dp0..\Inno Setup\PeriodicalEditor.iss&quot;
 </code></pre><p>语言包列表</p>
 <pre><code>http://www.jrsoftware.org/files/istrans/
-</code></pre><h2 id="自定义安装目录："><a href="#自定义安装目录：" class="headerlink" title="自定义安装目录："></a>自定义安装目录：</h2><pre><code>DefaultDirName={code:GetPath}
+</code></pre><h2 id="自定义安装目录："><a href="#自定义安装目录：" class="headerlink" title="自定义安装目录："></a>自定义安装目录：</h2><p>读取注册表时区分操作系统64或32位</p>
+<pre><code>[Code]
+function GetHKLM:Integer;
+begin
+  if IsWin64 then
+  Result:=HKLM64
+  else
+  Result:=HKLM32
+end;
 
-[Code]
+DefaultDirName={code:GetPath}
+
+
 //获取安装路径
 function GetPath(Param: String): String;
 var
@@ -1371,7 +1382,7 @@ strPath: String;
 begin
   strPath := ExpandConstant(&apos;{pf}\{#MyAppName}&apos;);  
   if 
-  RegQueryStringValue(HKEY_LOCAL_MACHINE,&apos;Software\Microsoft\Windows\CurrentVersion\App Paths\XSX.exe&apos;, &apos;Path&apos;, strPath)
+  RegQueryStringValue(GetHKLM,&apos;Software\Microsoft\Windows\CurrentVersion\App Paths\XSX.exe&apos;, &apos;Path&apos;, strPath)
   then
   begin
   //MsgBox(&apos;安装路径为: &apos; + strPath, mbInformation, MB_OK)

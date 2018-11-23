@@ -8,17 +8,17 @@
   <link rel="dns-prefetch" href="https://caojingyou.github.io">
   <title>程序打包 | 曹景游</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Visual Studio InstallerVS2010程序打包操作 InstallShieldInstallShield使用完全教程 探索InstallShield——制作一个完整的应用程序安装实例 一个完整的Installshield安装程序实例  从Visual Studio 2012开始，微软就把自家原来的安装与部署工具彻底废掉了，转而让大家去安装使用第三方的打包工具“InstallSh">
+  <meta name="description" content="Visual Studio InstallerVS2010程序打包操作 使用Windows Installer 4.0作为安装程序包 InstallShieldInstallShield使用完全教程 探索InstallShield——制作一个完整的应用程序安装实例 一个完整的Installshield安装程序实例  从Visual Studio 2012开始，微软就把自家原来的安装与部署工具彻底废">
 <meta name="keywords" content="随笔,打包,InstallShield,Inno">
 <meta property="og:type" content="article">
 <meta property="og:title" content="程序打包">
 <meta property="og:url" content="https://caojingyou.github.io/2016/08/15/程序打包/index.html">
 <meta property="og:site_name" content="曹景游">
-<meta property="og:description" content="Visual Studio InstallerVS2010程序打包操作 InstallShieldInstallShield使用完全教程 探索InstallShield——制作一个完整的应用程序安装实例 一个完整的Installshield安装程序实例  从Visual Studio 2012开始，微软就把自家原来的安装与部署工具彻底废掉了，转而让大家去安装使用第三方的打包工具“InstallSh">
-<meta property="og:updated_time" content="2018-10-15T06:16:46.790Z">
+<meta property="og:description" content="Visual Studio InstallerVS2010程序打包操作 使用Windows Installer 4.0作为安装程序包 InstallShieldInstallShield使用完全教程 探索InstallShield——制作一个完整的应用程序安装实例 一个完整的Installshield安装程序实例  从Visual Studio 2012开始，微软就把自家原来的安装与部署工具彻底废">
+<meta property="og:updated_time" content="2018-11-02T03:05:19.862Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="程序打包">
-<meta name="twitter:description" content="Visual Studio InstallerVS2010程序打包操作 InstallShieldInstallShield使用完全教程 探索InstallShield——制作一个完整的应用程序安装实例 一个完整的Installshield安装程序实例  从Visual Studio 2012开始，微软就把自家原来的安装与部署工具彻底废掉了，转而让大家去安装使用第三方的打包工具“InstallSh">
+<meta name="twitter:description" content="Visual Studio InstallerVS2010程序打包操作 使用Windows Installer 4.0作为安装程序包 InstallShieldInstallShield使用完全教程 探索InstallShield——制作一个完整的应用程序安装实例 一个完整的Installshield安装程序实例  从Visual Studio 2012开始，微软就把自家原来的安装与部署工具彻底废">
   
     <link rel="alternative" href="/atom.xml" title="曹景游" type="application/atom+xml">
   
@@ -183,6 +183,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="Visual-Studio-Installer"><a href="#Visual-Studio-Installer" class="headerlink" title="Visual Studio Installer"></a>Visual Studio Installer</h1><p><a href="http://www.cnblogs.com/daban/archive/2012/06/27/2565449.html" target="_blank" rel="noopener">VS2010程序打包操作</a></p>
+<p>使用Windows Installer 4.0作为安装程序包</p>
 <h1 id="InstallShield"><a href="#InstallShield" class="headerlink" title="InstallShield"></a>InstallShield</h1><p><a href="http://liucw.blog.51cto.com/6751239/1220134" target="_blank" rel="noopener">InstallShield使用完全教程</a></p>
 <p><a href="http://www.jb51.net/softjc/467.html" target="_blank" rel="noopener">探索InstallShield——制作一个完整的应用程序安装实例</a></p>
 <p><a href="http://blog.csdn.net/duanbeibei/article/details/50333603" target="_blank" rel="noopener">一个完整的Installshield安装程序实例</a> </p>
@@ -195,9 +196,19 @@
 <pre><code>&quot;ISCC.exe&quot; &quot;%~dp0..\Inno Setup\PeriodicalEditor.iss&quot;
 </code></pre><p>语言包列表</p>
 <pre><code>http://www.jrsoftware.org/files/istrans/
-</code></pre><h2 id="自定义安装目录："><a href="#自定义安装目录：" class="headerlink" title="自定义安装目录："></a>自定义安装目录：</h2><pre><code>DefaultDirName={code:GetPath}
+</code></pre><h2 id="自定义安装目录："><a href="#自定义安装目录：" class="headerlink" title="自定义安装目录："></a>自定义安装目录：</h2><p>读取注册表时区分操作系统64或32位</p>
+<pre><code>[Code]
+function GetHKLM:Integer;
+begin
+  if IsWin64 then
+  Result:=HKLM64
+  else
+  Result:=HKLM32
+end;
 
-[Code]
+DefaultDirName={code:GetPath}
+
+
 //获取安装路径
 function GetPath(Param: String): String;
 var
@@ -205,7 +216,7 @@ strPath: String;
 begin
   strPath := ExpandConstant(&apos;{pf}\{#MyAppName}&apos;);  
   if 
-  RegQueryStringValue(HKEY_LOCAL_MACHINE,&apos;Software\Microsoft\Windows\CurrentVersion\App Paths\XSX.exe&apos;, &apos;Path&apos;, strPath)
+  RegQueryStringValue(GetHKLM,&apos;Software\Microsoft\Windows\CurrentVersion\App Paths\XSX.exe&apos;, &apos;Path&apos;, strPath)
   then
   begin
   //MsgBox(&apos;安装路径为: &apos; + strPath, mbInformation, MB_OK)
