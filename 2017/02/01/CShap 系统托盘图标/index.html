@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2017/02/01/CShap 系统托盘图标/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="C# 系统托盘图标WPF NotifyIcon 资料网址：http://www.codeproject.com/Articles/36468/WPF-NotifyIcon http://www.hardcodet.net/ https://bitbucket.org/hardcodet/notifyicon-wpf/src https://www.nuget.org/packages/Hardco">
-<meta property="og:updated_time" content="2018-01-05T08:47:19.077Z">
+<meta property="og:updated_time" content="2018-11-29T07:56:01.741Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C# 系统托盘图标">
 <meta name="twitter:description" content="C# 系统托盘图标WPF NotifyIcon 资料网址：http://www.codeproject.com/Articles/36468/WPF-NotifyIcon http://www.hardcodet.net/ https://bitbucket.org/hardcodet/notifyicon-wpf/src https://www.nuget.org/packages/Hardco">
@@ -186,9 +186,10 @@
 <p><a href="http://www.hardcodet.net/" target="_blank" rel="noopener">http://www.hardcodet.net/</a></p>
 <p><a href="https://bitbucket.org/hardcodet/notifyicon-wpf/src" target="_blank" rel="noopener">https://bitbucket.org/hardcodet/notifyicon-wpf/src</a></p>
 <p><a href="https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/" target="_blank" rel="noopener">https://www.nuget.org/packages/Hardcodet.NotifyIcon.Wpf/</a></p>
+<p><a href="https://lindexi.gitee.io/lindexi/post/WPF-%E6%89%98%E7%9B%98%E6%98%BE%E7%A4%BA.html" target="_blank" rel="noopener">WPF 托盘显示</a></p>
 <h3 id="NuGet"><a href="#NuGet" class="headerlink" title="NuGet:"></a>NuGet:</h3><pre><code>Install-Package Hardcodet.NotifyIcon.Wpf
 </code></pre><h3 id="NuGet下载的Package："><a href="#NuGet下载的Package：" class="headerlink" title="NuGet下载的Package："></a>NuGet下载的Package：</h3><p><a href="http://files.cnblogs.com/files/yhcao/Hardcodet.NotifyIcon.Wpf.1.0.8.rar" target="_blank" rel="noopener">Hardcodet.NotifyIcon.Wpf.1.0.8.rar</a></p>
-<h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><p>在MainWindow.xaml<window>添加</window></p>
+<h2 id="WPF-NotifyIcon-使用"><a href="#WPF-NotifyIcon-使用" class="headerlink" title="WPF NotifyIcon 使用"></a>WPF NotifyIcon 使用</h2><h3 id="一："><a href="#一：" class="headerlink" title="一："></a>一：</h3><p>在MainWindow.xaml<window>添加</window></p>
 <pre><code>xmlns:tb=&quot;http://www.hardcodet.net/taskbar&quot;
 </code></pre><p>在MainWindow.xaml的 <grid\> 修改中添加</grid\></p>
 <pre><code>&lt;tb:TaskbarIcon Name=&quot;MyNotifyIcon&quot;
@@ -201,6 +202,178 @@
     &lt;/ContextMenu&gt;
   &lt;/tb:TaskbarIcon.ContextMenu&gt;
 &lt;/tb:TaskbarIcon&gt;
+</code></pre><p>ico文件为16x16 32位，也可以更大</p>
+<h3 id="二："><a href="#二：" class="headerlink" title="二："></a>二：</h3><p>App.xaml</p>
+<p><code>ShutdownMode=&quot;OnExplicitShutdown&quot;</code>的作用是只有在调用Application对象的Shutdown()方法时，应用程序才会关闭。</p>
+<pre><code>&lt;Application x:Class=&quot;Windowless_Sample.App&quot;
+             xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+             xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+             ShutdownMode=&quot;OnExplicitShutdown&quot;&gt;
+    &lt;Application.Resources&gt;
+
+        &lt;!--
+            Note that this application does not have a StartupUri declared, so no Window is automatically loaded.
+            Also, the ShutdownMode was set to explicit, so we have to close the application programmatically
+        --&gt;
+
+
+        &lt;!-- merge NotifyIcon and related stuff into the application --&gt;
+        &lt;ResourceDictionary&gt;
+            &lt;ResourceDictionary.MergedDictionaries&gt;
+                &lt;ResourceDictionary Source=&quot;NotifyIconResources.xaml&quot; /&gt;
+            &lt;/ResourceDictionary.MergedDictionaries&gt;
+        &lt;/ResourceDictionary&gt;
+
+    &lt;/Application.Resources&gt;
+&lt;/Application&gt;
+</code></pre><p>添加资源NotifyIconResources.xaml</p>
+<pre><code>&lt;ResourceDictionary xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+                    xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+                    xmlns:tb=&quot;http://www.hardcodet.net/taskbar&quot;
+                    xmlns:local=&quot;clr-namespace:Windowless_Sample&quot;&gt;
+
+    &lt;!-- The taskbar context menu - the first row is a dummy to show off simple data binding --&gt;
+    &lt;!--
+        The &quot;shared&quot; directive is needed if we reopen the sample window a few times - WPF will otherwise
+        reuse the same context menu (which is a resource) again (which will have its DataContext set to the old TaskbarIcon)
+  --&gt;
+    &lt;ContextMenu x:Shared=&quot;false&quot; x:Key=&quot;SysTrayMenu&quot;&gt;
+    &lt;MenuItem Header=&quot;显示&quot; ToolTip=&quot;显示主界面&quot; Command=&quot;{Binding ShowWindowCommand}&quot; /&gt;
+    &lt;MenuItem Header=&quot;隐藏&quot; ToolTip=&quot;隐藏主界面&quot; Command=&quot;{Binding HideWindowCommand}&quot; /&gt;
+    &lt;Separator /&gt;
+    &lt;MenuItem Header=&quot;退出&quot; ToolTip=&quot;退出程序&quot; Command=&quot;{Binding ExitApplicationCommand}&quot; /&gt;
+&lt;/ContextMenu&gt;
+
+
+    &lt;!-- the application&apos;s NotifyIcon - started from App.xaml.cs. Declares its own view model. --&gt;
+    &lt;tb:TaskbarIcon x:Key=&quot;NotifyIcon&quot;
+                    IconSource=&quot;/Red.ico&quot;
+                    ToolTipText=&quot;Double-click for window, right-click for menu&quot;
+                    DoubleClickCommand=&quot;{Binding ShowWindowCommand}&quot;
+                    ContextMenu=&quot;{StaticResource SysTrayMenu}&quot;&gt;
+
+        &lt;!-- self-assign a data context (could also be done programmatically) --&gt;
+        &lt;tb:TaskbarIcon.DataContext&gt;
+            &lt;local:NotifyIconViewModel /&gt;
+        &lt;/tb:TaskbarIcon.DataContext&gt;
+    &lt;/tb:TaskbarIcon&gt;
+
+&lt;/ResourceDictionary&gt;
+</code></pre><p>NotifyIconViewModel.cs</p>
+<pre><code>using System;
+using System.Windows;
+using System.Windows.Input;
+
+namespace Windowless_Sample
+{
+    /// &lt;summary&gt;
+    /// Provides bindable properties and commands for the NotifyIcon. In this sample, the
+    /// view model is assigned to the NotifyIcon in XAML. Alternatively, the startup routing
+    /// in App.xaml.cs could have created this view model, and assigned it to the NotifyIcon.
+    /// &lt;/summary&gt;
+    public class NotifyIconViewModel
+    {
+        /// &lt;summary&gt;
+        /// Shows a window, if none is already open.
+        /// &lt;/summary&gt;
+        public ICommand ShowWindowCommand
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CanExecuteFunc = () =&gt; Application.Current.MainWindow == null,
+                    CommandAction = () =&gt;
+                    {
+                        Application.Current.MainWindow = new MainWindow();
+                        Application.Current.MainWindow.Show();
+                    }
+                };
+            }
+        }
+
+        /// &lt;summary&gt;
+        /// Hides the main window. This command is only enabled if a window is open.
+        /// &lt;/summary&gt;
+        public ICommand HideWindowCommand
+        {
+            get
+            {
+                return new DelegateCommand
+                {
+                    CommandAction = () =&gt; Application.Current.MainWindow.Close(),
+                    CanExecuteFunc = () =&gt; Application.Current.MainWindow != null
+                };
+            }
+        }
+
+
+        /// &lt;summary&gt;
+        /// Shuts down the application.
+        /// &lt;/summary&gt;
+        public ICommand ExitApplicationCommand
+        {
+            get
+            {
+                return new DelegateCommand {CommandAction = () =&gt; Application.Current.Shutdown()};
+            }
+        }
+    }
+
+
+    /// &lt;summary&gt;
+    /// Simplistic delegate command for the demo.
+    /// &lt;/summary&gt;
+    public class DelegateCommand : ICommand
+    {
+        public Action CommandAction { get; set; }
+        public Func&lt;bool&gt; CanExecuteFunc { get; set; }
+
+        public void Execute(object parameter)
+        {
+            CommandAction();
+        }
+
+        public bool CanExecute(object parameter)
+        {
+            return CanExecuteFunc == null  || CanExecuteFunc();
+        }
+
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
+    }
+}
+</code></pre><p>App.xaml.cs</p>
+<pre><code>using System.Windows;
+using Hardcodet.Wpf.TaskbarNotification;
+
+namespace Windowless_Sample
+{
+    /// &lt;summary&gt;
+    /// Simple application. Check the XAML for comments.
+    /// &lt;/summary&gt;
+    public partial class App : Application
+    {
+        private TaskbarIcon notifyIcon;
+
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            //create the notifyicon (it&apos;s a resource declared in NotifyIconResources.xaml
+            notifyIcon = (TaskbarIcon) FindResource(&quot;NotifyIcon&quot;);
+        }
+
+        protected override void OnExit(ExitEventArgs e)
+        {
+            notifyIcon.Dispose(); //the icon would clean up automatically, but this is cleaner
+            base.OnExit(e);
+        }
+    }
+}
 </code></pre>
       
 
@@ -1185,6 +1358,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">SOCKET</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">并行</a>
               </li>
             
             <div class="clearfix"></div>

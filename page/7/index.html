@@ -2238,7 +2238,8 @@ MANIFEST_RESOURCE_ID RT_MANIFEST“IsUserAdmin.exe.manifest”
 <p>如果使用makecert.exe文件生成签名密钥对，请注意它只生成1024位密钥。Authenticode签名应至少具有2048位密钥。makecert.exe文件只应用于测试目的。</p>
 <h1 id="Windows核心编程-进程UAC下以管理员权限运行"><a href="#Windows核心编程-进程UAC下以管理员权限运行" class="headerlink" title="Windows核心编程-进程UAC下以管理员权限运行"></a><a href="https://blog.csdn.net/bxsec/article/details/76205880" target="_blank" rel="noopener">Windows核心编程-进程UAC下以管理员权限运行</a></h1><p>原文：<a href="https://blog.csdn.net/bxsec/article/details/76205880" target="_blank" rel="noopener">https://blog.csdn.net/bxsec/article/details/76205880</a> </p>
 <p>requireAdministrator    应用程序须以管理员权限运行否则拒绝运行<br>highestAvailable    应用程序以当前可用的最高权限运行<br>如果当前用户为管理员，则弹出提示框<br>如果当前用户为普通用户，则不会提示<br>asInvoker    应用程序以与主调应用程序相同的权限启动</p>
-<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p>以管理员权限启动程序 </p>
+<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p><a href="https://www.codeproject.com/Articles/320748/Haephrati-Elevating-during-runtime" target="_blank" rel="noopener">在运行时提升</a></p>
+<p>以管理员权限启动程序 </p>
 <pre><code>SHELLEXECUTEINFO sei = {sizeof(SHELLEXECUTEINFO)};
 //请求提高权限
 sei.lpVerb = TEXT(&quot;runas&quot;);
@@ -4046,6 +4047,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">SOCKET</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">并行</a>
               </li>
             
             <div class="clearfix"></div>

@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2017/07/01/MahApps.Metro使用/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="MahApps.Metro使用下载MahApps.MetroPM&amp;gt; Install-Package MahApps.Metro MainWindow.xaml中添加xmlns:Controls=&amp;quot;clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro&amp;quot; 然后将Window标签替换为如下标签&amp;lt;Contro">
-<meta property="og:image" content="http://mahapps.com/images/08_RegularButton.png">
+<meta property="og:image" content="https://mahapps.com/images/08_RegularButton.png">
 <meta property="og:image" content="http://mahapps.com/images/07_CircleButtons.png">
 <meta property="og:image" content="http://mahapps.com/images/square-button.png">
 <meta property="og:image" content="http://mahapps.com/images/accent-square-button.png">
@@ -47,11 +47,11 @@
 <meta property="og:image" content="http://mahapps.com/images/toggle-button-normal.png">
 <meta property="og:image" content="http://mahapps.com/images/toggle-button-circle.png">
 <meta property="og:image" content="http://mahapps.com/images/09_toggleswitch.png">
-<meta property="og:updated_time" content="2018-01-05T08:47:18.795Z">
+<meta property="og:updated_time" content="2018-12-04T09:29:02.535Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MahApps.Metro使用">
 <meta name="twitter:description" content="MahApps.Metro使用下载MahApps.MetroPM&amp;gt; Install-Package MahApps.Metro MainWindow.xaml中添加xmlns:Controls=&amp;quot;clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro&amp;quot; 然后将Window标签替换为如下标签&amp;lt;Contro">
-<meta name="twitter:image" content="http://mahapps.com/images/08_RegularButton.png">
+<meta name="twitter:image" content="https://mahapps.com/images/08_RegularButton.png">
   
     <link rel="alternative" href="/atom.xml" title="曹景游" type="application/atom+xml">
   
@@ -238,7 +238,23 @@ namespace WpfApplication
     }
   }
 }
-</code></pre><h2 id="使用内置的样式App-xaml"><a href="#使用内置的样式App-xaml" class="headerlink" title="使用内置的样式App.xaml"></a>使用内置的样式App.xaml</h2><pre><code>&lt;Application x:Class=&quot;WpfApplication.App&quot;
+</code></pre><h2 id="使用内置的样式App-xaml"><a href="#使用内置的样式App-xaml" class="headerlink" title="使用内置的样式App.xaml"></a>使用内置的样式App.xaml</h2><h3 id="App-xaml（v2-0-0和更新版本）"><a href="#App-xaml（v2-0-0和更新版本）" class="headerlink" title="App.xaml（v2.0.0和更新版本）"></a>App.xaml（v2.0.0和更新版本）</h3><pre><code>&lt;Application x:Class=&quot;WpfApplication.App&quot;
+             xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+             xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+             StartupUri=&quot;MainWindow.xaml&quot;&gt;
+  &lt;Application.Resources&gt;
+    &lt;ResourceDictionary&gt;
+      &lt;ResourceDictionary.MergedDictionaries&gt;
+        &lt;!-- MahApps.Metro resource dictionaries. Make sure that all file names are Case Sensitive! --&gt;
+        &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml&quot; /&gt;
+        &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml&quot; /&gt;
+        &lt;!-- Accent and AppTheme setting --&gt;
+        &lt;ResourceDictionary Source=&quot;pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml&quot; /&gt;
+      &lt;/ResourceDictionary.MergedDictionaries&gt;
+    &lt;/ResourceDictionary&gt;
+  &lt;/Application.Resources&gt;
+&lt;/Application&gt;
+</code></pre><h3 id="App-xaml（v1-6-5及更早版本）"><a href="#App-xaml（v1-6-5及更早版本）" class="headerlink" title="App.xaml（v1.6.5及更早版本）"></a>App.xaml（v1.6.5及更早版本）</h3><pre><code>&lt;Application x:Class=&quot;WpfApplication.App&quot;
              xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
              xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
              StartupUri=&quot;MainWindow.xaml&quot;&gt;
@@ -270,7 +286,8 @@ namespace WpfApplication
     &lt;/Controls:MetroWindow&gt;
 </code></pre><p>WindowButtonCommands are the minimize, maximize/restore, and close buttons. You can hide the buttons with <code>ShowMinButton=&quot;True|False&quot;</code>, <code>ShowMaxRestoreButton=&quot;True|False&quot;</code> and <code>ShowCloseButton=&quot;True|False&quot;</code>.</p>
 <p>The visibility of the minimize and maximize/restore buttons are also effected by the <code>ResizeMode</code>. If <code>ResizeMode=&quot;NoResize&quot;</code> the buttons are collapsed. If <code>ResizeMode=&quot;CanMinimize&quot;</code> the maximize/restore button is collapsed.</p>
-<h2 id="记住窗口位置"><a href="#记住窗口位置" class="headerlink" title="记住窗口位置"></a>记住窗口位置</h2><p>aveWindowPosition=”True|False”(默认False选项）。将此属性设置为True将意味着在下一次发射，将被自动定位和尺寸对它的出口。这种设计为提高ux和速度发展为一个“管道”，UI是定期进行的。</p>
+<h2 id="记住窗口位置"><a href="#记住窗口位置" class="headerlink" title="记住窗口位置"></a>记住窗口位置</h2><p>已经废弃</p>
+<p>aveWindowPosition=”True|False”(默认False选项）。将此属性设置为True将意味着在下一次发射，将被自动定位和尺寸对它的出口。这种设计为提高ux和速度发展为一个“管道”，UI是定期进行的。</p>
 <h2 id="修改标题栏"><a href="#修改标题栏" class="headerlink" title="修改标题栏"></a>修改标题栏</h2><p>可以添加自己的控制 LeftWindowsCommands 或 RightWindowsCommands</p>
 <pre><code>&lt;MetroWindow&gt; ... &lt;/MetroWindow&gt;
 </code></pre><p>MainWindow.xaml.cs内添加：</p>
@@ -295,7 +312,8 @@ namespace WpfApplication
 &lt;/Controls:MetroWindow.RightWindowCommands&gt;
 </code></pre><p>显示图标需要加载MahApps.Metro.Resources资源</p>
 <h1 id="MahApps-Metro-Resources使用"><a href="#MahApps-Metro-Resources使用" class="headerlink" title="MahApps.Metro.Resources使用"></a>MahApps.Metro.Resources使用</h1><h2 id="下载MahApps-Metro-Resources"><a href="#下载MahApps-Metro-Resources" class="headerlink" title="下载MahApps.Metro.Resources"></a>下载MahApps.Metro.Resources</h2><pre><code>PM&gt; Install-Package MahApps.Metro.Resources
-</code></pre><h2 id="MainWindow-xaml文件中添加"><a href="#MainWindow-xaml文件中添加" class="headerlink" title="MainWindow.xaml文件中添加"></a>MainWindow.xaml文件中添加</h2><pre><code>&lt;Window.Resources&gt;
+</code></pre><p>包括<a href="http://entypo.com/" target="_blank" rel="noopener">Entypo</a>和<a href="http://modernuiicons.com/" target="_blank" rel="noopener">Temparian的现代UI图标</a>。</p>
+<h2 id="MainWindow-xaml文件中添加"><a href="#MainWindow-xaml文件中添加" class="headerlink" title="MainWindow.xaml文件中添加"></a>MainWindow.xaml文件中添加</h2><pre><code>&lt;Window.Resources&gt;
         &lt;ResourceDictionary&gt;
             &lt;ResourceDictionary.MergedDictionaries&gt;
                 &lt;ResourceDictionary Source=&quot;/Resources/Icons.xaml&quot; /&gt;
@@ -313,6 +331,19 @@ namespace WpfApplication
         &lt;VisualBrush Visual=&quot;{StaticResource appbar_add}&quot; Stretch=&quot;Fill&quot; /&gt;
     &lt;/Rectangle.OpacityMask&gt;
 &lt;/Rectangle&gt;
+</code></pre><h1 id="MahApps-Metro-IconPacks"><a href="#MahApps-Metro-IconPacks" class="headerlink" title="MahApps.Metro.IconPacks"></a>MahApps.Metro.IconPacks</h1><p><a href="https://github.com/MahApps/MahApps.Metro.IconPacks" target="_blank" rel="noopener">https://github.com/MahApps/MahApps.Metro.IconPacks</a></p>
+<p>MahApps.Metro可以使用包含控件的<a href="https://github.com/MahApps/MahApps.Metro.IconPacks" target="_blank" rel="noopener">MahApps.Metro.IconPacks</a>以简单的方式使用这些令人敬畏的图标。</p>
+<pre><code>&lt;Window x:Class=&quot;IconPacksTest.App&quot;
+        xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
+        xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
+        xmlns:iconPacks=&quot;http://metro.mahapps.com/winfx/xaml/iconpacks&quot;
+        Title=&quot;IconPacks&quot; Height=&quot;300&quot; Width=&quot;300&quot;&gt;
+
+    &lt;Grid&gt;
+        &lt;iconPacks:PackIconMaterial Kind=&quot;EmoticonCool&quot; VerticalAlignment=&quot;Center&quot; HorizontalAlignment=&quot;Center&quot; /&gt;
+    &lt;/Grid&gt;
+
+&lt;/Window&gt;
 </code></pre><h1 id="如何改变目前的主题-Styles"><a href="#如何改变目前的主题-Styles" class="headerlink" title="如何改变目前的主题 Styles"></a>如何改变目前的主题 Styles</h1><p>You can choose between these available accents:</p>
 <pre><code>“Red”, “Green”, “Blue”, “Purple”, “Orange”, “Lime”, “Emerald”, “Teal”, “Cyan”, “Cobalt”, “Indigo”, “Violet”, “Pink”, “Magenta”, “Crimson”, “Amber”, “Yellow”, “Brown”, “Olive”, “Steel”, “Mauve”, “Taupe”, “Sienna”
 </code></pre><p>and these themes:</p>
@@ -423,7 +454,7 @@ namespace WpfApplication
                       WindowStartupLocation=&quot;CenterScreen&quot;&gt;
 
 &lt;/Controls:MetroWindow&gt;
-</code></pre><h3 id="Buttons"><a href="#Buttons" class="headerlink" title="Buttons"></a>Buttons</h3><h4 id="Default-look"><a href="#Default-look" class="headerlink" title="Default look"></a>Default look</h4><p><img src="http://mahapps.com/images/08_RegularButton.png" alt=""></p>
+</code></pre><h3 id="Buttons"><a href="#Buttons" class="headerlink" title="Buttons"></a><a href="https://mahapps.com/controls/buttons.html" target="_blank" rel="noopener">Buttons</a></h3><h4 id="Default-look"><a href="#Default-look" class="headerlink" title="Default look"></a>Default look</h4><p><img src="https://mahapps.com/images/08_RegularButton.png" alt=""></p>
 <h4 id="MetroCircleButton"><a href="#MetroCircleButton" class="headerlink" title="MetroCircleButton"></a>MetroCircleButton</h4><pre><code>&lt;Button Style=&quot;{DynamicResource MetroCircleButtonStyle}&quot; Content=&quot;Button&quot;/&gt;
 </code></pre><p><img src="http://mahapps.com/images/07_CircleButtons.png" alt=""></p>
 <h4 id="SquareButton"><a href="#SquareButton" class="headerlink" title="SquareButton"></a>SquareButton</h4><pre><code>&lt;Button Style=&quot;{DynamicResource SquareButtonStyle}&quot; Content=&quot;Button&quot;/&gt;
@@ -506,6 +537,7 @@ Binding=&quot;{Binding RelativeSource={RelativeSource AncestorType=DataGridRow},
 <h2 id="Dialogs"><a href="#Dialogs" class="headerlink" title="Dialogs"></a>Dialogs</h2><h3 id="Message-dialog"><a href="#Message-dialog" class="headerlink" title="Message dialog"></a>Message dialog</h3><p>对话框还可以显示简单消息的<code>ShowMessageAsync</code>方法。扩展方法MetroWindow因此，呼叫从它的窗口类。</p>
 <pre><code>await this.ShowMessageAsync(&quot;This is the title&quot;, &quot;Some message&quot;);
 </code></pre><p>有可选的额外参数的简单的按钮，例如 Ok Cancel 并设置主题颜色和动画选项。</p>
+<p>函数要带async前缀</p>
 <h3 id="Progress-dialog"><a href="#Progress-dialog" class="headerlink" title="Progress dialog"></a>Progress dialog</h3><pre><code>var controller = await this.ShowProgressAsync(&quot;Please wait...&quot;, &quot;Progress message&quot;);
 </code></pre><p>This method returns a ProgressDialogController object that exposes the SetProgress method, use it to set the current progress.</p>
 <p><img src="http://mahapps.com/images/progressdialog.png" alt=""></p>
@@ -567,7 +599,9 @@ break;
 <pre><code>&lt;Controls:Flyout Header=&quot;Flyout&quot; Position=&quot;Right&quot; Width=&quot;200&quot;&gt;
 &lt;!-- Your custom content here --&gt;
 &lt;/Controls:Flyout&gt;
-</code></pre><h3 id="Themed-flyouts"><a href="#Themed-flyouts" class="headerlink" title="Themed flyouts"></a>Themed flyouts</h3><p>As of version 0.12, flyouts can have various themes, assignable through the Theme property, those are:</p>
+</code></pre><p>显示</p>
+<p>this.SettingsFlyout.IsOpen = !this.SettingsFlyout.IsOpen;</p>
+<h3 id="Themed-flyouts"><a href="#Themed-flyouts" class="headerlink" title="Themed flyouts"></a>Themed flyouts</h3><p>As of version 0.12, flyouts can have various themes, assignable through the Theme property, those are:</p>
 <pre><code>Adapt,
 Inverse,
 Dark,
@@ -750,6 +784,18 @@ Count=&quot;1&quot;&gt;
             &lt;StatusBarItem&gt;Selected Tab:&lt;/StatusBarItem&gt;
             &lt;StatusBarItem Content=&quot;{Binding ElementName=MainTabControl, Path=SelectedItem.Header, Mode=OneWay}&quot; /&gt;
         &lt;/StatusBar&gt;
+</code></pre><h2 id="DatePicker"><a href="#DatePicker" class="headerlink" title="DatePicker"></a>DatePicker</h2><p>设置默认格式</p>
+<pre><code>&lt;Window.Resources&gt;
+    &lt;Style TargetType=&quot;DatePickerTextBox&quot;&gt;
+        &lt;Setter Property=&quot;Control.Template&quot;&gt;
+            &lt;Setter.Value&gt;
+                &lt;ControlTemplate&gt;
+                    &lt;TextBox Text=&quot;{Binding Path=SelectedDate, StringFormat=&apos;yyyy/MM/dd&apos;, RelativeSource={RelativeSource AncestorType=DatePicker}}&quot; MinWidth=&quot;50&quot; /&gt;
+                &lt;/ControlTemplate&gt;
+            &lt;/Setter.Value&gt;
+        &lt;/Setter&gt;
+    &lt;/Style&gt;
+&lt;/Window.Resources&gt;
 </code></pre><h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
 <li><a href="https://github.com/MahApps/MahApps.Metro.IconPacks" target="_blank" rel="noopener">MahApps.Metro.IconPacks</a></li>
 <li><a href="http://mahapps.com/guides/icons-and-resources.html" target="_blank" rel="noopener">MahApps.Metro.Resources</a> </li>
@@ -1754,6 +1800,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">SOCKET</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">并行</a>
               </li>
             
             <div class="clearfix"></div>
