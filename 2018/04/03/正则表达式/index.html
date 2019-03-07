@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2018/04/03/正则表达式/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="c regex 编译正则表达式 regcomp() 匹配正则表达式 regexec() 释放正则表达式 regfree() 错误处理 regerror()  #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;regex.h&amp;gt;  //标准c不支持，Linux常带有此文件  int main(){     regex_t reg;    //定义一个正则实例     c">
-<meta property="og:updated_time" content="2018-11-05T09:07:50.393Z">
+<meta property="og:updated_time" content="2019-01-10T06:44:57.838Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="正则表达式">
 <meta name="twitter:description" content="c regex 编译正则表达式 regcomp() 匹配正则表达式 regexec() 释放正则表达式 regfree() 错误处理 regerror()  #include &amp;lt;stdio.h&amp;gt; #include &amp;lt;regex.h&amp;gt;  //标准c不支持，Linux常带有此文件  int main(){     regex_t reg;    //定义一个正则实例     c">
@@ -927,13 +927,133 @@ int main(int argc, char* argv[])
     return 0;
 }
 </code></pre><p><a href="https://blog.csdn.net/leonardwang/article/details/6035171?spm=a2c4e.11153940.blogcont75580.15.3a02b5f4uSDlxO" target="_blank" rel="noopener">正则表达式 boost Regex</a></p>
+<h2 id="BOOST-REGEX-DYN-LINK"><a href="#BOOST-REGEX-DYN-LINK" class="headerlink" title="BOOST_REGEX_DYN_LINK"></a><code>BOOST_REGEX_DYN_LINK</code></h2><p>如果动态链接到Boost,需要定义<code>BOOST_REGEX_DYN_LINK</code>宏，否则使用静态链接库lib</p>
 <h1 id="PCRE和PCRE"><a href="#PCRE和PCRE" class="headerlink" title="PCRE和PCRE++"></a>PCRE和PCRE++</h1><p><a href="https://blog.csdn.net/tianmohust/article/details/9351239" target="_blank" rel="noopener">深入浅出C/C++中的正则表达式库</a></p>
 <p><a href="http://www.pcre.org/" target="_blank" rel="noopener">PCRE</a>：与 Perl 5 正则表达式完全相同的实现。3-clause BSD。</p>
 <p><a href="http://www.daemon.de/PCRE" target="_blank" rel="noopener">PCRE++</a></p>
 <h1 id="SLRE"><a href="#SLRE" class="headerlink" title="SLRE"></a>SLRE</h1><p><a href="https://github.com/cesanta/slre" target="_blank" rel="noopener">SLRE</a>：超轻的正则表达式库。</p>
 <h1 id="CppVerbalExpressions"><a href="#CppVerbalExpressions" class="headerlink" title="CppVerbalExpressions"></a>CppVerbalExpressions</h1><p><a href="https://github.com/VerbalExpressions/CppVerbalExpressions" target="_blank" rel="noopener">CppVerbalExpressions</a>：易于使用的C++正则表达式。</p>
 <h1 id="QtVerbalExpressions"><a href="#QtVerbalExpressions" class="headerlink" title="QtVerbalExpressions"></a>QtVerbalExpressions</h1><p><a href="https://github.com/VerbalExpressions/QtVerbalExpressions" target="_blank" rel="noopener">QtVerbalExpressions</a>：基于C++ VerbalExpressions 库的Qt库。</p>
-<h1 id="NET-正则表达式"><a href="#NET-正则表达式" class="headerlink" title=".NET 正则表达式"></a>.NET 正则表达式</h1><p><a href="https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expressions" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expressions</a></p>
+<h1 id="GNU-Regex-Library"><a href="#GNU-Regex-Library" class="headerlink" title="GNU Regex Library"></a>GNU Regex Library</h1><p><a href="http://www.wuzesheng.com/?p=929" target="_blank" rel="noopener">深入浅出C/C++中的正则表达式库(一)——GNU Regex Library</a></p>
+<p><a href="http://www.gnu.org/s/libc/manual/html_node/Regular-Expressions.html" target="_blank" rel="noopener">http://www.gnu.org/s/libc/manual/html_node/Regular-Expressions.html</a></p>
+<h1 id="GRETA"><a href="#GRETA" class="headerlink" title="GRETA"></a>GRETA</h1><p>greta是微软的正则表达式封装，不过看它说明除了windows下可以用，linux其实也可以用（c＋＋）。</p>
+<p><a href="https://www.microsoft.com/en-us/download/details.aspx?id=52473" target="_blank" rel="noopener">https://www.microsoft.com/en-us/download/details.aspx?id=52473</a></p>
+<p>GRETA 为 C++ 提供了兼容 Perl 5 的正则表示支持。GRETA的主页位于：<a href="http://research.microsoft.com/projects/greta/" target="_blank" rel="noopener">http://research.microsoft.com/projects/greta/</a>。</p>
+<p>GRETA 库中一共有 6 个程序文件:</p>
+<pre><code>regexpr2.h
+regexpr2.cpp
+syntax2.h
+syntax2.cpp
+restack.h
+reimpl2.h
+
+可以有两种方法使用：
+(1) 直接把这6个文件加入到 project 中。（不推荐）
+(2) 在 workspace 中专门为 Greta 创建一个类型为：&apos;Win32 Static Library&apos; 的 project 。
+</code></pre><p><a href="http://www.regexlab.com/sswater/zh/greta/index.htm" target="_blank" rel="noopener">GRETA 正则表达式库</a></p>
+<h1 id="ATL-CAtlRegExp类"><a href="#ATL-CAtlRegExp类" class="headerlink" title="ATL CAtlRegExp类"></a>ATL CAtlRegExp类</h1><p>主要使用ATL中两个模板类CAtlRegExp和CAtlREMatchContext。</p>
+<p><a href="https://blog.csdn.net/fire_lord/article/details/8499626" target="_blank" rel="noopener">https://blog.csdn.net/fire_lord/article/details/8499626</a></p>
+<pre><code>// catlregexp_class.cpp
+#include &lt;afx.h&gt;
+#include &lt;atlrx.h&gt;
+
+int main(int argc, char* argv[])
+{
+    CAtlRegExp&lt;&gt; reUrl;
+    // Five match groups: scheme, authority, path, query, fragment
+    REParseError status = reUrl.Parse(
+        &quot;({[^:/?#]+}:)?(//{[^/?#]*})?{[^?#]*}(?{[^#]*})?(#{.*})?&quot; );
+
+    if (REPARSE_ERROR_OK != status)
+    {
+        // Unexpected error.
+        return 0;
+    }
+
+    CAtlREMatchContext&lt;&gt; mcUrl;
+    if (!reUrl.Match(
+&quot;http://search.microsoft.com/us/Search.asp?qu=atl&amp;boolean=ALL#results&quot;,
+        &amp;mcUrl))
+    {
+        // Unexpected error.
+        return 0;
+    }
+
+    for (UINT nGroupIndex = 0; nGroupIndex &lt; mcUrl.m_uNumGroups;
+         ++nGroupIndex)
+    {
+        const CAtlREMatchContext&lt;&gt;::RECHAR* szStart = 0;
+        const CAtlREMatchContext&lt;&gt;::RECHAR* szEnd = 0;
+        mcUrl.GetMatch(nGroupIndex, &amp;szStart, &amp;szEnd);
+
+        ptrdiff_t nLength = szEnd - szStart;
+        printf_s(&quot;%d: \&quot;%.*s\&quot;\n&quot;, nGroupIndex, nLength, szStart);
+    }
+
+    return 0;
+}
+</code></pre><p><a href="https://www.codeproject.com/Articles/13320/%2FArticles%2F13320%2FUsing-Regular-Expressions-in-MFC" target="_blank" rel="noopener">在MFC中使用正则表达式</a></p>
+<pre><code>// create regular expression content
+CAtlRegExp&lt;&gt; regex;
+REParseError status = regex.Parse(m_szRegex, m_bCaseSensitive);
+
+if (REPARSE_ERROR_OK != status) {
+  // invalid pattern, show error
+  m_szStatus = TEXT(&quot;Parser Error: &quot;);
+  m_szStatus += REError2String(status);
+} else {
+  // valid regex pattern, now try to match the content
+  CAtlREMatchContext&lt;&gt; mc;
+  if (!regex.Match(m_szInput, &amp;mc)) {
+    // content not match
+    m_szStatus = TEXT(&quot;No match&quot;);
+  } else {
+    // content match, show match-group
+    m_szStatus = TEXT(&quot;Success match&quot;);
+    for (UINT nGroupIndex = 0; nGroupIndex &lt; mc.m_uNumGroups; 
+         ++nGroupIndex) {
+      const CAtlREMatchContext&lt;&gt;::RECHAR* szStart = 0;
+      const CAtlREMatchContext&lt;&gt;::RECHAR* szEnd = 0;
+      mc.GetMatch(nGroupIndex, &amp;szStart, &amp;szEnd);
+      ptrdiff_t nLength = szEnd - szStart;
+      CString text(szStart, nLength);
+      m_ctrlListBox.AddString(text);
+    }
+  }
+}
+
+// refer to REParseError for more information
+CString CMfcRegexDlg::REError2String(REParseError status)
+{
+  switch (status) {
+    case REPARSE_ERROR_OK:
+         return TEXT(&quot;No error occurred&quot;);
+    case REPARSE_ERROR_OUTOFMEMORY:
+         return TEXT(&quot;Out of memory&quot;);
+    case REPARSE_ERROR_BRACE_EXPECTED:
+         return TEXT(&quot;A closing brace was expected&quot;);
+    case REPARSE_ERROR_PAREN_EXPECTED:
+         return TEXT(&quot;A closing parenthesis was expected&quot;);
+    case REPARSE_ERROR_BRACKET_EXPECTED:
+         return TEXT(&quot;A closing bracket was expected&quot;);
+    case REPARSE_ERROR_UNEXPECTED:
+         return TEXT(&quot;An unspecified fatal error occurred&quot;);
+    case REPARSE_ERROR_EMPTY_RANGE:
+         return TEXT(&quot;A range expression was empty&quot;);
+    case REPARSE_ERROR_INVALID_GROUP:
+         return TEXT(&quot;A back reference was made to a group&quot; 
+                     &quot; that did not exist&quot;);
+    case REPARSE_ERROR_INVALID_RANGE:
+         return TEXT(&quot;An invalid range was specified&quot;);
+    case REPARSE_ERROR_EMPTY_REPEATOP:
+         return TEXT(&quot;A repeat operator (* or +) was applied&quot; 
+                     &quot; to an expression that could be empty&quot;);
+    case REPARSE_ERROR_INVALID_INPUT:
+         return TEXT(&quot;The input string was invalid&quot;);
+    default: return TEXT(&quot;Unknown error&quot;);
+  }
+}
+</code></pre><h1 id="NET-正则表达式"><a href="#NET-正则表达式" class="headerlink" title=".NET 正则表达式"></a>.NET 正则表达式</h1><p><a href="https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expressions" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expressions</a></p>
 <p><a href="http://download.microsoft.com/download/D/2/4/D240EBF6-A9BA-4E4F-A63F-AEB6DA0B921C/Regular%20expressions%20quick%20reference.docx" target="_blank" rel="noopener">http://download.microsoft.com/download/D/2/4/D240EBF6-A9BA-4E4F-A63F-AEB6DA0B921C/Regular%20expressions%20quick%20reference.docx</a></p>
 <p><a href="https://docs.microsoft.com/zh-cn/dotnet/standard/base-types/regular-expression-language-quick-reference" target="_blank" rel="noopener">正则表达式语言 - 快速参考</a></p>
 <p><a href="https://msdn.microsoft.com/zh-cn/library/system.text.regularexpressions.regex.aspx" target="_blank" rel="noopener">Regex 类</a></p>
@@ -1069,11 +1189,11 @@ int main(int argc, char* argv[])
   
 <nav id="article-nav">
   
-    <a href="/2018/04/12/duilib/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/04/12/ATL与WTL/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          duilib
+          ATL与WTL
         
       </div>
     </a>
@@ -1123,7 +1243,7 @@ int main(int argc, char* argv[])
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 yhcao
+    		&copy; 2019 yhcao
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -1935,6 +2055,34 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">并行</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">URL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">解密</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">字符转换</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">FTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">加解密</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据签名</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数字证书</a>
               </li>
             
             <div class="clearfix"></div>

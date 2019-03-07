@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2017/10/01/VC程序获取管理员权限/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="一：编译程序的时候设置一下在项目属性–连接器–清单文件–UAC执行级别改为requireAdministrator 二：void GainAdminPrivileges(CString strApp, UINT idd) {     CString         strCmd;     strCmd.Format (_T(&amp;quot;/adminoption %d&amp;quot;), idd);">
-<meta property="og:updated_time" content="2018-11-26T08:24:34.139Z">
+<meta property="og:updated_time" content="2019-01-11T09:51:17.283Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="VC程序获取管理员权限">
 <meta name="twitter:description" content="一：编译程序的时候设置一下在项目属性–连接器–清单文件–UAC执行级别改为requireAdministrator 二：void GainAdminPrivileges(CString strApp, UINT idd) {     CString         strCmd;     strCmd.Format (_T(&amp;quot;/adminoption %d&amp;quot;), idd);">
@@ -474,81 +474,105 @@ if (!ShellExecuteEx(&amp;sei)){
 <li>打开当前进程的令牌 </li>
 <li>查看当前进程是否具有管理员权限 </li>
 <li><p>如果无管理员权限，则以管理员权限重新启动本进程</p>
-<p> #include <windows.h><br> #include <shlobj.h><br> bool runAsAdmin()<br> {</shlobj.h></windows.h></p>
-<pre><code>//1. 获取进程令牌
-HANDLE hToken = NULL;
-if ( !OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &amp;hToken) )
-    return false;
-//2. 获取提升类型
-TOKEN_ELEVATION_TYPE ElevationType = TokenElevationTypeDefault;
-BOOL  bIsAdmin = false;
-DWORD dwSize   = 0;
-if (GetTokenInformation(hToken, TokenElevationType, &amp;ElevationType,
-        sizeof(TOKEN_ELEVATION_TYPE), &amp;dwSize))
+<pre><code>#include &lt;Windows.h&gt;
+#include &lt;ShlObj.h&gt;
+bool runAsAdmin()
 {
-    //2.1 创建管理员组对应的SID
-    BYTE adminSID(SECURITY_MAX_SID_SIZE);
-    dwSize = sizeof(adminSID);
-    CreateWellKnownSid(WinBuiltinAdministratorsSid, NULL, &amp;adminSID, &amp;dwSize);
-    //2.2 判断当前进程运行角色是否为管理员
-    if (ElevationType == TokenElevationTypeLimited){
-        //a. 获取连接令牌的句柄
-        HANDLE hUnfilteredToken = NULL;
-        GetTokenInformation(hToken, TokenLinkedToken, (PVOID)&amp;hUnfilteredToken,
-            sizeof(HANDLE), &amp;dwSize);
-        //b. 检查这个原始的令牌是否包含管理员的SID
-        if (!CheckTokenMembership(hUnfilteredToken, &amp;adminSID, &amp;bIsAdmin))
-            return false;
-        CloseHandle(hUnfilteredToken);
-    } else {
-        bIsAdmin = IsUserAnAdmin();
+    //1. 获取进程令牌
+    HANDLE hToken = NULL;
+    if ( !OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &amp;hToken) )
+        return false;
+    //2. 获取提升类型
+    TOKEN_ELEVATION_TYPE ElevationType = TokenElevationTypeDefault;
+    BOOL  bIsAdmin = false;
+    DWORD dwSize   = 0;
+    if (GetTokenInformation(hToken, TokenElevationType, &amp;ElevationType,
+                            sizeof(TOKEN_ELEVATION_TYPE), &amp;dwSize))
+    {
+        //2.1 创建管理员组对应的SID
+        BYTE adminSID(SECURITY_MAX_SID_SIZE);
+        dwSize = sizeof(adminSID);
+        CreateWellKnownSid(WinBuiltinAdministratorsSid, NULL, &amp;adminSID, &amp;dwSize);
+        //2.2 判断当前进程运行角色是否为管理员
+        if (ElevationType == TokenElevationTypeLimited)
+        {
+            //a. 获取连接令牌的句柄
+            HANDLE hUnfilteredToken = NULL;
+            GetTokenInformation(hToken, TokenLinkedToken, (PVOID)&amp;hUnfilteredToken,
+                                sizeof(HANDLE), &amp;dwSize);
+            //b. 检查这个原始的令牌是否包含管理员的SID
+            if (!CheckTokenMembership(hUnfilteredToken, &amp;adminSID, &amp;bIsAdmin))
+                return false;
+            CloseHandle(hUnfilteredToken);
+        }
+        else
+        {
+            bIsAdmin = IsUserAnAdmin();
+        }
+        CloseHandle(hToken);
     }
-    CloseHandle(hToken);
-}
 
-// 3. 判断具体的权限状况
-BOOL bFullToken = false;
-switch(ElevationType)
-{
+    // 3. 判断具体的权限状况
+    BOOL bFullToken = false;
+    switch(ElevationType)
+    {
     case TokenElevationTypeDefault:   /*默认的用户或UAC被禁用*/
-        if (IsUserAnAdmin())    bFullToken = true;  //默认用户有管理员权限
-        else                    bFullToken = false; //默认用户不是管理员组
+        if (IsUserAnAdmin())
+        {
+            bFullToken = true;  //默认用户有管理员权限
+        }
+        else
+        {
+            bFullToken = false; //默认用户不是管理员组
+        }
         break;
-    case TokenElevationTypeFull:      /*已经成功提高进程权限*/
-        if (IsUserAnAdmin())    bFullToken = true;  //当前以管理员权限运行
-        else                    bFullToken = false; //当前未以管理员权限运行
+    case TokenElevationTypeFull:  /*已经成功提高进程权限*/
+        if (IsUserAnAdmin())
+        {
+            bFullToken = true;  //当前以管理员权限运行
+        }
+        else
+        {
+            bFullToken = false; //当前未以管理员权限运行
+        }
         break;
-    case TokenElevationTypeLimited:     /*进程在以有限的权限运行*/
-        if (bIsAdmin)           bFullToken = false; //用户有管理员权限，但进程权限有限
-        else                    bFullToken = false; //用户不是管理员组，且进程权限有限
+    case TokenElevationTypeLimited: /*进程在以有限的权限运行*/
+        if (bIsAdmin)
+        {
+            bFullToken = false; //用户有管理员权限，但进程权限有限
+        }
+        else
+        {
+            bFullToken = false; //用户不是管理员组，且进程权限有限
+        }
+    }
+
+    //4. 根据权限的不同控制按钮的显示
+    if (!bFullToken)
+        Button_SetElevationRequiredState(GetDlgItem(hWnd, 控件ID), !bFullToken);
+    else
+        ShowWindow(GetDlgItem(hWnd, 控件ID), SW_HIDE);
+
+    // 1. 隐藏当前窗口
+    ShowWindow(hWnd, SW_HIDE);
+    // 2. 获取当前程序路径
+    WCHAR szApplication[MAX_PATH] = {0};
+    DWORD cchLength   = _countof(szApplication);
+    QueryFullProcessImageName(GetCurrentProcess(), 0,
+                              szApplication, &amp;cchLength);
+    // 3. 以管理员权限重新打开进程
+    SHELLEXECUTEINFO  sei = { sizeof(SHELLEXECUTEINFO ) };
+    sei.lpVerb  = L&quot;runas&quot;;  //请求提升权限
+    sei.lpFile  = szApplication; // 可执行文件路径
+    sei.lpParameters = NULL; // 不需要参数
+    sei.nShow   = SW_SHOWNORMAL; // 正常显示窗口
+
+    if (ShellExecuteEx(&amp;sei))
+        ExitProcess(0);
+    else
+        ShowWindow(hWnd, SW_SHOWNORMAL);
 }
-
-//4. 根据权限的不同控制按钮的显示
-if (!bFullToken)
-    Button_SetElevationRequiredState(GetDlgItem(hWnd, 控件ID), !bFullToken);
-else
-    ShowWindow(GetDlgItem(hWnd, 控件ID), SW_HIDE);
-
-// 1. 隐藏当前窗口
-ShowWindow(hWnd, SW_HIDE);
-// 2. 获取当前程序路径
-WCHAR szApplication[MAX_PATH] = {0};
-DWORD cchLength               = _countof(szApplication);
-QueryFullProcessImageName(GetCurrentProcess(), 0,
-                            szApplication, &amp;cchLength);
-// 3. 以管理员权限重新打开进程
-SHELIEXECUTEINFO    sei = { sizeof(SHELIEXECUTEINFO) };
-sei.lpVerb          = L&quot;runas&quot;;      //请求提升权限
-sei.lpFile          = szApplication; // 可执行文件路径
-sei.lpParameters    = NULL;          // 不需要参数
-sei.nShow           = SW_SHOWNORMAL; // 正常显示窗口
-
-if (ShellExecuteEx(&amp;sei))
-    ExitProcess(0);
-else
-    ShowWindow(hWnd, SW_SHOWNORMAL);
-</code></pre><p> }</p>
-</li>
+</code></pre></li>
 </ol>
 <p>关键Windows API： </p>
 <pre><code>OpenProcessToken
@@ -686,7 +710,11 @@ int main(void)
 }
 </code></pre><h2 id="方式四"><a href="#方式四" class="headerlink" title="方式四"></a>方式四</h2><p>快捷方式设置</p>
 <p>只需在程序的快捷方式上点右键，选择‘属性’，并单击“快捷方式”选项卡上的“高级”按钮，看到没，在这里也有一个“以管理员身份运行”的选项。</p>
-<h1 id="如何获取正确的文件路径"><a href="#如何获取正确的文件路径" class="headerlink" title="如何获取正确的文件路径"></a>如何获取正确的文件路径</h1><p><a href="https://docs.microsoft.com/zh-cn/windows/desktop/shell/knownfolderid" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows/desktop/shell/knownfolderid</a></p>
+<h1 id="如何获取正确的文件路径"><a href="#如何获取正确的文件路径" class="headerlink" title="如何获取正确的文件路径"></a>如何获取正确的文件路径</h1><p>UAC重定向目录：</p>
+<pre><code>C:\Users\Username\AppData\Local\VirtualStore\
+HKEY_CURRENT_USER\Software\Classes\VirtualStore
+HKEY_USERS\UserSID_Classes\VirtualStore
+</code></pre><p><a href="https://docs.microsoft.com/zh-cn/windows/desktop/shell/knownfolderid" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows/desktop/shell/knownfolderid</a></p>
 <p>利用KnownFolders API和ShGetFolder查找数据写入位置。</p>
 <p>当我们那些在Windows 7之前设计的应用程序遇到UAC Virtualization问题的时候，我们需要从新设计我们的代码，将文件写入到合适的位置。在改善既有代码，使之可以与Windows 7兼容的时候，我们应该确保以下几点：</p>
 <p>　　——在运行的时候，应用程序只会将数据保存到每个用户预先定义的位置或者是%alluserprofile% 中定义的普通用户拥有访问权限的位置。</p>
@@ -694,10 +722,13 @@ int main(void)
 <p>　　1 公共数据文件包括日志文件，配置文件(通常是INI或者XML文件)，应用程序状态文件，比如保存的游戏进程等等。</p>
 <p>　　2 而属于每个用户的文档，则应该保持在文档目录下，或者是用户自己指定的目录。</p>
 <p>　　——当你确定合适的文件保存位置后，不要在代码中明文写出(Hard-code)你选择的路径。为了更好地保持兼容性，我们应该采用下面这些API来获得操作系统“已知文件夹(Knownfolders)”的正确路径。</p>
-<p>　　1 C/C++非托管代码: 使用SHGetKnownFolderPath函数，通过指定“已知文件夹”的KNOWNFOLDERID作为参数来获得正确的文件夹路径。</p>
-<pre><code>　　FOLDERID_ProgramData –所有用户都可以访问的应用程序数据适合放置在这个目录下。
-　　FOLDERID_LocalAppData – 每个用户单独访问的应用程序数据适合放置在这个目录下。
-　　FOLDERID_RoamingAppData – 每个用户单独访问的应用程序数据适合放置在这个目录下。 与上面一个目录不同的是，放置在这个目录下的文件会随着用户迁移，当一个用户在同一个域中的其他计算机登录的时候，这些文件会被复制到当前登录的机器上，就像用户随身携带的公文包一样。
+<p>　　1 C/C++非托管代码: 使用SHGetKnownFolderPath函数，通过指定“已知文件夹”的KNOWNFOLDERID作为参数来获得正确的文件夹路径。<a href="https://docs.microsoft.com/en-us/windows/desktop/shell/knownfolderid" target="_blank" rel="noopener">Windows中的默认已知文件夹KNOWNFOLDERID</a></p>
+<pre><code>　　FOLDERID_ProgramData –所有用户都可以访问的应用程序数据适合放置在这个目录下。CSIDL等效    CSIDL_COMMON_APPDATA
+　　FOLDERID_LocalAppData – 每个用户单独访问的应用程序数据适合放置在这个目录下。CSIDL等效    CSIDL_LOCAL_APPDATA
+　　FOLDERID_RoamingAppData – 每个用户单独访问的应用程序数据适合放置在这个目录下。 与上面一个目录不同的是，放置在这个目录下的文件会随着用户迁移，当一个用户在同一个域中的其他计算机登录的时候，这些文件会被复制到当前登录的机器上，就像用户随身携带的公文包一样。CSIDL等效    CSIDL_APPDATA
+
+SHGetKnownFolderPath使用FOLDERID_ProgramData
+SHGetFolderPath使用CSIDL:CSIDL_COMMON_APPDATA
 </code></pre><p>下面这段代码演示了在非托管代码中如何调用shell函数，SHGetKnownFolderPath函数获得正确的文件保存路径(SHGetFolderLocation, SHGetFolderPath, SHGetSpecialFolderLocation, SHGetSpecialFolderPath)：</p>
 <pre><code>#include &quot;shlobj.h&quot;
 #include &quot;shlwapi.h&quot;
@@ -854,7 +885,12 @@ BOOL MakeDataFilePath(TCHAR *dataFilePath,
 <pre><code>　　%ALLUSERSPROFILE% – 所有用户都可以访问的应用程序数据适合放置在这个目录下。
 　　%LOCALAPPDATA% – 每个用户单独访问的应用程序数据适合放置在这个目录下。 - (Windows Vista 或者Windows 7)
 　　%APPDATA% – 每个用户单独访问的应用程序数据适合放置在这个目录下。这是“随身文件夹”。- (Windows Vista 或者Windows 7)
-</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+</code></pre><h1 id="Process-Monitor"><a href="#Process-Monitor" class="headerlink" title="Process Monitor"></a>Process Monitor</h1><p><a href="https://download.sysinternals.com/files/ProcessMonitor.zip" target="_blank" rel="noopener">Process Monitor</a>是Windows的高级监视工具，可显示实时文件系统，注册表和进程/线程活动。它结合了两个传统Sysinternals实用程序Filemon和 Regmon的功能，并添加了大量增强功能，包括丰富和非破坏性过滤，全面的事件属性，如会话ID和用户名，可靠的流程信息，带有集成符号支持的完整线程堆栈对于每个操作，同时记录到文件等等。其独特的强大功能将使Process Monitor成为系统故障排除和恶意软件搜索工具包的核心实用程序。</p>
+<h1 id="Standard-User-Analyzer"><a href="#Standard-User-Analyzer" class="headerlink" title="Standard User Analyzer"></a>Standard User Analyzer</h1><p>应用程序兼容性工具包包括标准用户分析器（SUA）工具和标准用户分析器向导（SUA向导）。这些工具使您能够测试应用程序并监视API调用，以便检测由于Windows 7操作系统中的用户帐户控制（UAC）功能而导致的潜在兼容性问题。</p>
+<p>UAC（以前称为受限用户帐户（LUA））要求所有用户（包括Administrator组成员）使用安全提示对话框作为标准用户运行，直到故意提升应用程序。但是，需要对标准用户不可用的位置进行访问和权限的应用程序无法使用标准用户角色正常运行。</p>
+<p><a href="https://www.microsoft.com/en-us/download/details.aspx?id=7352" target="_blank" rel="noopener">Microsoft应用程序兼容性工具包5.6</a></p>
+<p><a href="https://docs.microsoft.com/en-us/windows/desktop/win7appqual/standard-user-analyzer--sua--tool-and-standard-user-analyzer-wizard--sua-wizard-" target="_blank" rel="noopener">标准用户分析器（SUA）工具和标准用户分析器向导（SUA向导）</a></p>
+<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
 <li><a href="http://blog.csdn.net/zhangyulin54321/article/details/8802023" target="_blank" rel="noopener">vc++MCF/C++/C中怎样让应用程序获得或以管理员权限运行 ，ShellExecuteEX编程 — 获取管理员权限</a> </li>
 <li><a href="http://blog.csdn.net/suixiangzhe/article/details/50503047" target="_blank" rel="noopener">VS2010与Win7共舞：UAC与数据重定向 </a></li>
 <li><a href="https://msdn.microsoft.com/zh-cn/library/windows/desktop/bb762494(v=vs.85" target="_blank" rel="noopener">CSIDL</a>.aspx)</li>
@@ -1035,7 +1071,7 @@ BOOL MakeDataFilePath(TCHAR *dataFilePath,
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 yhcao
+    		&copy; 2019 yhcao
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -1847,6 +1883,34 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">并行</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">URL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">解密</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">字符转换</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">FTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">加解密</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据签名</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数字证书</a>
               </li>
             
             <div class="clearfix"></div>

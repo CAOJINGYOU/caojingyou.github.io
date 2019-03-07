@@ -9,13 +9,13 @@
   <title>制作CAB包 | 曹景游</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="制作CAB包inf文件INF是Device INFormation File的英文缩写，是Microsoft公司为硬件设备制造商发布其驱动程序推出的一种文件格式，INF文件中包含硬件设备的信息或脚本以控制硬件操作。在INF文件中指明了硬件驱动该如何安装到系统中，源文件在哪里、安装到哪一个文件夹中、怎样在注册表中加入自身相关信息等等。 给硬盘（U盘）DIY一个可爱的图标接着打开记事本程序，录入以下内">
-<meta name="keywords" content="随笔,制作CAB包,打包">
+<meta name="keywords" content="随笔,制作CAB包,打包,数据签名,数字证书">
 <meta property="og:type" content="article">
 <meta property="og:title" content="制作CAB包">
 <meta property="og:url" content="https://caojingyou.github.io/2016/12/15/制作CAB包/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="制作CAB包inf文件INF是Device INFormation File的英文缩写，是Microsoft公司为硬件设备制造商发布其驱动程序推出的一种文件格式，INF文件中包含硬件设备的信息或脚本以控制硬件操作。在INF文件中指明了硬件驱动该如何安装到系统中，源文件在哪里、安装到哪一个文件夹中、怎样在注册表中加入自身相关信息等等。 给硬盘（U盘）DIY一个可爱的图标接着打开记事本程序，录入以下内">
-<meta property="og:updated_time" content="2018-01-05T08:47:19.058Z">
+<meta property="og:updated_time" content="2019-01-23T07:02:52.052Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="制作CAB包">
 <meta name="twitter:description" content="制作CAB包inf文件INF是Device INFormation File的英文缩写，是Microsoft公司为硬件设备制造商发布其驱动程序推出的一种文件格式，INF文件中包含硬件设备的信息或脚本以控制硬件操作。在INF文件中指明了硬件驱动该如何安装到系统中，源文件在哪里、安装到哪一个文件夹中、怎样在注册表中加入自身相关信息等等。 给硬盘（U盘）DIY一个可爱的图标接着打开记事本程序，录入以下内">
@@ -227,7 +227,7 @@ RegisterServer=yes
 FileVersion=5,0,1,7
 
 ; end of INF file
-</code></pre><h2 id="将ActiveX控件进行打包并加数据鉴名的工具集："><a href="#将ActiveX控件进行打包并加数据鉴名的工具集：" class="headerlink" title="将ActiveX控件进行打包并加数据鉴名的工具集："></a>将ActiveX控件进行打包并加数据鉴名的工具集：</h2><ul>
+</code></pre><h2 id="将ActiveX控件进行打包并加数据签名的工具集："><a href="#将ActiveX控件进行打包并加数据签名的工具集：" class="headerlink" title="将ActiveX控件进行打包并加数据签名的工具集："></a>将ActiveX控件进行打包并加数据签名的工具集：</h2><ul>
 <li>Cabarc.exe 将ocx打包成cab</li>
 <li>Cert2spc.exe 将cer格式证书转换成spc格式证书， 即PKCS#7证书</li>
 <li>Certmgr.exe 是管理证书用的</li>
@@ -330,6 +330,14 @@ Cert2SPC RemtCard.cer RemtCard.spc
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">打包</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数据签名</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">数字证书</a>
         		</li>
       		
 		</ul>
@@ -453,7 +461,7 @@ Cert2SPC RemtCard.cer RemtCard.spc
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 yhcao
+    		&copy; 2019 yhcao
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -1265,6 +1273,34 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">并行</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">URL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">解密</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">字符转换</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">FTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">加解密</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据签名</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数字证书</a>
               </li>
             
             <div class="clearfix"></div>

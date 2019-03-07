@@ -4,24 +4,64 @@
 
     
   <url>
-    <loc>https://caojingyou.github.io/2018/05/30/%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E3%80%81%E5%90%8C%E6%AD%A5%E3%80%81%E5%B9%B6%E5%8F%91/</loc>
-    <lastmod>2018-12-10T09:17:31.521Z</lastmod>
+    <loc>https://caojingyou.github.io/2018/09/27/C++%E5%AD%97%E7%AC%A6%E8%BD%AC%E6%8D%A2/</loc>
+    <lastmod>2019-03-07T07:22:55.779Z</lastmod>
     <data>
         <display>
-        <title>进程、线程、同步、并发</title>
-        <pubTime>2018-05-30T08:02:00.000Z</pubTime>
+        <title>C++字符转换</title>
+        <pubTime>2018-09-27T05:45:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C++</tag>
+         
+        <tag>字符转换</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/05/28/Socket/</loc>
+    <lastmod>2019-03-07T07:22:02.478Z</lastmod>
+    <data>
+        <display>
+        <title>Socket</title>
+        <pubTime>2018-05-28T07:59:00.000Z</pubTime>
         
         <tag>随笔</tag>
          
         <tag>C/C++</tag>
          
-        <tag>并发</tag>
+        <tag>Socket</tag>
          
-        <tag>多线程</tag>
+        <tag>FTP</tag>
          
-        <tag>同步</tag>
          
-        <tag>并行</tag>
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/04/12/ATL%E4%B8%8EWTL/</loc>
+    <lastmod>2019-02-20T02:08:12.887Z</lastmod>
+    <data>
+        <display>
+        <title>ATL与WTL</title>
+        <pubTime>2018-04-12T01:53:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C++</tag>
+         
+        <tag>ATL</tag>
+         
+        <tag>WTL</tag>
          
          
            
@@ -32,7 +72,7 @@
     
   <url>
     <loc>https://caojingyou.github.io/2018/02/01/VS%E5%B7%A5%E5%85%B7/</loc>
-    <lastmod>2018-12-10T02:21:12.602Z</lastmod>
+    <lastmod>2019-02-19T01:48:05.644Z</lastmod>
     <data>
         <display>
         <title>VS工具</title>
@@ -55,6 +95,313 @@
         <tag>Resharper</tag>
          
         <tag>CodeMaid</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/02/08/SVN%E7%89%88%E6%9C%AC%E5%8F%B7/</loc>
+    <lastmod>2019-01-29T09:11:35.800Z</lastmod>
+    <data>
+        <display>
+        <title>SVN版本号</title>
+        <pubTime>2018-02-08T07:24:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C/C++</tag>
+         
+        <tag>svn</tag>
+         
+        <tag>版本号</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2016/08/15/%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85/</loc>
+    <lastmod>2019-01-23T08:52:23.017Z</lastmod>
+    <data>
+        <display>
+        <title>程序打包</title>
+        <pubTime>2016-08-15T08:03:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>打包</tag>
+         
+        <tag>InstallShield</tag>
+         
+        <tag>Inno</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2016/12/15/%E5%88%B6%E4%BD%9CCAB%E5%8C%85/</loc>
+    <lastmod>2019-01-23T07:02:52.052Z</lastmod>
+    <data>
+        <display>
+        <title>制作CAB包</title>
+        <pubTime>2016-12-15T08:03:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>制作CAB包</tag>
+         
+        <tag>打包</tag>
+         
+        <tag>数据签名</tag>
+         
+        <tag>数字证书</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2017/10/01/VC%E7%A8%8B%E5%BA%8F%E8%8E%B7%E5%8F%96%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/</loc>
+    <lastmod>2019-01-11T09:51:17.283Z</lastmod>
+    <data>
+        <display>
+        <title>VC程序获取管理员权限</title>
+        <pubTime>2017-10-01T08:03:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>VC</tag>
+         
+        <tag>管理员权限</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/04/03/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
+    <lastmod>2019-01-10T06:44:57.838Z</lastmod>
+    <data>
+        <display>
+        <title>正则表达式</title>
+        <pubTime>2018-04-03T01:53:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>正则表达式</tag>
+         
+        <tag>regex</tag>
+         
+        <tag>Boost</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/02/21/VA%20Snippet%20%E4%B8%8E%20%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5%E7%AE%A1%E7%90%86%E5%99%A8/</loc>
+    <lastmod>2019-01-09T02:05:15.427Z</lastmod>
+    <data>
+        <display>
+        <title>VA Snippet 与 代码片段管理器</title>
+        <pubTime>2018-02-21T08:03:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>VS</tag>
+         
+        <tag>C/C++</tag>
+         
+        <tag>代码片段</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2016/02/01/%E6%88%91%E5%96%9C%E7%88%B1%E7%9A%84%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8F%92%E4%BB%B6/</loc>
+    <lastmod>2019-01-08T10:02:01.680Z</lastmod>
+    <data>
+        <display>
+        <title>我喜爱的浏览器插件</title>
+        <pubTime>2016-02-01T08:03:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>火狐</tag>
+         
+        <tag>浏览器插件</tag>
+         
+        <tag>chrome</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/11/16/URL%E5%8A%A0%E8%A7%A3%E5%AF%86%20URLEncoder/</loc>
+    <lastmod>2019-01-02T06:27:58.134Z</lastmod>
+    <data>
+        <display>
+        <title>URL加解密 URLEncoder</title>
+        <pubTime>2018-11-16T09:48:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>加密</tag>
+         
+        <tag>C/C++</tag>
+         
+        <tag>URL</tag>
+         
+        <tag>解密</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2017/09/15/Crypto++/</loc>
+    <lastmod>2019-01-02T03:13:59.318Z</lastmod>
+    <data>
+        <display>
+        <title>Crypto++</title>
+        <pubTime>2017-09-15T08:03:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C++</tag>
+         
+        <tag>代码</tag>
+         
+        <tag>Crypto++</tag>
+         
+        <tag>密码</tag>
+         
+        <tag>加解密</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/04/18/Cryptlib/</loc>
+    <lastmod>2019-01-02T03:13:50.789Z</lastmod>
+    <data>
+        <display>
+        <title>Cryptlib</title>
+        <pubTime>2018-04-18T09:28:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C++</tag>
+         
+        <tag>代码</tag>
+         
+        <tag>密码</tag>
+         
+        <tag>Cryptlib</tag>
+         
+        <tag>加解密</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2017/04/15/ImageMagick/</loc>
+    <lastmod>2018-12-26T10:03:38.812Z</lastmod>
+    <data>
+        <display>
+        <title>ImageMagick</title>
+        <pubTime>2017-04-15T08:03:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>图像</tag>
+         
+        <tag>ImageMagick</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2016/08/01/%E6%88%91%E5%96%9C%E6%AC%A2%E7%9A%84Notepad++%E6%8F%92%E4%BB%B6/</loc>
+    <lastmod>2018-12-26T02:48:43.599Z</lastmod>
+    <data>
+        <display>
+        <title>我喜欢的Notepad++插件</title>
+        <pubTime>2016-08-01T08:03:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>Notepad++</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://caojingyou.github.io/2018/05/30/%E8%BF%9B%E7%A8%8B%E3%80%81%E7%BA%BF%E7%A8%8B%E3%80%81%E5%90%8C%E6%AD%A5%E3%80%81%E5%B9%B6%E5%8F%91/</loc>
+    <lastmod>2018-12-10T09:17:31.521Z</lastmod>
+    <data>
+        <display>
+        <title>进程、线程、同步、并发</title>
+        <pubTime>2018-05-30T08:02:00.000Z</pubTime>
+        
+        <tag>随笔</tag>
+         
+        <tag>C/C++</tag>
+         
+        <tag>并发</tag>
+         
+        <tag>多线程</tag>
+         
+        <tag>同步</tag>
+         
+        <tag>并行</tag>
          
          
            
@@ -97,96 +444,6 @@
         <tag>C#</tag>
          
         <tag>系统托盘</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2016/08/15/%E7%A8%8B%E5%BA%8F%E6%89%93%E5%8C%85/</loc>
-    <lastmod>2018-11-27T01:31:27.187Z</lastmod>
-    <data>
-        <display>
-        <title>程序打包</title>
-        <pubTime>2016-08-15T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>打包</tag>
-         
-        <tag>InstallShield</tag>
-         
-        <tag>Inno</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2017/10/01/VC%E7%A8%8B%E5%BA%8F%E8%8E%B7%E5%8F%96%E7%AE%A1%E7%90%86%E5%91%98%E6%9D%83%E9%99%90/</loc>
-    <lastmod>2018-11-26T08:24:34.139Z</lastmod>
-    <data>
-        <display>
-        <title>VC程序获取管理员权限</title>
-        <pubTime>2017-10-01T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>VC</tag>
-         
-        <tag>管理员权限</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2016/02/01/%E6%88%91%E5%96%9C%E7%88%B1%E7%9A%84%E6%B5%8F%E8%A7%88%E5%99%A8%E6%8F%92%E4%BB%B6/</loc>
-    <lastmod>2018-11-16T10:12:25.355Z</lastmod>
-    <data>
-        <display>
-        <title>我喜爱的浏览器插件</title>
-        <pubTime>2016-02-01T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>火狐</tag>
-         
-        <tag>浏览器插件</tag>
-         
-        <tag>chrome</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2018/04/03/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/</loc>
-    <lastmod>2018-11-05T09:07:50.393Z</lastmod>
-    <data>
-        <display>
-        <title>正则表达式</title>
-        <pubTime>2018-04-03T01:53:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>正则表达式</tag>
-         
-        <tag>regex</tag>
-         
-        <tag>Boost</tag>
          
          
            
@@ -598,29 +855,6 @@
 
     
   <url>
-    <loc>https://caojingyou.github.io/2018/04/12/ATL%E4%B8%8EWTL/</loc>
-    <lastmod>2018-08-21T09:56:05.286Z</lastmod>
-    <data>
-        <display>
-        <title>ATL与WTL</title>
-        <pubTime>2018-04-12T01:53:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>c++</tag>
-         
-        <tag>ATL</tag>
-         
-        <tag>WTL</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://caojingyou.github.io/2018/02/02/OpenSSL/</loc>
     <lastmod>2018-08-17T02:00:59.158Z</lastmod>
     <data>
@@ -875,29 +1109,6 @@
 
     
   <url>
-    <loc>https://caojingyou.github.io/2018/02/08/SVN%E7%89%88%E6%9C%AC%E5%8F%B7/</loc>
-    <lastmod>2018-07-17T09:23:11.911Z</lastmod>
-    <data>
-        <display>
-        <title>SVN版本号</title>
-        <pubTime>2018-02-08T07:24:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>C/C++</tag>
-         
-        <tag>svn</tag>
-         
-        <tag>版本号</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://caojingyou.github.io/2018/07/16/UML/</loc>
     <lastmod>2018-07-17T05:49:19.354Z</lastmod>
     <data>
@@ -950,25 +1161,6 @@
         <tag>MSBuild</tag>
          
         <tag>VS</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2018/06/18/Visual%20C++%20%E6%8A%80%E6%9C%AF%E5%86%85%E5%B9%95/</loc>
-    <lastmod>2018-07-09T00:55:09.874Z</lastmod>
-    <data>
-        <display>
-        <title>Visual C++ 技术内幕</title>
-        <pubTime>2018-06-18T03:34:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>C/C++</tag>
          
          
            
@@ -1500,56 +1692,6 @@
 
     
   <url>
-    <loc>https://caojingyou.github.io/2017/09/15/Crypto++/</loc>
-    <lastmod>2018-04-19T07:48:45.525Z</lastmod>
-    <data>
-        <display>
-        <title>Crypto++</title>
-        <pubTime>2017-09-15T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>C++</tag>
-         
-        <tag>代码</tag>
-         
-        <tag>Crypto++</tag>
-         
-        <tag>密码</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2018/04/18/Cryptlib/</loc>
-    <lastmod>2018-04-18T09:29:33.323Z</lastmod>
-    <data>
-        <display>
-        <title>Cryptlib</title>
-        <pubTime>2018-04-18T09:28:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>C++</tag>
-         
-        <tag>代码</tag>
-         
-        <tag>密码</tag>
-         
-        <tag>Cryptlib</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://caojingyou.github.io/2018/03/21/CShap%E8%B0%83%E7%94%A8C++/</loc>
     <lastmod>2018-04-13T07:21:38.639Z</lastmod>
     <data>
@@ -1671,29 +1813,6 @@
         <tag>C#</tag>
          
         <tag>SQLite NET</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2018/02/21/VA%20Snippet%20%E4%B8%8E%20%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5%E7%AE%A1%E7%90%86%E5%99%A8/</loc>
-    <lastmod>2018-04-12T06:24:19.436Z</lastmod>
-    <data>
-        <display>
-        <title>VA Snippet 与 代码片段管理器</title>
-        <pubTime>2018-02-21T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>VS</tag>
-         
-        <tag>C/C++</tag>
-         
-        <tag>代码片段</tag>
          
          
            
@@ -2191,27 +2310,6 @@
 
     
   <url>
-    <loc>https://caojingyou.github.io/2016/12/15/%E5%88%B6%E4%BD%9CCAB%E5%8C%85/</loc>
-    <lastmod>2018-01-05T08:47:19.058Z</lastmod>
-    <data>
-        <display>
-        <title>制作CAB包</title>
-        <pubTime>2016-12-15T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>制作CAB包</tag>
-         
-        <tag>打包</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://caojingyou.github.io/2016/01/21/Markdown%E7%BC%96%E8%BE%91%E5%99%A8%E4%BD%BF%E7%94%A8%E6%B3%95%E6%9C%AF/</loc>
     <lastmod>2018-01-05T08:47:19.055Z</lastmod>
     <data>
@@ -2407,27 +2505,6 @@
 
     
   <url>
-    <loc>https://caojingyou.github.io/2017/04/15/ImageMagick/</loc>
-    <lastmod>2018-01-05T08:47:19.037Z</lastmod>
-    <data>
-        <display>
-        <title>ImageMagick</title>
-        <pubTime>2017-04-15T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>图像</tag>
-         
-        <tag>ImageMagick</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://caojingyou.github.io/2016/01/01/ABOUT%20ME/</loc>
     <lastmod>2018-01-05T08:47:19.034Z</lastmod>
     <data>
@@ -2438,25 +2515,6 @@
         <tag>ABOUT ME</tag>
          
         <tag>随笔</tag>
-         
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://caojingyou.github.io/2016/08/01/%E6%88%91%E5%96%9C%E6%AC%A2%E7%9A%84Notepad++%E6%8F%92%E4%BB%B6/</loc>
-    <lastmod>2018-01-05T08:47:19.033Z</lastmod>
-    <data>
-        <display>
-        <title>我喜欢的Notepad++插件</title>
-        <pubTime>2016-08-01T08:03:00.000Z</pubTime>
-        
-        <tag>随笔</tag>
-         
-        <tag>Notepad++</tag>
          
          
            

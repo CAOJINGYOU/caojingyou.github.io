@@ -160,6 +160,1554 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-URL加解密 URLEncoder" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/16/URL加解密 URLEncoder/">URL加解密 URLEncoder</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/16/URL加解密 URLEncoder/" class="archive-article-date">
+  	<time datetime="2018-11-16T09:48:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="url"><a href="#url" class="headerlink" title="url"></a>url</h1><p><a href="https://ivanzz1001.github.io/records/post/cplusplus/2018/03/13/cpluscplus_urlencode" target="_blank" rel="noopener">Linux C语言实现urlencode和urldecode</a></p>
+<p>urlencode编码的基本规则</p>
+<ul>
+<li>字符”a”-“z”，”A”-“Z”，”0”-“9”，”.”，”-“，”*”，和”_” 都不被编码，维持原值；</li>
+<li>空格” “被转换为加号”+”。</li>
+<li>其他每个字节都被表示成”%XY”格式的由3个字符组成的字符串，编码为UTF-8(特别需要注意： 这里是大写形式的hexchar)。</li>
+</ul>
+<p>urlencode编码</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/stat.h&gt;
+#include &lt;string.h&gt;
+
+static unsigned char hexchars[] = &quot;0123456789ABCDEF&quot;;
+
+/**
+ * @brief URLEncode : encode the base64 string &quot;str&quot;
+ *
+ * @param str:  the base64 encoded string
+ * @param strsz:  the str length (exclude the last \0)
+ * @param result:  the result buffer
+ * @param resultsz: the result buffer size(exclude the last \0)
+ *
+ * @return: &gt;=0 represent the encoded result length
+ *              &lt;0 encode failure
+ *
+ * Note:
+ * 1) to ensure the result buffer has enough space to contain the encoded string, we&apos;d better
+ *     to set resultsz to 3*strsz
+ *
+ * 2) we don&apos;t check whether str has really been base64 encoded
+ */
+int URLEncode(const char *str, const int strsz, char *result, const int resultsz)
+{
+    int i, j;
+    char ch;
+
+    if(strsz &lt; 0 || resultsz &lt; 0)
+        return -1;
+
+    for(i = 0, j = 0; i &lt; strsz &amp;&amp; j &lt; resultsz; i++)
+    {
+        ch = *(str + i);
+        if((ch &gt;= &apos;A&apos; &amp;&amp; ch &lt;= &apos;Z&apos;) ||
+                (ch &gt;= &apos;a&apos; &amp;&amp; ch &lt;= &apos;z&apos;) ||
+                (ch &gt;= &apos;0&apos; &amp;&amp; ch &lt;= &apos;9&apos;) ||
+                ch == &apos;.&apos; || ch == &apos;-&apos; || ch == &apos;*&apos; || ch == &apos;_&apos;)
+            result[j++] = ch;
+        else if(ch == &apos; &apos;)
+            result[j++] = &apos;+&apos;;
+        else
+        {
+            if(j + 3 &lt;= resultsz)
+            {
+                result[j++] = &apos;%&apos;;
+                result[j++] = hexchars[(unsigned char)ch &gt;&gt; 4];
+                result[j++] = hexchars[(unsigned char)ch &amp; 0xF];
+            }
+            else
+            {
+                return -2;
+            }
+        }
+    }
+
+    if(i == 0)
+        return 0;
+    else if(i == strsz)
+        return j;
+    return -2;
+}
+
+
+
+// return &lt; 0: represent failure
+int main(int argc, char *argv[])
+{
+    int fd = -1;
+    char buf[1024], result[1024 * 3];
+    int ret;
+    int i = 0;
+
+    if(argc != 2)
+    {
+        printf(&quot;please input the encoding filename\n&quot;);
+        return -1;
+    }
+
+    if((fd = open(argv[1], O_RDONLY)) == -1)
+    {
+        printf(&quot;open file %s failure\n&quot;, argv[1]);
+        return -2;
+    }
+
+    while((ret = read(fd, buf, 1024)) &gt;= 0)
+    {
+        if(ret == 0)
+            break;
+
+        ret = URLEncode(buf, ret, result, 1024 * 3);
+        if(ret &lt; 0)
+            break;
+
+        for(i = 0; i &lt; ret; i++)
+            printf(&quot;%c&quot;, result[i]);
+
+    }
+
+    if(ret &lt; 0)
+    {
+        printf(&quot;encode data failure\n&quot;);
+    }
+
+    close(fd);
+    return ret;
+}
+</code></pre><p>urldecode解码</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/stat.h&gt;
+#include &lt;string.h&gt;
+
+static unsigned char hexchars[] = &quot;0123456789ABCDEF&quot;;
+
+/**
+ * @brief URLDecode : decode the urlencoded str to base64 encoded string
+ *
+ * @param str:  the urlencoded string
+ * @param strsz:  the str length (exclude the last \0)
+ * @param result:  the result buffer
+ * @param resultsz: the result buffer size(exclude the last \0)
+ *
+ * @return: &gt;=0 represent the decoded result length
+ *              &lt;0 encode failure
+ *
+ * Note:
+ * 1) to ensure the result buffer has enough space to contain the decoded string, we&apos;d better
+ *     to set resultsz to strsz
+ *
+ */
+int URLDecode(const char *str, const int strsz, char *result, const int resultsz, const char **last_pos)
+{
+    int i, j;
+    char ch;
+    char a;
+
+    *last_pos = str;
+    if(strsz &lt; 0 || resultsz &lt; 0)
+        return -1;
+
+    for(i = 0, j = 0; i &lt; strsz &amp;&amp; j &lt; resultsz; j++)
+    {
+        ch = *(str + i);
+
+        if(ch == &apos;+&apos;)
+        {
+            result[j] = &apos; &apos;;
+            i += 1;
+        }
+        else if(ch == &apos;%&apos;)
+        {
+            if(i + 3 &lt;= strsz)
+            {
+                ch = *(str + i + 1);
+
+                if(ch &gt;= &apos;A&apos; &amp;&amp; ch &lt;= &apos;F&apos;)
+                {
+                    a = (ch - &apos;A&apos;) + 10;
+                }
+                else if(ch &gt;= &apos;0&apos; &amp;&amp; ch &lt;= &apos;9&apos;)
+                {
+                    a = ch - &apos;0&apos;;
+                }
+                else if(ch &gt;= &apos;a&apos; &amp;&amp; ch &lt;= &apos;f&apos;)
+                {
+                    a = (ch - &apos;a&apos;) + 10;
+                }
+                else
+                {
+                    return -2;
+                }
+
+                a &lt;&lt;= 4;
+
+                ch = *(str + i + 2);
+                if(ch &gt;= &apos;A&apos; &amp;&amp; ch &lt;= &apos;F&apos;)
+                {
+                    a |= (ch - &apos;A&apos;) + 10;
+                }
+                else if(ch &gt;= &apos;0&apos; &amp;&amp; ch &lt;= &apos;9&apos;)
+                {
+                    a |= (ch - &apos;0&apos;);
+                }
+                else if(ch &gt;= &apos;a&apos; &amp;&amp; ch &lt;= &apos;f&apos;)
+                {
+                    a |= (ch - &apos;a&apos;) + 10;
+                }
+                else
+                {
+                    return -2;
+                }
+
+                result[j] = a;
+
+                i += 3;
+            }
+            else
+                break;
+        }
+        else if((ch &gt;= &apos;A&apos; &amp;&amp; ch &lt;= &apos;Z&apos;) ||
+                (ch &gt;= &apos;a&apos; &amp;&amp; ch &lt;= &apos;z&apos;) ||
+                (ch &gt;= &apos;0&apos; &amp;&amp; ch &lt;= &apos;9&apos;) ||
+                ch == &apos;.&apos; || ch == &apos;-&apos; || ch == &apos;*&apos; || ch == &apos;_&apos;)
+        {
+
+            result[j] = ch;
+            i += 1;
+        }
+        else
+        {
+            return -2;
+        }
+
+    }
+
+    *last_pos =  str + i;
+    return j;
+
+}
+
+
+
+// return &lt; 0: represent failure
+int main(int argc, char *argv[])
+{
+    int fd = -1;
+    char buf[4096], result[4096];
+    char *start_pos;
+    const char *last_pos;
+    int ret, sz;
+    int i = 0;
+
+    if(argc != 2)
+    {
+        printf(&quot;please input the encoding filename\n&quot;);
+        return -1;
+    }
+
+    if((fd = open(argv[1], O_RDONLY)) == -1)
+    {
+        printf(&quot;open file %s failure\n&quot;, argv[1]);
+        return -2;
+    }
+
+    start_pos = buf;
+    last_pos = NULL;
+
+    while((ret = read(fd, start_pos, buf + 4096 - start_pos)) &gt;= 0)
+    {
+        if(ret == 0)
+        {
+            if(start_pos == buf)
+                break;
+            else
+            {
+                ret = -3;
+                break;
+            }
+        }
+        sz = URLDecode(buf, start_pos - buf + ret, result, 4096, &amp;last_pos);
+        if(sz &lt; 0)
+        {
+            ret = -4;
+            break;
+        }
+
+        if(last_pos != start_pos + ret)
+        {
+            memcpy(buf, last_pos, start_pos + ret - last_pos);
+            start_pos = buf + (start_pos + ret - last_pos);
+        }
+        else
+        {
+            start_pos = buf;
+        }
+
+        for(i = 0; i &lt; sz; i++)
+            printf(&quot;%c&quot;, result[i]);
+
+    }
+
+    if(ret &lt; 0)
+    {
+        printf(&quot;decode data failure\n&quot;);
+    }
+    close(fd);
+    return ret;
+}
+</code></pre><p><a href="https://blog.csdn.net/gemo/article/details/8468311" target="_blank" rel="noopener">(C++)UrlEncode的标准实现</a></p>
+<pre><code>unsigned char ToHex(unsigned char x)
+{
+    return  x &gt; 9 ? x + 55 : x + 48;
+}
+
+unsigned char FromHex(unsigned char x)
+{
+    unsigned char y;
+    if (x &gt;= &apos;A&apos; &amp;&amp; x &lt;= &apos;Z&apos;) y = x - &apos;A&apos; + 10;
+    else if (x &gt;= &apos;a&apos; &amp;&amp; x &lt;= &apos;z&apos;) y = x - &apos;a&apos; + 10;
+    else if (x &gt;= &apos;0&apos; &amp;&amp; x &lt;= &apos;9&apos;) y = x - &apos;0&apos;;
+    else assert(0);
+    return y;
+}
+
+std::string UrlEncode(const std::string &amp;str)
+{
+    std::string strTemp = &quot;&quot;;
+    size_t length = str.length();
+    for (size_t i = 0; i &lt; length; i++)
+    {
+        if (isalnum((unsigned char)str[i]) ||
+                (str[i] == &apos;-&apos;) ||
+                (str[i] == &apos;_&apos;) ||
+                (str[i] == &apos;.&apos;) ||
+                (str[i] == &apos;~&apos;))
+            strTemp += str[i];
+        else if (str[i] == &apos; &apos;)
+            strTemp += &quot;+&quot;;
+        else
+        {
+            strTemp += &apos;%&apos;;
+            strTemp += ToHex((unsigned char)str[i] &gt;&gt; 4);
+            strTemp += ToHex((unsigned char)str[i] % 16);
+        }
+    }
+    return strTemp;
+}
+
+std::string UrlDecode(const std::string &amp;str)
+{
+    std::string strTemp = &quot;&quot;;
+    size_t length = str.length();
+    for (size_t i = 0; i &lt; length; i++)
+    {
+        if (str[i] == &apos;+&apos;) strTemp += &apos; &apos;;
+        else if (str[i] == &apos;%&apos;)
+        {
+            assert(i + 2 &lt; length);
+            unsigned char high = FromHex((unsigned char)str[++i]);
+            unsigned char low = FromHex((unsigned char)str[++i]);
+            strTemp += high * 16 + low;
+        }
+        else strTemp += str[i];
+    }
+    return strTemp;
+}
+</code></pre><h1 id="URL编码"><a href="#URL编码" class="headerlink" title="URL编码"></a><a href="https://blog.csdn.net/gemo/article/details/8468311" target="_blank" rel="noopener">URL编码</a></h1><p>C</p>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;ctype.h&gt;
+
+char rfc3986[256] = {0};
+char html5[256] = {0};
+
+/* caller responsible for memory */
+void encode(const char *s, char *enc, char *tb)
+{
+    for (; *s; s++) {
+        if (tb[*s]) sprintf(enc, &quot;%c&quot;, tb[*s]);
+        else        sprintf(enc, &quot;%%%02X&quot;, *s);
+        while (*++enc);
+    }
+}
+
+int main()
+{
+    const char url[] = &quot;http://foo bar/&quot;;
+    char enc[(strlen(url) * 3) + 1];
+
+    int i;
+    for (i = 0; i &lt; 256; i++) {
+        rfc3986[i] = isalnum(i)||i == &apos;~&apos;||i == &apos;-&apos;||i == &apos;.&apos;||i == &apos;_&apos;
+            ? i : 0;
+        html5[i] = isalnum(i)||i == &apos;*&apos;||i == &apos;-&apos;||i == &apos;.&apos;||i == &apos;_&apos;
+            ? i : (i == &apos; &apos;) ? &apos;+&apos; : 0;
+    }
+
+    encode(url, enc, rfc3986);
+    puts(enc);
+
+    return 0;
+}
+</code></pre><h1 id="base64编码-解码"><a href="#base64编码-解码" class="headerlink" title="base64编码/解码"></a><a href="https://www.codeproject.com/Tips/813146/Fast-base-functions-for-encode-decode" target="_blank" rel="noopener">base64编码/解码</a></h1><pre><code>static const std::string base64_chars =
+    &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;
+    &quot;abcdefghijklmnopqrstuvwxyz&quot;
+    &quot;0123456789+/&quot;;
+
+static inline bool is_base64(unsigned char c)
+{
+    return (isalnum(c) || (c == &apos;+&apos;) || (c == &apos;/&apos;));
+}
+
+unsigned int base64_encode(const unsigned char* bytes_to_encode, unsigned int in_len, unsigned char* encoded_buffer, unsigned int&amp; out_len)
+{
+    int i = 0;
+    int j = 0;
+    unsigned char char_array_3[3] = { 0, 0, 0 };
+    unsigned char char_array_4[4] = { 0, 0, 0, 0 };
+
+    out_len = 0;
+    while (in_len--)
+    {
+        char_array_3[i++] = *(bytes_to_encode++);
+        if (i == 3)
+        {
+            char_array_4[0] = (char_array_3[0] &amp; 0xfc) &gt;&gt; 2;
+            char_array_4[1] = ((char_array_3[0] &amp; 0x03) &lt;&lt; 4) + ((char_array_3[1] &amp; 0xf0) &gt;&gt; 4);
+            char_array_4[2] = ((char_array_3[1] &amp; 0x0f) &lt;&lt; 2) + ((char_array_3[2] &amp; 0xc0) &gt;&gt; 6);
+            char_array_4[3] = char_array_3[2] &amp; 0x3f;
+
+            for (i = 0; i &lt; 4 ; i++)
+            {
+                encoded_buffer[out_len++] = base64_chars[char_array_4[i]];
+            }
+            i = 0;
+        }
+    }
+
+    if (i)
+    {
+        for (j = i; j &lt; 3; j++)
+        {
+            char_array_3[j] = &apos;\0&apos;;
+        }
+
+        char_array_4[0] = (char_array_3[0] &amp; 0xfc) &gt;&gt; 2;
+        char_array_4[1] = ((char_array_3[0] &amp; 0x03) &lt;&lt; 4) + ((char_array_3[1] &amp; 0xf0) &gt;&gt; 4);
+        char_array_4[2] = ((char_array_3[1] &amp; 0x0f) &lt;&lt; 2) + ((char_array_3[2] &amp; 0xc0) &gt;&gt; 6);
+        char_array_4[3] = char_array_3[2] &amp; 0x3f;
+
+        for (j = 0; j &lt; (i + 1); j++)
+        {
+            encoded_buffer[out_len++] = base64_chars[char_array_4[j]];
+        }
+
+        while (i++ &lt; 3)
+        {
+            encoded_buffer[out_len++] = &apos;=&apos;;
+        }
+    }
+
+    return out_len;
+}
+
+unsigned int base64_decode(const unsigned char* encoded_string, unsigned int in_len, unsigned char* decoded_buffer, unsigned int&amp; out_len)
+{
+    size_t i = 0;
+    size_t j = 0;
+    int in_ = 0;
+    unsigned char char_array_3[3] = { 0, 0, 0 };
+    unsigned char char_array_4[4] = { 0, 0, 0, 0 };
+
+    out_len = 0;
+    while (in_len-- &amp;&amp; (encoded_string[in_] != &apos;=&apos;) &amp;&amp; is_base64(encoded_string[in_]))
+    {
+        char_array_4[i++] = encoded_string[in_]; in_++;
+        if (i == 4)
+        {
+            for (i = 0; i &lt; 4; i++)
+            {
+                char_array_4[i] = static_cast&lt;unsigned char&gt;(base64_chars.find(char_array_4[i]));
+            }
+
+            char_array_3[0] = (char_array_4[0] &lt;&lt; 2) + ((char_array_4[1] &amp; 0x30) &gt;&gt; 4);
+            char_array_3[1] = ((char_array_4[1] &amp; 0xf) &lt;&lt; 4) + ((char_array_4[2] &amp; 0x3c) &gt;&gt; 2);
+            char_array_3[2] = ((char_array_4[2] &amp; 0x3) &lt;&lt; 6) + char_array_4[3];
+
+            for (i = 0; i &lt; 3; i++)
+            {
+                decoded_buffer[out_len++] = char_array_3[i];
+            }
+            i = 0;
+        }
+    }
+
+    if (i)
+    {
+        for (j = i; j &lt; 4; j++)
+        {
+            char_array_4[j] = 0;
+        }
+
+        for (j = 0; j &lt; 4; j++)
+        {
+            char_array_4[j] = static_cast&lt;unsigned char&gt;(base64_chars.find(char_array_4[j]));
+        }
+
+        char_array_3[0] = (char_array_4[0] &lt;&lt; 2) + ((char_array_4[1] &amp; 0x30) &gt;&gt; 4);
+        char_array_3[1] = ((char_array_4[1] &amp; 0xf) &lt;&lt; 4) + ((char_array_4[2] &amp; 0x3c) &gt;&gt; 2);
+        char_array_3[2] = ((char_array_4[2] &amp; 0x3) &lt;&lt; 6) + char_array_4[3];
+
+        for (j = 0; (j &lt; i - 1); j++)
+        {
+            decoded_buffer[out_len++] = char_array_3[j];
+        }
+    }
+    return out_len;
+}
+</code></pre><p>C++</p>
+<pre><code>#include &lt;QByteArray&gt;
+#include &lt;iostream&gt;
+
+int main( ) {
+   QByteArray text ( &quot;http://foo bar/&quot; ) ;
+   QByteArray encoded( text.toPercentEncoding( ) ) ;
+   std::cout &lt;&lt; encoded.data( ) &lt;&lt; &apos;\n&apos; ;
+   return 0 ;
+}
+</code></pre><p>C#</p>
+<pre><code>using System;
+
+namespace URLEncode
+{
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+            Console.WriteLine(Encode(&quot;http://foo bar/&quot;));
+        }
+
+        private static string Encode(string uri)
+        {
+            return Uri.EscapeDataString(uri);
+        }
+    }
+}
+</code></pre><p>Go</p>
+<pre><code>package main
+
+import (
+    &quot;fmt&quot;
+    &quot;net/url&quot;
+)
+
+func main() {
+    fmt.Println(url.QueryEscape(&quot;http://foo bar/&quot;))
+}
+</code></pre><p>Java</p>
+<p>The built-in URLEncoder in Java converts the space “ “ into a plus-sign “+” instead of “%20”:</p>
+<pre><code>import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
+public class Main
+{
+    public static void main(String[] args) throws UnsupportedEncodingException
+    {
+        String normal = &quot;http://foo bar/&quot;;
+        String encoded = URLEncoder.encode(normal, &quot;utf-8&quot;);
+        System.out.println(encoded);
+    }
+}
+</code></pre><p>Python</p>
+<pre><code>import urllib
+s = &apos;http://foo/bar/&apos;
+s = urllib.quote(s)
+</code></pre><p>There is also urllib.quote_plus(), which also encodes spaces as “+” signs</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">加密</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">URL</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">解密</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/16/URL加解密 URLEncoder/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-C++字符转换" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/27/C++字符转换/">C++字符转换</a>
+    </h1>
+  
+
+        
+        <a href="/2018/09/27/C++字符转换/" class="archive-article-date">
+  	<time datetime="2018-09-27T05:45:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="UTF-8与GBK"><a href="#UTF-8与GBK" class="headerlink" title="UTF_8与GBK"></a>UTF_8与GBK</h1><p><a href="https://www.cnblogs.com/zhenjing/archive/2011/08/07/chinese_string.html" target="_blank" rel="noopener">字符集编码(GBK，BIG5，UNICODE)与C++的string/wstring</a></p>
+<p><a href="https://blog.poxiao.me/p/unicode-character-encoding-conversion-in-cpp11/" target="_blank" rel="noopener">C++11与Unicode及使用标准库进行UTF-8、UTF-16、UCS2、UCS4/UTF-32编码转换</a></p>
+<p><a href="https://www.jianshu.com/p/338fb8eaf2b4" target="_blank" rel="noopener">C++11新特性转换GB2312(ANSI)、UTF8、Unicode编码文件</a></p>
+<p>在windows平台下sizeof(wchar_t)为2，而在linux平台下sizeof(wchar_t)为4；<br>在windows平台下宽字符(或字符串)字面量使用UTF-16编码，linux平台下使用UTF-32编码。</p>
+<h2 id="MultiByteToWideChar、WideCharToMultiByte"><a href="#MultiByteToWideChar、WideCharToMultiByte" class="headerlink" title="MultiByteToWideChar、WideCharToMultiByte"></a>MultiByteToWideChar、WideCharToMultiByte</h2><pre><code>std::string UTF8ToGBK(const std::string&amp; strUTF8)
+    {
+        int len = MultiByteToWideChar(CP_UTF8, 0, strUTF8.c_str(), -1, NULL, 0);
+        WCHAR* wszGBK = new WCHAR[len + 1];
+        memset(wszGBK, 0, len * 2 + 2);
+        MultiByteToWideChar(CP_UTF8, 0, (LPCSTR)(LPCTSTR)strUTF8.c_str(), -1, wszGBK, len);
+
+        len = WideCharToMultiByte(CP_ACP, 0, wszGBK, -1, NULL, 0, NULL, NULL);
+        char *szGBK = new char[len + 1];
+        memset(szGBK, 0, len + 1);
+        WideCharToMultiByte(CP_ACP, 0, wszGBK, -1, szGBK, len, NULL, NULL);
+        std::string strTemp(szGBK);
+        delete[]szGBK;
+        delete[]wszGBK;
+        return strTemp;
+    }
+
+    std::string GBKToUTF8(const std::string&amp; strGBK)
+    {
+        std::string strOutUTF8 = &quot;&quot;;
+        WCHAR * str1;
+        int n = MultiByteToWideChar(CP_ACP, 0, strGBK.c_str(), -1, NULL, 0);
+        str1 = new WCHAR[n];
+        MultiByteToWideChar(CP_ACP, 0, strGBK.c_str(), -1, str1, n);
+        n = WideCharToMultiByte(CP_UTF8, 0, str1, -1, NULL, 0, NULL, NULL);
+        char * str2 = new char[n];
+        WideCharToMultiByte(CP_UTF8, 0, str1, -1, str2, n, NULL, NULL);
+        strOutUTF8 = str2;
+        delete[]str1;
+        str1 = NULL;
+        delete[]str2;
+        str2 = NULL;
+        return strOutUTF8;
+    }
+</code></pre><h2 id="ATL封装-bstr"><a href="#ATL封装-bstr" class="headerlink" title="ATL封装_bstr_"></a>ATL封装<code>_bstr_</code></h2><pre><code>#include &lt;comutil.h&gt;  
+#pragma comment(lib, &quot;comsuppw.lib&quot;)
+
+string ws2s(const wstring&amp; ws)
+{
+    _bstr_t t = ws.c_str();  
+    char* pchar = (char*)t;  
+    string result = pchar;  
+    return result;  
+}
+
+wstring s2ws(const string&amp; s)
+{
+    _bstr_t t = s.c_str();  
+    wchar_t* pwchar = (wchar_t*)t;  
+    wstring result = pwchar;  
+    return result; 
+} 
+</code></pre><h2 id="iconv"><a href="#iconv" class="headerlink" title="iconv"></a>iconv</h2><pre><code>int code_convert(char *from_charset, char *to_charset, char *inbuf, size_t inlen,
+        char *outbuf, size_t outlen) {
+    iconv_t cd;
+    char **pin = &amp;inbuf;
+    char **pout = &amp;outbuf;
+
+    cd = iconv_open(to_charset, from_charset);
+    if (cd == 0)
+        return -1;
+    memset(outbuf, 0, outlen);
+    if (iconv(cd, pin, &amp;inlen, pout, &amp;outlen) == -1)
+        return -1;
+    iconv_close(cd);
+    *pout = &apos;\0&apos;;
+
+    return 0;
+}
+
+int u2g(char *inbuf, size_t inlen, char *outbuf, size_t outlen) {
+    return code_convert(&quot;utf-8&quot;, &quot;gb2312&quot;, inbuf, inlen, outbuf, outlen);
+}
+
+int g2u(char *inbuf, size_t inlen, char *outbuf, size_t outlen) {
+    return code_convert(&quot;gb2312&quot;, &quot;utf-8&quot;, inbuf, inlen, outbuf, outlen);
+}
+</code></pre><h2 id="使用C-11标准库进行编码转换"><a href="#使用C-11标准库进行编码转换" class="headerlink" title="使用C++11标准库进行编码转换"></a>使用C++11标准库进行编码转换</h2><p>下面是一段测试代码，print_code_uint_sequence函数模板用于输出字符串的码元序列。</p>
+<pre><code>#include &lt;string&gt;
+#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+#include &lt;type_traits&gt;
+
+template&lt;typename tStringType, typename tTraits = typename tStringType::traits_type&gt;
+void print_code_unit_sequence(tStringType str)
+{
+  using char_type = typename tTraits::char_type;
+  static_assert(std::is_same&lt;char_type, char&gt;::value || std::is_same&lt;char_type, char16_t&gt;::value || std::is_same&lt;char_type, char32_t&gt;::value, &quot;error&quot;);
+  using unsigned_char_type = typename std::make_unsigned&lt;char_type&gt;::type;
+  using unsigned_int_type = typename std::make_unsigned&lt;typename tTraits::int_type&gt;::type;
+  int w = std::is_same&lt;char, char_type&gt;::value ? 2 : std::is_same&lt;char16_t, char_type&gt;::value ? 4 : 8;
+  for(auto c : str) {
+    auto value = static_cast&lt;unsigned_int_type&gt;(static_cast&lt;unsigned_char_type&gt;(c));
+    std::cout &lt;&lt; &quot;0x&quot; &lt;&lt; std::hex &lt;&lt; std::uppercase &lt;&lt; std::setw(w) &lt;&lt; std::setfill(&apos;0&apos;) &lt;&lt; value &lt;&lt; &apos; &apos;;
+  }
+}
+
+int main()
+{
+  std::string u8_str = u8&quot;𪚥&quot;; // utf-8
+  std::u16string u16_str = u&quot;𪚥&quot;; // utf-16
+  std::u32string u32_str = U&quot;𪚥&quot;; // ucs4
+  std::cout &lt;&lt; &quot;utf-8: &quot;;
+  print_code_unit_sequence(u8_str);
+  std::cout &lt;&lt; std::endl;
+  std::cout &lt;&lt; &quot;utf-16: &quot;;
+  print_code_unit_sequence(u16_str);
+  std::cout &lt;&lt; std::endl;
+  std::cout &lt;&lt; &quot;ucs4: &quot;;
+  print_code_unit_sequence(u32_str);
+  std::cout &lt;&lt; std::endl;
+}
+</code></pre><p>C++11标准库在<codecvt>头文件中定义了3个Unicode编码转换的Facet</codecvt></p>
+<ul>
+<li>std::codecvt_utf8    封装了UTF-8与UCS2及UTF-8与UCS4的编码转换</li>
+<li>std::codecvt_utf16    封装了UTF-16与UCS2及UTF-16与UCS4的编码转换</li>
+<li>std::codecvt_utf8_utf16    封装了UTF-8与UTF-16的编码转换</li>
+</ul>
+<p>当要转换的字符串为std::basic_string使用<locale>头文件中定义的<a href="https://zh.cppreference.com/w/cpp/locale/wstring_convert" target="_blank" rel="noopener">std::wstring_convert</a>类模板会带来极大的方便。</locale></p>
+<pre><code>template&lt;class Codecvt,
+  class Elem = wchar_t,
+  class Wide_alloc = std::allocator&lt;Elem&gt;,
+  class Byte_alloc = std::allocator&lt;char&gt;&gt;
+class wstring_convert;
+</code></pre><p>UTF-8与UTF-16编码转换</p>
+<p>UTF-8与UTF-16的编码转换使用std::codecvt_utf8_utf16类模板，其中Elem用于存储UTF-16码元，可以是char16_t、char32_t或wchar_t（这些类型都至少能够存储16bit）。</p>
+<pre><code>std::wstring_convert&lt;std::codecvt_utf8_utf16&lt;char16_t&gt;, char16_t&gt; cvt;
+std::u16string u16_cvt_str = cvt.from_bytes(u8_source_str); // utf-8 to utf-16
+std::string u8_cvt_str = cvt.to_bytes(u16_cvt_str); // utf-16 to utf-8
+</code></pre><p>UTF-8与UCS2编码转换及UTF-8与UCS4编码转换</p>
+<p>UTF-8与UCS2或UCS4编码转换使用std::codecvt_utf8类模板，当Elem为char16_t时转换为UTF-8与UCS2，当Elem为char32_t时转换为UTF-16与UCS4，当Elem为wchar_t时转换取决于实现。</p>
+<pre><code>std::wstring_convert&lt;std::codecvt_utf8&lt;char16_t&gt;, char16_t&gt; utf8_ucs2_cvt;
+std::u16string ucs2_cvt_str = utf8_ucs2_cvt.from_bytes(u8_source_str); // utf-8 to ucs2
+std::string u8_str_from_ucs2 = utf8_ucs2_cvt.to_bytes(ucs2_cvt_str); // ucs2 to utf-8
+std::wstring_convert&lt;std::codecvt_utf8&lt;char32_t&gt;, char32_t&gt; utf8_ucs4_cvt;
+std::u32string ucs4_cvt_str = utf8_ucs4_cvt.from_bytes(u8_source_str); // utf-8 to ucs4
+std::string u8_str_from_ucs4 = utf8_ucs4_cvt.to_bytes(ucs4_cvt_str); // ucs4 to utf-8
+</code></pre><p>UTF-16与UCS2编码转换及UTF-16与UCS4编码转换</p>
+<p>UTF-16转UCS2或UCS4使用std::codecvt_utf16类模板</p>
+<p>这里以UTF-16与UCS4的转换为例Elem为char32_t，UTF-16与UCS2的转换类似只是Elem需为char16_t。<br>由于std::wstring_convert是用于在byte string和wide string之间转换，使用std::codecvt_utf16时UTF-16字符串作为byte string，因此使用这个转换时就需要考虑字节序的问题。std::codecvt_utf16类模板的第3个模板参数Mode类型为std::codecvt_mode</p>
+<pre><code>enum codecvt_mode {
+  consume_header = 4,
+  generate_header = 2,
+  little_endian = 1
+};
+</code></pre><ul>
+<li>consume_header    告诉codecvt需要处理输入的byte string中的BOM(Byte Order Mark)</li>
+<li>generate_header    告诉codecvt在输出的byte string中添加BOM</li>
+<li><p>little_endian    告诉codecvt将byte string的字节序视为小端(Little Endian)，默认为大端(Big Endian)</p>
+<p>  std::wstring_convert&lt;std::codecvt_utf16<char32_t, 0x10ffff,="" std::little_endian="">, char32_t&gt; utf16le_cvt; // little endian<br>  std::wstring_convert&lt;std::codecvt_utf16<char32_t>, char32_t&gt; utf16be_cvt; // default big endian<br>  std::u32string u32_str_from_le = utf16le_cvt.from_bytes(u16le_byte_str); // utf-16 to ucs4<br>  std::u32string u32_str_from_be = utf16be_cvt.from_bytes(u16be_byte_str); // utf-16 to ucs4</char32_t></char32_t,></p>
+</li>
+</ul>
+<p>BOM(Byte Order Mark)</p>
+<p>字节序标记是插入到以UTF-8、UTF-16或UTF-32编码Unicode文件开头的特殊标记，用于标识文本编码及字节序。</p>
+<ul>
+<li>UTF-8    0xEF 0xBB 0xBF</li>
+<li>UTF-16 BE    0xFE 0xFF</li>
+<li>UTF-16 LE    0xFF 0xFE</li>
+<li>UTF-32 BE    0x00 0x00 0xFE 0xFF</li>
+<li><p>UTF-32 LE    0xFF 0xFE 0x00 0x00</p>
+<p>  std::wstring_convert&lt;std::codecvt_utf16<char32_t, 0x10ffff,="" std::consume_header="">, char32_t&gt; utf16le_cvt; // little endian<br>  std::wstring_convert&lt;std::codecvt_utf16<char32_t, 0x10ffff,="" std::consume_header="">, char32_t&gt; utf16be_cvt; // default big endian<br>  std::u32string u32_str_from_le = utf16le_cvt.from_bytes(u16le_byte_str); // utf-16 to ucs4<br>  std::u32string u32_str_from_be = utf16be_cvt.from_bytes(u16be_byte_str); // utf-16 to ucs4</char32_t,></char32_t,></p>
+</li>
+</ul>
+<p>当UCS4转UTF-16时输出为byte string，可以通过设置Mode为std::generate_header来使输出带BOM，下面的代码通过UCS4转UTF-16 LE和UTF-16 BE演示了std::generate_header的使用</p>
+<pre><code>std::wstring_convert&lt;std::codecvt_utf16&lt;char32_t, 0x10ffff, static_cast&lt;std::codecvt_mode&gt;(std::generate_header | std::little_endian)&gt;, char32_t&gt; utf16le_cvt; // little endian
+std::wstring_convert&lt;std::codecvt_utf16&lt;char32_t, 0x10ffff, static_cast&lt;std::codecvt_mode&gt;(std::generate_header)&gt;, char32_t&gt; utf16be_cvt; // default big endian
+std::string u16le_byte_str = utf16le_cvt.to_bytes(u32_str); // ucs4 to utf-16 little endian with BOM
+std::string u16be_byte_str = utf16be_cvt.to_bytes(u32_str); // ucs4 to utf-16 big endian with BOM
+</code></pre><h3 id="使用std-wstring-convert进行字符编码转换"><a href="#使用std-wstring-convert进行字符编码转换" class="headerlink" title="使用std::wstring_convert进行字符编码转换"></a><a href="http://zplutor.github.io/2016/07/03/convert-character-encoding-using-std-wstring-convert/" target="_blank" rel="noopener">使用std::wstring_convert进行字符编码转换</a></h3><p>C++11新增的std::wstring_convert可以很方便地在std::string和std::wstring之间进行转换。例如，把一个std::wstring转换成以UTF-8编码的std::string：</p>
+<pre><code>std::wstring_convert&lt;std::codecvt_utf8&lt;wchar_t&gt;&gt; converter;
+std::string string = converter.to_bytes(L&quot;这是一个宽字符串&quot;);
+</code></pre><p>反过来，把一个以UTF-8编码的std::string转换成std::wstring：</p>
+<pre><code>std::wstring_convert&lt;std::codecvt_utf8&lt;wchar_t&gt;&gt; converter;
+std::wstring wide_string = converter.from_bytes(&quot;\xe5\xad\x97\xe7\xac\xa6\xe4\xb8\xb2”);  //字符串的内容为“字符串”
+</code></pre><p>std::wstring_convert使用模板参数中指定的codecvt进行实际的转换工作，也就是说，std::string使用哪种字符编码由这个codecvt来决定。上面的例子用的是std::codecvt_utf8，即UTF-8编码。理论上，指定不同的codecvt，即可支持各种字符编码。但是，如何得到合适codecvt则是不小的问题。</p>
+<p>为了获取其它字符编码的codecvt，需要使用std::codecvt_byname，这个类可以通过字符编码的名称来创建一个codecvt。这看起来挺不错，但遗憾的是，字符编码的名称并没有统一的标准，各个平台的支持情况都不一样。例如，在Windows下可以使用“chs”来创建简体中文编码的codecvt，在Mac OS X下则要使用“zh_cn.gb2312”；甚至在Mac OS X下，即使成功创建了这个codecvt，它也不能正常地转换。</p>
+<p>下面以Windows为例，说明如何将std::codecvt_byname用于std::wstring_convert。由于历史原因，std::codecvt_byname的析构函数是protected的，std::wstring_convert不能对它调用delete，所以首先要自行定义一个类来继承std::codecvt_byname：</p>
+<pre><code>class chs_codecvt : public std::codecvt_byname&lt;wchar_t, char, std::mbstate_t&gt; {
+public:
+    chs_codecvt() : codecvt_byname(&quot;chs&quot;) { }
+};
+</code></pre><p>chs_codecvt的默认析构函数是public的，从而让std::wstring_convert可以删除它。为方便起见，在chs_codecvt的构造函数中，直接把“chs”传给了std::codecvt_byname。</p>
+<p>接下来的用法跟本文开头的例子基本一致：</p>
+<pre><code>std::wstring_convert&lt;chs_codecvt&gt; converter;
+std::string string = converter.to_bytes(L&quot;你好&quot;);
+std::wstring wide_string = converter.from_bytes(&quot;\xc4\xe3\xba\xc3”);  //字符串的内容为“你好”
+</code></pre><p>综上所述，只有UTF编码的转换是完全符合C++标准并且真正能够跨平台的，使用这些国际化的字符编码能够减少很多不必要的麻烦。</p>
+<h1 id="ICU"><a href="#ICU" class="headerlink" title="ICU"></a>ICU</h1><p>Boost的正则表达式库可以使用ICU</p>
+<p><a href="https://blog.csdn.net/wkoji/article/details/23301" target="_blank" rel="noopener">多语言处理 –&gt; UNICODE –&gt; IBM的ICU类库</a></p>
+<p>最近写的一个C++程序里需要处理不同语言编码之间的相互转换问题，主要是GBK、BIG5、UTF-8和UTF-16这几种编码，程序虽小，但转换操作相对复杂一些。起初只想用C++本身提供的功能——包括C++标准里的wchar_t类型，C语言运行库中的locale函数集、mbstowcs和wcstombs函数，以及标准C++库中的wstring、wfstream等类——解决问题。</p>
+<p>在MFC中，直接用CString或TCHAR数组存储字符串，用WIN32的MultiByteToWideChar和WideCharToMultiByte函数处理编码转换</p>
+<p><a href="http://site.icu-project.org/" target="_blank" rel="noopener">http://site.icu-project.org/</a></p>
+<p><a href="https://github.com/unicode-org/icu" target="_blank" rel="noopener">https://github.com/unicode-org/icu</a></p>
+<p><a href="https://www.ibm.com/developerworks/cn/opensource/os-mfc2icu/index.html" target="_blank" rel="noopener">使用 International Component for Unicode (ICU) 升级 MFC —— 开发全球化更好的软件产品</a></p>
+<p><a href="https://www.ibm.com/developerworks/cn/opensource/os-icu4c2/index.html" target="_blank" rel="noopener">使用 ICU4C 进行国际化应用开发</a></p>
+<p>ICU是一组成熟的，广泛使用的C / C ++和Java库，为软件应用程序提供Unicode和全球化支持。ICU具有广泛的可移植性，可以在所有平台上以及C / C ++和Java软件之间为应用程序提供相同的结果。</p>
+<h1 id="在各种字符串类型之间进行转换"><a href="#在各种字符串类型之间进行转换" class="headerlink" title="在各种字符串类型之间进行转换"></a>在各种字符串类型之间进行转换</h1><p>字符串类型包括<code>char *</code>， <code>wchar_t*</code>， <code>_bstr_t</code>， <code>CComBSTR</code>， <code>CString</code>， <code>basic_string</code>，和<code>System.String</code>。</p>
+<h2 id="从-char-转换"><a href="#从-char-转换" class="headerlink" title="从 char 转换 *"></a>从 char 转换 *</h2><pre><code>// convert_from_char.cpp
+// compile with: /clr /link comsuppw.lib
+
+#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string&gt;
+
+#include &quot;atlbase.h&quot;
+#include &quot;atlstr.h&quot;
+#include &quot;comutil.h&quot;
+
+using namespace std;
+using namespace System;
+
+int main()
+{
+    // Create and display a C style string, and then use it
+    // to create different kinds of strings.
+    char *orig = &quot;Hello, World!&quot;;
+    cout &lt;&lt; orig &lt;&lt; &quot; (char *)&quot; &lt;&lt; endl;
+
+    // newsize describes the length of the
+    // wchar_t string called wcstring in terms of the number
+    // of wide characters, not the number of bytes.
+    size_t newsize = strlen(orig) + 1;
+
+    // The following creates a buffer large enough to contain
+    // the exact number of characters in the original string
+    // in the new format. If you want to add more characters
+    // to the end of the string, increase the value of newsize
+    // to increase the size of the buffer.
+    wchar_t * wcstring = new wchar_t[newsize];
+
+    // Convert char* string to a wchar_t* string.
+    size_t convertedChars = 0;
+    mbstowcs_s(&amp;convertedChars, wcstring, newsize, orig, _TRUNCATE);
+    // Display the result and indicate the type of string that it is.
+    wcout &lt;&lt; wcstring &lt;&lt; _T(&quot; (wchar_t *)&quot;) &lt;&lt; endl;
+
+    // Convert the C style string to a _bstr_t string.
+    _bstr_t bstrt(orig);
+    // Append the type of string to the new string
+    // and then display the result.
+    bstrt += &quot; (_bstr_t)&quot;;
+    cout &lt;&lt; bstrt &lt;&lt; endl;
+
+    // Convert the C style string to a CComBSTR string.
+    CComBSTR ccombstr(orig);
+    if (ccombstr.Append(_T(&quot; (CComBSTR)&quot;)) == S_OK)
+    {
+        CW2A printstr(ccombstr);
+        cout &lt;&lt; printstr &lt;&lt; endl;
+    }
+
+    // Convert the C style string to a CstringA and display it.
+    CStringA cstringa(orig);
+    cstringa += &quot; (CStringA)&quot;;
+    cout &lt;&lt; cstringa &lt;&lt; endl;
+
+    // Convert the C style string to a CStringW and display it.
+    CStringW cstring(orig);
+    cstring += &quot; (CStringW)&quot;;
+    // To display a CStringW correctly, use wcout and cast cstring
+    // to (LPCTSTR).
+    wcout &lt;&lt; (LPCTSTR)cstring &lt;&lt; endl;
+
+    // Convert the C style string to a basic_string and display it.
+    string basicstring(orig);
+    basicstring += &quot; (basic_string)&quot;;
+    cout &lt;&lt; basicstring &lt;&lt; endl;
+
+    // Convert the C style string to a System::String and display it.
+    String ^systemstring = gcnew String(orig);
+    systemstring += &quot; (System::String)&quot;;
+    Console::WriteLine(&quot;{0}&quot;, systemstring);
+    delete systemstring;
+}
+</code></pre><h2 id="从-wchar-t-转换"><a href="#从-wchar-t-转换" class="headerlink" title="从 wchar_t 转换 *"></a>从 wchar_t 转换 *</h2><pre><code>// convert_from_wchar_t.cpp
+// compile with: /clr /link comsuppw.lib
+
+#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string&gt;
+
+#include &quot;atlbase.h&quot;
+#include &quot;atlstr.h&quot;
+#include &quot;comutil.h&quot;
+
+using namespace std;
+using namespace System;
+
+int main()
+{
+    // Create a string of wide characters, display it, and then
+    // use this string to create other types of strings.
+    wchar_t *orig = _T(&quot;Hello, World!&quot;);
+    wcout &lt;&lt; orig &lt;&lt; _T(&quot; (wchar_t *)&quot;) &lt;&lt; endl;
+
+    // Convert the wchar_t string to a char* string. Record
+    //.the length of the original string and add 1 to it to
+    //.account for the terminating null character.
+    size_t origsize = wcslen(orig) + 1;
+    size_t convertedChars = 0;
+
+    // Use a multibyte string to append the type of string
+    // to the new string before displaying the result.
+    char strConcat[] = &quot; (char *)&quot;;
+    size_t strConcatsize = (strlen( strConcat ) + 1)*2;
+
+    // Allocate two bytes in the multibyte output string for every wide
+    // character in the input string (including a wide character
+    // null). Because a multibyte character can be one or two bytes,
+    // you should allot two bytes for each character. Having extra
+    // space for the new string is not an error, but having
+    // insufficient space is a potential security problem.
+    const size_t newsize = origsize*2;
+    // The new string will contain a converted copy of the original
+    // string plus the type of string appended to it.
+    char *nstring = new char[newsize+strConcatsize];
+
+    // Put a copy of the converted string into nstring
+    wcstombs_s(&amp;convertedChars, nstring, newsize, orig, _TRUNCATE);
+    // append the type of string to the new string.
+    _mbscat_s((unsigned char*)nstring, newsize+strConcatsize, (unsigned char*)strConcat);
+    // Display the result.
+    cout &lt;&lt; nstring &lt;&lt; endl;
+
+    // Convert a wchar_t to a _bstr_t string and display it.
+    _bstr_t bstrt(orig);
+    bstrt += &quot; (_bstr_t)&quot;;
+    cout &lt;&lt; bstrt &lt;&lt; endl;
+
+    // Convert the wchar_t string to a BSTR wide character string
+    // by using the ATL CComBSTR wrapper class for BSTR strings.
+    // Then display the result.
+
+    CComBSTR ccombstr(orig);
+    if (ccombstr.Append(_T(&quot; (CComBSTR)&quot;)) == S_OK)
+    {
+        // CW2A converts the string in ccombstr to a multibyte
+        // string in printstr, used here for display output.
+        CW2A printstr(ccombstr);
+        cout &lt;&lt; printstr &lt;&lt; endl;
+        // The following line of code is an easier way to
+        // display wide character strings:
+        // wcout &lt;&lt; (LPCTSTR) ccombstr &lt;&lt; endl;
+    }
+
+    // Convert a wide wchar_t string to a multibyte CStringA,
+    // append the type of string to it, and display the result.
+    CStringA cstringa(orig);
+    cstringa += &quot; (CStringA)&quot;;
+    cout &lt;&lt; cstringa &lt;&lt; endl;
+
+    // Convert a wide character wchar_t string to a wide
+    // character CStringW string and append the type of string to it
+    CStringW cstring(orig);
+    cstring += &quot; (CStringW)&quot;;
+    // To display a CStringW correctly, use wcout and cast cstring
+    // to (LPCTSTR).
+    wcout &lt;&lt; (LPCTSTR)cstring &lt;&lt; endl;
+
+    // Convert the wide character wchar_t string to a
+    // basic_string, append the type of string to it, and
+    // display the result.
+    wstring basicstring(orig);
+    basicstring += _T(&quot; (basic_string)&quot;);
+    wcout &lt;&lt; basicstring &lt;&lt; endl;
+
+    // Convert a wide character wchar_t string to a
+    // System::String string, append the type of string to it,
+    // and display the result.
+    String ^systemstring = gcnew String(orig);
+    systemstring += &quot; (System::String)&quot;;
+    Console::WriteLine(&quot;{0}&quot;, systemstring);
+    delete systemstring;
+}
+</code></pre><h2 id="从-bstr-t-转换"><a href="#从-bstr-t-转换" class="headerlink" title="从 _bstr_t 转换"></a>从 <code>_bstr_t</code> 转换</h2><pre><code>// convert_from_bstr_t.cpp
+// compile with: /clr /link comsuppw.lib
+
+#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string&gt;
+
+#include &quot;atlbase.h&quot;
+#include &quot;atlstr.h&quot;
+#include &quot;comutil.h&quot;
+
+using namespace std;
+using namespace System;
+
+int main()
+{
+    // Create a _bstr_t string, display the result, and indicate the
+    // type of string that it is.
+    _bstr_t orig(&quot;Hello, World!&quot;);
+    wcout &lt;&lt; orig &lt;&lt; &quot; (_bstr_t)&quot; &lt;&lt; endl;
+
+    // Convert the wide character _bstr_t string to a C style
+    // string. To be safe, allocate two bytes for each character
+    // in the char* string, including the terminating null.
+    const size_t newsize = (orig.length()+1)*2;
+    char *nstring = new char[newsize];
+
+    // Uses the _bstr_t operator (char *) to obtain a null
+    // terminated string from the _bstr_t object for
+    // nstring.
+    strcpy_s(nstring, newsize, (char *)orig);
+    strcat_s(nstring, newsize, &quot; (char *)&quot;);
+    cout &lt;&lt; nstring &lt;&lt; endl;
+
+    // Prepare the type of string to append to the result.
+    wchar_t strConcat[] = _T(&quot; (wchar_t *)&quot;);
+    size_t strConcatLen = wcslen(strConcat) + 1;
+
+    // Convert a _bstr_t to a wchar_t* string.
+    const size_t widesize = orig.length()+ strConcatLen;
+    wchar_t *wcstring = new wchar_t[newsize];
+    wcscpy_s(wcstring, widesize, (wchar_t *)orig);
+    wcscat_s(wcstring, widesize, strConcat);
+    wcout &lt;&lt; wcstring &lt;&lt; endl;
+
+    // Convert a _bstr_t string to a CComBSTR string.
+    CComBSTR ccombstr((char *)orig);
+    if (ccombstr.Append(_T(&quot; (CComBSTR)&quot;)) == S_OK)
+    {
+        CW2A printstr(ccombstr);
+        cout &lt;&lt; printstr &lt;&lt; endl;
+    }
+
+    // Convert a _bstr_t to a CStringA string.
+    CStringA cstringa(orig.GetBSTR());
+    cstringa += &quot; (CStringA)&quot;;
+    cout &lt;&lt; cstringa &lt;&lt; endl;
+
+    // Convert a _bstr_t to a CStringW string.
+    CStringW cstring(orig.GetBSTR());
+    cstring += &quot; (CStringW)&quot;;
+    // To display a cstring correctly, use wcout and
+    // &quot;cast&quot; the cstring to (LPCTSTR).
+    wcout &lt;&lt; (LPCTSTR)cstring &lt;&lt; endl;
+
+    // Convert the _bstr_t to a basic_string.
+    string basicstring((char *)orig);
+    basicstring += &quot; (basic_string)&quot;;
+    cout &lt;&lt; basicstring &lt;&lt; endl;
+
+    // Convert the _bstr_t to a System::String.
+    String ^systemstring = gcnew String((char *)orig);
+    systemstring += &quot; (System::String)&quot;;
+    Console::WriteLine(&quot;{0}&quot;, systemstring);
+    delete systemstring;
+}
+</code></pre><h2 id="从-CComBSTR-转换"><a href="#从-CComBSTR-转换" class="headerlink" title="从 CComBSTR 转换"></a>从 CComBSTR 转换</h2><pre><code>// convert_from_ccombstr.cpp
+// compile with: /clr /link comsuppw.lib
+
+#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string&gt;
+
+#include &quot;atlbase.h&quot;
+#include &quot;atlstr.h&quot;
+#include &quot;comutil.h&quot;
+#include &quot;vcclr.h&quot;
+
+using namespace std;
+using namespace System;
+using namespace System::Runtime::InteropServices;
+
+int main()
+{
+    // Create and initialize a BSTR string by using a CComBSTR object.
+    CComBSTR orig(&quot;Hello, World!&quot;);
+    // Convert the BSTR into a multibyte string, display the result,
+    // and indicate the type of string that it is.
+    CW2A printstr(orig);
+    cout &lt;&lt; printstr &lt;&lt; &quot; (CComBSTR)&quot; &lt;&lt; endl;
+
+    // Convert a wide character CComBSTR string to a
+    // regular multibyte char* string. Allocate enough space
+    // in the new string for the largest possible result,
+    // including space for a terminating null.
+    const size_t newsize = (orig.Length()+1)*2;
+    char *nstring = new char[newsize];
+
+    // Create a string conversion object, copy the result to
+    // the new char* string, and display the result.
+    CW2A tmpstr1(orig);
+    strcpy_s(nstring, newsize, tmpstr1);
+    cout &lt;&lt; nstring &lt;&lt; &quot; (char *)&quot; &lt;&lt; endl;
+
+    // Prepare the type of string to append to the result.
+    wchar_t strConcat[] = _T(&quot; (wchar_t *)&quot;);
+    size_t strConcatLen = wcslen(strConcat) + 1;
+
+    // Convert a wide character CComBSTR string to a wchar_t*.
+    // The code first determines the length of the converted string
+    // plus the length of the appended type of string, then
+    // prepares the final wchar_t string for display.
+    const size_t widesize = orig.Length()+ strConcatLen;
+    wchar_t *wcstring = new wchar_t[widesize];
+    wcscpy_s(wcstring, widesize, orig);
+    wcscat_s(wcstring, widesize, strConcat);
+
+    // Display the result. Unlike CStringW, a wchar_t does not need
+    // a cast to (LPCTSTR) with wcout.
+    wcout &lt;&lt; wcstring &lt;&lt; endl;
+
+    // Convert a wide character CComBSTR to a wide character _bstr_t,
+    // append the type of string to it, and display the result.
+    _bstr_t bstrt(orig);
+    bstrt += &quot; (_bstr_t)&quot;;
+    cout &lt;&lt; bstrt &lt;&lt; endl;
+
+    // Convert a wide character CComBSTR to a multibyte CStringA,
+    // append the type of string to it, and display the result.
+    CStringA cstringa(orig);
+    cstringa += &quot; (CStringA)&quot;;
+    cout &lt;&lt; cstringa &lt;&lt; endl;
+
+    // Convert a wide character CComBSTR to a wide character CStringW.
+    CStringW cstring(orig);
+    cstring += &quot; (CStringW)&quot;;
+    // To display a cstring correctly, use wcout and cast cstring
+    // to (LPCTSTR).
+    wcout &lt;&lt; (LPCTSTR)cstring &lt;&lt; endl;
+
+    // Convert a wide character CComBSTR to a wide character
+    // basic_string.
+    wstring basicstring(orig);
+    basicstring += _T(&quot; (basic_string)&quot;);
+    wcout &lt;&lt; basicstring &lt;&lt; endl;
+
+    // Convert a wide character CComBSTR to a System::String.
+    String ^systemstring = gcnew String(orig);
+    systemstring += &quot; (System::String)&quot;;
+    Console::WriteLine(&quot;{0}&quot;, systemstring);
+    delete systemstring;
+}
+</code></pre><h2 id="从-CString-转换"><a href="#从-CString-转换" class="headerlink" title="从 CString 转换"></a>从 CString 转换</h2><pre><code>// convert_from_cstring.cpp
+// compile with: /clr /link comsuppw.lib
+
+#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string&gt;
+
+#include &quot;atlbase.h&quot;
+#include &quot;atlstr.h&quot;
+#include &quot;comutil.h&quot;
+
+using namespace std;
+using namespace System;
+
+int main()
+{
+    // Set up a multibyte CStringA string.
+    CStringA origa(&quot;Hello, World!&quot;);
+    cout &lt;&lt; origa &lt;&lt; &quot; (CStringA)&quot; &lt;&lt; endl;
+// Set up a wide character CStringW string.
+CStringW origw(&quot;Hello, World!&quot;);
+wcout &lt;&lt; (LPCTSTR)origw &lt;&lt; _T(&quot; (CStringW)&quot;) &lt;&lt; endl;
+
+// Convert to a char* string from CStringA string
+// and display the result.
+const size_t newsizea = (origa.GetLength() + 1);
+char *nstringa = new char[newsizea];
+strcpy_s(nstringa, newsizea, origa);
+cout &lt;&lt; nstringa &lt;&lt; &quot; (char *)&quot; &lt;&lt; endl;
+
+// Convert to a char* string from a wide character
+// CStringW string. To be safe, we allocate two bytes for each
+// character in the original string, including the terminating
+// null.
+const size_t newsizew = (origw.GetLength() + 1)*2;
+char *nstringw = new char[newsizew];
+size_t convertedCharsw = 0;
+wcstombs_s(&amp;convertedCharsw, nstringw, newsizew, origw, _TRUNCATE );
+cout &lt;&lt; nstringw &lt;&lt; &quot; (char *)&quot; &lt;&lt; endl;
+
+// Convert to a wchar_t* from CStringA
+size_t convertedCharsa = 0;
+wchar_t *wcstring = new wchar_t[newsizea];
+mbstowcs_s(&amp;convertedCharsa, wcstring, newsizea, origa, _TRUNCATE);
+wcout &lt;&lt; wcstring &lt;&lt; _T(&quot; (wchar_t *)&quot;) &lt;&lt; endl;
+
+// Convert to a wide character wchar_t* string from
+// a wide character CStringW string.
+wchar_t *n2stringw = new wchar_t[newsizew];
+wcscpy_s( n2stringw, newsizew, origw );
+wcout &lt;&lt; n2stringw &lt;&lt; _T(&quot; (wchar_t *)&quot;) &lt;&lt; endl;
+
+// Convert to a wide character _bstr_t string from
+// a multibyte CStringA string.
+_bstr_t bstrt(origa);
+bstrt += _T(&quot; (_bstr_t)&quot;);
+wcout &lt;&lt; bstrt &lt;&lt; endl;
+
+// Convert to a wide character_bstr_t string from
+// a wide character CStringW string.
+bstr_t bstrtw(origw);
+bstrtw += &quot; (_bstr_t)&quot;;
+wcout &lt;&lt; bstrtw &lt;&lt; endl;
+
+// Convert to a wide character CComBSTR string from
+// a multibyte character CStringA string.
+CComBSTR ccombstr(origa);
+if (ccombstr.Append(_T(&quot; (CComBSTR)&quot;)) == S_OK)
+{
+    // Convert the wide character string to multibyte
+    // for printing.
+    CW2A printstr(ccombstr);
+    cout &lt;&lt; printstr &lt;&lt; endl;
+}
+
+// Convert to a wide character CComBSTR string from
+// a wide character CStringW string.
+CComBSTR ccombstrw(origw);
+// Append the type of string to it, and display the result.
+
+if (ccombstrw.Append(_T(&quot; (CComBSTR)&quot;)) == S_OK)
+{
+    CW2A printstrw(ccombstrw);
+    wcout &lt;&lt; printstrw &lt;&lt; endl;
+}
+
+// Convert a multibyte character CStringA to a
+// multibyte version of a basic_string string.
+string basicstring(origa);
+basicstring += &quot; (basic_string)&quot;;
+cout &lt;&lt; basicstring &lt;&lt; endl;
+
+// Convert a wide character CStringW to a
+// wide character version of a basic_string
+// string.
+wstring basicstringw(origw);
+basicstringw += _T(&quot; (basic_string)&quot;);
+wcout &lt;&lt; basicstringw &lt;&lt; endl;
+
+// Convert a multibyte character CStringA to a
+// System::String.
+String ^systemstring = gcnew String(origa);
+systemstring += &quot; (System::String)&quot;;
+Console::WriteLine(&quot;{0}&quot;, systemstring);
+delete systemstring;
+// Convert a wide character CStringW to a
+    // System::String.
+    String ^systemstringw = gcnew String(origw);
+    systemstringw += &quot; (System::String)&quot;;
+    Console::WriteLine(&quot;{0}&quot;, systemstringw);
+    delete systemstringw;
+}
+</code></pre><h2 id="从-basic-string-转换"><a href="#从-basic-string-转换" class="headerlink" title="从 basic_string 转换"></a>从 basic_string 转换</h2><pre><code>// convert_from_basic_string.cpp
+// compile with: /clr /link comsuppw.lib
+
+#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string&gt;
+
+#include &quot;atlbase.h&quot;
+#include &quot;atlstr.h&quot;
+#include &quot;comutil.h&quot;
+
+using namespace std;
+using namespace System;
+
+int main()
+{
+    // Set up a basic_string string.
+    string orig(&quot;Hello, World!&quot;);
+    cout &lt;&lt; orig &lt;&lt; &quot; (basic_string)&quot; &lt;&lt; endl;
+
+    // Convert a wide char basic_string string to a multibyte char*
+    // string. To be safe, we allocate two bytes for each character
+    // in the original string, including the terminating null.
+    const size_t newsize = (strlen(orig.c_str()) + 1)*2;
+    char *nstring = new char[newsize];
+    strcpy_s(nstring, newsize, orig.c_str());
+    cout &lt;&lt; nstring &lt;&lt; &quot; (char *)&quot; &lt;&lt; endl;
+
+    // Convert a basic_string string to a wide character
+    // wchar_t* string. You must first convert to a char*
+    // for this to work.
+    const size_t newsizew = strlen(orig.c_str()) + 1;
+    size_t convertedChars = 0;
+    wchar_t *wcstring = new wchar_t[newsizew];
+    mbstowcs_s(&amp;convertedChars, wcstring, newsizew, orig.c_str(), _TRUNCATE);
+    wcout &lt;&lt; wcstring &lt;&lt; _T(&quot; (wchar_t *)&quot;) &lt;&lt; endl;
+
+    // Convert a basic_string string to a wide character
+    // _bstr_t string.
+    _bstr_t bstrt(orig.c_str());
+    bstrt += _T(&quot; (_bstr_t)&quot;);
+    wcout &lt;&lt; bstrt &lt;&lt; endl;
+
+    // Convert a basic_string string to a wide character
+    // CComBSTR string.
+    CComBSTR ccombstr(orig.c_str());
+    if (ccombstr.Append(_T(&quot; (CComBSTR)&quot;)) == S_OK)
+    {
+        // Make a multibyte version of the CComBSTR string
+        // and display the result.
+        CW2A printstr(ccombstr);
+        cout &lt;&lt; printstr &lt;&lt; endl;
+    }
+
+    // Convert a basic_string string into a multibyte
+    // CStringA string.
+    CStringA cstring(orig.c_str());
+    cstring += &quot; (CStringA)&quot;;
+    cout &lt;&lt; cstring &lt;&lt; endl;
+
+    // Convert a basic_string string into a wide
+    // character CStringW string.
+    CStringW cstringw(orig.c_str());
+    cstringw += _T(&quot; (CStringW)&quot;);
+    wcout &lt;&lt; (LPCTSTR)cstringw &lt;&lt; endl;
+
+    // Convert a basic_string string to a System::String
+    String ^systemstring = gcnew String(orig.c_str());
+    systemstring += &quot; (System::String)&quot;;
+    Console::WriteLine(&quot;{0}&quot;, systemstring);
+    delete systemstring;
+}
+</code></pre><h2 id="从-system-string-转换"><a href="#从-system-string-转换" class="headerlink" title="从 system:: string 转换"></a>从 system:: string 转换</h2><pre><code>// convert_from_system_string.cpp
+// compile with: /clr /link comsuppw.lib
+
+#include &lt;iostream&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string&gt;
+
+#include &quot;atlbase.h&quot;
+#include &quot;atlstr.h&quot;
+#include &quot;comutil.h&quot;
+#include &quot;vcclr.h&quot;
+
+using namespace std;
+using namespace System;
+using namespace System::Runtime::InteropServices;
+
+int main()
+{
+    // Set up a System::String and display the result.
+    String ^orig = gcnew String(&quot;Hello, World!&quot;);
+    Console::WriteLine(&quot;{0} (System::String)&quot;, orig);
+
+    // Obtain a pointer to the System::String in order to
+    // first lock memory into place, so that the
+    // Garbage Collector (GC) cannot move that object
+    // while we call native functions.
+    pin_ptr&lt;const wchar_t&gt; wch = PtrToStringChars(orig);
+
+    // Make a copy of the system string as a multibyte
+    // char* string. Allocate two bytes in the multibyte
+    // output string for every wide character in the input
+    // string, including space for a terminating null.
+    size_t origsize = wcslen(wch) + 1;
+    const size_t newsize = origsize*2;
+    size_t convertedChars = 0;
+    char *nstring = new char[newsize];
+    wcstombs_s(&amp;convertedChars, nstring, newsize, wch, _TRUNCATE);
+    cout &lt;&lt; nstring &lt;&lt; &quot; (char *)&quot; &lt;&lt; endl;
+
+    // Convert a wide character system string to a
+    // wide character wchar_t* string.
+    const size_t newsizew = origsize;
+    wchar_t *wcstring = new wchar_t[newsizew];
+    wcscpy_s(wcstring, newsizew, wch);
+    wcout &lt;&lt; wcstring &lt;&lt; _T(&quot; (wchar_t *)&quot;) &lt;&lt; endl;
+
+    // Convert a wide character system string to a
+    // wide character _bstr_t string.
+    _bstr_t bstrt(wch);
+    bstrt += &quot; (_bstr_t)&quot;;
+    cout &lt;&lt; bstrt &lt;&lt; endl;
+
+    // Convert a wide character system string
+    // to a wide character CComBSTR string.
+    CComBSTR ccombstr(wch);
+    if (ccombstr.Append(_T(&quot; (CComBSTR)&quot;)) == S_OK)
+    {
+        // Make a multibyte copy of the CComBSTR string
+        // and display the result.
+        CW2A printstr(ccombstr);
+        cout &lt;&lt; printstr &lt;&lt; endl;
+    }
+
+    // Convert a wide character System::String to
+    // a multibyte CStringA string.
+    CStringA cstring(wch);
+    cstring += &quot; (CStringA)&quot;;
+    cout &lt;&lt; cstring &lt;&lt; endl;
+
+    // Convert a wide character System::String to
+    // a wide character CStringW string.
+    CStringW cstringw(wch);
+    cstringw += &quot; (CStringW)&quot;;
+    wcout &lt;&lt; (LPCTSTR)cstringw &lt;&lt; endl;
+
+    // Convert a wide character System::String to
+    // a wide character basic_string.
+    wstring basicstring(wch);
+    basicstring += _T(&quot; (basic_string)&quot;);
+    wcout &lt;&lt; basicstring &lt;&lt; endl;
+
+    delete orig;
+}
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">字符转换</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/09/27/C++字符转换/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Linux从入门到精通" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1374,393 +2922,6 @@ ppv：QueryInterface用来存放所请求接口的地址。
 
 
   
-    <article id="post-git" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/21/git/">git学习</a>
-    </h1>
-  
-
-        
-        <a href="/2018/06/21/git/" class="archive-article-date">
-  	<time datetime="2018-06-21T10:08:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-21</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="团队协作时的访问权限模型"><a href="#团队协作时的访问权限模型" class="headerlink" title="团队协作时的访问权限模型"></a>团队协作时的访问权限模型</h1><p><img src="http://file.ituring.com.cn/Original/1710e7d8b081b6c3a4c7" alt=""></p>
-<h1 id="git"><a href="#git" class="headerlink" title="git"></a>git</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><p>如果你碰巧用Debian或Ubuntu Linux，通过一条sudo apt-get install git就可以直接完成Git的安装，非常简单。</p>
-<p>如果是其他Linux版本，可以直接通过源码安装。先从Git官网下载源码，然后解压，依次输入：./config，make，sudo make install这几个命令安装就好了。</p>
-<h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><p>在Windows上使用Git，可以从Git官网直接<a href="https://git-scm.com/downloads" target="_blank" rel="noopener">下载安装程序</a></p>
-<p>安装完成后，在开始菜单里找到“Git”-&gt;“Git Bash”</p>
-<p>安装完成后，还需要最后一步设置，在命令行输入：</p>
-<pre><code>$ git config --global user.name &quot;Your Name&quot;
-$ git config --global user.email &quot;email@example.com&quot;
-</code></pre><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>初始化一个Git仓库，使用<code>git init</code>命令。</p>
-<p>添加文件到Git仓库，分两步：</p>
-<p>使用命令<code>git add &lt;file&gt;</code>，注意，可反复多次使用，添加多个文件；<br>使用命令<code>git commit -m &lt;message&gt;</code>，完成。</p>
-<p>要随时掌握工作区的状态，使用git status命令。</p>
-<p>如果git status告诉你有文件被修改过，用git diff可以查看修改内容。</p>
-<p>查看历史记录</p>
-<pre><code>git log
-git log --pretty=oneline
-</code></pre><p>在Git中，用<code>HEAD</code>表示当前版本，也就是最新的提交1094adb…（注意我的提交ID和你的肯定不一样），上一个版本就是<code>HEAD^</code>，上上一个版本就是<code>HEAD^^</code>，当然往上100个版本写100个^比较容易数不过来，所以写成<code>HEAD~100</code>。</p>
-<p>退到某个版本<br>    git reset –hard HEAD^<br>    git reset –hard commit_id</p>
-<p>Git提供了一个命令<code>git reflog</code>用来记录你的每一次命令</p>
-<p><code>git diff HEAD -- readme.txt</code>命令可以查看工作区和版本库里面最新版本的区别</p>
-<p><code>git checkout -- file</code>可以丢弃工作区的修改：</p>
-<pre><code>$ git checkout -- readme.txt
-</code></pre><p>命令git checkout – readme.txt意思就是，把readme.txt文件在工作区的修改全部撤销，这里有两种情况：</p>
-<p>一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；</p>
-<p>一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。</p>
-<p>总之，就是让这个文件回到最近一次git commit或git add时的状态。</p>
-<p>git checkout – file命令中的–很重要，没有–，就变成了“切换到另一个分支”的命令</p>
-<p><code>git reset HEAD &lt;file&gt;</code>可以把暂存区的修改撤销掉（unstage），重新放回工作区</p>
-<p>git reset命令既可以回退版本，也可以把暂存区的修改回退到工作区。当我们用HEAD时，表示最新的版本。</p>
-<p>通常直接在文件管理器中把没用的文件删了，或者用rm命令删了</p>
-<p>用命令<code>git rm</code>删掉，并且<code>git commit</code></p>
-<h1 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h1><p>查看分支：<code>git branch</code></p>
-<p>创建分支：<code>git branch &lt;name&gt;</code></p>
-<p>切换分支：<code>git checkout &lt;name&gt;</code></p>
-<p>创建+切换分支：<code>git checkout -b &lt;name&gt;</code></p>
-<p>合并某分支到当前分支：<code>git merge &lt;name&gt;</code></p>
-<p>删除分支：<code>git branch -d &lt;name&gt;</code></p>
-<p>用<code>git log --graph</code>命令可以看到分支合并图。</p>
-<pre><code>$ git log --graph --pretty=oneline --abbrev-commit
-</code></pre><p>准备合并dev分支，请注意–no-ff参数，表示禁用Fast forward</p>
-<pre><code>$ git merge --no-ff -m &quot;merge with no-ff&quot; dev
-</code></pre><p>因为本次合并要创建一个新的commit，所以加上-m参数，把commit描述写进去。</p>
-<p>合并分支时，加上<code>--no-ff</code>参数就可以用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而fast forward合并就看不出来曾经做过合并。</p>
-<p>当手头工作没有完成时，先把工作现场git stash一下，然后去修复bug，修复后，再git stash pop，回到工作现场。</p>
-<p>用git stash list命令看看之前保存的工作现场</p>
-<p>工作现场还在，Git把stash内容存在某个地方了，但是需要恢复一下，有两个办法：</p>
-<p>一是用git stash apply恢复，但是恢复后，stash内容并不删除，你需要用git stash drop来删除；</p>
-<p>另一种方式是用git stash pop，恢复的同时把stash内容也删了</p>
-<p>开发一个新feature，最好新建一个分支；</p>
-<p>如果要丢弃一个没有被合并过的分支，可以通过git branch -D <name>强行删除。</name></p>
-<p>要查看远程库的信息，用git remote或者，用git remote -v显示更详细的信息</p>
-<p>多人协作的工作模式通常是这样：</p>
-<p>首先，可以试图用<code>git push origin &lt;branch-name&gt;</code>推送自己的修改；</p>
-<p>如果推送失败，则因为远程分支比你的本地更新，需要先用<code>git pull</code>试图合并；</p>
-<p>如果合并有冲突，则解决冲突，并在本地提交；</p>
-<p>没有冲突或者解决掉冲突后，再用<code>git push origin &lt;branch-name&gt;</code>推送就能成功！</p>
-<p>如果<code>git pull</code>提示<code>no tracking information</code>，则说明本地分支和远程分支的链接关系没有创建，用命令<code>git branch --set-upstream-to &lt;branch-name&gt; origin/&lt;branch-name&gt;</code>。</p>
-<p>rebase操作可以把本地未push的分叉提交历史整理成直线；</p>
-<p>rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。</p>
-<h1 id="标签管理"><a href="#标签管理" class="headerlink" title="标签管理"></a>标签管理</h1><p>命令<code>git tag &lt;tagname</code>&gt;用于新建一个标签，默认为HEAD，也可以指定一个commit id；</p>
-<p>命令<code>git tag -a &lt;tagname&gt; -m &quot;blablabla...&quot;</code>可以指定标签信息；</p>
-<p>命令<code>git tag</code>可以查看所有标签。</p>
-<p>命令git push origin <tagname>可以推送一个本地标签；</tagname></p>
-<p>命令git push origin –tags可以推送全部未推送过的本地标签；</p>
-<p>命令git tag -d <tagname>可以删除一个本地标签；</tagname></p>
-<p>命令git push origin :refs/tags/<tagname>可以删除一个远程标签。</tagname></p>
-<h1 id="GitHub"><a href="#GitHub" class="headerlink" title="GitHub"></a>GitHub</h1><p>GitHub页面支持使用键盘快捷键，shift + / 键可打开一览表</p>
-<p>在某仓库页面上按下键盘的t键再输入文件名，可快速查询需要的目录或文件名，不用手动找</p>
-<p>emoji表情自动补全功能，评论中输入:后便会启动，emoji速查表在<a href="http://www.webpagefx.com/tools/emoji-cheat-sheet/" target="_blank" rel="noopener">这里</a></p>
-<p>Wiki也可以通过Git进行管理，Clone其URL即可</p>
-<p>在GitHub上，可以任意Fork开源仓库；</p>
-<p>自己拥有Fork后的仓库的读写权限；</p>
-<p>可以推送pull request给官方仓库来贡献代码。</p>
-<h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><p>第1步：创建SSH Key。在用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有<code>id_rsa</code>和<code>id_rsa.pub</code>这两个文件，如果已经有了，可直接跳到下一步。如果没有，打开Shell（Windows下打开Git Bash），创建SSH Key：</p>
-<pre><code>$ ssh-keygen -t rsa -C &quot;youremail@example.com&quot;
-</code></pre><p>如果一切顺利的话，可以在用户主目录里找到.ssh目录，里面有<code>id_rsa</code>和<code>id_rsa.pub</code>两个文件，这两个就是SSH Key的秘钥对，<code>id_rsa</code>是私钥，不能泄露出去，<code>id_rsa.pub</code>是公钥，可以放心地告诉任何人。</p>
-<p>第2步：登陆GitHub，打开“Account settings”，“SSH Keys”页面：</p>
-<p>然后，点“Add SSH Key”，填上任意Title，在Key文本框里粘贴id_rsa.pub文件的内容</p>
-<p>点“Add Key”，你就应该看到已经添加的Key</p>
-<h3 id="添加远程库"><a href="#添加远程库" class="headerlink" title="添加远程库"></a>添加远程库</h3><p>要关联一个远程库，使用命令<code>git remote add origin git@server-name:path/repo-name.git；</code></p>
-<p>关联后，使用命令<code>git push -u origin master</code>第一次推送master分支的所有内容；</p>
-<p>由于远程库是空的，我们第一次推送master分支时，加上了-u参数，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令.</p>
-<p>此后，每次本地提交后，只要有必要，就可以使用命令<code>git push origin master</code>推送最新修改；</p>
-<h3 id="从远程库克隆"><a href="#从远程库克隆" class="headerlink" title="从远程库克隆"></a>从远程库克隆</h3><p>要克隆一个仓库，首先必须知道仓库的地址，然后使用git clone命令克隆。</p>
-<p>Git支持多种协议，包括https，但通过ssh支持的原生git协议速度最快。</p>
-<h1 id="使用码云"><a href="#使用码云" class="headerlink" title="使用码云"></a>使用码云</h1><p>一个本地库能不能既关联GitHub，又关联码云呢</p>
-<p>用不同的名称来标识不同的远程库</p>
-<pre><code>git remote add github git@github.com:michaelliao/learngit.git
-git remote add gitee git@gitee.com:liaoxuefeng/learngit.git
-</code></pre><h1 id="自定义Git"><a href="#自定义Git" class="headerlink" title="自定义Git"></a>自定义Git</h1><p>让Git显示颜色，会让命令输出看起来更醒目：</p>
-<pre><code>$ git config --global color.ui true
-</code></pre><p>在Git工作区的根目录下创建一个特殊的.gitignore文件，然后把要忽略的文件名填进去，Git就会自动忽略这些文件。</p>
-<p>配置Git的时候，加上–global是针对当前用户起作用的，如果不加，那只针对当前的仓库起作用。</p>
-<p>每个仓库的Git配置文件都放在.git/config文件中</p>
-<h2 id="搭建Git服务器"><a href="#搭建Git服务器" class="headerlink" title="搭建Git服务器"></a>搭建Git服务器</h2><pre><code>$ sudo apt-get install git
-$ sudo adduser git
-</code></pre><p>创建证书登录：</p>
-<p>收集所有需要登录的用户的公钥，就是他们自己的id_rsa.pub文件，把所有公钥导入到<code>/home/git/.ssh/authorized_keys</code>文件里，一行一个。</p>
-<p>始化Git仓库<br>先选定一个目录作为Git仓库，假定是/srv/sample.git，在/srv目录下输入命令：</p>
-<pre><code>$ sudo git init --bare sample.git
-</code></pre><p>Git就会创建一个裸仓库，裸仓库没有工作区，因为服务器上的Git仓库纯粹是为了共享，所以不让用户直接登录到服务器上去改工作区，并且服务器上的Git仓库通常都以.git结尾。然后，把owner改为git：</p>
-<pre><code>$ sudo chown -R git:git sample.git
-</code></pre><p>禁用shell登录：</p>
-<p>出于安全考虑，第二步创建的git用户不允许登录shell，这可以通过编辑/etc/passwd文件完成。找到类似下面的一行：</p>
-<pre><code>git:x:1001:1001:,,,:/home/git:/bin/bash
-</code></pre><p>改为：</p>
-<pre><code>git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell
-</code></pre><p>这样，git用户可以正常通过ssh使用git，但无法登录shell，因为我们为git用户指定的git-shell每次一登录就自动退出。</p>
-<p>克隆远程仓库：</p>
-<p>现在，可以通过git clone命令克隆远程仓库了，在各自的电脑上运行：</p>
-<pre><code>$ git clone git@server:/srv/sample.git
-</code></pre><p>可以用Gitosis来管理公钥</p>
-<h1 id="https-learngitbranching-js-org-demo"><a href="#https-learngitbranching-js-org-demo" class="headerlink" title="https://learngitbranching.js.org/?demo"></a><a href="https://learngitbranching.js.org/?demo" target="_blank" rel="noopener">https://learngitbranching.js.org/?demo</a></h1><h2 id="Git-Commit"><a href="#Git-Commit" class="headerlink" title="Git Commit"></a>Git Commit</h2><p>创建一个新的提交记录</p>
-<h2 id="Git-Branch"><a href="#Git-Branch" class="headerlink" title="Git Branch"></a>Git Branch</h2><p>创建分支</p>
-<h2 id="git-checkout"><a href="#git-checkout" class="headerlink" title="git checkout "></a>git checkout <name></name></h2><p>切换到某一分支上</p>
-<h2 id="git-checkout-b"><a href="#git-checkout-b" class="headerlink" title="git checkout -b "></a>git checkout -b <your-branch-name></your-branch-name></h2><p>创建一个新的分支同时切换到新创建的分支</p>
-<h2 id="git-merge"><a href="#git-merge" class="headerlink" title="git merge"></a>git merge</h2><p>合并两个分支</p>
-<h2 id="git-rebase"><a href="#git-rebase" class="headerlink" title="git rebase"></a>git rebase</h2><p>Rebase 实际上就是取出一系列的提交记录，“复制”它们，然后在另外一个地方逐个的放下去。Rebase 的优势就是可以创造更线性的提交历史，这听上去有些难以理解。如果只允许使用 Rebase 的话，代码库的提交历史将会变得异常清晰。</p>
-<h2 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h2><p>在项目的提交树上前后移动。</p>
-<p>HEAD 是一个对当前检出记录的符号引用 —— 也就是指向你正在其基础上进行工作的提交记录。</p>
-<p>HEAD 总是指向当前分支上最近一次提交记录。大多数修改提交树的 Git 命令都是从改变 HEAD 的指向开始的。</p>
-<p>如果想看 HEAD 指向，可以通过 <code>cat .git/HEAD</code> 查看， 如果 HEAD 指向的是一个引用，还可以用 <code>git symbolic-ref HEAD</code> 查看它的指向。</p>
-<p>分离的 HEAD 就是让其指向了某个具体的提交记录而不是分支名。</p>
-<p>通过哈希值指定提交记录。</p>
-<p>相对引用非常给力，这里我介绍两个简单的用法：</p>
-<p>使用 ^ 向上移动 1 个提交记录<br>使用 ~<num> 向上移动多个提交记录，如 ~3</num></p>
-<h2 id="git-branch-f-master-HEAD-3"><a href="#git-branch-f-master-HEAD-3" class="headerlink" title="git branch -f master HEAD~3"></a>git branch -f master HEAD~3</h2><p>上面的命令会将 master 分支强制指向 HEAD 的第 3 级父提交。</p>
-<p>强制修改分支位置</p>
-<p>相对引用为我们提供了一种简洁的引用提交记录的方式， 而 -f 则容许我们将分支强制移动到那个位置。</p>
-<h2 id="git-log"><a href="#git-log" class="headerlink" title="git log"></a>git log</h2><p>查查看提交记录的哈希值,只需要提供能够唯一标识提交记录的前几个字符即可。</p>
-<h2 id="git-reset与-git-revert"><a href="#git-reset与-git-revert" class="headerlink" title="git reset与 git revert"></a>git reset与 git revert</h2><p>主要有两种方法用来撤销变更 —— 一是 git reset，还有就是 git revert。</p>
-<p>git reset 通过把分支记录回退几个提交记录来实现撤销改动。你可以将这想象成“改写历史”。git reset 向上移动分支，原来指向的提交记录就跟从来没有提交过一样。</p>
-<p>虽然在你的本地分支中使用 git reset 很方便，但是这种“改写历史”的方法对大家一起使用的远程分支是无效的哦！</p>
-<p>为了撤销更改并分享给别人，我们需要使用 git revert。</p>
-<p>git reset：本地分支<br>git revert：远程分支</p>
-<h2 id="git-cherry-pick-lt-提交号-gt-…"><a href="#git-cherry-pick-lt-提交号-gt-…" class="headerlink" title="git cherry-pick &lt;提交号&gt;…"></a>git cherry-pick &lt;提交号&gt;…</h2><p>整理提交记录</p>
-<p>如果你想将一些提交复制到当前所在的位置（HEAD）下面的话， Cherry-pick 是最直接的方式了。</p>
-<h2 id="交互式的-rebase"><a href="#交互式的-rebase" class="headerlink" title="交互式的 rebase"></a>交互式的 rebase</h2><p>当你你知道你所需要的提交记录（并且还知道这些提交记录的哈希值）时, 用 cherry-pick 再好不过了 —— 没有比这更简单的方式了。</p>
-<p>但是如果你不清楚你想要的提交记录的哈希值呢? 幸好 Git 帮你想到了这一点, 我们可以利用交互式的 rebase —— 如果你想从一系列的提交记录中找到想要的记录, 这就是最好的方法了</p>
-<p>交互式 rebase 指的是使用带参数 –interactive 的 rebase 命令, 简写为 -i</p>
-<p>如果你在命令后增加了这个选项, Git 会打开一个 UI 界面并列出将要被复制到目标分支的备选提交记录，它还会显示每个提交记录的哈希值和提交说明，提交说明有助于你理解这个提交进行了哪些更改。</p>
-<h2 id="本地栈式提交"><a href="#本地栈式提交" class="headerlink" title="本地栈式提交"></a>本地栈式提交</h2><p>你可以选择通过 fast-forward 快速合并</p>
-<p>实际我们只要让 Git 复制解决问题的那一个提交记录就可以了。跟之前我们在“整理提交记录”中学到的一样，我们可以使用</p>
-<pre><code>git rebase -i
-git cherry-pick
-</code></pre><h2 id="提交的技巧"><a href="#提交的技巧" class="headerlink" title="提交的技巧"></a>提交的技巧</h2><p>正如你在上一关所见到的，我们可以使用 rebase -i 对提交记录进行重新排序。只要把我们想要的提交记录挪到最前端，我们就可以很轻松的用 –amend 修改它，然后把它们重新排成我们想要的顺序。</p>
-<h2 id="Git-Tags"><a href="#Git-Tags" class="headerlink" title="Git Tags"></a>Git Tags</h2><p>可以（在某种程度上 —— 因为标签可以被删除后重新在另外一个位置创建同名的标签）永久地将某个特定的提交命名为里程碑，然后就可以像分支一样引用了。</p>
-<p>更难得的是，它们并不会随着新的提交而移动。你也不能检出到某个标签上面进行修改提交，它就像是提交树上的一个锚点，标识了某个特定的位置。</p>
-<h2 id="Git-Describe"><a href="#Git-Describe" class="headerlink" title="Git Describe"></a>Git Describe</h2><p>由于标签在代码库中起着“锚点”的作用，Git 还为此专门设计了一个命令用来描述离你最近的锚点（也就是标签），它就是 git describe！</p>
-<p>Git Describe 能帮你在提交历史中移动了多次以后找到方向；</p>
-<p>git describe 的​​语法是：</p>
-<p>git describe <ref></ref></p>
-<p><ref> 可以是任何能被 Git 识别成提交记录的引用，如果你没有指定的话，Git 会以你目前所检出的位置（HEAD）。</ref></p>
-<p>它输出的结果是这样的：</p>
-<p><tag>_<numcommits>_g<hash></hash></numcommits></tag></p>
-<p>tag 表示的是离 ref 最近的标签， numCommits 是表示这个 ref 与 tag 相差有多少个提交记录， hash 表示的是你所给定的 ref 所表示的提交记录哈希值的前几位。</p>
-<p>当 ref 提交记录上有某个标签时，则只输出标签名称</p>
-<h2 id="选择父提交记录"><a href="#选择父提交记录" class="headerlink" title="选择父提交记录"></a>选择父提交记录</h2><p>选择父提交记录<br>操作符 ^ 与 ~ 符一样，后面也可以跟一个数字。</p>
-<p>但是该操作符后面的数字与 ~ 后面的不同，并不是用来指定向上返回几代，而是指定合并提交记录的某个父提交。还记得前面提到过的一个合并提交有两个父提交吧，所以遇到这样的节点时该选择哪条路径就不是很清晰了。</p>
-<p>Git 默认选择合并提交的“第一个”父提交，在操作符 ^ 后跟一个数字可以改变这一默认行为。</p>
-<h1 id="book"><a href="#book" class="headerlink" title="book"></a>book</h1><p>Pro Git</p>
-<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="http://www.ituring.com.cn/article/497347" target="_blank" rel="noopener">http://www.ituring.com.cn/article/497347</a></li>
-<li><a href="http://www.ituring.com.cn/article/264697" target="_blank" rel="noopener">http://www.ituring.com.cn/article/264697</a></li>
-<li><a href="https://git-scm.com/book/zh/" target="_blank" rel="noopener">https://git-scm.com/book/zh/</a></li>
-<li><a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000</a></li>
-<li><a href="http://www.ituring.com.cn/article/469123" target="_blank" rel="noopener">http://www.ituring.com.cn/article/469123</a></li>
-<li><a href="https://learngitbranching.js.org/?demo" target="_blank" rel="noopener">https://learngitbranching.js.org/?demo</a></li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/06/21/git/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/20/算法/">算法</a>
-    </h1>
-  
-
-        
-        <a href="/2018/06/20/算法/" class="archive-article-date">
-  	<time datetime="2018-06-20T01:12:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="判断是否是2的幂"><a href="#判断是否是2的幂" class="headerlink" title="判断是否是2的幂"></a>判断是否是2的幂</h1><p><a href="https://www.exploringbinary.com/ten-ways-to-check-if-an-integer-is-a-power-of-two-in-c/" target="_blank" rel="noopener">https://www.exploringbinary.com/ten-ways-to-check-if-an-integer-is-a-power-of-two-in-c/</a></p>
-<p><a href="https://blog.csdn.net/K346K346/article/details/53316953" target="_blank" rel="noopener">https://blog.csdn.net/K346K346/article/details/53316953</a></p>
-<p>Shift Right</p>
-<pre><code>int isPowerOfTwo (unsigned int x)
-{
- while (((x &amp; 1) == 0) &amp;&amp; x &gt; 1) /* While x is even and &gt; 1 */
-   x &gt;&gt;= 1;
- return (x == 1);
-}
-</code></pre><p>Decrement and Compare</p>
-<pre><code>int isPowerOfTwo (unsigned int x)
-{
-  return ((x != 0) &amp;&amp; !(x &amp; (x - 1)));
-}
-</code></pre><p>Complement and Compare</p>
-<pre><code>int isPowerOfTwo (unsigned int x)
-{
-  return ((x != 0) &amp;&amp; ((x &amp; (~x + 1)) == x));
-}
-</code></pre><h1 id="常用排序算法总结"><a href="#常用排序算法总结" class="headerlink" title="常用排序算法总结"></a>常用排序算法总结</h1><p><a href="https://mp.weixin.qq.com/s?__biz=MzI1MTIzMzI2MA==&amp;mid=2650562536&amp;idx=1&amp;sn=76435fe625722e05c08a118a07c72839&amp;chksm=f1fee96bc689607d35158022250756fbe9230dd633e7760efd51124c9891ede8eefed60fe01f&amp;scene=0#rd" target="_blank" rel="noopener">常用排序算法总结（1）</a></p>
-<p><a href="https://mp.weixin.qq.com/s?__biz=MzI1MTIzMzI2MA==&amp;mid=2650562543&amp;idx=1&amp;sn=c82892b85e1de790766896c6d80d7b3c&amp;chksm=f1fee96cc689607a11ccc109098d070d38ef0bad61c0390fe01348b631bbd492945b6f2b0601&amp;scene=0#rd" target="_blank" rel="noopener">常用排序算法总结（2）</a></p>
-<h2 id="排序算法大体可分为两种："><a href="#排序算法大体可分为两种：" class="headerlink" title="排序算法大体可分为两种："></a>排序算法大体可分为两种：</h2><p>一种是比较排序，时间复杂度O(nlogn) ~ O(n^2)，主要有：冒泡排序，选择排序，插入排序，归并排序，堆排序，快速排序等。</p>
-<p>另一种是非比较排序，时间复杂度可以达到O(n)，主要有：计数排序，基数排序，桶排序等。</p>
-<p><img src="https://i.imgur.com/Vu6SiPi.jpg" alt=""></p>
-<p>排序算法稳定性的简单形式化定义为：如果Ai = Aj，排序前Ai在Aj之前，排序后Ai还在Aj之前，则称这种排序算法是稳定的。</p>
-<h1 id="算法图解"><a href="#算法图解" class="headerlink" title="算法图解"></a>算法图解</h1><ul>
-<li>选择排序</li>
-<li>递归</li>
-<li>快速排序</li>
-<li>散列表</li>
-<li>广度优先搜索</li>
-<li>狄克斯特拉算法</li>
-<li>贪婪算法</li>
-<li>动态规划</li>
-<li>K最近邻算法</li>
-</ul>
-<h1 id="常用算法的时间复杂度"><a href="#常用算法的时间复杂度" class="headerlink" title="常用算法的时间复杂度"></a><a href="http://bigocheatsheet.com/" target="_blank" rel="noopener">常用算法的时间复杂度</a></h1><p><img src="https://i.imgur.com/rNBfUlV.jpg" alt=""></p>
-<p><img src="https://i.imgur.com/0qxpoTW.jpg" alt=""></p>
-<p><img src="https://i.imgur.com/jzva3QU.jpg" alt=""></p>
-<h1 id="二叉树遍历"><a href="#二叉树遍历" class="headerlink" title="二叉树遍历"></a>二叉树遍历</h1><h2 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h2><p>利用了栈的先进后出的特性，首先遍历显示根节点，然后将右子树（注意是右子树不是左子树）压栈，最后将左子树压栈。由于最后时将左子树节点压栈，所以下一次首先出栈的应该是左子树的根节点，也就保证了先序遍历的规则。</p>
-<h2 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h2><p>首先将根节点所有的左子树节点压栈，然后一一出栈，每当出栈一个元素后，便将其右子树节点压栈。这样就可以实现首先出栈的永远是栈中的左子树节点，然后是根节点，最后时右子树节点，也就可以保证中序遍历的规则。</p>
-<h2 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h2><p>使用了两个栈来辅助，其中一个stackIn作为中间存储起到过渡作用，而另一个stackOut则作为最后的输出结果进行遍历显示。众所周知，栈的特性使LIFO（后进先出），那么stackIn在进行存储过渡时，先按照根节点-&gt;左孩子-&gt;右孩子的顺序依次压栈，那么其出栈顺序就是右孩子-&gt;左孩子-&gt;根节点。而每当循环一次就会从stackIn中出栈一个元素，并压入stackOut中，那么这时stackOut中的出栈顺序则变成了左孩子-&gt;右孩子-&gt;根节点的顺序，也就符合了后序遍历的规则。</p>
-<h2 id="层次遍历"><a href="#层次遍历" class="headerlink" title="层次遍历"></a>层次遍历</h2><p>使用了一个队列来辅助实现，队列是遵循FIFO（先进先出）的，与栈刚好相反，所以，我们这里只需要按照根节点-&gt;左孩子-&gt;右孩子的入队顺序依次入队，输出时就可以符合根节点-&gt;左孩子-&gt;右孩子的规则了。</p>
-<h1 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h1><p>广度与深度遍历</p>
-<p>广度：队列<br>深度：栈</p>
-<h1 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h1><p>哈希（散列）技术既是一种存储方法，也是一种查找方法。</p>
-<h2 id="构造哈希函数的方法"><a href="#构造哈希函数的方法" class="headerlink" title="构造哈希函数的方法"></a>构造哈希函数的方法</h2><p>构造哈希函数的目标在于使哈希地址尽可能均匀地分布在连续的内存单元地址上，以减少发生冲突的可能性，同时使计算尽可能简单以达到尽可能高的时间效率，这里主要看看两个构造哈希函数的方法。</p>
-<p>　　（1）直接地址法</p>
-<p>　　直接地址法取关键字的某个线性函数值为哈希地址，即h(key)=key 或 h(key)=a*key+b</p>
-<p>　　其中，a、b均为常数，这样的散列函数优点就是简单、均匀，也不会产生冲突，但问题是这需要事先知道关键字的分布情况，适合查找表较小且连续的情况。由于这样的限制，在现实应用中，此方法虽然简单，但却并不常用。</p>
-<p>　　（2）除留余数法</p>
-<p>　　除留余数法采用取模运算（%）把关键字除以某个不大于哈希表表长的整数得到的余数作为哈希地址，它也是最常用的构造哈希函数的方法，其形式为：h(key)=key%p</p>
-<h2 id="解决哈希冲突的方法"><a href="#解决哈希冲突的方法" class="headerlink" title="解决哈希冲突的方法"></a>解决哈希冲突的方法</h2><p>（1）闭散列法</p>
-<p>　　闭散列法时把所有的元素都存储在哈希表数组中，当发生冲突时，在冲突位置的附近寻找可存放记录的空单元。寻找“下一个”空位的过程则称为探测。</p>
-<p>（2）开散列法</p>
-<p>　　开散列法的常见形式是将所有关键字为同义词的记录存储在一个单链表中。我们称这种表为同义词子表，在散列表中只存储所有同义词子表的头指针。</p>
-<h1 id="book"><a href="#book" class="headerlink" title="book"></a>book</h1><ul>
-<li>算法图解</li>
-<li>编程之法：面试和算法心得</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/06/20/算法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1775,7 +2936,7 @@ git cherry-pick
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 yhcao
+    		&copy; 2019 yhcao
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -2587,6 +3748,34 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">并行</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">URL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">解密</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">字符转换</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">FTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">加解密</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据签名</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数字证书</a>
               </li>
             
             <div class="clearfix"></div>

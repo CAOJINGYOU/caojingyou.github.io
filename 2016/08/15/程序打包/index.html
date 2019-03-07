@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2016/08/15/程序打包/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="Visual Studio InstallerVS2010程序打包操作 使用Windows Installer 4.0作为安装程序包 InstallShieldInstallShield使用完全教程 探索InstallShield——制作一个完整的应用程序安装实例 一个完整的Installshield安装程序实例  从Visual Studio 2012开始，微软就把自家原来的安装与部署工具彻底废">
-<meta property="og:updated_time" content="2018-11-27T01:31:27.187Z">
+<meta property="og:updated_time" content="2019-01-23T08:52:23.017Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="程序打包">
 <meta name="twitter:description" content="Visual Studio InstallerVS2010程序打包操作 使用Windows Installer 4.0作为安装程序包 InstallShieldInstallShield使用完全教程 探索InstallShield——制作一个完整的应用程序安装实例 一个完整的Installshield安装程序实例  从Visual Studio 2012开始，微软就把自家原来的安装与部署工具彻底废">
@@ -192,6 +192,7 @@
 <p><a href="http://www.cnblogs.com/wuhuacong/p/4438761.html" target="_blank" rel="noopener">Visual Studio InstallShield</a></p>
 <h1 id="Inno"><a href="#Inno" class="headerlink" title="Inno"></a>Inno</h1><p><a href="http://blog.csdn.net/ruifangcui7758/article/details/6662646" target="_blank" rel="noopener">Inno setup 简单打包教程</a> </p>
 <p>帮助文档：<a href="http://www.jrsoftware.org/ishelp" target="_blank" rel="noopener">http://www.jrsoftware.org/ishelp</a></p>
+<p><a href="https://github.com/jrsoftware/issrc" target="_blank" rel="noopener">https://github.com/jrsoftware/issrc</a></p>
 <p>官网上下载的不能新建中文项目，所以还是到网上找汉化版的吧。</p>
 <pre><code>&quot;ISCC.exe&quot; &quot;%~dp0..\Inno Setup\PeriodicalEditor.iss&quot;
 </code></pre><p>语言包列表</p>
@@ -485,7 +486,101 @@ case CurPageID of
 end;
 Result := IsSetup;
 end;
-</code></pre><h2 id="inno-setup读取注册表遇到的一个坑"><a href="#inno-setup读取注册表遇到的一个坑" class="headerlink" title="inno setup读取注册表遇到的一个坑"></a>inno setup读取注册表遇到的一个坑</h2><p>64位操作系统读取注册表问题：</p>
+</code></pre><h2 id="修改文件某行"><a href="#修改文件某行" class="headerlink" title="修改文件某行"></a>修改文件某行</h2><pre><code>procedure test2();
+var
+  fileName,tempStr:String;
+  svArray: TArrayOfString;
+  nLines,i:Integer; 
+begin 
+  fileName := ExpandConstant(&apos;{app}\Apache\conf\httpd.conf&apos;);
+  LoadStringsFromFile(fileName, svArray);
+  nLines := GetArrayLength(svArray); 
+  for i := 0 to nLines - 1 do
+  begin
+    tempStr := svArray[i];
+    if (1 = Pos(&apos;ServerRoot&apos;, tempStr)) then　　　　//Pos函数，判断当前行是否含有&apos;ServerRoot&apos;子串，返回1表示在1的位置找到子串，若不能找到该子串返回0
+    begin
+      svArray[i] := ExpandConstant(&apos;ServerRoot &quot;{app}\Apache\&quot;&apos;);　　//修改开头是&apos;ServerRoot&apos;那行文本，此时只是修改内存数据的内容，并未写入文件
+      StringChangeEx(svArray[i], &apos;\&apos;, &apos;/&apos;, True);　　　　　　//StringChangeEx函数，将字符串中所有的符号\替换为符号/
+    end;
+    if (1 = Pos(&apos;Listen&apos;, tempStr)) then 　　　　　　　　//找到端口配置行
+      svArray[i] := &apos;Listen 80&apos;;　　　　　　　　　　　　//修改Apache端口号
+    if (1 = Pos(&apos;DocumentRoot&apos;, tempStr)) then
+    begin 
+      svArray[i] := ExpandConstant(&apos;DocumentRoot &quot;{app}\Apache\htdocs&quot;&apos;);
+      StringChangeEx(svArray[i], &apos;\&apos;, &apos;/&apos;, True);
+    end;
+    if ((1 = Pos(&apos;&lt;Directory&apos;, tempStr)) and (Pos(&apos;htdocs&apos;, tempStr) &gt; 1)) then
+    begin
+      svArray[i] := ExpandConstant(&apos;&lt;Directory &quot;{app}\Apache\htdocs&quot;&gt;&apos;);
+      StringChangeEx(svArray[i], &apos;\&apos;, &apos;/&apos;, True);
+    end;
+  end;
+  SaveStringsToFile(fileName, svArray, false);　　　　//最后从内存写回原文件,false表示不追加直接覆盖之前所有内容
+end;
+</code></pre><h2 id="查看是否安装运行库"><a href="#查看是否安装运行库" class="headerlink" title="查看是否安装运行库"></a>查看是否安装运行库</h2><pre><code>var
+    vcSP1Missing: Boolean;
+function NeedInstallVCSP1(): Boolean;
+begin
+ Result := vcSP1Missing;
+end;
+
+function InitializeSetup(): Boolean;
+begin
+ vcSP1Missing := true;
+ if RegKeyExists(HKLM, &apos;SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\{710f4c1c-cc18-4c49-8cbf-51240c89a1a2}&apos;)
+ then
+   begin
+     vcSP1Missing := false;
+   end;
+ result := true;
+end;
+</code></pre><ul>
+<li><a href="http://www.microsoft.com/download/en/details.aspx?id=26347" target="_blank" rel="noopener">Visual C++ 2005 SP1 MFC Security Update Redistributable Package (x86)</a> {710F4C1C-CC18-4C49-8CBF-51240C89A1A2}</li>
+<li><a href="http://www.microsoft.com/downloads/details.aspx?FamilyID=C32F406A-F8FC-4164-B6EB-5328B8578F03" target="_blank" rel="noopener">Visual C++ 2010 SP1 Redistributable Package (x86)</a> {F0C3E5D1-1ADE-321E-8167-68EF0DE699A5}</li>
+</ul>
+<h2 id="软件是否运行"><a href="#软件是否运行" class="headerlink" title="软件是否运行"></a>软件是否运行</h2><pre><code>function IsAppRunning(const FileName : string): Boolean;
+var 
+ProcessRunState :Integer;
+begin
+    result := false;
+    Exec(&apos;cmd.exe&apos;, Format(&apos;/C tasklist|findstr /i %s&apos;,[FileName]), &apos;&apos;, SW_HIDE,ewWaitUntilTerminated, ProcessRunState); 
+    if (ProcessRunState = 0) then
+    begin
+        result := true;
+    end;
+end;
+</code></pre><h2 id="修改背景图"><a href="#修改背景图" class="headerlink" title="修改背景图"></a>修改背景图</h2><pre><code>WizardImageFile=myimage.bmp,myimage2.bmp
+
+100%    164x314
+125%    192x386
+150%    246x459
+175%    273x556
+200%    328x604
+225%    355x700
+250%    410x797
+
+WizardSmallImageFile=mysmallimage.bmp,mysmallimage2.bmp
+
+100%    55x55
+125%    64x68
+150%    83x80
+175%    92x97
+200%    110x106
+225%    119x123
+250%    138x140
+</code></pre><h2 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h2><p><a href="https://jingyan.baidu.com/article/11c17a2c065713f446e39dc1.html" target="_blank" rel="noopener">https://jingyan.baidu.com/article/11c17a2c065713f446e39dc1.html</a></p>
+<p><a href="http://cicada.bajiaohuixiang.com/article/snapshot?id=92&amp;type=clean" target="_blank" rel="noopener">http://cicada.bajiaohuixiang.com/article/snapshot?id=92&amp;type=clean</a></p>
+<h2 id="其他文档"><a href="#其他文档" class="headerlink" title="其他文档"></a>其他文档</h2><p><a href="https://wenku.baidu.com/view/433aaa5f2e3f5727a5e96225.html" target="_blank" rel="noopener">Inno Setup 常量与Windows环境变量的对应</a></p>
+<p><a href="https://www.remobjects.com/ps.aspx" target="_blank" rel="noopener">RemObjects Pascal脚本</a></p>
+<p><a href="http://www.jrsoftware.org/ishelp/index.php?topic=scriptintro" target="_blank" rel="noopener">Pascal Scripting: Support Functions Reference</a></p>
+<p><a href="https://www.bbsmax.com/A/QW5YX47MJm/" target="_blank" rel="noopener">Inno Setup脚本语法大全</a></p>
+<p><a href="https://www.cnblogs.com/hbcppcdr/p/6236252.html" target="_blank" rel="noopener">使用Inno Setup函数修改文件内容</a></p>
+<p><a href="https://www.codeproject.com/Articles/20868/NET-Framework-Installer-for-InnoSetup" target="_blank" rel="noopener">模块化InnoSetup依赖安装程序</a></p>
+<p><a href="https://docs.microsoft.com/en-us/windows/desktop/msi/installer-function-reference" target="_blank" rel="noopener">判断已安装运行库版本</a></p>
+<p><a href="https://blog.csdn.net/chenguangxing3/article/details/16331441" target="_blank" rel="noopener">MsiQueryProductState</a></p>
+<p><a href="https://www.freepascal.org/" target="_blank" rel="noopener">免费pascal</a></p>
+<h2 id="inno-setup读取注册表遇到的一个坑"><a href="#inno-setup读取注册表遇到的一个坑" class="headerlink" title="inno setup读取注册表遇到的一个坑"></a>inno setup读取注册表遇到的一个坑</h2><p>64位操作系统读取注册表问题：</p>
 <pre><code>function GetInstallString(): String;
 var
   sInstallPath: String;
@@ -699,7 +794,7 @@ end;
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 yhcao
+    		&copy; 2019 yhcao
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -1511,6 +1606,34 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">并行</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">URL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">解密</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">字符转换</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">FTP</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">加解密</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数据签名</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">数字证书</a>
               </li>
             
             <div class="clearfix"></div>
