@@ -649,7 +649,12 @@ convert DSC_0023.jpg -canny 0x1 -negate canny_ship.jpg
 </code></pre><p>它可以将一系列的图片缩略图放在一张图片中，这样就会非常有用。例如可以使用下面的命令来完成上面的任务：</p>
 <pre><code>montage -label %d/%f -title 2017 -tile 5x -resize 10% -geometry +4+4 2017/0[1-4]/*/*.JPG 2017JanApr.jpg
 </code></pre><p>从左到右，这个命令以标签开头，标签的形式是包含文件名（%f）和以 / 分割的目录（%d）结构，接着这个命令以目录的名称（2017）来作为标题，然后将图片排成 5 列，每个图片缩放为 10% （这个参数可以很好地匹配我的屏幕）。geometry 的设定将在每张图片的四周留白，最后指定那些图片要包括到这张合成图片中，以及一个合适的文件名称（2017JanApr.jpg）。现在图片 2017JanApr.jpg 便可以成为一个索引，使得我可以不时地使用它来查看这个时期的所有图片。</p>
-<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<h1 id="GraphicsMagick"><a href="#GraphicsMagick" class="headerlink" title="GraphicsMagick"></a>GraphicsMagick</h1><p>给图片加水印</p>
+<pre><code>gm composite -gravity southeast -dissolve 50 &quot;x:\waterPage.jpg&quot; &quot;x:\t1.jpg&quot; &quot;x:t2_watermark.jpg&quot;
+</code></pre><p>GraphicsMagick-1.3.5-Q8版本会去掉图片的ICC信息，使用GraphicsMagick-1.3.30-Q16版本即可</p>
+<p>输出ICC信息：</p>
+<pre><code>gm convert &quot;x:\t1.jpg&quot; &quot;x:\exifdata.app1&quot;
+</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
 <li><a href="http://www.imagemagick.org/script/index.php" target="_blank" rel="noopener">http://www.imagemagick.org/script/index.php</a></li>
 <li><a href="http://www.imagemagick.com.cn/" target="_blank" rel="noopener">http://www.imagemagick.com.cn/</a></li>
 <li><a href="http://www.imagemagick.org/script/download.php" target="_blank" rel="noopener">http://www.imagemagick.org/script/download.php</a></li>
@@ -664,7 +669,6 @@ convert DSC_0023.jpg -canny 0x1 -negate canny_ship.jpg
 <li><a href="https://legacy.imagemagick.org/script/ImageMagickObject.php" target="_blank" rel="noopener">https://legacy.imagemagick.org/script/ImageMagickObject.php</a></li>
 <li><a href="https://legacy.imagemagick.org/script/ImageMagickObject.php" target="_blank" rel="noopener">http://imagemagick.org/Magick++/</a></li>
 <li><a href="https://www.imagemagick.org/discourse-server/" target="_blank" rel="noopener">https://www.imagemagick.org/discourse-server/</a></li>
-<li><a href="http://dahua2.blog.163.com/blog/static/1748435142015317633489/" target="_blank" rel="noopener">http://dahua2.blog.163.com/blog/static/1748435142015317633489/</a></li>
 <li><a href="http://www.tuicool.com/articles/NvYfi2" target="_blank" rel="noopener">http://www.tuicool.com/articles/NvYfi2</a></li>
 <li><a href="http://www.tuicool.com/articles/6fyI7z" target="_blank" rel="noopener">http://www.tuicool.com/articles/6fyI7z</a></li>
 <li><a href="http://www.tuicool.com/articles/NN3M7fv" target="_blank" rel="noopener">http://www.tuicool.com/articles/NN3M7fv</a></li>
@@ -2583,6 +2587,64 @@ ExeCmd(_T(&quot;identify -format &quot;%[colorspace]&quot; E:\\P70306-163226.jpg
 
     return bRet;
 }
+</code></pre><h1 id="C-调用外部程序"><a href="#C-调用外部程序" class="headerlink" title="C++调用外部程序"></a>C++调用外部程序</h1><p>三个SDK函数: WinExec， ShellExecute，CreateProcess</p>
+<p>ShellExecute</p>
+<pre><code>void mySystem(CString cmd, CString par, int nShow)
+{
+    SHELLEXECUTEINFO ShExecInfo = {0};
+    ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
+    ShExecInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
+    ShExecInfo.hwnd = NULL;
+    ShExecInfo.lpVerb = NULL;
+    ShExecInfo.lpFile = cmd;//调用的程序名
+    ShExecInfo.lpParameters = par;//调用程序的命令行参数
+    ShExecInfo.lpDirectory = NULL;
+    ShExecInfo.nShow = SW_HIDE;//窗口状态为隐藏
+    ShExecInfo.hInstApp = NULL;
+    ShellExecuteEx(&amp;ShExecInfo); //启动新的程序
+    WaitForSingleObject(ShExecInfo.hProcess,INFINITE);////等到该进程结束
+}
+</code></pre><p>CreateProcess</p>
+<pre><code>PROCESS_INFORMATION pi;
+DWORD dwExitCode;
+
+//Spawn the child process.
+BOOL fSuccess = CreateProcess(..., ...);
+
+if(fSuccess)
+{
+    //Close the thread handle as soon as
+    //it is no longer needed!
+    CloseHandle(pi.hThread);
+
+    //Suspend our execution until
+    //the child has terminated.
+    WaitForSingleObject(pi.hProcess, INFINITE);
+
+    //The child process terminated;
+    //get its exit code.
+    GetExitCodeProcess(pi.hProcess,
+                       &amp;dwExitCode);
+
+    //Close the process handle as soon as
+    //it is no longer needed.
+    CloseHandle(pi.hProcess);
+}
+
+TCHAR szCommandLine[] = TEXT(&quot;.\\ffplay.exe  -window_title CDFacePlay -exitonkeydown -exitonmousedown  -fs -autoexit .\\video.mp4&quot;);
+
+    STARTUPINFO si = { sizeof(si) };
+    PROCESS_INFORMATION  pi; 
+    si.wShowWindow = FALSE;
+    si.dwFlags = STARTF_USESHOWWINDOW;
+    BOOL ret = ::CreateProcess(NULL, szCommandLine, NULL, NULL, FALSE, 0, NULL, NULL, &amp;si, &amp;pi);
+    if (ret)
+    {
+        WaitForSingleObject(pi.hProcess, INFINITE);//等待进程完成
+    }
+
+    CloseHandle(pi.hThread);
+    CloseHandle(pi.hProcess);
 </code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
 <li><a href="http://blog.csdn.net/lgh1700/article/details/7713500" title="http://blog.csdn.net/lgh1700/article/details/7713500" target="_blank" rel="noopener">C++获取外部exe程序的返回值 </a></li>
 <li><a href="http://www.cnblogs.com/acloud/archive/2012/08/30/2663395.html" target="_blank" rel="noopener">调用命令行程序并获取返回信息</a></li>

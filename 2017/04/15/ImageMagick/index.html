@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2017/04/15/ImageMagick/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="[ Unix 源码安装 | Windows 源码安装 ]首先检查一下电脑里已经安装的ImageMagick版本，输入： convert -version 除非你想要把对另外的图像格式的支持或升级一个较新的版本，否则你可能不需要ImageMagick的源码安装。 你也可以安装预先编译二进位版本。然而，如果你仍然想要从源码安装，请选择一个平台，Unix 或 Windows。在源码安装之前，你可能要回顾">
-<meta property="og:updated_time" content="2018-12-26T10:03:38.812Z">
+<meta property="og:updated_time" content="2019-04-02T07:45:56.049Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ImageMagick">
 <meta name="twitter:description" content="[ Unix 源码安装 | Windows 源码安装 ]首先检查一下电脑里已经安装的ImageMagick版本，输入： convert -version 除非你想要把对另外的图像格式的支持或升级一个较新的版本，否则你可能不需要ImageMagick的源码安装。 你也可以安装预先编译二进位版本。然而，如果你仍然想要从源码安装，请选择一个平台，Unix 或 Windows。在源码安装之前，你可能要回顾">
@@ -455,7 +455,12 @@ convert DSC_0023.jpg -canny 0x1 -negate canny_ship.jpg
 </code></pre><p>它可以将一系列的图片缩略图放在一张图片中，这样就会非常有用。例如可以使用下面的命令来完成上面的任务：</p>
 <pre><code>montage -label %d/%f -title 2017 -tile 5x -resize 10% -geometry +4+4 2017/0[1-4]/*/*.JPG 2017JanApr.jpg
 </code></pre><p>从左到右，这个命令以标签开头，标签的形式是包含文件名（%f）和以 / 分割的目录（%d）结构，接着这个命令以目录的名称（2017）来作为标题，然后将图片排成 5 列，每个图片缩放为 10% （这个参数可以很好地匹配我的屏幕）。geometry 的设定将在每张图片的四周留白，最后指定那些图片要包括到这张合成图片中，以及一个合适的文件名称（2017JanApr.jpg）。现在图片 2017JanApr.jpg 便可以成为一个索引，使得我可以不时地使用它来查看这个时期的所有图片。</p>
-<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
+<h1 id="GraphicsMagick"><a href="#GraphicsMagick" class="headerlink" title="GraphicsMagick"></a>GraphicsMagick</h1><p>给图片加水印</p>
+<pre><code>gm composite -gravity southeast -dissolve 50 &quot;x:\waterPage.jpg&quot; &quot;x:\t1.jpg&quot; &quot;x:t2_watermark.jpg&quot;
+</code></pre><p>GraphicsMagick-1.3.5-Q8版本会去掉图片的ICC信息，使用GraphicsMagick-1.3.30-Q16版本即可</p>
+<p>输出ICC信息：</p>
+<pre><code>gm convert &quot;x:\t1.jpg&quot; &quot;x:\exifdata.app1&quot;
+</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
 <li><a href="http://www.imagemagick.org/script/index.php" target="_blank" rel="noopener">http://www.imagemagick.org/script/index.php</a></li>
 <li><a href="http://www.imagemagick.com.cn/" target="_blank" rel="noopener">http://www.imagemagick.com.cn/</a></li>
 <li><a href="http://www.imagemagick.org/script/download.php" target="_blank" rel="noopener">http://www.imagemagick.org/script/download.php</a></li>
@@ -470,7 +475,6 @@ convert DSC_0023.jpg -canny 0x1 -negate canny_ship.jpg
 <li><a href="https://legacy.imagemagick.org/script/ImageMagickObject.php" target="_blank" rel="noopener">https://legacy.imagemagick.org/script/ImageMagickObject.php</a></li>
 <li><a href="https://legacy.imagemagick.org/script/ImageMagickObject.php" target="_blank" rel="noopener">http://imagemagick.org/Magick++/</a></li>
 <li><a href="https://www.imagemagick.org/discourse-server/" target="_blank" rel="noopener">https://www.imagemagick.org/discourse-server/</a></li>
-<li><a href="http://dahua2.blog.163.com/blog/static/1748435142015317633489/" target="_blank" rel="noopener">http://dahua2.blog.163.com/blog/static/1748435142015317633489/</a></li>
 <li><a href="http://www.tuicool.com/articles/NvYfi2" target="_blank" rel="noopener">http://www.tuicool.com/articles/NvYfi2</a></li>
 <li><a href="http://www.tuicool.com/articles/6fyI7z" target="_blank" rel="noopener">http://www.tuicool.com/articles/6fyI7z</a></li>
 <li><a href="http://www.tuicool.com/articles/NN3M7fv" target="_blank" rel="noopener">http://www.tuicool.com/articles/NN3M7fv</a></li>

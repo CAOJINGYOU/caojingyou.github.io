@@ -845,40 +845,52 @@ s = urllib.quote(s)
 <p><a href="https://www.jianshu.com/p/338fb8eaf2b4" target="_blank" rel="noopener">C++11新特性转换GB2312(ANSI)、UTF8、Unicode编码文件</a></p>
 <p>在windows平台下sizeof(wchar_t)为2，而在linux平台下sizeof(wchar_t)为4；<br>在windows平台下宽字符(或字符串)字面量使用UTF-16编码，linux平台下使用UTF-32编码。</p>
 <h2 id="MultiByteToWideChar、WideCharToMultiByte"><a href="#MultiByteToWideChar、WideCharToMultiByte" class="headerlink" title="MultiByteToWideChar、WideCharToMultiByte"></a>MultiByteToWideChar、WideCharToMultiByte</h2><pre><code>std::string UTF8ToGBK(const std::string&amp; strUTF8)
-    {
-        int len = MultiByteToWideChar(CP_UTF8, 0, strUTF8.c_str(), -1, NULL, 0);
-        WCHAR* wszGBK = new WCHAR[len + 1];
-        memset(wszGBK, 0, len * 2 + 2);
-        MultiByteToWideChar(CP_UTF8, 0, (LPCSTR)(LPCTSTR)strUTF8.c_str(), -1, wszGBK, len);
+{
+    int len = MultiByteToWideChar(CP_UTF8, 0, strUTF8.c_str(), -1, NULL, 0);
+    WCHAR* wszGBK = new WCHAR[len + 1];
+    memset(wszGBK, 0, len * 2 + 2);
+    MultiByteToWideChar(CP_UTF8, 0, (LPCSTR)(LPCTSTR)strUTF8.c_str(), -1, wszGBK, len);
 
-        len = WideCharToMultiByte(CP_ACP, 0, wszGBK, -1, NULL, 0, NULL, NULL);
-        char *szGBK = new char[len + 1];
-        memset(szGBK, 0, len + 1);
-        WideCharToMultiByte(CP_ACP, 0, wszGBK, -1, szGBK, len, NULL, NULL);
-        std::string strTemp(szGBK);
-        delete[]szGBK;
-        delete[]wszGBK;
-        return strTemp;
-    }
+    len = WideCharToMultiByte(CP_ACP, 0, wszGBK, -1, NULL, 0, NULL, NULL);
+    char *szGBK = new char[len + 1];
+    memset(szGBK, 0, len + 1);
+    WideCharToMultiByte(CP_ACP, 0, wszGBK, -1, szGBK, len, NULL, NULL);
+    std::string strTemp(szGBK);
+    delete[]szGBK;
+    delete[]wszGBK;
+    return strTemp;
+}
 
-    std::string GBKToUTF8(const std::string&amp; strGBK)
-    {
-        std::string strOutUTF8 = &quot;&quot;;
-        WCHAR * str1;
-        int n = MultiByteToWideChar(CP_ACP, 0, strGBK.c_str(), -1, NULL, 0);
-        str1 = new WCHAR[n];
-        MultiByteToWideChar(CP_ACP, 0, strGBK.c_str(), -1, str1, n);
-        n = WideCharToMultiByte(CP_UTF8, 0, str1, -1, NULL, 0, NULL, NULL);
-        char * str2 = new char[n];
-        WideCharToMultiByte(CP_UTF8, 0, str1, -1, str2, n, NULL, NULL);
-        strOutUTF8 = str2;
-        delete[]str1;
-        str1 = NULL;
-        delete[]str2;
-        str2 = NULL;
-        return strOutUTF8;
-    }
-</code></pre><h2 id="ATL封装-bstr"><a href="#ATL封装-bstr" class="headerlink" title="ATL封装_bstr_"></a>ATL封装<code>_bstr_</code></h2><pre><code>#include &lt;comutil.h&gt;  
+std::string GBKToUTF8(const std::string&amp; strGBK)
+{
+    std::string strOutUTF8 = &quot;&quot;;
+    WCHAR * str1;
+    int n = MultiByteToWideChar(CP_ACP, 0, strGBK.c_str(), -1, NULL, 0);
+    str1 = new WCHAR[n];
+    MultiByteToWideChar(CP_ACP, 0, strGBK.c_str(), -1, str1, n);
+    n = WideCharToMultiByte(CP_UTF8, 0, str1, -1, NULL, 0, NULL, NULL);
+    char * str2 = new char[n];
+    WideCharToMultiByte(CP_UTF8, 0, str1, -1, str2, n, NULL, NULL);
+    strOutUTF8 = str2;
+    delete[]str1;
+    str1 = NULL;
+    delete[]str2;
+    str2 = NULL;
+    return strOutUTF8;
+}
+</code></pre><p>MultiByteToWideChar、WideCharToMultiByte可以改变多字节与宽字节</p>
+<p>CodePage参数控制字符集：</p>
+<p>CodePage——指定要转换成的字符集代码页，它可以是任何已经安装的或系统自带的字符集，可选择以下代码页：</p>
+<pre><code>CP_ACP   //当前系统ANSI代码页 
+CP_MACCP   //当前系统Macintosh代码页 
+CP_OEMCP   //当前系统OEM代码页，一种原始设备制造商硬件扫描码 
+CP_SYMBOL //Symbol代码页，用于Windows 2000及以后版本
+CP_THREAD_ACP //当前线程ANSI代码页，用于Windows 2000及以后版本
+CP_UTF7 //UTF-7，设置此值时lpDefaultChar和lpUsedDefaultChar都必须为NULL 
+CP_UTF8 //UTF-8，设置此值时lpDefaultChar和lpUsedDefaultChar都必须为NULL
+</code></pre><p>用 GetLocaleInfo 函数获取当前系统的代码页，936: 简体中文, 950: 繁体中文，949：韩文</p>
+<p><a href="https://docs.microsoft.com/zh-cn/windows/desktop/Intl/code-page-identifiers" target="_blank" rel="noopener">Code Page Identifiers</a></p>
+<h2 id="ATL封装-bstr"><a href="#ATL封装-bstr" class="headerlink" title="ATL封装_bstr_"></a>ATL封装<code>_bstr_</code></h2><pre><code>#include &lt;comutil.h&gt;  
 #pragma comment(lib, &quot;comsuppw.lib&quot;)
 
 string ws2s(const wstring&amp; ws)
@@ -1646,6 +1658,37 @@ int main()
     wcout &lt;&lt; basicstring &lt;&lt; endl;
 
     delete orig;
+}
+</code></pre><h1 id="字符串Format实现"><a href="#字符串Format实现" class="headerlink" title="字符串Format实现"></a>字符串Format实现</h1><p><a href="https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/vscprintf-vscprintf-l-vscwprintf-vscwprintf-l?view=vs-2017" target="_blank" rel="noopener">_vscprintf，_vscprintf_l，_vscwprintf，_vscwprintf_l</a></p>
+<p><a href="https://docs.microsoft.com/en-us/cpp/c-runtime-library/reference/vsprintf-vsprintf-l-vswprintf-vswprintf-l-vswprintf-l?view=vs-2017" target="_blank" rel="noopener">vsprintf, _vsprintf_l, vswprintf, _vswprintf_l, __vswprintf_l</a></p>
+<pre><code>void PrintWide ( const TCHAR * format, ... )
+{
+    TCHAR buffer[256];
+    va_list args;
+    va_start ( args, format );
+    _vstprintf ( buffer, 256, format, args );
+    va_end ( args );
+}
+
+void test( TCHAR * format, ... )
+{
+    va_list args;
+    int     len;
+    TCHAR    *buffer;
+
+    // retrieve the variable arguments
+    va_start( args, format );
+
+    len = _vsctprintf( format, args ) // _vscprintf doesn&apos;t count
+        + 1; // terminating &apos;\0&apos;
+
+    buffer = (TCHAR*)malloc( len * sizeof(TCHAR) );
+
+    _vstprintf( buffer, format, args ); // C4996
+    // Note: vsprintf is deprecated; consider using vsprintf_s instead
+
+    free( buffer );
+    va_end( args );
 }
 </code></pre>
       

@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2017/01/13/C++获取外部exe程序的返回值，判断图片颜色模式/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="C++获取外部exe程序的返回值#include &amp;quot;stdafx.h&amp;quot; #include &amp;lt;Windows.h&amp;gt; #include &amp;lt;iostream&amp;gt; using namespace std;  int _tmain(int argc, _TCHAR *argv[]) {     STARTUPINFOA si;     PROCESS_INFORMA">
-<meta property="og:updated_time" content="2018-07-18T02:04:44.144Z">
+<meta property="og:updated_time" content="2019-03-12T10:13:34.605Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="C++获取外部exe程序的返回值，判断图片颜色模式">
 <meta name="twitter:description" content="C++获取外部exe程序的返回值#include &amp;quot;stdafx.h&amp;quot; #include &amp;lt;Windows.h&amp;gt; #include &amp;lt;iostream&amp;gt; using namespace std;  int _tmain(int argc, _TCHAR *argv[]) {     STARTUPINFOA si;     PROCESS_INFORMA">
@@ -364,6 +364,64 @@ ExeCmd(_T(&quot;identify -format &quot;%[colorspace]&quot; E:\\P70306-163226.jpg
 
     return bRet;
 }
+</code></pre><h1 id="C-调用外部程序"><a href="#C-调用外部程序" class="headerlink" title="C++调用外部程序"></a>C++调用外部程序</h1><p>三个SDK函数: WinExec， ShellExecute，CreateProcess</p>
+<p>ShellExecute</p>
+<pre><code>void mySystem(CString cmd, CString par, int nShow)
+{
+    SHELLEXECUTEINFO ShExecInfo = {0};
+    ShExecInfo.cbSize = sizeof(SHELLEXECUTEINFO);
+    ShExecInfo.fMask = SEE_MASK_NOCLOSEPROCESS;
+    ShExecInfo.hwnd = NULL;
+    ShExecInfo.lpVerb = NULL;
+    ShExecInfo.lpFile = cmd;//调用的程序名
+    ShExecInfo.lpParameters = par;//调用程序的命令行参数
+    ShExecInfo.lpDirectory = NULL;
+    ShExecInfo.nShow = SW_HIDE;//窗口状态为隐藏
+    ShExecInfo.hInstApp = NULL;
+    ShellExecuteEx(&amp;ShExecInfo); //启动新的程序
+    WaitForSingleObject(ShExecInfo.hProcess,INFINITE);////等到该进程结束
+}
+</code></pre><p>CreateProcess</p>
+<pre><code>PROCESS_INFORMATION pi;
+DWORD dwExitCode;
+
+//Spawn the child process.
+BOOL fSuccess = CreateProcess(..., ...);
+
+if(fSuccess)
+{
+    //Close the thread handle as soon as
+    //it is no longer needed!
+    CloseHandle(pi.hThread);
+
+    //Suspend our execution until
+    //the child has terminated.
+    WaitForSingleObject(pi.hProcess, INFINITE);
+
+    //The child process terminated;
+    //get its exit code.
+    GetExitCodeProcess(pi.hProcess,
+                       &amp;dwExitCode);
+
+    //Close the process handle as soon as
+    //it is no longer needed.
+    CloseHandle(pi.hProcess);
+}
+
+TCHAR szCommandLine[] = TEXT(&quot;.\\ffplay.exe  -window_title CDFacePlay -exitonkeydown -exitonmousedown  -fs -autoexit .\\video.mp4&quot;);
+
+    STARTUPINFO si = { sizeof(si) };
+    PROCESS_INFORMATION  pi; 
+    si.wShowWindow = FALSE;
+    si.dwFlags = STARTF_USESHOWWINDOW;
+    BOOL ret = ::CreateProcess(NULL, szCommandLine, NULL, NULL, FALSE, 0, NULL, NULL, &amp;si, &amp;pi);
+    if (ret)
+    {
+        WaitForSingleObject(pi.hProcess, INFINITE);//等待进程完成
+    }
+
+    CloseHandle(pi.hThread);
+    CloseHandle(pi.hProcess);
 </code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
 <li><a href="http://blog.csdn.net/lgh1700/article/details/7713500" title="http://blog.csdn.net/lgh1700/article/details/7713500" target="_blank" rel="noopener">C++获取外部exe程序的返回值 </a></li>
 <li><a href="http://www.cnblogs.com/acloud/archive/2012/08/30/2663395.html" target="_blank" rel="noopener">调用命令行程序并获取返回信息</a></li>

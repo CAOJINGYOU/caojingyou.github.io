@@ -1377,19 +1377,19 @@ TEST(BoostThread, BoostFuture)
 
 
   
-    <article id="post-Socket" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Socket与FTP" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/28/Socket/">Socket</a>
+      <a class="article-title" href="/2018/05/28/Socket与FTP/">Socket与FTP</a>
     </h1>
   
 
         
-        <a href="/2018/05/28/Socket/" class="archive-article-date">
+        <a href="/2018/05/28/Socket与FTP/" class="archive-article-date">
   	<time datetime="2018-05-28T07:59:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-28</time>
 </a>
         
@@ -1421,6 +1421,7 @@ TEST(BoostThread, BoostFuture)
 <p>STOR: 上传文件。“STOR file.txt\r\n”：上传文件 file.txt。</p>
 <p>REST: 该命令并不传送文件，而是略过指定点后的数据。此命令后应该跟其它要求文件传输的 FTP 命令。“REST 100\r\n”：重新指定文件传送的偏移量为 100 字节。</p>
 <p>QUIT: 关闭与服务器的连接。</p>
+<p>FEAT: 获得服务器支持的特性列表</p>
 <h2 id="FTP-响应码"><a href="#FTP-响应码" class="headerlink" title="FTP 响应码"></a>FTP 响应码</h2><p>客户端发送 FTP 命令后，服务器返回响应码。</p>
 <p>响应码用三位数字编码表示：</p>
 <p>第一个数字给出了命令状态的一般性指示，比如响应成功、失败或不完整。</p>
@@ -1657,6 +1658,15 @@ lseek(file_handle, offset, SEEK_SET);
 ... ...
 </code></pre><p><a href="http://www.w3.org/Protocols/rfc959/" target="_blank" rel="noopener">FILE TRANSFER PROTOCOL (FTP)</a></p>
 <p><a href="http://en.wikipedia.org/wiki/File_Transfer_Protocol" target="_blank" rel="noopener">FILE TRANSFER PROTOCOL</a></p>
+<h1 id="RFC文档"><a href="#RFC文档" class="headerlink" title="RFC文档"></a>RFC文档</h1><p><a href="http://www.kaiyuanba.cn/content/develop/rfc/default.htm" target="_blank" rel="noopener">RFC文档目录</a></p>
+<p><a href="https://blog.csdn.net/cswodi/article/details/7868275" target="_blank" rel="noopener">FTP RFC 959 中文版</a></p>
+<p><a href="https://blog.csdn.net/weiyuefei/article/details/51758288" target="_blank" rel="noopener">FTP协议（指令集)</a></p>
+<p><a href="https://blog.csdn.net/qq981378640/article/details/51254177" target="_blank" rel="noopener">FTP命令字和响应码</a></p>
+<p><a href="http://www.cnpaf.net/class/rfcall/" target="_blank" rel="noopener">协议分析网</a></p>
+<p><a href="https://docs.oracle.com/cd/E56344_01/html/E54075/ftp-1.html" target="_blank" rel="noopener">ORACLE FTP</a></p>
+<p><a href="https://zh.wikipedia.org/wiki/FTP%E5%91%BD%E4%BB%A4%E5%88%97%E8%A1%A8" target="_blank" rel="noopener">FTP命令列表</a></p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><h2 id="FTP客户端如何判断FTP服务端的编码（解决中文乱码）"><a href="#FTP客户端如何判断FTP服务端的编码（解决中文乱码）" class="headerlink" title="FTP客户端如何判断FTP服务端的编码（解决中文乱码）"></a><a href="https://blog.csdn.net/qiuxin315/article/details/19199485" target="_blank" rel="noopener">FTP客户端如何判断FTP服务端的编码（解决中文乱码）</a></h2><p>可通过设置FTP服务器OPTS UTF8 ON，也可FTP客户端传送命令(<a href="https://docs.microsoft.com/zh-cn/cpp/mfc/reference/cftpconnection-class?view=vs-2017#command" target="_blank" rel="noopener">CFtpConnection::Command</a>)，也可以把乱码GBK转为UTF-8</p>
+<p><a href="https://tools.ietf.org/html/draft-ietf-ftpext-utf-8-option-00" target="_blank" rel="noopener">FTP的UTF-8选项</a></p>
 <h1 id="book"><a href="#book" class="headerlink" title="book"></a>book</h1><p>《TCP/IP网络编程》</p>
 <p>《Windows网络编程》</p>
 
@@ -1694,7 +1704,7 @@ lseek(file_handle, offset, SEEK_SET);
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/28/Socket/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/05/28/Socket与FTP/">展开全文 >></a>
         </p>
       
 
@@ -3445,7 +3455,7 @@ void operator delete[](void *p)
 {
     MemTrack::TrackFree(p);
 }
-</code></pre><h1 id="Valgrind"><a href="#Valgrind" class="headerlink" title="Valgrind"></a><a href="http://valgrind.org/" target="_blank" rel="noopener">Valgrind</a></h1><h1 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h1><p><a href="http://blog.chenxu.me/post/detail?id=f4301bf3-3709-4c8f-8a45-9b9015909ce2" target="_blank" rel="noopener">Visual Studio 调试扫盲</a></p>
+</code></pre><h1 id="Valgrind"><a href="#Valgrind" class="headerlink" title="Valgrind"></a><a href="http://valgrind.org/" target="_blank" rel="noopener">Valgrind</a></h1><h1 id="AppVerifier"><a href="#AppVerifier" class="headerlink" title="AppVerifier"></a>AppVerifier</h1><h1 id="其他："><a href="#其他：" class="headerlink" title="其他："></a>其他：</h1><p><a href="http://blog.chenxu.me/post/detail?id=f4301bf3-3709-4c8f-8a45-9b9015909ce2" target="_blank" rel="noopener">Visual Studio 调试扫盲</a></p>
 <p><a href="https://www.jianshu.com/p/c6f0939d512e" target="_blank" rel="noopener">Dump调试</a></p>
 <p><a href="http://fresky.github.io/tags/Debug/" target="_blank" rel="noopener">http://fresky.github.io/tags/Debug/</a></p>
 
