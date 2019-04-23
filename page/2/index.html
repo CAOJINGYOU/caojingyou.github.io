@@ -406,6 +406,147 @@ git cherry-pick
 
 
   
+    <article id="post-算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/20/算法/">算法</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/20/算法/" class="archive-article-date">
+  	<time datetime="2018-06-20T01:12:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="判断是否是2的幂"><a href="#判断是否是2的幂" class="headerlink" title="判断是否是2的幂"></a>判断是否是2的幂</h1><p><a href="https://www.exploringbinary.com/ten-ways-to-check-if-an-integer-is-a-power-of-two-in-c/" target="_blank" rel="noopener">https://www.exploringbinary.com/ten-ways-to-check-if-an-integer-is-a-power-of-two-in-c/</a></p>
+<p><a href="https://blog.csdn.net/K346K346/article/details/53316953" target="_blank" rel="noopener">https://blog.csdn.net/K346K346/article/details/53316953</a></p>
+<p>Shift Right</p>
+<pre><code>int isPowerOfTwo (unsigned int x)
+{
+ while (((x &amp; 1) == 0) &amp;&amp; x &gt; 1) /* While x is even and &gt; 1 */
+   x &gt;&gt;= 1;
+ return (x == 1);
+}
+</code></pre><p>Decrement and Compare</p>
+<pre><code>int isPowerOfTwo (unsigned int x)
+{
+  return ((x != 0) &amp;&amp; !(x &amp; (x - 1)));
+}
+</code></pre><p>Complement and Compare</p>
+<pre><code>int isPowerOfTwo (unsigned int x)
+{
+  return ((x != 0) &amp;&amp; ((x &amp; (~x + 1)) == x));
+}
+</code></pre><h1 id="常用排序算法总结"><a href="#常用排序算法总结" class="headerlink" title="常用排序算法总结"></a>常用排序算法总结</h1><p><a href="https://mp.weixin.qq.com/s?__biz=MzI1MTIzMzI2MA==&amp;mid=2650562536&amp;idx=1&amp;sn=76435fe625722e05c08a118a07c72839&amp;chksm=f1fee96bc689607d35158022250756fbe9230dd633e7760efd51124c9891ede8eefed60fe01f&amp;scene=0#rd" target="_blank" rel="noopener">常用排序算法总结（1）</a></p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzI1MTIzMzI2MA==&amp;mid=2650562543&amp;idx=1&amp;sn=c82892b85e1de790766896c6d80d7b3c&amp;chksm=f1fee96cc689607a11ccc109098d070d38ef0bad61c0390fe01348b631bbd492945b6f2b0601&amp;scene=0#rd" target="_blank" rel="noopener">常用排序算法总结（2）</a></p>
+<h2 id="排序算法大体可分为两种："><a href="#排序算法大体可分为两种：" class="headerlink" title="排序算法大体可分为两种："></a>排序算法大体可分为两种：</h2><p>一种是比较排序，时间复杂度O(nlogn) ~ O(n^2)，主要有：冒泡排序，选择排序，插入排序，归并排序，堆排序，快速排序等。</p>
+<p>另一种是非比较排序，时间复杂度可以达到O(n)，主要有：计数排序，基数排序，桶排序等。</p>
+<p><img src="https://i.imgur.com/Vu6SiPi.jpg" alt=""></p>
+<p>排序算法稳定性的简单形式化定义为：如果Ai = Aj，排序前Ai在Aj之前，排序后Ai还在Aj之前，则称这种排序算法是稳定的。</p>
+<h1 id="算法图解"><a href="#算法图解" class="headerlink" title="算法图解"></a>算法图解</h1><ul>
+<li>选择排序</li>
+<li>递归</li>
+<li>快速排序</li>
+<li>散列表</li>
+<li>广度优先搜索</li>
+<li>狄克斯特拉算法</li>
+<li>贪婪算法</li>
+<li>动态规划</li>
+<li>K最近邻算法</li>
+</ul>
+<h1 id="常用算法的时间复杂度"><a href="#常用算法的时间复杂度" class="headerlink" title="常用算法的时间复杂度"></a><a href="http://bigocheatsheet.com/" target="_blank" rel="noopener">常用算法的时间复杂度</a></h1><p><img src="https://i.imgur.com/rNBfUlV.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/0qxpoTW.jpg" alt=""></p>
+<p><img src="https://i.imgur.com/jzva3QU.jpg" alt=""></p>
+<h1 id="二叉树遍历"><a href="#二叉树遍历" class="headerlink" title="二叉树遍历"></a>二叉树遍历</h1><h2 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h2><p>利用了栈的先进后出的特性，首先遍历显示根节点，然后将右子树（注意是右子树不是左子树）压栈，最后将左子树压栈。由于最后时将左子树节点压栈，所以下一次首先出栈的应该是左子树的根节点，也就保证了先序遍历的规则。</p>
+<h2 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h2><p>首先将根节点所有的左子树节点压栈，然后一一出栈，每当出栈一个元素后，便将其右子树节点压栈。这样就可以实现首先出栈的永远是栈中的左子树节点，然后是根节点，最后时右子树节点，也就可以保证中序遍历的规则。</p>
+<h2 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h2><p>使用了两个栈来辅助，其中一个stackIn作为中间存储起到过渡作用，而另一个stackOut则作为最后的输出结果进行遍历显示。众所周知，栈的特性使LIFO（后进先出），那么stackIn在进行存储过渡时，先按照根节点-&gt;左孩子-&gt;右孩子的顺序依次压栈，那么其出栈顺序就是右孩子-&gt;左孩子-&gt;根节点。而每当循环一次就会从stackIn中出栈一个元素，并压入stackOut中，那么这时stackOut中的出栈顺序则变成了左孩子-&gt;右孩子-&gt;根节点的顺序，也就符合了后序遍历的规则。</p>
+<h2 id="层次遍历"><a href="#层次遍历" class="headerlink" title="层次遍历"></a>层次遍历</h2><p>使用了一个队列来辅助实现，队列是遵循FIFO（先进先出）的，与栈刚好相反，所以，我们这里只需要按照根节点-&gt;左孩子-&gt;右孩子的入队顺序依次入队，输出时就可以符合根节点-&gt;左孩子-&gt;右孩子的规则了。</p>
+<h1 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h1><p>广度与深度遍历</p>
+<p>广度：队列<br>深度：栈</p>
+<h1 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h1><p>哈希（散列）技术既是一种存储方法，也是一种查找方法。</p>
+<h2 id="构造哈希函数的方法"><a href="#构造哈希函数的方法" class="headerlink" title="构造哈希函数的方法"></a>构造哈希函数的方法</h2><p>构造哈希函数的目标在于使哈希地址尽可能均匀地分布在连续的内存单元地址上，以减少发生冲突的可能性，同时使计算尽可能简单以达到尽可能高的时间效率，这里主要看看两个构造哈希函数的方法。</p>
+<p>　　（1）直接地址法</p>
+<p>　　直接地址法取关键字的某个线性函数值为哈希地址，即h(key)=key 或 h(key)=a*key+b</p>
+<p>　　其中，a、b均为常数，这样的散列函数优点就是简单、均匀，也不会产生冲突，但问题是这需要事先知道关键字的分布情况，适合查找表较小且连续的情况。由于这样的限制，在现实应用中，此方法虽然简单，但却并不常用。</p>
+<p>　　（2）除留余数法</p>
+<p>　　除留余数法采用取模运算（%）把关键字除以某个不大于哈希表表长的整数得到的余数作为哈希地址，它也是最常用的构造哈希函数的方法，其形式为：h(key)=key%p</p>
+<h2 id="解决哈希冲突的方法"><a href="#解决哈希冲突的方法" class="headerlink" title="解决哈希冲突的方法"></a>解决哈希冲突的方法</h2><p>（1）闭散列法</p>
+<p>　　闭散列法时把所有的元素都存储在哈希表数组中，当发生冲突时，在冲突位置的附近寻找可存放记录的空单元。寻找“下一个”空位的过程则称为探测。</p>
+<p>（2）开散列法</p>
+<p>　　开散列法的常见形式是将所有关键字为同义词的记录存储在一个单链表中。我们称这种表为同义词子表，在散列表中只存储所有同义词子表的头指针。</p>
+<h1 id="book"><a href="#book" class="headerlink" title="book"></a>book</h1><ul>
+<li>算法图解</li>
+<li>编程之法：面试和算法心得</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/20/算法/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Linux与Qt程序设计-读书笔记" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -676,147 +817,6 @@ if(!db.open())
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/06/20/Linux与Qt程序设计-读书笔记/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-算法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/06/20/算法/">算法</a>
-    </h1>
-  
-
-        
-        <a href="/2018/06/20/算法/" class="archive-article-date">
-  	<time datetime="2018-06-20T01:12:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-20</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="判断是否是2的幂"><a href="#判断是否是2的幂" class="headerlink" title="判断是否是2的幂"></a>判断是否是2的幂</h1><p><a href="https://www.exploringbinary.com/ten-ways-to-check-if-an-integer-is-a-power-of-two-in-c/" target="_blank" rel="noopener">https://www.exploringbinary.com/ten-ways-to-check-if-an-integer-is-a-power-of-two-in-c/</a></p>
-<p><a href="https://blog.csdn.net/K346K346/article/details/53316953" target="_blank" rel="noopener">https://blog.csdn.net/K346K346/article/details/53316953</a></p>
-<p>Shift Right</p>
-<pre><code>int isPowerOfTwo (unsigned int x)
-{
- while (((x &amp; 1) == 0) &amp;&amp; x &gt; 1) /* While x is even and &gt; 1 */
-   x &gt;&gt;= 1;
- return (x == 1);
-}
-</code></pre><p>Decrement and Compare</p>
-<pre><code>int isPowerOfTwo (unsigned int x)
-{
-  return ((x != 0) &amp;&amp; !(x &amp; (x - 1)));
-}
-</code></pre><p>Complement and Compare</p>
-<pre><code>int isPowerOfTwo (unsigned int x)
-{
-  return ((x != 0) &amp;&amp; ((x &amp; (~x + 1)) == x));
-}
-</code></pre><h1 id="常用排序算法总结"><a href="#常用排序算法总结" class="headerlink" title="常用排序算法总结"></a>常用排序算法总结</h1><p><a href="https://mp.weixin.qq.com/s?__biz=MzI1MTIzMzI2MA==&amp;mid=2650562536&amp;idx=1&amp;sn=76435fe625722e05c08a118a07c72839&amp;chksm=f1fee96bc689607d35158022250756fbe9230dd633e7760efd51124c9891ede8eefed60fe01f&amp;scene=0#rd" target="_blank" rel="noopener">常用排序算法总结（1）</a></p>
-<p><a href="https://mp.weixin.qq.com/s?__biz=MzI1MTIzMzI2MA==&amp;mid=2650562543&amp;idx=1&amp;sn=c82892b85e1de790766896c6d80d7b3c&amp;chksm=f1fee96cc689607a11ccc109098d070d38ef0bad61c0390fe01348b631bbd492945b6f2b0601&amp;scene=0#rd" target="_blank" rel="noopener">常用排序算法总结（2）</a></p>
-<h2 id="排序算法大体可分为两种："><a href="#排序算法大体可分为两种：" class="headerlink" title="排序算法大体可分为两种："></a>排序算法大体可分为两种：</h2><p>一种是比较排序，时间复杂度O(nlogn) ~ O(n^2)，主要有：冒泡排序，选择排序，插入排序，归并排序，堆排序，快速排序等。</p>
-<p>另一种是非比较排序，时间复杂度可以达到O(n)，主要有：计数排序，基数排序，桶排序等。</p>
-<p><img src="https://i.imgur.com/Vu6SiPi.jpg" alt=""></p>
-<p>排序算法稳定性的简单形式化定义为：如果Ai = Aj，排序前Ai在Aj之前，排序后Ai还在Aj之前，则称这种排序算法是稳定的。</p>
-<h1 id="算法图解"><a href="#算法图解" class="headerlink" title="算法图解"></a>算法图解</h1><ul>
-<li>选择排序</li>
-<li>递归</li>
-<li>快速排序</li>
-<li>散列表</li>
-<li>广度优先搜索</li>
-<li>狄克斯特拉算法</li>
-<li>贪婪算法</li>
-<li>动态规划</li>
-<li>K最近邻算法</li>
-</ul>
-<h1 id="常用算法的时间复杂度"><a href="#常用算法的时间复杂度" class="headerlink" title="常用算法的时间复杂度"></a><a href="http://bigocheatsheet.com/" target="_blank" rel="noopener">常用算法的时间复杂度</a></h1><p><img src="https://i.imgur.com/rNBfUlV.jpg" alt=""></p>
-<p><img src="https://i.imgur.com/0qxpoTW.jpg" alt=""></p>
-<p><img src="https://i.imgur.com/jzva3QU.jpg" alt=""></p>
-<h1 id="二叉树遍历"><a href="#二叉树遍历" class="headerlink" title="二叉树遍历"></a>二叉树遍历</h1><h2 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h2><p>利用了栈的先进后出的特性，首先遍历显示根节点，然后将右子树（注意是右子树不是左子树）压栈，最后将左子树压栈。由于最后时将左子树节点压栈，所以下一次首先出栈的应该是左子树的根节点，也就保证了先序遍历的规则。</p>
-<h2 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h2><p>首先将根节点所有的左子树节点压栈，然后一一出栈，每当出栈一个元素后，便将其右子树节点压栈。这样就可以实现首先出栈的永远是栈中的左子树节点，然后是根节点，最后时右子树节点，也就可以保证中序遍历的规则。</p>
-<h2 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h2><p>使用了两个栈来辅助，其中一个stackIn作为中间存储起到过渡作用，而另一个stackOut则作为最后的输出结果进行遍历显示。众所周知，栈的特性使LIFO（后进先出），那么stackIn在进行存储过渡时，先按照根节点-&gt;左孩子-&gt;右孩子的顺序依次压栈，那么其出栈顺序就是右孩子-&gt;左孩子-&gt;根节点。而每当循环一次就会从stackIn中出栈一个元素，并压入stackOut中，那么这时stackOut中的出栈顺序则变成了左孩子-&gt;右孩子-&gt;根节点的顺序，也就符合了后序遍历的规则。</p>
-<h2 id="层次遍历"><a href="#层次遍历" class="headerlink" title="层次遍历"></a>层次遍历</h2><p>使用了一个队列来辅助实现，队列是遵循FIFO（先进先出）的，与栈刚好相反，所以，我们这里只需要按照根节点-&gt;左孩子-&gt;右孩子的入队顺序依次入队，输出时就可以符合根节点-&gt;左孩子-&gt;右孩子的规则了。</p>
-<h1 id="图的遍历"><a href="#图的遍历" class="headerlink" title="图的遍历"></a>图的遍历</h1><p>广度与深度遍历</p>
-<p>广度：队列<br>深度：栈</p>
-<h1 id="散列表"><a href="#散列表" class="headerlink" title="散列表"></a>散列表</h1><p>哈希（散列）技术既是一种存储方法，也是一种查找方法。</p>
-<h2 id="构造哈希函数的方法"><a href="#构造哈希函数的方法" class="headerlink" title="构造哈希函数的方法"></a>构造哈希函数的方法</h2><p>构造哈希函数的目标在于使哈希地址尽可能均匀地分布在连续的内存单元地址上，以减少发生冲突的可能性，同时使计算尽可能简单以达到尽可能高的时间效率，这里主要看看两个构造哈希函数的方法。</p>
-<p>　　（1）直接地址法</p>
-<p>　　直接地址法取关键字的某个线性函数值为哈希地址，即h(key)=key 或 h(key)=a*key+b</p>
-<p>　　其中，a、b均为常数，这样的散列函数优点就是简单、均匀，也不会产生冲突，但问题是这需要事先知道关键字的分布情况，适合查找表较小且连续的情况。由于这样的限制，在现实应用中，此方法虽然简单，但却并不常用。</p>
-<p>　　（2）除留余数法</p>
-<p>　　除留余数法采用取模运算（%）把关键字除以某个不大于哈希表表长的整数得到的余数作为哈希地址，它也是最常用的构造哈希函数的方法，其形式为：h(key)=key%p</p>
-<h2 id="解决哈希冲突的方法"><a href="#解决哈希冲突的方法" class="headerlink" title="解决哈希冲突的方法"></a>解决哈希冲突的方法</h2><p>（1）闭散列法</p>
-<p>　　闭散列法时把所有的元素都存储在哈希表数组中，当发生冲突时，在冲突位置的附近寻找可存放记录的空单元。寻找“下一个”空位的过程则称为探测。</p>
-<p>（2）开散列法</p>
-<p>　　开散列法的常见形式是将所有关键字为同义词的记录存储在一个单链表中。我们称这种表为同义词子表，在散列表中只存储所有同义词子表的头指针。</p>
-<h1 id="book"><a href="#book" class="headerlink" title="book"></a>book</h1><ul>
-<li>算法图解</li>
-<li>编程之法：面试和算法心得</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">算法</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/06/20/算法/">展开全文 >></a>
         </p>
       
 

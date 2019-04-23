@@ -160,800 +160,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-VC程序获取管理员权限" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/10/01/VC程序获取管理员权限/">VC程序获取管理员权限</a>
-    </h1>
-  
-
-        
-        <a href="/2017/10/01/VC程序获取管理员权限/" class="archive-article-date">
-  	<time datetime="2017-10-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-10-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="一："><a href="#一：" class="headerlink" title="一："></a>一：</h1><p>编译程序的时候设置一下<br>在项目属性–连接器–清单文件–UAC执行级别改为requireAdministrator</p>
-<h1 id="二："><a href="#二：" class="headerlink" title="二："></a>二：</h1><pre><code>void GainAdminPrivileges(CString strApp, UINT idd)
-{
-    CString         strCmd;
-    strCmd.Format (_T(&quot;/adminoption %d&quot;), idd);
-
-    SHELLEXECUTEINFO execinfo;
-    memset(&amp;execinfo, 0, sizeof(execinfo));
-    execinfo.lpFile         = strApp;
-    execinfo.cbSize         = sizeof(execinfo);
-    execinfo.lpVerb         = _T(&quot;runas&quot;);
-    execinfo.fMask          = SEE_MASK_NO_CONSOLE;
-    execinfo.nShow          = SW_SHOWDEFAULT;
-    execinfo.lpParameters   = strCmd;
-
-    ShellExecuteEx(&amp;execinfo);
-}  
-</code></pre><p>strApp是应用程序的路径idd我传的是1，但好像传几都没问题</p>
-<pre><code>BOOL ElevateCurrentProcess(CString sCmdLine)
-{
-    TCHAR szPath[MAX_PATH] = {0};
-
-    if (::GetModuleFileName(NULL, szPath, MAX_PATH))
-    {
-        // Launch itself as administrator.
-        SHELLEXECUTEINFO sei = { sizeof(SHELLEXECUTEINFO) };
-        sei.lpVerb = _T(&quot;runas&quot;);
-        sei.lpFile = szPath;
-        sei.lpParameters = (LPCTSTR)sCmdLine;
-        //     sei.hwnd = hWnd;
-        sei.nShow = SW_SHOWNORMAL;
-
-        if (!ShellExecuteEx(&amp;sei))
-        {
-            DWORD dwStatus = GetLastError();
-            if (dwStatus == ERROR_CANCELLED)
-            {
-                // The user refused to allow privileges elevation.
-                return FALSE;
-            }
-            else if (dwStatus == ERROR_FILE_NOT_FOUND)
-            {
-                // The file defined by lpFile was not found and
-                // an error message popped up.
-                return FALSE;
-            }
-            return FALSE;
-        }
-        return TRUE;
-    }
-    return FALSE;
-}
-</code></pre><h1 id="三"><a href="#三" class="headerlink" title="三"></a>三</h1><p><a href="https://msdn.microsoft.com/en-us/library/bb756973.aspx" target="_blank" rel="noopener">为Windows Vista设计UAC应用程序</a></p>
-<p><a href="https://msdn.microsoft.com/en-us/library/bb756929.aspx" target="_blank" rel="noopener">创建和嵌入应用程序清单（UAC）</a></p>
-<p>不要将每用户信息或用户可写信息写入Program Files或Program目录。</p>
-<p>不要在文件系统中使用硬编码路径。利用KnownFolders API和ShGetFolder查找数据写入位置。</p>
-<h2 id="测试应用程序的应用程序兼容性"><a href="#测试应用程序的应用程序兼容性" class="headerlink" title="测试应用程序的应用程序兼容性"></a>测试应用程序的应用程序兼容性</h2><p>通过安装标准用户分析器，可以轻松地执行与UAC的应用程序兼容性测试。标准用户分析器可以从Microsoft网站（<a href="http://go.microsoft.com/fwlink/?LinkId=71359" target="_blank" rel="noopener">http://go.microsoft.com/fwlink/?LinkId=71359</a>）免费下载。</p>
-<p>要使用标准用户分析器的图形日志显示，必须安装Microsoft Application Verifier。Application Verifier可以在Microsoft网站上免费下载（<a href="http://go.microsoft.com/fwlink/?LinkId=71506" target="_blank" rel="noopener">http://go.microsoft.com/fwlink/?LinkId=71506</a>）。</p>
-<h3 id="Microsoft应用程序兼容性工具包5-0"><a href="#Microsoft应用程序兼容性工具包5-0" class="headerlink" title="Microsoft应用程序兼容性工具包5.0"></a>Microsoft应用程序兼容性工具包5.0</h3><p>Microsoft应用程序兼容性工具包（ACT）5.0是一个生命周期管理工具，可帮助识别和管理整个应用程序组合，减少解决应用程序兼容性问题所涉及的成本和时间，并帮助您快速部署Windows Vista和Windows更新。</p>
-<h2 id="应用兼容性"><a href="#应用兼容性" class="headerlink" title="应用兼容性"></a>应用兼容性</h2><p><a href="https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-vista/cc507853(v%3dtechnet.10" target="_blank" rel="noopener">https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-vista/cc507853(v%3dtechnet.10)</a>)</p>
-<h2 id="在标准用户帐户下运行和测试"><a href="#在标准用户帐户下运行和测试" class="headerlink" title="在标准用户帐户下运行和测试"></a>在标准用户帐户下运行和测试</h2><p>如果您正在编写非管理应用程序（如LOB应用程序或用户应用程序，如游戏），则必须始终将应用程序数据写入标准用户可以访问的位置。以下是一些建议的要求：</p>
-<p>将每用户数据写入用户配置文件：CSIDL_APPDATA。</p>
-<p>将每台计算机数据写入Users \ All Users \ Application Data：CSIDL_COMMON_APPDATA。</p>
-<p>应用程序不能依赖任何管理API。例如，期望成功调用SetTokenInformation（）Windows函数的程序将在标准用户帐户下失败。</p>
-<h2 id="使用HWND属性作为前景应用程序被确认"><a href="#使用HWND属性作为前景应用程序被确认" class="headerlink" title="使用HWND属性作为前景应用程序被确认"></a>使用HWND属性作为前景应用程序被确认</h2><p>某些前台应用程序当前在Windows Vista上作为后台应用程序提示。此行为是缺少父HWND的结果。为了确保Windows Vista将您的应用程序确认为前台应用程序，您必须使用ShellExecute，CoCreateInstanceAsAdmin或托管代码调用传递父HWND。</p>
-<p>UAC提升机制使用HWND作为确定高程是背景高程还是前景高程的一部分。如果确定应用程序是后台应用程序，则将高程作为闪烁按钮放在任务栏上。在升级将继续之前，用户必须单击该按钮，就像请求前台访问的任何应用程序一样。即使应用程序实际上可能具有前景，但未传递HWND也会导致这种情况发生。</p>
-<p>以下代码示例说明了如何使用ShellExecute传递HWND：</p>
-<pre><code>BOOL RunAsAdmin( HWND hWnd, LPTSTR lpFile, LPTSTR lpParameters )
-{
-    SHELLEXECUTEINFO   sei;
-    ZeroMemory ( &amp;sei, sizeof(sei) );
-
-    sei.cbSize          = sizeof(SHELLEXECUTEINFOW);
-    sei.hwnd            = hWnd;
-    sei.fMask           = SEE_MASK_FLAG_DDEWAIT | SEE_MASK_FLAG_NO_UI;
-    sei.lpVerb          = _TEXT(&quot;runas&quot;);
-    sei.lpFile          = lpFile;
-    sei.lpParameters    = lpParameters;
-    sei.nShow           = SW_SHOWNORMAL;
-
-    if ( ! ShellExecuteEx ( &amp;sei ) )
-    {
-        printf( &quot;Error: ShellExecuteEx failed 0x%x\n&quot;, GetLastError() );
-        return FALSE;
-    }
-    return TRUE;
-}
-</code></pre><p>以下代码示例说明了如何使用高程名字对象通过CoCreateInstanceAsAdmin传递HWND。它假定您已经在当前线程上初始化了COM。</p>
-<pre><code>HRESULT CoCreateInstanceAsAdmin(HWND hwnd, REFCLSID rclsid, REFIID riid, __out void ** ppv)
-{
-    BIND_OPTS3 bo;
-    WCHAR  wszCLSID[50];
-    WCHAR  wszMonikerName[300];
-
-    StringFromGUID2(rclsid, wszCLSID,   
-                    sizeof(wszCLSID)/sizeof(wszCLSID[0])); 
-    HRESULT hr = StringCchPrintf(wszMonikerName,  
-                      sizeof(wszMonikerName)/sizeof(wszMonikerName[0]), L&quot;Elevation:Administrator!new:%s&quot;, wszCLSID);
-    if (FAILED(hr))
-        return hr;
-    memset(&amp;bo, 0, sizeof(bo));
-    bo.cbStruct = sizeof(bo);
-    bo.hwnd = hwnd;
-    bo.dwClassContext  = CLSCTX_LOCAL_SERVER;
-    return CoGetObject(wszMonikerName, &amp;bo, riid, ppv);
-}
-</code></pre><p>BIND_OPTS3是Windows Vista中的新增功能。它源自BIND_OPTS2。它的定义如下：</p>
-<pre><code>typedef struct tagBIND_OPTS3 : tagBIND_OPTS2
-{
-    HWND hwnd;
-} BIND_OPTS3, * LPBIND_OPTS3;
-</code></pre><p>唯一的补充是HWND字段，hwnd。此句柄表示在启用安全桌面提示时成为提升UI所有者的窗口。</p>
-<p>以下代码示例说明了如何在托管代码中传递HWND以确保父对话框知道HWND及其使用。</p>
-<p>System.Diagnostics.Process newProcess = new System.Diagnostics.Process();<br>System.Diagnostics.ProcessStartInfo info = new System.Diagnostics.ProcessStartInfo(“D:\SomeProgram.exe”);<br>info.UseShellExecute = true;<br>info.ErrorDialog = true;<br>info.ErrorDialogParentHandle = this.Handle;<br>newProcess.StartInfo = info;<br>newProcess.Start();</p>
-<h2 id="不要在用户的登录路径中提示高程"><a href="#不要在用户的登录路径中提示高程" class="headerlink" title="不要在用户的登录路径中提示高程"></a>不要在用户的登录路径中提示高程</h2><p>现在，在登录路径中阻止了在用户登录并要求提升时启动的应用程序。如果不阻止应用程序提示用户登录路径中的提升，标准用户和管理员都必须在每次登录时响应“用户帐户控制”对话框。Windows Vista通过在系统托盘中放置图标来通知用户是否已阻止应用程序。然后，用户可以右键单击此图标以运行在用户登录时被阻止提示提升的应用程序。此外，用户可以通过双击托盘图标来管理禁用或从此列表中删除的启动应用程序。</p>
-<h2 id="不要使用Runas启动高架流程"><a href="#不要使用Runas启动高架流程" class="headerlink" title="不要使用Runas启动高架流程"></a>不要使用Runas启动高架流程</h2><p>如果您的应用程序要求用户使用其他用户帐户运行部分应用程序，请确保公开带有命令提示符选项的runas命令。</p>
-<p>用户必须在命令提示符处使用runas命令才能以另一个用户身份运行应用程序。</p>
-<p>无论是具有备份操作员或管理员等权限的标准用户，runas都无法启动具有提升访问令牌的应用程序。该运行方式命令授予用户推出不同的凭据的应用程序的能力。使用不同帐户启动应用程序的最佳方法是使用服务以编程方式执行操作，而不是依赖用户以不同的用户身份运行组件。如果您的程序以编程方式使用runas命令，请确保它不打算启动提升的进程。</p>
-<h2 id="帮助识别管理员的API"><a href="#帮助识别管理员的API" class="headerlink" title="帮助识别管理员的API"></a>帮助识别管理员的API</h2><p>IsUserAnAdmin（）</p>
-<p>GetTokenInformation（）</p>
-<h2 id="注册表-处理管理员和标准用户之间本质上不同的访问权限"><a href="#注册表-处理管理员和标准用户之间本质上不同的访问权限" class="headerlink" title="注册表/处理管理员和标准用户之间本质上不同的访问权限"></a>注册表/处理管理员和标准用户之间本质上不同的访问权限</h2><p>MAXIMUM_ALLOWED</p>
-<p>KEY_WRITE</p>
-<p>DELETE（应用于注册表项时）</p>
-<p>其他类似HKLM的关键字（在XP上以MAXIMUM_ALLOWED打开）：</p>
-<p>SHELLKEY_HKLM_EXPLORER</p>
-<p>SHELLKEY_HKLM_SHELL</p>
-<h2 id="其他重定向到HKLM注册表值和虚拟化的API将适用"><a href="#其他重定向到HKLM注册表值和虚拟化的API将适用" class="headerlink" title="其他重定向到HKLM注册表值和虚拟化的API将适用"></a>其他重定向到HKLM注册表值和虚拟化的API将适用</h2><p>WritePrivateProfileString（,,, “SYSTEM.INI”）;</p>
-<p>CheckSectionAccess（ “SYSTEM.INI”，…）;</p>
-<h2 id="重新设计用于UAC兼容性的UI"><a href="#重新设计用于UAC兼容性的UI" class="headerlink" title="重新设计用于UAC兼容性的UI"></a>重新设计用于UAC兼容性的UI</h2><h3 id="将Shield图标添加到用户界面"><a href="#将Shield图标添加到用户界面" class="headerlink" title="将Shield图标添加到用户界面"></a>将Shield图标添加到用户界面</h3><p>添加一个小图标：</p>
-<pre><code>#include &lt;shellapi.h&gt;
-SHSTOCKICONINFO sii;
-sii.cbSize = sizeof（sii）;
-SHGetStockIconInfo（SIID_SHIELD，SHGSI_ICON | SHGSI_SMALLICON，＆sii）;
-hiconShield = sii.hIcon;
-</code></pre><p>添加一个大图标：</p>
-<pre><code>SHSTOCKICONINFO sii;
-sii.cbSize = sizeof（sii）;
-SHGetStockIconInfo（SIID_SHIELD，SHGSI_ICON | SHGSI_LARGEICON，＆sii）;
-hiconShield = sii.hIcon;
-</code></pre><p>添加自定义尺寸的图标：</p>
-<pre><code>SHSTOCKICONINFO sii;
-sii.cbSize = sizeof（sii）;
-SHGetStockIconInfo（SIID_SHIELD，SHGSI_ICONLOCATION，＆sii）;
-hiconShield = ExtractIconEx（sii ....）;
-</code></pre><h3 id="将一个盾牌图标添加到按钮"><a href="#将一个盾牌图标添加到按钮" class="headerlink" title="将一个盾牌图标添加到按钮"></a>将一个盾牌图标添加到按钮</h3><p>标准按钮控件（PUSHBUTTON，DEFPUSHBUTTON）已得到增强，允许您添加图标以及显示的文本，而无需设置BS_ICON或BS_BITMAP样式。</p>
-<p>要显示屏蔽图标，请调用以下宏（在commctrl.h中定义）：</p>
-<pre><code>Button_SetElevationRequiredState（hwndButton，fRequired）;
-</code></pre><p>注意注意<br>hwndButton是按钮的HWND; fRequired确定是显示（TRUE）还是隐藏（FALSE）UAC盾牌图标</p>
-<h3 id="将Shield图标添加到Windows-Installer按钮"><a href="#将Shield图标添加到Windows-Installer按钮" class="headerlink" title="将Shield图标添加到Windows Installer按钮"></a>将Shield图标添加到Windows Installer按钮</h3><p>使用内部表支持创作的Windows Installer对话框可以通过在控件上设置ElevationShield属性为用户界面对话框序列的最后一个按钮添加屏蔽。</p>
-<h3 id="将盾牌图标添加到向导上的“下一步”按钮"><a href="#将盾牌图标添加到向导上的“下一步”按钮" class="headerlink" title="将盾牌图标添加到向导上的“下一步”按钮"></a>将盾牌图标添加到向导上的“下一步”按钮</h3><p>显示UAC防护图标仅在AeroWizards（PSH_AEROWIZARD）中支持“下一步”按钮。</p>
-<p>要在AeroWizard中的特定页面的“下一步”按钮上显示盾牌图标，请使用以下代码：</p>
-<pre><code>case WM_NOTIFY:
-    if (reinterpret_cast&lt;NMHDR*&gt;(lParam)-&gt;code == PSN_SETACTIVE)
-    {
-        // Show next button
-        //
-        // Note new wParam flag -- when PSWIZBF_ELEVATIONREQUIRED flag
-        // is specified, it indicates that the next page will require
-        // elevation, so if the next button is being shown, show it as
-        // a shield button.
-
-        SendMessage(GetParent(hwndDlg), 
-                    PSM_SETWIZBUTTONS, 
-                    PSWIZBF_ELEVATIONREQUIRED, 
-                    PSWIZBF_NEXT);
-
-        // return 0 to accept the activation
-        SetWindowLong(hwndDlg, DWLP_MSGRESULT, 0); 
-    }
-    break;
-</code></pre><h3 id="提升模态对话框"><a href="#提升模态对话框" class="headerlink" title="提升模态对话框"></a>提升模态对话框</h3><p>将对话框移动到COM对象中。</p>
-<p>公开ShowDialog（）方法。</p>
-<p>使用API​​ CoCreateInstanceAsAdmin（）创建COM对象并调用ShowDialog（）。</p>
-<p>在完成提升过程后，此API将以管理员身份运行COM对象的实例。</p>
-<h3 id="何时将Shield图标添加到应用程序的用户界面"><a href="#何时将Shield图标添加到应用程序的用户界面" class="headerlink" title="何时将Shield图标添加到应用程序的用户界面"></a>何时将Shield图标添加到应用程序的用户界面</h3><p>升级的进程或COM对象在不需要提升的情况下启动。用户界面中需要管理员访问令牌的那些项目使用屏蔽图标进行装饰以标识此要求。屏蔽图标装饰向用户指示使用该功能将需要管理员批准。当应用程序检测到已选择其中一个按钮时，它有以下两个选项：</p>
-<p>应用程序使用ShellExeucute（）启动第二个程序来执行管理任务。第二个程序将标记为requireAdeistrator的requestedExecutionLevel，从而导致用户被提示批准。第二个程序将使用完整的管理访问令牌运行，并且能够执行所需的任务。</p>
-<p>要么</p>
-<p>应用程序使用CoCreateInstanceAdmin（）启动COM对象。此API将在批准后使用完整管理访问令牌启动COM对象，并且此COM对象将能够执行所需任务。</p>
-<h2 id="重新设计安装程序（UAC）"><a href="#重新设计安装程序（UAC）" class="headerlink" title="重新设计安装程序（UAC）"></a>重新设计安装程序（UAC）</h2><p><a href="https://www.microsoft.com/zh-CN/download/details.aspx?id=8483" target="_blank" rel="noopener">Windows Installer 4.5 Redistributable - 简体中文</a></p>
-<p>在不同位置安装应用程序并存储每用户数据。应用程序应安装在Programs Files目录下的文件夹中。要进行配置，可以使用Windows Installer程序包的Directory表中的ProgramFilesFolder属性。每用户配置数据应存储在\ Users \ Username \ AppData目录下的文件中，或存储在HKEY_CURRENT_USER根目录下的注册表项中。用户数据，模板和应用程序创建的文件都在\ Users \ Username子目录中具有适当的位置。虽然过去没有强制执行此操作，但由于许多用户将使用完全管理员访问令牌运行程序，因此未将信息放在正确位置的应用程序可能会失败。禁用虚拟化时尤其如此。</p>
-<p>避免在用户登录时自动启动后台应用程序。 虽然可以在安装期间将程序添加到启动组或Run键，但它会增加系统的开销。随着时间的推移，用户计算机的性能会显着降低。如果您的应用程序可以从后台任务中受益，请允许它是用户可配置的。此外，使用HLKM运行密钥添加启动任务可能会阻止标准用户帐户在将来修改该行为。如果用户希望应用程序在登录时启动，请将信息存储在HKEY_CURRENT_USER的运行键中。</p>
-<h2 id="创建和嵌入应用程序清单"><a href="#创建和嵌入应用程序清单" class="headerlink" title="创建和嵌入应用程序清单"></a>创建和嵌入应用程序清单</h2><pre><code>&lt;requestedExecutionLevel
-level=&quot;asInvoker|highestAvailable|requireAdministrator&quot;
-uiAccess=&quot;true|false&quot;/&gt;
-</code></pre><p>asInvoker</p>
-<p>应用程序使用与父进程相同的访问令牌运行。</p>
-<p>推荐用于标准用户应用程序 根据本文档前面提供的指导，使用内部高程点进行折射。</p>
-<p>highestAvailable</p>
-<p>应用程序以当前用户可以获得的最高权限运行。</p>
-<p>推荐用于混合模式应用。计划在将来的版本中折射应用程序。</p>
-<p>requireAdministrator</p>
-<p>该应用程序仅为管理员运行，并要求使用管理员的完全访问令牌启动该应用程序。</p>
-<p>建议仅供管理员使用。不需要内部高程点。该应用程序已经升级。</p>
-<p>uiAccess值<br>可能的uiAccess值</p>
-<p>假</p>
-<p>应用程序不需要将输入驱动到桌面上另一个窗口的用户界面。不提供辅助功能的应用程序应将此标志设置为false。将输入驱动到桌面上的其他窗口（例如，屏幕键盘）所需的应用程序应将此值设置为true。</p>
-<p>真正</p>
-<p>允许应用程序绕过用户界面控制级别，以驱动​​桌面上更高权限窗口的输入。此设置仅应用于用户界面辅助技术应用程序。</p>
-<p>将uiAccess标志设置为true的应用程序必须经过Authenticode签名才能正常启动。此外，应用程序必须位于文件系统中受保护的位置。\ Program Files \和\ windows \ system32 \目前是两个允许的受保护位置。</p>
-<h3 id="如何使用MicrosoftVisualStudio®创建嵌入式清单"><a href="#如何使用MicrosoftVisualStudio®创建嵌入式清单" class="headerlink" title="如何使用MicrosoftVisualStudio®创建嵌入式清单"></a>如何使用MicrosoftVisualStudio®创建嵌入式清单</h3><p>应用程序清单文件应与目标可执行文件具有相同的名称。明确的扩展。例如：IsUserAdmin.exe.manifest。</p>
-<pre><code>Executable: IsUserAdmin.exe 
-Manifest:IsUserAdmin.exe.manifest
-Sample application manifest file:
-&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
-&lt;assembly xmlns=&quot;urn:schemas-microsoft-com:asm.v1&quot; manifestVersion=&quot;1.0&quot;&gt; 
-  &lt;assemblyIdentity version=&quot;1.0.0.0&quot;
-     processorArchitecture=&quot;X86&quot;
-     name=&quot;IsUserAdmin&quot;
-     type=&quot;win32&quot;/&gt; 
-  &lt;description&gt;Description of your application&lt;/description&gt; 
-  &lt;!-- Identify the application security requirements. --&gt;
-  &lt;trustInfo xmlns=&quot;urn:schemas-microsoft-com:asm.v2&quot;&gt;
-    &lt;security&gt;
-      &lt;requestedPrivileges&gt;
-        &lt;requestedExecutionLevel
-          level=&quot;requireAdministrator&quot;
-          uiAccess=&quot;false&quot;/&gt;
-        &lt;/requestedPrivileges&gt;
-       &lt;/security&gt;
-  &lt;/trustInfo&gt;
-&lt;/assembly&gt;
-</code></pre><h3 id="使用适用于Windows-Vista的应用程序的VisualStudio®2005在C-C-代码中构建应用程序清单"><a href="#使用适用于Windows-Vista的应用程序的VisualStudio®2005在C-C-代码中构建应用程序清单" class="headerlink" title="使用适用于Windows Vista的应用程序的VisualStudio®2005在C / C ++代码中构建应用程序清单"></a>使用适用于Windows Vista的应用程序的VisualStudio®2005在C / C ++代码中构建应用程序清单</h3><p>必须通过在应用程序的资源文件中添加一行（.rc文件）将应用程序清单附加到可执行文件，以使Microsoft Visual Studio将您的清单嵌入PE文件的资源部分。要完成此操作，请将应用程序清单放在与要构建的项目的源代码相同的目录中，并编辑资源文件以包含以下行：</p>
-<pre><code>#define MANIFEST_RESOURCE_ID 1 
-MANIFEST_RESOURCE_ID RT_MANIFEST“IsUserAdmin.exe.manifest”
-</code></pre><p>将IsUserAdmin.exe.manifest替换为应用程序清单的名称。重建应用程序后，应用程序清单应嵌入可执行文件的资源部分。</p>
-<p>使用MicrosoftVisualStudio®2005为Windows XP和Windows Vista应用程序构建和嵌入清单<br>在Visual Studio 2005中，允许在目标可执行文件中包含其他清单文件的C / C ++集成开发环境（IDE）接口对XML进行一些处理，这会插入重复的xmlns标记。因此，如果应用程序应在Windows Vista和Windows XP上运行，则无法使用先前记录的有关如何在Visual Studio 2005 C ++项目中包含应用程序清单的方法。修改以下过程以在trustInfo部分中包含显式版本标记。</p>
-<p>计划对mt.exe工具进行修复，以解决在XML中生成重复名称空间声明的问题。在新版本的mt.exe可用之前，您可以通过将版本标记显式添加到清单的trustinfo部分来避免合并应用程序清单的问题。示例应用程序清单如下所示：</p>
-<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
-&lt;assembly xmlns=&quot;urn:schemas-microsoft-com:asm.v1&quot; manifestVersion=&quot;1.0&quot;&gt;
-   &lt;ms_asmv2:trustInfo xmlns:ms_asmv2=&quot;urn:schemas-microsoft- 
-     com:asm.v2&quot;&gt;
-      &lt;ms_asmv2:security&gt;
-         &lt;ms_asmv2:requestedPrivileges&gt;
-            &lt;ms_asmv2:requestedExecutionLevel level=&quot;asInvoker&quot;&gt;
-            &lt;/ms_asmv2:requestedExecutionLevel&gt;
-         &lt;/ms_asmv2:requestedPrivileges&gt;
-      &lt;/ms_asmv2:security&gt;
-   &lt;/ms_asmv2:trustInfo&gt;
-&lt;/assembly&gt;
-</code></pre><h3 id="在Microsoft-Visual-Studio-2005中为C或C-项目创建清单"><a href="#在Microsoft-Visual-Studio-2005中为C或C-项目创建清单" class="headerlink" title="在Microsoft Visual Studio 2005中为C或C ++项目创建清单"></a>在Microsoft Visual Studio 2005中为C或C ++项目创建清单</h3><p>在Microsoft Visual Studio 2005中打开您的项目。</p>
-<p>在Project下，选择Properties。</p>
-<p>在“ 属性”中，选择“清单工具”，然后选择“ 输入和输出”。</p>
-<p>在其他清单文件下添加应用程序清单文件的名称。</p>
-<p>重建您的应用程序。</p>
-<h4 id="vs2005让程序在win7下获得管理员权限"><a href="#vs2005让程序在win7下获得管理员权限" class="headerlink" title="vs2005让程序在win7下获得管理员权限"></a><a href="https://blog.csdn.net/cdsxyx/article/details/50939798" target="_blank" rel="noopener">vs2005让程序在win7下获得管理员权限</a></h4><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;
-&lt;assembly xmlns=&quot;urn:schemas-microsoft-com:asm.v1&quot; manifestVersion=&quot;1.0&quot;&gt;
-  &lt;trustInfo xmlns=&quot;urn:schemas-microsoft-com:asm.v3&quot;&gt;
-    &lt;security&gt;
-      &lt;requestedPrivileges&gt;
-        &lt;requestedExecutionLevel level=&quot;requireAdministrator&quot; uiAccess=&quot;false&quot;/&gt;
-      &lt;/requestedPrivileges&gt;
-    &lt;/security&gt;
-  &lt;/trustInfo&gt;
-&lt;/assembly&gt;
-</code></pre><p>在VS2005的“添加资源”一项里没有找到“添加程序清单”，索性我选择了添加xml文件，并保存为uac.manifest，把以上内容复制到文件中，</p>
-<p>再编译，就生成了启动时会提示UAC提权的提示框。（这种要求UAC提权的程序不能直接用F5调试运行，在VC里如果要直接看效果可以按Ctrl + F5 直接运行）。</p>
-<h3 id="托管代码（C＃，J＃和Visual-Basic）"><a href="#托管代码（C＃，J＃和Visual-Basic）" class="headerlink" title="托管代码（C＃，J＃和Visual Basic）"></a>托管代码（C＃，J＃和Visual Basic）</h3><p>Visual Studio当前未将默认应用程序清单嵌入托管代码中。对于托管代码，开发人员应使用mt.exe将默认应用程序清单插入目标可执行文件中。以下过程详细说明了此过程。</p>
-<p>使用mt.exe将默认清单文件插入目标可执行文件<br>使用文本编辑器（如Windows记事本）创建默认清单文件temp.manifest。</p>
-<p>使用mt.exe插入清单。该命令将是：mt.exe -manifest temp.manifest -outputresource：YourApp.exe;＃1。</p>
-<p>将应用程序清单添加为Visual Studio后期构建中的一个步骤<br>添加应用程序清单也可以作为构建后步骤自动执行。此选项可用于C / C ++以及C＃和J＃的两种托管代码语言。</p>
-<p>要自动添加应用程序清单作为构建后步骤，请将以下行作为后期构建任务放在Visual Studio项目的项目属性中：</p>
-<pre><code>mt.exe -manifest &quot;$(ProjectDir)$(TargetName).exe.manifest&quot; -updateresource:&quot;$(TargetDir)$(TargetName).exe;#1&quot;
-</code></pre><h2 id="Authenticode签名（UAC）"><a href="#Authenticode签名（UAC）" class="headerlink" title="Authenticode签名（UAC）"></a><a href="https://msdn.microsoft.com/en-us/library/bb756995.aspx" target="_blank" rel="noopener">Authenticode签名（UAC）</a></h2><p>WindowsVista®将能够阻止任何未签名的应用程序使用完整的管理员访问令牌启动。如果您希望应用程序在锁定环境中正常运行，同时显示更加用户友好的用户界面，则应使用Authenticode签名进行签名。</p>
-<p>要对应用程序进行签名，您可以从makecert.exe生成证书，也可以从其中一个商业证书颁发机构（CA）获取代码签名密钥，例如VeriSign，Thawte或Microsoft CA.<br>如果您希望在安装应用程序的客户的目标计算机上信任您的应用程序，则需要商业证书。</p>
-<p>如果使用makecert.exe文件生成签名密钥对，请注意它只生成1024位密钥。Authenticode签名应至少具有2048位密钥。makecert.exe文件只应用于测试目的。</p>
-<h1 id="Windows核心编程-进程UAC下以管理员权限运行"><a href="#Windows核心编程-进程UAC下以管理员权限运行" class="headerlink" title="Windows核心编程-进程UAC下以管理员权限运行"></a><a href="https://blog.csdn.net/bxsec/article/details/76205880" target="_blank" rel="noopener">Windows核心编程-进程UAC下以管理员权限运行</a></h1><p>原文：<a href="https://blog.csdn.net/bxsec/article/details/76205880" target="_blank" rel="noopener">https://blog.csdn.net/bxsec/article/details/76205880</a> </p>
-<p>requireAdministrator    应用程序须以管理员权限运行否则拒绝运行<br>highestAvailable    应用程序以当前可用的最高权限运行<br>如果当前用户为管理员，则弹出提示框<br>如果当前用户为普通用户，则不会提示<br>asInvoker    应用程序以与主调应用程序相同的权限启动</p>
-<h2 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h2><p><a href="https://www.codeproject.com/Articles/320748/Haephrati-Elevating-during-runtime" target="_blank" rel="noopener">在运行时提升</a></p>
-<p>以管理员权限启动程序 </p>
-<pre><code>SHELLEXECUTEINFO sei = {sizeof(SHELLEXECUTEINFO)};
-//请求提高权限
-sei.lpVerb = TEXT(&quot;runas&quot;);
-//需要提升权限的应用程序
-sei.lpFile = TEXT(&quot;cmd.exe&quot;);
-
-sei.nShow = SW_SHOWNORMAL;
-
-if (!ShellExecuteEx(&amp;sei)){
-    DWORD dwStatus = GetLastError();
-    if (dwStatus == ERROR_CANCELLED) {
-        printf(&quot;ShellExecute Cancel..&quot;);
-    }
-    else if(dwStatus == ERROR_FILE_NOT_FOUND)
-    {
-        printf(&quot;File Not Found&quot;);
-    }
-}
-</code></pre><p>以管理员权限启动进程步骤（注：进程启动的权限，在进程启动前已经设置好，所以程序启动之后，已经有启动权限了）： </p>
-<ol>
-<li>打开当前进程的令牌 </li>
-<li>查看当前进程是否具有管理员权限 </li>
-<li><p>如果无管理员权限，则以管理员权限重新启动本进程</p>
-<pre><code>#include &lt;Windows.h&gt;
-#include &lt;ShlObj.h&gt;
-bool runAsAdmin()
-{
-    //1. 获取进程令牌
-    HANDLE hToken = NULL;
-    if ( !OpenProcessToken(GetCurrentProcess(), TOKEN_QUERY, &amp;hToken) )
-        return false;
-    //2. 获取提升类型
-    TOKEN_ELEVATION_TYPE ElevationType = TokenElevationTypeDefault;
-    BOOL  bIsAdmin = false;
-    DWORD dwSize   = 0;
-    if (GetTokenInformation(hToken, TokenElevationType, &amp;ElevationType,
-                            sizeof(TOKEN_ELEVATION_TYPE), &amp;dwSize))
-    {
-        //2.1 创建管理员组对应的SID
-        BYTE adminSID(SECURITY_MAX_SID_SIZE);
-        dwSize = sizeof(adminSID);
-        CreateWellKnownSid(WinBuiltinAdministratorsSid, NULL, &amp;adminSID, &amp;dwSize);
-        //2.2 判断当前进程运行角色是否为管理员
-        if (ElevationType == TokenElevationTypeLimited)
-        {
-            //a. 获取连接令牌的句柄
-            HANDLE hUnfilteredToken = NULL;
-            GetTokenInformation(hToken, TokenLinkedToken, (PVOID)&amp;hUnfilteredToken,
-                                sizeof(HANDLE), &amp;dwSize);
-            //b. 检查这个原始的令牌是否包含管理员的SID
-            if (!CheckTokenMembership(hUnfilteredToken, &amp;adminSID, &amp;bIsAdmin))
-                return false;
-            CloseHandle(hUnfilteredToken);
-        }
-        else
-        {
-            bIsAdmin = IsUserAnAdmin();
-        }
-        CloseHandle(hToken);
-    }
-
-    // 3. 判断具体的权限状况
-    BOOL bFullToken = false;
-    switch(ElevationType)
-    {
-    case TokenElevationTypeDefault:   /*默认的用户或UAC被禁用*/
-        if (IsUserAnAdmin())
-        {
-            bFullToken = true;  //默认用户有管理员权限
-        }
-        else
-        {
-            bFullToken = false; //默认用户不是管理员组
-        }
-        break;
-    case TokenElevationTypeFull:  /*已经成功提高进程权限*/
-        if (IsUserAnAdmin())
-        {
-            bFullToken = true;  //当前以管理员权限运行
-        }
-        else
-        {
-            bFullToken = false; //当前未以管理员权限运行
-        }
-        break;
-    case TokenElevationTypeLimited: /*进程在以有限的权限运行*/
-        if (bIsAdmin)
-        {
-            bFullToken = false; //用户有管理员权限，但进程权限有限
-        }
-        else
-        {
-            bFullToken = false; //用户不是管理员组，且进程权限有限
-        }
-    }
-
-    //4. 根据权限的不同控制按钮的显示
-    if (!bFullToken)
-        Button_SetElevationRequiredState(GetDlgItem(hWnd, 控件ID), !bFullToken);
-    else
-        ShowWindow(GetDlgItem(hWnd, 控件ID), SW_HIDE);
-
-    // 1. 隐藏当前窗口
-    ShowWindow(hWnd, SW_HIDE);
-    // 2. 获取当前程序路径
-    WCHAR szApplication[MAX_PATH] = {0};
-    DWORD cchLength   = _countof(szApplication);
-    QueryFullProcessImageName(GetCurrentProcess(), 0,
-                              szApplication, &amp;cchLength);
-    // 3. 以管理员权限重新打开进程
-    SHELLEXECUTEINFO  sei = { sizeof(SHELLEXECUTEINFO ) };
-    sei.lpVerb  = L&quot;runas&quot;;  //请求提升权限
-    sei.lpFile  = szApplication; // 可执行文件路径
-    sei.lpParameters = NULL; // 不需要参数
-    sei.nShow   = SW_SHOWNORMAL; // 正常显示窗口
-
-    if (ShellExecuteEx(&amp;sei))
-        ExitProcess(0);
-    else
-        ShowWindow(hWnd, SW_SHOWNORMAL);
-}
-</code></pre></li>
-</ol>
-<p>关键Windows API： </p>
-<pre><code>OpenProcessToken
-GetTokenInformation
-CreateWellKnownSid
-CheckTokenMembership
-IsUserAnAdmin
-ShellExecuteEx
-</code></pre><p>TOKEN_ELEVATION_TYPE值：</p>
-<p>TokenElevationTypeDefault    进程以默认用户运行，或UAC被禁止<br>TokenElevationTypeFull    进程的权限被成功提升，而且令牌没有被筛选过<br>TokenElevationTypeLimited    进程使用和一个筛选过的令牌对应的受限的权限运行</p>
-<h2 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h2><p>相关Windows API: </p>
-<pre><code>OpenProcessToken
-LookupPrivilegeValue
-AdjustTokenPrivileges
-
-LookupPrivilegeValue(
-    _In_opt_    LPCTSTR lpSystemName,  //系统的名字，如果为NULL，则是本地系统
-    _In_        LPCTSTR lpName, //权限的名字
-    _Out_       LPUID   lpLuid  //返回LUID表示
-);
-
-lpName：
-#define SE_BACKUP_NAMETEXT(&quot;SeBackupPrivilege&quot;) 
-#define SE_RESTORE_NAMETEXT(&quot;SeRestorePrivilege&quot;) 
-#define SE_SHUTDOWN_NAMETEXT(&quot;SeShutdownPrivilege&quot;) 
-#define SE_DEBUG_NAMETEXT(&quot;SeDebugPrivilege&quot;) 
-
-typedef struct _LUID_AND_ATTRIBUTES
-{
-    LUID    Luid;           //不同的权限类型
-    DWORD   Attributes;     //权限描述
-} LUID_AND_ATTRIBUTES;
-
-BOOL WINAPI AdjustTokenPrivileges(
-  _In_      HANDLE            TokenHandle,           //进程令牌
-  _In_      BOOL              DisableAllPrivileges,  //是否禁用所有的权限
-  _In_opt_  PTOKEN_PRIVILEGES NewState,             //新权限
-  _In_      DWORD             BufferLength,         //第三个参数的字节长度
-  _Out_opt_ PTOKEN_PRIVILEGES PreviousState,        //原本的权限
-  _Out_opt_ PDWORD            ReturnLength
-);
-
-
-#include &lt;stdio.h&gt;
-#include &lt;windows.h&gt;
-
-void main()
-{
-    BOOL retn;
-    HANDLE hToken;
-    retn = OpenProcessToken(GetCurrentProcess(),TOKEN_ADJUST_PRIVILEGES,&amp;hToken);
-    if(retn != TRUE)
-    {
-        printf(&quot;获取令牌句柄失败!\n&quot;);
-        return;
-    }
-
-    TOKEN_PRIVILEGES tp; //新特权结构体
-    LUID Luid;
-    retn = LookupPrivilegeValue(NULL,SE_DEBUG_NAME,&amp;Luid);
-
-    if(retn != TRUE)
-    {
-        printf(&quot;获取Luid失败\n&quot;);
-        return;
-    }
-            //给TP和TP里的LUID结构体赋值
-    tp.PrivilegeCount = 1;
-    tp.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
-    tp.Privileges[0].Luid = Luid;      
-
-    AdjustTokenPrivileges(hToken,FALSE,&amp;tp,sizeof(TOKEN_PRIVILEGES),NULL,NULL);
-    if(GetLastError() != ERROR_SUCCESS)
-    {
-        printf(&quot;修改特权不完全或失败!\n&quot;);
-    }
-    else
-    {
-        printf(&quot;修改成功!\n&quot;);
-    }
-}
-</code></pre><p>方法二提升的权限,需要在访问令牌中具有的权限,如果本身没有关联该权限,调用AdjustTokenPrivileges函数时会出现 ERROR_NOT_ALL_ASSIGNED错误码。</p>
-<p>进程具有管理员权限之后,在创建其他进程时,默认是以管理员权限启动。</p>
-<h2 id="方法三"><a href="#方法三" class="headerlink" title="方法三"></a>方法三</h2><p>如果一个老的程序，没有考虑到特权问题，需要用户手动去提升特权，如何将这个老程序进行封装，</p>
-<p>使用户不用手动提升特权，直接运行这个程序，这个就用到了以管理员身份启动一个进程</p>
-<pre><code>DWORD StartElevatedProcess(LPCTSTR szExecutable,LPCTSTR szCmdLine)
-</code></pre><p>原文：<a href="https://blog.csdn.net/qq_22423659/article/details/53384074" target="_blank" rel="noopener">https://blog.csdn.net/qq_22423659/article/details/53384074</a> </p>
-<p>StartElevatedProcess(windows核心编程)</p>
-<p>手动提升权限，利用ShellExecuteEx函数，结构体SHELLEXECUTEINFO参数中lpVert=TEXT(“runas”),lpFile = szExecutable(应用程序文件名)</p>
-<p>如何让一个程序自动判断是64位操作系统，并且选择合适的应用程序版本进行运行</p>
-<pre><code>#include &lt;windows.h&gt;
-#include &lt;tchar.h&gt;
-
-
-typedef BOOL(WINAPI *LPFN_ISWOW64PROCESS) (HANDLE, PBOOL);
-
-
-LPFN_ISWOW64PROCESS fnIsWow64Process;//定义的一个函数指针变量
-
-
-BOOL IsWow64()
-{
-    BOOL bIsWow64 = FALSE;
-
-
-    //IsWow64Process is not available on all supported versions of Windows.
-    //Use GetModuleHandle to get a handle to the DLL that contains the function
-    //and GetProcAddress to get a pointer to the function if available.
-
-
-    fnIsWow64Process = (LPFN_ISWOW64PROCESS)GetProcAddress(
-        GetModuleHandle(TEXT(&quot;kernel32&quot;)), &quot;IsWow64Process&quot;);
-
-
-    if (NULL != fnIsWow64Process)
-    {
-        if (!fnIsWow64Process(GetCurrentProcess(), &amp;bIsWow64))
-        {
-            //handle error
-        }
-    }
-    return bIsWow64;
-}
-
-
-int main(void)
-{
-    if (IsWow64())
-        _tprintf(TEXT(&quot;The process is running under WOW64.\n&quot;));//说明当前操作系统是64位的，程序是32位的
-    else
-        _tprintf(TEXT(&quot;The process is not running under WOW64.\n&quot;));//说明当前操作系统是32位的
-
-
-    return 0;
-}
-</code></pre><h2 id="方式四"><a href="#方式四" class="headerlink" title="方式四"></a>方式四</h2><p>快捷方式设置</p>
-<p>只需在程序的快捷方式上点右键，选择‘属性’，并单击“快捷方式”选项卡上的“高级”按钮，看到没，在这里也有一个“以管理员身份运行”的选项。</p>
-<h1 id="如何获取正确的文件路径"><a href="#如何获取正确的文件路径" class="headerlink" title="如何获取正确的文件路径"></a>如何获取正确的文件路径</h1><p>UAC重定向目录：</p>
-<pre><code>C:\Users\Username\AppData\Local\VirtualStore\
-HKEY_CURRENT_USER\Software\Classes\VirtualStore
-HKEY_USERS\UserSID_Classes\VirtualStore
-</code></pre><p><a href="https://docs.microsoft.com/zh-cn/windows/desktop/shell/knownfolderid" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/windows/desktop/shell/knownfolderid</a></p>
-<p>利用KnownFolders API和ShGetFolder查找数据写入位置。</p>
-<p>当我们那些在Windows 7之前设计的应用程序遇到UAC Virtualization问题的时候，我们需要从新设计我们的代码，将文件写入到合适的位置。在改善既有代码，使之可以与Windows 7兼容的时候，我们应该确保以下几点：</p>
-<p>　　——在运行的时候，应用程序只会将数据保存到每个用户预先定义的位置或者是%alluserprofile% 中定义的普通用户拥有访问权限的位置。</p>
-<p>　　——确定你要写入数据的“已知文件夹”(Knownfolders)。通常，所有用户共用的公共数据文件应该写入到一个全局的公共的位置，这样所有用户都可以访问到。而其它数据则应该写入每个用户自己的文件夹。</p>
-<p>　　1 公共数据文件包括日志文件，配置文件(通常是INI或者XML文件)，应用程序状态文件，比如保存的游戏进程等等。</p>
-<p>　　2 而属于每个用户的文档，则应该保持在文档目录下，或者是用户自己指定的目录。</p>
-<p>　　——当你确定合适的文件保存位置后，不要在代码中明文写出(Hard-code)你选择的路径。为了更好地保持兼容性，我们应该采用下面这些API来获得操作系统“已知文件夹(Knownfolders)”的正确路径。</p>
-<p>　　1 C/C++非托管代码: 使用SHGetKnownFolderPath函数，通过指定“已知文件夹”的KNOWNFOLDERID作为参数来获得正确的文件夹路径。<a href="https://docs.microsoft.com/en-us/windows/desktop/shell/knownfolderid" target="_blank" rel="noopener">Windows中的默认已知文件夹KNOWNFOLDERID</a></p>
-<pre><code>　　FOLDERID_ProgramData –所有用户都可以访问的应用程序数据适合放置在这个目录下。CSIDL等效    CSIDL_COMMON_APPDATA
-　　FOLDERID_LocalAppData – 每个用户单独访问的应用程序数据适合放置在这个目录下。CSIDL等效    CSIDL_LOCAL_APPDATA
-　　FOLDERID_RoamingAppData – 每个用户单独访问的应用程序数据适合放置在这个目录下。 与上面一个目录不同的是，放置在这个目录下的文件会随着用户迁移，当一个用户在同一个域中的其他计算机登录的时候，这些文件会被复制到当前登录的机器上，就像用户随身携带的公文包一样。CSIDL等效    CSIDL_APPDATA
-
-SHGetKnownFolderPath使用FOLDERID_ProgramData
-SHGetFolderPath使用CSIDL:CSIDL_COMMON_APPDATA
-</code></pre><p>下面这段代码演示了在非托管代码中如何调用shell函数，SHGetKnownFolderPath函数获得正确的文件保存路径(SHGetFolderLocation, SHGetFolderPath, SHGetSpecialFolderLocation, SHGetSpecialFolderPath)：</p>
-<pre><code>#include &quot;shlobj.h&quot;
-#include &quot;shlwapi.h&quot;
-//…
-
-#define AppFolderName _T(&quot;YourApp&quot;)
-#define DataFileName _T(&quot;SomeFile.txt&quot;)
-
-// 构造一个数据文件路径
-// dataFilePath指向一个长度为MAX_PATH，类型为TCHAR的字符串数值
-// hwndDlg是消息对话框的父窗口句柄
-// 当有错误发生的时候用于显示错误提示
-// includeFileName用于表示是否在路径后面扩展文件名
-BOOL MakeDataFilePath(TCHAR *dataFilePath, 
-                      HWND hwndDlg, BOOL includeFileName)
-{
-    // 初始化工作
-    memset(dataFilePath, 0, MAX_PATH * sizeof(TCHAR));
-    PWSTR pszPath = NULL;
-
-    // SHGetKnownFolderPath函数可以返回一个已知文件见的路径，
-    // 例如我的文档(My Documents)，桌面(Desktop)，
-       // 应用程序文件夹(Program Files)等等。 
-    // 对于数据文件来说，FOLDERID_ProgramFiles并不是一个合适的位置
-    // 使用FOLDERID_ProgramFiles保存所有用户共享的数据文件
-    // 使用FOLDERID_LocalAppData保存属于每个用户自己的文件(non-roaming).
-    // 使用FOLDERID_RoamingAppData保存属于每个用户自己的文件(roaming).
-// 对于“随身文件”(Roaming files)，
-// 当一个用户在一个域中的其他计算机登陆的时候，
-    // 这些文件会被复制到当前登录的机器上，就像用户随身携带的公文包一样    
-
-    // 获取文件夹路径
-    if (FAILED(SHGetKnownFolderPath(FOLDERID_ProgramData,
-               0, NULL, &amp;pszPath)))
-    // 错误的做法： if (FAILED(SHGetKnownFolderPath(FOLDERID_ProgramFiles,
-       // 0, NULL, &amp;pszPath)))
-    {
-        // 提示错误
-        MessageBox(hwndDlg, _T(&quot;SHGetKnownFolderPath无法获取文件路径&quot;),
-            _T(&quot;Error&quot;), MB_OK | MB_ICONERROR);
-        return FALSE;
-    }
-
-    // 复制路径到目标变量
-    _tcscpy_s(dataFilePath, MAX_PATH, pszPath);
-    ::CoTaskMemFree(pszPath);
-
-    //错误的做法: _tcscpy_s(dataFilePath, MAX_PATH, _T(&quot;C:\\&quot;));
-
-    // 在路径后面扩展应用程序所在文件夹
-    if (!::PathAppend(dataFilePath, AppFolderName))
-    {
-        // 提示错误
-        MessageBox(hwndDlg, _T(&quot;PathAppend无法扩展路径&quot;),
-            _T(&quot;Error&quot;), MB_OK | MB_ICONERROR);
-        return FALSE;
-    }
-
-    // 是否添加文件名
-    if (includeFileName)
-    {
-        // 在路径后扩展文件名
-        if (!::PathAppend(dataFilePath, DataFileName))
-        {
-            // 提示错误
-            MessageBox(hwndDlg, _T(&quot;PathAppend无法扩展文件名&quot;),
-                _T(&quot;Error&quot;), MB_OK | MB_ICONERROR);
-            return FALSE;
-        }
-    }
-
-    return TRUE;
-}
-</code></pre><p>2 托管代码: 使用System.Environment.GetFolderPath函数，通过指定我们想要获取的“已知文件夹”为参数，从而获取相应的文件夹的正确路径。</p>
-<pre><code>　　Environment.SpecialFolder.CommonApplicationData – 所有用户都可以访问的应用程序数据适合放置在这个目录下。
-　　Environment.SpecialFolder.LocalApplicationData – 每个用户单独访问的应用程序数据适合放置在这个目录下。
-　　Environment.SpecialFolder.ApplicationData – 每个用户单独访问的应用程序数据适合放置在这个目录下。这是“随身文件夹”。
-</code></pre><p>下面这段代码展示了如何在托管代码中获取正确的文件路径：</p>
-<pre><code>internal class FileIO
-    {
-        private const string AppFolderName = &quot;YourApp&quot;;
-        private const string DataFileName = &quot;SomeFile.txt&quot;;
-        private static string _dataFilePath;
-
-        /// &lt;summary&gt;
-        /// 构建路径
-        /// &lt;/summary&gt;
-        static FileIO()
-        {
-            // Environment.GetFolderPath返回一个“已知文件夹”的路径
-            // Path.Combine可以合并两个路径成一个合法的路径
-
-            // …
-
-            _dataFilePath = Path.Combine(Environment.GetFolderPath(
-                  Environment.SpecialFolder.ProgramFiles), AppFolderName);
-            //错误的做法：
-            //_dataFilePath = Path.Combine(Environment.GetFolderPath(
-             Environment.SpecialFolder.CommonApplicationData), AppFolderName);
-
-            // 扩展文件名
-            _dataFilePath = Path.Combine(_dataFilePath, DataFileName);
-        }
-
-         public static void Save(string text)
-        {
-            // 检查要保存的字符串是否为空
-            if (String.IsNullOrEmpty(text))
-            {
-                MessageBox.Show(&quot;字符串为空，无法保持.&quot;, &quot;空字符串&quot;,
-                     MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            try
-            {
-                // 获取文件保存的路径
-                string dirPath = Path.GetDirectoryName(_dataFilePath);
-                // 检查文件夹是否存在
-                if (!Directory.Exists(dirPath))
-                    Directory.CreateDirectory(dirPath); // 创建文件夹
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, &quot;文件夹创建失败&quot;,
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            try
-            {
-                // 保存字符串到文件
-                StreamWriter sw = new StreamWriter(_dataFilePath);
-                try
-                {
-                    sw.Write(text);
-                }
-                finally
-                {
-                    // 关闭文件
-                    sw.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, &quot;文件写入失败&quot;,
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        // …
-   }
-}
-</code></pre><p>如果上面的方法都不适合你，你还可以使用环境变量，使用getenv()或GetEnvironmentVariable()获取相应的文件夹路径：</p>
-<pre><code>　　%ALLUSERSPROFILE% – 所有用户都可以访问的应用程序数据适合放置在这个目录下。
-　　%LOCALAPPDATA% – 每个用户单独访问的应用程序数据适合放置在这个目录下。 - (Windows Vista 或者Windows 7)
-　　%APPDATA% – 每个用户单独访问的应用程序数据适合放置在这个目录下。这是“随身文件夹”。- (Windows Vista 或者Windows 7)
-</code></pre><h1 id="Process-Monitor"><a href="#Process-Monitor" class="headerlink" title="Process Monitor"></a>Process Monitor</h1><p><a href="https://download.sysinternals.com/files/ProcessMonitor.zip" target="_blank" rel="noopener">Process Monitor</a>是Windows的高级监视工具，可显示实时文件系统，注册表和进程/线程活动。它结合了两个传统Sysinternals实用程序Filemon和 Regmon的功能，并添加了大量增强功能，包括丰富和非破坏性过滤，全面的事件属性，如会话ID和用户名，可靠的流程信息，带有集成符号支持的完整线程堆栈对于每个操作，同时记录到文件等等。其独特的强大功能将使Process Monitor成为系统故障排除和恶意软件搜索工具包的核心实用程序。</p>
-<h1 id="Standard-User-Analyzer"><a href="#Standard-User-Analyzer" class="headerlink" title="Standard User Analyzer"></a>Standard User Analyzer</h1><p>应用程序兼容性工具包包括标准用户分析器（SUA）工具和标准用户分析器向导（SUA向导）。这些工具使您能够测试应用程序并监视API调用，以便检测由于Windows 7操作系统中的用户帐户控制（UAC）功能而导致的潜在兼容性问题。</p>
-<p>UAC（以前称为受限用户帐户（LUA））要求所有用户（包括Administrator组成员）使用安全提示对话框作为标准用户运行，直到故意提升应用程序。但是，需要对标准用户不可用的位置进行访问和权限的应用程序无法使用标准用户角色正常运行。</p>
-<p><a href="https://www.microsoft.com/en-us/download/details.aspx?id=7352" target="_blank" rel="noopener">Microsoft应用程序兼容性工具包5.6</a></p>
-<p><a href="https://docs.microsoft.com/en-us/windows/desktop/win7appqual/standard-user-analyzer--sua--tool-and-standard-user-analyzer-wizard--sua-wizard-" target="_blank" rel="noopener">标准用户分析器（SUA）工具和标准用户分析器向导（SUA向导）</a></p>
-<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><ul>
-<li><a href="http://blog.csdn.net/zhangyulin54321/article/details/8802023" target="_blank" rel="noopener">vc++MCF/C++/C中怎样让应用程序获得或以管理员权限运行 ，ShellExecuteEX编程 — 获取管理员权限</a> </li>
-<li><a href="http://blog.csdn.net/suixiangzhe/article/details/50503047" target="_blank" rel="noopener">VS2010与Win7共舞：UAC与数据重定向 </a></li>
-<li><a href="https://msdn.microsoft.com/zh-cn/library/windows/desktop/bb762494(v=vs.85" target="_blank" rel="noopener">CSIDL</a>.aspx)</li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">VC</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">管理员权限</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/10/01/VC程序获取管理员权限/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-Crypto++" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -7372,7 +6578,11 @@ namespace WpfApplication
     &lt;/Rectangle.OpacityMask&gt;
 &lt;/Rectangle&gt;
 </code></pre><h1 id="MahApps-Metro-IconPacks"><a href="#MahApps-Metro-IconPacks" class="headerlink" title="MahApps.Metro.IconPacks"></a>MahApps.Metro.IconPacks</h1><p><a href="https://github.com/MahApps/MahApps.Metro.IconPacks" target="_blank" rel="noopener">https://github.com/MahApps/MahApps.Metro.IconPacks</a></p>
-<p>MahApps.Metro可以使用包含控件的<a href="https://github.com/MahApps/MahApps.Metro.IconPacks" target="_blank" rel="noopener">MahApps.Metro.IconPacks</a>以简单的方式使用这些令人敬畏的图标。</p>
+<p>安装</p>
+<pre><code>Install-Package MahApps.Metro.IconPacks
+</code></pre><p>Xaml中添加</p>
+<pre><code>xmlns:iconPacks=&quot;http://metro.mahapps.com/winfx/xaml/iconpacks&quot;
+</code></pre><p>MahApps.Metro可以使用包含控件的<a href="https://github.com/MahApps/MahApps.Metro.IconPacks" target="_blank" rel="noopener">MahApps.Metro.IconPacks</a>以简单的方式使用这些令人敬畏的图标。</p>
 <pre><code>&lt;Window x:Class=&quot;IconPacksTest.App&quot;
         xmlns=&quot;http://schemas.microsoft.com/winfx/2006/xaml/presentation&quot;
         xmlns:x=&quot;http://schemas.microsoft.com/winfx/2006/xaml&quot;
@@ -8272,6 +7482,118 @@ std::vector&lt;_str_type&gt; bs_split(const std::basic_string&lt;E, TR, AL&gt;&a
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/06/01/C++字符分割/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-GUID" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/15/GUID/">GUID</a>
+    </h1>
+  
+
+        
+        <a href="/2017/05/15/GUID/" class="archive-article-date">
+  	<time datetime="2017-05-15T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-05-15</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="GUID"><a href="#GUID" class="headerlink" title="GUID"></a>GUID</h1><pre><code>CString CreateNewUid()
+{
+    CoInitialize(NULL);
+
+    AUTH_TRACE_STACK();
+
+    GUID guid;
+    HRESULT hr = CoCreateGuid(&amp;guid);
+    if (FAILED(hr))
+    {
+        AUTH_LOGMESSAGE1(_T(&quot;Create Guid Failed!&quot;));
+    }
+
+#ifdef _UNICODE
+    unsigned short* buf = NULL;
+#else
+    unsigned char* buf = NULL;
+#endif
+
+    UuidToString((UUID*)&amp;guid, &amp;buf);    
+    CString strUID((LPCTSTR)buf);
+    RpcStringFree(&amp;buf);
+
+    CoUninitialize();
+
+    return strUID;    
+}
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">代码</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">GUID</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/05/15/GUID/">展开全文 >></a>
         </p>
       
 

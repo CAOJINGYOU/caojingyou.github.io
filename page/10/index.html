@@ -160,141 +160,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-CShap ShellExcute与Process" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/01/CShap ShellExcute与Process/">C#运行外部程序的两种方法</a>
-    </h1>
-  
-
-        
-        <a href="/2017/01/01/CShap ShellExcute与Process/" class="archive-article-date">
-  	<time datetime="2017-01-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="C-运行外部程序的两种方法"><a href="#C-运行外部程序的两种方法" class="headerlink" title="C#运行外部程序的两种方法"></a>C#运行外部程序的两种方法</h1><h2 id="ShellExecute"><a href="#ShellExecute" class="headerlink" title="ShellExecute"></a>ShellExecute</h2><pre><code>using System.Runtime.InteropServices;
-
-public enum ShowWindowCommands : int
-{
-
-    SW_HIDE = 0,
-    SW_SHOWNORMAL = 1,    //用最近的大小和位置显示，激活
-    SW_NORMAL = 1,
-    SW_SHOWMINIMIZED = 2,
-    SW_SHOWMAXIMIZED = 3,
-    SW_MAXIMIZE = 3,
-    SW_SHOWNOACTIVATE = 4,
-    SW_SHOW = 5,
-    SW_MINIMIZE = 6,
-    SW_SHOWMINNOACTIVE = 7,
-    SW_SHOWNA = 8,
-    SW_RESTORE = 9,
-    SW_SHOWDEFAULT = 10,
-    SW_MAX = 10
-}
-[DllImport(&quot;shell32.dll&quot;)]
-public static extern IntPtr ShellExecute(
-    IntPtr hwnd,
-    string lpszOp,
-    string lpszFile,
-    string lpszParams,
-    string lpszDir,
-    ShowWindowCommands FsShowCmd
-);
-</code></pre><h3 id="调用"><a href="#调用" class="headerlink" title="调用"></a>调用</h3><pre><code>ShellExecute(IntPtr.Zero, &quot;open&quot;, UrlOrPath, null, null, ShowWindowCommands.SW_SHOWNORMAL);
-</code></pre><p>UrlOrPath可为exe路径或者网页url(使用默认浏览器打开网页url)</p>
-<p>使用ie打开网页url</p>
-<pre><code>ShellExecute(NULL, &quot;open&quot;, &quot;IEXPLORE&quot;, &quot;http://www.csdn.net&quot;, NULL, SW_SHOWMAXIMIZED);
-</code></pre><h2 id="Process"><a href="#Process" class="headerlink" title="Process"></a>Process</h2><pre><code>using System.Diagnostics;
-
-private static string Execute(string exePath, string parameters)
-{
-    string result = String.Empty;
-
-    using (Process p = new Process())
-    {
-        p.StartInfo.UseShellExecute = false;
-        p.StartInfo.CreateNoWindow = true;
-        p.StartInfo.RedirectStandardOutput = true;
-        p.StartInfo.FileName = exePath;
-        p.StartInfo.Arguments = parameters;
-        p.Start();
-        p.WaitForExit();
-
-        result = p.StandardOutput.ReadToEnd();
-    }
-
-    return result;
-}
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">运行外部程序</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/01/01/CShap ShellExcute与Process/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-制作CAB包" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -2135,6 +2000,93 @@ end;
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2016/08/15/程序打包/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-我喜欢的Notepad++插件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/01/我喜欢的Notepad++插件/">我喜欢的Notepad++插件</a>
+    </h1>
+  
+
+        
+        <a href="/2016/08/01/我喜欢的Notepad++插件/" class="archive-article-date">
+  	<time datetime="2016-08-01T08:03:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-08-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Notepad-插件"><a href="#Notepad-插件" class="headerlink" title="Notepad++插件"></a>Notepad++插件</h1><h2 id="HEX-Editor"><a href="#HEX-Editor" class="headerlink" title="HEX-Editor"></a>HEX-Editor</h2><p>文本转16进制，查看编辑。</p>
+<h2 id="NppExport"><a href="#NppExport" class="headerlink" title="NppExport"></a>NppExport</h2><p>导出已着色代码为其他格式的文件。<br>将彩色代码，导出为word文档（RFT）或网页（HTML）文件，或者将彩色代码（RTF格式或HTMl格式）拷贝到剪贴板，粘贴到别的（word文档，HTML网页）中去。</p>
+<h2 id="CoolFormatNppPlugin"><a href="#CoolFormatNppPlugin" class="headerlink" title="CoolFormatNppPlugin"></a>CoolFormatNppPlugin</h2><p>代码格式化</p>
+<h2 id="NppAStyle"><a href="#NppAStyle" class="headerlink" title="NppAStyle"></a>NppAStyle</h2><p>代码格式化</p>
+<h2 id="XML-Tools"><a href="#XML-Tools" class="headerlink" title="XML Tools"></a>XML Tools</h2><p>XML语法规则检查</p>
+<h2 id="Compare-Plugin"><a href="#Compare-Plugin" class="headerlink" title="Compare Plugin"></a>Compare Plugin</h2><p>比较文件</p>
+<h2 id="PyNpp"><a href="#PyNpp" class="headerlink" title="PyNpp"></a>PyNpp</h2><p>直接在Notepad中编写运行Python</p>
+<h2 id="JSON-Viewer"><a href="#JSON-Viewer" class="headerlink" title="JSON Viewer"></a>JSON Viewer</h2><p>Json查看格式</p>
+<h2 id="DoxyIt"><a href="#DoxyIt" class="headerlink" title="DoxyIt"></a>DoxyIt</h2><p>Doxygen 注释</p>
+<p>Homepage: <a href="https://github.com/dail8859/DoxyIt" target="_blank" rel="noopener">https://github.com/dail8859/DoxyIt</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">随笔</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Notepad++</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/08/01/我喜欢的Notepad++插件/">展开全文 >></a>
         </p>
       
 

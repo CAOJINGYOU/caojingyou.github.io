@@ -4202,1104 +4202,142 @@ try
 
 
   
-    <article id="post-X3框架" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-NLog" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/18/X3框架/">X3框架</a>
+      <a class="article-title" href="/2018/05/17/NLog/">NLog</a>
     </h1>
   
 
         
-        <a href="/2018/05/18/X3框架/" class="archive-article-date">
-  	<time datetime="2018-05-18T01:26:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-18</time>
+        <a href="/2018/05/17/NLog/" class="archive-article-date">
+  	<time datetime="2018-05-17T01:37:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-17</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><h2 id="插件原理"><a href="#插件原理" class="headerlink" title="插件原理"></a>插件原理</h2><p>所有插件都是普通DLL，通过在工程内包含辅助文件自动实现了统一的导出函数，通过该导出函数就能获取到在该插件内所实现的所有接口的信息及对象创建函数地址；主程序使用插件管理器（PluginManager）加载这些DLL，插件管理器通过这个导出函数将各个类ID、对象创建函数地址统一管理起来，从而在插件管理器的中介作用下让各个插件能相互使用各种接口函数。</p>
-<h2 id="接口与实现分离"><a href="#接口与实现分离" class="headerlink" title="接口与实现分离"></a>接口与实现分离</h2><p>对外提供接口文件，在插件内部用类来实现一个或多个接口，不需要对外导出该类或暴露实现细节。这样还有一个好处是只有约定了接口就可以让多个模块并行开发，模块相互之间不存在编译依赖（不需要其他插件的LIB等文件），这可用于测试驱动开发模式。</p>
-<h2 id="多接口转换、引用计数管理"><a href="#多接口转换、引用计数管理" class="headerlink" title="多接口转换、引用计数管理"></a>多接口转换、引用计数管理</h2><p>采用智能指针类来管理接口的引用计数及生命期，可从一个接口动态转换为另一个接口（内部采用C++的RTTI机制动态转换），可以区分插件内部的接口引用和插件外部的接口引用。</p>
-<h2 id="模块透明部署"><a href="#模块透明部署" class="headerlink" title="模块透明部署"></a>模块透明部署</h2><p>一个模块只需要使用其他模块的接口，不需要关心该接口是在哪个插件中实现的。可以根据需要将各个实现类进行合并或拆分，使其分布到不同插件中，而接口使用者不受影响。另外，插件部署于哪个目录也不影响插件接口的使用。</p>
-<h2 id="模块可替换、可扩展"><a href="#模块可替换、可扩展" class="headerlink" title="模块可替换、可扩展"></a>模块可替换、可扩展</h2><p>可根据需要替换某个插件，只有该插件实现了相同的接口，即使内部功能不相同，这样就实现了插件可替换、按需组合。通过在新的插件中支持更多的接口，可扩展更多的功能。可以在新插件中局部替换原有插件的某些接口或部分函数，实现重用和扩展。</p>
-<h2 id="线程安全性"><a href="#线程安全性" class="headerlink" title="线程安全性"></a>线程安全性</h2><p>本插件机制所提供的内部实现文件考虑了线程安全性，允许多线程访问而不冲突，同时采用的是轻量级的锁定机制（计数原子锁定），运行开销很小。</p>
-<h2 id="跨版本"><a href="#跨版本" class="headerlink" title="跨版本"></a>跨版本</h2><p>允许不同版本的VC++开发的插件相互调用对方的接口，虽然实际中一般不需要这样做。由于没有采用VC++特殊的编译指令，因此容易移植到其他开发平台下。</p>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><h2 id="接口定义"><a href="#接口定义" class="headerlink" title="接口定义"></a>接口定义</h2><pre><code>interface Ix_Example
+        <h1 id="NLog"><a href="#NLog" class="headerlink" title="NLog"></a>NLog</h1><p><a href="http://nlog-project.org/" target="_blank" rel="noopener">Nlog</a></p>
+<p><a href="https://github.com/NLog/NLog" title="https://github.com/NLog/NLog" target="_blank" rel="noopener">https://github.com/NLog/NLog</a></p>
+<p>Nlog是.net平台下的开源日志组件，相当于log4net用法配置更简单。</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><pre><code>Install-Package NLog.Config -Version 4.5.4
+</code></pre><h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>获取一个Logger实例，取名为NLogConsoleExample（名字可任意），也可采用 LogManager.GetCurrentClassLogger()来获取一个以当前类名为名称的Logger实例；然后我们在main方法中添加几行简单调用NLog输出不同级别的日志信息的代码</p>
+<p>下面的代码将会创建一个和class有着相同名字的Logger。</p>
+<pre><code>namespace MyNamespace
 {
-    virtual void Foo() = 0;
-    virtual void* GetData(std::vector&lt;int&gt;&amp; items) = 0;
-};
-</code></pre><h2 id="定义类UID"><a href="#定义类UID" class="headerlink" title="定义类UID"></a>定义类UID</h2><pre><code>const XCLSID CLSID_Example(&quot;86347b32-64e4-490c-b273-ec7e010f244e&quot;);
-</code></pre><h2 id="实现接口"><a href="#实现接口" class="headerlink" title="实现接口"></a>实现接口</h2><p>下面的例子是在Cx_Example.h中定义了Cx_Example类，实现了两个接口。</p>
-<pre><code>#pragma once
-
-#include &lt;Ix_Example.h&gt;
-
-class Cx_Example
-    : public Ix_Example
-    , public Ix_Example2
-{
-protected:
-    Cx_Example();
-    ~Cx_Example();
-
-protected:
-    // Ix_Example
-    virtual void Foo();
-
-    // Ix_Example2
-    virtual void Foo2();
-};
-</code></pre><p>上面的例子中有两个地方值得留意（不是必须要这样，但推荐这样）：（1）构造函数和析构函数是保护类型，表示不允许直接实例化对象，也不允许直接删除销毁对象，通过智能指针类Cx_Interface或Cx_Ptr来自动实例化和销毁对象；（2）所实现的接口函数申明为保护类型，表示不允许直接调用该对象实例的函数，当然也可以申明为私有类型，表示不允许派生实现类调用其函数。</p>
-<h2 id="在插件中登记实现类"><a href="#在插件中登记实现类" class="headerlink" title="在插件中登记实现类"></a>在插件中登记实现类</h2><p>通过智能指针类Cx_Interface或Cx_Ptr来实例化对象，需要在插件内登记该插件中有哪些可供实例化的类、实现类对应的类UID、是否为单实例类。例如下面的Module.cpp：</p>
-<pre><code>// 登记有哪些可供实例化的类、实现类对应的类UID、是否为单实例类
-XBEGIN_DEFINE_MODULE()
-    XDEFINE_CLASSMAP_ENTRY(CLSID_Example, Cx_Example)
-    XDEFINE_CLASSMAP_ENTRY_Singleton(CLSID_ExamTool, Cx_ExampleTool)
-XEND_DEFINE_MODULE()
-</code></pre><p>其中包含XModuleImpl.h 用于自动实现插件内部机制，插件机制如何实现对插件开发者来说不用关心，宏XDEFINE_CLASSMAP_ENTRY 用于登记普通类及其类UID，可实例化出多个对象，XDEFINE_CLASSMAP_ENTRY_Singleton 用于登记单实例类及其类UID，在一个进程中不论创建多少次都会得到同一个对象实例。</p>
-<p>对于以MFC扩展动态库或Win32动态库类型创建插件工程的情况，由于DLL入口函数基本上都相同，为了避免在多个插件中重复出现这样类似的DLL入口函数代码，可以将上面例子中的 XEND_DEFINE_MODULE() 换为下面两个宏之一：</p>
-<pre><code>XEND_DEFINE_MODULE_MFCEXTDLL()
-XEND_DEFINE_MODULE_WIN32DLL()
-</code></pre><h1 id="框架核心代码以及测试"><a href="#框架核心代码以及测试" class="headerlink" title="框架核心代码以及测试"></a>框架核心代码以及测试</h1><pre><code>#pragma once
-#include &lt;objbase.h&gt;
-#include &lt;stdio.h&gt;
-#include &lt;string&gt;
-
-interface Ix_Object
-{
-    virtual void AddRef(HMODULE fromdll) = 0;
-    virtual void Release(HMODULE fromdll) = 0;
-    virtual const char* GetClassName() const = 0;
-};
-
-//! class factory function.
-typedef Ix_Object* (STDMETHODCALLTYPE *PFNXObjectCreator)(HMODULE);
-
-//! object count of a class.
-typedef long (STDMETHODCALLTYPE *PFNXGetObjectCount)();
-
-//! object (used by other modules) count of a class.
-typedef long (STDMETHODCALLTYPE *PFNXRefCountByOthers)();
-
-#define MIN_SINGLETON_TYPE  10
-
-#pragma pack(push, 8)
-
-/*! \ingroup _GROUP_PLUGIN_CORE2_
-*  \brief class factory registry.
-*  \see   _xGetClassEntryTable, XBEGIN_DEFINE_MODULE
-*  \internal
-*/
-struct _XCLASSMETA_ENTRY
-{
-    BYTE                type;               //!&lt; see MIN_SINGLETON_TYPE and XModuleMacro.h
-    const char*         className;          //!&lt; implement class name
-    std::string              clsid;              //!&lt; class id. may be empty if iidSpecial is valid.
-    const char*         iidSpecial;         //!&lt; special interface name, see XDEFINE_SPECIAL_INTERFACE_ENTRY_Singleton.
-    PFNXObjectCreator   pfnObjectCreator;   //!&lt; class factory function
-    PFNXGetObjectCount  pfnGetObjectCount;  //!&lt; object count of this class
-    PFNXRefCountByOthers    pfnRefCountByOthers;    //!&lt; count of objects used by other modules
-
-                                                    //! Used by XDEFINE_CLASSMAP_ENTRY, XDEFINE_CLASSMAP_ENTRY_Singleton
-    _XCLASSMETA_ENTRY(BYTE      _type,
-        const char*             _className,
-        const std::string &amp;           _clsid,
-        const char*             _iidSpecial,
-        PFNXObjectCreator       _pfnObjectCreator,
-        PFNXGetObjectCount      _pfnGetObjectCount = NULL,
-        PFNXRefCountByOthers    _pfnRefCountByOthers = NULL)
-
-        : type(_type), className(_className)
-        , clsid(_clsid), iidSpecial(_iidSpecial)
-        , pfnObjectCreator(_pfnObjectCreator)
-        , pfnGetObjectCount(_pfnGetObjectCount)
-        , pfnRefCountByOthers(_pfnRefCountByOthers)
-    {
-    }
-
-    //! Used by XEND_DEFINE_MODULE
-    _XCLASSMETA_ENTRY()
-        : type(0), className(&quot;&quot;), clsid(&quot;&quot;), iidSpecial(&quot;&quot;)
-        , pfnObjectCreator(NULL), pfnGetObjectCount(NULL)
-        , pfnRefCountByOthers(NULL)
-    {
-    }
-
-    //! class factory registries. filled by XBEGIN_DEFINE_MODULE.
-    static const _XCLASSMETA_ENTRY s_classes[];
-};
-
-#pragma pack(pop)
-
-std::string GuidToString()
-{
-    GUID guid;
-    CoCreateGuid(&amp;guid);
-
-    char buf[64] = { 0 };
-
-    _snprintf_s(
-
-        buf,
-        sizeof(buf),
-        &quot;{%08X-%04X-%04X-%02X%02X-%02X%02X%02X%02X%02X%02X}&quot;,
-        guid.Data1, guid.Data2, guid.Data3,
-        guid.Data4[0], guid.Data4[1],
-        guid.Data4[2], guid.Data4[3],
-        guid.Data4[4], guid.Data4[5],
-        guid.Data4[6], guid.Data4[7]);
-    return std::string(buf);
+  public class MyClass
+  {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+  }
 }
+</code></pre><p>管理Logger的名字也是可以的：</p>
+<pre><code>using NLog;
 
-//注意：TRUE会导致DLL引用计数加1，FALSE不会改变引用计数，通常用FALSE
-HMODULE GetCurrentModule(BOOL bRef = FALSE)
+Logger logger = LogManager.GetLogger(&quot;MyClassName&quot;);
+</code></pre><h1 id="日志级别"><a href="#日志级别" class="headerlink" title="日志级别"></a>日志级别</h1><p>每一个日志消息都用一个日志级别来修饰，它们用来识别消息的重要性和具体细节。NLog可以以Logger对象的名称和日志级别为主，路由日志消息。</p>
+<p>NLog支持下面的日志级别：</p>
+<ul>
+<li>Trace 特别细节的日志，可能包含大量的信息，比如说协议的负载。这个日志级别通常只会在开发期间被启用。</li>
+<li>Debug Debug信息，比Trace的信息量要少一些，通常不会在生产环境下使用。</li>
+<li>Info 信息消息，这个是在生产环境下经常使用到的。</li>
+<li>Warn 警告消息，通常用来指示非关键性的问题，这些问题可以被恢复或者只是临时错误。</li>
+<li>Error 错误消息 大多数时候，他们都是Exception（异常）。</li>
+<li>Fatal 特别严重的错误！</li>
+</ul>
+<h1 id="书写日志消息"><a href="#书写日志消息" class="headerlink" title="书写日志消息"></a>书写日志消息</h1><pre><code>using NLog;
+
+public class MyClass
 {
-    HMODULE hModule = NULL;
-    if (GetModuleHandleEx(bRef ? GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS : (GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS
-        | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT), (LPCTSTR)GetCurrentModule, &amp;hModule))
-    {
-        return hModule;
-    }
+  private static Logger logger = LogManager.GetCurrentClassLogger();
 
-    return NULL;
+  public void MyMethod1()
+  {
+    logger.Trace(&quot;Sample trace message&quot;);
+    logger.Debug(&quot;Sample debug message&quot;);
+    logger.Info(&quot;Sample informational message&quot;);
+    logger.Warn(&quot;Sample warning message&quot;);
+    logger.Error(&quot;Sample error message&quot;);
+    logger.Fatal(&quot;Sample fatal error message&quot;);
+
+    // alternatively you can call the Log() method 
+    // and pass log level as the parameter.
+    logger.Log(LogLevel.Info, &quot;Sample informational message&quot;);
+  }
 }
+</code></pre><p>日志消息也可以被参数化 - 你可以使用字符串格式，就像你在Console.WriteLine()和String.Format()中一样：</p>
+<pre><code>using NLog;
 
-// Return the current module handle for making a distinction between plugins.
-HMODULE xGetModuleHandle()
+public class MyClass
 {
-    return GetCurrentModule();
-};
+  private static Logger logger = LogManager.GetCurrentClassLogger();
 
-// Create an object with the class id.
-HRESULT xCreateObject(const std::string&amp; clsid, Ix_Object** ppv)
-{
-    *ppv = NULL;
+  public void MyMethod1()
+  {
+    int k = 42;
+    int l = 100;
 
-    const _XCLASSMETA_ENTRY* pCls = _XCLASSMETA_ENTRY::s_classes;
-
-    for (; pCls-&gt;pfnObjectCreator; ++pCls)
-    {
-        if (clsid == pCls-&gt;clsid)
-        {
-            *ppv = (*pCls-&gt;pfnObjectCreator)(xGetModuleHandle());
-            return S_OK;
-        }
-    }
-
-    return E_NOTIMPL;
+    logger.Trace(&quot;Sample trace message, k={0}, l={1}&quot;, k, l);
+    logger.Debug(&quot;Sample debug message, k={0}, l={1}&quot;, k, l);
+    logger.Info(&quot;Sample informational message, k={0}, l={1}&quot;, k, l);
+    logger.Warn(&quot;Sample warning message, k={0}, l={1}&quot;, k, l);
+    logger.Error(&quot;Sample error message, k={0}, l={1}&quot;, k, l);
+    logger.Fatal(&quot;Sample fatal error message, k={0}, l={1}&quot;, k, l);
+    logger.Log(LogLevel.Info, &quot;Sample informational message, k={0}, l={1}&quot;, k, l);
+  }
 }
+</code></pre><h1 id="NLog配置文件支持两种方式"><a href="#NLog配置文件支持两种方式" class="headerlink" title="NLog配置文件支持两种方式"></a>NLog配置文件支持两种方式</h1><ul>
+<li>是将配置写到应用程序的配置文件（通常是applicationName.exe.config）或者Web.config文件中；</li>
+<li><p>独配置到一个文件，通常是NLog.config</p>
+<p>  &lt;?xml version=”1.0” encoding=”utf-8” ?&gt;</p>
+  <nlog xmlns="http://www.nlog-project.org/schemas/NLog.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><br><br>      <targets><br>          <target name="logfile" xsi:type="File" filename="file.txt"><br>      </target></targets><br><br>      <rules><br>          <logger name="*" minlevel="Info" writeto="logfile"><br>      </logger></rules><br>  </nlog>
+
+</li>
+</ul>
+<p>多个目标</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;nlog xmlns=&quot;http://www.nlog-project.org/schemas/NLog.xsd&quot;
+      xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
+
+    &lt;targets&gt;
+        &lt;target name=&quot;logfile&quot; xsi:type=&quot;File&quot; fileName=&quot;file.txt&quot; /&gt;
+        &lt;target name=&quot;console&quot; xsi:type=&quot;Console&quot; /&gt;
+    &lt;/targets&gt;
+
+    &lt;rules&gt;
+        &lt;logger name=&quot;*&quot; minlevel=&quot;Trace&quot; writeTo=&quot;logfile&quot; /&gt;
+        &lt;logger name=&quot;*&quot; minlevel=&quot;Info&quot; writeTo=&quot;console&quot; /&gt;
+    &lt;/rules&gt;
+&lt;/nlog&gt;
+</code></pre><p>还有一个比较常见的应用场景则是，需要为当前正在开发的组件提供更多细节的日志，而其他的组件将会减少输出。我们就可以用这样的配置文件：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;nlog xmlns=&quot;http://www.nlog-project.org/schemas/NLog.xsd&quot;
+      xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;&gt;
+
+    &lt;targets&gt;
+        &lt;target name=&quot;logfile&quot; xsi:type=&quot;File&quot; fileName=&quot;file.txt&quot; /&gt;
+    &lt;/targets&gt;
+
+    &lt;rules&gt;
+        &lt;logger name=&quot;SomeNamespace.Component.*&quot; minlevel=&quot;Trace&quot; writeTo=&quot;logfile&quot; final=&quot;true&quot; /&gt;
+        &lt;logger name=&quot;*&quot; minlevel=&quot;Info&quot; writeTo=&quot;logfile&quot; /&gt;
+    &lt;/rules&gt;
+&lt;/nlog&gt;
+</code></pre><p>第一个规则将会将以SomeNamespace.Component开头的Logger对象的Trace级别及以上级别的日志发送到日志文件。属性final=true将会使得在写入操作之后停止进一步处理。<br>第二个规则将会将剩下的日志发送到同一个日志文件，但是这些日志有一个约束，那就是级别需要是Info或更高。</p>
+<h1 id="层级"><a href="#层级" class="headerlink" title="层级"></a>层级</h1><p>层级提供了一个当日志被写入文件时，指定日志内容格式的方法。主要有两种层级：</p>
+<pre><code>简单层级 - 使用层级渲染器撰写。
+结构层级 - 可以输出XML、CSV、以及其他复杂的格式。
+</code></pre><p>简单层级就是一个字符串，在${和}中嵌入一些特殊的标记。比如下面的声明将会使得每一条日志消息都是用一个格式为yyyMMddHHmmss:的日期前缀：</p>
+<pre><code>&lt;target name=&quot;logfile&quot; xsi:type=&quot;File&quot; fileName=&quot;file.txt&quot; layout=&quot;${date:format=yyyyMMddHHmmss} ${message}&quot; /&gt;
+</code></pre><h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="https://blog.csdn.net/Toshiya14/article/details/52098088" title="NLog简易入门" target="_blank" rel="noopener">https://blog.csdn.net/Toshiya14/article/details/52098088</a></p>
+<p><a href="https://github.com/NLog/NLog/wiki/Configuration-file" title="https://github.com/NLog/NLog/wiki/Configuration-file" target="_blank" rel="noopener">https://github.com/NLog/NLog/wiki/Configuration-file</a></p>
+<p><a href="https://github.com/NLog/NLog/wiki/Configuration-API" title="https://github.com/NLog/NLog/wiki/Configuration-API" target="_blank" rel="noopener">https://github.com/NLog/NLog/wiki/Configuration-API</a></p>
+<p><a href="https://blog.csdn.net/dsnq2011/article/details/51920265" target="_blank" rel="noopener">NLog的配置和使用</a></p>
 
-template &lt;class ClsType&gt;
-class Cx_Object
-    : public ClsType
-    , public Ix_Object
-{
-protected:
-    Cx_Object(bool bRef = true) : m_lRefCount(bRef ? 1 : 0)
-    {
-        InterlockedIncrement(&amp;ObjectCount());
-    }
-
-    virtual ~Cx_Object()
-    {
-        InterlockedDecrement(&amp;ObjectCount());
-    }
-
-protected:
-    virtual void AddRef(HMODULE fromdll)
-    {
-        if (fromdll != xGetModuleHandle())
-        {
-            InterlockedIncrement(&amp;RefCountByOthers());
-        }
-        InterlockedIncrement(&amp;m_lRefCount);
-    }
-
-    virtual void Release(HMODULE fromdll)
-    {
-        if (fromdll != xGetModuleHandle())
-        {
-            InterlockedDecrement(&amp;RefCountByOthers());
-        }
-        if (0 == InterlockedDecrement(&amp;m_lRefCount))
-        {
-            delete this;
-        }
-    }
-
-    virtual const char* GetClassName() const
-    {
-        return typeid(*this).name();
-    }
-
-public:
-    static Ix_Object* STDMETHODCALLTYPE CreateObject(HMODULE fromdll)
-    {
-        Cx_Object&lt;ClsType&gt;* p = new Cx_Object&lt;ClsType&gt;(false);
-        p-&gt;AddRef(fromdll);
-        return p;
-    }
-
-    static long STDMETHODCALLTYPE GetObjectCount()
-    {
-        return ObjectCount();
-    }
-
-    static long STDMETHODCALLTYPE GetRefCountByOthers()
-    {
-        return RefCountByOthers();
-    }
-
-private:
-    long        m_lRefCount;
-
-    static long&amp; ObjectCount()
-    {
-        static long s_lObjCount = 0;
-        return s_lObjCount;
-    }
-
-    static long&amp; RefCountByOthers()
-    {
-        static long s_lRefCount = 0;
-        return s_lRefCount;
-    }
-};
-
-#if defined(_MSC_VER) &amp;&amp; !defined(_CPPRTTI)
-#error must enable RTTI (compiled with /GR)
-#endif
-
-class Cx_Ptr;
-
-//! An autoptr class with a specified interface.
-template &lt;class IF_Type&gt;
-class Cx_Interface
-{
-    typedef Cx_Interface&lt;IF_Type&gt; thisClass;
-public:
-    Cx_Interface() : m_pInterface(NULL), m_pObj(NULL)
-    {
-    }
-
-    Cx_Interface(const Cx_Ptr&amp; src);
-
-#if defined(_MSC_VER) &amp;&amp; _MSC_VER &gt; 1200 // not VC60
-
-    Cx_Interface(const thisClass&amp; src)
-        : m_pInterface(src.m_pInterface), m_pObj(src.m_pObj)
-    {
-        if (m_pInterface)
-        {
-            m_pObj-&gt;AddRef(xGetModuleHandle());
-        }
-    }
-
-    Cx_Interface(IF_Type* pInterface) : m_pInterface(pInterface), m_pObj(NULL)
-    {
-        if (m_pInterface)
-        {
-            m_pObj = dynamic_cast&lt;Ix_Object*&gt;(m_pInterface);
-            //ASSERT(m_pObj != NULL);
-            m_pObj-&gt;AddRef(xGetModuleHandle());
-        }
-    }
-
-#endif // _MSC_VER
-
-    template &lt;class IF_Type2&gt;
-    explicit Cx_Interface(IF_Type2* pInterface) : m_pInterface(NULL), m_pObj(NULL)
-    {
-        if (pInterface)
-        {
-            m_pInterface = dynamic_cast&lt;IF_Type*&gt;(pInterface);
-            if (m_pInterface)
-            {
-                m_pObj = dynamic_cast&lt;Ix_Object*&gt;(m_pInterface);
-                //ASSERT(m_pObj != NULL);
-                m_pObj-&gt;AddRef(xGetModuleHandle());
-            }
-        }
-    }
-
-    template &lt;class IF_Type2&gt;
-    explicit Cx_Interface(const Cx_Interface&lt;IF_Type2&gt;&amp; pIF)
-        : m_pInterface(NULL), m_pObj(NULL)
-    {
-        if (pIF)
-        {
-            m_pInterface = dynamic_cast&lt;IF_Type*&gt;(pIF.P());
-            if (m_pInterface)
-            {
-                m_pObj = dynamic_cast&lt;Ix_Object*&gt;(m_pInterface);
-                //ASSERT(m_pObj != NULL);
-                m_pObj-&gt;AddRef(xGetModuleHandle());
-            }
-        }
-    }
-
-    explicit Cx_Interface(const std::string&amp; clsid) : m_pInterface(NULL), m_pObj(NULL)
-    {
-        if (S_OK == xCreateObject(clsid, &amp;m_pObj))
-        {
-            m_pInterface = dynamic_cast&lt;IF_Type*&gt;(m_pObj);
-            if (NULL == m_pInterface)
-            {
-                m_pObj-&gt;Release(xGetModuleHandle());
-                m_pObj = NULL;
-            }
-        }
-    }
-
-    ~Cx_Interface()
-    {
-        Unload();
-    }
-
-    inline IF_Type* P() const
-    {
-        return m_pInterface;
-    }
-
-    inline IF_Type* operator-&gt;() const
-    {
-        return m_pInterface;
-    }
-
-    template &lt;class IF_Type2&gt;
-    thisClass&amp; operator=(IF_Type2* pInterface)
-    {
-        Unload();
-
-        if (pInterface)
-        {
-            m_pInterface = dynamic_cast&lt;IF_Type*&gt;(pInterface);
-            if (m_pInterface)
-            {
-                m_pObj = dynamic_cast&lt;Ix_Object*&gt;(m_pInterface);
-                //ASSERT(m_pObj != NULL);
-                m_pObj-&gt;AddRef(xGetModuleHandle());
-            }
-        }
-
-        return *this;
-    }
-
-    template &lt;class IF_Type2&gt;
-    thisClass&amp; operator=(const Cx_Interface&lt;IF_Type2&gt;&amp; pIF)
-    {
-        return operator=(pIF.P());
-    }
-
-    thisClass&amp; operator=(const thisClass&amp; src)
-    {
-        if (this != &amp;src)
-        {
-            Load(src.m_pInterface);
-        }
-
-        return *this;
-    }
-
-    thisClass&amp; operator=(const Cx_Ptr&amp; src);
-
-    thisClass&amp; operator=(const int)
-    {
-        //ASSERT(0 == nul);
-        Unload();
-        return *this;
-    }
-
-    bool operator==(const int) const
-    {
-        //ASSERT(0 == nul);
-        return m_pInterface == NULL;
-    }
-
-    bool operator!=(const int) const
-    {
-        //ASSERT(0 == nul);
-        return m_pInterface != NULL;
-    }
-
-    bool operator==(const IF_Type* pInterface) const
-    {
-        return m_pInterface == pInterface;
-    }
-
-    bool operator!=(const IF_Type* pInterface) const
-    {
-        return m_pInterface != pInterface;
-    }
-
-    bool operator==(const thisClass&amp; src) const
-    {
-        return m_pInterface == src.m_pInterface;
-    }
-
-    bool operator!=(const thisClass&amp; src) const
-    {
-        return m_pInterface != src.m_pInterface;
-    }
-
-    inline operator bool() const
-    {
-        return m_pInterface != NULL;
-    }
-
-    inline bool operator!() const
-    {
-        return NULL == m_pInterface;
-    }
-
-    inline bool IsNull() const
-    {
-        return NULL == m_pInterface;
-    }
-
-    inline bool IsNotNull() const
-    {
-        return m_pInterface != NULL;
-    }
-
-    void Release()
-    {
-        Unload();
-    }
-
-    IF_Type* DetachInterface()
-    {
-        IF_Type* pIF = m_pInterface;
-        m_pInterface = NULL;
-        m_pObj = NULL;
-        return pIF;
-    }
-
-    bool AttachInterface(IF_Type* pIF)
-    {
-        Unload();
-        m_pInterface = pIF;
-        m_pObj = dynamic_cast&lt;Ix_Object*&gt;(m_pInterface);
-        return (m_pObj != NULL || NULL == m_pInterface);
-    }
-
-    bool AttachInterface(Ix_Object* pIF)
-    {
-        Unload();
-
-        if (pIF)
-        {
-            m_pInterface = dynamic_cast&lt;IF_Type*&gt;(pIF);
-            if (m_pInterface)
-            {
-                m_pObj = dynamic_cast&lt;Ix_Object*&gt;(m_pInterface);
-                //ASSERT(m_pObj != NULL);
-            }
-            else
-            {
-                pIF-&gt;Release(xGetModuleHandle());
-                pIF = NULL;
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    bool Create(const std::string&amp; clsid)
-    {
-        Unload();
-
-        if (S_OK == xCreateObject(clsid, &amp;m_pObj))
-        {
-            m_pInterface = dynamic_cast&lt;IF_Type*&gt;(m_pObj);
-            if (NULL == m_pInterface)
-            {
-                m_pObj-&gt;Release(xGetModuleHandle());
-                m_pObj = NULL;
-            }
-        }
-
-        return m_pInterface != NULL;
-    }
-
-private:
-    void Unload()
-    {
-        if (m_pObj)
-        {
-            m_pObj-&gt;Release(xGetModuleHandle());
-            m_pObj = NULL;
-            m_pInterface = NULL;
-        }
-    }
-
-    void Load(IF_Type* pIF)
-    {
-        Ix_Object* pObj = dynamic_cast&lt;Ix_Object*&gt;(pIF);
-        if (m_pObj != pObj)
-        {
-            if (pObj)
-            {
-                pObj-&gt;AddRef(xGetModuleHandle());
-            }
-            if (m_pObj)
-            {
-                m_pObj-&gt;Release(xGetModuleHandle());
-            }
-            m_pObj = pObj;
-            m_pInterface = pIF;
-        }
-    }
-
-private:
-    IF_Type*    m_pInterface;
-    Ix_Object*  m_pObj;
-};
-
-//! An autoptr class with the Ix_Object interface.
-class Cx_Ptr
-{
-public:
-    Cx_Ptr() : m_pInterface(NULL)
-    {
-    }
-
-    Cx_Ptr(const Cx_Ptr&amp; src) : m_pInterface(src.m_pInterface)
-    {
-        if (m_pInterface)
-        {
-            m_pInterface-&gt;AddRef(xGetModuleHandle());
-        }
-    }
-
-    template &lt;class IF_Type&gt;
-    explicit Cx_Ptr(IF_Type* pInterface) : m_pInterface(NULL)
-    {
-        m_pInterface = dynamic_cast&lt;Ix_Object*&gt;(pInterface);
-        if (m_pInterface)
-        {
-            m_pInterface-&gt;AddRef(xGetModuleHandle());
-        }
-    }
-
-    template &lt;class IF_Type&gt;
-    explicit Cx_Ptr(const Cx_Interface&lt;IF_Type&gt;&amp; pIF) : m_pInterface(NULL)
-    {
-        m_pInterface = dynamic_cast&lt;Ix_Object*&gt;(pIF.P());
-        if (m_pInterface)
-        {
-            m_pInterface-&gt;AddRef(xGetModuleHandle());
-        }
-    }
-
-    explicit Cx_Ptr(const std::string&amp; clsid) : m_pInterface(NULL)
-    {
-        xCreateObject(clsid, &amp;m_pInterface);
-    }
-
-    ~Cx_Ptr()
-    {
-        Unload();
-    }
-
-    Ix_Object* P() const
-    {
-        return m_pInterface;
-    }
-
-    template &lt;class IF_Type&gt;
-    Cx_Ptr&amp; operator=(IF_Type* pInterface)
-    {
-        Unload();
-
-        m_pInterface = dynamic_cast&lt;Ix_Object*&gt;(pInterface);
-        if (m_pInterface)
-        {
-            m_pInterface-&gt;AddRef(xGetModuleHandle());
-        }
-
-        return *this;
-    }
-
-    template &lt;class IF_Type&gt;
-    Cx_Ptr&amp; operator=(const Cx_Interface&lt;IF_Type&gt;&amp; pIF)
-    {
-        return operator=(pIF.P());
-    }
-
-    Cx_Ptr&amp; operator=(const Cx_Ptr&amp; src)
-    {
-        if (this != &amp;src)
-        {
-            Load(src.m_pInterface);
-        }
-
-        return *this;
-    }
-
-    Cx_Ptr&amp; operator=(const int)
-    {
-        //ASSERT(0 == nul);
-        Unload();
-        return *this;
-    }
-
-    bool operator==(const int) const
-    {
-        //ASSERT(0 == nul);
-        return m_pInterface == NULL;
-    }
-
-    bool operator!=(const int) const
-    {
-        //ASSERT(0 == nul);
-        return m_pInterface != NULL;
-    }
-
-    bool operator==(const Ix_Object* pInterface) const
-    {
-        return m_pInterface == pInterface;
-    }
-
-    bool operator!=(const Ix_Object* pInterface) const
-    {
-        return m_pInterface != pInterface;
-    }
-
-    bool operator==(const Cx_Ptr&amp; src) const
-    {
-        return m_pInterface == src.m_pInterface;
-    }
-
-    bool operator!=(const Cx_Ptr&amp; src) const
-    {
-        return m_pInterface != src.m_pInterface;
-    }
-
-    inline operator bool() const
-    {
-        return m_pInterface != NULL;
-    }
-
-    inline bool operator!() const
-    {
-        return NULL == m_pInterface;
-    }
-
-    inline bool IsNull() const
-    {
-        return NULL == m_pInterface;
-    }
-
-    inline bool IsNotNull() const
-    {
-        return m_pInterface != NULL;
-    }
-
-    void Release()
-    {
-        Unload();
-    }
-
-    Ix_Object* DetachInterface()
-    {
-        Ix_Object* pIF = m_pInterface;
-        m_pInterface = NULL;
-        return pIF;
-    }
-
-    void AttachInterface(Ix_Object* pIF)
-    {
-        Unload();
-        m_pInterface = pIF;
-    }
-
-    bool Create(const std::string&amp; clsid)
-    {
-        Unload();
-        return S_OK == xCreateObject(clsid, &amp;m_pInterface);
-    }
-
-private:
-    void Unload()
-    {
-        if (m_pInterface)
-        {
-            m_pInterface-&gt;Release(xGetModuleHandle());
-            m_pInterface = NULL;
-        }
-    }
-
-    void Load(Ix_Object* pIF)
-    {
-        if (m_pInterface != pIF)
-        {
-            if (pIF)
-            {
-                pIF-&gt;AddRef(xGetModuleHandle());
-            }
-            if (m_pInterface)
-            {
-                m_pInterface-&gt;Release(xGetModuleHandle());
-            }
-            m_pInterface = pIF;
-        }
-    }
-
-private:
-    Ix_Object*  m_pInterface;
-};
-
-// Inlines for Cx_Interface
-//
-template &lt;class IF_Type&gt; inline
-Cx_Interface&lt;IF_Type&gt;::Cx_Interface(const Cx_Ptr&amp; src) : m_pInterface(NULL), m_pObj(NULL)
-{
-    if (src.P())
-    {
-        m_pInterface = dynamic_cast&lt;IF_Type*&gt;(src.P());
-        if (m_pInterface)
-        {
-            m_pObj = src.P();
-            m_pObj-&gt;AddRef(xGetModuleHandle());
-        }
-    }
-}
-
-template &lt;class IF_Type&gt; inline
-Cx_Interface&lt;IF_Type&gt;&amp; Cx_Interface&lt;IF_Type&gt;::operator=(const Cx_Ptr&amp; src)
-{
-    Unload();
-
-    if (src.P())
-    {
-        m_pInterface = dynamic_cast&lt;IF_Type*&gt;(src.P());
-        if (m_pInterface)
-        {
-            m_pObj = src.P();
-            m_pObj-&gt;AddRef(xGetModuleHandle());
-        }
-    }
-
-    return *this;
-}
-
-template &lt;class ClsType&gt;
-class Cx_SingletonObject
-    : public ClsType
-    , public Ix_Object
-    , public CModuleItem
-{
-protected:
-    Cx_SingletonObject(bool bRef = true) : m_lRefCount(bRef ? 1 : 0)
-    {
-    }
-
-    virtual ~Cx_SingletonObject()
-    {
-        if (Instance() == this)
-        {
-            Instance() = NULL;
-        }
-    }
-
-protected:
-    virtual void AddRef(HMODULE fromdll)
-    {
-        if (fromdll != xGetModuleHandle())
-        {
-            InterlockedIncrement(&amp;RefCountByOthers());
-        }
-        InterlockedIncrement(&amp;m_lRefCount);
-    }
-
-    virtual void Release(HMODULE fromdll)
-    {
-        if (fromdll != xGetModuleHandle())
-        {
-            InterlockedDecrement(&amp;RefCountByOthers());
-        }
-        InterlockedDecrement(&amp;m_lRefCount);
-    }
-
-    virtual const char* GetClassName() const
-    {
-        return typeid(*this).name();
-    }
-
-public:
-    static Ix_Object* STDMETHODCALLTYPE CreateObject(HMODULE fromdll)
-    {
-        if (NULL == Instance())
-        {
-            Cx_SingletonObject&lt;ClsType&gt;* p = new Cx_SingletonObject&lt;ClsType&gt;(false);
-
-#ifdef InterlockedCompareExchangePointer
-            if (InterlockedCompareExchangePointer(
-                (PVOID volatile *)(&amp;Instance()), p, NULL) == NULL)
-#else
-            if (InterlockedCompareExchange((void**)(&amp;Instance()), p, NULL) == NULL)
-#endif
-            {
-                p-&gt;AddRef(fromdll);
-                p-&gt;AddModuleItem();
-            }
-            else
-            {
-                delete p;   // has created by another thread
-            }
-        }
-
-        return Instance();
-    }
-
-    static long STDMETHODCALLTYPE GetObjectCount()
-    {
-        return (Instance() &amp;&amp; Instance()-&gt;m_lRefCount &gt; 0) ? 1 : 0;
-    }
-
-    static long STDMETHODCALLTYPE GetRefCountByOthers()
-    {
-        return RefCountByOthers();
-    }
-
-private:
-    long        m_lRefCount;
-
-    static Cx_SingletonObject&lt;ClsType&gt;*&amp; Instance()
-    {
-        static Cx_SingletonObject&lt;ClsType&gt;* s_pSingleton = NULL;
-        return s_pSingleton;
-    }
-
-    static long&amp; RefCountByOthers()
-    {
-        static long s_lRefCount = 0;
-        return s_lRefCount;
-    }
-};
-
-// XBEGIN_DEFINE_MODULE()
-//     XDEFINE_CLASSMAP_ENTRY(clsid, cls)
-//     XDEFINE_CLASSMAP_ENTRY_Singleton(clsid, cls)
-//     XDEFINE_SPECIAL_INTERFACE_ENTRY_Singleton(clsid, iid, cls)
-// XEND_DEFINE_MODULE()
-// XEND_DEFINE_MODULE_WIN32DLL()
-// XEND_DEFINE_MODULE_MFCEXTDLL()
-// XEND_DEFINE_MODULE_MFCDLL()
-
-//! Begin group of class factory registry.
-/*!
-\ingroup _GROUP_PLUGIN_CORE_
-\see XEND_DEFINE_MODULE
-\see XEND_DEFINE_MODULE_WIN32DLL, XEND_DEFINE_MODULE_MFCEXTDLL
-*/
-#define XBEGIN_DEFINE_MODULE()  \
-    const _XCLASSMETA_ENTRY _XCLASSMETA_ENTRY::s_classes[] = {
-//! Register a regular class.
-/*!
-\ingroup _GROUP_PLUGIN_CORE_
-\param clsid class unique id, XCLSID constant.
-\param cls implement class
-*/
-#define XDEFINE_CLASSMAP_ENTRY(clsid, cls)      \
-    _XCLASSMETA_ENTRY(1, &quot;Cx_Object&lt;&quot; #cls &quot;&gt;&quot;, clsid, &quot;&quot;,  \
-        reinterpret_cast&lt;PFNXObjectCreator&gt;(&amp;Cx_Object&lt;cls&gt;::CreateObject), \
-        reinterpret_cast&lt;PFNXGetObjectCount&gt;(&amp;Cx_Object&lt;cls&gt;::GetObjectCount),  \
-        reinterpret_cast&lt;PFNXRefCountByOthers&gt;(&amp;Cx_Object&lt;cls&gt;::GetRefCountByOthers)),
-
-//! Register a single instance class.
-/*!
-\ingroup _GROUP_PLUGIN_CORE_
-\param clsid class unique id, XCLSID constant.
-\param cls implement class
-*/
-#define XDEFINE_CLASSMAP_ENTRY_Singleton(clsid, cls)    \
-    _XCLASSMETA_ENTRY(MIN_SINGLETON_TYPE,   \
-        &quot;Cx_SingletonObject&lt;&quot; #cls &quot;&gt;&quot;, clsid, &quot;&quot;,  \
-        reinterpret_cast&lt;PFNXObjectCreator&gt;(&amp;Cx_SingletonObject&lt;cls&gt;::CreateObject),    \
-        reinterpret_cast&lt;PFNXGetObjectCount&gt;(&amp;Cx_SingletonObject&lt;cls&gt;::GetObjectCount), \
-        reinterpret_cast&lt;PFNXRefCountByOthers&gt;(&amp;Cx_SingletonObject&lt;cls&gt;::GetRefCountByOthers)),
-
-//! Register a single instance class that support the specific interface.
-/*!
-\ingroup _GROUP_PLUGIN_CORE_
-\param iid the specific interface id name. char array constant.
-\param cls implement class
-*/
-#define XDEFINE_SPECIAL_INTERFACE_ENTRY_Singleton(iid, cls)     \
-    _XCLASSMETA_ENTRY(MIN_SINGLETON_TYPE + 1,   \
-        &quot;Cx_SingletonObject&lt;&quot; #cls &quot;&gt;&quot;, XCLSID(), iid,  \
-        reinterpret_cast&lt;PFNXObjectCreator&gt;(&amp;Cx_SingletonObject&lt;cls&gt;::CreateObject),    \
-        reinterpret_cast&lt;PFNXGetObjectCount&gt;(&amp;Cx_SingletonObject&lt;cls&gt;::GetObjectCount), \
-        reinterpret_cast&lt;PFNXRefCountByOthers&gt;(&amp;Cx_SingletonObject&lt;cls&gt;::GetRefCountByOthers)),
-
-//! End group of class factory registry.
-/*!
-\ingroup _GROUP_PLUGIN_CORE_
-\see XEND_DEFINE_MODULE_WIN32DLL, XEND_DEFINE_MODULE_MFCEXTDLL
-*/
-#define XEND_DEFINE_MODULE() \
-        _XCLASSMETA_ENTRY() \
-    };
-
-#pragma warning(disable:4710)   // inline function not expanded
-
-//! End group of class factory registry and implement entry function of Win32DLL(USRDLL).
-/*! Using this macro need include this file and XModuleImpl.h file.
-\ingroup _GROUP_PLUGIN_CORE_
-\see XEND_DEFINE_MODULE_MFCEXTDLL, XEND_DEFINE_MODULE_MFCDLL
-*/
-#define XEND_DEFINE_MODULE_WIN32DLL() \
-        _XCLASSMETA_ENTRY() \
-    };  \
-BOOL APIENTRY DllMain(HANDLE hModule, DWORD dwReason, LPVOID)   \
-{   \
-    if (dwReason == DLL_PROCESS_ATTACH) \
-    {   \
-        _xGetModuleInterface(NULL, (HMODULE)hModule);   \
-    }   \
-    else if (dwReason == DLL_PROCESS_DETACH)    \
-    {   \
-        xGetCurrentModule()-&gt;ClearModuleItems();    \
-    }   \
-    return TRUE;    \
-}
-
-//! End group of class factory registry and implement entry function of MFC Extension DLL.
-/*! Using this macro need include this file and XModuleImpl.h file.
-\ingroup _GROUP_PLUGIN_CORE_
-\see XEND_DEFINE_MODULE_WIN32DLL, XEND_DEFINE_MODULE_MFCDLL
-*/
-#define XEND_DEFINE_MODULE_MFCEXTDLL() \
-        _XCLASSMETA_ENTRY() \
-    };  \
-static AFX_EXTENSION_MODULE MFCExtDLL = { NULL, NULL }; \
-extern &quot;C&quot; int APIENTRY \
-DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID)    \
-{   \
-    if (dwReason == DLL_PROCESS_ATTACH) \
-    {   \
-        if (!AfxInitExtensionModule(MFCExtDLL, hInstance))  \
-            return 0;   \
-        new CDynLinkLibrary(MFCExtDLL); \
-        _xGetModuleInterface(NULL, MFCExtDLL.hModule);  \
-    }   \
-    else if (dwReason == DLL_PROCESS_DETACH)    \
-    {   \
-        xGetCurrentModule()-&gt;ClearModuleItems();        \
-        AfxTermExtensionModule(MFCExtDLL);  \
-    }   \
-    return 1;   \
-}
-
-//! End group of class factory registry and implement entry function of MFC regular DLL.
-/*! This macro implements CPluginApp class.\n
-Using this macro need include this file and XModuleImpl.h file.
-\note Call the following statemant before call any MFC function: \n
-AFX_MANAGE_STATE(AfxGetStaticModuleState());
-\ingroup _GROUP_PLUGIN_CORE_
-\see XEND_DEFINE_MODULE_WIN32DLL, XEND_DEFINE_MODULE_MFCEXTDLL
-*/
-#define XEND_DEFINE_MODULE_MFCDLL() \
-        _XCLASSMETA_ENTRY() \
-    };  \
-class CPluginApp : public CWinApp   \
-{   \
-public: \
-    CPluginApp()    \
-    {   \
-    }   \
-    virtual BOOL InitInstance() \
-    {   \
-        CWinApp::InitInstance();    \
-        _xGetModuleInterface(NULL, m_hInstance);    \
-        return TRUE;    \
-    }   \
-    virtual int ExitInstance()  \
-    {   \
-        xGetCurrentModule()-&gt;ClearModuleItems();    \
-        return CWinApp::ExitInstance(); \
-    }   \
-};
-
-//以上为基础核心代码，以下为例子
-
-const std::string CLSID_Example(&quot;86347b32-64e4-490c-b273-ec7e010f244e&quot;);
-
-interface Ix_Example
-{
-    virtual void Foo() = 0;
-};
-
-interface Ix_Example2
-{
-    virtual void Foo2() = 0;
-};
-
-class Cx_Example
-    : public Ix_Example
-    , public Ix_Example2
-{
-protected:
-    Cx_Example() {};
-    virtual ~Cx_Example() {};
-
-private:
-    // From Ix_Example
-    virtual void Foo()
-    {
-        std::cout &lt;&lt; __FUNCTION__ &lt;&lt; std::endl;
-    };
-
-    // From Ix_Example2
-    virtual void Foo2()
-    {
-        std::cout &lt;&lt; __FUNCTION__ &lt;&lt; std::endl;
-    };
-};
-
-XBEGIN_DEFINE_MODULE()
-XDEFINE_CLASSMAP_ENTRY(CLSID_Example, Cx_Example)
-XEND_DEFINE_MODULE()
-
-void MyFunc2(const Cx_Ptr&amp; obj)
-{
-    // Cx_Interface与Cx_Ptr互转，转为特定接口
-    Cx_Interface&lt;Ix_Example&gt; pIFExample(obj);
-    if (pIFExample)
-    {
-        pIFExample-&gt;Foo();
-    }
-}
-
-Cx_Ptr MyFunc1()
-{
-    // 使用类ID和接口类型创建对象
-    Cx_Interface&lt;Ix_Example&gt; pIFExample(CLSID_Example);
-    if (pIFExample)
-    {
-        pIFExample-&gt;Foo();    // 调用接口函数
-    }
-
-    // 从一个接口转换为其他接口
-    Cx_Interface&lt;Ix_Example2&gt; pIFExample2(pIFExample);
-    if (pIFExample2.IsNotNull())
-    {
-        pIFExample2-&gt;Foo2();
-    }
-
-    MyFunc2(Cx_Ptr(pIFExample));
-    return Cx_Ptr(pIFExample);
-}
-</code></pre>
       
 
       
@@ -5316,11 +4354,11 @@ Cx_Ptr MyFunc1()
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C/C++</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">C#</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">X3框架</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">NLog</a>
         		</li>
       		
 		</ul>
@@ -5330,7 +4368,7 @@ Cx_Ptr MyFunc1()
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/18/X3框架/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/05/17/NLog/">展开全文 >></a>
         </p>
       
 
