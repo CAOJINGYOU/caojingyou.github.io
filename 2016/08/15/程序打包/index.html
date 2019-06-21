@@ -15,10 +15,12 @@
 <meta property="og:url" content="https://caojingyou.github.io/2016/08/15/程序打包/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="Visual Studio InstallerVS2010程序打包操作 使用Windows Installer 4.0作为安装程序包 InstallShieldInstallShield使用完全教程 探索InstallShield——制作一个完整的应用程序安装实例 一个完整的Installshield安装程序实例  从Visual Studio 2012开始，微软就把自家原来的安装与部署工具彻底废">
-<meta property="og:updated_time" content="2019-01-23T08:52:23.017Z">
+<meta property="og:image" content="https://i.imgur.com/EXmYBLs.jpg">
+<meta property="og:updated_time" content="2019-05-24T10:12:02.683Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="程序打包">
 <meta name="twitter:description" content="Visual Studio InstallerVS2010程序打包操作 使用Windows Installer 4.0作为安装程序包 InstallShieldInstallShield使用完全教程 探索InstallShield——制作一个完整的应用程序安装实例 一个完整的Installshield安装程序实例  从Visual Studio 2012开始，微软就把自家原来的安装与部署工具彻底废">
+<meta name="twitter:image" content="https://i.imgur.com/EXmYBLs.jpg">
   
     <link rel="alternative" href="/atom.xml" title="曹景游" type="application/atom+xml">
   
@@ -607,14 +609,524 @@ end;
 <p><a href="https://www.cnblogs.com/joean/p/4881191.html" target="_blank" rel="noopener">一个比较完整的Inno Setup 安装脚本</a></p>
 <p><a href="https://blog.csdn.net/qq_34248512/article/details/77033165" target="_blank" rel="noopener">通过nsis和duilib实现自定义安装界面</a></p>
 <h1 id="牛牛安装包界面美化控件-nsNiuniuSkin"><a href="#牛牛安装包界面美化控件-nsNiuniuSkin" class="headerlink" title="牛牛安装包界面美化控件 [nsNiuniuSkin]"></a>牛牛安装包界面美化控件 [nsNiuniuSkin]</h1><p><a href="http://www.ggniu.cn/download.htm" title="http://www.ggniu.cn/download.htm" target="_blank" rel="noopener">http://www.ggniu.cn/download.htm</a></p>
-<h1 id="WixToolSet"><a href="#WixToolSet" class="headerlink" title="WixToolSet"></a>WixToolSet</h1><p><a href="http://wixtoolset.org/" title="http://wixtoolset.org/" target="_blank" rel="noopener">http://wixtoolset.org/</a></p>
-<p><a href="http://wixtoolset.org/releases/" target="_blank" rel="noopener">http://wixtoolset.org/releases/</a></p>
+<h1 id="WixToolSet"><a href="#WixToolSet" class="headerlink" title="WixToolSet"></a>WixToolSet</h1><p><a href="http://wixtoolset.org/" title="http://wixtoolset.org/" target="_blank" rel="noopener">http://wixtoolset.org/网站</a></p>
+<p><a href="http://wixtoolset.org/releases/" target="_blank" rel="noopener">http://wixtoolset.org/releases/下载</a></p>
+<p><a href="https://wixtoolset.org/documentation/manual/v3/" target="_blank" rel="noopener">WIX工具手册</a></p>
 <p><a href="https://www.firegiant.com/wix/tutorial/" title="WiX Toolset Tutorial" target="_blank" rel="noopener">WiX工具集教程</a></p>
 <p><a href="http://blog.csdn.net/xxdddail/article/details/12652233" target="_blank" rel="noopener">WIX安装图文并茂简易说明</a></p>
-<p><a href="http://www.cnblogs.com/stoneniqiu/category/522235.html" title="http://www.cnblogs.com/stoneniqiu/category/522235.html" target="_blank" rel="noopener">http://www.cnblogs.com/stoneniqiu/category/522235.html</a></p>
-<p><a href="https://www.firegiant.com/wix/tutorial/getting-started/the-files-inside/" title="https://www.firegiant.com/wix/tutorial/getting-started/the-files-inside/" target="_blank" rel="noopener">https://www.firegiant.com/wix/tutorial/getting-started/the-files-inside/</a></p>
-<p><a href="http://wixtoolset.org/documentation/manual/v3/" title="http://wixtoolset.org/documentation/manual/v3/" target="_blank" rel="noopener">http://wixtoolset.org/documentation/manual/v3/</a></p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;Wix xmlns=&quot;http://schemas.microsoft.com/wix/2006/wi&quot;&gt;
+  &lt;Product Id=&quot;{B7AF3561-68CB-4FEF-8DE4-C011AA462F62}&quot; Name=&quot;$(var.PRODUCT_NAME)&quot; Language=&quot;1033&quot; Version=&quot;1.1.1.1&quot;
+           Manufacturer=&quot;$(var.MANUFACTURER)&quot; UpgradeCode=&quot;{780EEB5A-ED25-4E85-AF66-C9EE996B2948}&quot;&gt;
+    &lt;Package InstallerVersion=&quot;200&quot; Compressed=&quot;yes&quot; InstallScope=&quot;perMachine&quot; /&gt;
+    &lt;!--net2.0 NETFRAMEWORK20;net3.0 NETFRAMEWORK30 net3.5 NETFRAMEWORK35 net4.0 NETFRAMEWORK40FULL net4.5 NETFRAMEWORK45--&gt;
+    &lt;PropertyRef Id=&quot;NETFRAMEWORK40FULL&quot;&gt;&lt;/PropertyRef&gt;
+    &lt;Condition Message=&quot;This application requires .NET Framework 4.0. 
+               Please install the .NET Framework then run this installer again.&quot;&gt;
+      &lt;![CDATA[Installed OR NETFRAMEWORK40FULL]]&gt;
+    &lt;/Condition&gt;
+    &lt;MajorUpgrade DowngradeErrorMessage=&quot;A newer version of [ProductName] is already installed.&quot; /&gt;
+    &lt;MediaTemplate EmbedCab=&quot;yes&quot;/&gt;
 
+    &lt;Feature Id=&quot;ProductFeature&quot; Title=&quot;RandomCodePrintSetup&quot; Level=&quot;1&quot;&gt;
+      &lt;ComponentGroupRef Id=&quot;ProductComponents&quot; /&gt;
+    &lt;/Feature&gt;
+    &lt;Property Id=&quot;WIXUI_INSTALLDIR&quot; Value=&quot;INSTALL_FOLDER&quot;/&gt;
+    &lt;UIRef Id=&quot;WixUI_InstallDir&quot;/&gt;
+    &lt;Icon Id=&quot;$(var.ICON_NAME)&quot; SourceFile=&quot;$(var.SOURCE_FILE_DIR)/$(var.ICON_NAME)&quot; /&gt;
+  &lt;/Product&gt;
+
+  &lt;Fragment&gt;
+    &lt;Directory Id=&quot;TARGETDIR&quot; Name=&quot;SourceDir&quot;&gt;
+      &lt;Directory Id=&quot;ProgramFilesFolder&quot;&gt;
+        &lt;Directory Id=&quot;INSTALL_MANUFACTURER&quot; Name=&quot;$(var.MANUFACTURER)&quot; &gt;
+          &lt;Directory Id=&quot;INSTALL_FOLDER&quot; Name=&quot;$(var.PRODUCT_NAME)&quot; /&gt;
+        &lt;/Directory&gt;
+      &lt;/Directory&gt;
+      &lt;Directory Id=&quot;ProgramMenuFolder&quot;&gt;
+        &lt;Directory Id=&quot;ProgramMenuDir&quot; Name=&quot;$(var.PRODUCT_NAME)&quot;&gt;&lt;/Directory&gt;
+      &lt;/Directory&gt;
+      &lt;Directory Id=&quot;DesktopFolder&quot; Name=&quot;Desktop&quot; /&gt;
+    &lt;/Directory&gt;
+  &lt;/Fragment&gt;
+
+  &lt;Fragment&gt;
+    &lt;ComponentGroup Id=&quot;ProductComponents&quot; Directory=&quot;INSTALL_FOLDER&quot;&gt;
+      &lt;Component Guid=&quot;{FDF4B1C0-E145-4B5B-BD80-B22958C84D6B}&quot; Id=&quot;MainApplication&quot;&gt;
+        &lt;File Id=&quot;MainApplication&quot; Source=&quot;$(var.SOURCE_FILE_DIR)\$(var.APPLICATION_NAME)&quot; DiskId=&apos;1&apos; KeyPath=&apos;yes&apos;&gt;
+        &lt;/File&gt;
+      &lt;/Component&gt;
+      &lt;Component Guid=&quot;{3E004D4A-7F18-4680-97E8-5B38860208AC}&quot; Id=&quot;OtherFile&quot;&gt;
+        &lt;File Id=&quot;Config&quot; Source=&quot;$(var.SOURCE_FILE_DIR)\Config.dll&quot;&gt;&lt;/File&gt;
+        &lt;File Id=&quot;TraceLog&quot; Source=&quot;$(var.SOURCE_FILE_DIR)\ TraceLog.log&quot;&gt;&lt;/File&gt;
+      &lt;/Component&gt;
+      &lt;Component Id=&quot;ApplicationShortcut&quot; Guid=&quot;{AEFEB53D-37C4-47CD-B7F5-0BF20C08F7B0}&quot;&gt;
+        &lt;Shortcut Id=&quot;StartMenuShortcut&quot;
+                          Name=&quot;$(var.PRODUCT_NAME)&quot;
+                          Directory=&quot;ProgramMenuDir&quot;
+                          Target=&quot;[INSTALL_FOLDER]$(var.APPLICATION_NAME)&quot;
+                          WorkingDirectory=&quot;INSTALL_FOLDER&quot;
+                          Icon=&quot;$(var.ICON_NAME)&quot; IconIndex=&quot;0&quot;
+                        /&gt;
+        &lt;Shortcut Id=&quot;DesktopShortcut&quot;
+                          Name=&quot;$(var.PRODUCT_NAME)&quot;
+                          Directory=&quot;DesktopFolder&quot;
+                          Target=&quot;[INSTALL_FOLDER]$(var.APPLICATION_NAME)&quot;
+                          WorkingDirectory=&quot;INSTALL_FOLDER&quot;
+                          Icon=&quot;$(var.ICON_NAME)&quot; IconIndex=&quot;0&quot;
+                        /&gt;
+        &lt;Shortcut Id=&quot;UninstallStartMenu&quot;
+                          Name=&quot;Uninstall&quot;
+                          Directory=&quot;ProgramMenuDir&quot;
+                          Target=&quot;[SystemFolder]msiexec.exe&quot;
+                          Arguments=&quot;/x [ProductCode]&quot;
+                          Description=&quot;Uninstall&quot;/&gt;
+        &lt;Shortcut Id=&quot;UninstallINSTALL_FOLDER&quot;
+                          Name=&quot;Uninstall&quot;
+                          Directory=&quot;INSTALL_FOLDER&quot;
+                          Target=&quot;[SystemFolder]msiexec.exe&quot;
+                          Arguments=&quot;/x [ProductCode]&quot;
+                          Description=&quot;Uninstall&quot;/&gt;
+        &lt;RemoveFolder Id=&quot;RemoveShortcutFolder&quot;  Directory=&quot;ProgramMenuDir&quot; On=&quot;uninstall&quot; /&gt;
+        &lt;RegistryKey Root=&quot;HKCU&quot; Key=&quot;Software\Microsoft\[Manufacturer]\[ProductName]&quot;&gt;
+          &lt;RegistryValue Name=&quot;StartMenuShortcut&quot; Type=&quot;integer&quot;  Value=&quot;1&quot; KeyPath=&quot;yes&quot; /&gt;
+          &lt;RegistryValue Name=&apos;Uninstall&apos; Type=&apos;string&apos;  Value=&apos;Uninstall&apos;/&gt;
+        &lt;/RegistryKey&gt;
+      &lt;/Component&gt;
+      &lt;Component Id=&apos;RemoveFiles&apos; Guid=&apos;{F341A78A-44EA-40B7-BDFD-5CA09DF7EB3F}&apos; KeyPath=&apos;yes&apos;&gt;
+        &lt;RemoveFolder Id=&quot;INSTALL_FOLDER&quot; Directory=&quot;ProgramMenuFolder&quot; On=&quot;uninstall&quot; /&gt;
+        &lt;RemoveFolder Id=&quot;INSTALL_MANUFACTURER&quot; Directory=&quot;ProgramMenuFolder&quot; On=&quot;uninstall&quot; /&gt;
+        &lt;RemoveFolder Id=&quot;ProgramMenuDir&quot; Directory=&quot;ProgramMenuFolder&quot; On=&quot;uninstall&quot; /&gt;
+      &lt;/Component&gt;
+    &lt;/ComponentGroup&gt;
+  &lt;/Fragment&gt;
+&lt;/Wix&gt;
+</code></pre><p><a href="http://www.cnblogs.com/stoneniqiu/category/522235.html" title="http://www.cnblogs.com/stoneniqiu/category/522235.html" target="_blank" rel="noopener">http://www.cnblogs.com/stoneniqiu/category/522235.html</a></p>
+<p><a href="https://www.firegiant.com/wix/tutorial/getting-started/the-files-inside/" title="https://www.firegiant.com/wix/tutorial/getting-started/the-files-inside/" target="_blank" rel="noopener">https://www.firegiant.com/wix/tutorial/getting-started/the-files-inside/</a></p>
+<p><a href="https://yq.aliyun.com/search/articles/?spm=a2c4e.11163080.searchblog.107.c7a72ec1FQLdSE&amp;q=Wix&amp;idx=default&amp;days=&amp;p=4" target="_blank" rel="noopener">云栖社区</a></p>
+<p><a href="https://www.cnblogs.com/huaxia283611/p/WiX-ToolsetIndex.html" target="_blank" rel="noopener">WiX Toolset 教程索引页</a></p>
+<p><a href="https://blog.csdn.net/venus258/article/details/51356461" target="_blank" rel="noopener">利用WIX制作安装包(1)</a></p>
+<p><a href="https://blog.csdn.net/catshitone/article/details/77802365" target="_blank" rel="noopener">WixToolset快速入门教程</a></p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;Wix xmlns=&quot;http://schemas.microsoft.com/wix/2006/wi&quot; xmlns:util=&quot;http://schemas.microsoft.com/wix/UtilExtension&quot;&gt;
+    &lt;Product Id=&quot;*&quot;  Name=&quot;软件名称v2.0.0&quot; Language=&quot;2052&quot; Codepage=&quot;936&quot; Version=&quot;2.0.0.0&quot; Manufacturer=&quot;公司名称&quot; UpgradeCode=&quot;6b89c3a7-f25c-4399-9df8-d0b40105cd82&quot;&gt;
+    &lt;Package InstallerVersion=&quot;200&quot; Compressed=&quot;yes&quot; InstallScope=&quot;perMachine&quot; /&gt;
+    &lt;MajorUpgrade DowngradeErrorMessage=&quot;A newer version of [ProductName] is already installed.&quot; /&gt;
+    &lt;MediaTemplate /&gt;
+    &lt;!--安装清单--&gt;
+    &lt;Feature Id=&quot;ProductFeature&quot; Title=&quot;SetupWixTest&quot; Level=&quot;1&quot;&gt;    &lt;!--Feature安装清单--&gt;
+      &lt;ComponentGroupRef Id=&quot;ProductComponents&quot; /&gt;
+      &lt;ComponentRef Id=&quot;LibsAndFiles&quot;/&gt;
+      &lt;ComponentRef Id=&quot;ApplicationShortcut&quot;/&gt;
+      &lt;ComponentRef Id=&quot;DesktopFolderShortcut&quot;/&gt;
+    &lt;/Feature&gt;
+    &lt;WixVariable Id=&quot;WixUILicenseRtf&quot; Value=&quot;license.rtf&quot;/&gt;
+    &lt;UI&gt;                                                                  &lt;!--安装风格--&gt;
+      &lt;Property Id=&quot;WIXUI_INSTALLDIR&quot; Value=&quot;INSTALLDIR&quot;/&gt; 
+      &lt;UIRef Id=&quot;WixUI_InstallDir&quot;/&gt;
+    &lt;/UI&gt;
+  &lt;/Product&gt;
+
+  &lt;Fragment&gt;
+    &lt;Directory Id=&quot;TARGETDIR&quot; Name=&quot;SourceDir&quot;&gt;
+      &lt;Directory Id=&quot;ProgramFilesFolder&quot; Name=&quot;PFiles&quot;&gt;
+        &lt;Directory Id=&quot;INSTALLDIR&quot; Name=&quot;SmartTool&quot;&gt;                      &lt;!--用户选择安装位置--&gt;
+        &lt;/Directory&gt;
+      &lt;/Directory&gt;
+
+      &lt;Directory Id=&quot;ProgramMenuFolder&quot;&gt;                                 &lt;!--在windows开始菜单中显示--&gt;
+        &lt;Directory Id=&quot;ApplicationProgramsFolder&quot; Name=&quot;软件名称&quot;/&gt;
+      &lt;/Directory&gt;
+      &lt;Directory Id=&quot;DesktopFolder&quot; Name=&quot;Desktop&quot;/&gt;
+    &lt;/Directory&gt;
+  &lt;/Fragment&gt;
+
+  &lt;Fragment&gt;                                                                  &lt;!--定义需要添加的文件的位置--&gt;
+    &lt;ComponentGroup Id=&quot;ProductComponents&quot; Directory=&quot;INSTALLDIR&quot;&gt;
+      &lt;!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. --&gt;
+      &lt;Component Id=&quot;ProductComponent&quot;&gt;
+        &lt;File Id=&quot;SmartTool.exe&quot; Source=&quot;$(var.TianHuangPing.TargetPath)&quot;/&gt;
+      &lt;/Component&gt;
+      &lt;Component Id=&quot;LibOne&quot;&gt;
+        &lt;File Source=&quot;$(var.OrderFoodLib.TargetPath)&quot;/&gt;
+      &lt;/Component&gt;
+    &lt;/ComponentGroup&gt;
+
+    &lt;DirectoryRef Id=&quot;INSTALLDIR&quot;&gt;                                      
+      &lt;Component Id=&quot;LibsAndFiles&quot; Guid=&quot;ae8c83a1-7615-4439-bf90-4c39db24986f&quot;&gt;
+        &lt;File Id=&quot;AutoChangComboBox1.dll&quot; Source=&quot;LibFiles/AutoChangComboBox.dll&quot;/&gt;
+        &lt;File Id=&quot;AutoChangCombo1Box.dll&quot; Source=&quot;LibFiles/DevExpress.BonusSkins.v16.2.dll&quot;/&gt;
+        &lt;File Id=&quot;AutoCha1ngComboBox.dll&quot; Source=&quot;LibFiles/DevExpress.Data.v16.2.dll&quot;/&gt;
+        &lt;File Id=&quot;AutoChang1ComboBox.dll&quot; Source=&quot;LibFiles/DevExpress.Printing.v16.2.Core.dll&quot;/&gt;
+        &lt;File Id=&quot;AutoChangC1omboBox.dll&quot; Source=&quot;LibFiles/DevExpress.Sparkline.v16.2.Core.dll&quot;/&gt;
+        &lt;File Id=&quot;AutoC1hangComboBox.dll&quot; Source=&quot;LibFiles/DevExpress.Utils.v16.2.dll&quot;/&gt;
+        &lt;File Id=&quot;AutoChangComboww1Box.dll&quot; Source=&quot;LibFiles/DevExpress.XtraBars.v16.2.dll&quot;/&gt;
+        &lt;File Id=&quot;Aut1oChangComboBox.dll&quot; Source=&quot;LibFiles/DevExpress.XtraEditors.v16.2.dll&quot;/&gt;
+        &lt;File Id=&quot;AutoChangCo1mboBox.dll&quot; Source=&quot;LibFiles/DevExpress.XtraGrid.v16.2.dll&quot;/&gt;
+        &lt;File Id=&quot;AutoCh2angComboBox.dll&quot; Source=&quot;LibFiles/DevExpress.XtraLayout.v16.2.dll&quot;/&gt;
+        &lt;File Id=&quot;AutoChangC2omboBox.dll&quot; Source=&quot;LibFiles/DevExpress.XtraPrinting.v16.2.dll&quot;/&gt;
+        &lt;File Id=&quot;Au2toChangComboBox.dll&quot; Source=&quot;LibFiles/Impinj.OctaneSdk.dll&quot;/&gt;
+        &lt;File Id=&quot;AutoC2hangComboBox.dll&quot; Source=&quot;LibFiles/LLRP.dll&quot;/&gt;
+        &lt;File Id=&quot;AutoChangCombo2Box.dll&quot; Source=&quot;LibFiles/LLRP.Impinj.dll&quot;/&gt;
+        &lt;File Id=&quot;AutoChangCombo22Box.dll&quot; Source=&quot;LibFiles/MR6100Api.dll&quot;/&gt;
+        &lt;File Id=&quot;configFile&quot; Source=&quot;LibFiles/TianHuangPing.exe.config&quot;/&gt;
+        &lt;File Id=&quot;mannifestFile&quot; Source=&quot;LibFiles/TianHuangPing.exe.manifest&quot;/&gt;
+     &lt;/Component&gt;
+    &lt;/DirectoryRef&gt;
+
+    &lt;DirectoryRef Id=&quot;ApplicationProgramsFolder&quot;&gt;
+      &lt;Component Id=&quot;ApplicationShortcut&quot; Guid=&quot;5A254682-DD5F-453D-8333-144457282026&quot;&gt;
+        &lt;Shortcut Id=&quot;LunchApplicationShortcut&quot; Name=&quot;软件名称&quot; Description=&quot;启动软件名称&quot; Target=&quot;[INSTALLDIR]TianHuangPing.exe&quot; WorkingDirectory=&quot;INSTALLDIR&quot;&gt;
+          &lt;Icon Id=&quot;ico_install&quot; SourceFile=&quot;Icons/logo.ico&quot;/&gt;
+        &lt;/Shortcut&gt;
+        &lt;Shortcut Id=&quot;UninstallApplicationShortcut&quot; Name=&quot;卸载软件名称&quot; Description=&quot;卸载软件名称&quot; Target=&quot;[SystemFolder]msiexec.exe&quot; WorkingDirectory=&quot;SystemFolder&quot;  Arguments=&quot;/x [ProductCode]&quot;&gt;
+          &lt;Icon Id=&quot;ico_uninstall&quot; SourceFile=&quot;Icons/logo.ico&quot;/&gt;
+        &lt;/Shortcut&gt;
+        &lt;RemoveFolder Id=&quot;ApplicationProgramsFolder&quot; On =&quot;uninstall&quot;/&gt;
+        &lt;RegistryValue Root=&quot;HKCU&quot; Key=&quot;Software\Microsoft\SmartTool&quot; Name=&quot;installed&quot; Type=&quot;integer&quot; Value=&quot;1&quot; KeyPath=&quot;yes&quot;/&gt;
+        &lt;util:InternetShortcut Id=&quot;OnlineDocumentationShortcut&quot; Name=&quot;获取在线帮助&quot; Target=&quot;http://www.hdu.edu.cn&quot;/&gt;
+      &lt;/Component&gt;
+    &lt;/DirectoryRef&gt;
+
+    &lt;DirectoryRef Id=&quot;DesktopFolder&quot;&gt;
+      &lt;Component Id=&quot;DesktopFolderShortcut&quot; Guid=&quot;5A254676-DD1F-453D-8333-144457282027&quot;&gt;
+        &lt;Shortcut Id=&quot;DesktopShortcut&quot; Directory=&quot;DesktopFolder&quot; Name=&quot;软件名称&quot; Target=&quot;[INSTALLDIR]TianHuangPing.exe&quot; WorkingDirectory=&quot;INSTALLDIR&quot; Icon=&quot;ico_install&quot;&gt;
+        &lt;/Shortcut&gt;
+        &lt;RegistryValue Root=&quot;HKCU&quot; Key=&quot;Software\Microsoft\SmartTool&quot; Name=&quot;installed&quot; Type=&quot;integer&quot; Value=&quot;1&quot; KeyPath=&quot;yes&quot;/&gt;
+
+      &lt;/Component&gt;
+    &lt;/DirectoryRef&gt;
+
+  &lt;/Fragment&gt;
+&lt;/Wix&gt;
+</code></pre><p><a href="https://blog.csdn.net/yjarj123/article/details/50495825" target="_blank" rel="noopener">Wix Toolset总结</a></p>
+<p><code>WixUI_Advanced</code>：提供了与<code>WixUI_Minimal</code>类似的一键安装形式，但提供了高级选项按钮。高级选项中，我们可以选择该产品是安装给当前用户还是给所有用户的。<br>     WixAppFolder：指定默认选择当前用户（WixPerUserFolder）还是所有用户（WixPerMachineFolder）。<br>     ApplicationFolderName：来指定产品所安装在的默认文件夹。</p>
+<p><code>WixUI_Minimal</code>：最小的预定义对话框集合，其将Welcome对话框和协议同意对话框结合，选择协议后就直接安装了。这种对话框集合适用于我们的产品没有自定义部件以及不支持变更安装目录的情况。</p>
+<p><code>WixUI_Mondo</code>：Welcome、协议同意、安装类型选择、部件选择等自定义安装的对话框，但其不支持安装目录的变更。当我们的产品默认情况下不安装全部部件时，这样典型安装（typical）和完全安装（complete）之间就有个明显的区别，此时推荐使用<code>WixUI_Mondo</code></p>
+<p><code>WixUI_FeatureTree</code>：与<code>WixUI_Mondo</code>的区别是<code>WixUI_FeatureTree</code>省略了安装类型对话框。协议同意对话框之后就直接到部件（Feature）选择对话框了。当我们的产品默认是安装所有部件时，更推荐采用<code>WixUI_Feature</code>而不是<code>WixUI_Mondo</code>。</p>
+<p><code>WixUI_InstallDir</code>：不支持用户选择安装的部件，但是其增加了让用户选择安装目录的对话框。在Wix文件中需要一个Id为“<code>WIXUI_INSTALLDIR</code>”的属性来产品要安装的目录的ID（ID必须是全部大写，大写的目的是为了能够让用户在对话框中选择的自定义目录能够回写到相对应ID的Directory元素）。</p>
+<p><img src="https://i.imgur.com/EXmYBLs.jpg" alt=""></p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>VS要用管理员权限打开，否则权限不够会有各种ICE错误</p>
+<p>或者wixproj文件中添加：</p>
+<pre><code>&lt;PropertyGroup&gt;
+    &lt;SuppressValidation&gt;true&lt;/SuppressValidation&gt;
+&lt;/PropertyGroup&gt;
+</code></pre><h2 id="Wix-编译器"><a href="#Wix-编译器" class="headerlink" title="Wix 编译器"></a>Wix 编译器</h2><p>准备好了Sample.wxs文件</p>
+<pre><code>candle.exe Sample.wxs
+
+light.exe Sample.wixobj
+</code></pre><p>最终封装为Sample.msi文件</p>
+<h2 id="XML文档元素"><a href="#XML文档元素" class="headerlink" title="XML文档元素"></a>XML文档元素</h2><pre><code>&lt;?xml version=&apos;1.0&apos; encoding=&apos;windows-1252&apos;?&gt;
+&lt;Wix xmlns=&apos;http://schemas.microsoft.com/wix/2006/wi&apos;&gt;
+    &lt;Product Name=&apos;Foobar 1.0&apos; Manufacturer=&apos;Acme Ltd.&apos;
+        Id=&apos;YOURGUID-86C7-4D14-AEC0-86416A69ABDE&apos; 
+        UpgradeCode=&apos;YOURGUID-7349-453F-94F6-BCB5110BA4FD&apos;
+        Language=&apos;1033&apos; Codepage=&apos;1252&apos; Version=&apos;1.0.0&apos;&gt;
+    &lt;Package Id=&apos;*&apos; Keywords=&apos;Installer&apos; Description=&quot;Acme&apos;s Foobar 1.0 Installer&quot;
+        Comments=&apos;Foobar is a registered trademark of Acme Ltd.&apos; Manufacturer=&apos;Acme Ltd.&apos;
+        InstallerVersion=&apos;100&apos; Languages=&apos;1033&apos; Compressed=&apos;yes&apos; SummaryCodepage=&apos;1252&apos; /&gt;
+</code></pre><h3 id="Product"><a href="#Product" class="headerlink" title="Product"></a>Product</h3><p> Product 的父级只有wix，主要由Id,Language，等属性</p>
+<ul>
+<li>Id:产品的GUID</li>
+<li>Codepage:指所在地区的代码页，用来进行区域区分</li>
+<li>Language：指所在地区使用的语言，为数字编号，</li>
+<li>Manufacturer：制作厂商</li>
+<li>Name：产品名称</li>
+<li>UpgradeCode：产品更新的GUID,一定要重新生成</li>
+<li>Version：版本号</li>
+</ul>
+<p>几个常见的区域代号：<br>语言 语言-国家 Language Codepage</p>
+<pre><code>English en-us 1033 1252
+Simplified Chinese zh-cn 2052 936
+</code></pre><p><a href="http://msdn2.microsoft.com/en-us/library/Aa369771.aspx" target="_blank" rel="noopener">language and codepage IDs </a></p>
+<pre><code>&lt;?xml version=&apos;1.0&apos; encoding=&apos;utf-8&apos;?&gt;
+&lt;Wix xmlns=&apos;http://schemas.microsoft.com/wix/2006/wi&apos;&gt;
+  &lt;Product Language=&apos;1041&apos; Codepage=&apos;932&apos; ...&gt;
+  &lt;Package Languages=&apos;1041&apos; SummaryCodepage=&apos;932&apos; ...&gt;
+</code></pre><h3 id="Fragment"><a href="#Fragment" class="headerlink" title="Fragment"></a>Fragment</h3><pre><code>&lt;Fragment&gt;
+    &lt;Directory Id=&quot;TARGETDIR&quot; Name=&quot;SourceDir&quot;&gt;
+        &lt;Directory Id=&quot;ProgramFilesFolder&quot;&gt;
+            &lt;Directory Id=&quot;INSTALLFOLDER&quot; Name=&quot;SetupProject1&quot; /&gt;
+        &lt;/Directory&gt;
+    &lt;/Directory&gt;
+&lt;/Fragment&gt;
+
+&lt;Fragment&gt;
+    &lt;ComponentGroup Id=&quot;ProductComponents&quot; Directory=&quot;INSTALLFOLDER&quot;&gt;
+        &lt;!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. --&gt;
+        &lt;!-- &lt;Component Id=&quot;ProductComponent&quot;&gt; --&gt;
+            &lt;!-- TODO: Insert files, registry keys, and other resources here. --&gt;
+        &lt;!-- &lt;/Component&gt; --&gt;
+      &lt;Component Id=&quot;ProductComponent&quot;&gt;
+        &lt;File Source=&quot;$(var.MyWix.TargetPath)&quot; /&gt;
+      &lt;/Component&gt;
+    &lt;/ComponentGroup&gt;
+&lt;/Fragment&gt;
+</code></pre><p>Fragment  元素是在wix中创建一个安装数据库的基础块(msi文件就是个数据库)，定义之后，是不可改变的.它的子元素中含有*Ref的元素必须有对应的单元，比如在Fragment中含有两个Component元素，那么 你必须在Feature中用ComponentRef 与Component对应. 默认生成的文档中含有两个Fragment块。 一个包含的是Directory,一个包含的是ComponentGroup ，前者指的是安装目录，后者顾名思义就是Component的一个集合。 </p>
+<h3 id="Directory"><a href="#Directory" class="headerlink" title="Directory"></a>Directory</h3><pre><code>&lt;Directory Id=&apos;TARGETDIR&apos; Name=&apos;SourceDir&apos;&gt;
+</code></pre><p>环境提供安装程序<a href="https://docs.microsoft.com/en-us/previous-versions//aa372057(v=vs.85" target="_blank" rel="noopener">预定义名字</a>)</p>
+<p>们将使用这三个名称 ：ProgramFilesFolder，ProgramMenuFolder， 和DesktopFolder。</p>
+<p>在默认的提示中 也可以看见在Component 中添加安装文件，资源，注册表等。这里可以看见最里面的Directory的Id=INSTALLFOLDER是和第二个Fragment中的ComponentGroup的Directory属性是一致的。在Component中就是每一个你需要安装的单元以及它的位置。</p>
+<pre><code>&lt;Directory Id=&quot;ProgramMenuFolder&quot; Name=&quot;Programs&quot;&gt;
+        &lt;Directory Id=&quot;ProgramMenuDir&quot; Name=&quot;Foobar 1.0&quot;&gt;
+            &lt;Component Id=&quot;ProgramMenuDir&quot; Guid=&quot;YOURGUID-7E98-44CE-B049-C477CC0A2B00&quot;&gt;
+                &lt;RemoveFolder Id=&apos;ProgramMenuDir&apos; On=&apos;uninstall&apos; /&gt;
+                &lt;RegistryValue Root=&apos;HKCU&apos; Key=&apos;Software\[Manufacturer]\[ProductName]&apos; Type=&apos;string&apos; Value=&apos;&apos; KeyPath=&apos;yes&apos; /&gt;
+            &lt;/Component&gt;
+        &lt;/Directory&gt;
+    &lt;/Directory&gt;
+
+    &lt;Directory Id=&quot;DesktopFolder&quot; Name=&quot;Desktop&quot; /&gt;
+&lt;/Directory&gt;
+</code></pre><h3 id="heat-工具"><a href="#heat-工具" class="headerlink" title="heat 工具"></a>heat 工具</h3><p>自动生成Components 内容</p>
+<p><a href="https://www.firegiant.com/wix/tutorial/com-expression-syntax-miscellanea/components-of-a-different-color/" target="_blank" rel="noopener">heat</a></p>
+<h3 id="Condition"><a href="#Condition" class="headerlink" title="Condition"></a>Condition</h3><p>条件限制</p>
+<pre><code>&lt;Condition Message=&quot;You need to be an administrator to install this product.&quot;&gt;
+    AdminUser
+&lt;/Condition&gt;
+</code></pre><p><a href="https://docs.microsoft.com/zh-cn/windows/desktop/Msi/property-reference#operating_system_properties" target="_blank" rel="noopener">更多属性</a></p>
+<p>指定的 Windows 版本上运行该安装程序</p>
+<pre><code>&lt;Condition Message=&apos;Windows 95&apos;&gt;Version9X = 400&lt;/Condition&gt;
+&lt;Condition Message=&apos;Windows 95 OSR2.5&apos;&gt;Version9X = 400 AND WindowsBuild = 1111&lt;/Condition&gt;
+&lt;Condition Message=&apos;Windows 98&apos;&gt;Version9X = 410&lt;/Condition&gt;
+&lt;Condition Message=&apos;Windows 98 SE&apos;&gt;Version9X = 410 AND WindowsBuild = 2222&lt;/Condition&gt;
+&lt;Condition Message=&apos;Windows ME&apos;&gt;Version9X = 490&lt;/Condition&gt;
+&lt;Condition Message=&apos;Windows NT4&apos;&gt;VersionNT = 400&lt;/Condition&gt;
+&lt;Condition Message=&apos;Windows NT4 SPn&apos;&gt;VersionNT = 400 AND ServicePackLevel = n&lt;/Condition&gt;
+&lt;Condition Message=&apos;Windows 2000&apos;&gt;VersionNT = 500&lt;/Condition&gt;
+&lt;Condition Message=&apos;Windows 2000 SPn&apos;&gt;VersionNT = 500 AND ServicePackLevel = n&lt;/Condition&gt;
+&lt;Condition Message=&apos;Windows XP&apos;&gt;VersionNT = 501&lt;/Condition&gt;
+&lt;Condition Message=&apos;Windows XP SPn&apos;&gt;VersionNT = 501 AND ServicePackLevel = n&lt;/Condition&gt;
+&lt;Condition Message=&apos;Windows XP Home SPn&apos;&gt;VersionNT = 501 AND MsiNTSuitePersonal AND ServicePackLevel = n&lt;/Condition&gt;
+&lt;Condition Message=&apos;Windows Server 2003&apos;&gt;VersionNT = 502&lt;/Condition&gt;
+&lt;Condition Message=&apos;Windows Vista&apos;&gt;VersionNT = 600&lt;/Condition&gt;
+&lt;Condition Message=&apos;Windows Vista SP1&apos;&gt;VersionNT = 600 AND ServicePackLevel = 1&lt;/Condition&gt;
+&lt;Condition Message=&apos;Windows Server 2008&apos;&gt;VersionNT = 600 AND MsiNTProductType = 3&lt;/Condition&gt;
+&lt;Condition Message=&apos;Windows 7&apos;&gt;VersionNT = 601&lt;/Condition&gt;
+</code></pre><h3 id="Property"><a href="#Property" class="headerlink" title="Property"></a>Property</h3><p>注册表、INI文件、文件搜索</p>
+<p><a href="https://www.firegiant.com/wix/tutorial/getting-started/where-to-install/" target="_blank" rel="noopener">https://www.firegiant.com/wix/tutorial/getting-started/where-to-install/</a></p>
+<h3 id="Feature"><a href="#Feature" class="headerlink" title="Feature"></a>Feature</h3><p>安装条件</p>
+<p>Feature 产品的功能列表</p>
+<p>一个特性表，特性是可安装的最小单元。 子元素中的ComponentGroupRef 是和 ComponentGroup对应的。前者相当于一个安装目录，后者记录了安装文件的具体位置。</p>
+<ul>
+<li>Id：是唯一的</li>
+<li>Title：就是个短的说明。</li>
+<li>Level：安装的等级，值为0 会使这个特性无效，默认值为1 </li>
+<li>Absent：这个属性定义User是否有权在用户接口中去选择使某个特性不安装(absent)，值为allow或者disallow之一</li>
+</ul>
+<h3 id="其他FILE"><a href="#其他FILE" class="headerlink" title="其他FILE"></a>其他FILE</h3><p>可设置注册表</p>
+<pre><code>&lt;RegistryKey Id=&apos;FoobarRegInstallDir&apos; Root=&apos;HKLM&apos; Key=&apos;Software\Acme\Foobar 1.0&apos; Action=&apos;createAndRemoveOnUninstall&apos;&gt;
+    &lt;RegistryValue Type=&apos;string&apos; Name=&apos;InstallDir&apos; Value=&apos;[INSTALLDIR]&apos;/&gt;
+    &lt;RegistryValue Type=&apos;integer&apos; Name=&apos;Flag&apos; Value=&apos;0&apos;/&gt;
+&lt;/RegistryKey&gt;
+</code></pre><p>设置文件关联</p>
+<pre><code>&lt;ProgId Id=&apos;AcmeFoobar.xyzfile&apos; Description=&apos;Acme Foobar data file&apos;&gt;
+    &lt;Extension Id=&apos;xyz&apos; ContentType=&apos;application/xyz&apos;&gt;
+        &lt;Verb Id=&apos;open&apos; Command=&apos;Open&apos; TargetFile=&apos;FileId&apos; Argument=&apos;&quot;%1&quot;&apos; /&gt;
+    &lt;/Extension&gt;
+&lt;/ProgId&gt;
+</code></pre><p>INI文件</p>
+<pre><code>&lt;IniFile Id=&quot;WriteIntoIniFile&quot; Action=&quot;addLine&quot; Key=&quot;InstallDir&quot; Name=&quot;Foobar.ini&quot; Section=&quot;Paths&quot; Value=&quot;[INSTALLDIR]&quot; /&gt;
+</code></pre><h3 id="RemoveFile"><a href="#RemoveFile" class="headerlink" title="RemoveFile"></a>RemoveFile</h3><p>卸载时删除文件</p>
+<pre><code>&lt;Component&gt;
+    ...
+    &lt;RemoveFile Id=&apos;LogFile&apos; On=&apos;uninstall&apos; Name=&apos;Foobar10User.log&apos; /&gt;
+&lt;/Component&gt;
+</code></pre><p>The On attribute will determine when the file will be removed (possible values are install, uninstall and both). </p>
+<h2 id="用户接口"><a href="#用户接口" class="headerlink" title="用户接口"></a>用户接口</h2><p>提供完整的用户接口的标准安装程序包 ， 包括所有标准向导网页 ： 许可协定、顾客信息、典型类型 / 自定义 / 完成安装、定制安装的目标文件夹、磁盘使用量的计算要求 ， 修改 / 移除 / 修复和回滚。</p>
+<pre><code>&lt;Feature Id=&apos;Complete&apos; Title=&apos;Foobar 1.0&apos; Description=&apos;The complete package.&apos;
+    Display=&apos;expand&apos; Level=&apos;1&apos; ConfigurableDirectory=&apos;INSTALLDIR&apos;&gt;
+    &lt;Feature Id=&apos;MainProgram&apos; Title=&apos;Program&apos; Description=&apos;The main executable.&apos; Level=&apos;1&apos;&gt;
+        &lt;ComponentRef Id=&apos;MainExecutable&apos; /&gt;
+        &lt;ComponentRef Id=&apos;HelperLibrary&apos; /&gt;
+        &lt;ComponentRef Id=&apos;ProgramMenuDir&apos; /&gt;
+    &lt;/Feature&gt;
+
+    &lt;Feature Id=&apos;Documentation&apos; Title=&apos;Description&apos; Description=&apos;The instruction manual.&apos; Level=&apos;1000&apos;&gt;
+        &lt;ComponentRef Id=&apos;Manual&apos; /&gt;
+    &lt;/Feature&gt;
+&lt;/Feature&gt;
+</code></pre><p>Feature 产品的功能列表</p>
+<p>Level允许用户决定哪些功能将被安装。通常的情形是向用户提供三种选择 ：典型，完成， 和自定义。</p>
+<p>ConfigurableDirectory.通过包括该属性并参照INSTALLDIR因此 ， 创建了链接到预定目录中指定作为目标的最里面Directory标签的早些时候 ， 我们允许用户改变原定目标。如果我们不使用这个属性 ， 用户可以启用和禁用各种特征相同但不能修改安装目录。</p>
+<h3 id="UI"><a href="#UI" class="headerlink" title="UI"></a>UI</h3><p>wixui 具有五种</p>
+<ul>
+<li>WixUI Mondo 提供完整接口、欢迎页面、许可协议、安装类型 (典型、定制和完成) 、允许功能定制、浏览目录 ， 并提供用于所述目标盘。维护模式对话框。</li>
+<li>WixUI FeatureTree 相似的 ， 但是它不允许用户选择安装类型。它总是呈定制和功能定制直接进入对话之后的用户已接受的许可协议。</li>
+<li>WixUI InstallDir 允许用户选择一个目的地目录 ， 但没有一般常见的特征定制页面。选定的目录之后 ， 安装程序将会自动</li>
+<li>WixUI Minimal 简单特征的用户对话框与单个接口结合的欢迎、许可协议页面。之后 ， 安装过程没有自动开始 ， 允许用户定制。当你的应用程序没有安装到可选的特征。</li>
+<li>WixUI Advanced 有些类似 WixUI Minimal ， 因为它提供了一个简单 ， 一键安装 ， 而且允许选择文件夹功能 </li>
+</ul>
+<p>为了得到完整的用户界面 ， 我们要做的就是添加两行 wixui 接口库包括到我们的项目 ：</p>
+<pre><code>&lt;uiref ID=&quot;WixUI_Mondo&quot; /&gt;
+&lt;uiref ID=&quot;WixUI_ErrorProgressText&quot; /&gt;
+</code></pre><p>图标</p>
+<pre><code>&lt;Icon Id=&quot;Foobar10.exe&quot; SourceFile=&quot;FoobarAppl10.exe&quot; /&gt;
+  &lt;/Product&gt;
+&lt;/Wix&gt;
+</code></pre><p>替换文件以及图片</p>
+<pre><code>&lt;WixVariable Id=&quot;WixUILicenseRtf&quot; Value=&quot;path\License.rtf&quot; /&gt;
+&lt;WixVariable Id=&quot;WixUIBannerBmp&quot; Value=&quot;path\banner.bmp&quot; /&gt;
+&lt;WixVariable Id=&quot;WixUIDialogBmp&quot; Value=&quot;path\dialog.bmp&quot; /&gt;
+&lt;WixVariable Id=&quot;WixUIExclamationIco&quot; Value=&quot;path\exclamation.ico&quot; /&gt;
+&lt;WixVariable Id=&quot;WixUIInfoIco&quot; Value=&quot;path\information.ico&quot; /&gt;
+&lt;WixVariable Id=&quot;WixUINewIco&quot; Value=&quot;path\new.ico&quot; /&gt;
+&lt;WixVariable Id=&quot;WixUIUpIco&quot; Value=&quot;path\up.ico&quot; /&gt;
+</code></pre><ul>
+<li>WixUIBannerBmp 493 by 58 pixels, this bitmap will appear at the top of all but the first page of the installer.</li>
+<li>WixUIDialogBmp 493 by 312 pixels, this bitmap will appear on the first page of the installer.</li>
+<li>WixUIExclamationIco 32 by 32 pixels, exclamation mark icon.</li>
+<li>WixUIInfoIco 32 by 32 pixels, information sign icon.</li>
+<li>WixUINewIco 16 by 16 pixels, new folder icon.</li>
+<li>WixUIUpIco 16 by 16 pixels, parent folder icon.</li>
+<li>WixUILicenseRtf Preferably, use a simple editor like Wordpad to create it, or if you insist on overly complex applications like Word, consider resaving the final version from Wordpad, anyway. The RTF will be less complicated and smaller.</li>
+</ul>
+<p>加新界面需要修改源代码：<a href="https://www.firegiant.com/wix/tutorial/user-interface/new-link-in-the-chain/" target="_blank" rel="noopener">https://www.firegiant.com/wix/tutorial/user-interface/new-link-in-the-chain/</a></p>
+<h3 id="本地字符串"><a href="#本地字符串" class="headerlink" title="本地字符串"></a>本地字符串</h3><pre><code>itle=&quot;!(loc.UserRegistrationDlg_Title)&quot; 
+</code></pre><p>添加wxl</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;WixLocalization Culture=&quot;fr-fr&quot; Codepage=&quot;1252&quot; xmlns=&quot;http://schemas.microsoft.com/wix/2006/localization&quot;&gt;
+    &lt;String Id=&quot;UserRegistrationDlg_Title&quot; Overridable=&quot;yes&quot;&gt;???&lt;/String&gt;
+    &lt;String Id=&quot;UserRegistrationDlg_UserName&quot; Overridable=&quot;yes&quot;&gt;???&lt;/String&gt;
+    &lt;String Id=&quot;UserRegistrationDlg_Organization&quot; Overridable=&quot;yes&quot;&gt;???&lt;/String&gt;
+    ...
+&lt;/WixLocalization&gt;
+</code></pre><h2 id="事件和动作"><a href="#事件和动作" class="headerlink" title="事件和动作"></a>事件和动作</h2><h2 id="升级和模块化"><a href="#升级和模块化" class="headerlink" title="升级和模块化"></a>升级和模块化</h2><h2 id="NET-和-NET"><a href="#NET-和-NET" class="headerlink" title="NET 和. NET"></a>NET 和. NET</h2><p>安装.net Frame</p>
+<p>要创建Bootstrapper项目，生成exe文件</p>
+<pre><code>&lt;PropertyRef Id=&quot;NETFRAMEWORK10&quot;/&gt;
+&lt;Condition Message=&apos;This setup requires the .NET Framework 1.0 installed.&apos;&gt;
+  &lt;![CDATA[Installed OR NETFRAMEWORK10]]&gt;
+&lt;/Condition&gt;
+</code></pre><p>简单的示例</p>
+<pre><code>&lt;Wix xmlns=&quot;http://schemas.microsoft.com/wix/2006/wi&quot;
+     xmlns:bal=&quot;http://schemas.microsoft.com/wix/BalExtension&quot;
+     xmlns:util=&quot;http://schemas.microsoft.com/wix/UtilExtension&quot;&gt;
+  &lt;Bundle Name=&quot;...&quot; Version=&quot;...&quot; Manufacturer=&quot;...&quot; UpgradeCode=&quot;...&quot; Copyright=&quot;...&quot; IconSourceFile=&quot;...&quot; AboutUrl=&quot;...&quot;&gt;
+    &lt;BootstrapperApplicationRef Id=&quot;WixStandardBootstrapperApplication.RtfLicense&quot; /&gt;
+
+    &lt;util:RegistrySearch Root=&quot;HKLM&quot; Key=&quot;SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full&quot; Value=&quot;Version&quot; Variable=&quot;Net4FullVersion&quot; /&gt;
+    &lt;util:RegistrySearch Root=&quot;HKLM&quot; Key=&quot;SOFTWARE\Microsoft\Net Framework Setup\NDP\v4\Full&quot; Value=&quot;Version&quot; Variable=&quot;Net4x64FullVersion&quot; Win64=&quot;yes&quot; /&gt;
+
+    &lt;Chain&gt;
+      &lt;ExePackage Id=&quot;Net45&quot; Name=&quot;Microsoft .NET Framework 4.5.1 Setup&quot; Cache=&quot;no&quot; Compressed=&quot;yes&quot; PerMachine=&quot;yes&quot; Permanent=&quot;yes&quot; Vital=&quot;yes&quot; InstallCommand=&quot;/q&quot;
+        SourceFile=&quot;NDP451-KB2859818-Web.exe&quot;
+        DetectCondition=&quot;(Net4FullVersion = &amp;quot;4.5.50938&amp;quot;) AND (NOT VersionNT64 OR (Net4x64FullVersion = &amp;quot;4.5.50938&amp;quot;))&quot;
+        InstallCondition=&quot;(VersionNT &gt;= v6.0 OR VersionNT64 &gt;= v6.0) AND (NOT (Net4FullVersion = &amp;quot;4.5.50938&amp;quot; OR Net4x64FullVersion = &amp;quot;4.5.50938&amp;quot;))&quot;/&gt;
+
+      &lt;ExePackage Id=&quot;Net4Full&quot; Name=&quot;Microsoft .NET Framework 4.0 Setup&quot; Cache=&quot;no&quot; Compressed=&quot;yes&quot; PerMachine=&quot;yes&quot; Permanent=&quot;yes&quot; Vital=&quot;yes&quot; InstallCommand=&quot;/q&quot;
+        SourceFile=&quot;dotNetFx40_Full_setup.exe&quot;
+        DetectCondition=&quot;Net4FullVersion AND (NOT VersionNT64 OR Net4x64FullVersion)&quot;
+        InstallCondition=&quot;(VersionNT &amp;lt; v6.0 OR VersionNT64 &amp;lt; v6.0) AND (NOT (Net4FullVersion OR Net4x64FullVersion))&quot;/&gt; /&gt;
+
+      &lt;RollbackBoundary /&gt;
+
+      &lt;MsiPackage Id=&quot;MainPackage&quot; SourceFile=&quot;Main_package.msi&quot; DisplayInternalUI=&quot;yes&quot; Compressed=&quot;yes&quot; Vital=&quot;yes&quot; /&gt;
+    &lt;/Chain&gt;
+  &lt;/Bundle&gt;
+&lt;/Wix&gt;
+</code></pre><h3 id="添加网络连接"><a href="#添加网络连接" class="headerlink" title="添加网络连接"></a>添加网络连接</h3><pre><code>&lt;Component&gt;
+  ...
+  &lt;IniFile Id=&apos;Launch&apos; Action=&apos;addLine&apos; Name=&apos;Launch.url&apos; Directory=&apos;INSTALLDIR&apos;
+  Section=&apos;InternetShortcut&apos; Key=&apos;URL&apos; Value=&apos;http://www.acmefoobar.com&apos; /&gt;
+  ...
+&lt;/Component&gt;
+
+&lt;Property Id=&quot;BROWSER&quot;&gt;
+  &lt;RegistrySearch Id=&apos;DefaultBrowser&apos; Type=&apos;raw&apos; Root=&apos;HKCR&apos; Key=&apos;http\shell\open\command&apos; /&gt;
+&lt;/Property&gt;
+
+&lt;CustomAction Id=&apos;LaunchBrowser&apos; Property=&apos;BROWSER&apos; ExeCommand=&apos;www.something.com&apos; Return=&apos;asyncNoWait&apos; /&gt;
+
+&lt;InstallExecuteSequence&gt;
+  ...
+  &lt;Custom Action=&apos;LaunchBrowser&apos; After=&apos;InstallFinalize&apos;&gt;NOT Installed&lt;/Custom&gt;
+&lt;/InstallExecuteSequence&gt;
+
+
+&lt;Property Id=&quot;URL&quot; Value=&quot;http://www.something.com&quot; /&gt;
+...
+&lt;Shortcut Id=&quot;WebShortcut&quot; Name=&quot;Web URL&quot; Description=&quot;Jump to our website&quot; Target=&quot;[URL]&quot; /&gt;
+</code></pre><h2 id="WiX-工具集目录手册表"><a href="#WiX-工具集目录手册表" class="headerlink" title="WiX 工具集目录手册表"></a>WiX 工具集目录手册表</h2><p><a href="https://wixtoolset.org/documentation/manual/v3/overview/alltools.html" target="_blank" rel="noopener">工具</a></p>
+<p><a href="https://wixtoolset.org/documentation/manual/v3/votive/votive_project_references.html" target="_blank" rel="noopener">使用项目和引用变量</a></p>
+<p>添加文件：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;Wix xmlns=&quot;http://schemas.microsoft.com/wix/2006/wi&quot;&gt;
+    &lt;Product Id=&quot;*&quot; UpgradeCode=&quot;PUT-GUID-HERE&quot; Version=&quot;1.0.0.0&quot; Language=&quot;1033&quot; Name=&quot;My Application Name&quot; Manufacturer=&quot;My Manufacturer Name&quot;&gt;
+        &lt;Package InstallerVersion=&quot;300&quot; Compressed=&quot;yes&quot;/&gt;
+        &lt;Media Id=&quot;1&quot; Cabinet=&quot;myapplication.cab&quot; EmbedCab=&quot;yes&quot; /&gt;
+
+        &lt;!-- Step 1: Define the directory structure --&gt;
+        &lt;Directory Id=&quot;TARGETDIR&quot; Name=&quot;SourceDir&quot;&gt;
+            &lt;Directory Id=&quot;ProgramFilesFolder&quot;&gt;
+                &lt;Directory Id=&quot;APPLICATIONROOTDIRECTORY&quot; Name=&quot;My Application Name&quot;/&gt;
+            &lt;/Directory&gt;
+        &lt;/Directory&gt;
+
+        &lt;!-- Step 2: Add files to your installer package --&gt;
+        &lt;DirectoryRef Id=&quot;APPLICATIONROOTDIRECTORY&quot;&gt;
+            &lt;Component Id=&quot;myapplication.exe&quot; Guid=&quot;PUT-GUID-HERE&quot;&gt;
+                &lt;File Id=&quot;myapplication.exe&quot; Source=&quot;MySourceFiles\MyApplication.exe&quot; KeyPath=&quot;yes&quot; Checksum=&quot;yes&quot;/&gt;
+            &lt;/Component&gt;
+            &lt;Component Id=&quot;documentation.html&quot; Guid=&quot;PUT-GUID-HERE&quot;&gt;
+                &lt;File Id=&quot;documentation.html&quot; Source=&quot;MySourceFiles\documentation.html&quot; KeyPath=&quot;yes&quot;/&gt;
+            &lt;/Component&gt;
+        &lt;/DirectoryRef&gt;
+
+        &lt;!-- Step 3: Tell WiX to install the files --&gt;
+        &lt;Feature Id=&quot;MainApplication&quot; Title=&quot;Main Application&quot; Level=&quot;1&quot;&gt;
+            &lt;ComponentRef Id=&quot;myapplication.exe&quot; /&gt;
+            &lt;ComponentRef Id=&quot;documentation.html&quot; /&gt;
+        &lt;/Feature&gt;
+    &lt;/Product&gt;
+&lt;/Wix&gt;
+</code></pre><p>创建快捷键</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;Wix xmlns=&quot;http://schemas.microsoft.com/wix/2006/wi&quot;&gt;
+    &lt;Product Id=&quot;*&quot; UpgradeCode=&quot;PUT-GUID-HERE&quot; Version=&quot;1.0.0.0&quot; Language=&quot;1033&quot; Name=&quot;My Application Name&quot; Manufacturer=&quot;My Manufacturer Name&quot;&gt;
+        &lt;Package InstallerVersion=&quot;300&quot; Compressed=&quot;yes&quot;/&gt;
+        &lt;Media Id=&quot;1&quot; Cabinet=&quot;myapplication.cab&quot; EmbedCab=&quot;yes&quot; /&gt;
+
+        &lt;Directory Id=&quot;TARGETDIR&quot; Name=&quot;SourceDir&quot;&gt;
+            &lt;Directory Id=&quot;ProgramFilesFolder&quot;&gt;
+                &lt;Directory Id=&quot;APPLICATIONROOTDIRECTORY&quot; Name=&quot;My Application Name&quot;/&gt;
+            &lt;/Directory&gt;
+            &lt;!-- Step 1: Define the directory structure --&gt;
+            &lt;Directory Id=&quot;ProgramMenuFolder&quot;&gt;
+                &lt;Directory Id=&quot;ApplicationProgramsFolder&quot; Name=&quot;My Application Name&quot;/&gt;
+            &lt;/Directory&gt;
+        &lt;/Directory&gt;
+
+        &lt;DirectoryRef Id=&quot;APPLICATIONROOTDIRECTORY&quot;&gt;
+            &lt;Component Id=&quot;myapplication.exe&quot; Guid=&quot;PUT-GUID-HERE&quot;&gt;
+                &lt;File Id=&quot;myapplication.exe&quot; Source=&quot;MySourceFiles\MyApplication.exe&quot; KeyPath=&quot;yes&quot; Checksum=&quot;yes&quot;/&gt;
+            &lt;/Component&gt;
+            &lt;Component Id=&quot;documentation.html&quot; Guid=&quot;PUT-GUID-HERE&quot;&gt;
+                &lt;File Id=&quot;documentation.html&quot; Source=&quot;MySourceFiles\documentation.html&quot; KeyPath=&quot;yes&quot;/&gt;
+            &lt;/Component&gt;
+        &lt;/DirectoryRef&gt;
+
+        &lt;!-- Step 2: Add the shortcut to your installer package --&gt;
+        &lt;DirectoryRef Id=&quot;ApplicationProgramsFolder&quot;&gt;
+            &lt;Component Id=&quot;ApplicationShortcut&quot; Guid=&quot;PUT-GUID-HERE&quot;&gt;
+                &lt;Shortcut Id=&quot;ApplicationStartMenuShortcut&quot; 
+                     Name=&quot;My Application Name&quot; 
+                   Description=&quot;My Application Description&quot;
+                    Target=&quot;[#myapplication.exe]&quot;
+                          WorkingDirectory=&quot;APPLICATIONROOTDIRECTORY&quot;/&gt;
+                &lt;RemoveFolder Id=&quot;ApplicationProgramsFolder&quot; On=&quot;uninstall&quot;/&gt;
+                &lt;RegistryValue Root=&quot;HKCU&quot; Key=&quot;Software\MyCompany\MyApplicationName&quot; Name=&quot;installed&quot; Type=&quot;integer&quot; Value=&quot;1&quot; KeyPath=&quot;yes&quot;/&gt;
+           &lt;/Component&gt;
+        &lt;/DirectoryRef&gt;
+
+        &lt;Feature Id=&quot;MainApplication&quot; Title=&quot;Main Application&quot; Level=&quot;1&quot;&gt;
+            &lt;ComponentRef Id=&quot;myapplication.exe&quot; /&gt;
+            &lt;ComponentRef Id=&quot;documentation.html&quot; /&gt;
+            &lt;!-- Step 3: Tell WiX to install the shortcut --&gt;
+            &lt;ComponentRef Id=&quot;ApplicationShortcut&quot; /&gt;   
+        &lt;/Feature&gt;
+    &lt;/Product&gt;
+&lt;/Wix&gt;
+</code></pre><h2 id="Orca工具可查看msi包"><a href="#Orca工具可查看msi包" class="headerlink" title="Orca工具可查看msi包"></a>Orca工具可查看msi包</h2>
       
 
       

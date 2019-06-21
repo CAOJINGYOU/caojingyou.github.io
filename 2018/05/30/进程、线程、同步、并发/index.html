@@ -9,14 +9,14 @@
   <title>进程、线程、同步、并发 | 曹景游</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Boost.Thread线程：Thread thread_group 线程局部存储：thread_specific_ptr 锁：lock_guard   unique_lock   scoped_lock   shared_lock 如果只是为了保证数据同步，那么lock_guard完全够用；如果除了同步，还需要使用condition进行阻塞时，那么就需要用unique_lock。boost还要一">
-<meta name="keywords" content="随笔,C&#x2F;C++,并发,多线程,同步,并行">
+<meta name="keywords" content="随笔,C&#x2F;C++,Boost,并发,多线程,同步,C++11,并行">
 <meta property="og:type" content="article">
 <meta property="og:title" content="进程、线程、同步、并发">
 <meta property="og:url" content="https://caojingyou.github.io/2018/05/30/进程、线程、同步、并发/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="Boost.Thread线程：Thread thread_group 线程局部存储：thread_specific_ptr 锁：lock_guard   unique_lock   scoped_lock   shared_lock 如果只是为了保证数据同步，那么lock_guard完全够用；如果除了同步，还需要使用condition进行阻塞时，那么就需要用unique_lock。boost还要一">
 <meta property="og:image" content="https://i.imgur.com/J3dEHpV.jpg">
-<meta property="og:updated_time" content="2018-12-10T09:17:31.521Z">
+<meta property="og:updated_time" content="2019-05-06T09:22:35.067Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="进程、线程、同步、并发">
 <meta name="twitter:description" content="Boost.Thread线程：Thread thread_group 线程局部存储：thread_specific_ptr 锁：lock_guard   unique_lock   scoped_lock   shared_lock 如果只是为了保证数据同步，那么lock_guard完全够用；如果除了同步，还需要使用condition进行阻塞时，那么就需要用unique_lock。boost还要一">
@@ -1143,9 +1143,57 @@ TEST(BoostThread, BoostFuture)
 <li>WriteFile</li>
 <li>WriteFileEx</li>
 </ul>
-<h1 id="C-11线程"><a href="#C-11线程" class="headerlink" title="C++11线程"></a>C++11线程</h1><p><a href="http://zh.cppreference.com/w/cpp/thread" target="_blank" rel="noopener">http://zh.cppreference.com/w/cpp/thread</a></p>
-<p><a href="https://blog.csdn.net/jiange_zh/article/details/51602938" target="_blank" rel="noopener">C++11 多线程 future/promise简介</a></p>
-<h2 id="std-async"><a href="#std-async" class="headerlink" title="std::async"></a>std::async</h2><p>std::async大概的工作过程：先将异步操作用std::packaged_task包装起来，然后将异步操作的结果放到std::promise中，这个过程就是创造未来的过程。外面再通过future.get/wait来获取这个未来的结果。</p>
+<h1 id="C-11线程"><a href="#C-11线程" class="headerlink" title="C++11线程"></a>C++11线程</h1><h2 id="线程支持库"><a href="#线程支持库" class="headerlink" title="线程支持库"></a>线程支持库</h2><p><a href="http://zh.cppreference.com/w/cpp/thread" target="_blank" rel="noopener">http://zh.cppreference.com/w/cpp/thread</a></p>
+<p>C++ 包含线程、互斥、条件变量和期货的内建支持。</p>
+<h3 id="互斥"><a href="#互斥" class="headerlink" title="互斥"></a>互斥</h3><p>定义于头文件 <mutex></mutex></p>
+<ul>
+<li>mutex (C++11) 提供基本互斥设施 (类)</li>
+<li>timed_mutex (C++11) 提供互斥设施，实现有时限锁定 (类)</li>
+<li>recursive_mutex (C++11) 提供能被同一线程递归锁定的互斥设施 (类)</li>
+<li>recursive_timed_mutex (C++11) 提供能被同一线程递归锁定的互斥设施，并实现有时限锁定 (类) </li>
+</ul>
+<p>定义于头文件 <shared_mutex></shared_mutex></p>
+<ul>
+<li>shared_mutex (C++17) 提供共享互斥设施 (类)</li>
+<li>shared_timed_mutex (C++14) 提供共享互斥设施 (类)</li>
+</ul>
+<h3 id="通用互斥管理"><a href="#通用互斥管理" class="headerlink" title="通用互斥管理"></a>通用互斥管理</h3><p>定义于头文件 <mutex></mutex></p>
+<ul>
+<li>lock_guard (C++11) 实现严格基于作用域的互斥所有权包装器 (类模板)</li>
+<li>scoped_lock (C++17) 多互斥的免死锁 RAII 封装器 (类模板)</li>
+<li>unique_lock (C++11) 实现可移动的互斥锁有权包装器  (类模板)</li>
+<li>shared_lock (C++14) 实现可移动的共享互斥所有权封装器 (类模板)</li>
+<li>defer_lock_t (C++11) 用于指定锁定策略的标签类型 (类)</li>
+<li>try_to_lock_t (C++11) 用于指定锁定策略的标签类型 (类)</li>
+<li>adopt_lock_t (C++11) 用于指定锁定策略的标签类型 (类)</li>
+<li>defer_lock (C++11) 用于指定锁定策略的标签常量 (常量)</li>
+<li>try_to_lock (C++11) 用于指定锁定策略的标签常量 (常量)</li>
+<li>adopt_lock (C++11) 用于指定锁定策略的标签常量 (常量)</li>
+</ul>
+<h3 id="常用代码"><a href="#常用代码" class="headerlink" title="常用代码"></a>常用代码</h3><p>互斥锁</p>
+<pre><code>std::mutex g_pages_mutex;
+std::lock_guard&lt;std::mutex&gt; guard(g_pages_mutex);
+</code></pre><p>std::lock_guard<std::mutex> lock(g_i_mutex);</std::mutex></p>
+<p>读写锁</p>
+<pre><code>// 多个线程/读者能同时读计数器的值。
+unsigned int get() const {
+    std::shared_lock&lt;std::shared_mutex&gt; lock(mutex_);
+    return value_;
+}
+
+// 只有一个线程/写者能增加/写线程的值。
+void increment() {
+    std::unique_lock&lt;std::shared_mutex&gt; lock(mutex_);
+    value_++;
+}
+
+// 只有一个线程/写者能重置/写线程的值。
+void reset() {
+    std::unique_lock&lt;std::shared_mutex&gt; lock(mutex_);
+    value_ = 0;
+}
+</code></pre><h2 id="std-async"><a href="#std-async" class="headerlink" title="std::async"></a>std::async</h2><p><a href="https://blog.csdn.net/jiange_zh/article/details/51602938" target="_blank" rel="noopener">C++11 多线程 future/promise简介</a></p>
+<p>std::async大概的工作过程：先将异步操作用std::packaged_task包装起来，然后将异步操作的结果放到std::promise中，这个过程就是创造未来的过程。外面再通过future.get/wait来获取这个未来的结果。</p>
 <p>可以说，std::async帮我们将std::future、std::promise和std::packaged_task三者结合了起来。</p>
 <h1 id="死锁"><a href="#死锁" class="headerlink" title="死锁"></a>死锁</h1><h2 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h2><h3 id="一个-Linux-上分析死锁的简单方法"><a href="#一个-Linux-上分析死锁的简单方法" class="headerlink" title="一个 Linux 上分析死锁的简单方法"></a><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-deadlock/index.html" target="_blank" rel="noopener">一个 Linux 上分析死锁的简单方法</a></h3><p>产生死锁的四个必要条件</p>
 <ul>
@@ -1157,7 +1205,7 @@ TEST(BoostThread, BoostFuture)
 <p>使用 pstack 和 gdb 工具对死锁程序进行分析</p>
 <h2 id="window"><a href="#window" class="headerlink" title="window"></a>window</h2><h3 id="LockCop"><a href="#LockCop" class="headerlink" title="LockCop"></a>LockCop</h3><p>LockCop通过下载Windows核心编程的源码编译可以得到</p>
 <p> 多线程程序开发过程中，最难的是对多线程的调试和逻辑分析，特别是与锁相关的缺陷分析，比如：死锁和无限等待。为此，微乳提供了一套API，从系统层面来辅助开发者分析各个线程的运行状态（running or blocking）和线程与锁的等待关系，这就是：Wait Chain Tranversal。</p>
-<p>Windows核心编程》也提供了Lockcop.exe和badlock.exe这一对示例来演示WCT</p>
+<p>《Windows核心编程》也提供了Lockcop.exe和badlock.exe这一对示例来演示WCT</p>
 <h4 id="WCT"><a href="#WCT" class="headerlink" title="WCT"></a>WCT</h4><p>要检索一个或多个线程的等待链，请使用<a href="https://docs.microsoft.com/en-us/windows/desktop/api/Wct/nf-wct-openthreadwaitchainsession" target="_blank" rel="noopener">OpenThreadWaitChainSession</a>和<a href="https://docs.microsoft.com/en-us/windows/desktop/api/Wct/nf-wct-getthreadwaitchain" target="_blank" rel="noopener">GetThreadWaitChain</a>函数创建WCT会话。WCT会话由HWCT类型的句柄表示。会话本质上可以是同步的，也可以是异步的。同步会话将阻止调用线程，直到检索到等待链。无法取消同步会话。异步会话不会阻塞调用线程，并且可以使用<a href="https://docs.microsoft.com/en-us/windows/desktop/api/Wct/nf-wct-closethreadwaitchainsession" target="_blank" rel="noopener">CloseThreadWaitChainSession</a>函数由应用程序取消。异步操作的结果通过应用程序提供的<a href="https://msdn.microsoft.com/en-us/library/ms681421(v=VS.85" target="_blank" rel="noopener">WaitChainCallback</a>.aspx)回调函数提供。</p>
 <p>对于异步会话，调用者可以通过<a href="https://docs.microsoft.com/en-us/windows/desktop/api/Wct/nf-wct-getthreadwaitchain" target="_blank" rel="noopener">GetThreadWaitChain</a>指定指向上下文数据结构的指针。相同的指针传递给回调函数。该上下文数据结构是用户定义的并且对WCT不透明。应用程序可以使用它来在WCT查询和回调函数之间传递上下文。一种常见的方法是通过此结构传递事件句柄; 执行回调时，它会发出此事件的信号，并通知某个监控线程查询已完成。</p>
 <p><a href="https://msdn.microsoft.com/en-us/library/cc308564.aspx" target="_blank" rel="noopener">Developing with Wait Chain Traversal</a></p>
@@ -1220,6 +1268,10 @@ TEST(BoostThread, BoostFuture)
         		</li>
       		 
         		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Boost</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">并发</a>
         		</li>
       		 
@@ -1229,6 +1281,10 @@ TEST(BoostThread, BoostFuture)
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">同步</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">C++11</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
