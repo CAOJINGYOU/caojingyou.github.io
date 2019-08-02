@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://caojingyou.github.io/2017/08/21/Python/index.html">
 <meta property="og:site_name" content="曹景游">
 <meta property="og:description" content="下载https://www.python.org/ 第三方包安装方法第一种方法（不使用pip或者easy_install)：Step1:在网上找到的需要的包，下载下来。eg. rsa-3.1.4.tar.gz Step2:解压缩该文件。 Step3:命令行工具cd切换到所要安装的包的目录，找到setup.py文件，然后输入python setup.py install 第二种方法（使用pip或者e">
-<meta property="og:updated_time" content="2018-08-28T09:17:36.903Z">
+<meta property="og:updated_time" content="2019-08-01T01:32:03.742Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python">
 <meta name="twitter:description" content="下载https://www.python.org/ 第三方包安装方法第一种方法（不使用pip或者easy_install)：Step1:在网上找到的需要的包，下载下来。eg. rsa-3.1.4.tar.gz Step2:解压缩该文件。 Step3:命令行工具cd切换到所要安装的包的目录，找到setup.py文件，然后输入python setup.py install 第二种方法（使用pip或者e">
@@ -187,8 +187,106 @@
 <p>Step2:解压缩该文件。</p>
 <p>Step3:命令行工具cd切换到所要安装的包的目录，找到<code>setup.py</code>文件，然后输入<code>python setup.py install</code></p>
 <h3 id="第二种方法（使用pip或者easy-install）："><a href="#第二种方法（使用pip或者easy-install）：" class="headerlink" title="第二种方法（使用pip或者easy_install）："></a>第二种方法（使用pip或者easy_install）：</h3><p>直接打开cmd，敲<code>pip install rsa</code>。</p>
-<h2 id="VS-Code"><a href="#VS-Code" class="headerlink" title="VS Code"></a>VS Code</h2><h3 id="安装python插件"><a href="#安装python插件" class="headerlink" title="安装python插件"></a>安装python插件</h3><p>打开VScode，Ctrl+p<br>输入 “ext install python”</p>
-<h2 id="WebStorm-2018-2-PyCharm-激活方法"><a href="#WebStorm-2018-2-PyCharm-激活方法" class="headerlink" title="WebStorm 2018.2 PyCharm 激活方法"></a><a href="http://www.unitycn.cn/?p=725" target="_blank" rel="noopener">WebStorm 2018.2 PyCharm 激活方法</a></h2>
+<h3 id="多版本python共存，安装三方库到指定python版本"><a href="#多版本python共存，安装三方库到指定python版本" class="headerlink" title="多版本python共存，安装三方库到指定python版本"></a>多版本python共存，安装三方库到指定python版本</h3><pre><code>python3下pip安装命令如下：
+py -3 -m pip install xxxxxx
+python2下pip安装命令如下：
+py -2 -m pip install xxxxxx
+
+查询python3下三方库如下：
+py -3 -m pip list
+查询python2下三方库如下：
+py -2 -m pip list
+</code></pre><h2 id="VS-Code"><a href="#VS-Code" class="headerlink" title="VS Code"></a>VS Code</h2><p><a href="https://devblogs.microsoft.com/commandline/an-in-depth-tutorial-on-linux-development-on-windows-with-wsl-and-visual-studio-code/" target="_blank" rel="noopener">An In Depth Tutorial on Linux Development on Windows with WSL and Visual Studio Code</a></p>
+<p><a href="https://code.visualstudio.com/updates/v1_36" target="_blank" rel="noopener">https://code.visualstudio.com/updates/v1_36</a></p>
+<h3 id="安装python插件"><a href="#安装python插件" class="headerlink" title="安装python插件"></a>安装python插件</h3><p>打开VScode，Ctrl+p<br>输入 “ext install python”</p>
+<p>##pycharm##</p>
+<p><a href="http://www.unitycn.cn/?p=725" target="_blank" rel="noopener">WebStorm 2018.2 PyCharm 激活方法</a> </p>
+<p><a href="https://www.jetbrains.com/pycharm/download/#section=windows" target="_blank" rel="noopener">pycharm</a></p>
+<h1 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a>多线程</h1><pre><code>class myThread (threading.Thread):
+    def __init__(self, threadID, name, counter):
+        threading.Thread.__init__(self)
+        self.threadID = threadID
+        self.name = name
+        self.counter = counter
+
+    def run(self):
+        print(&quot;Starting &quot; + self.name)
+        print_time(self.name, self.counter, 5)
+        print(&quot;Exiting &quot; + self.name)
+</code></pre><h1 id="json"><a href="#json" class="headerlink" title="json"></a>json</h1><p><a href="https://blog.csdn.net/kongsuhongbaby/article/details/84729547" target="_blank" rel="noopener">python3基础：操作json</a></p>
+<pre><code>with open(&quot;../config/record.json&quot;,&apos;r&apos;) as load_f:
+    load_dict = json.load(load_f)
+    print(load_dict)
+load_dict[&apos;smallberg&apos;] = [8200,{1:[[&apos;Python&apos;,81],[&apos;shirt&apos;,300]]}]
+print(load_dict)
+
+with open(&quot;../config/record.json&quot;,&quot;w&quot;) as dump_f:
+    json.dump(load_dict,dump_f)
+</code></pre><p><a href="https://www.cnblogs.com/miniren/p/7268816.html" target="_blank" rel="noopener">Python 3 操作json 文件</a></p>
+<h2 id="jsonpath"><a href="#jsonpath" class="headerlink" title="jsonpath"></a>jsonpath</h2><p><a href="https://blog.csdn.net/Ka_Ka314/article/details/81014589" target="_blank" rel="noopener">Python3 — JSON与JsonPath用法总结</a></p>
+<p><a href="https://goessner.net/articles/JsonPath/" target="_blank" rel="noopener">https://goessner.net/articles/JsonPath/</a></p>
+<h1 id="logging"><a href="#logging" class="headerlink" title="logging"></a>logging</h1><p><a href="https://cloud.tencent.com/developer/article/1354396" target="_blank" rel="noopener">Python日志库logging总结</a></p>
+<pre><code>import os
+import logging
+import sys
+import time
+import logging.handlers
+
+def singleton(cls):
+  instances = {}
+  def _singleton(*args,**kwargs):
+    if cls not in instances:
+      instances[cls] = cls(*args,**kwargs)
+    return instances[cls]
+  return _singleton
+
+@singleton
+class Logger():
+    def __init__(self,logfile=None):
+        self.logger = logging.getLogger()
+        formater = logging.Formatter(&apos;%(asctime)s %(name)s  %(levelname)s %(filename)s  %(lineno)d &apos;
+                        &apos;%(thread)d %(threadName)s %(process)d %(message)s&apos;)
+        if logfile == None:
+            stime = time.strftime(&quot;%Y-%m-%d&quot;,time.localtime())
+            logfile = os.getcwd() + os.sep + &quot;log_&quot; + stime + &quot;.log&quot;
+        else:
+            logfile = os.path.join(os.getcwd(),logfile)+ &quot;.log&quot;
+        self.sh = logging.StreamHandler(sys.stdout)
+        self.sh.setFormatter(formater)
+        #self.fh = logging.FileHandler(logfile)
+        self.fh = logging.handlers.RotatingFileHandler(logfile, maxBytes = 1024*1024, backupCount = 5)
+        self.fh.setFormatter(formater)
+        self.logger.addHandler(self.sh)
+        self.logger.addHandler(self.fh)
+        self.logger.setLevel(logging.INFO)
+
+if __name__ == &quot;__main__&quot;:
+
+    lg = Logger(&quot;test&quot;)
+    lg.logger.warning(&quot;test&quot;)
+</code></pre><h1 id="WxPython"><a href="#WxPython" class="headerlink" title="WxPython"></a>WxPython</h1><p><a href="https://www.cnblogs.com/morries123/p/8568666.html" target="_blank" rel="noopener">python GUI图形化编程—–wxpython</a></p>
+<p><a href="https://www.laoyuyu.me/categories/python/" target="_blank" rel="noopener">WxPython教程</a></p>
+<p><a href="https://www.yiibai.com/wxpython/wxpython_layout_management.html" target="_blank" rel="noopener">wxPython布局管理</a></p>
+<p><a href="https://docs.wxpython.org/" target="_blank" rel="noopener">WxPython文档</a></p>
+<p><a href="https://www.laoyuyu.me/2018/08/15/wxpython/wx_python_4/" target="_blank" rel="noopener">wxPython 教程(四) 布局管理</a></p>
+<p><a href="https://www.yiibai.com/wxpython/wxpython_gui_builder_tools.html" target="_blank" rel="noopener">wxPython GUI构建工具</a></p>
+<p><a href="https://www.cnblogs.com/wangjian8888/p/6028748.html" target="_blank" rel="noopener">wxpython 对话框</a></p>
+<h1 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h1><p><a href="https://www.aixcoder.com/#/downloaddjs" target="_blank" rel="noopener">https://www.aixcoder.com/#/downloaddjs</a></p>
+<h1 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h1><p><a href="http://www.pyinstaller.org/" target="_blank" rel="noopener">http://www.pyinstaller.org/</a></p>
+<pre><code>pip install pyinstaller
+</code></pre><p><a href="https://www.jianshu.com/p/b97241af2633" target="_blank" rel="noopener">pycharm下PyInstaller 打包 python程序</a></p>
+<p><a href="https://www.cnblogs.com/cxys85/p/10232737.html" target="_blank" rel="noopener">Python——Pycharm打包exe文件</a></p>
+<p><a href="https://jingyan.baidu.com/article/6b97984df6f4501ca2b0bf29.html" target="_blank" rel="noopener">PyCharm下如何打包程序成exe</a></p>
+<p><a href="https://www.cnblogs.com/7rhythm/p/10196745.html" target="_blank" rel="noopener">pychaim下PyInstaller 打包 python程序</a></p>
+<pre><code>pyinstaller -F -w -i json.ico MakeRule.py
+</code></pre><p>-F：打包后只生成单个exe格式文件；</p>
+<p>-D：默认选项，创建一个目录，包含exe文件以及大量依赖文件；</p>
+<p>-c：默认选项，使用控制台(就是类似cmd的黑框)；</p>
+<p>-w：不使用控制台；</p>
+<p>-p：添加搜索路径，让其找到对应的库；</p>
+<p>-i：改变生成程序的icon图标。</p>
+<p><a href="https://cloud.tencent.com/developer/news/299957" target="_blank" rel="noopener">Pyinstaller打包py文件简明教程</a></p>
+
       
 
       

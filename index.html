@@ -1690,6 +1690,134 @@ void test( TCHAR * format, ... )
     free( buffer );
     va_end( args );
 }
+</code></pre><h1 id="wstring-与-string"><a href="#wstring-与-string" class="headerlink" title="wstring 与 string"></a>wstring 与 string</h1><h2 id="几种C-std-string和std-wstring相互转换的转换方法"><a href="#几种C-std-string和std-wstring相互转换的转换方法" class="headerlink" title="几种C++ std::string和std::wstring相互转换的转换方法"></a><a href="https://blog.csdn.net/winnyrain/article/details/51789695" target="_blank" rel="noopener">几种C++ std::string和std::wstring相互转换的转换方法</a></h2><p>调用WideCharToMultiByte()和MultiByteToWideChar()</p>
+<pre><code>#include &lt;string&gt;
+#include &lt;windows.h&gt;
+using namespace std;
+//Converting a WChar string to a Ansi string
+std::string WChar2Ansi(LPCWSTR pwszSrc)
+{
+int nLen = WideCharToMultiByte(CP_ACP, 0, pwszSrc, -1, NULL, 0, NULL, NULL);
+
+if (nLen&lt;= 0) return std::string(&quot;&quot;);
+
+char* pszDst = new char[nLen];
+if (NULL == pszDst) return std::string(&quot;&quot;);
+
+WideCharToMultiByte(CP_ACP, 0, pwszSrc, -1, pszDst, nLen, NULL, NULL);
+pszDst[nLen -1] = 0;
+
+std::string strTemp(pszDst);
+delete [] pszDst;
+
+return strTemp;
+}
+
+string ws2s(wstring&amp; inputws){ return WChar2Ansi(inputws.c_str()); }
+
+//Converting a Ansi string to WChar string
+
+std::wstring Ansi2WChar(LPCSTR pszSrc, int nLen)
+
+{
+int nSize = MultiByteToWideChar(CP_ACP, 0, (LPCSTR)pszSrc, nLen, 0, 0);
+if(nSize &lt;= 0) return NULL;
+
+WCHAR *pwszDst = new WCHAR[nSize+1];
+if( NULL == pwszDst) return NULL;
+
+MultiByteToWideChar(CP_ACP, 0,(LPCSTR)pszSrc, nLen, pwszDst, nSize);
+pwszDst[nSize] = 0;
+
+if( pwszDst[0] == 0xFEFF) // skip Oxfeff
+for(int i = 0; i &lt; nSize; i ++) 
+pwszDst[i] = pwszDst[i+1];
+
+wstring wcharString(pwszDst);
+delete pwszDst;
+
+return wcharString;
+}
+
+std::wstring s2ws(const string&amp; s){ return Ansi2WChar(s.c_str(),s.size());}
+</code></pre><p>采用ATL封装_bstr_t</p>
+<pre><code>#include &lt;string&gt;
+#include &lt;comutil.h&gt;
+using namespace std;
+#pragma comment(lib, &quot;comsuppw.lib&quot;)
+
+string ws2s(const wstring&amp; ws);
+wstring s2ws(const string&amp; s);
+
+string ws2s(const wstring&amp; ws)
+{
+_bstr_t t = ws.c_str();
+char* pchar = (char*)t;
+string result = pchar;
+return result;
+}
+
+wstring s2ws(const string&amp; s)
+{
+_bstr_t t = s.c_str();
+wchar_t* pwchar = (wchar_t*)t;
+wstring result = pwchar;
+return result;
+}
+</code></pre><p>使用CRT库的mbstowcs()函数和wcstombs()函数</p>
+<pre><code>#include &lt;string&gt;
+#include &lt;locale.h&gt;
+using namespace std;
+string ws2s(const wstring&amp; ws)
+{
+string curLocale = setlocale(LC_ALL, NULL); // curLocale = &quot;C&quot;;
+
+setlocale(LC_ALL, &quot;chs&quot;);
+
+const wchar_t* _Source = ws.c_str();
+size_t _Dsize = 2 * ws.size() + 1;
+char *_Dest = new char[_Dsize];
+memset(_Dest,0,_Dsize);
+wcstombs(_Dest,_Source,_Dsize);
+string result = _Dest;
+delete []_Dest;
+
+setlocale(LC_ALL, curLocale.c_str());
+
+return result;
+}
+
+wstring s2ws(const string&amp; s)
+{
+setlocale(LC_ALL, &quot;chs&quot;);
+
+const char* _Source = s.c_str();
+size_t _Dsize = s.size() + 1;
+wchar_t *_Dest = new wchar_t[_Dsize];
+wmemset(_Dest, 0, _Dsize);
+mbstowcs(_Dest,_Source,_Dsize);
+wstring result = _Dest;
+delete []_Dest;
+
+setlocale(LC_ALL, &quot;C&quot;);
+
+return result;
+}
+</code></pre><h2 id="string与wstring转换"><a href="#string与wstring转换" class="headerlink" title="string与wstring转换"></a><a href="https://www.cnblogs.com/02xiaoma/archive/2012/07/18/2597576.html" target="_blank" rel="noopener">string与wstring转换</a></h2><p>std::copy</p>
+<pre><code>std::wstring StringToWString(const std::string &amp;str)
+ {
+     std::wstring wstr(str.length(),L&apos; &apos;);
+     std::copy(str.begin(), str.end(), wstr.begin());
+     return wstr; 
+ }
+
+ //只拷贝低字节至string中
+ std::string WStringToString(const std::wstring &amp;wstr)
+ {
+     std::string str(wstr.length(), &apos; &apos;);
+     std::copy(wstr.begin(), wstr.end(), str.begin());
+     return str; 
+ }
 </code></pre>
       
 

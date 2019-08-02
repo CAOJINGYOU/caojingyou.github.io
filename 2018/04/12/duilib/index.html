@@ -8,17 +8,20 @@
   <link rel="dns-prefetch" href="https://caojingyou.github.io">
   <title>duilib | 曹景游</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="duilibhttps://github.com/duilib/duilib 设计器：DuiDesigner 教程：2013 duilib入门简明教程 编译直接打开DuiLib.sln 提取DuiLib生成的dll与lib文件以及DuiLib目录。 Win32DuiLibTest#pragma once #include &amp;lt;UIlib.h&amp;gt; using namespace DuiLib">
+  <meta name="description" content="duilibhttps://github.com/duilib/duilib 设计器：DuiDesigner 教程：2013 duilib入门简明教程 duilib_tutorial 编译直接打开DuiLib.sln 提取DuiLib生成的dll与lib文件以及DuiLib目录。 预处理器设置: 动态库添加UILIB_EXPORTS 静态库添加UILIB_STATIC Win32DuiLibTes">
 <meta name="keywords" content="随笔,ATL,duilib">
 <meta property="og:type" content="article">
 <meta property="og:title" content="duilib">
 <meta property="og:url" content="https://caojingyou.github.io/2018/04/12/duilib/index.html">
 <meta property="og:site_name" content="曹景游">
-<meta property="og:description" content="duilibhttps://github.com/duilib/duilib 设计器：DuiDesigner 教程：2013 duilib入门简明教程 编译直接打开DuiLib.sln 提取DuiLib生成的dll与lib文件以及DuiLib目录。 Win32DuiLibTest#pragma once #include &amp;lt;UIlib.h&amp;gt; using namespace DuiLib">
-<meta property="og:updated_time" content="2018-06-08T06:16:37.045Z">
+<meta property="og:description" content="duilibhttps://github.com/duilib/duilib 设计器：DuiDesigner 教程：2013 duilib入门简明教程 duilib_tutorial 编译直接打开DuiLib.sln 提取DuiLib生成的dll与lib文件以及DuiLib目录。 预处理器设置: 动态库添加UILIB_EXPORTS 静态库添加UILIB_STATIC Win32DuiLibTes">
+<meta property="og:image" content="https://github.com/nmgwddj/duilib_tutorial/blob/master/images/2018-04-30_01-41-25.png">
+<meta property="og:image" content="https://github.com/nmgwddj/duilib_tutorial/raw/master/images/2018-04-30_01-54-36.png">
+<meta property="og:updated_time" content="2019-07-03T08:44:45.320Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="duilib">
-<meta name="twitter:description" content="duilibhttps://github.com/duilib/duilib 设计器：DuiDesigner 教程：2013 duilib入门简明教程 编译直接打开DuiLib.sln 提取DuiLib生成的dll与lib文件以及DuiLib目录。 Win32DuiLibTest#pragma once #include &amp;lt;UIlib.h&amp;gt; using namespace DuiLib">
+<meta name="twitter:description" content="duilibhttps://github.com/duilib/duilib 设计器：DuiDesigner 教程：2013 duilib入门简明教程 duilib_tutorial 编译直接打开DuiLib.sln 提取DuiLib生成的dll与lib文件以及DuiLib目录。 预处理器设置: 动态库添加UILIB_EXPORTS 静态库添加UILIB_STATIC Win32DuiLibTes">
+<meta name="twitter:image" content="https://github.com/nmgwddj/duilib_tutorial/blob/master/images/2018-04-30_01-41-25.png">
   
     <link rel="alternative" href="/atom.xml" title="曹景游" type="application/atom+xml">
   
@@ -185,8 +188,12 @@
         <h1 id="duilib"><a href="#duilib" class="headerlink" title="duilib"></a>duilib</h1><p><a href="https://github.com/duilib/duilib" target="_blank" rel="noopener">https://github.com/duilib/duilib</a></p>
 <h2 id="设计器："><a href="#设计器：" class="headerlink" title="设计器："></a>设计器：</h2><p>DuiDesigner</p>
 <h2 id="教程："><a href="#教程：" class="headerlink" title="教程："></a>教程：</h2><p><a href="http://www.cnblogs.com/Alberl/p/3354459.html" target="_blank" rel="noopener">2013 duilib入门简明教程</a></p>
+<p><a href="https://github.com/nmgwddj/duilib_tutorial" target="_blank" rel="noopener">duilib_tutorial</a></p>
 <h1 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h1><p>直接打开DuiLib.sln</p>
 <p>提取DuiLib生成的dll与lib文件以及DuiLib目录。</p>
+<p>预处理器设置:</p>
+<p>动态库添加UILIB_EXPORTS</p>
+<p>静态库添加UILIB_STATIC</p>
 <h1 id="Win32DuiLibTest"><a href="#Win32DuiLibTest" class="headerlink" title="Win32DuiLibTest"></a>Win32DuiLibTest</h1><pre><code>#pragma once
 #include &lt;UIlib.h&gt;
 using namespace DuiLib;
@@ -282,9 +289,11 @@ public:
 
 int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
 {
+    // 设置窗口关联的实例
     CPaintManagerUI::SetInstance(hInstance);
 
     CPaintManagerUI::SetResourcePath(CPaintManagerUI::GetInstancePath());   // 设置资源的默认路径（此处设置为和exe在同一目录）
+    //CPaintManagerUI::SetResourcePath(_T(&quot;theme&quot;));
 
     CDuiFrameWndBase/*CDuiFrameWnd*/ duiFrame;
     duiFrame.Create(NULL, _T(&quot;DUIWnd&quot;), UI_WNDSTYLE_FRAME, WS_EX_WINDOWEDGE);
@@ -365,7 +374,86 @@ protected:
 }
 </code></pre><h1 id="复杂控件"><a href="#复杂控件" class="headerlink" title="复杂控件"></a>复杂控件</h1><p><a href="http://www.cnblogs.com/Alberl/p/3345102.html" target="_blank" rel="noopener">http://www.cnblogs.com/Alberl/p/3345102.html</a>或直接看DuiLib中提供的例子。</p>
 <h1 id="消息机制"><a href="#消息机制" class="headerlink" title="消息机制"></a>消息机制</h1><p>duilib参考了MFC、ATL/WTL的消息机制，都有消息映射</p>
-<h1 id="XML属性列表"><a href="#XML属性列表" class="headerlink" title="XML属性列表"></a>XML属性列表</h1><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+<h2 id="基本的消息响应处理"><a href="#基本的消息响应处理" class="headerlink" title="基本的消息响应处理"></a>基本的消息响应处理</h2><p>WindowImplBase 提供了 Notify 虚函数，可以提供我们覆写并处理消息。</p>
+<pre><code>void MainWndFrame::Notify(TNotifyUI&amp; msg)
+{
+    if (msg.sType == DUI_MSGTYPE_CLICK)
+    {
+        CDuiString strName = msg.pSender-&gt;GetName();
+        if (strName == _T(&quot;btn_wnd_min&quot;))
+        {
+            SendMessage(WM_SYSCOMMAND, SC_MINIMIZE, 0);
+        }
+    }
+
+    __super::Notify(msg);
+}
+</code></pre><p>在 Notify 函数中判断了一下消息的类型，如果是鼠标点击那么我们获取一下触发的控件名称，根据名称判断是不是 btn_wnd_min 然后执行指定操作。</p>
+<h2 id="仿-MFC-形式消息响应"><a href="#仿-MFC-形式消息响应" class="headerlink" title="仿 MFC 形式消息响应"></a>仿 MFC 形式消息响应</h2><p>类似 MFC 方式的响应方法，首先在 MainWndFrame.h 中添加一句 <code>DUI_DECLARE_MESSAGE_MAP()</code></p>
+<p>然后在 MainWndFrame.cpp 中添加如下代码</p>
+<pre><code>DUI_BEGIN_MESSAGE_MAP(MainWndFrame, CNotifyPump)
+    DUI_ON_MSGTYPE(DUI_MSGTYPE_CLICK, OnClick)
+DUI_END_MESSAGE_MAP()
+</code></pre><p>而 OnClick 函数在父类 WindowImplBase 中已经提供了一个虚函数了。</p>
+<h2 id="事件委托"><a href="#事件委托" class="headerlink" title="事件委托"></a>事件委托</h2><p>InitWindow()中</p>
+<pre><code>m_pMinBtn-&gt;OnNotify += MakeDelegate(this, &amp;MainWndFrame::OnBtnTest);
+</code></pre><p>OnBtnTest 的实现如下：</p>
+<pre><code>bool MainWndFrame::OnBtnTest(void* param)
+{
+    TNotifyUI* msg = reinterpret_cast&lt;TNotifyUI*&gt;(param);
+    if (msg-&gt;sType == DUI_MSGTYPE_CLICK)
+    {
+        // ... do something
+    }
+
+    return true;
+}
+</code></pre><h2 id="消息捕获（拦截）原生消息"><a href="#消息捕获（拦截）原生消息" class="headerlink" title="消息捕获（拦截）原生消息"></a>消息捕获（拦截）原生消息</h2><p>DuiLib 提供了虚函数 HandleMessage，可以提供我们覆写来捕获或者拦截原声的系统消息。</p>
+<p>LRESULT MainWndFrame::HandleMessage(UINT uMsg, WPARAM wParam, LPARAM lParam)<br>{<br>    if (uMsg == WM_CHANGECBCHAIN)<br>    {<br>        // do something…<br>    }<br>    else if (uMsg == WM_DRAWCLIPBOARD)<br>    {<br>        // do something…<br>    }</p>
+<pre><code>return __super::HandleMessage(uMsg, wParam, lParam);
+</code></pre><p>}</p>
+<h1 id="code"><a href="#code" class="headerlink" title="code"></a>code</h1><p>结构:<br><img src="https://github.com/nmgwddj/duilib_tutorial/blob/master/images/2018-04-30_01-41-25.png" alt=""></p>
+<p><img src="https://github.com/nmgwddj/duilib_tutorial/raw/master/images/2018-04-30_01-54-36.png" alt=""></p>
+<p>布局类（或者说容器类）的 UI 组件都是继承与 CContainerUI，控件类的 UI 组件都是继承与 CControlUI。</p>
+<h2 id="WindowImplBase"><a href="#WindowImplBase" class="headerlink" title="WindowImplBase"></a>WindowImplBase</h2><p> WindowImplBase 类（DuiLib 窗口管理的一个基类）</p>
+<ul>
+<li>实现 GetWindowClassName 接口（描述窗口唯一名称的方法）</li>
+<li>实现 GetSkinFile 接口（描述窗口样式的 xml 文件名称方法）</li>
+<li>实现 GetSkinFolder 接口（描述窗口样式文件路径的方法）</li>
+</ul>
+<h2 id="CPaintManagerUI"><a href="#CPaintManagerUI" class="headerlink" title="CPaintManagerUI"></a>CPaintManagerUI</h2><p> “窗口管理器” 部分（main 函数中的 CPaintManagerUI），它不单承担了一系列窗口资源的管理、窗口的消息的处理，还承担了解析后的 XML 和窗口之间的一个桥梁作用，我们可以通过窗口管理器查找指定名称的控件并把它保存下来转换为指定控件对象，然后调用其对象的相应方法来控制控件的状态。</p>
+<h2 id="CDialogBuilder"><a href="#CDialogBuilder" class="headerlink" title="CDialogBuilder"></a>CDialogBuilder</h2><p>使用其 Create 方法根据 XML 文件来构建一个控件</p>
+<pre><code>CDialogBuilder builder;
+CControlUI* pControl = builder.Create(_T(&quot;list_item.xml&quot;), (UINT)0, this, &amp;m_PaintManager);
+m_pMainWndList-&gt;Add(pControl);
+</code></pre><p>但每次插入数据前你需要使用 CDialogBuilder 的 <code>GetMarkup()-&gt;IsValid()</code> 方法，来判断当前是否已经装载了一个 XML，如果装载了那么直接调用他的另一个 Create 重载方法即可构建一个控件，这样可以提高效率。</p>
+<pre><code>CControlUI* pControl = nullptr;
+if (m_pBuilder.GetMarkup()-&gt;IsValid())
+{
+    pControl = m_pBuilder.Create(this, &amp;m_PaintManager);
+}
+else
+{
+    pControl = m_pBuilder.Create(_T(&quot;list_item.xml&quot;), (UINT)0, this, &amp;m_PaintManager);
+}
+m_pMainWndList-&gt;Add(pControl);
+</code></pre><h1 id="动态创建控件"><a href="#动态创建控件" class="headerlink" title="动态创建控件"></a>动态创建控件</h1><h2 id="纯代码方式动态创建控件"><a href="#纯代码方式动态创建控件" class="headerlink" title="纯代码方式动态创建控件"></a>纯代码方式动态创建控件</h2><pre><code>void MainWndFrame::InitWindow()
+{
+    // ..... 其他代码
+
+    m_pMainWndContent = dynamic_cast&lt;CHorizontalLayoutUI*&gt;(m_PaintManager.FindControl(_T(&quot;main_wnd_content&quot;)));
+
+    CButtonUI* btn = new CButtonUI;
+    btn-&gt;SetText(_T(&quot;动态添加的按钮&quot;));
+    btn-&gt;SetBkColor(0xFFFFFFFF);
+    btn-&gt;SetFixedHeight(60);
+    btn-&gt;SetFixedWidth(100);
+
+    m_pMainWndContent-&gt;Add(btn);
+}
+</code></pre><p>使用 m_PaintManager 的 FindControl 方法查找到了窗口内容区域的容器，然后将其转化为可用的控件对象，随后调用了它的 Add 方法，将 new 出来的 CButtonUI 对象添加到容器中。</p>
+<p>可以把这个控件的样子单独写成一个 XML 模版文件，在创建控件的时候根据 XML 的模版来创建控件，就不需要在代码中写死那么多固定的样式了，后期修改也非常方便。</p>
+<h2 id="基于构建好的-XML-动态创建控件（CDialogBuilder）"><a href="#基于构建好的-XML-动态创建控件（CDialogBuilder）" class="headerlink" title="基于构建好的 XML 动态创建控件（CDialogBuilder）"></a>基于构建好的 XML 动态创建控件（CDialogBuilder）</h2><h1 id="XML属性列表"><a href="#XML属性列表" class="headerlink" title="XML属性列表"></a>XML属性列表</h1><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;!-- 可能有错漏，欢迎补充。wangchyz(wangchyz@gmail.com) --&gt;
 &lt;Controls&gt;
     &lt;Window parent=&quot;&quot;&gt;
